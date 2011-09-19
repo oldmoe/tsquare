@@ -1,0 +1,206 @@
+<script type='text/javascript'>
+
+var Game = {
+  
+  data : null,
+
+  initialize : function(){
+    new Ajax.Request( '/<%=AdminController::ADMIN_URL%>/<%=@game.name%>.json' , {
+                     method : 'get',
+                     onSuccess : function(response){
+                        Game.data = JSON.parse(response.responseText)
+                        if(!Game.data['languages']) 
+                          Game.data['languages'] = {};
+                        Game.displayLanguages();
+                     }
+                    });
+  },
+
+  displayLanguages : function(){
+    $('languages').innerHTML = TrimPath.processDOMTemplate("languageTemplate");
+  }, 
+
+  deleteLanguage : function(lang){
+    delete(this.data.languages[lang]);
+    this.saveToServer();
+  },
+
+  addLanguage : function(lang){
+    this.data.languages[lang] = {};
+    this.initLanguage(lang);
+  },
+
+  saveToServer : function(){
+    new Ajax.Request( '/<%=AdminController::ADMIN_URL%>/<%=@game.name%>.json' , {
+                      method : 'put',
+                      parameters : { "data" : JSON.stringify(this.data) },
+                      onSuccess : function(response){
+                        Game.showSuccessMsg();
+                        Game.initialize();
+                      },
+                      onFailure : function(response){
+                        Game.showErrorMsg();
+                      }
+                     
+                 });    
+  },
+
+  initLanguage : function(lang){
+    Game.saveToServer();
+  },
+
+  showSuccessMsg : function(){
+    $('langReqStatus').innerHTML = "Saved successfully"
+    $('langReqStatus').className = "success"
+    $('langReqStatus').show();
+    window.setTimeout( function(){$('langReqStatus').hide()}, 5000 )
+  },
+
+  showErrorMsg : function(){
+    $('langReqStatus').innerHTML = "Error, your changes are not saved!"
+    $('langReqStatus').className = "error"
+    $('langReqStatus').show();
+    window.setTimeout( function(){$('langReqStatus').hide()}, 10000 )
+  }
+
+};
+
+deleteAllUserProfiles = function(){
+  new Ajax.Request('/<%=AdminController::ADMIN_URL%>/<%=@game.name%>/user_game_profiles', {
+    method: 'put',
+    onSuccess: function(response){
+      $('requestStatus').innerHTML = "Deleted successfully"
+      $('requestStatus').className = "success"
+    },
+    onFailure: function(response){
+      $('requestStatus').innerHTML = "Error, cannot delete!"
+      $('requestStatus').className = "error"
+    }
+  })
+};    
+</script>
+
+<button onclick="if(confirm('Delete ALL user game profiles? ( can not delete more than 50 )')) deleteAllUserProfiles();"> Delete ALL user game profiles </button>
+
+<span id="requestStatus"></span>
+
+
+<div class="separator"></div>
+
+<div id="game_name">
+  <a href="/<%=AdminController::ADMIN_URL%>/<%=@game.name%>">
+    <%=@game.name%>
+  </a>
+</div>
+<div id="game_info">
+  <LABEL for="game_description" class="label"> Description </LABEL>
+  <div id="game_description">
+    <%=@game.description%>
+  </div>
+</div>
+
+<div class="separator"></div>
+<LABEL class="label">Products</LABEL>
+<% @game.products["fb"].each do | title, product | %>
+  <a href="/<%=AdminController::ADMIN_URL%>/<%=@game.name%>/product/<%=title%>"><%=title%></a>
+  <form id="delete_product_<%=title%>"
+        action="/<%=AdminController::ADMIN_URL%>/<%=@game.name%>/product/<%=title%>"
+        method="post"
+        style="display:inline">
+          <input type="hidden" name="_method" value="put"/>
+          <a href="Javascript:void(0);" onclick="if(confirm( 'are you sure you want to delete this product?' )){$('delete_product_<%=title%>').submit()}; return false;">Delete</a>
+  </form>
+  <br>
+<% end %>
+<a href="/<%=AdminController::ADMIN_URL%>/<%=@game.name%>/products/new">Add new product</a>
+
+<div class="separator"></div>
+
+<LABEL for="ranks" class="label">Ranks</LABEL>
+<% @game.ranks.each_value do | rank | %>
+  <div>
+    <span class="column">
+      <LABEL for="name">Name: </LABEL>
+      <%=rank['name']%>
+    </span>
+    <span class="column">
+      <LABEL for="lower_exp">Lower Exp: </LABEL>
+      <%=rank['lower_exp']%>
+    </span>
+    <span class="column">
+      <LABEL for="upper_exp">Upper Exp: </LABEL>
+      <%=rank['upper_exp']%>
+    </span>
+    <form id="delete_rank_<%=rank['name']%>" action="/<%=AdminController::ADMIN_URL%>/<%=@game.name%>/ranks/<%=rank['name']%>" method="post" style="display:inline" class="delete">
+      <input type="hidden" name="_method" value="put"/>
+      <a href="#" onclick="document.getElementById('delete_rank_<%=rank['name']%>').submit(); return false;" class="submit_links"> x </a>
+    </form> 
+    <div style="clear:both"></div>
+  </div>
+<% end %>
+<div id="game_rank_form">
+  <LABEL for="new_rank" class="label add">Add New Rank</LABEL>
+  <form id="new_rank" action="/nezal-admin/<%=@game.name%>/ranks" method="post" enctype="multipart/form-data">
+    <div class="form_row">  
+      <LABEL for="rank_name">Name</LABEL>
+      <INPUT type="text" id="rank_name" name='name'><BR>
+    </div>
+    <div class="form_row">  
+      <LABEL for="rank_lower_ep">Min Experience Point</LABEL>
+      <INPUT type="text" id="rank_lower_ep" name='lower_exp'><BR>
+    </div>
+    <div class="form_row">  
+      <LABEL for="rank_upper_ep">Max Experience Point</LABEL>
+      <INPUT type="text" id="rank_lower_ep" name='upper_exp'><BR>
+    </div>
+    <div class="form_row">
+      <input type="submit" value="Add" class="submit"/>
+    </div>
+  </form>
+</div>
+
+<div class="separator"></div>
+
+<div id="game_quests" class="subItem">
+  <a href="/<%=AdminController::ADMIN_URL%>/<%=@game.name%>/data" class="label">
+    Crowd Members & Enemies 
+  </a>
+</div>
+
+<div class="separator"></div>
+
+<div id="game_quests" class="subItem">
+  <a href="/<%=AdminController::ADMIN_URL%>/<%=@game.name%>/missions" class="label">
+    Missions
+  </a>
+</div>
+
+<div class="separator"></div>
+
+<div id='languages' style="width:60%;">
+</div>
+
+<!-------------------- Language Template -------------------->
+<span id="langReqStatus"></span>
+<textarea id="languageTemplate" style="display:none;">
+    <LABEL for="lang" class="label">Supported Languages</LABEL>
+    <div class="languageList subItem">
+    {for language in Game.data.languages}
+	    <a href="/<%=AdminController::ADMIN_URL%>/<%=@game.name%>/locale/${language_index}" class="column">${language_index}</a>
+	    <a href="javascript:void(0)" onclick="Game.deleteLanguage('${language_index}');">Delete</a>
+      <br/>
+    {/for}
+    </div>
+    <LABEL for="lang" class="label">New Language</LABEL>
+    <div id="addLang" class="form_row subItem">  
+      <LABEL for="lang">Languege</LABEL>
+      <INPUT type="text" id="lang" name='lang'>
+    </div>
+    <div class="form_row">  
+      <input class="submit" type="submit" value="Add" onclick="Game.addLanguage($$('#languages #addLang #lang')[0].value);">
+    </div>
+</textarea>
+<!-------------------- End Of Template ---------------------->
+<script type='text/javascript'>
+Game.initialize();
+</script>

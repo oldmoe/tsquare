@@ -1,0 +1,88 @@
+<textarea id="marketplace">
+  <div class="container">
+    <!--Window-->
+    <div class="window">
+      <!--Title-->
+      <div class="windowTitle">
+        <span class="loadedImg" imgSrc="images/marketplace/buy_window_title.png" alt="title"/>
+      </div>
+      <!--Close-->
+      <div class="close">
+        <a href="#"><span class="loadedImg" imgSrc="images/marketplace/close_button.png" alt="close" /></a>
+      </div>
+      <!--Tabs Wrapper-->
+      <div class="tabsWrapper">
+        <!--Tabs-->
+        <ul class="tabs">
+          <li class="selected">
+            <a id="marketMoves" href="#">Moves</a>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
+          </li>
+          <li>
+            <a id="marketMembers" href="#">Members</a>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/></li>
+          <li>
+            <a id="marketItems" href="#">Items</a>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/></li>
+          <li>
+            <a id="marketPowerups" href="#">Powerups</a>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/></li>
+          <li>
+            <a id="marketSpecial" href="#">Special</a>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/></li>
+          <li>
+            <a id="marketCrowdItems" href="#">Crowd Items</a>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/></li>
+        </ul>
+        <!--Tabs Content-->
+        <div class="tabsContent">
+          <!--Left controls-->
+          <div class="leftControls">
+            <a href="#"><img src="images/marketplace/previous_button.png" alt="Previous" /></a>
+            <a href="#"><img src="images/marketplace/first_button.png" alt="First" /></a>              
+          </div>
+          <!--Floating Items-->
+          <div id="floatingItems" class="floatingItems">
+            
+          </div>
+          <!--Right controls-->
+          <div class="rightControls">
+            <a href="#"><img src="images/marketplace/next_button.png" alt="Next" /></a>
+            <a href="#"><img src="images/marketplace/last_button.png" alt="Last" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</textarea>
+
+<textarea id="floatingItems">
+  <ul>
+    <!--Crowed Item-->
+    {for item in categoryItems}
+    <li>
+      <div class="crowedItem">
+        <img class="positioned" src="images/marketplace/item_background.png" alt="Item background" />
+        <!--Crowed Title-->
+        <div class="crowedItemTitle">
+          <h2>${item.name.humanize()}</h2>
+          <img class="positioned" src="images/marketplace/item_title_background.png" alt="Title" />
+        </div>
+        <!--Crowed Image-->
+        <div class="crowedItemImage">
+          <img class="positioned" src="images/marketplace/members/${item.name}.png" alt="Crowed" style="width:73px;" />
+        </div>
+        <!--Crowed Price-->
+        <div class="crowedItemPrice">
+          <h5>1200</h5>
+          <img class="positioned" src="images/marketplace/item_price.png" alt="Item price" />
+        </div>
+        <div class="crowedItemDetails">
+          <a href="#">Details</a>
+          <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
+        </div>
+      </div>
+    </li>
+    {/for}
+  </ul>
+</textarea>

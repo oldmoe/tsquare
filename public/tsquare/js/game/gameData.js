@@ -3,13 +3,13 @@ var missionData =
   {
       "name": "wood_stick_cs",
       "category": 'enemy',
-      "type": '3_3',
+      "type": '3_2',
       "index": 0,
       "lane": 1,
-      "x": 1,
+      "x": 20,
       "order": 1
   }, 
-    
+   
     ]],
     
     "backgrounds":{

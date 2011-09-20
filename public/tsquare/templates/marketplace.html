@@ -4,21 +4,25 @@
     <div class="window">
       <!--Title-->
       <div class="windowTitle">
-        <span class="loadedImg" imgSrc="images/marketplace/buy_window_title.png" alt="title"/>
+        {if screen == "marketplace"}
+          <span class="loadedImg" imgSrc="images/marketplace/buy_window_title.png" alt="title"/>
+        {else}
+          <span class="loadedImg" imgSrc="images/marketplace/my_stuff_title.png" alt="close" />
+        {/if}
       </div>
       <!--Close-->
       <div class="close">
-        <a href="#"><span class="loadedImg" imgSrc="images/marketplace/close_button.png" alt="close" /></a>
+        <a href="#"> <span class="loadedImg" imgSrc="images/marketplace/close_button.png" alt="close" /></a>
       </div>
       <!--Tabs Wrapper-->
       <div class="tabsWrapper">
         <!--Tabs-->
         <ul class="tabs">
-          <li class="selected">
+          <li>
             <a id="marketMoves" href="#">Moves</a>
             <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
           </li>
-          <li>
+          <li class="selected">
             <a id="marketMembers" href="#">Members</a>
             <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/></li>
           <li>
@@ -89,7 +93,7 @@
           <h5>1200</h5>
           <img class="positioned" src="images/marketplace/item_price.png" alt="Item price" />
         </div>
-        <div class="crowedItemDetails">
+        <div onclick="gameManager.marketplace.buy({category : 'marketMembers', name : '${item.name}'})" class="crowedItemDetails">
           <a href="#">Buy</a>
           <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
         </div>

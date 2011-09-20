@@ -30,6 +30,13 @@ var TSquareNetwork = Class.create(Network, {
                       data = JSON.parse(response.responseText);
                       if(callback) callback(data);
                     });
-  }
+  },
+  
+  buy : function(options, callback){
+    this.genericPostRequest( 'buy_market_item', {'category' : options.category, 'name' : options.name},
+                          function(response) {
+                            if(callback) callback();
+                          });
+  },
 
 });

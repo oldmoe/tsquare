@@ -2,7 +2,7 @@ var DomSprite = Class.create(Sprite, {
   shiftX : 0,
   shiftY : 0,
   shiftZ : 0,
-  defaultShiftY : 200,
+  defaultShiftY : 360,
   initialize : function(owner, assets, properties){
   	properties = properties || {}
     this.createDiv();

@@ -14,7 +14,7 @@ var TsquareScene = Class.create(Scene,{
     direction : 1,
     holdPowerDepression: 0.2,
     energy : {current:0, rate: 3,max:30},
-    view: {width: 760, height: 410, xPos: 0, tileWidth: 500, laneMiddle : 25},
+    view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25},
     observer: null,
     activeLane: 1,
     win : false,
@@ -34,14 +34,13 @@ var TsquareScene = Class.create(Scene,{
             "enemies" : new EnemyHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this)  
         };  
-        var mapping = {'enemy':'enemies'}
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
                 var elem = this.data[i][j]
-                if(this.handlers[mapping[elem.category]])
-                    this.handlers[mapping[elem.category]].add(elem);
+                if(this.handlers[elem.category])
+                    this.handlers[elem.category].add(elem);
             }
         }
     },

@@ -52,6 +52,7 @@ var Game = Class.create({
                           onFinish:function(){        
                             self.imagesLoaded = true;
                             self.start();
+                            // self.play(missionData);
                           }
                         });
 
@@ -62,11 +63,28 @@ var Game = Class.create({
     this.mission = mission;
     missionData = mission;
     this.misssionLoaded = false;
-	  var backgroundImages = [mission.backgrounds['layer1'][0].name, mission.backgrounds['layer2'][0].name]
-    backgroundImages.push('land.png'); 
-    backgroundImages.push('3amod.png');
-    backgroundImages.push('street_marks.png');
-	  var self = this;
+	  var backgroundImages = ['background.png']
+
+    var self = this;
+    this.mission.backgrounds.layer1.each(function(elem){
+      backgroundImages.push(elem.name);
+    });
+    this.mission.backgrounds.layer2.each(function(elem){
+      backgroundImages.push(elem.name);
+    });
+    this.mission.backgrounds.landmarks.each(function(elem){
+      backgroundImages.push(elem.name);
+    });
+    this.mission.backgrounds.fence.each(function(elem){
+      backgroundImages.push(elem.name);
+    });
+    this.mission.backgrounds.lamp.each(function(elem){
+      backgroundImages.push(elem.name);
+    });
+    this.mission.backgrounds.land.each(function(elem){
+      backgroundImages.push(elem.name);
+    });
+	  
 	  new Loader().load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
                         { onFinish:function(){        
                             self.missionLoaded = true;

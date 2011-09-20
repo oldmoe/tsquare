@@ -16,7 +16,12 @@ var Background = Class.create({
 			if( maxWidth < this.images[i].width)
 				maxWidth = this.images[i].width	
 		}
-        this.offsetX = -Math.round(Math.random()*maxWidth)
+		
+    if(options.offsetX != null)
+      this.offsetX = options.offsetX
+    else
+      this.offsetX = -Math.round(Math.random()*maxWidth)
+
 		this.container.setStyle({width:(maxWidth*this.imagesCount)+"px", top:this.y+"px"})
 		for(var i=0;i<this.imagesCount;i++){
 			this.container.appendChild(this.images.random().clone())

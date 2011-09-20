@@ -35,7 +35,7 @@ var Game = Class.create({
         }
     }
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
-    'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png']
+    'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png']
     var hoveringIconsImages = ['lock.png', 'circle.png', 'march.png', 'push.png'];
     
 	  var self = this

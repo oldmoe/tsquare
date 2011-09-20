@@ -31,7 +31,8 @@ var TsquareScene = Class.create(Scene,{
         this.addMovementObservers()
         this.handlers = {
             "crowd" : new CrowdHandler(this),
-            "enemies" : new EnemyHandler(this)  
+            "enemies" : new EnemyHandler(this),
+            "protection_unit" : new ProtectionUnitHandler(this)  
         };  
         var mapping = {'enemy':'enemies'}
         this.data = missionData.data;

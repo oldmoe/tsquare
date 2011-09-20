@@ -90,10 +90,25 @@ var Reactor = Class.create({
 		}
 	},
 	
-	push : function(ticks, func, callback){
+	push : function(ticks, func, scope){
 		var delay = this.ticks + ticks
-		this.events.splice(this._eventIndex(delay, true), 0, [delay, func, callback])
+		this.events.splice(this._eventIndex(delay, true), 0, [delay, func, scope])
 	},
+	
+	pushEvery : function(ticks, everyTicks, func, scope){
+		var wrapper = function(){
+			scope = scope || this
+			var	result = func.apply(scope)
+			if(result){
+				this.push(everyTicks, wrapper, this)
+			}
+		}
+		this.push(ticks, wrapper, this)
+	},
+	
+	timeToTicks : function(time){
+		return Math.round(time / this.delay);		
+	}
 	
 	everySeconds : function(seconds){
 		return Math.round(seconds * 1000 / this.delay);

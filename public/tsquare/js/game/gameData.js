@@ -11,16 +11,18 @@ var missionData =
   }, 
     
     ]],
+    
     "backgrounds":{
-
-      layer1: [{"name":"skyline.png"}],
-
-      layer2: [{"name":"skyline.png"}],
-
-      landmarks: [{"name":"landmark_1.png"}, {"name":"landmark_2.png"}, {"name":"landmark_3.png"}]
-
-    },"environment":"day","gameModes":["normal"]} 
-
+      
+      "layer1":[{"name":"secondary_skyline.png"}],
+      "layer2":[{"name":"main_skyline.png"}],
+      "landmarks":[{"name":"landmark_1.png"},{"name":"landmark_2.png"}],
+      "fence":[{"name":"fence.png"}],
+      "lamp":[{"name":"3amod.png"}],
+      "land":[{"name":"land.png"}]
+     },
+      
+      "environment":"day","gameModes":["normal"]}
 
 var userData = {
   'crowd_members' : { 

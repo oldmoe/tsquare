@@ -4,24 +4,28 @@ var SkyLine = Class.create({
     	this.backgrounds = []
     	this.scene = scene
     	
-    	//var images_cloud = [Loader.images.background[game.data.backgrounds[2][0].name]]
-    	var images = [Loader.images.background[game.data.backgrounds['layer1'][0].name]]
-        var images_streetMarks = [Loader.images.background['street_marks.png']]
-    	var images_transparent = [Loader.images.background[game.data.backgrounds['layer1'][0].name]]
-    	var images_road = [Loader.images.background['land.png'], Loader.images.background['land.png']]
-    		
-        var self = this
-       // var background_cloud = new Background(this.scene, {speed : function(){return self.scene.direction*(self.scene.currentSpeed  -2)}, y: 0, imagesCount: 3, images:images_cloud})
-        var background_road = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 167, imagesCount: 6, images:images_road})
-        var background_transparent = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed -2)}, y: 0, imagesCount: 3, images:images_transparent},{opacity:0.4})
-        var background = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed-1)}, y: 20, imagesCount: 3, images:images})
-        var background_street_marks = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 265, imagesCount: 2, images:images_streetMarks})
-            
-    	this.backgrounds.push(background_transparent)       
-    	this.backgrounds.push(background)
-    	//this.backgrounds.push(background_cloud)
-    	this.backgrounds.push(background_road)
-        this.backgrounds.push(background_street_marks)
+      var images_cloud = [Loader.images.background['background.png']];
+      var images_layer1 = [Loader.images.background[game.data.backgrounds.layer1[0].name]];
+      var images_layer2 = [Loader.images.background[game.data.backgrounds.layer2[0].name]];
+      var images_lamp = [Loader.images.background['3amod.png'], Loader.images.background['3amod.png']]
+      var images_road = [Loader.images.background['land.png']]
+      var images_fence = [Loader.images.background['fence.png']]
+        
+      var self = this
+      var background_cloud = new Background(this.scene, {speed : function(){return  self.scene.direction*(0)}, y: 0, imagesCount: 1, images:images_cloud, offsetX:0});
+      var background_layer1 = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed-2)}, y: 0, imagesCount: 3, images:images_layer1})
+      var background_layer2 = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed-1)}, y: 65, imagesCount: 3, images:images_layer2})
+      var background_road = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 340, imagesCount: 2, offsetX:0, images:images_road})
+      var background_fence = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 350, imagesCount: 12, images:images_fence})
+      var background_lamp = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 200, imagesCount: 3, images:images_lamp})
+      
+      
+      this.backgrounds.push(background_cloud)
+      this.backgrounds.push(background_layer1)
+      this.backgrounds.push(background_layer2)
+      this.backgrounds.push(background_road)
+      this.backgrounds.push(background_fence)
+      this.backgrounds.push(background_lamp)
     		
     	for(var i=0; i<this.backgrounds.length; i++){
     		scene.objects.push(this.backgrounds[i])

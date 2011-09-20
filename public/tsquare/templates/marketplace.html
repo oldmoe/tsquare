@@ -60,7 +60,19 @@
   <ul>
     <!--Crowed Item-->
     {for item in categoryItems}
-    <li>
+    <li id="${item.name}_container">
+      <div id="${item.name}_details" class="detailsBox" style="display:none; left:120px, top:0">
+        <div class="crowdMemeberDetails">
+          {for spec in item.specIds}
+            <!--Crowd statistic-->
+            <dl>
+              <dt>${spec.humanize()}</dt>
+              <dd>${item.specs[spec]}</dd>
+            </dl>
+          {/for}
+        </div>
+        <img style="width:215px; height:240px;" class="positioned" src="images/marketplace/details_box.png" alt="Dialog Background" />
+      </div>
       <div class="crowedItem">
         <img class="positioned" src="images/marketplace/item_background.png" alt="Item background" />
         <!--Crowed Title-->
@@ -70,7 +82,7 @@
         </div>
         <!--Crowed Image-->
         <div class="crowedItemImage">
-          <img class="positioned" src="images/marketplace/members/${item.name}.png" alt="Crowed" style="width:73px;" />
+          <img id=${item.name} class="positioned" src="images/marketplace/members/${item.name}.png" alt="Crowed" style="width:73px;" />
         </div>
         <!--Crowed Price-->
         <div class="crowedItemPrice">
@@ -78,7 +90,7 @@
           <img class="positioned" src="images/marketplace/item_price.png" alt="Item price" />
         </div>
         <div class="crowedItemDetails">
-          <a href="#">Details</a>
+          <a href="#">Buy</a>
           <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
         </div>
       </div>

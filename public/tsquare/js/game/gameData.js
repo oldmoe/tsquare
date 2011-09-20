@@ -11,16 +11,26 @@ var missionData =
   }, 
     
     ]],
+    
     "backgrounds":{
+      
+      "layer1":[{"name":"secondary_skyline.png"}],
+      "layer2":[{"name":"main_skyline.png"}],
+      "landmarks":[{"name":"landmark_1.png"},{"name":"landmark_2.png"}],
+      "fence":[{"name":"fence.png"}],
+      "lamp":[{"name":"3amod.png"}],
+      "land":[{"name":"land.png"}]
+     },
+      
+      "environment":"day","gameModes":["normal"]}
 
-      layer1: [{"name":"skyline.png"}],
-
-      layer2: [{"name":"skyline.png"}],
-
-      landmarks: [{"name":"landmark_1.png"}, {"name":"landmark_2.png"}, {"name":"landmark_3.png"}]
-
-    },"environment":"day","gameModes":["normal"]} 
-
+var  crowd_members = { 
+      'ultras_green' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+      'journalist' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },  
+      'ultras_white' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+      'ultras_red' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+      'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+   }
 
 var userData = {
   'crowd_members' : { 

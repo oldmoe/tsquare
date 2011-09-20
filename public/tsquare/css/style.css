@@ -25,24 +25,24 @@ body{
 
 
 #container{
-  height: 550px;
+  height: 600px;
   left: 9px;
   overflow: hidden;
   position: absolute;
   top: 9px;
-  width: 760px;
+  width: 950px;
 }
 
 .skyline{
 	position: absolute
 }
 #gameCanvas{
-  height: 430px;
+  height: 600px;
   left: 9px;
   overflow: hidden;
   position: absolute;
   top: 9px;
-  width: 760px;
+  width: 950px;
   z-index: 200;
 }
 .DomSprite{
@@ -164,9 +164,9 @@ body{
 }
 #beatFlash{
   background-color: #333;
-  height: 424px;
+  height: 610px;
   position: absolute;
-  width: 778px;
+  width: 968px;
 }
  #fps{
     left: 783px;

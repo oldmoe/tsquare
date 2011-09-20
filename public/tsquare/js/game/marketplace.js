@@ -38,14 +38,45 @@ var Marketplace = Class.create({
     }
     
     this.adjustedMembers = [];
-    var membersImages = []
+    var membersImages = [];
+    
     for(var item in this.members['specs']){
-      this.adjustedMembers.push({name : item});
+      var specIds = [];
+      var memberSpecs = {};
+      for(var spec in this.members['specs'][item]['1']){
+        if (spec == "special") {
+          for (var specialSpec in this.members['specs'][item]['1']['special']) {
+            memberSpecs[specialSpec] = this.members['specs'][item]['1']['special'][specialSpec];
+            specIds.push( specialSpec );
+          }
+        } else {
+          memberSpecs[spec] = this.members['specs'][item]['1'][spec];
+          specIds.push( spec );
+        }
+      }
+      
+      this.adjustedMembers.push({name : item, specs : memberSpecs, specIds : specIds});
       membersImages.push(item + ".png");
     }
     console.log(membersImages);
     new Loader().load([ {images : membersImages, path: 'images/marketplace/members/', store: 'marketplace'}], {
       onFinish : function(){}
+    });
+  },
+  
+  renderFloatingItems : function(categoryItems){
+    $$('#marketplace #floatingItems')[0].innerHTML = this.templateManager.load('floatingItems', { categoryItems: categoryItems });
+    Game.addLoadedImagesToDiv('marketplace');
+    $$('#marketplace #floatingItems li div.crowedItem div.crowedItemImage img').each(function(img){
+      var offsetLeft = $(img.id + '_container').offsetLeft + 136;
+      var offsetTop = $(img.id + '_container').offsetTop;
+      if( offsetTop > 0 ) offsetTop = 90;
+      if( offsetLeft > 408 ){
+        offsetLeft -= 215+136;
+      }
+      $(img.id + '_details').setStyle({left : offsetLeft + 'px', top : offsetTop + 'px'});
+      img.observe('mouseover', function(event){ $(img.id + '_details').show(); });
+      img.observe('mouseout', function(event){ $(img.id + '_details').hide(); });
     });
   },
   
@@ -56,8 +87,7 @@ var Marketplace = Class.create({
     //Attaching triggers to the market placetabs
     $('marketMembers').stopObserving('click');
     $('marketMembers').observe('click', function(event){
-      $$('#marketplace #floatingItems')[0].innerHTML = self.templateManager.load('floatingItems', { categoryItems: self.adjustedMembers });
-      Game.addLoadedImagesToDiv('marketplace');
+      self.renderFloatingItems(self.adjustedMembers);
       $('marketMembers').parentNode.addClassName("selected");
       $('marketMoves').parentNode.removeClassName("selected");
     });
@@ -79,6 +109,7 @@ var Marketplace = Class.create({
     $$('#floatingItems ul')[0].setStyle( { width: this.containerWidth + 'px' } );
     
     this.adjustNavigators('floatingItems');
+    
     $$('#marketplace .close')[0].stopObserving('click');
     $$('#marketplace .close')[0].observe('click', function(event){
       $('marketplace').innerHTML = "";

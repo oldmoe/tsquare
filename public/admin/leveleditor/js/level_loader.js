@@ -9,8 +9,8 @@ var LevelLoader = Class.create({
   
   load: function(){
     if(this.missionData){
-      this.loadObjects(this.missionData.data);
-      this.loadBackgrounds(this.missionData.backgrounds);
+      if(this.missionData.data)this.loadObjects(this.missionData.data);
+      if(this.missionData.backgrounds)this.loadBackgrounds(this.missionData.backgrounds);
       alert("Data loaded successfully.");
     }else{
       alert("No data to load.");
@@ -20,11 +20,14 @@ var LevelLoader = Class.create({
   loadBackgrounds: function(backgrounds){
     this.loadBackgroundContainer(backgrounds.layer1, "bgLayer1");
     this.loadBackgroundContainer(backgrounds.layer2, "bgLayer2");
-    this.loadBackgroundContainer(backgrounds.landmarks, "landmarks");
+    this.loadBackgroundContainer(backgrounds.landmarks, "bgLandmarks");
+    this.loadBackgroundContainer(backgrounds.land, "bgLand");
+    this.loadBackgroundContainer(backgrounds.fence, "bgFence");
+    this.loadBackgroundContainer(backgrounds.lamp, "bgLamp");
   },
   
   loadBackgroundContainer: function(objects, container){
-    for (var i=0; i < objects.length; i++) {
+    for (var i=0; objects && i < objects.length; i++) {
       objects[i].category = "background";
       levelEditor.backgroundHandler.loadObject(this.loadImagePath(objects[i]), container);
     };
@@ -32,7 +35,7 @@ var LevelLoader = Class.create({
   
   loadObjects: function(objects){
     var laneLength = 0;
-    for (var i=0; i < objects.length; i++) {
+    for (var i=0; objects && i < objects.length; i++) {
       for (var j=0; j < objects[i].length; j++) {
         if(laneLength < objects[i][j].x)
           laneLength = objects[i][j].x;
@@ -40,10 +43,10 @@ var LevelLoader = Class.create({
     };
     
     //adjusting the size of lanes to fit the new data
-    levelEditor.grid.adjustLength(laneLength);
+    levelEditor.grid.adjustLength(laneLength+1);
     
     
-    for (var i=0; i < objects.length; i++) {
+    for (var i=0; objects && i < objects.length; i++) {
       for (var j=0; j < objects[i].length; j++) {
         levelEditor.grid.lanes[i].tiles[objects[i][j].x].loadObject(this.loadImagePath(objects[i][j]));
       };

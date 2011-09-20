@@ -123,10 +123,26 @@ var Loader = Class.create({
   },
   
   load_sounds : function(src, options){
-    var audio = new Audio();
-    audio.onload = function(){self.onload(options);}
-    audio.src = src
-    return audio
+	var self = this
+	var sound = null
+  console.log(src)
+	if(soundManager && soundManager.ok()){
+    console.log('sound manager')
+		sound = soundManager.createSound({
+			id : src.split('.')[0],
+			url : src,
+			autoPlay : false,
+			autoLoad : true,
+			volume : 100,
+			multiShot : true,
+			onload : function(){ console.log('loaded');self.onload(options)}	
+		})
+	}else{
+		sound = new Audio
+		sound.onload = function(){self.onload(options)}
+		sound.src
+	}
+    return sound
   },
   load_animations :function(src,options){
     return this.load_images(src,options)

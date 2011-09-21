@@ -19,6 +19,10 @@ var SkyLine = Class.create({
       var background_fence = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 350, imagesCount: 12, images:images_fence})
       var background_lamp = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 200, imagesCount: 3, images:images_lamp})
       
+      var transparent_layer1 = new TransparentLayer(background_cloud.container);
+      var transparent_layer2 = new TransparentLayer(background_layer2.container);
+      transparent_layer1.setBackgroundColor("ff2200");
+      transparent_layer2.setBackgroundColor("ffcccc");
       
       this.backgrounds.push(background_cloud)
       this.backgrounds.push(background_layer1)

@@ -31,6 +31,7 @@ var TsquareScene = Class.create(Scene,{
         this.addMovementObservers()
         this.handlers = {
             "crowd" : new CrowdHandler(this),
+            "protection_unit" : new ProtectionUnitHandler(this),  
             "enemy" : new EnemyHandler(this)  
         };  
         this.data = missionData.data;
@@ -49,6 +50,8 @@ var TsquareScene = Class.create(Scene,{
         for(var handler in this.handlers){
             this.handlers[handler].start()
         }
+        this.audioManager = new AudioManager(this.reactor)
+        this.audioManager.run()
         //this.physicsHandler.step()
     },
     

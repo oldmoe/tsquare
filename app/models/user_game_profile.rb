@@ -65,6 +65,7 @@ class UserGameProfile < DataStore::Model
     @data ||= {}
     @data['scores'] ||= generate_scores
     @data['current_mission'] ||= game.data['missions']['list'].keys.min
+    @data['crowd_members'] ||= {}
 =begin
     @data['crowd_members'] ||= { 
       'ultras' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'h2o' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } },

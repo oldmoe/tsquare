@@ -138,6 +138,29 @@ class GamesController < ApplicationController
     user_requests = Request.get(build_game_profile_key(from_user_key))
     request = user_requests.process user_game_profile.service_id, request_id
   end
+  
+  post '/:game_name/buy_market_item' do
+    data = decode(params['data'])
+    case data['category']
+      when 'marketMembers'
+        crowd_member_name = data['name']
+        decoy = Game::current.crowd_members['specs'][crowd_member_name].nil?
+        if( decoy )
+          return encode( {'error' => 'Crowd member does not exist'} )
+        end
+        if user_game_profile['crowd_members'][crowd_member_name]
+          next_id = user_game_profile['crowd_members'][crowd_member_name].keys.max + 1
+          user_game_profile['crowd_members'][crowd_member_name][next_id] = {}
+        else
+          user_game_profile['crowd_members'][crowd_member_name] = {}
+          user_game_profile['crowd_members'][crowd_member_name][1] = {}
+        end
+        user.coins -= 10
+        user_game_profile.save
+        user.save
+    end
+    
+  end
 
   get '/:game_name/' do
     File.read(File.join( 'public', @app_configs["game_name"], @service_provider + '-' + 'index.html'))

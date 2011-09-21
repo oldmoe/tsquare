@@ -26,9 +26,9 @@ var MovementManager = Class.create({
       this.reset()
    } 
    this.nextTick = this.beatDelay-this.beatAccelaration
-   Sounds.play(Sounds.gameSounds.beat)
+   //Sounds.play(Sounds.gameSounds.beat)
    var self = this
-   $('beatFlash').show()
+   //$('beatFlash').show()
    var fadeDuration = (this.nextTick - 3)*this.scene.reactor.delay / 1000
    this.scene.reactor.push(0,function(){new Effect.Fade('beatFlash',{duration: fadeDuration})})
    this.scene.reactor.push(this.nextTick,function(){self.playSounds()})
@@ -138,7 +138,7 @@ var MovementManager = Class.create({
      this.move=[]
      this.startMove(this.moves[command].index,self.nextTick*code.length)
      this.moveLength = 0
-     Sounds.play(Sounds.gameSounds.correct_move)
+     //Sounds.play(Sounds.gameSounds.correct_move)
    }
   },
   

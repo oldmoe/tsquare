@@ -116,6 +116,10 @@ var Game = Class.create({
     }
   },
 
+  end : function(){
+  	this.scene.end();
+  },
+
   hide : function() {
   },
 

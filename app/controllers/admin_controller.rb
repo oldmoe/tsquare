@@ -41,9 +41,18 @@ class AdminController < ApplicationController
   # Game Products Requests
   # View list of Quests, Edit Quest page, Add, Remove, Retrieve and Save metadata
   ######################################################################  
+  def populate_items
+    items = {}
+    Game::current.crowd_members['specs'].keys.each do |crowd_member|
+      items["crowd_members.specs."+crowd_member] = crowd_member.humanize
+    end
+    items
+  end
+
   get '/:game_name/products/new' do
     @game = Game::current
     @product = {}
+    @items = populate_items
     erb :edit_product , {:layout => :app}
   end
   
@@ -57,6 +66,8 @@ class AdminController < ApplicationController
   get '/:game_name/product/:name/edit' do
     @game = Game::current
     @product = @game.products["fb"][params[:name]]
+    puts "$$$$$$$$$$#{@product}"
+    @items = populate_items
     erb :edit_product , {:layout => :app}
   end
 
@@ -75,16 +86,23 @@ class AdminController < ApplicationController
     
     product = @game.products["fb"][params[:title]]
 
-    puts "!!!!!!!!!!!!#{params['image_file']}"
     if !params['image_file'].blank?
       File.open("public/#{@game.path}/images/products/" + params['image_file'][:filename], "w") do |f|
         f.write(params['image_file'][:tempfile].read)
       end
       product[:product_url] = "/#{@game.name}/images/products/#{params['image_file'][:filename]}"
     end
-    ["title", "description", "price"].each do |key|
+    ["title", "description", "price", "item_id"].each do |key|
       product[key] = params[key]
     end
+    
+    reached = @game
+    access_parts = product["item_id"].split "."
+    access_parts.each do |part|
+      reached = reached[part]
+    end
+    reached['buyID'] = product['title']
+    
     @game.save
     
     redirect "/#{ADMIN_URL}/#{@game.name}/product/#{product["title"]}"

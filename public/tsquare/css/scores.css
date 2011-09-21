@@ -1,5 +1,24 @@
+#scores {
+    bottom: 0;
+    height: 180px;
+    margin: 0 auto;
+    padding: 0 5px;
+    position: absolute;
+    width: 100%;
+}
+#scoresInProgress{
+  background: none repeat scroll 0 0 black;
+  bottom: 0;
+  height: 180px;
+  margin: 0 auto;
+  padding: 0 5px;
+  position: absolute;
+  width: 100%;
+  opacity : 0.6;
+  cursor : progress;
+}
 /*--------Friends Bar-----------*/
-.friendsBar { float:left; width:739px; position:relative; margin:0 10px; }
+.friendsBar { margin:0 auto; width:739px; position:relative; }
 
 .gameFunctions { float:right; width:161px; height:161px; position:relative; z-index:5; }
 .gameFunctionsBackground { position:absolute; }
@@ -50,27 +69,6 @@
 
 .inviteFriend { overflow:hidden; height:60px; left:0px; width:70px; height:60px;}
 
-#scores{
-  height: 180px;
-  left: 0;
-  position: absolute;
-  top: 510px;
-  width: 770px;
-  padding: 0px 5px;
-  z-index: 1000;
-}
-#scoresInProgress{
-  background: none repeat scroll 0 0 black;
-  height: 180px;
-  left: 0;
-  position: absolute;
-  top: 510px;
-  width: 770px;
-  padding: 0px 5px;  
-  z-index: 1000;
-  opacity : 0.6;
-  cursor : progress;
-}
 
 #scores .notification {
   height: 25px;

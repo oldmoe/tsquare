@@ -1,12 +1,7 @@
 @charset "utf-8";
-/* CSS Document */
-body { margin:0px; padding:0px; font-size:12px; font-family:Tahoma, Geneva, sans-serif; }
-ul { list-style:none; margin:0px; padding:0px; }
-
-#marketplace { position: absolute; z-index: 201; }
+#marketplace { position:relative; z-index: 201; }
 
 .container { width:760px; height:685px; margin:0 auto; }
-.positioned { position:absolute; top:0px; left:0px; z-index:1; }
 
 /*-------Widnow-------*/
 .window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:46px 27px 0 19px; position:relative; height:401px; }

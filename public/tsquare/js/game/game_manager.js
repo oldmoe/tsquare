@@ -31,8 +31,14 @@ var GameManager = Class.create({
   
   playMission : function(mission){
     this.game.play(mission.data);
-    $('uiContainer').hide();
+    $('timeline').hide();
     $('gameContainer').show();
+  },
+
+  openMainPage : function(){
+    this.game.end();
+    $('gameContainer').hide();
+    $('timeline').show();
   },
 
   /* If there is a request object acceptance has lead to opening the game, 

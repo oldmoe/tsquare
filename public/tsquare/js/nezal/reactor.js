@@ -1,7 +1,7 @@
 var Reactor = Class.create({
 	
 	initialize : function(delay){
-		this.delay = delay || 50
+		this.delay = delay || 33
 		this.events = []
 		this.ticks = 0
 		this.running = false
@@ -108,7 +108,7 @@ var Reactor = Class.create({
 	
 	timeToTicks : function(time){
 		return Math.round(time / this.delay);		
-	}
+	},
 	
 	everySeconds : function(seconds){
 		return Math.round(seconds * 1000 / this.delay);

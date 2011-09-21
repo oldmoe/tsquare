@@ -11,8 +11,7 @@ var Game = Class.create({
   },
 
   startLoading : function(){
-    var self = this;
-    self.initializeGame();
+    this.initializeGame();
   },
   
   initializeGame : function(){
@@ -35,42 +34,45 @@ var Game = Class.create({
         }
     }
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
-    'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png']
+    'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png']
     var hoveringIconsImages = ['lock.png', 'circle.png', 'march.png', 'push.png'];
 
-	var self = this
-	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
-					{images: characterImages, path: 'images/characters/', store: 'characters'},
-					{images: hoveringIconsImages, path: 'images/icons/', store: 'hoveringIcons'},
-                    {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
-				]
-
-	var format = 'mp3'
-	for(var i=0; i < 4; i++){ //number of
-		var beats = []
-		for(var j=0; j < 5; j++){
-			beats.push(j+'.'+format)
-		} 
-		var hetaf = []
-		for(var j=0; j < 11; j++){
-			hetaf.push(j+'.'+format)
-		} 
-		var tempo = 130+(i*10)
-		toLoad.push{sounds: beats, path: 'sounds/'+format+'/'+tempo+'/beats/', store: 'beats.'+tempo}
-		toLoad.push{sounds: hetaf, path: 'sounds/'+format+'/'+tempo+'/hetaf/', store: 'hetaf.'+tempo}
-		
-	}					
-						
-	new Loader().load(toLoad, {
-								  onProgress : function(progress){
-									  if($$('#inProgress #loadingBarFill')[0])
-									  $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
-								  },
-								  onFinish:function(){        
-									self.imagesLoaded = true;
-									self.start();
-								  }
-                        });
+  	var self = this
+  	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
+  					{images: characterImages, path: 'images/characters/', store: 'characters'},
+  					{images: hoveringIconsImages, path: 'images/icons/', store: 'hoveringIcons'},
+                      {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
+  				]
+  
+  	var format = 'mp3'
+  	for(var i=0; i < 4; i++){ //number of
+  		var beats = []
+  		for(var j=0; j < 5; j++){
+  			beats.push(j+'.'+format)
+  		} 
+  		var hetaf = []
+  		for(var j=0; j < 11; j++){
+  			hetaf.push(j+'.'+format)
+  		} 
+  		var tempo = 130+(i*10)
+  	//	toLoad.push({sounds: beats, path: 'sounds/'+format+'/'+tempo+'/beats/', store: 'beats.'+tempo})
+  //		toLoad.push({sounds: hetaf, path: 'sounds/'+format+'/'+tempo+'/hetaf/', store: 'hetaf.'+tempo})
+  		
+  	}					
+    
+    toLoad.push({sounds: ['beat.mp3'], path: 'sounds/sfx/mp3/', store: 'beats'})
+  						
+  	new Loader().load(toLoad, {
+  								  onProgress : function(progress){
+  									  if($$('#inProgress #loadingBarFill')[0])
+  									  $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
+  								  },
+  								  onFinish:function(){
+  					   				self.imagesLoaded = true;
+  						  			self.start();
+  						  			self.play(missionData)
+  								  }
+    });
 
   },
 

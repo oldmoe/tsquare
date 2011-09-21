@@ -23,19 +23,17 @@ var Marketplace = Class.create({
     this.special = itemsData.special_items;
     this.crowd_items = itemsData.crowd_items;
     
-    new Loader().load([ {images : ["buy_window_title.png", "close_button.png", "tab_background.png"], path: 'images/marketplace/', store: 'marketplace'}], {
+    this.myMembers = this.gameManager.userData.crowd_members;
+    
+    new Loader().load([ {images : ["my_stuff_title.png", "buy_window_title.png", "close_button.png", "tab_background.png"],
+                                     path: 'images/marketplace/', store: 'marketplace'}], {
       onFinish : function(){}
     });
     
     
     var self = this;
-    this.adjustedMoves = [];
-    for(var mainItem in this.moves){
-      for(var subItem in this.moves[mainItem]){
-        var ItemName = mainItem + ' ' + subItem;
-        this.adjustedMoves.push({name : ItemName});
-      }
-    }
+    
+    this.adjustedMyMembers = [];
     
     this.adjustedMembers = [];
     var membersImages = [];
@@ -58,16 +56,19 @@ var Marketplace = Class.create({
       this.adjustedMembers.push({name : item, specs : memberSpecs, specIds : specIds});
       membersImages.push(item + ".png");
     }
-    console.log(membersImages);
     new Loader().load([ {images : membersImages, path: 'images/marketplace/members/', store: 'marketplace'}], {
       onFinish : function(){}
     });
   },
   
+  buy : function(options){
+    this.network.buy(options);
+  },
+  
   renderFloatingItems : function(categoryItems){
-    $$('#marketplace #floatingItems')[0].innerHTML = this.templateManager.load('floatingItems', { categoryItems: categoryItems });
+    $$('#floatingItems')[0].innerHTML = this.templateManager.load('floatingItems', { categoryItems: categoryItems });
     Game.addLoadedImagesToDiv('marketplace');
-    $$('#marketplace #floatingItems li div.crowedItem div.crowedItemImage img').each(function(img){
+    $$('#floatingItems li div.crowedItem div.crowedItemImage img').each(function(img){
       var offsetLeft = $(img.id + '_container').offsetLeft + 136;
       var offsetTop = $(img.id + '_container').offsetTop;
       if( offsetTop > 0 ) offsetTop = 90;
@@ -80,9 +81,10 @@ var Marketplace = Class.create({
     });
   },
   
-  openMarketplace : function(){
+  openMarketplace : function(myStuff){
     var self = this;
-    $('marketplace').innerHTML = this.templateManager.load('marketplace');
+    var screen = myStuff ? 'myStaff' : 'marketplace'
+    $('marketplace').innerHTML = this.templateManager.load('marketplace', {screen : screen});
     
     //Attaching triggers to the market placetabs
     $('marketMembers').stopObserving('click');
@@ -92,19 +94,10 @@ var Marketplace = Class.create({
       $('marketMoves').parentNode.removeClassName("selected");
     });
     
-    $('marketMoves').stopObserving('click');
-    $('marketMoves').observe('click', function(event){
-      $$('#marketplace #floatingItems')[0].innerHTML = self.templateManager.load('floatingItems', { categoryItems: self.adjustedMoves });
-      Game.addLoadedImagesToDiv('marketplace');
-      $('marketMoves').parentNode.addClassName("selected");
-      $('marketMembers').parentNode.removeClassName("selected");
-    });
-    
     //Loading the template of the auto selected tab
-    $$('#marketplace #floatingItems')[0].innerHTML = this.templateManager.load('floatingItems', { categoryItems: this.adjustedMoves });
-    Game.addLoadedImagesToDiv('marketplace');
+    self.renderFloatingItems(self.adjustedMembers);
       
-    this.containerWidth = Math.ceil( this.adjustedMoves.size() / this.rows) * this.itemWidth;
+    this.containerWidth = Math.ceil( this.adjustedMembers.size() / this.rows) * this.itemWidth;
     this.containerWidth = Math.max( this.containerWidth, this.columns * this.itemWidth );
     $$('#floatingItems ul')[0].setStyle( { width: this.containerWidth + 'px' } );
     

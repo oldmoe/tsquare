@@ -6,7 +6,7 @@ Audio.prototype.stop = function(){
 var AudioManager = Class.create({
 
 	durations : {
-			130 : 1900,
+			130 : 10,
 			140 : 1600,
 			150 : 1400,
 			160 : 1250
@@ -15,10 +15,12 @@ var AudioManager = Class.create({
 	initialize : function(reactor){
 		this.reactor = reactor
 		this.index = 0		
-	
+    this.levels = [{tempo:130, beats:[Loader.sounds['beats']['beat.mp3']]}]
+    
+    /*	
 		this.levels = [
 			{tempo: 130, beats : [0]},
-			{tempo: 130, beats : [0, 1]},
+      {tempo: 130, beats : [0, 1]},
 			{tempo: 130, beats : [0, 2]},
 			{tempo: 130, beats : [0, 2]},
 			{tempo: 130, beats : [0, 4]},
@@ -35,13 +37,12 @@ var AudioManager = Class.create({
 			{tempo: 160, beats : [0, 3]},
 			{tempo: 160, beats : [0, 4]}
 		],			
-		
 		this.levels.each(function(level){
 			level.beats = level.beats.collect(function(beat){
 				return Loader.sounds['beats.tempo.'+level.tempo][beat+'.'+this.format]
 			})
 		})
-		
+		*/
 		this.level = this.levels[0]
 		this.levelIndex = 0
 		
@@ -66,7 +67,7 @@ var AudioManager = Class.create({
 			}
 			this.tempoChange = false
 			this.nowPlaying = []
-			for(var i=0; i < this.level.beats.length){
+			for(var i=0; i < this.level.beats.length;i++){
 				var sound = this.level.beats[i]
 				sound.loop = true
 				sound.play({ loops : 100000 })

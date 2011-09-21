@@ -93,12 +93,6 @@ var Loader = Class.create({
       }
       //objects[names[i]] = Loader[type][store][names[i]]
     }
-      if(self.loadedResources == self.currentLength){
-        self.loadedResources = 0
-        if(options.onFinish){
-          options.onFinish()
-        }
-      } 
   },
   onload: function(options){
     this.loadedResources++;
@@ -125,7 +119,9 @@ var Loader = Class.create({
   load_sounds : function(src, options){
 	var self = this
 	var sound = null
-	if(soundManager && soundManager.loaded){
+  console.log(src)
+	if(soundManager && soundManager.ok()){
+    console.log('sound manager')
 		sound = soundManager.createSound({
 			id : src.split('.')[0],
 			url : src,
@@ -133,7 +129,7 @@ var Loader = Class.create({
 			autoLoad : true,
 			volume : 100,
 			multiShot : true,
-			onload : function(){ self.onload(options)}	
+			onload : function(){ console.log('loaded');self.onload(options)}	
 		})
 	}else{
 		sound = new Audio

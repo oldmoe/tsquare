@@ -1,5 +1,13 @@
 var Background = Class.create({
+	imagesCount: 0 ,
+	scene: null,
+	speed: 0,
+	images: null,
+	y: 0,
+	container: null,
+	offsetX: null,
 	
+	   
 	initialize: function(scene, options,style){
 		this.imagesCount = options.imagesCount
 		this.scene = scene

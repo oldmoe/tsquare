@@ -27,6 +27,16 @@
     <input  id="product_image" name='image_file' type="file"></input>  
   </div>
   <div class="form_row">
+    <LABEL for="item">Item</LABEL><br/>
+    <% @items.keys.each do |item| %>
+      <input style="width:2%;" 
+             type="radio"
+             name="item_id" 
+             value="<%= item %>" 
+             <%= 'checked="checked"' if item == @product['item_id'] %> /> <%= @items[item] %> <br />
+    <% end %>
+  </div>
+  <div class="form_row">
     <input type="submit" value="Save" class="submit"/>
   </div>
 </form> 

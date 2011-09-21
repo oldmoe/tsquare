@@ -168,8 +168,19 @@ body{
   position: absolute;
   width: 968px;
 }
- #fps{
-    left: 783px;
-    position: absolute;
-    top: 0;
+#fps{
+  left: 970px;
+  position: absolute;
+  top: 0;
  }
+#world{
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  width: 950px;
+  height: 340px;
+  z-index: 1000;
+  background-color: #38CDFF;
+  opacity: 0.4;
+  
+} 

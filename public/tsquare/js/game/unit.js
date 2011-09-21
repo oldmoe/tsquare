@@ -128,8 +128,10 @@ var Unit = Class.create({
   },
   
   collidesWith: function(target){
-      if (this.coords.x + this.getWidth() > target.coords.x)
-         return true; 
+      if (this.coords.x + this.getWidth() > target.coords.x){
+         return true;
+      }
+         
       return false;  
   }
   

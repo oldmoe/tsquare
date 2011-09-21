@@ -6,9 +6,17 @@ var missionData =
       "type": '3_2',
       "index": 0,
       "lane": 1,
-      "x": 20,
+      "x": 2,
       "order": 1
   }, 
+  {
+      "name": "ambulance",
+      "category": 'protection_unit',
+      "index": 0,
+      "lane": 1,
+      "x": 1,
+      "order": 1
+  }
    
     ]],
     
@@ -33,13 +41,6 @@ var  crowd_members = {
    }
 
 var userData = {
-  'crowd_members' : { 
-      'ultras_green' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
-      'journalist' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },  
-      'ultras_white' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
-      'ultras_red' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
-      'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
-   }, 
   'holder_items' : { 'cap' : 0, 'umbrella' : 0 },
   'special_items' : { },
   'power_ups' : {}, 

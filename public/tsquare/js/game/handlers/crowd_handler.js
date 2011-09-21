@@ -172,6 +172,11 @@ var CrowdHandler = Class.create(UnitHandler, {
                this.objects[i][j].fire(event)
             }
        }
-   } 
+   },
+   detectCollisions : function($super,others){
+     if($super(others)){
+       this.scene.direction = 0
+     }
+   }, 
      
 });

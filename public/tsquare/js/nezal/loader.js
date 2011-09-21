@@ -93,12 +93,6 @@ var Loader = Class.create({
       }
       //objects[names[i]] = Loader[type][store][names[i]]
     }
-      if(self.loadedResources == self.currentLength){
-        self.loadedResources = 0
-        if(options.onFinish){
-          options.onFinish()
-        }
-      } 
   },
   onload: function(options){
     this.loadedResources++;

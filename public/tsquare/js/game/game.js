@@ -67,7 +67,6 @@ var Game = Class.create({
 									  $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
 								  },
 								  onFinish:function(){
-                    alert(1)        
 					   				self.imagesLoaded = true;
 						  			self.start();
 								  }

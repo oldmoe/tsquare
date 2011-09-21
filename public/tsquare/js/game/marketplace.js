@@ -14,14 +14,14 @@ var Marketplace = Class.create({
     this.gameManager = gameManager;
     this.network = this.gameManager.network;
     this.templateManager = this.gameManager.templateManager;
-    var itemsData = gameData;
     
-    this.moves = itemsData.commands;
-    this.members = itemsData.crowd_members;
-    this.items = itemsData.holder_items;
-    this.powerups = itemsData.power_ups;
-    this.special = itemsData.special_items;
-    this.crowd_items = itemsData.crowd_items;
+    var gameData = gameManager.gameData;
+    this.moves = gameData.commands;
+    this.members = gameData.crowd_members;
+    this.items = gameData.holder_items;
+    this.powerups = gameData.power_ups;
+    this.special = gameData.special_items;
+    this.crowd_items = gameData.crowd_items;
     
     this.myMembers = this.gameManager.userData.crowd_members;
     
@@ -53,7 +53,7 @@ var Marketplace = Class.create({
         }
       }
       
-      this.adjustedMembers.push({name : item, specs : memberSpecs, specIds : specIds});
+      this.adjustedMembers.push({name : item, specs : memberSpecs, specIds : specIds, buyID : this.members['specs'][item]['buyID']});
       membersImages.push(item + ".png");
     }
     new Loader().load([ {images : membersImages, path: 'images/marketplace/members/', store: 'marketplace'}], {
@@ -62,7 +62,11 @@ var Marketplace = Class.create({
   },
   
   buy : function(options){
-    this.network.buy(options);
+    if(!options.buyID.empty()) {
+      socialEngine.buyItem( options.buyID );
+    } else {
+      this.network.buy(options);
+    }
   },
   
   renderFloatingItems : function(categoryItems){

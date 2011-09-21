@@ -98,7 +98,7 @@ class GamesController < ApplicationController
       case params['method']
       when 'payments_get_items'
         result = {'content' => [], 'method' => 'payments_get_items' }
-        puts "%%%%%%%%%%%%%%%%%%%%%%%%" + data['order_info']
+        puts "%%%%%%%%%%%%%%%%%%%%%%%%" + data['order_info'].inspect
         product = Game::current.products["fb"][data['order_info']]
         product['item_id'] = data['order_info']
         result['content'] << product

@@ -160,8 +160,8 @@ var TsquareScene = Class.create(Scene,{
   },
     
   increaseEnergy : function(){
+    this.audioManager.levelUp()
     if(this.energy.current < this.energy.max)this.energy.current+= this.energy.rate
-    console.log(this.energy)
     var next = this.speeds[this.speedIndex+1]
     if(next){
         if(this.energy.current>=next.energy){
@@ -173,6 +173,7 @@ var TsquareScene = Class.create(Scene,{
    },
    
    decreaseEnergy : function(){
+      this.audioManager.levelDown()
       this.energy.current= Math.max(this.energy.current-this.energy.rate, 0)
       if(this.speedIndex >0 && this.energy.current < this.speeds[this.speedIndex].energy){
           this.speedIndex--

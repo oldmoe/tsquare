@@ -55,11 +55,10 @@ var Game = Class.create({
     			hetaf.push(j+'.'+format)
     		} 
     		var tempo = 130+(i*10)
-    	//	toLoad.push({sounds: beats, path: 'sounds/'+format+'/'+tempo+'/beats/', store: 'beats.'+tempo})
-    //		toLoad.push({sounds: hetaf, path: 'sounds/'+format+'/'+tempo+'/hetaf/', store: 'hetaf.'+tempo})
+    		toLoad.push({sounds: beats, path: 'sounds/'+format+'/'+tempo+'/beats/', store: 'beats.'+tempo})
+       	toLoad.push({sounds: hetaf, path: 'sounds/'+format+'/'+tempo+'/hetaf/', store: 'hetaf.'+tempo})
     		
     	}					
-          toLoad.push({sounds: ['beat.mp3'], path: 'sounds/sfx/mp3/', store: 'beats'})
     						
     	new Loader().load(toLoad, {
     								  onProgress : function(progress){

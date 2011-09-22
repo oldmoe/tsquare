@@ -52,7 +52,7 @@ var Game = Class.create({
     		} 
     		var hetaf = []
     		for(var j=0; j < 11; j++){
-    			hetaf.push(j+'.'+format)
+    			hetaf.push((j+1)+'.'+format)
     		} 
     		var tempo = 130+(i*10)
     		toLoad.push({sounds: beats, path: 'sounds/'+format+'/'+tempo+'/beats/', store: 'beats.'+tempo})

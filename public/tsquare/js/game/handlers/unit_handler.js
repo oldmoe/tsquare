@@ -31,6 +31,7 @@ var UnitHandler = Class.create({
            elem.name = this.unitsClassMappings[elem.name]
        }
        elem.options.handler = this
+       elem.x = elem.x * this.scene.view.tileWidth
       this.incoming[elem.lane].push(elem)
    },
    

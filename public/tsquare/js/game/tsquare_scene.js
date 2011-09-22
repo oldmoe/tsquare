@@ -114,7 +114,7 @@ var TsquareScene = Class.create(Scene,{
   addObject : function(objHash){
      var klassName = objHash.name.formClassName()
      var klass = eval(klassName)
-     var obj = new klass(this,objHash.x * this.view.tileWidth - this.view.xPos,objHash.lane,objHash.options)
+     var obj = new klass(this,objHash.x - this.view.xPos,objHash.lane,objHash.options)
      var displayKlass = eval(klassName + "Display")
      var objDisplay = new displayKlass(obj)
      if (!obj.noDisplay) {
@@ -124,7 +124,7 @@ var TsquareScene = Class.create(Scene,{
   },
   
   tickObjects : function(objects){
-    try{
+       try{
             var remainingObjects = []
             var self = this
             objects.each(function(object){
@@ -135,7 +135,6 @@ var TsquareScene = Class.create(Scene,{
             })
             objects = remainingObjects
         }catch(x){//console.log(x)
-            alert(x)
         }
         return this
   },

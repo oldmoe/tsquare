@@ -42,6 +42,17 @@ var CrowdHandler = Class.create(UnitHandler, {
      }
      return obj
    },  
+   getLargestXCrowd:function(lane){
+     var maxX = 0
+     var target = null
+     for(var i=0;i<this.objects[lane].length;i++){
+       if(this.objects[lane][i].coords.x > maxX){
+         maxX = this.objects[lane][i].coords.x
+         target = this.objects[lane][i] 
+       }
+     }
+     return target
+   },
    addCommandObservers : function(){
        var self = this
        this.commands.each(function(event){

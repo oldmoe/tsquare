@@ -19,6 +19,16 @@ var EnemyHandler = Class.create(UnitHandler, {
    },
    end : function(){
      this.scene.end(true)
+   },
+   createOneManUnit : function(){
+      var properties = {
+        category: "enemy",
+        type : "1_1",
+        name : "amn_markazy",
+        options : {handler:this, mappingName:"wood_stick_cs"},
+        lane : this.scene.activeLane
+      }
+      return this.addObject(properties)  
    } 
    
 });

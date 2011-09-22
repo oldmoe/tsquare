@@ -18,7 +18,9 @@ var Enemy = Class.create(Unit, {
     this.updatePosition();
     
     this.handleCollision();
+    
   },
+ 
   
   handleCollision : function(){
       

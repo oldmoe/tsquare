@@ -130,5 +130,13 @@ var Block = Class.create(Enemy,{
                 this.elements[i][j].move(dx,dy)
             }
         }
-    },    
+    },
+    setCoords : function(coords){
+      this.coords = coords
+      for (var i = 0; i < this.elements.length; i++) {
+        for (var j = 0; j < this.elements[i].length; j++) {
+          this.elements[i][j].coords = coords 
+        }
+      }
+    }    
 })

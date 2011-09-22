@@ -127,7 +127,7 @@ var Loader = Class.create({
 			autoLoad : true,
 			volume : 100,
 			multiShot : true,
-			onload : function(){ self.onload(options)}	
+			onload : function(){self.onload(options)}	
 		})
 	}else{
 		sound = new Audio

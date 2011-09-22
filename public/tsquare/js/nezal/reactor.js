@@ -3,6 +3,7 @@ var Reactor = Class.create({
 	initialize : function(delay){
 		this.delay = delay || 33
 		this.events = []
+		this.observers = {}
 		this.ticks = 0
 		this.running = false
 	},
@@ -99,12 +100,35 @@ var Reactor = Class.create({
 		var wrapper = function(){
 			scope = scope || this
 			var	result = func.apply(scope)
-			if(result){
+			if(!(result === false)){
 				this.push(everyTicks, wrapper, this)
 			}
 		}
 		this.push(ticks, wrapper, this)
 	},
+	
+	observe : function(event, func, scope){
+	  if(!this.observers[event]) this.observers[event] = []
+	  var observer = [func, scope]
+	  this.observers[event].push(observer)
+	  return observer
+	},
+		
+  fire : function(event){
+    if(this.observers[event]){
+      var observers = Nezal.clone_obj(this.observers[event]);
+      var toRemove = []
+      for(var i=0;i<observers.length;i++){
+        var scope = observers[i][1] || this
+        if(observers[i][0].apply(scope) === false){
+          toRemove.push(observers[i])
+        }
+      }
+      toRemove.each(function(observer){
+        this.observers.splice(this.observers.indexOf(observer),1)
+      })
+    }
+  },
 	
 	timeToTicks : function(time){
 		return Math.round(time / this.delay);		

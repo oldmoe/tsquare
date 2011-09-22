@@ -126,7 +126,7 @@ var CrowdMember = Class.create(Unit,{
           this.currentAction = "circle";
           this.rotating = true 
           this.addRotationPoints(this.target)
-          this.fire(this.rotationPoints[0].state)
+          this.scene.fire("crowd_member_animation_"+this.rotationPoints[0].state)
       }else{
          console.log("invalid command"); 
       }
@@ -227,7 +227,7 @@ var CrowdMember = Class.create(Unit,{
       if (this.coords.x <= rp.values.x + 0.001 && this.coords.x >= rp.values.x - 0.001 &&
       this.coords.y <= rp.values.y + 0.001 &&this.coords.y >= rp.values.y - 0.001) {
           this.rotationPoints.shift()
-          if(this.rotationPoints.length > 0 ) this.fire(this.rotationPoints[0].state)
+          if(this.rotationPoints.length > 0 ) this.scene.fire("crowd_member_animation_"+this.rotationPoints[0].state)
       }
   },
   
@@ -242,8 +242,9 @@ var CrowdMember = Class.create(Unit,{
     this.rotationPoints = []
     this.target = null
     this.rotating = false
-    this.fire("normal")
+    this.scene.fire("crowd_member_animation_"+"normal")
   },
+  
   getMovingState : function(){
     if(this.scene.running)return "run"
     return "walk"

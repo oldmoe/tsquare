@@ -52,7 +52,7 @@ var Game = Class.create({
     		} 
     		var hetaf = []
     		for(var j=0; j < 11; j++){
-    			hetaf.push(j+'.'+format)
+    			hetaf.push((j+1)+'.'+format)
     		} 
     		var tempo = 130+(i*10)
     		toLoad.push({sounds: beats, path: 'sounds/'+format+'/'+tempo+'/beats/', store: 'beats.'+tempo})
@@ -60,17 +60,17 @@ var Game = Class.create({
     		
     	}					
     						
-    	new Loader().load(toLoad, {
-    								  onProgress : function(progress){
-    									  if($$('#inProgress #loadingBarFill')[0])
-    									  $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
-    								  },
-    								  onFinish:function(){
-    					   				self.imagesLoaded = true;
-    						  			self.start();
-    								  }
-      });
-    
+  	new Loader().load(toLoad, {
+  								  onProgress : function(progress){
+  									  if($$('#inProgress #loadingBarFill')[0])
+  									  $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
+  								  },
+  								  onFinish:function(){
+  					   				self.imagesLoaded = true;
+  						  			self.start();
+  						  			// self.play(missionData)
+  								  }
+    });
   },
 
   play : function(mission){
@@ -113,6 +113,7 @@ var Game = Class.create({
     {
       this.scene = new TsquareScene();
 	  	this.scene.start();
+	  	this.scene.fire("start");
     }
   },
 

@@ -176,7 +176,7 @@ var MovementManager = Class.create({
         this.combos++
         if(this.beatAccelaration<9)this.beatAccelaration+=2
         this.currentCombos++
-        this.scene.fire('comboSuccess')
+        this.scene.fire('correctMove')
         //this.createNextFollower()
       }
       this.beatMoving = false

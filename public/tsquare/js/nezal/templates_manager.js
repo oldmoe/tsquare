@@ -5,8 +5,11 @@ var TemplatesManager = Class.create({
       templatesRootNode.innerHTML = responseText;
       network.fetchTemplate( "templates/marketplace.html", function(responseText){
         templatesRootNode.innerHTML += responseText;
-        templatesRootNode.select('textarea').each(function(node){
-            node.setAttribute('id', node.getAttribute('id') + "-template");
+        network.fetchTemplate( "templates/missions.html", function(responseText){
+          templatesRootNode.innerHTML += responseText;
+          templatesRootNode.select('textarea').each(function(node){
+              node.setAttribute('id', node.getAttribute('id') + "-template");
+          });
         });
       });
     });

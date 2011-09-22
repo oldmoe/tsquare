@@ -30,6 +30,24 @@ var SocialEngine = Class.create(FBConnect, {
 
   inviteFriends : function(){
     socialEngine.requestFromNoneAppUsers({'title' :'Invite your friends', 'message':'Revolt with me !!!'}, function(){});
+  },
+
+  sendRequest : function(request){
+    var fbCallback = function(requests_data){
+      var requests = {};
+      for(var i in requests_data)
+      {
+        time = new Date(requests_data[i]['created_time'].gsub('-','/').gsub('T', ' ').split('+')[0]);
+        requests[i] = { 'to' : requests_data[i]['to']['id'],
+                        'timestamp' : time.getTime()/1000, 
+                        'data' : requests_data[i]['data'] };
+      }
+      game.network.genericPostRequest('requests', {requests : requests})
+    };
+    game.network.fetchTemplate('requests/exclude', function(response){
+      request['exclude_ids'] = JSON.parse(response).join(",")
+      FBConnect.sendRequest(request, fbCallback)
+    });
   }
   
 });

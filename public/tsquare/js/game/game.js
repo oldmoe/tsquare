@@ -68,7 +68,7 @@ var Game = Class.create({
   								  onFinish:function(){
   					   				self.imagesLoaded = true;
   						  			self.start();
-  						  			// self.play(missionData)
+  						  			self.play(missionData)
   								  }
     });
   },

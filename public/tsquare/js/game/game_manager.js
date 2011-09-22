@@ -13,7 +13,7 @@ var GameManager = Class.create({
     var self = this;
     var callback = function(data) {
       self.userData = data.user_data.data;
-      self.userData.crowd_members = userData.crowd_members;
+      self.userData.crowd_members = data.user_data.data.crowd_members;
       self.userData.coins = data.user_data.coins;
       self.gameData = data.game_data.data;
       self.missions = data.missions_data.data;
@@ -47,6 +47,7 @@ var GameManager = Class.create({
     example : request['date']['type'] = 'challenge'
     then open in the game on the mission page */
   processRequest : function(request){
+    
     this.start();
   },
 
@@ -60,10 +61,12 @@ var GameManager = Class.create({
       var requestData = {};
       if(params['request_ids'])
       {
+        console.log( params['request_ids'],  requests_data);
         var requestData = requests_data[params['request_ids']];
+        console.log( "!@!@!@@!!@!@!@!@", requestData);
         if(params['request_ids'])
         {
-          game.network.genericPostRequest('requests/accept', {request_id : params['request_ids'], from : requestData['from']['id']});
+          gameManager.network.genericPostRequest('requests/accept', {request_id : params['request_ids'], from : requestData['from']['id']});
           socialEngine.deleteObject(params['request_ids']);
         }
       }

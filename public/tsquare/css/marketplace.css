@@ -51,6 +51,11 @@
 .crowedItemImage { float:left; width:60px; height:90px; position:absolute; top:23px; left:30px; }
 
 
+.dialogBox { position:absolute; z-index:6; width:513px; height:131px; top:95px; left:95px; }
+.dialogBox h2 { position:absolute; z-index:6; top:10px; left:20px; color:#513b05; text-shadow:1px 1px 0 #fff7e2; }
+.dialogBox p { position:absolute; z-index:6; top:50px; left:20px; color:#513b05; text-shadow:1px 1px 0 #fff7e2; }
+.dialogBox .close { z-index:7; left:483px; top:-10px; }
+
 .detailsBox { position:absolute; z-index:5; width:215px; height:241px; top:45px; left:95px; }
 .detailsBox .close { z-index:7; left:483px; top:-10px; }
 .crowedMemberImage { position:absolute; z-index:7; width:60px; height:90px; overflow:hidden; }

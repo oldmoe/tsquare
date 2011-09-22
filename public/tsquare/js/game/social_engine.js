@@ -42,9 +42,9 @@ var SocialEngine = Class.create(FBConnect, {
                         'timestamp' : time.getTime()/1000, 
                         'data' : requests_data[i]['data'] };
       }
-      game.network.genericPostRequest('requests', {requests : requests})
+      gameManager.network.genericPostRequest('requests', {requests : requests})
     };
-    game.network.fetchTemplate('requests/exclude', function(response){
+    gameManager.network.fetchTemplate('requests/exclude', function(response){
       request['exclude_ids'] = JSON.parse(response).join(",")
       FBConnect.sendRequest(request, fbCallback)
     });

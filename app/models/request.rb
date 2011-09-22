@@ -8,7 +8,8 @@ class Request < DataStore::Model
   REQUEST_TYPES = {
     'challenge' => { :expire => 60*60*2*24, :exclude => 60*60*24 },
     'gift' => { :expire => 60*60*2*24, :exclude => 60*60*24 },
-    'help' => { :expire => 60*60*2*24, :exclude => 60*60*24 }
+    'help' => { :expire => 60*60*2*24, :exclude => 60*60*24 },
+    'link_a_friend' => { :expire => 60*60*2*24, :exclude => 60*60*24 }
   }
 
   @@data = { "requests" => {} }
@@ -21,7 +22,9 @@ class Request < DataStore::Model
     ids = []
     time = Time.now.to_i
     requests.each do |id, request|
-      if time - request['timestamp'] < REQUEST_TYPES[ request['type'] ][ :exclude ]
+      data = JSON.parse( request['data'] )
+      puts "^^^^^^^^^^^^#{data['type']}"
+      if time - request['timestamp'] < REQUEST_TYPES[ data['type'] ][ :exclude ]
         ids << request['to']
       end
     end
@@ -37,7 +40,8 @@ class Request < DataStore::Model
   
   def process friend_key, request_id
     request = get_friend_request friend_key, request_id
-    expire_time = REQUEST_TYPES[ request['type'] ][ :expire ]
+    data = JSON.parse( request['data'] )
+    expire_time = REQUEST_TYPES[ data['type'] ][ :expire ]
     if request && request['timestamp'] + expire_time > Time.now.to_i
       request['expired'] = true
     end

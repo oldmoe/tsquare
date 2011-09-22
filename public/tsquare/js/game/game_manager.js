@@ -21,7 +21,8 @@ var GameManager = Class.create({
       self.scoreManager = new ScoreManager(self);
       self.inbox = new Inbox(self);
       self.marketplace = new Marketplace(self);
-      self.missionManager = new Mission(self);
+      self.timelineManager = new Timeline(self);
+//      self.missionManager = new Mission(self);
       game = new Game(self);
       self.game = game;
       $('uiContainer').show();

@@ -91,11 +91,12 @@ class AdminController < ApplicationController
       File.open("public/#{@game.path}/images/products/" + params['image_file'][:filename], "w") do |f|
         f.write(params['image_file'][:tempfile].read)
       end
-      product[:product_url] = "#{ABSOLUTE_URL}/#{@game.name}/images/products/#{params['image_file'][:filename]}"
+      product["product_url"] = "#{ABSOLUTE_URL}/#{@game.name}/images/products/#{params['image_file'][:filename]}"
     end
     ["title", "description", "price", "item_id"].each do |key|
       product[key] = params[key]
     end
+    product["image_url"] = product["product_url"]
     
     reached = @game
     access_parts = product["item_id"].split "."

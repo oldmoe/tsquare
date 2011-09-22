@@ -2,18 +2,18 @@ var game = null;
 var GameManager = Class.create({
   
   initialize : function(urlParams){
+    var self = this;
     this.urlParams = urlParams;
     this.network = new TSquareNetwork();
-    this.templateManager = new TemplatesManager(this.network);
-    this.loader = new Loader();
-    this.start();
+    this.templateManager = new TemplatesManager(this.network);  
+    this.processParams(urlParams, function(data){self.processRequest(data)});
   },
 
   start : function(){
     var self = this;
     var callback = function(data) {
       self.userData = data.user_data.data;
-      self.userData.crowd_members = data.user_data.data.crowd_members;
+      self.userData.crowd_members = userData.crowd_members;
       self.userData.coins = data.user_data.coins;
       self.gameData = data.game_data.data;
       self.missions = data.missions_data.data;
@@ -22,7 +22,7 @@ var GameManager = Class.create({
       self.inbox = new Inbox(self);
       self.marketplace = new Marketplace(self);
       self.timelineManager = new Timeline(self);
-//      self.missionManager = new Mission(self);
+      self.missionManager = new Mission(self);
       game = new Game(self);
       self.game = game;
       $('uiContainer').show();
@@ -46,8 +46,8 @@ var GameManager = Class.create({
     This function should handle it, and respond properly 
     example : request['date']['type'] = 'challenge'
     then open in the game on the mission page */
-  processRequest : function(request) {
-
+  processRequest : function(request){
+    this.start();
   },
 
   /* This function is to process url params ... if a request:
@@ -55,36 +55,22 @@ var GameManager = Class.create({
         Send accept request to the server
         Delete request from user requests on social network
   */
-  processParams : function(params, callback){
-    var callback = function(requests_data){      
-      var request = requests_data[params['request_ids']];
+  processParams : function(params, gameCallback){
+    var callback = function(requests_data){
+      var requestData = {};
       if(params['request_ids'])
       {
-        game.network.genericPostRequest('requests/accept', {request_id : params['request_ids'], from : request['from']['id']});
-        socialEngine.deleteObject(params['request_ids']);
-        callback(request);
+        var requestData = requests_data[params['request_ids']];
+        if(params['request_ids'])
+        {
+          game.network.genericPostRequest('requests/accept', {request_id : params['request_ids'], from : requestData['from']['id']});
+          socialEngine.deleteObject(params['request_ids']);
+        }
       }
+      gameCallback(requestData);
     }
     socialEngine.getObject(params['request_ids'], callback);
-  },
-
-  sendRequest : function(request){
-    var fbCallback = function(requests_data){
-      var requests = {};
-      for(var i in requests_data)
-      {
-        time = new Date(requests_data[i]['created_time'].gsub('-','/').gsub('T', ' ').split('+')[0]);
-        requests[i] = { 'to' : requests_data[i]['to']['id'],
-                        'timestamp' : time.getTime()/1000, 
-                        'data' : requests_data[i]['data'] };
-      }
-      game.network.genericPostRequest('requests', {requests : requests})
-    };
-    game.network.fetchTemplate('requests/exclude', function(response){
-      request['exclude_ids'] = JSON.parse(response).join(",")
-      FBConnect.sendRequest(request, fbCallback)
-    });
   }
- 
+
 
 });

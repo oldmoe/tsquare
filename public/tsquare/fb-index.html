@@ -119,9 +119,9 @@
         soundManager.url = 'flash';
         soundManager.onready(function(){
 			      socialEngine = new SocialEngine();
-			      socialEngine.init(function(){
+			      socialEngine.init(function(params){
 	        		try {
-                     gameManager = new GameManager();
+                     gameManager = new GameManager(params);
       				} catch(e){}
 		      });
         })    
@@ -150,6 +150,7 @@
     		<div id="container" style="dislay:none;"></div>
         <div id="gameCanvas" style="display:none;"></div>
       </div>
+      <div id="winLose"></div>
       <div id="marketplace"></div>
       <div id="scores"></div>
       <div id="scoresInProgress" style="display:none;"></div>

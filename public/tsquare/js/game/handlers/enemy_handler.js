@@ -4,6 +4,7 @@ var EnemyHandler = Class.create(UnitHandler, {
      $super(scene)  
      this.unitsClassMappings['wood_stick_cs'] = 'amn_markazy'
    },
+   
    addObject : function($super,obj){
         if(obj.type){
             var dims = obj.type.split("_")
@@ -17,6 +18,7 @@ var EnemyHandler = Class.create(UnitHandler, {
         }
         return $super(obj)   
    },
+   
    end : function(){
      this.scene.end(true)
    } 

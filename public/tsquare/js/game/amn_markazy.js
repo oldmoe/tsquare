@@ -25,11 +25,11 @@ var AmnMarkazy = Class.create(Enemy,{
   
   setTarget: function(target){
       if(this.target != null && target == null){
-          this.fire("normal")
+          this.scene.fire("amn_markazy_animation_"+"normal")
       }
       
       if(this.target == null && target != null){
-          this.fire("hit");
+          this.scene.fire("amn_markazy_animation_"+"hit");
       }
         
       this.target = target;

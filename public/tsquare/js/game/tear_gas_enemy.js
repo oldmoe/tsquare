@@ -12,7 +12,7 @@ var TearGasEnemy = Class.create(Enemy,{
       if(this.hp <=0)return
       var self = this
       this.scene.reactor.push(this.scene.reactor.everySeconds(this.rate),function(){
-          self.fire("hit");
+          self.scene.fire("hit");
           self.createTearGasBomb()
       })
   },

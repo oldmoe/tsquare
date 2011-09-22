@@ -3,27 +3,24 @@ var TsquareScene = Class.create(Scene,{
     handlers: null,
     skyline: null,
     currentSpeed : 0,
-    
     speeds : [
-      {state :'normal' , value : 0 ,energy : 0},
-      {state :'walk' , value : 3 ,energy : 1},
-      {state :'jog' ,  value : 10,energy : 10},
-      {state :'run' ,  value : 15,energy : 20}
+      {state :'crowd_member_animation_normal' , value : 0 ,energy : 0},
+      {state :'crowd_member_animation_walk' , value : 3 ,energy : 1},
+      {state :'crowd_member_animation_jog' ,  value : 10,energy : 10},
+      {state :'crowd_member_animation_run' ,  value : 15,energy : 20}
     ],
     speedIndex : 0,
     direction : 1,
     holdPowerDepression: 0.2,
     energy : {current:0, rate: 3,max:30},
     view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25},
-    observer: null,
     activeLane: 1,
     win : false,
     commands : ["circle","march","wrongHold","rightHold","retreat"],
+    score: 0,
     
     initialize: function($super){
         $super();
-        this.observer = new Observer();
-        
         this.createRenderLoop('skyline',1);
         this.createRenderLoop('characters',2);
         this.physicsHandler = new PhysicsHandler(this)
@@ -55,12 +52,13 @@ var TsquareScene = Class.create(Scene,{
         //this.physicsHandler.step()
     },
     
-    observe: function(event, callback){
-        this.observer.addObserver(event, callback);
+    observe: function(event, callback, scope){
+        this.reactor.observe(event, callback, scope);
     },
     
     fire: function(event){
-        this.observer.fire(event);
+        console.log(event)
+        this.reactor.fire(event);
     },
     
     addMovementObservers : function(){

@@ -6,7 +6,7 @@ var missionData =
       "type": '3_2',
       "index": 0,
       "lane": 1,
-      "x": 20,
+      "x": 1,
       "order": 1
   }, 
    

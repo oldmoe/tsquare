@@ -2,12 +2,11 @@ var CrowdHandler = Class.create(UnitHandler, {
    type : "left",   
    initialPositions : [{x:150,y:30},{x:150,y:100},{x:150,y:200}],
    crowdMembersPerColumn : 2,
-   marchingStates: ["normal", "walk", "jog", "run"],
+   marchingStates: ["normal", "walk", "jog", "run"],//display
    commands: ["circle", "hold", "march", "retreat"],
    initialize: function($super,scene){
        $super(scene)
        this.addCommandObservers()
-       this.registerStateObservers();
    },
     tick : function($super){
       if(this.pushing)this.pushMove()
@@ -105,6 +104,7 @@ var CrowdHandler = Class.create(UnitHandler, {
      this.pushing = true
      this.pushMove()
    },
+   
    pushMove : function(){
     if(!this.target || this.target.chargeTolerance <= 0){
       this.target = null
@@ -143,8 +143,8 @@ var CrowdHandler = Class.create(UnitHandler, {
    },
 
    circle: function(){
-       if(this.target && this.target.chargeTolerance > 0) return
-       this.executeCommand("circle");
+     if(this.target && this.target.chargeTolerance > 0) return
+     this.executeCommand("circle");
    },
    
    executeCommand : function(event, options){
@@ -156,22 +156,8 @@ var CrowdHandler = Class.create(UnitHandler, {
      }          
    },
 
-   registerStateObservers : function(){
-       var self = this
-       this.marchingStates.each(function(event){
-           self.scene.observe(event,function(){self.setCrowdMembersState(event)})
-       });
-   },
+ 
    end : function(){
      this.scene.end(false)
-   },
-   setCrowdMembersState : function(event){
-       for(var i=0;i<this.objects.length;i++){
-           if(this.objects[i])
-           for(var j=0;j<this.objects[i].length;j++){
-               this.objects[i][j].fire(event)
-            }
-       }
-   } 
-     
+   }    
 });

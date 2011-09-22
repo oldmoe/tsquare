@@ -13,7 +13,7 @@ var GameManager = Class.create({
     var self = this;
     var callback = function(data) {
       self.userData = data.user_data.data;
-      self.userData.crowd_members = userData.crowd_members;
+      self.userData.crowd_members = data.user_data.data.crowd_members;
       self.userData.coins = data.user_data.coins;
       self.gameData = data.game_data.data;
       self.missions = data.missions_data.data;
@@ -62,7 +62,7 @@ var GameManager = Class.create({
       {
         game.network.genericPostRequest('requests/accept', {request_id : params['request_ids'], from : request['from']['id']});
         socialEngine.deleteObject(params['request_ids']);
-        callback(request);          
+        callback(request);
       }
     }
     socialEngine.getObject(params['request_ids'], callback);

@@ -39,7 +39,6 @@ var AudioManager = Class.create({
     var self = this
 		this.levels.each(function(level){
 			level.beats = level.beats.collect(function(beat){
-        console.log(Loader.sounds['beats.'+level.tempo],beat+'.'+self.format)
 				return Loader.sounds['beats.'+level.tempo][beat+'.'+self.format]
 			})
 		})

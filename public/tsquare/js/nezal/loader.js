@@ -119,9 +119,7 @@ var Loader = Class.create({
   load_sounds : function(src, options){
 	var self = this
 	var sound = null
-  console.log(src)
 	if(soundManager && soundManager.ok()){
-    console.log('sound manager')
 		sound = soundManager.createSound({
 			id : src.split('.')[0],
 			url : src,
@@ -129,7 +127,7 @@ var Loader = Class.create({
 			autoLoad : true,
 			volume : 100,
 			multiShot : true,
-			onload : function(){ console.log('loaded');self.onload(options)}	
+			onload : function(){ self.onload(options)}	
 		})
 	}else{
 		sound = new Audio

@@ -98,6 +98,8 @@ class AdminController < ApplicationController
     end
     product["image_url"] = product["product_url"]
     
+    
+    #updating the game data real item with the product id => product['title']
     reached = @game
     access_parts = product["item_id"].split "."
     access_parts.each do |part|

@@ -13,7 +13,7 @@ var GameManager = Class.create({
     var self = this;
     var callback = function(data) {
       self.userData = data.user_data.data;
-      self.userData.crowd_members = data.user_data.data.crowd_members;
+      self.userData.crowd_members = userData.crowd_members;
       self.userData.coins = data.user_data.coins;
       self.gameData = data.game_data.data;
       self.missions = data.missions_data.data;
@@ -31,8 +31,14 @@ var GameManager = Class.create({
   
   playMission : function(mission){
     this.game.play(mission.data);
-    $('uiContainer').hide();
+    $('timeline').hide();
     $('gameContainer').show();
+  },
+
+  openMainPage : function(){
+    this.game.end();
+    $('gameContainer').hide();
+    $('timeline').show();
   },
 
   /* If there is a request object acceptance has lead to opening the game, 

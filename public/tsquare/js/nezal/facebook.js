@@ -24,6 +24,7 @@ var FBConnect = {
 
     getStatus : function(successCallback) {
         FB.getLoginStatus(function(response) {
+          FB.Canvas.setSize({height:860});
 		      if (response.status == "connected") {
 		          FBConnect.session = response.authResponse;
         		  var	query = FB.Data.query("SELECT publish_stream FROM permissions where uid = {0}", FB.getAuthResponse().userID);

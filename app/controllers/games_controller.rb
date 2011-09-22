@@ -98,7 +98,7 @@ class GamesController < ApplicationController
       case params['method']
       when 'payments_get_items'
         result = {'content' => [], 'method' => 'payments_get_items' }
-        product = Product.get(data['order_info'])
+        product = Game::current.products["fb"][data['credits']['order_info'].delete("\"")]
         product['item_id'] = data['order_info']
         result['content'] << product
       when 'payments_status_update'

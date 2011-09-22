@@ -10,7 +10,7 @@ var Mission = Class.create({
   },
 
   display : function(){
-    $('missions').innerHTML = this.templateManager.load('missions', {'missions' : this.gameManager.missions});
+    $('timeline').innerHTML = this.templateManager.load('missions', {'missions' : this.gameManager.missions});
     this.attachListener();
   },
 
@@ -25,7 +25,7 @@ var Mission = Class.create({
 
   attachListener : function(){
     var self = this;
-    $$('#missions .mission').each(function(element){
+    $$('#timeline .mission').each(function(element){
       element.observe('click', function(event){
         self.play(element.id);
       });

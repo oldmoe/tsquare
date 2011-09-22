@@ -85,7 +85,6 @@ var TsquareScene = Class.create(Scene,{
     },
     
     circle: function(){
-        console.log("scene circle");
     },
 
     wrongHold: function(){
@@ -105,7 +104,7 @@ var TsquareScene = Class.create(Scene,{
         }
     },
   end : function(win){
-    this.reactor.stop()
+//    this.reactor.stop()
     this.win = win
     this.fire('end')
     //send to the server
@@ -140,19 +139,16 @@ var TsquareScene = Class.create(Scene,{
   },
   
   detectCollisions : function(){
-      
+   var pairs = [['left','right'],['left','middle'],['middle','right']]  
    for(var h1 in this.handlers){
      for (var h2 in this.handlers) {
          var handler1 = this.handlers[h1]; 
          var handler2 = this.handlers[h2]; 
-       if(handler1.type=="left" && handler2.type=="right"){
-         var collision = handler1.detectCollisions(handler2.objects)
-         if(collision){
-             this.handleCollision(collision)
-         }else{
-             this.direction = 1
-         } 
-       }
+        for(var i=0;i<pairs.length;i++){
+         if(handler1.type==pairs[i][0] && handler2.type==pairs[i][1]){
+           var collision = handler1.detectCollisions(handler2.objects)
+         }
+       } 
      }
    } 
   },
@@ -162,8 +158,8 @@ var TsquareScene = Class.create(Scene,{
   },
     
   increaseEnergy : function(){
+    this.audioManager.levelUp()
     if(this.energy.current < this.energy.max)this.energy.current+= this.energy.rate
-    console.log(this.energy)
     var next = this.speeds[this.speedIndex+1]
     if(next){
         if(this.energy.current>=next.energy){
@@ -175,6 +171,7 @@ var TsquareScene = Class.create(Scene,{
    },
    
    decreaseEnergy : function(){
+      this.audioManager.levelDown()
       this.energy.current= Math.max(this.energy.current-this.energy.rate, 0)
       if(this.speedIndex >0 && this.energy.current < this.speeds[this.speedIndex].energy){
           this.speedIndex--

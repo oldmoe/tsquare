@@ -22,6 +22,7 @@ var TsquareScene = Class.create(Scene,{
     
     initialize: function($super){
         $super();
+		Effect.Queues.createGlobalQueue(this.reactor)
         this.observer = new Observer();
         
         this.createRenderLoop('skyline',1);

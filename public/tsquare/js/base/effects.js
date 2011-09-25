@@ -162,15 +162,16 @@ Effect.DefaultOptions.transition = Effect.Transitions.sinoidal;
 /* ------------- core effects ------------- */
 
 Effect.ScopedQueue = Class.create(Enumerable, {
-  initialize: function() {
+  initialize: function(reactor) {
     this.effects  = [];
-    this.interval = null;
+    this.reactor = reactor || new Reactor();
+	this.active = false
   },
   _each: function(iterator) {
     this.effects._each(iterator);
   },
   add: function(effect) {
-    var timestamp = new Date().getTime();
+    var timestamp = this.reactor.currentTime();
 
     var position = Object.isString(effect.options.queue) ?
       effect.options.queue : effect.options.queue.position;
@@ -198,20 +199,22 @@ Effect.ScopedQueue = Class.create(Enumerable, {
     if (!effect.options.queue.limit || (this.effects.length < effect.options.queue.limit))
       this.effects.push(effect);
 
-    if (!this.interval)
-      this.interval = setInterval(this.loop.bind(this), 15);
+    if (!this.active){
+		this.active = true
+		this.reactor.pushEvery(0, 1, this.loop, this)
+	}
   },
   remove: function(effect) {
     this.effects = this.effects.reject(function(e) { return e==effect });
-    if (this.effects.length == 0) {
-      clearInterval(this.interval);
-      this.interval = null;
+    if (this.effects.length == 0) {	  
+      this.active = false;
     }
   },
   loop: function() {
-    var timePos = new Date().getTime();
+    var timePos = this.reactor.currentTime();
     for(var i=0, len=this.effects.length;i<len;i++)
       this.effects[i] && this.effects[i].loop(timePos);
+	return this.active
   }
 });
 
@@ -222,9 +225,23 @@ Effect.Queues = {
 
     return this.instances.get(queueName) ||
       this.instances.set(queueName, new Effect.ScopedQueue());
+  },
+  
+  set : function(queueName, queue){
+    this.instances.set(queueName, queue);
+  },
+  
+  createQueue : function(queueuName, reactor){
+	this.set(queueName, new Effect.ScopedQueue(reactor))
+  },
+  
+  createGlobalQueue : function(reactor){
+	this.set('global', new Effect.ScopedQueue(reactor))
   }
+  
 };
-Effect.Queue = Effect.Queues.get('global');
+
+//Effect.Queue = Effect.Queues.get('global');
 
 Effect.Base = Class.create({
   position: null,

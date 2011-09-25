@@ -6,11 +6,14 @@ var Mission = Class.create({
     this.templateManager = gameManager.templateManager;
     this.gameManager = gameManager;
     var self = this;
-    self.display();   
+//    self.display();   
+  },
+
+  endMission : function(){
   },
 
   display : function(){
-    $('timeline').innerHTML = this.templateManager.load('missions', {'missions' : this.gameManager.missions});
+    $('winLose').innerHTML = this.templateManager.load('winLose', {'missions' : this.gameManager.missions});
     this.attachListener();
   },
 

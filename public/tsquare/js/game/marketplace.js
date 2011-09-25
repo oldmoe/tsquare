@@ -33,25 +33,15 @@ var Marketplace = Class.create({
     
     var self = this;
     
-    this.adjustedMyMembers = [];
+    this.adjustedMyMembers = this.adjustMyMembers();
     
     this.adjustedMembers = [];
     var membersImages = [];
     
     for(var item in this.members['specs']){
-      var specIds = [];
-      var memberSpecs = {};
-      for(var spec in this.members['specs'][item]['1']){
-        if (spec == "special") {
-          for (var specialSpec in this.members['specs'][item]['1']['special']) {
-            memberSpecs[specialSpec] = this.members['specs'][item]['1']['special'][specialSpec];
-            specIds.push( specialSpec );
-          }
-        } else {
-          memberSpecs[spec] = this.members['specs'][item]['1'][spec];
-          specIds.push( spec );
-        }
-      }
+      var specs = this.gatherSpecs(item);
+      var specIds = specs.specIds;
+      var memberSpecs = specs.memberSpecs;
       
       this.adjustedMembers.push({name : item, specs : memberSpecs, specIds : specIds, buyID : this.members['specs'][item]['buyID']});
       membersImages.push(item + ".png");
@@ -61,16 +51,50 @@ var Marketplace = Class.create({
     });
   },
   
+  gatherSpecs : function(memberName){
+    var specIds = [];
+    var memberSpecs = {};
+    for(var spec in this.members['specs'][memberName]['1']){
+      if (spec == "special") {
+        for (var specialSpec in this.members['specs'][memberName]['1']['special']) {
+          memberSpecs[specialSpec] = this.members['specs'][memberName]['1']['special'][specialSpec];
+          specIds.push( specialSpec );
+        }
+      } else {
+        memberSpecs[spec] = this.members['specs'][memberName]['1'][spec];
+        specIds.push( spec );
+      }
+    }
+    
+    return {specIds : specIds, memberSpecs : memberSpecs};
+  },
+  
+  adjustMyMembers : function(){
+    var adjustedMyMembers = []
+    for(var memberName in this.myMembers){
+      var specs = this.gatherSpecs( memberName );
+      var specIds = specs.specIds;
+      var memberSpecs = specs.memberSpecs;
+      for(var memeberId in this.myMembers[memberName]){
+        adjustedMyMembers.push( {name : memberName, specs : memberSpecs, specIds : specIds} )
+      }
+    }
+    return adjustedMyMembers;
+  },
+  
   buy : function(options){
     if(!options.buyID.empty()) {
       socialEngine.buyItem( options.buyID );
     } else {
-      this.network.buy(options);
+      this.network.buy(options, function(responseData){
+        console.log( "toot" )
+        $('dialogBox').show();
+      });
     }
   },
   
-  renderFloatingItems : function(categoryItems){
-    $$('#floatingItems')[0].innerHTML = this.templateManager.load('floatingItems', { categoryItems: categoryItems });
+  renderFloatingItems : function(categoryItems, screen){
+    $$('#floatingItems')[0].innerHTML = this.templateManager.load('floatingItems', { categoryItems: categoryItems, screen : screen });
     Game.addLoadedImagesToDiv('marketplace');
     $$('#floatingItems li div.crowedItem div.crowedItemImage img').each(function(img){
       var offsetLeft = $(img.id + '_container').offsetLeft + 136;
@@ -83,6 +107,11 @@ var Marketplace = Class.create({
       img.observe('mouseover', function(event){ $(img.id + '_details').show(); });
       img.observe('mouseout', function(event){ $(img.id + '_details').hide(); });
     });
+    this.containerWidth = Math.ceil( categoryItems.size() / this.rows) * this.itemWidth;
+    this.containerWidth = Math.max( this.containerWidth, this.columns * this.itemWidth );
+    $$('#floatingItems ul')[0].setStyle( { width: this.containerWidth + 'px' } );
+    
+    this.adjustNavigators('floatingItems');
   },
   
   openMarketplace : function(myStuff){
@@ -90,23 +119,32 @@ var Marketplace = Class.create({
     var screen = myStuff ? 'myStaff' : 'marketplace'
     $('marketplace').innerHTML = this.templateManager.load('marketplace', {screen : screen});
     
+    var categoryItems = myStuff ? self.adjustedMyMembers : self.adjustedMembers;
+    
     //Attaching triggers to the market placetabs
     $('marketMembers').stopObserving('click');
     $('marketMembers').observe('click', function(event){
-      self.renderFloatingItems(self.adjustedMembers);
+      self.renderFloatingItems(categoryItems, screen);
       $('marketMembers').parentNode.addClassName("selected");
-      $('marketMoves').parentNode.removeClassName("selected");
     });
     
     //Loading the template of the auto selected tab
-    self.renderFloatingItems(self.adjustedMembers);
+    self.renderFloatingItems(categoryItems, screen);
+    if( myStuff ){
+      $$('.linkMembers').each(function(link){
+        link.observe("click", function(event){
+          var request = {};
+          request['data'] = {type : 'link_a_friend'};
+          request['message'] = "Would you like to play in my team? We have a revolution to do!";
+          request['title'] = "Join my team!"
+          socialEngine.sendRequest( request, function(response){
+            //Here we should contact the server to save the request details, for exclusion and timeout conditions
+            //console.log( response );
+          } )
+        });
+      });
+    }
       
-    this.containerWidth = Math.ceil( this.adjustedMembers.size() / this.rows) * this.itemWidth;
-    this.containerWidth = Math.max( this.containerWidth, this.columns * this.itemWidth );
-    $$('#floatingItems ul')[0].setStyle( { width: this.containerWidth + 'px' } );
-    
-    this.adjustNavigators('floatingItems');
-    
     $$('#marketplace .close')[0].stopObserving('click');
     $$('#marketplace .close')[0].observe('click', function(event){
       $('marketplace').innerHTML = "";
@@ -120,7 +158,6 @@ var Marketplace = Class.create({
       return Number(stringStyle.substr(0, length-2));
     }
     var left = getIntegerStyle( $$('#' + marketTab + ' ul')[0].getStyle('marginLeft') );
-    console.log( "left : " + left );
     //Adjusting left controls states
     if( left == 0 ){
       $$('.leftControls a')[0].removeClassName('selected');
@@ -132,7 +169,6 @@ var Marketplace = Class.create({
     
     //Adjusting right controls states
     var right = self.containerWidth + left - ( self.columns * self.itemWidth );
-    console.log( "right : " + right );
     if( right == 0 ){
       $$('.rightControls a')[0].removeClassName('selected');
       $$('.rightControls a')[1].removeClassName('selected');

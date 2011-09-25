@@ -3,10 +3,11 @@
 body { margin:0px; padding:0px; font-size:12px; font-family:Tahoma, Geneva, sans-serif; width:100%;}
 ul { list-style:none; margin:0px; padding:0px; }
 
-.uiContainer { width:970px; height:860px; position:relative; top:0px; background:url(../images/game_elements/background.gif) repeat top; margin:0 auto; }
+.uiContainer { width:970px; height:620px; position:relative; top:0px; margin:0 auto; }
+.uiContainer .background { height:620px; position:absolute; left:0; top:0; width:970px; }
 .positioned { position:absolute; top:0px; left:0px; z-index:1; }
 
 
 
-#gameContainer { position:absolute; top:60px; left:0px; z-index:10;}
+#gameContainer { position:relative; top:-620px; z-index:10; width:970px; height:620px; margin:0 auto; }
 

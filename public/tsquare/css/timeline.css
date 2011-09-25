@@ -1,34 +1,45 @@
-#timeline {
-    background: none repeat scroll 0 0 gray;
-    height: 300px;
-    left: 5%;
-    opacity: 0.6;
-    position: absolute;
-    top: 150px;
-    width: 90%;
-}
+#home, #timeline { margin:0 auto; position:relative; top:20px; width:760px; z-index:10;}
+#missions { position:relative; top:0px; margin:0 auto; }
 
-/*--------Win Lose Screen-----------*/
-.winLose { position:relative; top:93px; width:643px; height:411px; z-index:1; margin:0 auto; }
-.winLose .close { z-index:6; left:615px; }
+/*--------Home Screen-----------*/
+.homeWrapper { position:relative; top:60px; text-align:center;}
+.upcomingModes { position:relative; top:10px;}
+.timelineButton { position:absolute; left:151px; top:24px; width:213px; height:101px; overflow:hidden; }
+.timelineButton img { position:absolute; top:0px; left:0 }
+.timelineButton:hover img { position:absolute; top:-101px; left:0 }
 
-.winLoseTitle { position:absolute; width:300px;  top:20px; left:30px; z-index:6; color:#465c04; text-shadow:1px 1px 0 #dfedb0; }
-.winLoseTitle h2 { font-weight:bold; font-size:2.5em; margin:10px 0 0 0; padding:0px; }
-.winLoseTitle h4 { font-weight:bold; font-size:1.4em; margin:10px 0 0 0; padding:0px; }
+/*--------Calender Screen-----------*/
+.calendarWrapper { position:relative;  top:60px;  }
+.calendarWrapper ul { width:82%; margin:0px auto; padding:0px; position:relative;}
+.calendarWrapper ul li { float:left; width:195px; margin:0 10px 0 0; padding:0px; }
 
+/*--------Timeline Screen-----------*/
+.missionDetails { position:relative; top:120px; left:15px; float:left; width:730px; height:316px; z-index:6; }
+.missionDetails .close { left:704px; top:21px; z-index:8; }
 
-.winLoseScore { position:absolute; width:300px; top:30px; right:20px; z-index:6; }
-.winLoseScore h5 { float:left; width:30%; margin:20px 5% 0 0; font-weight:bold; font-size:1.2em; color:#688416;  }
-.winLoseScore span { float:left; width:40%; padding:5% 10%; font-size:2em; font-weight:bold; color:#ffb80b; background:#e7f3c2; border:1px solid #b5ce6a; -webkit-border-radius: 10px;  -moz-border-radius: 10px; border-radius: 10px; text-align:center; }
+.missionWrapper { float:left; width:690px; margin:-19px 20px 20px 20px; height:200px; position:relative; z-index:7; }
+.missionImages { float:left; width:200px; margin:43px 0 0 10px; }
+.missionImages img { float:left; width:92px; margin:0 5px 5px 0;}
 
-.starsWrapper { position:absolute; width:256px; height:75px; z-index:6; padding:0 0 0 20px; top:125px; left:185px; }
-.star { float:left; width:56px; height:54px; z-index:7; overflow:hidden; margin:10px; position:relative;}
-.star.selected img { position:absolute; top:-54px; }
+.missionContent { float:left; width:473px; margin:30px 0 0 0; }
+.missionContent h3 { width:100%; font-weight:bold; font-size:2em; margin:5px 0 0 0;  }
+.missionContent p { margin:5px 0 0 0; font-size:1.2em; }
+.missionContent ul { list-style:square;  font-size:1.2em; margin:5px 0 0 0; }
+.missionContent ul li { margin:0 0 5px 20px; }
 
-.challengeFriends { position:absolute; top:215px; left:185px; }
+.playButton { float:right; width:142px; height:60px; overflow:hidden; position:absolute; top:177px; right:5px; }
+.playButton:hover img { position:relative; top:-60px;  }
 
-.challengeFriends .cancelButton { left:285px; top:35px; }
+.timelineBar { position:relative; top:0px; z-index:5; }
+.timelineBarImage { top:96px; z-index:4;  }
+.timelineMissions { position:relative; }
+.timelineMissions ul { float:left; width:100%; position:absolute; top:70px; z-index:5;  }
+.timelineMissions li { float:left; width:auto; margin:0 30px;  }
+.timelineMissions li a.hover { display:none; }
+.timelineMissions li a.normal { display:inline; }
+.timelineMissions li.selected { margin:-30px 30px 0 30px; position:relative; }
+.timelineMissions li.selected a.hover { display:inline; }
+.timelineMissions li.selected a.normal { display:none; }
+.timelineMissions li.selected span { position:absolute; font-size:1.4em; font-weight:bold; top:30px; width:90%; padding:5%; text-align:center; color:#763d00; text-shadow:1px 1px 0 #d7bd47;}
 
-.missionIcons { position:absolute; top:330px; left:220px; z-index:7; }
-.missionIcons a { float:left; width:60px; height:60px; overflow:hidden; margin:0 0 0 10px; position:relative; }
-.missionIcons a:hover img { position:absolute; top:-60px; }
+.walkingCrowdMemeber { position:absolute; top:128px; }

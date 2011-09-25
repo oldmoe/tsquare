@@ -3,32 +3,28 @@ var TsquareScene = Class.create(Scene,{
     handlers: null,
     skyline: null,
     currentSpeed : 0,
-    
     speeds : [
-      {state :'normal' , value : 0 ,energy : 0},
-      {state :'walk' , value : 3 ,energy : 1},
-      {state :'jog' ,  value : 10,energy : 10},
-      {state :'run' ,  value : 15,energy : 20}
+      {state :'crowd_member_animation_normal' , value : 0 ,energy : 0},
+      {state :'crowd_member_animation_walk' , value : 3 ,energy : 1},
+      {state :'crowd_member_animation_jog' ,  value : 10,energy : 10},
+      {state :'crowd_member_animation_run' ,  value : 15,energy : 20}
     ],
     speedIndex : 0,
     direction : 1,
     holdPowerDepression: 0.2,
     energy : {current:0, rate: 3,max:30},
     view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25},
-    observer: null,
     activeLane: 1,
     win : false,
-    commands : ["circle","march","wrongHold","rightHold","retreat"],
+    scoreCalculator: null,
     
     initialize: function($super){
         $super();
-        this.observer = new Observer();
-        
+        this.scoreCalculator = new ScoreCalculator(this);
         this.createRenderLoop('skyline',1);
         this.createRenderLoop('characters',2);
-        this.physicsHandler = new PhysicsHandler(this)
-        this.movementManager = new MovementManager(this)
-        this.addMovementObservers()
+        this.physicsHandler = new PhysicsHandler(this);
+        this.movementManager = new MovementManager(this);
         this.handlers = {
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
@@ -43,6 +39,14 @@ var TsquareScene = Class.create(Scene,{
                     this.handlers[elem.category].add(elem);
             }
         }
+        
+        var self = this;
+        this.observe("start", function(){self.scoreCalculator.start();})
+        this.observe("end", function(){self.scoreCalculator.end();})
+        this.observe('wrongMove',function(){self.wrongMove()})
+        this.observe('correctMove',function(){self.correctMove()})
+        this.observe('wrongCommand',function(){self.wrongCommand()})
+        this.observe('correctCommand',function(){self.correctCommand()})
     },
     
     init: function(){
@@ -55,46 +59,38 @@ var TsquareScene = Class.create(Scene,{
         //this.physicsHandler.step()
     },
     
-    observe: function(event, callback){
-        this.observer.addObserver(event, callback);
+    observe: function(event, callback, scope){
+        this.reactor.observe(event, callback, scope);
     },
     
     fire: function(event){
-        this.observer.fire(event);
-    },
-    
-    addMovementObservers : function(){
-        var self = this
-        this.observe('wrongMove',function(){self.decreaseEnergy()})
-        this.observe('comboSuccess',function(){self.increaseEnergy()})
-        var addMovementObserver = function(command){
-            self.observe(command,function(){                
-                self[command]()
-            })
-        }
-        for(var i=0;i<this.commands.length;i++){
-            addMovementObserver(this.commands[i])   
-        }
-    },
-    
-    march : function(){
-      console.log('marching')  
-      this.direction = 1  
-    },
-    
-    retreat : function(){
-      this.direction = -1  
-    },
-    
-    circle: function(){
+        this.reactor.fire(event);
     },
 
-    wrongHold: function(){
-        this.energy.current -= this.energy.rate;
+    wrongMove: function(){
+      this.scoreCalculator.wrongMovesCount++;
+      this.scoreCalculator.totalMovesCount++;
+      this.decreaseEnergy();
+      // console.log("scene wrong move");
     },
 
-    rightHold: function(){
-        console.log("scene right hold");
+    correctMove: function(){
+      this.scoreCalculator.correctMovesCount++;
+      this.scoreCalculator.totalMovesCount++;
+      this.increaseEnergy();
+      console.log("scene correct moved");
+    },
+    
+    wrongCommand: function(){
+      this.scoreCalculator.correctCommandsCount++;
+      this.scoreCalculator.totalCommandsCount++;
+      console.log("scene wrong command");
+    },
+
+    correctCommand: function(){
+      this.scoreCalculator.correctCommandsCount++;
+      this.scoreCalculator.totalCommandsCount++;
+      console.log("scene correct command");
     },
     
     tick: function($super){
@@ -105,12 +101,14 @@ var TsquareScene = Class.create(Scene,{
             this.handlers[handler].tick();
         }
     },
+    
   end : function(win){
-//    this.reactor.stop()
+//  this.reactor.stop()
     this.win = win
     this.fire('end')
     //send to the server
   },
+  
   addObject : function(objHash){
      var klassName = objHash.name.formClassName()
      var klass = eval(klassName)

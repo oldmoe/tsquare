@@ -1,10 +1,11 @@
 var Scene = Class.create({
+  
 	//initializes the delay of the reactor
 	initialize : function(game){
-        this.game = game;
-        this.fpsCounter = 0
-        this.fps = 0
-        this.fpsTime = 0
+    this.game = game;
+    this.fpsCounter = 0
+    this.fps = 0
+    this.fpsTime = 0
 		this.reactor = new Reactor();
 		this.objects = [];
 		this.renderStores = {};

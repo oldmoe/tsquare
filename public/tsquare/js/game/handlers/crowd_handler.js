@@ -2,12 +2,11 @@ var CrowdHandler = Class.create(UnitHandler, {
    type : "left",   
    initialPositions : [{x:150,y:30},{x:150,y:100},{x:150,y:200}],
    crowdMembersPerColumn : 2,
-   marchingStates: ["normal", "walk", "jog", "run"],
+   marchingStates: ["normal", "walk", "jog", "run"],//display
    commands: ["circle", "hold", "march", "retreat"],
    initialize: function($super,scene){
        $super(scene)
        this.addCommandObservers()
-       this.registerStateObservers();
    },
     tick : function($super){
       if(this.pushing)this.pushMove()
@@ -99,23 +98,42 @@ var CrowdHandler = Class.create(UnitHandler, {
         if(minDistance < enemy.getWidth()*2)
           holdingLevel = 2;
           
-        this.scene.fire("rightHold");
+        this.scene.fire("correctCommand");
         this.executeCommand("hold", {holdingLevel: holdingLevel});
 
      }else{
-       this.scene.fire("wrongHold");
+       this.energy.current -= this.energy.rate;
+       this.scene.fire("wrongCommand");
      }
      
    },
 
    march: function(){
+     this.scene.direction = 1
      if(this.target && this.target.chargeTolerance <= 0) this.target = null
      if (!this.target) {
       return this.executeCommand("march");
      }
+     this.scene.fire("correctCommand");
      this.pushing = true
      this.pushMove()
    },
+   
+   retreat: function(){
+     this.scene.direction = -1
+     this.scene.fire("correctCommand");
+     this.executeCommand("retreat");
+   },
+
+   circle: function(){
+     if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
+       this.scene.fire("worngCommand");
+       return
+     } 
+     this.scene.fire("correctCommand");
+     this.executeCommand("circle");
+   },
+
    pushMove : function(){
     if(!this.target || this.target.chargeTolerance <= 0){
       this.target = null
@@ -148,16 +166,6 @@ var CrowdHandler = Class.create(UnitHandler, {
     }  
    },
    
-   
-   retreat: function(){
-       this.executeCommand("retreat");
-   },
-
-   circle: function(){
-       if(this.target && this.target.chargeTolerance > 0) return
-       this.executeCommand("circle");
-   },
-   
    executeCommand : function(event, options){
      for(var i=0;i<this.objects.length;i++){
        if(this.objects[i])
@@ -166,28 +174,25 @@ var CrowdHandler = Class.create(UnitHandler, {
        }
      }          
    },
-
-   registerStateObservers : function(){
-       var self = this
-       this.marchingStates.each(function(event){
-           self.scene.observe(event,function(){self.setCrowdMembersState(event)})
-       });
-   },
+ 
    end : function(){
      this.scene.end(false)
    },
-   setCrowdMembersState : function(event){
-       for(var i=0;i<this.objects.length;i++){
-           if(this.objects[i])
-           for(var j=0;j<this.objects[i].length;j++){
-               this.objects[i][j].fire(event)
-            }
-       }
-   },
+       
    detectCollisions : function($super,others){
      if($super(others)){
        this.scene.direction = 0
      }
    }, 
+   
+   getCrowdsCount: function(){
+     var count = 0;
+     for(var i=0;i<this.objects.length;i++){
+       for(var j=0;j<this.objects[i].length;j++){
+         if(this.objects[i][j])count++;
+       }
+     }
+     return count;
+   }
      
 });

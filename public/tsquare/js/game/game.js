@@ -60,17 +60,17 @@ var Game = Class.create({
     		
     	}					
     						
-    	new Loader().load(toLoad, {
-    								  onProgress : function(progress){
-    									  if($$('#inProgress #loadingBarFill')[0])
-    									  $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
-    								  },
-    								  onFinish:function(){
-    					   				self.imagesLoaded = true;
-    						  			self.start();
-    								  }
-      });
-    
+  	new Loader().load(toLoad, {
+  								  onProgress : function(progress){
+  									  if($$('#inProgress #loadingBarFill')[0])
+  									  $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
+  								  },
+  								  onFinish:function(){
+  					   				self.imagesLoaded = true;
+  						  			self.start();
+  						  			// self.play(missionData)
+  								  }
+    });
   },
 
   play : function(mission){
@@ -113,6 +113,7 @@ var Game = Class.create({
     {
       this.scene = new TsquareScene();
 	  	this.scene.start();
+	  	this.scene.fire("start");
     }
   },
 

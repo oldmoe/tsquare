@@ -231,17 +231,13 @@ Effect.Queues = {
     this.instances.set(queueName, queue);
   },
   
-  createQueue : function(queueuName, reactor){
+  create : function(queueuName, reactor){
 	this.set(queueName, new Effect.ScopedQueue(reactor))
-  },
-  
-  createGlobalQueue : function(reactor){
-	this.set('global', new Effect.ScopedQueue(reactor))
   }
   
 };
 
-//Effect.Queue = Effect.Queues.get('global');
+Effect.Queues.create('global')
 
 Effect.Base = Class.create({
   position: null,

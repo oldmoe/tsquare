@@ -1,12 +1,7 @@
 @charset "utf-8";
-/* CSS Document */
-body { margin:0px; padding:0px; font-size:12px; font-family:Tahoma, Geneva, sans-serif; }
-ul { list-style:none; margin:0px; padding:0px; }
-
-#marketplace { position: absolute; z-index: 201; }
+#marketplace { position:relative; z-index: 201; }
 
 .container { width:760px; height:685px; margin:0 auto; }
-.positioned { position:absolute; top:0px; left:0px; z-index:1; }
 
 /*-------Widnow-------*/
 .window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:46px 27px 0 19px; position:relative; height:401px; }
@@ -55,6 +50,11 @@ ul { list-style:none; margin:0px; padding:0px; }
 
 .crowedItemImage { float:left; width:60px; height:90px; position:absolute; top:23px; left:30px; }
 
+
+.dialogBox { position:absolute; z-index:6; width:513px; height:131px; top:95px; left:95px; }
+.dialogBox h2 { position:absolute; z-index:6; top:10px; left:20px; color:#513b05; text-shadow:1px 1px 0 #fff7e2; }
+.dialogBox p { position:absolute; z-index:6; top:50px; left:20px; color:#513b05; text-shadow:1px 1px 0 #fff7e2; }
+.dialogBox .close { z-index:7; left:483px; top:-10px; }
 
 .detailsBox { position:absolute; z-index:5; width:215px; height:241px; top:45px; left:95px; }
 .detailsBox .close { z-index:7; left:483px; top:-10px; }

@@ -44,6 +44,7 @@
     <script src="js/game/marketplace.js" type="text/javascript"></script>
     <script src="js/game/inbox.js" type="text/javascript"></script>
     <script src="js/game/tsquare_network.js" type="text/javascript"></script>
+    <script src="js/game/timeline.js" type="text/javascript"></script>
 
 
     <script src="js/game/gameData.js" type="text/javascript"></script>
@@ -118,44 +119,44 @@
         soundManager.url = 'flash';
         soundManager.onready(function(){
 			      socialEngine = new SocialEngine();
-			      socialEngine.init(function(){
+			      socialEngine.init(function(params){
 	        		try {
-                     gameManager = new GameManager();
+                     gameManager = new GameManager(params);
       				} catch(e){}
-			      });
+		      });
         })    
 			})
 		</script>
 	</head>
 	<body>
-
-    <div id="marketplace">
-    </div>
     
     <div id="send_requests" style="display:none;">
     </div>
     
     <div id="inbox" style="display:none;">
     </div>
-    
+
     <div id="uiContainer" class="uiContainer" style="display:none;">
-      <div id="background"></div>
+      <div id="background" style="display:none;"></div>
       <div id="meterBar"></div>
-      <div id="missions"></div>
+      <div id="timeline" ></div>
+	    <div id="gameContainer" style="display:none;">
+    	  <div id="fps">0</div>
+    	  <div id="beatFlash" style="display:none;"></div>
+    	  <div id="mySquare"></div>
+    	  <div id="inProgress" style=""></div>
+        <div id="world">
+        </div>
+    		<div id="container" style="dislay:none;"></div>
+        <div id="gameCanvas" style="display:none;"></div>
+      </div>
+      <div id="winLose"></div>
+      <div id="marketplace"></div>
       <div id="scores"></div>
       <div id="scoresInProgress" style="display:none;"></div>
     </div>
 
-	  <div id="gameContainer" style="display:none;">
-  	  <div id="fps">0</div>
-  	  <div id="beatFlash" style="display:none;"></div>
-  	  <div id="mySquare"></div>
-  	  <div id="inProgress" style=""></div>
-      <div id="world">
-      </div>
-  		<div id="container" style="dislay:none;"></div>
-      <div id="gameCanvas" style="display:none;"></div>
-    </div>
+
     <div id="modalWindowMsg" style="display:none;">
       <div id="contents">
       </div>

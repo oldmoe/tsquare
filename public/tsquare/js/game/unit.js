@@ -15,7 +15,6 @@ var Unit = Class.create({
   movingSpeed : 8,
   noDisplay : false,
   target: null,
-  observer: null,
   handler: null,
   movingToTarget : false,
   type: null,
@@ -26,7 +25,6 @@ var Unit = Class.create({
       {command: function(){return self.movingToTarget}, callback: function(){self.moveToTargetPoint()}}
     ];
     this.target = null
-    this.observer = new Observer();
     this.scene = scene
     this.lane = lane
     var y = this.scene.view.laneMiddle*2*this.lane+this.scene.view.laneMiddle
@@ -52,14 +50,6 @@ var Unit = Class.create({
           this.move(move[0],move[1])
       }
       else this.movingToTarget = false  
-  },
-  
-  observe: function(event, callback){
-      this.observer.addObserver(event, callback);
-  },
-  
-  fire: function(event){
-      this.observer.fire(event);
   },
   
   takeHit : function(attack){
@@ -128,8 +118,10 @@ var Unit = Class.create({
   },
   
   collidesWith: function(target){
-      if (this.coords.x + this.getWidth() > target.coords.x)
-         return true; 
+      if (this.coords.x + this.getWidth() > target.coords.x){
+         return true;
+      }
+         
       return false;  
   }
   

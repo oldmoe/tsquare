@@ -1,4 +1,4 @@
-var Mission = Class.create({
+var Timeline = Class.create({
 
   initialize : function(gameManager){
     /* This should be MOVED to initialize game part */
@@ -6,14 +6,11 @@ var Mission = Class.create({
     this.templateManager = gameManager.templateManager;
     this.gameManager = gameManager;
     var self = this;
-//    self.display();   
-  },
-
-  endMission : function(){
+    self.display();   
   },
 
   display : function(){
-    $('winLose').innerHTML = this.templateManager.load('winLose', {'missions' : this.gameManager.missions});
+    $('timeline').innerHTML = this.templateManager.load('timeline', {'missions' : this.gameManager.missions});
     this.attachListener();
   },
 

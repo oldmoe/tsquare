@@ -11,7 +11,7 @@ var TSquareNetwork = Class.create(Network, {
   friends : function(ids, callback){
     this.genericGetRequest( 'friends', {'friends_ids' : ids},
                           function(response) {
-                            IDs = JSON.parse(response.responseText);
+                            var IDs = JSON.parse(response.responseText);
                             if(callback) callback(IDs);
                           });
   },
@@ -19,7 +19,7 @@ var TSquareNetwork = Class.create(Network, {
   globalScores : function(gameMode, callback){
     this.genericGetRequest( 'global_scores', {'game_mode' : gameMode},
                           function(response) {
-                            scores = JSON.parse(response.responseText);
+                            var scores = JSON.parse(response.responseText);
                             if(callback) callback(scores);
                           });
   },
@@ -27,7 +27,7 @@ var TSquareNetwork = Class.create(Network, {
   missionData : function(id, callback){
     this.genericGetRequest( 'mission', {'id' : id},
                     function(response) {
-                      data = JSON.parse(response.responseText);
+                      var data = JSON.parse(response.responseText);
                       if(callback) callback(data);
                     });
   },
@@ -35,6 +35,7 @@ var TSquareNetwork = Class.create(Network, {
   buy : function(options, callback){
     this.genericPostRequest( 'buy_market_item', {'category' : options.category, 'name' : options.name},
                           function(response) {
+                            console.log(response);
                             if(callback) callback();
                           });
   },

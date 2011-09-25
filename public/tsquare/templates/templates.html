@@ -55,7 +55,7 @@
   </div>
 </textarea>
 
-<textarea style="display:none;" id='missions'>
+<textarea style="display:none;" id='timeline'>
   {for mission in missions}
   <div class="mission" id="${mission.id}">
     <a  href="javascript:void(0);">${mission.name}</a>
@@ -64,7 +64,6 @@
 </textarea>
 
 <textarea style="display:none;" id='meterBar'>
-	<div class="container game">
   	<!--Game Currency Bar-->
 		<div class="gameCurrencyBar">
     	<span>12340</span>
@@ -110,7 +109,6 @@
       </div>
     	<img class="positioned" src="images/game_elements/energy_bar.png" alt="Energy bar" />
     </div>
-  </div>
 </textarea>
 
 <textarea style="display:none;" id='friends'>
@@ -130,7 +128,9 @@
       <a class="rankMenuItem" href="#"><span class="loadedImg" imgSrc="images/friends/menu_icon.png" alt="Menu Item" /></a>
       <!--Vote button-->
       <a class="voteMenuItem" href="#"><span class="loadedImg" imgSrc="images/friends/menu_icon.png" alt="Menu Item" /></a>
-      <a class="homeMenuItem" href="#"><span class="loadedImg" imgSrc="images/friends/home_icon.png" alt="Menu Item" /></a>
+      <a class="homeMenuItem" href="javascript:void(0);" onclick="gameManager.openMainPage();">
+        <span class="loadedImg" imgSrc="images/friends/home_icon.png" alt="Menu Item" />
+      </a>
     	<span class="loadedImg" imgSrc="images/friends/functions_background.png" alt="Functions" imgClasses="positioned" />
     </div>
       

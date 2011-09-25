@@ -8,6 +8,10 @@ var Reactor = Class.create({
 		this.running = false
 	},
 	
+	currentTime : function(){
+		return this.ticks * this.delay
+	},
+	
 	pause : function(){
 		this.running = false;
 	},

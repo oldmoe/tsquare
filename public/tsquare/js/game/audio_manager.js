@@ -6,10 +6,10 @@ Audio.prototype.stop = function(){
 var AudioManager = Class.create({
 
 	durations : {
-			130 : 1900,
-			140 : 1600,
-			150 : 1400,
-			160 : 1250
+			130 : 1800,
+			140 : 1700,
+			150 : 1600,
+			160 : 1500
 	},
 	
 	initialize : function(reactor){
@@ -39,7 +39,6 @@ var AudioManager = Class.create({
     var self = this
 		this.levels.each(function(level){
 			level.beats = level.beats.collect(function(beat){
-        console.log(Loader.sounds['beats.'+level.tempo],beat+'.'+self.format)
 				return Loader.sounds['beats.'+level.tempo][beat+'.'+self.format]
 			})
 		})

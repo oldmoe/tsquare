@@ -6,29 +6,91 @@ var Timeline = Class.create({
     this.templateManager = gameManager.templateManager;
     this.gameManager = gameManager;
     var self = this;
-    self.display();   
+    new Loader().load([ {images : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png", "coming_soon_missions.png",
+                                  "home_background.gif", "timeline_screen.png"], path: 'images/timeline/', store: 'timeline'}],
+                      {
+                        onFinish: function(){
+                          self.display();   
+                        }
+                      });
   },
 
   display : function(){
+    $('home').innerHTML = this.templateManager.load('home', {'missions' : this.gameManager.missions});
     $('timeline').innerHTML = this.templateManager.load('timeline', {'missions' : this.gameManager.missions});
     this.attachListener();
+    Game.addLoadedImagesToDiv('home');
+    Game.addLoadedImagesToDiv('timeline');
+    this.displayHome();
+  },  
+  
+  hide : function(){
+    $('home').hide();
+    $('timeline').hide();
   },
 
-  play : function(id){
-    var self = this;
-    var callback = function(data){
-      self.currentMission = data;
-      self.gameManager.playMission(self.currentMission);
-    }
-    this.network.missionData(id, callback);
+  displayHome : function() {
+    $('home').show();
+    $('timeline').hide();
+  },
+
+  displayTimeline : function(){
+    $('home').hide();
+    $$('.calendarWrapper')[0].show();
+    $('missions').hide();
+    $('timeline').show();
+  },
+
+  displayMissions : function(){
+    $('home').hide();
+    $$('.calendarWrapper')[0].hide();
+    $('missions').show();
+    $('timeline').show();
+  },
+
+  displayMissionDetails : function(id){
+    var id = parseInt(id);
+    $$('#timeline .missionDetails')[0].innerHTML = this.templateManager.load('missionDetails', {'mission' : this.gameManager.missions[id]});
+    Game.addLoadedImagesToDiv('timeline');
+    this.attachMissionDetailsListeners();
+    $$('.missionDetails')[0].show();
+  },
+
+  hideMissionDetails : function(){
+    $$('.missionDetails')[0].hide();
   },
 
   attachListener : function(){
     var self = this;
-    $$('#timeline .mission').each(function(element){
+    $$('#home .timelineButton').each(function(element){
       element.observe('click', function(event){
-        self.play(element.id);
+        self.displayTimeline();
       });
+    });
+    $$('#timeline .calendar').each(function(element){
+      element.observe('click', function(event){
+        self.displayMissions();
+      });
+    });
+    $$('#timeline .timelineMissions li').each(function(element){
+      element.observe('mouseover', function(event) {
+        element.addClassName('selected');
+        self.displayMissionDetails(parseInt(element.id.split('_')[1]));
+      });
+      element.observe('mouseout', function(event) {
+        element.removeClassName('selected');
+      });
+    });
+  },
+
+  attachMissionDetailsListeners : function(){
+    var self = this;
+    $$('#timeline .missionDetails .close')[0].observe('click', function(event){
+      self.hideMissionDetails();
+    });
+    $$('#timeline .missionDetails .playButton')[0].observe('click', function(event){
+      console.log(event.element());
+      self.gameManager.playMission(event.element().id);
     });
   }
 

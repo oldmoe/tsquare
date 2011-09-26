@@ -31,7 +31,8 @@ var MissionManager = Class.create({
     }else {
       var callback = function(data){
         self.currentMission = data;
-        self.missions[data.data.id] = data;
+        console.log(self.currentMission);
+        self.missions[data.id] = data;
         gameCallback(self.currentMission);
       }
       this.network.missionData(id, callback);
@@ -48,6 +49,9 @@ var MissionManager = Class.create({
     });
     $$('#winLose .nextMissionButton')[0].observe('click', function(event){
       self.gameManager.playMission(self.currentMission.next);
+    });
+    $$('#winLose .close')[0].observe('click', function(event){
+      self.hide();
     });
   }
 

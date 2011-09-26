@@ -22,7 +22,7 @@ var GameManager = Class.create({
       self.inbox = new Inbox(self);
       self.marketplace = new Marketplace(self);
       self.timelineManager = new Timeline(self);
-      self.missionManager = new Mission(self);
+      self.missionManager = new MissionManager(self);
       game = new Game(self);
       self.game = game;
       $('uiContainer').show();
@@ -30,16 +30,21 @@ var GameManager = Class.create({
     this.network.gameData(callback);
   },
   
-  playMission : function(mission){
-    this.game.play(mission.data);
-    $('timeline').hide();
-    $('gameContainer').show();
+  playMission : function(id){
+    var self = this;
+    this.missionManager.load(id, function(missionData){
+      self.game.play(missionData.data);
+      self.timelineManager.hide();
+      self.missionManager.hide();
+      $('gameContainer').show();
+    });
   },
 
   openMainPage : function(){
     this.game.end();
     $('gameContainer').hide();
-    $('timeline').show();
+    this.missionManager.hide();
+    this.timelineManager.display();
   },
 
   /* If there is a request object acceptance has lead to opening the game, 

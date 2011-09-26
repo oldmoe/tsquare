@@ -18,7 +18,7 @@ var Unit = Class.create({
   handler: null,
   movingToTarget : false,
   type: null,
-  
+  neglected : false,
   initialize : function(scene,x,lane, options){
     var self = this
     this.commandFilters = [

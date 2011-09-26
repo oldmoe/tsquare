@@ -168,7 +168,6 @@ var CrowdHandler = Class.create(UnitHandler, {
    
    executeCommand : function(event, options){
      for(var i=0;i<this.objects.length;i++){
-       if(this.objects[i])
        for(var j=0;j<this.objects[i].length;j++){
            this.objects[i][j][event](options);
        }

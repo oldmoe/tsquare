@@ -12,7 +12,6 @@ var AmnMarkazy = Class.create(Enemy,{
      this.maxHp = 30;
      this.power = 10;
   },
-  
   handleCollision: function(){
       if(this.target){
          if(this.hittingTime == 15){

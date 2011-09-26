@@ -34,7 +34,9 @@ var Block = Class.create(Enemy,{
         }
       }
     },
-    
+    updatePosition : function($super){
+      $super()
+   },
     getWidth : function(){
       if(!this.elements[0] || !this.elements[0][0])return 0
       return this.elementWidth * this.elements.length + (this.elements[0][0].imgWidth - this.elementWidth)  
@@ -117,7 +119,6 @@ var Block = Class.create(Enemy,{
     move : function(dx,dy){
         this.coords.x+=dx
         this.coords.y+=dy
-        this.moveElements(dx,dy)
     },    
     takePush : function(){
        this.chargeTolerance--
@@ -138,5 +139,12 @@ var Block = Class.create(Enemy,{
           this.elements[i][j].coords = coords 
         }
       }
-    }    
+    },
+  destroy : function(){
+    for (var i = 0; i < this.elements.length; i++) {
+      for (var j = 0; j < this.elements[i].length; j++) {
+        this.elements[i][j].destroy()
+      }
+    }     
+  }    
 })

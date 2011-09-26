@@ -231,7 +231,7 @@ Effect.Queues = {
     this.instances.set(queueName, queue);
   },
   
-  create : function(queueuName, reactor){
+  create : function(queueName, reactor){
 	this.set(queueName, new Effect.ScopedQueue(reactor))
   }
   

@@ -1,7 +1,7 @@
 if(typeof Worker != 'undefined'  && typeof inWorker == 'undefined'){
 	var Box2dWorld = Class.create({
 		initialize : function(reactor, delay){
-			this.worker = new Worker('js/box2d_worker.js')
+			this.worker = new Worker('js/nezal/box2d_worker.js')
 			this.worker.postMessage(['bootstrap', Prototype.Browser])
 			var me = this
 			this.worker.onmessage = function(event){me.processMessage(event)}

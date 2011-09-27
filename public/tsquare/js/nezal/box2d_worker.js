@@ -1,8 +1,8 @@
 function loadScripts(browser){
 	PrototypeBrowser = browser
-	importScripts('prototype-nodom-min.js')
-	importScripts('box2d.js')
-	importScripts('box2dutils.js')
+	importScripts('../base/prototype-nodom-min.js')
+	importScripts('../base/box2d.js')
+	importScripts('../base/box2dutils.js')
 	importScripts('box2d_world.js')
 }
 

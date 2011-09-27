@@ -10,7 +10,6 @@ var CrowdMemberDisplay = Class.create(Display,{
     this.imgHeight = this.characterImg.height/this.noOfFrames
     $super(owner)
     this.sprites.character.currentAnimationFrame = Math.round((Math.random()* this.sprites.character.currentAnimation.noOfFrames-1))
-    //console.log(this.sprites.character.currentAnimationFrame)
     this.registerEvents()
   },
   registerEvents : function(){
@@ -34,6 +33,25 @@ var CrowdMemberDisplay = Class.create(Display,{
     this.sprites.character.createAnimation({name:'run'  ,img:this.runImg,noOfFrames:6})
     this.sprites.character.createAnimation({name:'reverse'  ,img:this.walkImg,noOfFrames:8, flipped : true})
     this.sprites.character.createAnimation({name:'reverseRun'  ,img:this.runImg, noOfFrames:6, flipped : true})
+    this.sprites.health = new DomMeterSprite(this.owner, {
+      meterFunc: function(){
+        return this.owner.hpRatio()
+      },
+      styleClass: {
+        full: 'greenMeter',
+        empty: 'redMeter'
+      }
+    });
+    this.sprites.water = new DomMeterSprite(this.owner, {
+      meterFunc: function(){
+        return this.owner.waterRatio()
+      },
+      styleClass: {
+        full: 'blueMeter',
+        empty: 'whiteMeter'
+      },
+      shiftY : 5
+    });
   },
   render : function($super){
     if(this.owner.stateChanged){

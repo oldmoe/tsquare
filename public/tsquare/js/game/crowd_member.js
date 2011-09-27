@@ -253,6 +253,11 @@ var CrowdMember = Class.create(Unit,{
     if(this.scene.running)return "reverseRun"
     return "reverse"
   },  
- 
+  hpRatio : function(){
+    return this.hp/this.maxHp
+  },
+  waterRatio : function(){
+    return this.water/ this.maxWater
+  }
 })
   

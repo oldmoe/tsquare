@@ -1,10 +1,10 @@
 var DomMeterSprite = Class.create(DomSprite, {
   initialize : function($super, owner, properties){
-    	$super(owner, null, properties);
+    $super(owner, null, properties);
 		properties = properties || {}
 		this.orientation = properties['orientation'] || 'horizontal'
-		this.width = properties['width'] || (this.orientation == 'horizontal' ? 80 : 7)
-		this.height = properties['height'] || (this.orientation == 'horizontal' ? 7 : 80)
+		this.width = properties['width'] || (this.orientation == 'horizontal' ? 30 : 5)
+		this.height = properties['height'] || (this.orientation == 'horizontal' ? 5 : 30)
 		this.meterFunc = properties['meterFunc'] || this.owner.getMeterFunc()
 		this.hideWhenFull = properties['hideWhenFull']
     this.emptySpan = $(document.createElement('DIV'));
@@ -61,8 +61,8 @@ var DomMeterSprite = Class.create(DomSprite, {
       if(this.owner.dead){
         return this.destroy();
       }
-    this.div.setStyle({left : this.owner.coords.x,
-                     top : this.owner.coords.y -Math.round(this.owner.imgHeight/2)+this.shiftY + "px",
+    this.div.setStyle({left : this.owner.coords.x + this.owner.imgHeight/2 - this.width/2,
+                     top : this.owner.coords.y -Math.round(this.owner.imgHeight/2)+this.shiftY + this.defaultShiftY+ "px",
                      zIndex : this.owner.coords.y+ this.shiftZ});
 	this.setMeterStyle()
     }catch(e){

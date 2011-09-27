@@ -4,7 +4,8 @@ var AmnMarkazy = Class.create(Enemy,{
 	hitOffset: 10,
 	hittingTime: 0,
 	showHoveringIcon: true,
-		
+	hitState : "amn_markazy_animation_"+"hit",
+  normalState : "amn_markazy_animation_"+"normal", 	
   initialize : function($super,scene,x,y, options){
      $super(scene,x,y, options) 
      this.type = "amn_markazy";
@@ -12,7 +13,7 @@ var AmnMarkazy = Class.create(Enemy,{
      this.maxHp = 30;
      this.power = 10;
   },
-  handleCollision: function(){
+  handleCollision : function(){
       if(this.target){
          if(this.hittingTime == 15){
             this.target.takeHit(this.power);
@@ -21,14 +22,16 @@ var AmnMarkazy = Class.create(Enemy,{
          this.hittingTime = this.hittingTime % 16;
       }  
   },
-  
+  updatePosition : function(){
+    
+  }, 
   setTarget: function(target){
       if(this.target != null && target == null){
-          this.scene.fire("amn_markazy_animation_"+"normal")
+          this.scene.fire(this.normalState)
       }
       
       if(this.target == null && target != null){
-          this.scene.fire("amn_markazy_animation_"+"hit");
+          this.scene.fire(this.hitState);
       }
         
       this.target = target;

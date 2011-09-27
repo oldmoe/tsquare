@@ -1,20 +1,12 @@
 var missionData = 
   {"data":[[],[
-   {
-      "name": "twitter_guy",
-      "category": 'protection_unit',
-      "index": 0,
-      "lane": 1,
-      "x": 3,
-      "order": 1
-  },  
   {
       "name": "wood_stick_cs",
       "category": 'enemy',
-      "type": '3_2',
+      "type": '3_3',
       "index": 0,
       "lane": 1,
-      "x": 20,
+      "x": 1,
       "order": 1
   }
     ]],

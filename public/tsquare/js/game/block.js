@@ -116,9 +116,18 @@ var Block = Class.create(Enemy,{
             }
         }
     },
+    tick : function($super){
+       $super()
+       for (var i = 0; i < this.elements.length; i++) {
+            for (var j = 0; j < this.elements[i].length; j++) {
+                this.elements[i][j].tick()
+            }
+        }
+    },
     move : function(dx,dy){
         this.coords.x+=dx
         this.coords.y+=dy
+        this.moveElements(dx,dy)
     },    
     takePush : function(){
        this.chargeTolerance--

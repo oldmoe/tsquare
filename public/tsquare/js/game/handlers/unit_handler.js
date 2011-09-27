@@ -103,8 +103,6 @@ var UnitHandler = Class.create({
                     this.target = others[i][0]  
                 }
            }
-       }else if(others[i] && others[i][0]){
-           others[i][0].setTarget(null)
        }
     }
     if(collision.length > 0) return true

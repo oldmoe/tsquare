@@ -55,6 +55,7 @@ var Unit = Class.create({
   takeHit : function(attack){
     this.hp-= attack;
     if(this.hp <=0){
+        this.die()
         this.handler.removeObject(this, this.lane);
     }   
   },
@@ -123,6 +124,9 @@ var Unit = Class.create({
       }
          
       return false;  
+  },
+  die : function(){
+    
   }
   
 })

@@ -3,15 +3,23 @@
 var Game = {
   
   data : null,
+  
+  arrayItems : ["1_1", "1_2", "1_3", "2_3", "3_3", "6_3", "9_3"],
 
   initialize : function(){
-    this.modifiableItems = ['commands', 'upgrades', 'holder_items', 'crowd_items', 'special_items', 'power_ups',
-                             'ingame_power_ups', 'enemies' ];
     new Ajax.Request( '/<%=AdminController::ADMIN_URL%>/<%=@game.name%>.json' , {
                      method : 'get',
                      onSuccess : function(response){
                         Game.data = JSON.parse(response.responseText);
+                        
+                        Game.modifiableItems = [{display : 'Enemies', item: 'enemies', accessor: Game.data, namespace : '', grouping : "Groups"},
+                                                {display : 'Crowd Members', item: 'specs', accessor: Game.data.crowd_members, namespace : 'crowd_members', grouping : "Levels"},
+                                                {display : 'Powerups', item: 'power_ups', accessor: Game.data, namespace : '', grouping : "Levels"}];
+                        
                         $('gameData').innerHTML = TrimPath.processDOMTemplate('displayTemplate');
+                        $$('input[value^="true"]').each(function(radio){
+                          radio.checked = true;
+                        });
                         $$('label').each(function(label) {
                             label.observe('click', function(element){
                                 var subitem = label.getAttribute('subitem');
@@ -21,12 +29,56 @@ var Game = {
                      }
                     });
   },
+  
+  accessAndAssign : function(address, value){
+    var access = Game.data;
+    var accessParts = address.split(".");
+    accessParts.each( function(path){
+      if (accessParts.indexOf(path) == accessParts.length - 1) {
+        access[path] = value;
+      } else {
+        if(!path.blank()) access = access[path];
+      }
+    });
+  },
 
   saveItem : function(element){
+    var namespace = element.getAttribute('namespace');
     var item = element.getAttribute('item');
     var subitem = element.getAttribute('subitem');
-  console.log(    Game.data[item][subitem], JSON.parse($$("#" + subitem + " textarea")[0].value))
-    Game.data[item][subitem] = JSON.parse($$("#" + subitem + " textarea")[0].value);
+    
+    //Saving number values
+    $$("#" + namespace + "_" + item + "_" + subitem + " .numberValue").each(function(numberItem){
+      Game.accessAndAssign(numberItem.name, Number(numberItem.value));
+    });
+    
+    //Saving array values
+    var arrays = {};
+    $$("#" + namespace + "_" + item + "_" + subitem + " .arrayValue").each(function(arrayItem){
+      if(arrays[arrayItem.name] == null) {
+        arrays[arrayItem.name] = [];
+      }
+      if (arrayItem.checked) {
+          arrays[arrayItem.name].push(arrayItem.getAttribute('content'));
+      }
+    });
+    console.log( arrays );
+    for( var arrayName in arrays ){
+      Game.accessAndAssign(arrayName, arrays[arrayName]);
+    }
+    
+    //Saving booelan values
+    var booleans = {};
+    $$("#" + namespace + "_" + item + "_" + subitem + " .booleanValue").each(function(booleanItem){
+      if( booleanItem.getAttribute("content") == "yes" ){
+        booleans[booleanItem.name] = booleanItem.checked;
+      }
+    });
+    for( var booleanName in booleans ){
+      Game.accessAndAssign(booleanName, booleans[booleanName]);
+    }
+    
+    
     Game.saveToServer();
   },
 
@@ -70,33 +122,145 @@ textarea {
     float : none;
 }
 .subheadline {
-  margin : 15px;
+  background-color: #F0F0F0;
+  border: 1px solid;
+  margin: 15px;
+  overflow: auto;
+  padding: 10px;
 }
 .link {
   text-decoration : underline;
   cursor : pointer;
 }
+.download {
+  text-align : center;
+}
+.groups {
+  margin-left : 20px;
+  border-bottom: dotted 2px;
+  width: 55px;
+}
+.group_name {
+  
+}
+.attribute {
+  float: left;
+  margin-left: 10px;
+  width: 147px;
+}
+.floating_block {
+  border: 1px dotted;
+  float: left;
+  margin: 4px 4px 4px 20px;
+  padding: 4px;
+}
+.attr_input {
+  width: 50px;
+}
+.submit {
+  display : block;
+  clear : left;
+  margin-left : 20px;
+}
+.special {
+  float: left;
+  margin-left: 25px;
+  width: 130px;
+}
 </STYLE>
 
+<div>
+  <h3 class="download">
+    <a href="download_data">Download Game data</a> *Important
+  </h3>
+</div>
 
 <div id="displayTemplate" style="display : none;">
   {for item in Game.modifiableItems}
-    <div id="${item}" class="label item">
-      ${item}
-      {for subitem in Game.data[item]}
-        <div class="subheadline" id="${subitem_index}">
-          <label class="link" item="${item}" subitem="${subitem_index}">
+    {eval}
+      console.log(item)
+    {/eval}
+    <div id="${item.namespace}_${item.item}" class="label item">
+      ${item.display}
+      {for subitem in item.accessor[item.item]}
+        <div class="subheadline" id="${item.namespace}_${item.item}_${subitem_index}">
+          <label class="link" subitem="${item.namespace}_${item.item}_${subitem_index}">
             ${subitem_index}
           </label>
           <div class="form" style="display:none;">
-            <textarea>${JSON.stringify(subitem)}</textarea>
-            <input class="submit" type="submit" value="save" onclick="Game.saveItem(this);" item="${item}" subitem="${subitem_index}">
+            <div class="groups"> ${item.grouping} </div>
+            {for group in item.accessor[item.item][subitem_index]}
+              <div class="floating_block">
+                {if item.accessor[item.item][subitem_index][group_index] instanceof Array}
+                  <div class="attribute">${group_index}</div><br>
+                  {for element in Game.arrayItems}
+                    <input class="arrayValue"
+                           name="${item.namespace}.${item.item}.${subitem_index}.${group_index}" 
+                           type="checkbox"
+                           content="${element}"
+                           value="${item.accessor[item.item][subitem_index][group_index].include( element )}"> 
+                    ${element} <br>
+                  {/for}
+                {elseif typeof item.accessor[item.item][subitem_index][group_index] == "object"}
+                  <label class="group_name"> ${group_index} </label><br>
+                  {for attribute in item.accessor[item.item][subitem_index][group_index]}
+                        <div class="attribute">${attribute_index}</div>
+                        {if typeof item.accessor[item.item][subitem_index][group_index][attribute_index] == "object"}
+                          <br>
+                          {for special in item.accessor[item.item][subitem_index][group_index][attribute_index]}
+                            <div class="special">${special_index}</div>
+                            <input class="attr_input numberValue"
+                                 name="${item.namespace}.${item.item}.${subitem_index}.${group_index}.${attribute_index}.${special_index}" 
+                                 value="${item.accessor[item.item][subitem_index][group_index][attribute_index][special_index]}"/>
+                            <br>
+                          {/for}
+                        {elseif typeof item.accessor[item.item][subitem_index][group_index][attribute_index] == "number"}
+                          <input class="attr_input numberValue"
+                                 name="${item.namespace}.${item.item}.${subitem_index}.${group_index}.${attribute_index}" 
+                                 value="${item.accessor[item.item][subitem_index][group_index][attribute_index]}"/>
+                        {elseif typeof item.accessor[item.item][subitem_index][group_index][attribute_index] == "boolean"}
+                          <br>
+                          <input content="yes"
+                                 class="attr_input booleanValue"
+                                 type="radio"
+                                 value="${item.accessor[item.item][subitem_index][group_index][attribute_index]}"
+                                 name="${item.namespace}.${item.item}.${subitem_index}.${group_index}.${attribute_index}" />
+                                yes
+                          <br>
+                          <input content="no"
+                                 class="attr_input booleanValue"
+                                 type="radio"
+                                 value="${!item.accessor[item.item][subitem_index][group_index][attribute_index]}"
+                                 name="${item.namespace}.${item.item}.${subitem_index}.${group_index}.${attribute_index}" />
+                                no
+                        {/if}
+                        <br>
+                  {/for}
+                {elseif typeof item.accessor[item.item][subitem_index][group_index] == "number"}
+                  <div class="attribute">${group_index}</div>
+                  <input class="attr_input numberValue"
+                         name="${item.namespace}.${item.item}.${subitem_index}.${group_index}" 
+                         value="${item.accessor[item.item][subitem_index][group_index]}"/>
+                  <br>
+                {/if}
+              </div>
+            {/for}
+            <input class="submit" type="submit" value="save" onclick="Game.saveItem(this);" namespace="${item.namespace}" item="${item.item}" subitem="${subitem_index}">
           </div>
+          <br>
         </div>
       {/for}
     </div>
     <div class="separator"></div>
-  {/for}    
+  {/for}
+  <span>* make sure to download a copy of the game data after each important update, so as not lose the game data if any problem occurs!</span>
+  <br><br>
+  <label class="label"> Upload Latest Stable Game Data Backup</label>
+  <form action="upload_data" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_method" value="put">
+    <input name="data_file" type="file">
+    <input type="submit" value="Upload">
+  </form>
 </div>
 
 <div id="gameData">

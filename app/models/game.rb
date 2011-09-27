@@ -17,7 +17,10 @@ class Game < DataStore::Model
   end
 
   def process_service_request user_key, request_data
-    
+    case request_data['type']
+    when Request::REQUEST_TYPES['link_a_friend']
+      
+    end
   end
 
   def user_data user_profile

@@ -197,7 +197,22 @@ class AdminController < ApplicationController
     @language = params[:language]
     erb :edit , {:layout => :app}
   end
-
+  
+  put '/:game_name/upload_data' do 
+    @game = Game.get(params[:game_name])
+    data = params["data_file"][:tempfile].read
+    @game.data= Nezal::Decoder.decode(data)
+    @game.save
+    redirect "/#{ADMIN_URL}/#{params[:game_name]}/data"
+  end
+  
+  get '/:game_name/download_data' do 
+    @game = Game.get(params[:game_name])
+    content_type :json
+    response.headers["Content-Disposition"] = "attachment; filename=\"#{params[:game_name]}-#{Time.now.utc.to_s}.json\""
+    Nezal::Decoder.encode(@game.data)
+  end
+  
   # Serve the show.erb to display game details { Ranks .. doesnt include the metadata}
   get %r{/([0-9A-Za-z_\-]+)(.json)?} do
     @game = Game.get(params[:captures][0])

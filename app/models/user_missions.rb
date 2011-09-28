@@ -4,18 +4,21 @@ class UserMissions
     
     def all user_profile
       missions = {}
-      Mission.all do |key, mission|
-        missions[key] = { :name => mission['name'] }
+      Mission::MODES.each do |mode|
+        missions[mode] = {}
+        Mission.all[mode].each do |key, mission|
+          missions[mode][key] = { :name => mission['name'], :id => mission['id'] }
+        end
       end
       missions
-      Mission.all
     end 
 
     def data user_profile, mission_id
       data = {}
-#      if user_profile.missions[mission_id]
+      mode = Mission.mode mission_id
+      if user_profile.missions[mode][mission_id]
         data = Mission.get(mission_id)
-#      end
+      end
       data
     end
 

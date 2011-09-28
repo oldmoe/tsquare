@@ -11,6 +11,9 @@ var GameManager = Class.create({
 
   start : function(){
     var self = this;
+		this.reactor = new Reactor();
+    Effect.Queues.create('global', this.reactor)
+    this.reactor.run();
     var callback = function(data) {
       self.userData = data.user_data.data;
       self.userData.crowd_members = data.user_data.data.crowd_members;

@@ -75,8 +75,8 @@ var Marketplace = Class.create({
       var specs = this.gatherSpecs( memberName );
       var specIds = specs.specIds;
       var memberSpecs = specs.memberSpecs;
-      for(var memeberID in this.myMembers[memberName]){
-        adjustedMyMembers.push( {name : memberName, specs : memberSpecs, specIds : specIds, memberID : memeberID} )
+      for(var memberID in this.myMembers[memberName]){
+        adjustedMyMembers.push( {name : memberName, memberData : this.myMembers[memberName][memberID], specs : memberSpecs, specIds : specIds, memberID : memberID} )
       }
     }
     return adjustedMyMembers;

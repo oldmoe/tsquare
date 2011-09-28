@@ -109,8 +109,12 @@
           </div>
         {else}
           <div class="crowedItemDetails">
+            {if item.memberData.linked_to}
+              Linked
+            {else}
             <a id="${item.name}-${item.memberID}" class="linkMembers" href="javascript:void(0)">Link</a>
             <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
+            {/if}
           </div>
         {/if}
       </div>

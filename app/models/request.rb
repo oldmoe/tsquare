@@ -24,7 +24,7 @@ class Request < DataStore::Model
     requests.each do |id, request|
       data = JSON.parse( request['data'] )
       if time - request['timestamp'] < REQUEST_TYPES[ data['type'] ][ :exclude ]
-        ids << request['to']
+        #ids << request['to']
       end
     end
     ids.uniq
@@ -44,7 +44,13 @@ class Request < DataStore::Model
     if request && request['timestamp'] + expire_time > Time.now.to_i
       request['expired'] = true
     end
-    Game::current.process_service_request(key, data)
+    
+    puts "!!!!!!!!!!!!! my key = #{request['to']}"
+    puts "!!!!!!!!!!!!! friend key = #{key}"
+    puts "!!!!!!!!!!!!! friend key = #{friend_key}"
+    puts "!!!!!!!!!!!!! data = #{data}"
+    
+    Game::current.process_service_request(key, data, friend_key)
     requests.delete(request_id)
     save
   end

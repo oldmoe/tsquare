@@ -64,7 +64,7 @@ class UserGameProfile < DataStore::Model
     game = Game::current
     @data ||= {}
     @data['scores'] ||= generate_scores
-    @data['current_mission'] ||= {}
+    @data['current_mission'] = {} unless @data['current_mission'].is_a? Hash
     Mission::MODES.each do |mode|
       @data['current_mission'][mode] = game.data['missions'][mode].keys.min
     end 

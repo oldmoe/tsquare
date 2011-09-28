@@ -26,9 +26,10 @@ class UserMissions
     def update user_profile, mission_id, score
       mission_id = mission_id.to_i
       mode = Mission.mode mission_id
-      if user_profile.missions[mode][mission_id] && user_profile.missions[mode][mission_id][score] &&
-          user_profile.missions[mode][mission_id][score] < score['score']
-        user_profile.missions[mode][mission_id] = {'score' => score['score'], 'stars' => score['stars']}      
+      if user_profile.missions[mode][mission_id] && user_profile.missions[mode][mission_id][score]
+        if user_profile.missions[mode][mission_id][score] < score['score']
+          user_profile.missions[mode][mission_id] = {'score' => score['score'], 'stars' => score['stars']}      
+        end
       else
         user_profile.missions[mode][mission_id] = {'score' => score['score'], 'stars' => score['stars']}
       end

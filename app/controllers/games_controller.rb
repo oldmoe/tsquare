@@ -105,12 +105,13 @@ class GamesController < ApplicationController
         result = {'content' => {}, 'method' => 'payments_status_update' }
         if params['status'] == 'placed'
           game = Game::current
-          user_id = UserGameProfile::generate_key(Service::PROVIDERS[service_provider][:prefix], game.key, data['credits']['receiver'])
+          order_details = Nezal::Decoder.decode( data['credits']['order_details'] )
+          user_id = UserGameProfile::generate_key(Service::PROVIDERS[service_provider][:prefix], game.key, order_details['receiver'])
           user_game_profile = UserGameProfile.get user_id
-          product_title = data['data']['items'][0]['title']
+          product_title = order_details['items'][0]['title']
           product = game.products[service_provider][ product_title.delete("\"") ]
           crowd_member_name = product['item_id'].split(".")[-1]
-          
+
           Marketplace.buyCrowdMember user_game_profile, crowd_member_name, false
           
           result['content']['status'] = 'settled'

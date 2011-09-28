@@ -114,6 +114,7 @@ var Game = Class.create({
       this.scene = new TsquareScene();
 	  	this.scene.start();
 	  	this.scene.fire("start");
+      this.scene.observe('end', function(params){this.gameManager.missionManager.end(params)});
     }
   },
 

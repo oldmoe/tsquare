@@ -68,6 +68,9 @@ class UserGameProfile < DataStore::Model
     @data['missions'] ||= {}
     Mission::MODES.each do |mode|
       @data['current_mission'][mode] ||= game.data['missions'][mode].keys.min
+      if game.data['missions'][mode][@data['current_mission'][mode]].nil?
+        @data['current_mission'][mode] = game.data['missions'][mode].keys.min
+      end
       @data['missions'][mode] ||= {}
     end 
     @data['crowd_members'] ||= {}

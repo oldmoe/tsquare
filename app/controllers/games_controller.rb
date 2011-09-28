@@ -97,13 +97,22 @@ class GamesController < ApplicationController
       case params['method']
       when 'payments_get_items'
         result = {'content' => [], 'method' => 'payments_get_items' }
-        product = Game::current.products["fb"][data['credits']['order_info'].delete("\"")]
+        product = Game::current.products[service_provider][data['credits']['order_info'].delete("\"")]
         product['item_id'] = data['order_info']
         result['content'] << product
       when 'payments_status_update'
         LOGGER.debug "!!!!!!!!!!!!!!!!!!!!!!! #{data}"
         result = {'content' => {}, 'method' => 'payments_status_update' }
         if params['status'] == 'placed'
+          game = Game::current
+          user_id = UserGameProfile::generate_key(Service::PROVIDERS[service_provider][:prefix], game.key, data['credits']['receiver'])
+          user_game_profile = UserGameProfile.get user_id
+          product_title = data['data']['items'][0]['title']
+          product = game.products[service_provider][ product_title.delete("\"") ]
+          crowd_member_name = product['item_id'].split(".")[-1]
+          
+          Marketplace.buyCrowdMember user_game_profile, crowd_member_name, false
+          
           result['content']['status'] = 'settled'
           result['content']['order_id'] = data['order_id']
         end

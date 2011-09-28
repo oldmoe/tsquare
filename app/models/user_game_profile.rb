@@ -111,7 +111,7 @@ class UserGameProfile < DataStore::Model
     end
     # Send only the scores data
     records.collect do |record| 
-      protected_data = { 'service_id' => record.service_id, 'scores' => record.scores }
+      protected_data = { 'service_id' => record.service_id, 'scores' => record.scores, 'missions' => record.missions }
       if record.service_id == service_id
         record.last_read= record.read_time.nil? ? Time.now.to_i : record.read_time
         record.read_time= Time.now.to_i

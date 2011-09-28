@@ -20,6 +20,7 @@
 .challengeFriends { position:absolute; top:190px; left:250px; }
 
 .challengeFriends .cancelButton { left:-6px; top:97px; }
+
 .challengeFriends .friend { margin:0 20px; }
 
 .missionIcons { position:absolute; top:330px; left:332px; z-index:7; }

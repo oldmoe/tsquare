@@ -20,7 +20,6 @@ var TsquareScene = Class.create(Scene,{
     
     initialize: function($super){
         $super();
-		Effect.Queues.create('global', this.reactor)
         this.scoreCalculator = new ScoreCalculator(this);
         this.createRenderLoop('skyline',1);
         this.createRenderLoop('characters',2);
@@ -106,7 +105,7 @@ var TsquareScene = Class.create(Scene,{
   end : function(win){
 //  this.reactor.stop()
     this.win = win
-    this.fire('end')
+    this.fire('end', {score:1000, objectives:0.6, combos: 0.8, win:true});
     //send to the server
   },
   

@@ -37,6 +37,7 @@ var GameManager = Class.create({
     var self = this;
     this.missionManager.load(id, function(missionData){
       self.game.play(missionData.data);
+      self.game.scene.observe('end', function(params){self.missionManager.end(params)});
       self.timelineManager.hide();
       self.missionManager.hide();
       $('gameContainer').show();

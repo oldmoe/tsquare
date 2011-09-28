@@ -7,7 +7,7 @@ var Marketplace = Class.create({
   crowd_items :{},
   
   columns : 5,
-  itemWidth : 137,
+  itemWidth : 136,
   rows : 2,
   
   initialize : function(gameManager){

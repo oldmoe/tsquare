@@ -45,7 +45,6 @@ var GameManager = Class.create({
   },
 
   openMainPage : function(){
-    this.game.end();
     $('gameContainer').hide();
     this.missionManager.hide();
     this.timelineManager.display();

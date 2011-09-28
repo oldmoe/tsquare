@@ -23,6 +23,16 @@ class UserMissions
       data
     end
 
+    def update user_profile, mission_id, score
+      mission_id = mission_id.to_i
+      mode = Mission.mode mission_id
+      user_profile.missions[mode][mission_id]={'score' => score['score'], 'stars' => score['stars']}
+      if score['win'] && user_profile.current_mission[mode] == mission_id
+        user_profile.current_mission[mode] = Mission.get(mission_id)['next']
+      end
+      user_profile.save
+    end
+
     def current user_profile
       Mission.get(user_profile.current_mission)
     end

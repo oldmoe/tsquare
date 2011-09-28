@@ -48,6 +48,12 @@ class GamesController < ApplicationController
     encode(result)
   end
 
+  post '/:game_name/mission' do
+    data = decode(params['data'])
+    result = UserMissions.update(user_game_profile, data['id'], data['score'])
+    encode(result)
+  end
+
   # Change User to be nolonger a newbie
   post '/:game_name/users/newbie' do
     if @game_profile.newbie

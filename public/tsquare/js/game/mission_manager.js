@@ -12,15 +12,20 @@ var MissionManager = Class.create({
 
   end : function(score){
     var score = {score:1000, objectives:0.6, combos: 0.8, win:true};
-    this.mode = this.gameManager.timelineManager.mode;
-    this.displayEndScreen(score);
+    score['stars'] = this.calculateStars(score);
+    var self = this;
+    this.network.postMissionScore( this.currentMission.id, score, function(){
+      self.mode = self.gameManager.timelineManager.mode;
+      self.gameManager.scoreManager.currentUser.missions[self.mode][self.currentMission['id']] = score;
+      self.displayEndScreen(score);
+    });
   },
 
   hide : function(){
     $('winLose').hide();
   },
 
-  displayEndScreen : function(score){
+  calculateStars : function(score) {
     var stars = 0;
     if (score['objectives'] == 1)
       stars = 2;
@@ -28,9 +33,13 @@ var MissionManager = Class.create({
       stars = 1;
     if(score['combos'] >= 0.8)
       stars+=1;
+    return stars;
+  },
+  
+  displayEndScreen : function(score){
     this.sortFriends();
     $('winLose').innerHTML = this.templateManager.load('winLose', {'friends' : this.friends.slice(this.rank+1, this.rank+4),
-                             'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score, 'stars' : stars });
+                             'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score });
     this.attachListener();
     $('winLose').show();
   },
@@ -66,9 +75,14 @@ var MissionManager = Class.create({
     });
   },
 
-  sortFriends : function() {
+  sortFriends : function(score) {
     var self = this;
-    this.friends = this.gameManager.scoreManager.friends.sortBy(function(friend){ return friend.missions[self.mode][self.currentMission['id']]}).reverse();
+    this.friends = this.gameManager.scoreManager.friends.sortBy(function(friend){ 
+      if(friend.missions[self.mode][self.currentMission['id']])
+        return friend.missions[self.mode][self.currentMission['id']]['score']
+      else
+        return 0;
+    }).reverse();
     this.rank = 0;
     for(var i=0; i< this.friends.length; i++)
     {

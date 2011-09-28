@@ -30,11 +30,11 @@ class Mission
       init
       game = Game::current
       missions = {}
+      game.missions['timeline'] =       game.missions['list']
       MODES.each { |mode| missions[mode] = game.missions[mode]
         temp= {}
         game.missions[mode].each { |id, mission| temp[id.to_i] =  mission }
         game.missions[mode] = temp
-      puts game.missions[mode]
       }
       game.save
       missions

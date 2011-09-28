@@ -11,8 +11,7 @@ class GamesController < ApplicationController
       :user_data => { :coins => user.coins,
                       :data => user_game_profile.data
                     },
-      :missions_data => { :data => UserMissions.all(user_game_profile) },
-      :current_mission => { :data => UserMissions.current(user_game_profile) }
+      :missions_data => { :data => UserMissions.all(user_game_profile) }
     }
     data[:user_data][:volatile_data] = user_game_profile['volatile_data'] || {}
     encode(data)

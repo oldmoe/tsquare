@@ -127,7 +127,7 @@ class AdminController < ApplicationController
   # Add a mission to a game 
   post '/:game_name/missions' do
     @game = Game.current
-    Mission.add(params['name'], params['parent'])
+    Mission.add(params['name'], params['parent'], params['mode'])
     redirect "/#{ADMIN_URL}/#{params[:game_name]}/missions"
   end
 

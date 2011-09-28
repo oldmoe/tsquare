@@ -64,7 +64,10 @@ class UserGameProfile < DataStore::Model
     game = Game::current
     @data ||= {}
     @data['scores'] ||= generate_scores
-    @data['current_mission'] ||= game.data['missions']['list'].keys.min
+    @data['current_mission'] ||= {}
+    Mission::MODES.each do |mode|
+      @data['current_mission'][mode] = game.data['missions'][mode].keys.min
+    end 
     @data['crowd_members'] ||= {}
 =begin
     @data['crowd_members'] ||= { 

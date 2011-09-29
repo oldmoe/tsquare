@@ -38,12 +38,12 @@ var Marketplace = Class.create({
     this.adjustedMembers = [];
     var membersImages = [];
     
-    for(var item in this.members['specs']){
+    for(var item in this.members['category']){
       var specs = this.gatherSpecs(item);
       var specIds = specs.specIds;
       var memberSpecs = specs.memberSpecs;
       
-      this.adjustedMembers.push({name : item, specs : memberSpecs, specIds : specIds, buyID : this.members['specs'][item]['buyID']});
+      this.adjustedMembers.push({name : item, specs : memberSpecs, specIds : specIds, buyID : this.members['category'][item]['buyID']});
       membersImages.push(item + ".png");
     }
     new Loader().load([ {images : membersImages, path: 'images/marketplace/members/', store: 'marketplace'}], {
@@ -54,14 +54,18 @@ var Marketplace = Class.create({
   gatherSpecs : function(memberName){
     var specIds = [];
     var memberSpecs = {};
-    for(var spec in this.members['specs'][memberName]['1']){
+    var memberType = "";
+    
+    memberType = this.members['category'][memberName]['type'] != "normal" ? memberName : 'normal';
+    
+    for(var spec in this.members['specs'][memberType][1]){
       if (spec == "special") {
-        for (var specialSpec in this.members['specs'][memberName]['1']['special']) {
-          memberSpecs[specialSpec] = this.members['specs'][memberName]['1']['special'][specialSpec];
+        for (var specialSpec in this.members['specs'][memberType][1]['special']) {
+          memberSpecs[specialSpec] = this.members['specs'][memberType][1]['special'][specialSpec];
           specIds.push( specialSpec );
         }
       } else {
-        memberSpecs[spec] = this.members['specs'][memberName]['1'][spec];
+        memberSpecs[spec] = this.members['specs'][memberType][1][spec];
         specIds.push( spec );
       }
     }

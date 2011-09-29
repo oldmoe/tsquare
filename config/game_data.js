@@ -31,17 +31,17 @@ GameData = {
                       'dehydrator' : { 1 : 10, 2 : 20, 3 : 30 }
                      },
       'crowd_members' : {
-              'category' : { 'salafi' : 'normal',
-                        'ultras' : 'normal',
-                        'journalist' : 'normal',
-                        'attacker' : 'special',
-                        'leader' : 'special',
-                        'healer' : 'special',
-                        'dehydrator' : 'special',
-                        'supplier' : 'special',
-                        'energy_booster' : 'special',
-                        'wael_ghoneim' : 'limited_edition',
-                        'amr_salama' : 'limited_edition' 
+              'category' : { 'salafi' : {type : 'normal'},
+                        'ultras' : {type : 'normal'},
+                        'journalist' : {type : 'normal'},
+                        'attacker' : {type : 'special'},
+                        'leader' : {type : 'special'},
+                        'healer' : {type : 'special'},
+                        'dehydrator' : {type : 'special'},
+                        'supplier' : {type : 'special'},
+                        'energy_booster' : {type : 'special'},
+                        'wael_ghoneim' : {type : 'limited_edition'},
+                        'amr_salama' : {type : 'limited_edition'} 
               },
               'specs' : { 
                     'normal' : { 1 : { 'hp' : 50, 'h2o' : 50, 'attack' : 5, 'defense' : 50 } } , 

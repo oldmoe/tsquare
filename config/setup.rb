@@ -11,6 +11,7 @@ ActiveRecord::Base.establish_connection(YAML::load(File.open('config/database.ym
 ActiveRecord::Base.logger = Logger.new(File.open('log/database.log', 'a'))
 
 GAME_NAME = (ENV['RACK_ENV']=='production' ? 'thawragy' : 'local-thawragy')
+ABSOLUTE_URL = (ENV['RACK_ENV']=='production' ? "http://base-defender.nezal.com:7500/fb-games" : "http://127.0.0.1:5500/fb-games")
 
 # Initialize and load the facebook app definition
 FB_CONFIGS = YAML.load_file("config/facebook_apps.yml")

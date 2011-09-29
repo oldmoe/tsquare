@@ -1,7 +1,7 @@
 class Marketplace
   class << self
     def buyCrowdMember user_game_profile, name, cost_in_coins
-      decoy = Game::current.crowd_members['specs'][name].nil?
+      decoy = Game::current.crowd_members['category'][name].nil?
       if( decoy )
         return {'error' => 'Crowd member does not exist'}
       end

@@ -68,7 +68,7 @@ var gameData = {
                       'defense' : { 1 : 5, 2 : 10, 3 : 20 },
                       'attack' : { 1 : 5, 2 : 10, 3 : 20 },
                       'hp' : { 1 : 5, 2 : 10, 3 : 20 },
-                      'water' : { 1 : 5, 2 : 10, 3 : 20 } 
+                      'h2o' : { 1 : 5, 2 : 10, 3 : 20 } 
                     },
       'holder_items' : { 'cap' : {}, 'umbrella' : {}, 'cola' : {}, 'rag' : {}, 'gas_mask' : {}, 'hammer' : {}, 'lock_pic' : {} },
       'crowd_items' : {  'shield' : { 1 : 10, 2 : 25, 3 : 40 },
@@ -79,7 +79,7 @@ var gameData = {
                       'invencible' :  { 1 : { 'time' : 30 }, 2 : { 'time' : 60 }, 3 : {  'time' : 120 } }, 
                       'cure' : { 'hp' : 100 }, 
                       'healer' : { 1 : { 'time' : 30}, 2 : { 'time' : 60}, 3 : { 'time' : 90} },
-                      'bottleguy' : { 1 : { 'time' : 30 }, 2 : { 'time' : 60 }, 3 : { 'time' : 120 } },
+                      'dehydrator' : { 1 : { 'time' : 30 }, 2 : { 'time' : 60 }, 3 : { 'time' : 120 } },
                       'defense_1' : { 1 : { 'time' : 30 , 'amount' : 25 }, 2 : { 'time' : 60 , 'amount' : 25 }, 3 : { 'time' : 120 , 'amount' : 25 } },
                       'defense_2' : { 1 : { 'time' : 30 , 'amount' : 50 }, 2 : { 'time' : 60 , 'amount' : 50 }, 3 : { 'time' : 120 , 'amount' : 50 } },
                       'attack_1' : { 1 : { 'time' : 30 , 'amount' : 25 }, 2 : { 'time' : 60 , 'amount' : 25 }, 3 : { 'time' : 120 , 'amount' : 25 } },
@@ -87,44 +87,44 @@ var gameData = {
                      },
       'ingame_power_ups' : { 
                       'healer' : { 1 : 10, 2 : 20, 3 : 30 },
-                      'bottleguy' : { 1 : 10, 2 : 20, 3 : 30 }
+                      'dehydrator' : { 1 : 10, 2 : 20, 3 : 30 }
                      },
       'crowd_members' : {
-              'category' : { 'salafi' : 'normal',
-                        'ultras_green' : 'normal',
-                        'ultras_red' : 'normal',
-                        'ultras_white' : 'normal',
-                        'journalist' : 'normal',
-                        'attacker' : 'special',
-                        'leader' : 'special',
-                        'healer' : 'special',
-                        'bottleguy' : 'special',
-                        'supplier' : 'special',
-                        'energy_booster' : 'special',
-                        'wael_ghoneim' : 'limited_edition',
-                        'amr_salama' : 'limited_edition' 
+              'category' : { 'salafy' : {type : 'normal'},
+                        'ultras_green' : {type : 'normal'},
+                        'ultras_white' : {type : 'normal'},
+                        'ultras_red' : {type : 'normal'},
+                        'journalist' : {type : 'normal'},
+                        'attacker' : {type : 'special'},
+                        'leader' : {type : 'special'},
+                        'healer' : {type : 'special'},
+                        'bottleguy' : {type : 'special'},
+                        'supplier' : {type : 'special'},
+                        'energy_booster' : {type : 'special'},
+                        'wael_ghoneim' : {type : 'limited_edition'},
+                        'amr_salama' : {type : 'limited_edition'} 
               },
               'specs' : { 
-                    'normal' : { 1 : { 'hp' : 50, 'water' : 50, 'attack' : 5, 'defense' : 50 } } , 
-                    'attacker' : { 1 : { 'special' : { 'attack' : 1 }, 'hp' : 75, 'water' : 50, 'attack' : 10, 'defense' : 50 } },
-                    'leader' : { 1 : { 'special' : { 'followers' : 1 }, 'hp' : 50, 'water' : 25, 'attack' : 5, 'defense' : 25 } },   
+                    'normal' : { 1 : { 'hp' : 50, 'h2o' : 50, 'attack' : 5, 'defense' : 50 } } , 
+                    'attacker' : { 1 : { 'special' : { 'attack' : 1 }, 'hp' : 75, 'h2o' : 50, 'attack' : 10, 'defense' : 50 } },
+                    'leader' : { 1 : { 'special' : { 'followers' : 1 }, 'hp' : 50, 'h2o' : 25, 'attack' : 5, 'defense' : 25 } },   
                     'healer' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'hp' : 10 }, 
-                                                       'hp' : 75, 'water' : 75, 'attack' : 2, 'defense' : 75 } 
+                                                       'hp' : 75, 'h2o' : 75, 'attack' : 2, 'defense' : 75 } 
                                 },
-                    'bottleguy' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'water' : 10}, 
-                                                            'hp' : 75 , 'water' : 75 , 'attack' : 2  , 'defense' : 75 }  
+                    'bottleguy' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'h2o' : 10}, 
+                                                            'hp' : 75 , 'h2o' : 75 , 'attack' : 2  , 'defense' : 75 }  
                                 },
                     'supplier' : { 1 : {'special' : { 'item' : 1, 'slots_to_power' : 1 },
-                                                       'hp' : 50, 'water' : 75, 'attack' : 0, 'defense' : 75 }
+                                                       'hp' : 50, 'h2o' : 75, 'attack' : 0, 'defense' : 75 }
                                 },
                     'energy_booster' : { 1 : { 'special' : { 'slots_to_power' : 1, 'time' : 10, 'energy' : 5 },
-                                                'hp' : 25, 'water' : 75, 'attack' : 2, 'defense' : 25 }
+                                                'hp' : 25, 'h2o' : 75, 'attack' : 2, 'defense' : 25 }
                                 },
                     'amr_salama' : { 1 : { 'special' : { 'followers' : 5, 'slots_to_power' : 1, 'defense' : 4, 'time' : 10, 'energy' : 5 },
-                                            'hp' : 200, 'water' : 200, 'attack' : 15, 'defense' : 200 }
+                                            'hp' : 200, 'h2o' : 200, 'attack' : 15, 'defense' : 200 }
                                 },
                     'wael_ghoneim' : { 1 : { 'special' : { 'followers' : 5, 'slots_to_power' : 1, 'attack' : 2, 'time' : 10, 'energy' : 5 },
-                                            'hp' : 200, 'water' : 200, 'attack' : 15, 'defense' : 200 }
+                                            'hp' : 200, 'h2o' : 200, 'attack' : 15, 'defense' : 200 }
                                 }
               }  
 

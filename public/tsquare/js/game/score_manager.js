@@ -219,7 +219,7 @@ var ScoreManager = Class.create({
       });
     });
   },
-
+  
   sortFriends : function() {
     var self = this
     this.friends  = this.friends.sortBy(function(friend){ return friend.scores[self.gameMode]}).reverse();

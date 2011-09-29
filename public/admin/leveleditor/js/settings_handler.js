@@ -7,8 +7,11 @@ var SettingsHandler = new Class.create({
 		
 	initialize: function(levelEditor){
 		this.levelEditor = levelEditor;
+		this.settings.introMsg = "";
 		this.settings.environment = "day";
 		this.settings.gameModes = ['normal'];
+		
+		this.init();
 		
 		var self  = this;
 		$('controls').select('[class=settingsButton]')[0].observe('click', function(){
@@ -44,6 +47,29 @@ var SettingsHandler = new Class.create({
 			});		
 		});
 		
+		$("missionDetails").observe("keyup", function(event){
+		  self.settings.missionDetails = event.target.value;
+		})
+		
+	},
+	
+	init: function(){
+	  $("missionDetails").setValue("");
+	},
+	
+	loadData: function(settings){
+	  
+	  if(settings.missionDetails)$("missionDetails").setValue(settings.missionDetails);
+	  if(settings.gameModes){
+	    if(settings.gameModes.indexOf("normal") > -1)$(this.containerId).select('input[name=gameModes]')[0].checked = "checked";
+	    if(settings.gameModes.indexOf("sneak") > -1)$(this.containerId).select('input[name=gameModes]')[1].checked = "checked";
+	    if(settings.gameModes.indexOf("charging") > -1)$(this.containerId).select('input[name=gameModes]')[2].checked = "checked";
+	  }
+	  if(settings.environment == "day")$(this.containerId).select('input[name=environment]')[0].checked = "checked";
+	  else if(settings.environment == "night")$(this.containerId).select('input[name=environment]')[1].checked = "checked";
+	  else if(settings.environment == "day_night")$(this.containerId).select('input[name=environment]')[2].checked = "checked";
+	  
+	  this.settings = settings;
 	},
 	
 	addEnergyMessage: function(){

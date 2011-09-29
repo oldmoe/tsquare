@@ -13,67 +13,50 @@
     <!--Score-->
     <div class="winLoseScore">
     	<h5>Your Score</h5>
-      <span>124413</span>
+      <span>${score['score']}</span>
+      <img class="positioned" src="images/win_lose/score_background.png" alt="Score" />
     </div>
     <!--Stars-->
     <div class="starsWrapper">
-    	<span class="star selected">
+    	<span {if score.stars > 0} class="star selected" {else} class="star" {/if} >
       	<img src="images/win_lose/star_icon.png" alt="Star" />
       </span>
-    	<span class="star selected">
+    	<span {if score.stars > 1} class="star selected" {else} class="star" {/if} >
       	<img src="images/win_lose/star_icon.png" alt="Star" />
       </span>
-    	<span class="star">
+    	<span {if score.stars > 2} class="star selected" {else} class="star" {/if} >
       	<img src="images/win_lose/star_icon.png" alt="Star" />
       </span>
     	<img class="positioned" src="images/win_lose/stars_background.png" alt="Stars" />
     </div>
+    <!--Changes 28 Sept.-->
+    <!--Objective-->
+    <div class="objectives">
+    	<strong><small>${score['objectives']*100}%</small></strong>from your objectives
+    </div>
+    <!--Changes 25 Sept.-->
     <!--Challenge friends-->
     <div class="challengeFriends">
+      {for friend in friends}
 			<!--Friend-->
     	<div class="friend">
-      	<a href="#">
+      	<a href="${friend['url']}">
           <span class="friendsScore">
-          	<span>12223</span>
+          	<span>{if friend.missions[mode][mission]} ${friend.missions[mode][mission]} {else} 0 {/if}</span>
           	<img class="positioned" src="images/friends/friendsScore.png" alt="Friends score" />
           </span>
           <!--New changes end here-->
-          <img class="friendAvatar" src="images/win_lose/dummy/crowd_member_small.png" alt="Firend avatar" />
-          <span class="friendName">Friend</span>
+          <img class="friendAvatar" src="${friend['picture']}" alt="Firend avatar" />
+          <span class="friendName">${friend.first_name}</span>
           <img src="images/friends/friend_box.png" alt="friend" />
         </a>
-      </div>
-			<!--Friend-->
-    	<div class="friend">
-      	<a href="#">
-          <span class="friendsScore">
-          	<span>12223</span>
-          	<img class="positioned" src="images/friends/friendsScore.png" alt="Friends score" />
-          </span>
-          <!--New changes end here-->
-          <img class="friendAvatar" src="images/win_lose/dummy/crowd_member_small.png" alt="Firend avatar" />
-          <span class="friendName">Friend</span>
-          <img src="images/friends/friend_box.png" alt="friend" />
+        <!--Challenge button-->
+        <a class="cancelButton" href="javascript:void(0)">
+          <span>Challenge</span>
+          <img src="images/win_lose/button_cancel.png" alt="confirm" />
         </a>
       </div>
-			<!--Friend-->
-    	<div class="friend">
-      	<a href="#">
-          <span class="friendsScore">
-          	<span>12223</span>
-          	<img class="positioned" src="images/friends/friendsScore.png" alt="Friends score" />
-          </span>
-          <!--New changes end here-->
-          <img class="friendAvatar" src="images/win_lose/dummy/crowd_member_small.png" alt="Firend avatar" />
-          <span class="friendName">Friend</span>
-          <img src="images/friends/friend_box.png" alt="friend" />
-        </a>
-      </div>
-      <!--Challenge button-->
-      <a class="cancelButton" href="javascript:void(0)">
-        <span>Challenge</span>
-        <img src="images/win_lose/button_cancel.png" alt="confirm" />
-      </a>
+      {/for}
     </div>
     <!--Mission icons-->
     <div class="missionIcons">

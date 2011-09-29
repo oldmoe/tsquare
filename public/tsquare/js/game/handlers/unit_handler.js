@@ -17,9 +17,11 @@ var UnitHandler = Class.create({
        var self = this;
        this.objects.each(function(laneObjects){self.scene.tickObjects(laneObjects)})
    },
+   
    start : function(){
        
    },
+   
    add: function(elem){
        if(this.incoming[elem.lane] == null){
          this.incoming[elem.lane] = [];

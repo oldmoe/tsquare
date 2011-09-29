@@ -139,9 +139,9 @@
   background-color: gray;
   border-radius: 20px 20px 20px 20px;
   height: 300px;
-  left: 180px;
+  left: 280px;
   position: absolute;
-  top: 60px;
+  top: 200px;
   width: 400px;
   z-index: 1000;
 }

@@ -27,7 +27,6 @@ var ScoreCalculator = Class.create({
   
   start: function(){
     this.startTime = (new Date()).getTime();
-    console.log("starting level");
   },
   
   end: function(){
@@ -35,6 +34,10 @@ var ScoreCalculator = Class.create({
     this.levelTime = this.startTime - this.endTime;
     
     this.crowdsCount = this.scene.handlers.crowd.getCrowdsCount();
+  },
+  
+  updateScore: function(score){
+    
   }
   
   

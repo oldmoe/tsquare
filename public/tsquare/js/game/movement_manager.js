@@ -152,11 +152,15 @@ var MovementManager = Class.create({
           this.beatMoving = true    
         }
     }else if(commandIndex == this.moves.retreat.index){
+        if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
         this.scene.fire('retreat')
+        this.beatMoving = true    
     }else if(commandIndex == this.moves.circle.index){
         this.scene.fire('circle')
+        this.beatMoving = true
     }else if(commandIndex == this.moves.hold.index){
         this.scene.fire('hold')
+        this.beatMoving = true
     }
 
     var self = this

@@ -5,6 +5,12 @@ var Game = Class.create({
     this.imagesLoaded = false;
     this.missionLoaded = false;
     this.gameManager = gameManager;
+    if(gameManager)
+      this.templateManager = gameManager.templateManager;
+     else{
+      this.network = new TSquareNetwork();
+      this.templateManager = new TemplatesManager(this.network);  
+     }
     if(gameManager)gameData = gameManager.gameData;
     if(gameManager)userData = gameManager.userData;
     this.startLoading();
@@ -26,7 +32,7 @@ var Game = Class.create({
     var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png', 'world.png']
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
     'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man']
-    var characterImages = []
+    var characterImages = ['follower.png']
     var imageNames = ['walk','run','front','back','idle','hold']
     for(var i=0;i<characterNames.length;i++){
         for(var j=0;j<imageNames.length;j++){
@@ -36,12 +42,15 @@ var Game = Class.create({
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
     'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png']
     var hoveringIconsImages = ['lock.png', 'circle.png', 'march.png', 'push.png'];
-    	var self = this
-    	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
-    					{images: characterImages, path: 'images/characters/', store: 'characters'},
-    					{images: hoveringIconsImages, path: 'images/icons/', store: 'hoveringIcons'},
-                        {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
-    				]
+    
+    var metersBarImages = ["", ""];
+       
+  	var self = this
+  	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
+  					{images: characterImages, path: 'images/characters/', store: 'characters'},
+  					{images: hoveringIconsImages, path: 'images/icons/', store: 'hoveringIcons'},
+                      {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
+  				]
     
     	var format = 'mp3'
     	for(var i=0; i < 4; i++){ //number of
@@ -67,7 +76,7 @@ var Game = Class.create({
   								  onFinish:function(){
   					   				self.imagesLoaded = true;
   						  			self.start();
-  						  			// self.play(missionData)
+  						  			self.play(missionData)
   								  }
     });
   },
@@ -100,17 +109,20 @@ var Game = Class.create({
     });
 	  
 	  new Loader().load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
-                        { onFinish:function(){        
-                            self.missionLoaded = true;
-                            self.start();
-                        }
-                      })
+          { onFinish:function(){        
+              self.missionLoaded = true;
+              var inGameMeterBar = new InGameMeterBar(self);
+              self.start();
+          }
+        })
   },
 
   start : function(){
+    var self = this;
     if(this.imagesLoaded == true && this.missionLoaded == true)
     {
       this.scene = new TsquareScene();
+      this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
 	  	this.scene.start();
 	  	this.scene.fire("start");
     }

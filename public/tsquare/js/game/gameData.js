@@ -1,10 +1,27 @@
 var missionData = 
   {"data":[[],[
   {
+<<<<<<< HEAD
       "name": "ultras_white",
       "category": 'npc',
       "index": 0,
       "lane": 0,
+=======
+      "name": "wood_stick_cs",
+      "category": 'enemy',
+      "type": '3_2',
+      "index": 0,
+      "lane": 1,
+      "x": 3,
+      "order": 1
+  }, 
+  {
+      "name": "ambulance",
+      "category": 'protection_unit',
+      "type": '3_3',
+      "index": 0,
+      "lane": 1,
+>>>>>>> c25788d4027b6be355fae36ebfce781eb5dcfc0a
       "x": 2,
       "order": 1
   }

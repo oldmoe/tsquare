@@ -24,10 +24,15 @@ var EditorData = [
   {src:'images/objects/bottleguy.png', name:'bottleguy', category:'crowd'},
   {src:'images/objects/7alaman.png', name:'7alaman', category:'crowd'},
   {src:'images/objects/dehydrator.png', name:'dehydrator', category:'crowd'},
-  {src:'images/objects/ambulance.png', name:'ambulance', category:'crowd'}, 
   {src:'images/objects/healer.png', name:'healer', category:'crowd'},
   {src:'images/objects/salafi.png', name:'salafi', category:'crowd'}, 
   {src:'images/objects/ultras.png', name:'ultras', category:'crowd'},
+
+  //protection unit
+  {src:'images/objects/ambulance.png', name:'ambulance', category:'protection'},
+  {src:'images/objects/ultras.png', name:'twitter_guy', category:'protection'},
+  
+
   //backgrounds
   {src:'images/backgrounds/3amod.png', name:'3amod.png', category:'background'},
   {src:'images/backgrounds/3amod2.png', name:'3amod2.png', category:'background'},

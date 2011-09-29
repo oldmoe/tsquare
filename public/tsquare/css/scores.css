@@ -59,7 +59,7 @@
 
 #friends {display:inline-block;}
 
-.swithcingTabs { float:right; width:29px; position:relative; top:58px; }
+.swithcingTabs { float:right; width:29px; position:relative; top:58px; z-index:10;}
 .swithcingTabs ul li { position:relative; width:29px; height:36px; overflow:hidden; margin:0 0 2px 0;  }
 .swithcingTabs ul li img { position:absolute; top:-36px;  }
 .swithcingTabs ul li.selected img, .swithcingTabs ul li:hover img { position:absolute; top:0px;  }

@@ -7,7 +7,7 @@ var Marketplace = Class.create({
   crowd_items :{},
   
   columns : 5,
-  itemWidth : 137,
+  itemWidth : 136,
   rows : 2,
   
   initialize : function(gameManager){
@@ -75,8 +75,8 @@ var Marketplace = Class.create({
       var specs = this.gatherSpecs( memberName );
       var specIds = specs.specIds;
       var memberSpecs = specs.memberSpecs;
-      for(var memeberId in this.myMembers[memberName]){
-        adjustedMyMembers.push( {name : memberName, specs : memberSpecs, specIds : specIds} )
+      for(var memberID in this.myMembers[memberName]){
+        adjustedMyMembers.push( {name : memberName, memberData : this.myMembers[memberName][memberID], specs : memberSpecs, specIds : specIds, memberID : memberID} )
       }
     }
     return adjustedMyMembers;
@@ -134,7 +134,7 @@ var Marketplace = Class.create({
       $$('.linkMembers').each(function(link){
         link.observe("click", function(event){
           var request = {};
-          request['data'] = {type : 'link_a_friend'};
+          request['data'] = {type : 'link_a_friend', memberID : link.id};
           request['message'] = "Would you like to play in my team? We have a revolution to do!";
           request['title'] = "Join my team!"
           socialEngine.sendRequest( request, function(response){

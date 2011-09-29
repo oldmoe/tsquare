@@ -92,41 +92,51 @@
   </div>
   <div id="missions">
     <!--Timeline Bar-->
-    <div class="timelineBar">
-    	<!--Missions-->
-    	<div class="timelineMissions">
-      	<ul>
-          {for mission in missions}
-          	<li id="mission_${mission['id']}">
-              <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_icon.png" alt="mission" /></a>
-            	<a href="javascript:void(0)" class="hover">
-              	<span>${mission.name}</span>
-              	<img src="images/timeline/mission_icon_selected.png" alt="mission" />
-              </a>
-            </li>
-          	<li id="mission_${mission['id']}">
-              <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_icon.png" alt="mission" /></a>
-            	<a href="javascript:void(0)" class="hover">
-              	<span>${mission.name}</span>
-              	<img src="images/timeline/mission_icon_selected.png" alt="mission" />
-              </a>
-            </li>
-          	<li id="mission_${mission['id']}">
-              <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_icon.png" alt="mission" /></a>
-            	<a href="javascript:void(0)" class="hover">
-              	<span>${mission.name}</span>
-              	<img src="images/timeline/mission_icon_selected.png" alt="mission" />
-              </a>
-            </li>
-          {/for}
-        </ul>
-        <img class="positioned timelineBarImage" src="images/timeline/timeline.png" alt="timeline bar" />
+    <div id="missions">
+      <!--Timeline Bar-->
+      <div class="timelineBar">
+      	<!--Missions-->
+      	<div class="timelineMissions">
+          <!--Changes 28 Sept.-->
+          <!--Left controls-->
+          <div class="leftControls">
+            <div class="left">
+              <span class="loadedImg" imgSrc="images/game_elements/previous_button.png" alt="Previous" />       
+            </div>    
+            <div class="first">      
+              <span class="loadedImg" imgSrc="images/game_elements/first_button.png" alt="First" />      	
+            </div>      	
+          </div>
+          <div id="missions-container" class="missionsContainer" >
+          	<ul id="missions-ul">
+            {for mission in missions}
+            	<li id="mission_${mission['id']}" {if mission['playable'] == true } class="glowing" {/if}>
+                <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_icon.png" alt="mission" /></a>
+              	<a href="javascript:void(0)" class="hover">
+                	<span>${mission.name}</span>
+                	<img src="images/timeline/mission_icon_selected.png" alt="mission" />
+                </a>
+              </li>
+            {/for}
+            </ul>
+          </div >
+          <!--Right controls-->
+          <div class="rightControls">
+            <div class="right">
+              <span class="loadedImg" imgSrc="images/game_elements/next_button.png" alt="Next" />
+            </div>
+            <div class="last">
+              <span class="loadedImg" imgSrc="images/game_elements/last_button.png" alt="Last" />
+            </div>
+          </div>
+          <img class="positioned timelineBarImage" src="images/timeline/timeline.png" alt="timeline bar" />
+          <!--Changes 28 Sept.-->
+        </div>
+        <!--Walking Crowd Member-->
+        <div class="walkingCrowdMemeber">
+        	<img src="images/timeline/crowd_member_small.png" alt="Crowd member" />
+        </div>
       </div>
-      <!--Walking Crowd Member-->
-      <div class="walkingCrowdMemeber">
-      	<img src="images/timeline/crowd_member_small.png" alt="Crowd member" />
-      </div>
-    </div>
   	<!--Mission Details-->
   	<div class="missionDetails" style="display:none;">
     </div>
@@ -138,12 +148,12 @@
   <div class="close">
     <a href="#"><img src="images/game_elements/close_button.png" alt="close" /></a>
   </div>
-	<div class="missionWrapper">
+  <div class="missionWrapper">
   	<div class="missionImages">
-    	<img src="images/missionImage.gif" alt="Mission Image" />
-      <img src="images/missionImage.gif" alt="Mission Image" />
-      <img src="images/missionImage.gif" alt="Mission Image" />
-      <img src="images/missionImage.gif" alt="Mission Image" />
+    	<img src="images/timeline/missionImage.gif" alt="Mission Image" />
+      <img src="images/timeline/missionImage.gif" alt="Mission Image" />
+      <img src="images/timeline/missionImage.gif" alt="Mission Image" />
+      <img src="images/timeline/missionImage.gif" alt="Mission Image" />
     </div>
     <div class="missionContent">
     	<h3>Mission Story</h3>
@@ -154,10 +164,12 @@
       	<li>This is a mission objective.</li>
       	<li>This is a mission objective.</li>
       </ul>
-      <a href="javascript:void(0)" class="playButton" id="${mission.id}"><img id="${mission.id}" src="images/timeline/play_button.png" alt="Play" /></a>
+      {if mission['playable'] == true } 
+        <a href="javascript:void(0)" class="playButton" id="${mission.id}"><img id="${mission.id}" src="images/timeline/play_button.png" alt="Play" /></a>
+      {/if}
     </div>
   </div>
-	<img class="positioned" src="images/timeline/mission_details.png" alt="Mission Details" />
+  <img class="positioned" src="images/timeline/mission_details.png" alt="Mission Details" />
 </textarea>
 
 <textarea style="display:none;" id='meterBar'>
@@ -205,6 +217,54 @@
         </table>
       </div>
     	<img class="positioned" src="images/game_elements/energy_bar.png" alt="Energy bar" />
+    </div>
+</textarea>
+
+<textarea style="display:none;" id='inGameMeterBar'>
+    <!--Game Currency Bar-->
+    <div class="gameCurrencyBar">
+      <span>12340</span>
+      <img class="positioned" src="images/game_elements/game_currency_bar.png" alt="Game currency bar" />
+    </div>
+    <!--Facebook Currency Bar-->
+    <div class="facebookCurrencyBar">
+      <span>120</span>
+      <a href="#">
+        <img src="images/game_elements/facebook_currency_add_button.png" alt="Facebook add button" />
+      </a>
+      <img class="positioned" src="images/game_elements/facebook_currency_bar.png" alt="Facebook currency bar" />
+    </div>
+    
+    <!--Experience Bar-->
+    <div class="experienceBar">
+      <span>2000</span>
+      <div class="bar">
+        <!--Value to be changed-->
+        <table cellpadding="0" cellspacing="0" width="90%">
+          <tr>
+            <td style="width:9px;"><img src="images/game_elements/experience_bar_left.png" alt="Experience bar" /></td>
+            <td style="width:90%;"><img style="width:100%; height:19px;" src="images/game_elements/experience_bar_center.png" alt="Experience bar" /></td>
+            <td style="width:9px;"><img src="images/game_elements/experience_bar_right.png" alt="Experience bar" /></td>
+          </tr>
+        </table>
+      </div>
+      <img class="positioned" src="images/game_elements/experience_bar.png" alt="Experience bar" />
+    </div>
+    
+    <!--Energy Bar-->
+    <div class="energyBar">
+      <span>2000</span>
+      <div class="bar">
+        <!--Value to be changed-->
+        <table cellpadding="0" cellspacing="0" width="90%">
+          <tr>
+            <td style="width:9px;"><img src="images/game_elements/energy_bar_left.png" alt="Energy bar" /></td>
+            <td style="width:90%;"><img style="width:100%; height:19px;" src="images/game_elements/energy_bar_center.png" alt="Energy bar" /></td>
+            <td style="width:9px;"><img src="images/game_elements/energy_bar_right.png" alt="Energy bar" /></td>
+          </tr>
+        </table>
+      </div>
+      <img class="positioned" src="images/game_elements/energy_bar.png" alt="Energy bar" />
     </div>
 </textarea>
 

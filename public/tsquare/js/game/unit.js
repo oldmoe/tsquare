@@ -19,6 +19,7 @@ var Unit = Class.create({
   movingToTarget : false,
   type: null,
   neglected : false,
+
   initialize : function(scene,x,lane, options){
     var self = this
     this.commandFilters = [
@@ -28,9 +29,12 @@ var Unit = Class.create({
     this.scene = scene
     this.lane = lane
     this.type = options.type
-    var y = this.scene.view.laneMiddle*2*this.lane+this.scene.view.laneMiddle
+    
+    var y = 0;
+    if(options.y) y = options.y;
+    else y = this.scene.view.laneMiddle*2*this.lane+this.scene.view.laneMiddle;
     this.coords ={x:x, y:y}
-    this.handler = options.handler
+    if(options)this.handler = options.handler
   },
   
   processCommand: function(){
@@ -40,6 +44,7 @@ var Unit = Class.create({
         }    
     }
   },
+  
   tick : function(){
     if(this.dead)return
     this.processCommand()

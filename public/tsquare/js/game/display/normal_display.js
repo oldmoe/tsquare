@@ -1,4 +1,9 @@
 var NormalDisplay = Class.create(CrowdMemberDisplay,{
+  
+  initialize: function($super, owner){
+    $super(owner);
+  },
+  
   initImages : function(){
     this.characterImg = Loader.images.characters['normal_idle.png']
     this.walkImg = Loader.images.characters['normal_walk.png']

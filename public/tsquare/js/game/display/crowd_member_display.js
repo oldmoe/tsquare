@@ -21,9 +21,11 @@ var CrowdMemberDisplay = Class.create(Display,{
       })
     })
   },
+  
   initImages : function(){
     this.characterImg = Loader.images.characters['crowd_member.png'];
   },
+  
   createSprites : function(){
     this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : 7})
     this.sprites.character.createAnimation({name:'hold',img:this.holdImg,noOfFrames:1})
@@ -53,6 +55,7 @@ var CrowdMemberDisplay = Class.create(Display,{
       shiftY : 5
     });
   },
+  
   render : function($super){
     if(this.owner.stateChanged){
       if (this.owner.scene.moveBack) {

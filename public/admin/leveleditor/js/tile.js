@@ -103,7 +103,7 @@ var Tile = Class.create({
     if(type){
       if(obj.category == "enemy"){
         obj.type = {cols:type.split("_")[0], rows:type.split("_")[1]};
-      }else if(obj.category == "powrups"){
+      }else if(obj.category == "powerup"){
         obj.type = type;
       }
     }
@@ -143,16 +143,16 @@ var Tile = Class.create({
 		return '<td class="dropbox" valign="top">' +
 		'<div id="content" style="width:75px;height:92px;overflow:auto"></div>'+ 
 			'<div id="options" style="display:block;width:64px">'+
-				'<img id="addButton" src="images/add_icon.png" class="tileIcon" />'+
-				'<img id="deleteButton" src="images/delete_icon.png" class="tileIcon" />'+
-				'<img id="discussionButton" src="images/discussion_icon.png" class="tileIcon" />'+
-				'<img id="editButton" src="images/edit_icon.png" class="tileIcon" />'+
+				'<img id="addButton" src="images/add_icon.png" class="tileIcon" title="Add new tile"/>'+
+				'<img id="deleteButton" src="images/delete_icon.png" class="tileIcon" title="Delete tile"/>'+
+				'<img id="discussionButton" src="images/discussion_icon.png" class="tileIcon" title="Open dissucsion window"/>'+
+				'<img id="editButton" src="images/edit_icon.png" class="tileIcon" title="Edit tile contents"/>'+
 			'</div>'+
 			'<div id="index" style="float:left;width:100%"></div></td>';
 	},
 	
 	createDraggedItem : function (obj){
-		return '<img src="'+obj.image+'" name="'+obj.name+'" category="'+obj.category+'" style="width:30px;float:left"/>';
+		return '<img src="'+obj.image+'" name="'+obj.name+'" category="'+obj.category+'" style="width:64px;float:left"/>';
 	},
 	
 	openContent: function(){

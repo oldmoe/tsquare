@@ -11,8 +11,7 @@ class GamesController < ApplicationController
       :user_data => { :coins => user.coins,
                       :data => user_game_profile.data
                     },
-      :missions_data => { :data => UserMissions.all(user_game_profile) },
-      :current_mission => { :data => UserMissions.current(user_game_profile) }
+      :missions_data => { :data => UserMissions.all(user_game_profile) }
     }
     data[:user_data][:volatile_data] = user_game_profile['volatile_data'] || {}
     encode(data)
@@ -46,6 +45,12 @@ class GamesController < ApplicationController
   get '/:game_name/mission' do
     data = decode(params['data'])
     result = UserMissions.data(user_game_profile, data['id'])
+    encode(result)
+  end
+
+  post '/:game_name/mission' do
+    data = decode(params['data'])
+    result = UserMissions.update(user_game_profile, data['id'], data['score'])
     encode(result)
   end
 
@@ -98,12 +103,23 @@ class GamesController < ApplicationController
       case params['method']
       when 'payments_get_items'
         result = {'content' => [], 'method' => 'payments_get_items' }
-        product = Game::current.products["fb"][data['credits']['order_info'].delete("\"")]
+        product = Game::current.products[service_provider][data['credits']['order_info'].delete("\"")]
         product['item_id'] = data['order_info']
         result['content'] << product
       when 'payments_status_update'
+        LOGGER.debug "!!!!!!!!!!!!!!!!!!!!!!! #{data}"
         result = {'content' => {}, 'method' => 'payments_status_update' }
         if params['status'] == 'placed'
+          game = Game::current
+          order_details = Nezal::Decoder.decode( data['credits']['order_details'] )
+          user_id = UserGameProfile::generate_key(Service::PROVIDERS[service_provider][:prefix], game.key, order_details['receiver'])
+          user_game_profile = UserGameProfile.get user_id
+          product_title = order_details['items'][0]['title']
+          product = game.products[service_provider][ product_title.delete("\"") ]
+          crowd_member_name = product['item_id'].split(".")[-1]
+
+          Marketplace.buyCrowdMember user_game_profile, crowd_member_name, false
+          
           result['content']['status'] = 'settled'
           result['content']['order_id'] = data['order_id']
         end
@@ -141,25 +157,12 @@ class GamesController < ApplicationController
   
   post '/:game_name/buy_market_item' do
     data = decode(params['data'])
+    response = {}
     case data['category']
       when 'marketMembers'
-        crowd_member_name = data['name']
-        decoy = Game::current.crowd_members['specs'][crowd_member_name].nil?
-        if( decoy )
-          return encode( {'error' => 'Crowd member does not exist'} )
-        end
-        if user_game_profile['crowd_members'][crowd_member_name]
-          next_id = user_game_profile['crowd_members'][crowd_member_name].keys.max + 1
-          user_game_profile['crowd_members'][crowd_member_name][next_id] = {}
-        else
-          user_game_profile['crowd_members'][crowd_member_name] = {}
-          user_game_profile['crowd_members'][crowd_member_name][1] = {}
-        end
-        user.coins -= 10
-        user_game_profile.save
-        user.save
+        response = Marketplace.buyCrowdMember user_game_profile, data['name'], true
     end
-    
+    return encode( response )
   end
 
   get '/:game_name/' do

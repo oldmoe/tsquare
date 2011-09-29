@@ -4,10 +4,10 @@ var TsquareScene = Class.create(Scene,{
     skyline: null,
     currentSpeed : 0,
     speeds : [
-      {state :'crowd_member_animation_normal' , value : 0 ,energy : 0},
-      {state :'crowd_member_animation_walk' , value : 3 ,energy : 1},
-      {state :'crowd_member_animation_jog' ,  value : 10,energy : 10},
-      {state :'crowd_member_animation_run' ,  value : 15,energy : 20}
+      {state :'crowd_member_animation_normal' , value : 0 ,energy : 0, followers: 1},
+      {state :'crowd_member_animation_walk' , value : 3 ,energy : 1, followers: 1},
+      {state :'crowd_member_animation_jog' ,  value : 10,energy : 10, followers: 1},
+      {state :'crowd_member_animation_run' ,  value : 15,energy : 20, followers: 1}
     ],
     speedIndex : 0,
     direction : 1,
@@ -20,7 +20,6 @@ var TsquareScene = Class.create(Scene,{
     
     initialize: function($super){
         $super();
-		    Effect.Queues.create('global', this.reactor)
         this.scoreCalculator = new ScoreCalculator(this);
         this.createRenderLoop('skyline',1);
         this.createRenderLoop('characters',2);
@@ -47,6 +46,7 @@ var TsquareScene = Class.create(Scene,{
         this.observe('correctMove',function(){self.correctMove()})
         this.observe('wrongCommand',function(){self.wrongCommand()})
         this.observe('correctCommand',function(){self.correctCommand()})
+        this.observe("updateScore", function(score){self.updateScore(score)});
     },
     
     init: function(){
@@ -65,8 +65,8 @@ var TsquareScene = Class.create(Scene,{
         this.reactor.observe(event, callback, scope);
     },
     
-    fire: function(event){
-        this.reactor.fire(event);
+    fire: function(event, params){
+        this.reactor.fire(event, params);
     },
 
     wrongMove: function(){
@@ -84,15 +84,21 @@ var TsquareScene = Class.create(Scene,{
     },
     
     wrongCommand: function(){
-      this.scoreCalculator.correctCommandsCount++;
+      this.scoreCalculator.wrongCommandsCount++;
       this.scoreCalculator.totalCommandsCount++;
       console.log("scene wrong command");
     },
 
     correctCommand: function(){
+      this.fire("updateScore", [10]);
+      console.log("scene correct command");
       this.scoreCalculator.correctCommandsCount++;
       this.scoreCalculator.totalCommandsCount++;
-      console.log("scene correct command");
+    },
+    
+    updateScore: function(score){
+      console.log("score : " + score);
+      this.scoreCalculator.score += score;
     },
     
     tick: function($super){
@@ -107,7 +113,7 @@ var TsquareScene = Class.create(Scene,{
   end : function(win){
 //  this.reactor.stop()
     this.win = win
-    this.fire('end')
+    this.fire('end', {score:1000, objectives:0.6, combos: 0.8, win:true});
     //send to the server
   },
   
@@ -160,7 +166,10 @@ var TsquareScene = Class.create(Scene,{
     
   increaseEnergy : function(){
     this.audioManager.levelUp()
-    if(this.energy.current < this.energy.max)this.energy.current+= this.energy.rate
+    if(this.energy.current < this.energy.max){
+      this.energy.current+= this.energy.rate;
+      this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
+    }
     var next = this.speeds[this.speedIndex+1]
     if(next){
         if(this.energy.current>=next.energy){
@@ -174,6 +183,7 @@ var TsquareScene = Class.create(Scene,{
    decreaseEnergy : function(){
       this.audioManager.levelDown()
       this.energy.current= Math.max(this.energy.current-this.energy.rate, 0)
+      // this.fire("decreaseFollowers",  [this.speeds[this.speedIndex].followers])
       if(this.speedIndex >0 && this.energy.current < this.speeds[this.speedIndex].energy){
           this.speedIndex--
           this.currentSpeed = this.speeds[this.speedIndex].value

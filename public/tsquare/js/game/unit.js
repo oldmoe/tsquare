@@ -27,6 +27,7 @@ var Unit = Class.create({
     this.target = null
     this.scene = scene
     this.lane = lane
+    this.type = options.type
     var y = this.scene.view.laneMiddle*2*this.lane+this.scene.view.laneMiddle
     this.coords ={x:x, y:y}
     this.handler = options.handler

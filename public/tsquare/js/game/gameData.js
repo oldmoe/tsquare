@@ -1,12 +1,11 @@
 var missionData = 
   {"data":[[],[
   {
-      "name": "wood_stick_cs",
-      "category": 'enemy',
-      "type": '3_3',
+      "name": "ultras_white",
+      "category": 'npc',
       "index": 0,
-      "lane": 1,
-      "x": 1,
+      "lane": 0,
+      "x": 2,
       "order": 1
   }
     ]],

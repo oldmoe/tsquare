@@ -1,5 +1,7 @@
 var Enemy = Class.create(Unit, {
   target : null,
+  charging : true, 
+  chargingSpeed : 3,
   hp : 25, attack : 10 , defense : 25, chargeTolerance : 2, circleSize : 1,
   hitState : null,normalState:null,
   initialize : function($super,scene,x,y,options){
@@ -28,7 +30,10 @@ var Enemy = Class.create(Unit, {
   handleCollision : function(){
   },
   updatePosition: function(){
-    this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);  
+    if(!this.charging)
+      this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);
+    else  
+      this.move(-(this.scene.currentSpeed * this.scene.direction+this.chargingSpeed), 0);
   },
   setTarget: function(target){
       this.target = target;

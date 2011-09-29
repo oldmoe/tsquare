@@ -51,7 +51,9 @@ var AudioManager = Class.create({
 	run : function(){
 		this.reactor.pushEvery(0, this.reactor.timeToTicks(this.durations[this.level.tempo]), this.tick, this)
 	},
-	
+	nextBeatTicks : function(){
+    return this.reactor.timeToTicks(this.durations[this.level.tempo]/4)
+  },
 	tick : function(){
 		if(this.index % 2 == 1){
 			// we should play the hetaf here, nothing will change with the beats though

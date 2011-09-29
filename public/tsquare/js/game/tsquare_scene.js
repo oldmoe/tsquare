@@ -20,16 +20,16 @@ var TsquareScene = Class.create(Scene,{
     
     initialize: function($super){
         $super();
-		Effect.Queues.create('global', this.reactor)
+		    Effect.Queues.create('global', this.reactor)
         this.scoreCalculator = new ScoreCalculator(this);
         this.createRenderLoop('skyline',1);
         this.createRenderLoop('characters',2);
         this.physicsHandler = new PhysicsHandler(this);
-        this.movementManager = new MovementManager(this);
         this.handlers = {
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
-            "enemy" : new EnemyHandler(this)  
+            "enemy" : new EnemyHandler(this),  
+            "npc" : new NPCHandler(this)
         };  
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
@@ -40,7 +40,6 @@ var TsquareScene = Class.create(Scene,{
                     this.handlers[elem.category].add(elem);
             }
         }
-        
         var self = this;
         this.observe("start", function(){self.scoreCalculator.start();})
         this.observe("end", function(){self.scoreCalculator.end();})
@@ -56,6 +55,8 @@ var TsquareScene = Class.create(Scene,{
             this.handlers[handler].start()
         }
         this.audioManager = new AudioManager(this.reactor)
+        this.movementManager = new MovementManager(this);
+        this.flashingHandler = new FlashingHandler(this)
         this.audioManager.run()
         //this.physicsHandler.step()
     },

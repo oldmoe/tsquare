@@ -39,7 +39,7 @@ GameData = {
                         'attacker' : {type : 'special'},
                         'leader' : {type : 'special'},
                         'healer' : {type : 'special'},
-                        'dehydrator' : {type : 'special'},
+                        'bottleguy' : {type : 'special'},
                         'supplier' : {type : 'special'},
                         'energy_booster' : {type : 'special'},
                         'wael_ghoneim' : {type : 'limited_edition'},
@@ -52,7 +52,7 @@ GameData = {
                     'healer' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'hp' : 10 }, 
                                                        'hp' : 75, 'h2o' : 75, 'attack' : 2, 'defense' : 75 } 
                                 },
-                    'dehydrator' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'h2o' : 10}, 
+                    'bottleguy' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'h2o' : 10}, 
                                                             'hp' : 75 , 'h2o' : 75 , 'attack' : 2  , 'defense' : 75 }  
                                 },
                     'supplier' : { 1 : {'special' : { 'item' : 1, 'slots_to_power' : 1 },

@@ -98,13 +98,8 @@
           <img id=${item.name} class="positioned" src="images/marketplace/members/${item.name}.png" alt="Crowed" style="width:73px;" />
         </div>
         {if screen == "marketplace"}
-          <!--Crowed Price-->
-          <div class="crowedItemPrice">
-            <h5>1200</h5>
-            <img class="positioned" src="images/marketplace/item_price.png" alt="Item price" />
-          </div>
           <div onclick="gameManager.marketplace.buy({category : 'marketMembers', name : '${item.name}', buyID : '${item.buyID}' })" class="crowedItemDetails">
-            <a href="javascript:void(0)">Buy</a>
+            <a href="javascript:void(0)">1200 Call</a>
             <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
           </div>
         {else}

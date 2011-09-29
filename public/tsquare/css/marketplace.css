@@ -108,5 +108,8 @@
 .crowdMemeberDetails dl dd + dd { width:11%; text-align:right; }
 .crowdMemeberDetails dl dd table { margin:3px 0 0 0; }
 
+
+.linkToFriend { position:absolute; width:29px; height:30px; z-index:7; right:8px; top:80px; }
+
 .detailsBox .confirmButton { top:195px; }
 .detailsBox .cancelButton { top:195px; }

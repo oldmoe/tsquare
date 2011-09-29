@@ -118,13 +118,9 @@ var Block = Class.create(Enemy,{
         }
     },
     move : function(dx,dy){
-        var x = this.elements[0][0].coords.x
         this.coords.x+=dx
         this.coords.y+=dy
-        var z = this.elements[0][0].coords.x
         this.moveElements(dx,dy)
-        var y = this.elements[0][0].coords.x
-        if(x!=y)console.log('jj',x,y,z)
     },    
     takePush : function(){
        this.chargeTolerance--

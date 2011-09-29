@@ -12,14 +12,15 @@ var AmnMarkazy = Class.create(Enemy,{
      this.hp = 30;
      this.maxHp = 30;
      this.power = 10;
+     this.hittingTicks = this.scene.reactor.everySeconds(1)
   },
   handleCollision : function(){
       if(this.target){
-         if(this.hittingTime == 15){
+         if(this.hittingTime == this.hittingTicks){
             this.target.takeHit(this.power);
          }
          this.hittingTime += 1;              
-         this.hittingTime = this.hittingTime % 16;
+         this.hittingTime = this.hittingTime % (this.hittingTicks+1);
       }  
   },
   updatePosition : function(){

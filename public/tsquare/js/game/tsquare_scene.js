@@ -20,6 +20,7 @@ var TsquareScene = Class.create(Scene,{
     
     initialize: function($super){
         $super();
+		    Effect.Queues.create('global', this.reactor)
         this.scoreCalculator = new ScoreCalculator(this);
         this.createRenderLoop('skyline',1);
         this.createRenderLoop('characters',2);

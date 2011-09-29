@@ -26,9 +26,9 @@ var CrowdMember = Class.create(Unit,{
     this.name = options.name
     var self = this
     this.hp = this.maxHp = specs.hp
-    this.water = this.maxWater =  specs.water
-    this.attack = specs.attack
-    this.defense = specs.defense 
+    this.water = this.maxWater =  specs.water 
+    this.attack = specs.attack || 0
+    this.defense = 0 || specs.defense 
     var crowdCommandFilters = [
         {command: function(){return self.rotating}, callback: function(){self.circleMove()}},
     ]
@@ -98,8 +98,7 @@ var CrowdMember = Class.create(Unit,{
      for(var i=0;i<this.followers.length;i++){
         this.followers[i].coords.x+=move[0]
         this.followers[i].coords.y+=move[1]
-        this.followers[i].water -=this.waterDecreaseRate
-        if(this.followers[i].water <=0){
+        if(this.followers[i].hp <=0){
           this.followers[i].destroy()
           this.followers.splice(i,1)
         }
@@ -107,18 +106,16 @@ var CrowdMember = Class.create(Unit,{
   },
  
   takeHit: function($super, power){
-    var hitPower = power;
-    if(this.currentAction == "hold"){
-      hitPower = hitPower * (1-this.scene.holdPowerDepression);
-      this.scene.energy.current += this.scene.energy.rate;
-    }else{
-      this.scene.energy.current -= this.scene.energy.rate;
-    }
+        var hitPower = power;
+//    if(this.currentAction == "hold"){
+//      hitPower = hitPower * (1-this.scene.holdPowerDepression);
+//      this.scene.energy.current += this.scene.energy.rate;
+//    }else{
+//      this.scene.energy.current -= this.scene.energy.rate;
+//    }
         
-    if(this.followers.length > 0)
-        this.followers[0].takeHit(hitPower);
-    else
-        $super(hitPower)   
+        if(this.followers && this.followers.length > 0)this.followers[0].takeHit(hitPower)
+        else $super(hitPower - this.defense)
   },
   
   circle : function(){
@@ -219,13 +216,16 @@ var CrowdMember = Class.create(Unit,{
       return
     }
       if (this.rotationPoints.length == 0) {
+        console.log(this.target.hp)
         this.target.rotationComplete(this.attack)
-        if (this.target.hp < 0) {
-          this.resetRotation()
-          return
-        }else{
-          this.circle(this.target)
-        }
+        console.log(this.target.hp)
+        this.resetRotation()
+        return
+//        if (this.target.hp < 0) {
+//          return
+//        }else{
+//          this.circle(this.target)
+//        }
       }
       var rp = this.rotationPoints[0]
       var move = Util.getNextMove(this.coords.x,this.coords.y,rp.values.x,rp.values.y,this.rotationSpeed)

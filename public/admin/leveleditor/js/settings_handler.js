@@ -58,9 +58,9 @@ var SettingsHandler = new Class.create({
 	},
 	
 	loadData: function(settings){
-	  
 	  if(settings.missionDetails)$("missionDetails").setValue(settings.missionDetails);
 	  if(settings.gameModes){
+	    
 	    if(settings.gameModes.indexOf("normal") > -1)$(this.containerId).select('input[name=gameModes]')[0].checked = "checked";
 	    if(settings.gameModes.indexOf("sneak") > -1)$(this.containerId).select('input[name=gameModes]')[1].checked = "checked";
 	    if(settings.gameModes.indexOf("charging") > -1)$(this.containerId).select('input[name=gameModes]')[2].checked = "checked";

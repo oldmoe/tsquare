@@ -72,13 +72,6 @@ var Block = Class.create(Enemy,{
     
     split : function(){
       if(this.elements.length == 1)return
-      console.log("split");
-//        if(this.elements.length == 1){
-//            for(var i=0;i<this.elements[0].length;i++){
-//                this.handler.objects[this.lane].pushFirst(this.elements[0][i])
-//                this.elements[0][i].moveToTarget({x:this.coords.x+i*100 + this.getWidth()/2,y:this.elements[0][i].coords.y})
-//            }
-//        }else 
          if(this.elements.length == 3 || this.elements.length == 2){
             this.setTarget(null)
             var options = this.options
@@ -120,7 +113,7 @@ var Block = Class.create(Enemy,{
        $super()
        for (var i = 0; i < this.elements.length; i++) {
             for (var j = 0; j < this.elements[i].length; j++) {
-                this.elements[i][j].tick()
+               this.elements[i][j].tick()
             }
         }
     },
@@ -145,7 +138,7 @@ var Block = Class.create(Enemy,{
       this.coords = coords
       for (var i = 0; i < this.elements.length; i++) {
         for (var j = 0; j < this.elements[i].length; j++) {
-          this.elements[i][j].coords = coords 
+          this.elements[i][j].coords = Nezal.clone_obj(coords) 
         }
       }
     },

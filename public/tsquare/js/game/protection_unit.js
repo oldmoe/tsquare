@@ -25,7 +25,10 @@ var ProtectionUnit = Class.create(Unit,{
     this.enemies[0].tick()
     this.enemies[1].tick()
     this.checkTarget()
+    this.checkHp()
     
+  },
+  checkHp : function(){
   },
   escape : function(){
     
@@ -48,6 +51,11 @@ var ProtectionUnit = Class.create(Unit,{
       for(var i=0;i<this.enemies.length;i++){
         this.enemies[i].destroy()
       }
+    }
+  },
+  die : function(){
+    for(var i=0;i<this.enemies.length;i++){
+        this.enemies[i].destroy()
     }
   }
 })

@@ -30,7 +30,7 @@ var EditorData = [
 
   //protection unit
   {src:'images/objects/ambulance.png', name:'ambulance', category:'protection'},
-  {src:'images/objects/ultras.png', name:'twitter_guy', category:'protection'},
+  {src:'images/objects/twitter.png', name:'twitter_guy', category:'protection'},
   
 
   //backgrounds

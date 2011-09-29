@@ -5,6 +5,7 @@ var LevelLoader = Class.create({
   
   initialize: function(){
     this.mission = Mission.currMission;
+    // this.mission = gameData;
     this.missionData = this.mission.data;
     this.load();
   },
@@ -14,14 +15,18 @@ var LevelLoader = Class.create({
     if(this.missionData){
       if(this.missionData.data)this.loadObjects(this.missionData.data);
       if(this.missionData.backgrounds)this.loadBackgrounds(this.missionData.backgrounds);
-      if(this.missionData.settings)this.loadSettings(this.missionData.settings);
+      if(this.missionData)this.loadSettings(this.missionData);
       alert("Data loaded successfully.");
     }else{
       alert("No data to load.");
     }
   },
   
-  loadSettings: function(settings){
+  loadSettings: function(missionData){
+    var settings = {};
+    settings.gameModes = missionData.gameModes;
+    settings.environment = missionData.environment;
+    settings.missionDetails = missionData.missionDetails;
     levelEditor.settingsHandler.loadData(settings);
   },
   
@@ -52,7 +57,6 @@ var LevelLoader = Class.create({
     
     //adjusting the size of lanes to fit the new data
     levelEditor.grid.adjustLength(laneLength+1);
-    
     
     for (var i=0; objects && i < objects.length; i++) {
       for (var j=0; j < objects[i].length; j++) {

@@ -1,18 +1,7 @@
-var NPCHandler = Class.create({
-   
-   npcs: null,
-   scene: null,
-   
-   initialize: function(scene){
-       this.scene = scene;
-   },
-   
-   tick: function(){
-       
-   },
-   
-   
-   
-   
-    
+var NPCHandler = Class.create(UnitHandler,{
+   addObject: function($super, obj){
+    obj.options.type = obj.name
+    obj.name = "npc"
+    return $super(obj)
+   }
 });

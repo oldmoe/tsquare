@@ -25,12 +25,9 @@ var MovementManager = Class.create({
    if(this.ticksPassed > this.nextTick+10){
       this.reset()
    } 
-   this.nextTick = this.beatDelay-this.beatAccelaration
+   this.nextTick = this.scene.audioManager.nextBeatTicks()
    //Sounds.play(Sounds.gameSounds.beat)
    var self = this
-   //$('beatFlash').show()
-   var fadeDuration = (this.nextTick - 3)*this.scene.reactor.delay / 1000
-   this.scene.reactor.push(0,function(){new Effect.Fade('beatFlash',{duration: fadeDuration})})
    this.scene.reactor.push(this.nextTick,function(){self.playSounds()})
   },
   

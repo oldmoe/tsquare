@@ -1,21 +1,16 @@
 var NpcDisplay = Class.create(Display,{
-  noOfFrames : 1,  
+  noOfFrames : 8,  
   initialize : function($super,owner,properties){
-    this.characterImg = Loader.images.characters['npc.png'];
-    this.imgWidth = this.characterImg.width/this.noOfFrames
-    this.imgHeight = this.characterImg.height
+    this.characterImg = Loader.images.characters[owner.type+'_walk.png'];
+    this.imgWidth = this.characterImg.width
+    this.imgHeight = this.characterImg.height/this.noOfFrames
     $super(owner)
   },
   createSprites : function(){
-    var flipped = false
-    if(this.owner.direction==-1)flipped = true
-    this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg},{flipped:flipped})
+    this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : this.noOfFrames},{flipped:true})
   },
   render : function($super){
-    if(this.owner.stateChanged){
       this.sprites.character.currentAnimationFrame = (this.sprites.character.currentAnimationFrame+1) % this.noOfFrames 
       $super()
-    }
   }
-  
 })

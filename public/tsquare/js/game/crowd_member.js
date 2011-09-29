@@ -28,7 +28,7 @@ var CrowdMember = Class.create(Unit,{
     this.hp = this.maxHp = specs.hp
     this.water = this.maxWater =  specs.water 
     this.attack = specs.attack || 0
-    this.defense = 0 || specs.defense 
+    this.defense = specs.defense || 0 
     var crowdCommandFilters = [
         {command: function(){return self.rotating}, callback: function(){self.circleMove()}},
     ]
@@ -87,6 +87,8 @@ var CrowdMember = Class.create(Unit,{
     this.stateChanged = true
     
     this.updateState();
+    
+    if(this.followers)this.checkFollowersState();
   },
 
   updateState: function(){
@@ -94,10 +96,8 @@ var CrowdMember = Class.create(Unit,{
     if(this.water <= 0) this.dead = true;   
   },
    
-  tickFollowers : function(move){
+  checkFollowersState : function(move){
      for(var i=0;i<this.followers.length;i++){
-        this.followers[i].coords.x+=move[0]
-        this.followers[i].coords.y+=move[1]
         if(this.followers[i].hp <=0){
           this.followers[i].destroy()
           this.followers.splice(i,1)
@@ -114,8 +114,13 @@ var CrowdMember = Class.create(Unit,{
 //      this.scene.energy.current -= this.scene.energy.rate;
 //    }
         
-        if(this.followers && this.followers.length > 0)this.followers[0].takeHit(hitPower)
-        else $super(hitPower - this.defense)
+        if (this.followers && this.followers.length > 0) {
+          this.followers[0].takeHit(hitPower)
+        }
+        else{
+          if(this.defense) hitPower-=this.defense
+          $super(hitPower)
+        } 
   },
   
   circle : function(){

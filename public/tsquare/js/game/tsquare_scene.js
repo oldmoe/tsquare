@@ -184,7 +184,7 @@ var TsquareScene = Class.create(Scene,{
    decreaseEnergy : function(){
       this.audioManager.levelDown()
       this.energy.current= Math.max(this.energy.current-this.energy.rate, 0)
-      // this.fire("decreaseFollowers",  [this.speeds[this.speedIndex].followers])
+      this.fire("decreaseFollowers",  [this.speeds[this.speedIndex].followers])
       if(this.speedIndex >0 && this.energy.current < this.speeds[this.speedIndex].energy){
           this.speedIndex--
           this.currentSpeed = this.speeds[this.speedIndex].value

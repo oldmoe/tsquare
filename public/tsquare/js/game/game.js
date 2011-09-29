@@ -39,6 +39,7 @@ var Game = Class.create({
             characterImages.push(characterNames[i]+"_"+imageNames[j]+".png")
         }
     }
+    var effectsImages = ['hydrate.png', 'hit1.png']
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
     'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png']
     var hoveringIconsImages = ['lock.png', 'circle.png', 'march.png', 'push.png'];
@@ -49,6 +50,7 @@ var Game = Class.create({
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
   					{images: characterImages, path: 'images/characters/', store: 'characters'},
   					{images: hoveringIconsImages, path: 'images/icons/', store: 'hoveringIcons'},
+            {images: effectsImages, path: 'images/effects/', store: 'effects'},
                       {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
   				]
     

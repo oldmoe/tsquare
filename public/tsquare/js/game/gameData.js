@@ -6,12 +6,12 @@ var missionData =
       "type": '3_2',
       "index": 0,
       "lane": 1,
-      "x": 3,
+      "x": 1,
       "order": 1
   }, 
   {
       "name": "ambulance",
-      "category": 'protection_unit',
+      "category": 'protection',
       "type": '3_3',
       "index": 0,
       "lane": 1,

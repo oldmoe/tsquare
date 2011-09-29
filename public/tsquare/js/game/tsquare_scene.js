@@ -33,11 +33,12 @@ var TsquareScene = Class.create(Scene,{
         };  
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
+        var mapping = {'crowd':'npc', 'protection':'protection_unit', 'enemy':'enemy'}
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
                 var elem = this.data[i][j]
-                if(this.handlers[elem.category])
-                    this.handlers[elem.category].add(elem);
+                if(this.handlers[mapping[elem.category]])
+                    this.handlers[mapping[elem.category]].add(elem);
             }
         }
         var self = this;

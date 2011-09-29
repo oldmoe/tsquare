@@ -31,7 +31,7 @@ GameData = {
                       'dehydrator' : { 1 : 10, 2 : 20, 3 : 30 }
                      },
       'crowd_members' : {
-              'category' : { 'salafi' : {type : 'normal'},
+              'category' : { 'salafy' : {type : 'normal'},
                         'ultras_green' : {type : 'normal'},
                         'ultras_white' : {type : 'normal'},
                         'ultras_red' : {type : 'normal'},

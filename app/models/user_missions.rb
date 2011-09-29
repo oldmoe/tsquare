@@ -15,7 +15,7 @@ class UserMissions
 
     def data user_profile, mission_id
       data = {}
-      mission_id = mission_id.to_i
+      mission_id = mission_id
       mode = Mission.mode mission_id
       if user_profile.current_mission[mode]==mission_id || user_profile.missions[mode][mission_id]
         data = Mission.get(mission_id)
@@ -24,7 +24,7 @@ class UserMissions
     end
 
     def update user_profile, mission_id, score
-      mission_id = mission_id.to_i
+      mission_id = mission_id
       mode = Mission.mode mission_id
       if user_profile.missions[mode][mission_id] && user_profile.missions[mode][mission_id][score]
         if user_profile.missions[mode][mission_id][score] < score['score']

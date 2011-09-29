@@ -30,20 +30,26 @@ class Mission
       init
       game = Game::current
       missions = {}
+      game.missions['timeline'].each_pair do |key, value|
+        value['id'] = value['id'].to_s
+        value['next'] = value['next'].to_s
+        missions[key.to_s] = value
+      end
+      game.missions['timeline']= missions
+      game.save
+      missions = {}
       MODES.each { |mode| missions[mode] = game.missions[mode] }
       missions
     end
 
     def get id
       all
-      id = id.to_i
       game = Game::current
       mode = self.mode(id)
       game.missions[mode][id]
     end
 
     def edit id, data
-      id = id.to_i
       init
       game = Game::current
       mode = mode(id)
@@ -54,7 +60,6 @@ class Mission
     end
 
     def delete id
-      id = id.to_i
       init
       game = Game::current
       mode = self.mode(id)
@@ -74,11 +79,10 @@ class Mission
     end
 
     def add name, parent, mode
-      parent = parent.to_i
       init
       game = Game::current
       mission = { 'name' => name, 'data' => {} }
-      mission['id'] = game.missions['id_generator']
+      mission['id'] = game.missions['id_generator'].to_s
       next_mission = 0 
       unless game.missions[mode][parent].nil? 
         next_mission = game.missions[mode][parent]['next']

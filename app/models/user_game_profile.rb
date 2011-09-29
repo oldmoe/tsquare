@@ -1,6 +1,7 @@
 class UserGameProfile < DataStore::Model
 
   SEP = '-'.freeze
+  CURRENT_VERSION = 1
 
   index :timeline_score, :method => :timeline_index
   index :racing_score, :method => :racing_index
@@ -63,29 +64,35 @@ class UserGameProfile < DataStore::Model
     # generate random scores for now
     game = Game::current
     @data ||= {}
-    @data['scores'] ||= generate_scores
-    @data['current_mission'] = {} unless @data['current_mission'].is_a? Hash
-    @data['missions'] ||= {}
-    Mission::MODES.each do |mode|
-      @data['current_mission'][mode] ||= game.data['missions'][mode].keys.min
-      if game.data['missions'][mode][@data['current_mission'][mode]].nil?
-        @data['current_mission'][mode] = game.data['missions'][mode].keys.min
-      end
-      @data['missions'][mode] ||= {}
-    end 
-    @data['crowd_members'] ||= {}
-=begin
-    @data['crowd_members'] ||= { 
-      'ultras' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'h2o' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } },
-      'journalist' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'h2o' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } },  
-    }
-    @data['holder_items'] ||= { 'cap' : 0, 'umbrella' : 0 }
-    @data['special_items'] ||= { 'energy' : { 1 : count, 2: count, 3: count}, 'wash_powder' : 1 },
-    @data['power_ups'] ||= { id: {level : , amount : }}, 
-    @data['energy'] ||= 20
-    @data['missions'] ||= { mission : score, mission2, score}
-=end
+    @data['version'] ||= 0
+    if @data['version'] < CURRENT_VERSION
+      @data = { 'scores' => { 'timeline'=>0, 'racing'=>0, 'cooperation'=>0, 'global'=>0,
+                             'update_time'=> { 'timeline'=>time, 'racing'=>time, 'cooperation'=>time, 'global'=>time} 
+                            } 
+              }
+      @data['current_mission'] = {} unless @data['current_mission'].is_a? Hash
+      @data['missions'] = {} unless @data['missions'].is_a? Hash
+      Mission::MODES.each do |mode|
+        @data['current_mission'][mode] = game.data['missions'][mode].keys.min { |i| i.to_i }
+        @data['missions'][mode] ||= {}
+      end 
+      @data['crowd_members'] = {
+        'ultras_green' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
+        'journalist' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },  
+        'ultras_white' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
+        'ultras_red' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
+      }
+      @data['holder_items'] ||= { 'cap' => 0, 'umbrella' => 0 }
+      @data['special_items'] ||= { }
+      @data['power_ups'] ||= {}  
+      @data['energy'] ||= 50
+      @data['version'] = CURRENT_VERSION
+    end
     save
+=begin
+      @data['special_items'] ||= { 'energy' : { 1 : count, 2: count, 3: count}, 'wash_powder' : 1 },
+      @data['power_ups'] ||= { id: {level : , amount : }},
+=end
   end
 
   def generate_scores 

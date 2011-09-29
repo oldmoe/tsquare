@@ -54,14 +54,15 @@ var Marketplace = Class.create({
   gatherSpecs : function(memberName){
     var specIds = [];
     var memberSpecs = {};
-    for(var spec in this.members['specs'][memberName]['1']){
+    console.log(this.members['specs'], memberName)
+    for(var spec in this.members['specs'][memberName][1]){
       if (spec == "special") {
-        for (var specialSpec in this.members['specs'][memberName]['1']['special']) {
-          memberSpecs[specialSpec] = this.members['specs'][memberName]['1']['special'][specialSpec];
+        for (var specialSpec in this.members['specs'][memberName][1]['special']) {
+          memberSpecs[specialSpec] = this.members['specs'][memberName][1]['special'][specialSpec];
           specIds.push( specialSpec );
         }
       } else {
-        memberSpecs[spec] = this.members['specs'][memberName]['1'][spec];
+        memberSpecs[spec] = this.members['specs'][memberName][1][spec];
         specIds.push( spec );
       }
     }

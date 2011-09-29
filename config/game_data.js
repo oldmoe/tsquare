@@ -32,7 +32,9 @@ GameData = {
                      },
       'crowd_members' : {
               'category' : { 'salafi' : {type : 'normal'},
-                        'ultras' : {type : 'normal'},
+                        'ultras_green' : {type : 'normal'},
+                        'ultras_white' : {type : 'normal'},
+                        'ultras_red' : {type : 'normal'},
                         'journalist' : {type : 'normal'},
                         'attacker' : {type : 'special'},
                         'leader' : {type : 'special'},

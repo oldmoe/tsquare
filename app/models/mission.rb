@@ -38,8 +38,8 @@ class Mission
       end
       game.missions['timeline']= missions
       game.save
-=end
       missions = {}
+=end
       MODES.each { |mode| missions[mode] = game.missions[mode] }
       missions
     end

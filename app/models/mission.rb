@@ -30,6 +30,7 @@ class Mission
       init
       game = Game::current
       missions = {}
+=begin
       game.missions['timeline'].each_pair do |key, value|
         value['id'] = value['id'].to_s
         value['next'] = value['next'].to_s
@@ -37,6 +38,7 @@ class Mission
       end
       game.missions['timeline']= missions
       game.save
+=end
       missions = {}
       MODES.each { |mode| missions[mode] = game.missions[mode] }
       missions

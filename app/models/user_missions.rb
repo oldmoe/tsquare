@@ -7,7 +7,7 @@ class UserMissions
       Mission::MODES.each do |mode|
         missions[mode] = {}
         Mission.all[mode].each do |key, mission|
-          missions[mode][key] = { :name => mission['name'], :id => mission['id'] }
+          missions[mode][key] = { :name => mission['name'], :id => mission['id'], :details => mission['data']['missionDetails'] }
         end
       end
       missions
@@ -17,7 +17,7 @@ class UserMissions
       data = {}
       mission_id = mission_id.to_i
       mode = Mission.mode mission_id
-      if user_profile.current_mission[mode]==mission_id ||user_profile.missions[mode][mission_id]
+      if user_profile.current_mission[mode]==mission_id || user_profile.missions[mode][mission_id]
         data = Mission.get(mission_id)
       end
       data

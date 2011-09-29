@@ -112,7 +112,7 @@ var TsquareScene = Class.create(Scene,{
   end : function(win){
 //  this.reactor.stop()
     this.win = win
-    this.fire('end', {score:1000, objectives:0.6, combos: 0.8, win:true});
+    this.fire('end', [{score:1000, objectives:0.6, combos: 0.8, win:true}]);
     //send to the server
   },
   

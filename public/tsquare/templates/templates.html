@@ -20,42 +20,6 @@
   </div>
 </textarea>
 
-<textarea id="send_requests">
-  <button id="request_help_button"> Send Help Request </button>
-  <button id="request_gift_button"> Send Gift </button>
-  <button id="request_challenge_button"> Send Challenge </button>
-</textarea>
-
-<textarea id="inbox">
-  <br/>
-  <h3> Requests </h3>
-  <div id="help">
-    <b>Help Requests</b><br>
-    {for request in inbox.requests.help}
-      <span> ${request.message} from ${request.from.name} </span>
-      <button> Accept </button><br>
-    {/for}
-    <br>
-  </div>
-  <div id="gift">
-    <b>Gift Requests</b><br>
-    {for request in inbox.requests.gift}
-      <span> ${request.message} from ${request.from.name} </span>
-      <button> Accept </button><br>
-    {/for}
-    <br>
-  </div>
-  <div id="challenge"><br>
-    <b>Challenge Requests</b><br>
-    {for request in inbox.requests.challenge}
-      <span> ${request.message} from ${request.from.name} </span>
-      <button> Accept </button><br>
-    {/for}
-    <br>
-  </div>
-</textarea>
-
-
 <textarea style="display:none;" id='home'>
   <div class="homeWrapper">
 		<span class="loadedImg" imgSrc="images/timeline/coming_soon_missions.png" alt="background" imgClasses="upcomingModes"></span>
@@ -111,10 +75,10 @@
           	<ul id="missions-ul">
             {for mission in missions}
             	<li id="mission_${mission['id']}" {if mission['playable'] == true } class="glowing" {/if}>
-                <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_icon.png" alt="mission" /></a>
+                <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_icon.png" alt="mission" /></a>
               	<a href="javascript:void(0)" class="hover">
                 	<span>${mission.name}</span>
-                	<img src="images/timeline/mission_icon_selected.png" alt="mission" />
+                	<span class="loadedImg" imgSrc="images/timeline/mission_icon_selected.png" alt="mission" />
                 </a>
               </li>
             {/for}
@@ -129,12 +93,12 @@
               <span class="loadedImg" imgSrc="images/game_elements/last_button.png" alt="Last" />
             </div>
           </div>
-          <img class="positioned timelineBarImage" src="images/timeline/timeline.png" alt="timeline bar" />
+          <span class="loadedImg" imgSrc="images/timeline/timeline.png" alt="timeline bar" imgClasses="positioned timelineBarImage"/>
           <!--Changes 28 Sept.-->
         </div>
         <!--Walking Crowd Member-->
         <div class="walkingCrowdMemeber">
-        	<img src="images/timeline/crowd_member_small.png" alt="Crowd member" />
+        	<span class="loadedImg" imgSrc="images/timeline/crowd_member_small.png" alt="Crowd member" />
         </div>
       </div>
   	<!--Mission Details-->
@@ -150,26 +114,19 @@
   </div>
   <div class="missionWrapper">
   	<div class="missionImages">
-    	<img src="images/timeline/missionImage.gif" alt="Mission Image" />
-      <img src="images/timeline/missionImage.gif" alt="Mission Image" />
-      <img src="images/timeline/missionImage.gif" alt="Mission Image" />
-      <img src="images/timeline/missionImage.gif" alt="Mission Image" />
+    	<img src="images/missions/${mission.id}.png" alt="Mission Image" />
     </div>
     <div class="missionContent">
     	<h3>Mission Story</h3>
-      <p>This is a mission story a mission story This is a mission story.</p>
-      <h3>Objective</h3>
-      <ul>
-      	<li>This is a mission objective.</li>
-      	<li>This is a mission objective.</li>
-      	<li>This is a mission objective.</li>
-      </ul>
+      <p>${mission['details']}</p>
       {if mission['playable'] == true } 
-        <a href="javascript:void(0)" class="playButton" id="${mission.id}"><img id="${mission.id}" src="images/timeline/play_button.png" alt="Play" /></a>
+        <a href="javascript:void(0)" class="playButton" id="${mission.id}">
+          <span class="loadedImg"  imgId="${mission.id}" imgSrc="images/timeline/play_button.png" alt="Play" />
+        </a>
       {/if}
     </div>
   </div>
-  <img class="positioned" src="images/timeline/mission_details.png" alt="Mission Details" />
+  <span class="loadedImg" imgSrc="images/timeline/mission_details.png" alt="Mission Details" imgClasses="positioned"/>
 </textarea>
 
 <textarea style="display:none;" id='meterBar'>
@@ -429,4 +386,42 @@
     {/for}
   </div>
 </textarea>
+
+
+
+<textarea id="send_requests">
+  <button id="request_help_button"> Send Help Request </button>
+  <button id="request_gift_button"> Send Gift </button>
+  <button id="request_challenge_button"> Send Challenge </button>
+</textarea>
+
+<textarea id="inbox">
+  <br/>
+  <h3> Requests </h3>
+  <div id="help">
+    <b>Help Requests</b><br>
+    {for request in inbox.requests.help}
+      <span> ${request.message} from ${request.from.name} </span>
+      <button> Accept </button><br>
+    {/for}
+    <br>
+  </div>
+  <div id="gift">
+    <b>Gift Requests</b><br>
+    {for request in inbox.requests.gift}
+      <span> ${request.message} from ${request.from.name} </span>
+      <button> Accept </button><br>
+    {/for}
+    <br>
+  </div>
+  <div id="challenge"><br>
+    <b>Challenge Requests</b><br>
+    {for request in inbox.requests.challenge}
+      <span> ${request.message} from ${request.from.name} </span>
+      <button> Accept </button><br>
+    {/for}
+    <br>
+  </div>
+</textarea>
+
 

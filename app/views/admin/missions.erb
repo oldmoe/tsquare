@@ -1,8 +1,12 @@
 <script>
 var Missions = {
     gameName: "<%=@game.name%>",
+    modes : <%=Mission::MODES%>,
+    missions : <%=Nezal::Decoder.encode(Mission::all)%>,
     arrange : function() {
-        $('missions').childElements().each(function(element){
+      this.changeMode($('mode'));
+      this.modes.each(function(mode){  
+        $(mode).childElements().each(function(element){
                                             var next = element.getAttribute('next');
                                             var id = element.getAttribute('id');
                                             if(next)
@@ -15,9 +19,13 @@ var Missions = {
                                                 }
                                             }
                                         });  
+      });
     },
     remove : function(id){
       document.getElementById('delete_' + id).submit()
+    },
+    changeMode : function(element){
+      $('parent').innerHTML = TrimPath.processDOMTemplate("missionParent", {missions : this.missions[element.value]});
     } 
 }
 $(document).observe('dom:loaded',function(){
@@ -49,10 +57,18 @@ $(document).observe('dom:loaded',function(){
           <INPUT type="text" id="name" name='name'><BR>
         </div>
         <div class="form_row">  
+          <LABEL for="mode">Mode</LABEL>
+          <select id="mode" name="mode" onchange="Missions.changeMode(this);">
+            <% Mission::MODES.each do | mode | %>                      
+              <option value="<%=mode%>"> <%=mode%> </option>
+            <% end %>
+          </select>
+        </div>
+        <div class="form_row">  
           <LABEL for="parent">Parent</LABEL>
           <select id="parent" name="parent">
             <option value=""> none </option>
-            <% @missions.each_value do | mission | %>                      
+            <% @missions['timeline'].each_value do | mission | %>                      
               <option value="<%=mission['id']%>"> <%=mission['name']%> </option>
             <% end %>
           </select>
@@ -63,8 +79,10 @@ $(document).observe('dom:loaded',function(){
       </form>
     </div>
     <LABEL for="game_missions" class="label">Missions</LABEL>
-    <div id="missions">
-      <% @missions.each_pair do | id, data | %>
+    <% Mission::MODES.each do | mode | %>
+    <LABEL for="game_missions" class="label"><%=mode%></LABEL>
+    <div id="<%=mode%>">
+      <% @missions[mode].each_pair do | id, data | %>
         <div id="<%=id%>"  next="<%=data['next']%>" >
           <span style="width : 20%; display : block; float : left;">
             <a href="/<%=AdminController::ADMIN_URL%>/<%=@game.name%>/missions/<%=id%>">
@@ -78,6 +96,14 @@ $(document).observe('dom:loaded',function(){
         </div>
       <% end %>
     </div>
+    <% end %>
   </div>
 
 </div>
+
+<textarea id="missionParent" style="display:none;">
+  <option value=""> none </option>
+  {for mission in missions}
+    <option value="${mission['id']}"> ${mission['name']} </option>
+  {/for}
+</textarea>

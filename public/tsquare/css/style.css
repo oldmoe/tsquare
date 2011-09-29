@@ -184,4 +184,15 @@ body{
   opacity: 0.4;
   
 } 
-
+.greenMeter{
+  background-color:green;
+}
+.redMeter{
+   background-color:red;
+}
+.whiteMeter{
+   background-color:white;
+}
+.blueMeter{
+   background-color:blue;
+}

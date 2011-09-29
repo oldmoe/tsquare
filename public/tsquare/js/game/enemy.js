@@ -1,6 +1,7 @@
 var Enemy = Class.create(Unit, {
   target : null,
   hp : 25, attack : 10 , defense : 25, chargeTolerance : 2, circleSize : 1,
+  hitState : null,normalState:null,
   initialize : function($super,scene,x,y,options){
      $super(scene,x,y,options)
      this.mappingName = options.mappingName
@@ -11,17 +12,20 @@ var Enemy = Class.create(Unit, {
      }
      this.maxHp = this.hp
   },
-  
+  rotationComplete : function(attack){
+    this.takeHit(attack)
+  },
   tick : function($super){
     $super()
     
     this.updatePosition();
     
     this.handleCollision();
+    
   },
+ 
   
   handleCollision : function(){
-      
   },
   updatePosition: function(){
     this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);  
@@ -44,7 +48,7 @@ var Enemy = Class.create(Unit, {
     if(minIndex!=-1 && minDistance <= this.getWidth()){
         if(this.target == null){
           this.target = targets[minIndex]
-          this.scene.fire('hit')
+          this.scene.fire(this.hitState)
           targetChange = true
         }
         
@@ -55,7 +59,7 @@ var Enemy = Class.create(Unit, {
     }else{
         if (this.target) {
             this.target = null
-            this.scene.fire('normal')
+            this.scene.fire(this.normalState)
             targetChange = true
         }
     }

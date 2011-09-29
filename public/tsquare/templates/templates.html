@@ -55,12 +55,121 @@
   </div>
 </textarea>
 
-<textarea style="display:none;" id='timeline'>
-  {for mission in missions}
-  <div class="mission" id="${mission.id}">
-    <a  href="javascript:void(0);">${mission.name}</a>
+
+<textarea style="display:none;" id='home'>
+  <div class="homeWrapper">
+		<span class="loadedImg" imgSrc="images/timeline/coming_soon_missions.png" alt="background" imgClasses="upcomingModes"></span>
+  	<ul>
+    	<li>
+      	<a class="timelineButton" href="javascript:void(0)">
+					<span class="loadedImg" imgSrc="images/timeline/timeline_screen.png" alt="Timeline" />        
+      	</a>
+      </li>
+    </ul>
   </div>
-  {/for}
+</textarea>
+
+<textarea style="display:none;" id='timeline'>
+	<!--Calendar-->   
+  <div class="calendarWrapper">
+  	<ul>
+    	<li>
+      	<a href="javascript:void(0)" class="calendar">
+          <span class="loadedImg" imgSrc="images/timeline/calendar_25_jan.png" alt="25 Jan" />        
+      	</a>
+      </li>
+    	<li>
+      	<a href="javascript:void(0)" class="calendar">
+          <span class="loadedImg" imgSrc="images/timeline/calendar_26_jan.png" alt="25 Jan" />        
+      	</a>
+      </li>
+    	<li>
+      	<a href="javascript:void(0)" class="calendar">
+					<span class="loadedImg" imgSrc="images/timeline/calendar_27_jan.png" alt="25 Jan" />        
+      	</a>
+      </li>
+    </ul>
+  </div>
+  <div id="missions">
+    <!--Timeline Bar-->
+    <div id="missions">
+      <!--Timeline Bar-->
+      <div class="timelineBar">
+      	<!--Missions-->
+      	<div class="timelineMissions">
+          <!--Changes 28 Sept.-->
+          <!--Left controls-->
+          <div class="leftControls">
+            <div class="left">
+              <span class="loadedImg" imgSrc="images/game_elements/previous_button.png" alt="Previous" />       
+            </div>    
+            <div class="first">      
+              <span class="loadedImg" imgSrc="images/game_elements/first_button.png" alt="First" />      	
+            </div>      	
+          </div>
+          <div id="missions-container" class="missionsContainer" >
+          	<ul id="missions-ul">
+            {for mission in missions}
+            	<li id="mission_${mission['id']}" {if mission['playable'] == true } class="glowing" {/if}>
+                <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_icon.png" alt="mission" /></a>
+              	<a href="javascript:void(0)" class="hover">
+                	<span>${mission.name}</span>
+                	<img src="images/timeline/mission_icon_selected.png" alt="mission" />
+                </a>
+              </li>
+            {/for}
+            </ul>
+          </div >
+          <!--Right controls-->
+          <div class="rightControls">
+            <div class="right">
+              <span class="loadedImg" imgSrc="images/game_elements/next_button.png" alt="Next" />
+            </div>
+            <div class="last">
+              <span class="loadedImg" imgSrc="images/game_elements/last_button.png" alt="Last" />
+            </div>
+          </div>
+          <img class="positioned timelineBarImage" src="images/timeline/timeline.png" alt="timeline bar" />
+          <!--Changes 28 Sept.-->
+        </div>
+        <!--Walking Crowd Member-->
+        <div class="walkingCrowdMemeber">
+        	<img src="images/timeline/crowd_member_small.png" alt="Crowd member" />
+        </div>
+      </div>
+  	<!--Mission Details-->
+  	<div class="missionDetails" style="display:none;">
+    </div>
+  </div>
+</textarea>
+
+<textarea style="display:none;" id='missionDetails'>
+  <!--Close-->
+  <div class="close">
+    <a href="#"><img src="images/game_elements/close_button.png" alt="close" /></a>
+  </div>
+  <div class="missionWrapper">
+  	<div class="missionImages">
+    	<img src="images/timeline/missionImage.gif" alt="Mission Image" />
+      <img src="images/timeline/missionImage.gif" alt="Mission Image" />
+      <img src="images/timeline/missionImage.gif" alt="Mission Image" />
+      <img src="images/timeline/missionImage.gif" alt="Mission Image" />
+    </div>
+    <div class="missionContent">
+    	<h3>Mission Story</h3>
+      <p>This is a mission story a mission story This is a mission story.</p>
+      <h3>Objective</h3>
+      <ul>
+      	<li>This is a mission objective.</li>
+      	<li>This is a mission objective.</li>
+      	<li>This is a mission objective.</li>
+      </ul>
+      {if mission['playable'] == true } 
+        <a href="javascript:void(0)" class="playButton" id="${mission.id}"><img id="${mission.id}" src="images/timeline/play_button.png" alt="Play" /></a>
+      {/if}
+    </div>
+  </div>
+  <img class="positioned" src="images/timeline/mission_details.png" alt="Mission Details" />
 </textarea>
 
 <textarea style="display:none;" id='meterBar'>
@@ -204,21 +313,17 @@
       <div id="friends">
         <div class="leftControls">
           <div class="left">
-            <span class="loadedImg" imgSrc="images/friends/previous_button.png" alt="Previous" />       
+            <span class="loadedImg" imgSrc="images/game_elements/previous_button.png" alt="Previous" />       
           </div>    
           <div class="first">      
-            <span class="loadedImg" imgSrc="images/friends/first_button.png" alt="First" />      	
+            <span class="loadedImg" imgSrc="images/game_elements/first_button.png" alt="First" />      	
           </div>
         </div>
         <!--Friend-->
         <div class="friend">
           <a href="javascript:void(0);" onclick="socialEngine.inviteFriends();">
-            <span class="friendsScore">
-            	<span>Invite</span>
-            	<span class="loadedImg" imgSrc="images/friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>
-            </span>
             <div class="inviteFriend friendAvatar">
-              <span class="loadedImg" imgSrc="images/friends/friendsRank.png" alt="Invite Friend" imgClasses="friendAvatar" />
+              <span class="loadedImg" imgSrc="images/friends/inviteFriends.png" alt="Invite Friend" imgClasses="friendAvatar" />
             </div>
             <span class="friendName">Invite</span>
             <span class="loadedImg" imgSrc="images/friends/friend_box.png" alt="friend" />
@@ -247,10 +352,10 @@
         <!--Right controls-->
         <div class="rightControls">
           <div class="right">
-            <span class="loadedImg" imgSrc="images/friends/next_button.png" alt="Next" />
+            <span class="loadedImg" imgSrc="images/game_elements/next_button.png" alt="Next" />
           </div>
           <div class="last">
-            <span class="loadedImg" imgSrc="images/friends/last_button.png" alt="Last" />
+            <span class="loadedImg" imgSrc="images/game_elements/last_button.png" alt="Last" />
           </div>
         </div>
       </div>

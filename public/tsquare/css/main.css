@@ -3,10 +3,22 @@
 body { margin:0px; padding:0px; font-size:12px; font-family:Tahoma, Geneva, sans-serif; width:100%;}
 ul { list-style:none; margin:0px; padding:0px; }
 
-.uiContainer { width:970px; height:860px; position:relative; top:0px; background:url(../images/game_elements/background.gif) repeat top; margin:0 auto; }
+.uiContainer { width:970px; height:620px; position:relative; top:0px; margin:0 auto; }
+.uiContainer .background { height:620px; position:absolute; left:0; top:0; width:970px; }
 .positioned { position:absolute; top:0px; left:0px; z-index:1; }
 
+#gameContainer { position:relative; top:-620px; z-index:10; width:970px; height:620px; margin:0 auto; }
+
+.close { float:left; width:39px; height:39px; position:relative; left:436px; top:-15px; overflow:hidden }
+.close a { display:block; width:39px; height:39px; }
+.close a:hover img { position:absolute; top:-39px; }
+
+.confirmButton { width:97px; height:31px; overflow:hidden; position:absolute; top:85px; right:120px; z-index:6; display:block; font-weight:bold; font-size:1.2em; color:#304c00; text-shadow:1px 1px 0 #ccf08e; text-decoration:none; }
+.confirmButton span { position:absolute; z-index:7; width:97px; height:31px; text-align:center; padding:5px 0 0 0; }
+.confirmButton:hover img { position:absolute; top:-31px; }
 
 
-#gameContainer { position:absolute; top:60px; left:0px; z-index:10;}
+.cancelButton { width:97px; height:31px; overflow:hidden; position:absolute; top:85px; right:15px; z-index:6; display:block; font-weight:bold; font-size:1.2em; color:#802323; text-shadow:1px 1px 0 #f5cfcf; text-decoration:none; }
+.cancelButton span { position:absolute; z-index:7; width:97px; height:31px; text-align:center; padding:5px 0 0 0; }
+.cancelButton:hover img { position:absolute; top:-31px; }
 

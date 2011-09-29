@@ -40,7 +40,7 @@ var Game = Class.create({
         }
     }
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
-    'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png']
+    'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png']
     var hoveringIconsImages = ['lock.png', 'circle.png', 'march.png', 'push.png'];
     
     var metersBarImages = ["", ""];
@@ -118,9 +118,11 @@ var Game = Class.create({
   },
 
   start : function(){
+    var self = this;
     if(this.imagesLoaded == true && this.missionLoaded == true)
     {
       this.scene = new TsquareScene();
+      this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
 	  	this.scene.start();
 	  	this.scene.fire("start");
     }

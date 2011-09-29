@@ -214,14 +214,13 @@ var CrowdMember = Class.create(Unit,{
   },
   
   circleMove : function(){
-    if (!this.target|| this.target.hp <= 0 || this.target.dead) {
+    if (!this.target|| this.target.hp <= 0 || this.target.dead || this.target.doneProtection) {
       this.resetRotation()
       return
     }
       if (this.rotationPoints.length == 0) {
-        this.target.takeHit(this.attack)
+        this.target.rotationComplete(this.attack)
         if (this.target.hp < 0) {
-          console.log('reset 2')
           this.resetRotation()
           return
         }else{
@@ -265,6 +264,11 @@ var CrowdMember = Class.create(Unit,{
     if(this.scene.running)return "reverseRun"
     return "reverse"
   },  
- 
+  hpRatio : function(){
+    return this.hp/this.maxHp
+  },
+  waterRatio : function(){
+    return this.water/ this.maxWater
+  }
 })
   

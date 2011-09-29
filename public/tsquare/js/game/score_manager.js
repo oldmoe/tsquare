@@ -1,10 +1,10 @@
 var ScoreManager = Class.create({
 
   images : {
-              'left' : 'images/friends/previous_button.png',
-              'left-disabled' : 'images/friends/previous_button.png',
-              'right' : 'images/friends/next_button.png',
-              'right-disabled' :'images/friends/next_button.png'
+              'left' : 'images/game_elements/previous_button.png',
+              'left-disabled' : 'images/game_elements/previous_button.png',
+              'right' : 'images/game_elements/next_button.png',
+              'right-disabled' :'images/game_elements/next_button.png'
             },
 
   modes : {
@@ -34,9 +34,13 @@ var ScoreManager = Class.create({
     this.network = gameManager.network;    
     this.templateManager = gameManager.templateManager;
     var self = this;
-    new Loader().load([ {images : ["1.png", "2.png", "3.png", "first_button.png", "last_button.png", 'next_button.png', 'previous_button.png',
+    new Loader().load([ {images : ["1.png", "2.png", "3.png", 
                                   "friend_box.png", "friends_bar.png", "friendsRank.png", "friendsScore.png", "functions_background.png",
-                                  "home_icon.png", "menu_icon.png", "worldRank.png"], path: 'images/friends/', store: 'friends'}],
+                                  "home_icon.png", "menu_icon.png", "worldRank.png", "inviteFriends.png"], 
+                          path: 'images/friends/', store: 'friends' }, 
+                        {images : ["first_button.png", "last_button.png", 'next_button.png', 'previous_button.png'], 
+                          path: 'images/game_elements/', store: 'game_elements' }
+                      ],
                       {
                         onFinish: function(){
                           self.loadFriendsTab('global');
@@ -215,7 +219,7 @@ var ScoreManager = Class.create({
       });
     });
   },
-
+  
   sortFriends : function() {
     var self = this
     this.friends  = this.friends.sortBy(function(friend){ return friend.scores[self.gameMode]}).reverse();

@@ -64,7 +64,15 @@ class UserGameProfile < DataStore::Model
     game = Game::current
     @data ||= {}
     @data['scores'] ||= generate_scores
-    @data['current_mission'] ||= game.data['missions']['list'].keys.min
+    @data['current_mission'] = {} unless @data['current_mission'].is_a? Hash
+    @data['missions'] ||= {}
+    Mission::MODES.each do |mode|
+      @data['current_mission'][mode] ||= game.data['missions'][mode].keys.min
+      if game.data['missions'][mode][@data['current_mission'][mode]].nil?
+        @data['current_mission'][mode] = game.data['missions'][mode].keys.min
+      end
+      @data['missions'][mode] ||= {}
+    end 
     @data['crowd_members'] ||= {}
 =begin
     @data['crowd_members'] ||= { 
@@ -106,7 +114,7 @@ class UserGameProfile < DataStore::Model
     end
     # Send only the scores data
     records.collect do |record| 
-      protected_data = { 'service_id' => record.service_id, 'scores' => record.scores }
+      protected_data = { 'service_id' => record.service_id, 'scores' => record.scores, 'missions' => record.missions }
       if record.service_id == service_id
         record.last_read= record.read_time.nil? ? Time.now.to_i : record.read_time
         record.read_time= Time.now.to_i

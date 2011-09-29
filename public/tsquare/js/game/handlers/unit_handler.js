@@ -33,6 +33,7 @@ var UnitHandler = Class.create({
            elem.name = this.unitsClassMappings[elem.name]
        }
        elem.options.handler = this
+       elem.x = elem.x * this.scene.view.tileWidth
       this.incoming[elem.lane].push(elem)
    },
    
@@ -87,7 +88,7 @@ var UnitHandler = Class.create({
           var collided = false
           for(var j=0;j<this.objects[i].length;j++){             
             if(others[i] && others[i][0] ){               
-                if(this.objects[i][j].collidesWith(others[i][0])){
+                if(!others[i][0].neglected && this.objects[i][j].collidesWith(others[i][0])){
                     others[i][0].pickTarget(this.objects[i]);     
                     collision.push({obj1:this.objects[i][j], obj2:others[i][0], lane:i})            
                     collided = true;
@@ -104,8 +105,6 @@ var UnitHandler = Class.create({
                     this.target = others[i][0]  
                 }
            }
-       }else if(others[i] && others[i][0]){
-           others[i][0].setTarget(null)
        }
     }
     if(collision.length > 0) return true

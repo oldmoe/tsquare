@@ -40,4 +40,12 @@ var TSquareNetwork = Class.create(Network, {
                           });
   },
 
+  postMissionScore : function(id, score, callback){
+    this.genericPostRequest( 'mission', {'id' : id, 'score' : score},
+                    function(response) {
+                      var data = JSON.parse(response.responseText);
+                      if(callback) callback(data);
+                    });
+  },
+
 });

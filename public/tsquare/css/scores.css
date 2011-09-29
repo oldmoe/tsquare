@@ -59,7 +59,7 @@
 
 #friends {display:inline-block;}
 
-.swithcingTabs { float:right; width:29px; position:relative; top:58px; }
+.swithcingTabs { float:right; width:29px; position:relative; top:58px; z-index:10;}
 .swithcingTabs ul li { position:relative; width:29px; height:36px; overflow:hidden; margin:0 0 2px 0;  }
 .swithcingTabs ul li img { position:absolute; top:-36px;  }
 .swithcingTabs ul li.selected img, .swithcingTabs ul li:hover img { position:absolute; top:0px;  }
@@ -67,7 +67,7 @@
 .friendsScore { position:absolute; width:59px; height:32px; z-index:3; left:10px; top:-4px; }
 .friendsScore span { position:relative; z-index:2; width:59px; height:17px; display:block; padding:3px 2px 2px 2px; text-align:center; text-shadow:1px 1px 0 #fffaae; color:#763d00; }
 
-.inviteFriend { overflow:hidden; height:60px; left:0px; width:70px; height:60px;}
+.inviteFriend { overflow:hidden; height:60px; left:0px; width:70px; height:60px; top:0px;}
 
 
 #scores .notification {

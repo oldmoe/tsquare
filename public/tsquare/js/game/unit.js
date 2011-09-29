@@ -18,8 +18,9 @@ var Unit = Class.create({
   handler: null,
   movingToTarget : false,
   type: null,
-  
-  initialize : function(scene, x, lane, options){
+  neglected : false,
+
+  initialize : function(scene,x,lane, options){
     var self = this
     this.commandFilters = [
       {command: function(){return self.movingToTarget}, callback: function(){self.moveToTargetPoint()}}

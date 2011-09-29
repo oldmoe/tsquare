@@ -2,7 +2,7 @@ var Bottleguy = Class.create(CrowdMember,{
  rate : 10,
   waterAmount : 10,
   initialize : function($super,scene,x,y,options){
-    $super(scene,x,y)
+    $super(scene,x,y,options)
     if(options && options.rate)this.rate = options.rate
   },
   tick : function($super){

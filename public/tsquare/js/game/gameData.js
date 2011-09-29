@@ -12,12 +12,12 @@ var missionData =
   {
       "name": "ambulance",
       "category": 'protection_unit',
+      "type": '3_3',
       "index": 0,
       "lane": 1,
       "x": 2,
       "order": 1
   }
-   
     ]],
     
     "backgrounds":{

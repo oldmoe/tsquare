@@ -75,8 +75,13 @@ var CrowdMember = Class.create(Unit,{
   },
   
   decreaseFollowers: function(num){
-    if(this.followers.length > 0)
-      this.followers.splice(0,num);
+    if(this.followers.length > 0){
+      var deleted = this.followers.splice(0,num);
+      deleted.each(function(elem){
+        elem.destroy();
+      })
+    }
+      
   },
   
   tick : function($super){

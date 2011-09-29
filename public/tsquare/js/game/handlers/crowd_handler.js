@@ -6,7 +6,10 @@ var CrowdHandler = Class.create(UnitHandler, {
    commands: ["circle", "hold", "march", "retreat"],
    initialize: function($super,scene){
        $super(scene)
-       this.addCommandObservers()
+       this.addCommandObservers();
+       var self = this;
+       this.scene.observe("increaseFollowers", function(num){self.increaseFollowers(num)});
+       this.scene.observe("decreaseFollowers", function(num){self.decreaseFollowers(num)});
    },
     tick : function($super){
       if(this.pushing)this.pushMove()
@@ -29,7 +32,8 @@ var CrowdHandler = Class.create(UnitHandler, {
     start : function(){
       this.getUserCrowds();  
     },
-   addCrowdMember : function(name,specs){
+    
+   addCrowdMember : function(name, specs){
      var klassName = name.formClassName()
      var klass = eval(klassName)
      var obj = new klass(specs,{handler : this, scene:this.scene})
@@ -41,6 +45,19 @@ var CrowdHandler = Class.create(UnitHandler, {
      }
      return obj
    },  
+
+   addFollower : function(name, x, y, lane, crowd){
+     var klassName = name.formClassName()
+     var klass = eval(klassName)
+     var obj = new klass({hp:1, water: 20}, {x:x, y:y, handler : this, scene: this.scene, crowd:crowd})
+     var displayKlass = eval(klassName + "Display")
+     var objDisplay = new displayKlass(obj)
+     if (!obj.noDisplay) {
+       this.scene.pushToRenderLoop('characters', objDisplay)
+     }
+     return obj
+   },  
+
    addCommandObservers : function(){
        var self = this
        this.commands.each(function(event){
@@ -100,10 +117,10 @@ var CrowdHandler = Class.create(UnitHandler, {
    march: function(){
      this.scene.direction = 1
      if(this.target && this.target.chargeTolerance <= 0) this.target = null
+     this.scene.fire("correctCommand");
      if (!this.target) {
       return this.executeCommand("march");
      }
-     this.scene.fire("correctCommand");
      this.pushing = true
      this.pushMove()
    },
@@ -123,6 +140,24 @@ var CrowdHandler = Class.create(UnitHandler, {
      this.executeCommand("circle");
    },
 
+   increaseFollowers: function(num){
+     console.log("increas engergy: " + num);
+     for (var i = 0; i < this.objects.length; i++) {
+       for (var j = 0; j < this.objects[i].length; j++) {
+         if(this.objects[i][j]) this.objects[i][j].increaseFollowers(num);
+       }
+     }
+   },
+
+   decreaseFollowers: function(num){
+     console.log("decreas engergy: " + num);
+     for (var i = 0; i < this.objects.length; i++) {
+       for (var j = 0; j < this.objects[i].length; j++) {
+         if(this.objects[i][j]) this.objects[i][j].decreaseFollowers(num);
+       }
+     }
+   },
+   
    pushMove : function(){
     if(!this.target || this.target.chargeTolerance <= 0){
       this.target = null

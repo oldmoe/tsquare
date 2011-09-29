@@ -114,13 +114,13 @@ var Reactor = Class.create({
 	  return observer
 	},
 		
-  fire : function(event){
+  fire : function(event, params){
     if(this.observers[event]){
       var observers = Nezal.clone_obj(this.observers[event]);
       var toRemove = []
       for(var i=0;i<observers.length;i++){
         var scope = observers[i][1] || this
-        if(observers[i][0].apply(scope) === false){
+        if(observers[i][0].apply(scope, params) === false){
           toRemove.push(observers[i])
         }
       }

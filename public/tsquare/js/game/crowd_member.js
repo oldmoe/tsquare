@@ -20,8 +20,7 @@ var CrowdMember = Class.create(Unit,{
   
   name : null,
   initialize : function($super,specs,options){
-    $super(options.scene,0,options.scene.activeLane, options)
-    console.log(options)
+    $super(options.scene, 0, options.scene.activeLane, options)
     this.type = "crowd_member";
     this.rotationPoints = []
     this.name = options.name
@@ -34,8 +33,11 @@ var CrowdMember = Class.create(Unit,{
         {command: function(){return self.rotating}, callback: function(){self.circleMove()}},
     ]
     this.commandFilters = crowdCommandFilters.concat(this.commandFilters)      
+    this.init(options);
+  },
+  
+  init: function(options){
     this.originalPosition = {x:0,y:0}
-    
     this.originalPosition.y = this.handler.initialPositions[this.lane].y - this.handler.crowdMembersPerColumn * 10
     this.originalPosition.x = this.handler.initialPositions[this.lane].x + 15*this.handler.crowdMembersPerColumn
     this.coords.x = this.originalPosition.x
@@ -49,32 +51,32 @@ var CrowdMember = Class.create(Unit,{
     this.coords.x +=this.randomDx
     this.randomDy = Math.round(Math.random()*30)
     this.coords.y+= this.randomDy
-    if(options && options.level) this.level = options.level
-    else this.level = 4
+    if(options && options.level) 
+      this.level = options.level
+    else 
+      this.level = 4
     this.followers = []
-    //this.createFollowers()
   },
   
-  createFollower : function(){
-      if(this.followers.length >= this.level)return
-      var x = this.coords.x - Math.floor(((this.followers.length/4)+1)*15 * Math.random())
-      var randomOffset = Math.round(50 * Math.random()) - 25
-      var y = this.coords.y + randomOffset
-      var follower = this.scene.addObject({name:"follower", x:this.scene.xPos - 30, y:this.lane})
-      follower.coords.y+=randomOffset
+  increaseFollowers : function(noOfFollowers){
+    var remaining = this.level - (this.followers.length);
+    if(remaining <= 0){
+      console.log("reached maximum number of followers");
+      return;
+    } 
+    for(var i=0;i<noOfFollowers && i<remaining;i++){
+      var x = this.originalPosition.x - parseInt(noOfFollowers* 30 * Math.random())
+      var y = this.originalPosition.y + parseInt(50 * Math.random()) - 40;
+      var follower = this.handler.addFollower("normal", x, y, this.lane, this);
       this.scene.push(follower)
-      this.followers.push(follower)
-      follower.moveToTarget({x:x,y:y})
-  },
-  
-  createFollowers : function(){
-    for(var i=0;i<this.noOfFollowers;i++){
-      var x = this.coords.x - parseInt(this.noOfFollowers*15 * Math.random())
-      var y = this.coords.y + parseInt(50 * Math.random()) - 25
-      var follower = this.scene.addObject({name:"follower", x:x, y:y})
-      this.scene.push(follower)
-      this.followers.push(follower)
+      this.followers.push(follower);
     }
+    console.log("number of followers: "+this.followers.length);
+  },
+  
+  decreaseFollowers: function(num){
+    if(this.followers.length > 0)
+      this.followers.splice(0,num);
   },
   
   tick : function($super){
@@ -83,10 +85,15 @@ var CrowdMember = Class.create(Unit,{
         this.moveToTarget(this.originalPosition)
     }  
     this.stateChanged = true
-    this.water-=this.waterDecreaseRate
-    if(this.water <= 0) this.dead = true    
+    
+    this.updateState();
   },
-  
+
+  updateState: function(){
+    this.water-=this.waterDecreaseRate
+    if(this.water <= 0) this.dead = true;   
+  },
+   
   tickFollowers : function(move){
      for(var i=0;i<this.followers.length;i++){
         this.followers[i].coords.x+=move[0]
@@ -99,13 +106,6 @@ var CrowdMember = Class.create(Unit,{
       }
   },
  
-  rotate : function($super,target){
-    $super(target)
-    for(var i=0;i<this.followers.length;i++){
-      this.followers[i].rotate(target)
-    }
-  },
-  
   takeHit: function($super, power){
     var hitPower = power;
     if(this.currentAction == "hold"){
@@ -127,13 +127,17 @@ var CrowdMember = Class.create(Unit,{
           this.rotating = true 
           this.addRotationPoints(this.target)
           this.scene.fire("crowd_member_animation_"+this.rotationPoints[0].state)
+          for(var i=0; this.followers && i<this.followers.length; i++){
+            this.followers[i].circle();
+          }          
       }else{
          console.log("invalid command"); 
       }
   },
   
   retreat : function(){
-      this.currentAction = "retreat"
+      this.currentAction = "retreat";
+      
   },
   
   march : function(){
@@ -183,6 +187,7 @@ var CrowdMember = Class.create(Unit,{
       return this.pushBackward(target)
     }        
   },
+  
   pushForward : function(target){
     displacement = this.scene.currentSpeed +this.moved*0.2
     this.moved+= Math.abs(displacement)
@@ -191,6 +196,7 @@ var CrowdMember = Class.create(Unit,{
        return true
      }
   },
+  
   pushBackward : function(target){
     displacement = -1 *(this.scene.currentSpeed + (this.maxPushDisplacement-this.moved)*0.2)
     this.moved+= Math.abs(displacement)
@@ -199,12 +205,14 @@ var CrowdMember = Class.create(Unit,{
       return true
     }
   },
+  
   reversePushDirection : function(){
     this.pushDirection = 1 - this.pushDirection
 //    if(this.pushDirection == this.pushDirections.forward){
 //    }else{
 //    } 
   },
+  
   circleMove : function(){
     if (!this.target|| this.target.hp <= 0 || this.target.dead) {
       this.resetRotation()
@@ -222,8 +230,7 @@ var CrowdMember = Class.create(Unit,{
       }
       var rp = this.rotationPoints[0]
       var move = Util.getNextMove(this.coords.x,this.coords.y,rp.values.x,rp.values.y,this.rotationSpeed)
-      this.coords.x+=move[0]
-      this.coords.y+=move[1]
+      this.move(move[0],move[1])
       if (this.coords.x <= rp.values.x + 0.001 && this.coords.x >= rp.values.x - 0.001 &&
       this.coords.y <= rp.values.y + 0.001 &&this.coords.y >= rp.values.y - 0.001) {
           this.rotationPoints.shift()
@@ -236,6 +243,10 @@ var CrowdMember = Class.create(Unit,{
         this.scene.direction = 0
     }  
     $super(target)
+  },
+  
+  move: function($super, dx, dy){
+    $super(dx,dy);
   },
   
   resetRotation : function(){

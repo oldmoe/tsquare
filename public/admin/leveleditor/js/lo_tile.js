@@ -38,7 +38,7 @@ var LOTile = Class.create({
 	},
 	
 	createDraggedItem : function (draggable){
-		return '<img id="draggedImg" src="'+draggable.src+'" name="'+draggable.name+'" category="'+$(draggable).getAttribute('category')+'" type="'+$(draggable).getAttribute('type')+'" />';
+		return '<img id="draggedImg" src="'+draggable.src+'" name="'+draggable.name+'" title="'+draggable.title+'" category="'+$(draggable).getAttribute('category')+'" type="'+$(draggable).getAttribute('type')+'" />';
 	},
 	
 	getDraggedImg: function(){

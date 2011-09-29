@@ -1,20 +1,28 @@
 var LevelLoader = Class.create({
   
   missionData: null,
+  mission: null,
   
   initialize: function(){
-    this.missionData = Mission.currMission.data;
+    this.mission = Mission.currMission;
+    this.missionData = this.mission.data;
     this.load();
   },
   
   load: function(){
+    if(this.mission && this.mission.name)$("missionName").update(this.mission.name);
     if(this.missionData){
       if(this.missionData.data)this.loadObjects(this.missionData.data);
       if(this.missionData.backgrounds)this.loadBackgrounds(this.missionData.backgrounds);
+      if(this.missionData.settings)this.loadSettings(this.missionData.settings);
       alert("Data loaded successfully.");
     }else{
       alert("No data to load.");
     }
+  },
+  
+  loadSettings: function(settings){
+    levelEditor.settingsHandler.loadData(settings);
   },
   
   loadBackgrounds: function(backgrounds){

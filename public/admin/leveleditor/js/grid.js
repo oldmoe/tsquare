@@ -15,10 +15,9 @@ var Grid = Class.create({
 		this.addLane();
 		
 		self = this;
-		$('controls').select('[class=addRowButton]')[0].observe('click', function(){
-			self.addLane();
+		$("updateTilesCount").observe("click", function(){
+		  self.adjustLength(Number($("newTilesCount").getValue()));
 		});
-		
 
 	},
 	
@@ -33,8 +32,16 @@ var Grid = Class.create({
 	
 	adjustLength: function(length){
 	  for (var i=0; i < this.lanes.length; i++) {
-	    for (var j=this.lanes[i].tiles.length; j < length; j++) {
-	      this.lanes[i].addTile(j-1);
+	    if(this.lanes[i].tiles.length == length) continue;
+	    var add = true;
+	    if(this.lanes[i].tiles.length > length)
+	      add = false;
+	    var count = Math.abs(this.lanes[i].tiles.length - length); 
+	    for (var j=0; j < count; j++) {
+	      if(add)
+	         this.lanes[i].addTile(this.lanes[i].tiles.length-1);
+	      else
+	         this.lanes[i].removeTile(this.lanes[i].tiles.length-1);
 			};
 		};
 	},
@@ -80,5 +87,13 @@ var Grid = Class.create({
 	removeLane: function(index){
 		$(this.lanes[index].domObject).remove();
 		this.lanes.splice(index, 1);
-	}
+	},
+
+  resetLane: function(index){
+    var tilesCount = this.lanes[index].tiles.length;
+    $(this.lanes[index].domObject).remove();
+    this.lanes.splice(index, 1);
+    this.lanes.splice(index, 0, new Lane(this, index, tilesCount));
+  }
+
 });

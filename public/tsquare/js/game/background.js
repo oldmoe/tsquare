@@ -13,7 +13,7 @@ var Background = Class.create({
 		this.scene = scene
 		this.speed = options.speed
 		this.images = options.images
-        if(options.alwaysMove) this.alwaysMove = true
+    if(options.alwaysMove) this.alwaysMove = true
 		this.y = options.y || 0
 		this.container = $(document.createElement('div'))
 		$("container").appendChild(this.container)
@@ -38,26 +38,28 @@ var Background = Class.create({
 	},
 	
 	render: function(forceRender){
-       if(this.scene.currentSpeed <=0&& !forceRender)return
+     if((this.scene.currentSpeed <=0 || this.speed() == 0) && !forceRender)return;
 	   this.container.children[0].setStyle({marginLeft:this.offsetX+"px"})
 	},
 	
 	tick : function(){
-        if(this.scene.currentSpeed <=0)return
-        if(this.scene.direction==1){
-      		this.offsetX -= this.speed()
-      		var firstImg = this.container.children[0]
-      		if(firstImg.getWidth()+this.offsetX <= 0){
-      			this.reset()
-      		}
-        }else if(this.scene.direction == -1){
-          if (this.offsetX > 0) {
-            this.offsetX =0 
-          }if(this.offsetX == 0){
-            this.reset()
-          }
-          this.offsetX-=this.speed()
-        }
+    if(this.scene.currentSpeed <=0 || this.speed() == 0)return;
+    if(this.scene.direction==1){
+  		this.offsetX -= this.speed()
+  		var firstImg = this.container.children[0]
+  		if((firstImg.getWidth()+this.offsetX) <= 0){
+  			this.reset();
+  		}
+    }else if(this.scene.direction == -1){
+      if (this.offsetX > 0) {
+        this.offsetX = 0
+        alert(1); 
+      }if(this.offsetX == 0){
+        this.reset()
+      }
+      this.offsetX-=this.speed()
+      this.offsetX = Math.min(this.offsetX,0);
+    }
 	},
 	
 	reset : function(){

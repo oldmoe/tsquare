@@ -59,6 +59,7 @@ var DataExporter = Class.create({
 						var message = {};
 						message.order = lanesData[elem.tile.parent.getPosition()].tiles[elem.tile.getPosition()].objects[elem.object.index].order;
 						message.msg = elem.message;
+						message.type = elem.type;
 						message.lane = elem.lane;
 						obj.scenario.push(message);
 					});
@@ -86,7 +87,7 @@ var DataExporter = Class.create({
 		gameData.energy = settings.energy;
 		gameData.environment = settings.environment;
 		gameData.gameModes = settings.gameModes;
-		
+		gameData.missionDetails = settings.missionDetails;
 		return gameData;
 	},
 

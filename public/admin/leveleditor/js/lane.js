@@ -8,13 +8,24 @@ var Lane = Class.create({
 	domObject : null,
 	self : null,
 	
-	initialize : function(parent){
+	initialize : function(parent, index, tilesCount){
 		this.parent = parent;
 		this.tiles = [];
-		this.domObject = $(this.parent.domObject).insert({bottom:'<tr></tr>'}).lastChild;
+		if(index != null){
+		  if(index>0)
+		    this.domObject = $($(this.parent.domObject).children[index-1]).insert({after:'<tr></tr>'}).next();
+		  else
+		    this.domObject = $(this.parent.domObject).insert({top:'<tr></tr>'}).firstChild;  
+		}else{
+		  this.domObject = $(this.parent.domObject).insert({bottom:'<tr></tr>'}).lastChild;
+		}
+		
 		this.createOptionsTile();
 		
-		for(var i=0; i<this.DEFAULT_TILE_COUNT; i++){
+		var count = this.DEFAULT_TILE_COUNT;
+		if(tilesCount)
+		  count = tilesCount;
+		for(var i=0; i<count; i++){
 			this.tiles.push(new Tile(this));
 		}
 	},
@@ -24,14 +35,19 @@ var Lane = Class.create({
 	},
 	
 	createOptionsTile: function(){
-		var elem = $(this.domObject).insert({top:'<td style="background-color:white"><div class="deleteRowButton"></div></td>'}).firstChild.firstChild;
+		var elem = $(this.domObject).insert({top:this.createHTML()}).firstChild.firstChild;
 		var self = this;
 		$(elem).observe('click', function(){
-			var res = confirm("Are you sure you want to delete this lane?", "Confirmation");
+			var res = confirm("Are you sure you want to clear this lane's data?", "Confirmation");
 			if(res == true){
 				self.remove();
 			}
 		});
+	},
+	
+	createHTML: function(){
+	  return '<td style="background-color:white"><div class="deleteRowButton" title="Delete lane"></div>'+
+	  '</td>';
 	},
 	
 	removeTile: function(index){
@@ -47,7 +63,7 @@ var Lane = Class.create({
 	},
 	
 	remove: function(){
-		this.parent.removeLane(this.getPosition());
+		this.parent.resetLane(this.getPosition());
 	},
 	
 	updateTilePositionsLabel: function(){

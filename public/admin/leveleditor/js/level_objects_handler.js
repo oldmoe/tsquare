@@ -45,7 +45,8 @@ var LevelObjectsHandler = new Class.create({
 	distribute: function(){
 		var lanes = this.levelEditor.grid.lanes;
 		var self = this;
-		this.tiles.each(function(tile){
+		this.tiles.each(function(tile, i){
+		  if(tile.settings.inlanes && tile.settings.inlanes.length > 0)
 			if(tile.settings && tile.settings.type == 1 && tile.settings.random){
 				self.distributeRandomly(lanes, tile);
 			}else if(tile.settings && tile.settings.type == 2 && tile.settings.cyclic){
@@ -59,6 +60,7 @@ var LevelObjectsHandler = new Class.create({
 		var end = tile.settings.cyclic.end;
 			
 		for(var j=0; j<lanes.length; j++){
+		  if(tile.settings.inlanes.indexOf(j) < 0) continue;
 			var interval = tile.settings.cyclic.interval;
 			var i = tile.settings.cyclic.start;
 			var stop = false;
@@ -83,6 +85,7 @@ var LevelObjectsHandler = new Class.create({
 		var end = tile.settings.random.end;
 			
 		for(var j=0; j<lanes.length; j++){
+		  if(tile.settings.inlanes.indexOf(j) < 0) continue;
 			var interval = tile.settings.random.interval;
 			var i = tile.settings.random.start;
 			var stop = false;

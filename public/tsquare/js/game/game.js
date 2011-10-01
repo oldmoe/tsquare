@@ -88,7 +88,6 @@ var Game = Class.create({
                       self.doneLoading = true
                       $('inProgress').hide()
                       $('gameContainer').show()                     
-  						  			self.play(missionData)
   								  }
     });
   },

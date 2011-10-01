@@ -1,7 +1,8 @@
 var NPCHandler = Class.create(UnitHandler,{
   initialize: function($super,scene){
     $super(scene)
-    this.unitsClassMappings = {'normal_man':'normal','doctor':'medic','girl_7egab':'girl7egab','micman':'libralymic'}
+    this.unitsClassMappings = {'normal_man':'normal','doctor':'medic',
+    'girl_7egab':'girl7egab','micman':'libralymic','salafi':'salafy'}
   },
    addObject: function($super, obj){
     obj.options.type = obj.name

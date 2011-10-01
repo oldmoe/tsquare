@@ -17,14 +17,21 @@ var Game = Class.create({
   },
 
   startLoading : function(){
-    this.initializeGame();
+    var self = this
+    var loadingImages = ['loading_background.png','loadingbar_left.png','loadingbar_right.png',
+    'loadingbar_middle.png']
+      new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
+        ,{
+          onFinish: function(){
+            $('inProgress').innerHTML = self.templateManager.load('loadingScreen')
+            $('inProgress').show()
+            self.initializeGame();
+          }
+        }
+      )
   },
   
   initializeGame : function(){
-      
-    $('inProgress').hide()
-    $('gameCanvas').show()
-    $('container').show()
     $('gameCanvas').observe('mouseover',function(e){
      //   console.log(e.pointerX(),e.pointerY())
     })
@@ -33,7 +40,7 @@ var Game = Class.create({
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
     'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man']
     var characterImages = ['follower.png']
-    var imageNames = ['walk','run','front','back','idle','hold']
+    var imageNames = ['walk','run','front','back','idle','hold','blur']
     for(var i=0;i<characterNames.length;i++){
         for(var j=0;j<imageNames.length;j++){
             characterImages.push(characterNames[i]+"_"+imageNames[j]+".png")
@@ -78,6 +85,8 @@ var Game = Class.create({
   								  onFinish:function(){
   					   				self.imagesLoaded = true;
   						  			self.start();
+                      $('inProgress').hide()
+                      $('gameContainer').show()                     
   						  			self.play(missionData)
   								  }
     });

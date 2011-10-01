@@ -16,6 +16,7 @@ var TsquareScene = Class.create(Scene,{
     view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25},
     activeLane: 1,
     win : false,
+    comboMistakes : {current : 0, max : 2},
     scoreCalculator: null,
     
     initialize: function($super){
@@ -183,13 +184,16 @@ var TsquareScene = Class.create(Scene,{
    },
    
    decreaseEnergy : function(){
-      this.audioManager.levelDown()
-      this.energy.current= Math.max(this.energy.current-this.energy.rate, 0)
-      this.fire("decreaseFollowers",  [this.speeds[this.speedIndex].followers])
-      if(this.speedIndex >0 && this.energy.current < this.speeds[this.speedIndex].energy){
+      if (++this.comboMistakes.current == this.comboMistakes.max) {
+        this.comboMistakes.current = 0
+        this.audioManager.levelDown()
+        this.energy.current = Math.max(this.energy.current - this.energy.rate, 0)
+        this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
+        if (this.speedIndex > 0 && this.energy.current < this.speeds[this.speedIndex].energy) {
           this.speedIndex--
           this.currentSpeed = this.speeds[this.speedIndex].value
           this.fire(this.speeds[this.speedIndex].state)
+        }
       } 
    }
   

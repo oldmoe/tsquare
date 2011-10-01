@@ -6,5 +6,6 @@ var UltrasRedDisplay = Class.create(CrowdMemberDisplay,{
     this.backImg = Loader.images.characters['ultras_red_back.png']
     this.frontImg = Loader.images.characters['ultras_red_front.png']
     this.holdImg = Loader.images.characters['ultras_red_hold.png']
+    this.blurImg = Loader.images.characters['ultras_red_blur.png']
   }
 })

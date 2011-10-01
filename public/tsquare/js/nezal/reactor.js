@@ -36,6 +36,7 @@ var Reactor = Class.create({
 		if(!this.running) return
 		var self = this	
 		var toFire = []
+    var time_before = new Date().getTime()
 		try{
 			var event = this.events.last();
 			while(event && event[0] <= this.ticks){
@@ -55,7 +56,8 @@ var Reactor = Class.create({
 			//alert('inside reactor : '+ e)
 		}
 		this.ticks++
-		setTimeout(function(){self.tick()}, this.delay)
+    var delay = new Date().getTime() - time_before
+		setTimeout(function(){self.tick()}, Math.max(this.delay-delay,0))
 	},
 
 	_eventIndex : function(ticks, insert){

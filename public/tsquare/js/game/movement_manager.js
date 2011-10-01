@@ -145,12 +145,7 @@ var MovementManager = Class.create({
     if(commandIndex == this.moves.march.index){
         if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
         this.scene.fire('march')
-        if(collision){
-          this.scene.decreaseEnergy()
-          return
-        }else{
-          this.beatMoving = true    
-        }
+        this.beatMoving = true    
     }else if(commandIndex == this.moves.retreat.index){
         if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
         this.scene.fire('retreat')

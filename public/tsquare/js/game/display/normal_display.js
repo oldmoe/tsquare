@@ -11,5 +11,6 @@ var NormalDisplay = Class.create(CrowdMemberDisplay,{
     this.backImg = Loader.images.characters['normal_back.png']
     this.frontImg = Loader.images.characters['normal_front.png']
     this.holdImg = Loader.images.characters['normal_hold.png']
+    this.blurImg = Loader.images.characters['normal_blur.png']
   }
 })

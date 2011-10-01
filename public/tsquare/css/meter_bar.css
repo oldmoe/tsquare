@@ -1,4 +1,16 @@
-#meterBar { width:100%; height:50px; } 
+/*--------In Game meters-----------*/
+.inGameMeterBar { width:950px; height:50px; position: absolute} 
+.inGameMeterBar .energyBar {position:absolute; width:169px; height:32px; top:10px; right:350px;}
+.inGameMeterBar .energyBar .bar { position:absolute; width:140px; height:20px; z-index:4; left:3px; top:7px; }
+.inGameMeterBar .energyBar span {position:absolute; width:140px; height:20px; z-index:5; left:3px; top:7px; font-weight:bold; font-size:1.2em; color:#512d09; text-shadow:1px 1px 0 #fffce0; text-align:center; }
+
+.inGameMeterBar .energyBar .positioned { top:14px; }
+
+.inGameMeterBar .timerBar { position:absolute; width:133px; height:37px; top:10px; right:10px; }
+.inGameMeterBar .timerBarNumbers { position:absolute; z-index:3; width:74px; height:19px; font-weight:bold; font-size:1.2em; text-shadow:1px 1px 0 #ca0000; left:4px; top:11px; color:#270000; padding:0 0 0 10px; }
+.inGameMeterBar .timerBarNumbers span { float:left; width:auto; }
+
+#meterBar { width:100%; height:50px; }
 /*--------Game meters-----------*/
 
 .gameCurrencyBar { position:absolute; width:133px; height:32px; top:20px; left:10px; }
@@ -10,11 +22,26 @@
 .facebookCurrencyBar a img { position:absolute; z-index:4; }
 .facebookCurrencyBar a:hover img { top:-22px; }
 
-.experienceBar {position:absolute; width:127px; height:32px; top:17px; left:386px;}
+.experienceBar {position:absolute; width:178px; height:32px; top:17px; left:386px;}
 .experienceBar .bar { position:absolute; width:140px; height:20px; z-index:4; left:3px; top:9px; }
 .experienceBar span {position:absolute; width:140px; height:20px; z-index:5; left:3px; top:9px; font-weight:bold; font-size:1.2em; color:#05233a; text-shadow:1px 1px 0 #73a2c7; text-align:center; }
+.experienceBar .positioned { top:-2px; }
+.experienceBar strong { position:absolute; width:37px; height:20px; z-index:5; right:0; font-weight:bold; font-size:1.2em; color:#052138; text-shadow:1px 1px 0 #73a2c7; text-align:center; top:7px; }
 
-
-.energyBar {position:absolute; width:180px; height:32px; top:5px; right:10px;}
+.energyBar {position:absolute; width:169px; height:32px; top:5px; right:10px;}
 .energyBar .bar { position:absolute; width:140px; height:20px; z-index:4; left:3px; top:21px; }
 .energyBar span {position:absolute; width:140px; height:20px; z-index:5; left:3px; top:21px; font-weight:bold; font-size:1.2em; color:#512d09; text-shadow:1px 1px 0 #fffce0; text-align:center; }
+
+.energyBar .positioned { top:14px; }
+
+.timerBar { position:absolute; width:133px; height:37px; top:17px; right:189px; }
+.timerBarNumbers { position:absolute; z-index:3; width:74px; height:19px; font-weight:bold; font-size:1.2em; text-shadow:1px 1px 0 #ca0000; left:4px; top:11px; color:#270000; padding:0 0 0 10px; }
+.timerBarNumbers span { float:left; width:auto; }
+
+
+.player { position:relative; z-index:7; top:200px; left:400px; }
+.hydrationMeter { position:absolute; top:-22px; left:60px; width:27px; height:28px; z-index:7; }
+.hydrationMeter span { position:absolute; z-index:8; font-weight:bold; color:#FFF; font-size:.6em; top:13px; width:27px; text-align:center;	 }
+
+.healthMeter { position:absolute; top:-23px; left:20px; width:27px; height:28px; z-index:7; }
+.healthMeter span { position:absolute; z-index:8; font-weight:bold; color:#FFF; font-size:.6em; top:13px; width:27px; text-align:center;	 }

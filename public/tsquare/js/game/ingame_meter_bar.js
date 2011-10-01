@@ -4,6 +4,7 @@ var InGameMeterBar = Class.create({
     /* This should be MOVED to initialize game part */
     this.network = game.network;    
     this.templateManager = game.templateManager;
+    this.scoreCalculator = game.scene.scoreCalculator;
     var self = this;
 //    new Loader().load([ {images : [], path: 'images/game_elements/', store: 'game_elements'}],
 //                      {
@@ -14,7 +15,9 @@ var InGameMeterBar = Class.create({
   },
 
   display : function(){
-    $('inGameMeterBar').innerHTML = this.templateManager.load('inGameMeterBar', {});
+    $('inGameMeterBar').innerHTML = this.templateManager.load('inGameMeterBar', {energy:"2500", hours:"05", minutes:"50", seconds:"10"});
   }
+  
+  
 
 });

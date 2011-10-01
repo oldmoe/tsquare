@@ -1,5 +1,6 @@
 var Game = Class.create({
   
+  inGameMeterBar : null,
 
   initialize: function(gameManager){
     this.imagesLoaded = false;
@@ -111,7 +112,7 @@ var Game = Class.create({
 	  new Loader().load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
           { onFinish:function(){        
               self.missionLoaded = true;
-              var inGameMeterBar = new InGameMeterBar(self);
+              self.inGameMeterBar = new InGameMeterBar(self);
               self.start();
           }
         })

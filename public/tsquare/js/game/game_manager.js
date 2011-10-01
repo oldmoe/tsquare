@@ -39,7 +39,6 @@ var GameManager = Class.create({
       self.game.play(missionData.data);
       self.timelineManager.hide();
       self.missionManager.hide();
-      $('uiContainer').hide();
       game.show();
     });
   },

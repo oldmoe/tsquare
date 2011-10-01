@@ -85,6 +85,7 @@ var Game = Class.create({
   								  onFinish:function(){
   					   				self.imagesLoaded = true;
   						  			self.start();
+                      self.doneLoading = true
                       $('inProgress').hide()
                       $('gameContainer').show()                     
   						  			self.play(missionData)
@@ -147,7 +148,11 @@ var Game = Class.create({
   },
 
   show : function() {
-
+    if(this.doneLoading){
+      $('gameContainer').show()
+    }else {
+      $('inProgress').show()
+    }
   },
   
   addLoadedImagesToDiv: function(divId){

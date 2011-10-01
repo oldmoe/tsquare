@@ -1,7 +1,7 @@
 var missionData = 
   {"data":[[],[
   {
-      "name": "normal_man",
+      "name": "doctor",
       "category": 'crowd',
       "index": 0,
       "lane": 1,

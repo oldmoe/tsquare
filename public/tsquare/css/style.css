@@ -110,7 +110,6 @@ body{
     position: absolute;
 }
 #loadingBarEmpty{
-	 background: url("../images/loading/loadingbar_empty.png") repeat scroll 0 0 transparent;
     height: 50px;
     left: 159px;
     position: absolute;

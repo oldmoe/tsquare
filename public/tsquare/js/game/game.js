@@ -87,7 +87,6 @@ var Game = Class.create({
   						  			self.start();
                       self.doneLoading = true
                       $('inProgress').hide()
-                      $('gameContainer').show()                     
   								  }
     });
   },
@@ -97,6 +96,7 @@ var Game = Class.create({
     this.mission = mission;
     missionData = mission;
     this.misssionLoaded = false;
+    $('gameContainer').show()
 	  var backgroundImages = ['background.png']
 
     var self = this;
@@ -147,9 +147,7 @@ var Game = Class.create({
   },
 
   show : function() {
-    if(this.doneLoading){
-      $('gameContainer').show()
-    }else {
+    if(!this.doneLoading){
       $('inProgress').show()
     }
   },

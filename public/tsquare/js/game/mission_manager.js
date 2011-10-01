@@ -11,7 +11,6 @@ var MissionManager = Class.create({
   },
 
   end : function(score){
-    var score = {score:1000, objectives:0.6, combos: 0.8, win:true};
     score['stars'] = this.calculateStars(score);
     var self = this;
     this.network.postMissionScore( this.currentMission.id, score, function(){

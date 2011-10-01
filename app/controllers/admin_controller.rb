@@ -1,7 +1,6 @@
 class AdminController < ApplicationController
   
   ADMIN_URL = "nezal-admin"
-  ABSOLUTE_URL = "http://base-defender.nezal.com:7500/fb-games"
 
   enable :sessions
   
@@ -44,8 +43,8 @@ class AdminController < ApplicationController
   ######################################################################  
   def populate_items
     items = {}
-    Game::current.crowd_members['specs'].keys.each do |crowd_member|
-      items["crowd_members.specs."+crowd_member] = crowd_member.humanize
+    Game::current.crowd_members['category'].keys.each do |crowd_member|
+      items["crowd_members.category."+crowd_member] = crowd_member.humanize
     end
     items
   end
@@ -67,7 +66,6 @@ class AdminController < ApplicationController
   get '/:game_name/product/:name/edit' do
     @game = Game::current
     @product = @game.products["fb"][params[:name]]
-    puts "$$$$$$$$$$#{@product}"
     @items = populate_items
     erb :edit_product , {:layout => :app}
   end
@@ -98,11 +96,11 @@ class AdminController < ApplicationController
     end
     product["image_url"] = product["product_url"]
     
-    
     #updating the game data real item with the product id => product['title']
     reached = @game
     access_parts = product["item_id"].split "."
     access_parts.each do |part|
+      puts "#{reached}"
       reached = reached[part]
     end
     reached['buyID'] = product['title']

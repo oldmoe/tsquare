@@ -22,7 +22,7 @@ var CrowdHandler = Class.create(UnitHandler, {
            for(var crowd in userCrowds[crowdType]){
                var crowdMember = userCrowds[crowdType][crowd]
                var level = crowdMember.level
-               var category = gameData.crowd_members.category[crowdType]
+               var category = gameData.crowd_members.category[crowdType]['type'];
                if(category == "special" || category == "limited_edition") category = crowdType
                var specs = gameData.crowd_members.specs[category][level]
                this.addCrowdMember(crowdType,specs)
@@ -153,7 +153,6 @@ var CrowdHandler = Class.create(UnitHandler, {
    },
 
    increaseFollowers: function(num){
-     console.log("increas engergy: " + num);
      for (var i = 0; i < this.objects.length; i++) {
        for (var j = 0; j < this.objects[i].length; j++) {
          if(this.objects[i][j]) this.objects[i][j].increaseFollowers(num);
@@ -162,7 +161,6 @@ var CrowdHandler = Class.create(UnitHandler, {
    },
 
    decreaseFollowers: function(num){
-     console.log("decreas engergy: " + num);
      for (var i = 0; i < this.objects.length; i++) {
        for (var j = 0; j < this.objects[i].length; j++) {
          if(this.objects[i][j]) this.objects[i][j].decreaseFollowers(num);

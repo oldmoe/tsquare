@@ -44,11 +44,45 @@
 
 .crowedItem { float:left; width:120px; height:136px; position:absolute; margin:10px 0 0 5px; }
 .crowedItemTitle { width:117px; height:31px; position:absolute; top:-10px; left:3px;  }
-.crowedItemTitle h2 { position:absolute; width:117px; height:28px; margin:0px; padding:0px; z-index:2; text-align:center; text-shadow:1px 1px 0 #ffce57; padding:3px 0 0 0; font-size:1.4em; }
+.crowedItemTitle h2 {
+  font-size: 1.2em;
+  height: 26px;
+  margin: 0;
+  padding: 5px 0 0;
+  position: absolute;
+  text-align: center;
+  text-shadow: 1px 1px 0 #FFCE57;
+  width: 117px;
+  z-index: 2;
+}
 
-.crowedItemDetails { float:left; width:97px; height:31px; overflow:hidden; position:absolute; top:115px; left:10px; }
-.crowedItemDetails a { position:absolute; display:block; width:97px; height:26px; z-index:2; font-weight:bold; font-size:1.2em; color:#202020; text-shadow:1px 1px 0 #fbfbfb; text-decoration:none; text-align:center; padding:5px 0 0 0; }
-.crowedItemDetails:hover img { position:absolute; top:-31px;}
+.crowedItemDetails {
+  float: left;
+  height: 36px;
+  left: 4px;
+  overflow: hidden;
+  position: absolute;
+  top: 110px;
+  width: 115px;
+}
+.crowedItemDetails a {
+  color: #304C00;
+  display: block;
+  font-size: 1.2em;
+  font-weight: bold;
+  height: 28px;
+  padding: 8px 0 0;
+  position: absolute;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 #CCF08E;
+  width: 115px;
+  z-index: 2; 
+}
+.crowedItemDetails:hover img {
+  position: absolute;
+  top: -36px;
+}
 
 .crowedItemPrice { float:left; position:absolute; width:59px; height:33px; top:90px; left:68px; }
 .crowedItemPrice h5 { position:absolute; width:59px; height:20px; z-index:2; margin:0px; padding:2px 0 0 0; text-align:center; font-size:1.1em; text-shadow:1px 1px 0 #fffaae; color:#763d00; }
@@ -73,6 +107,9 @@
 .crowdMemeberDetails dl dd { float:left; width:25%; margin:0px; padding:0px; text-align: center; }
 .crowdMemeberDetails dl dd + dd { width:11%; text-align:right; }
 .crowdMemeberDetails dl dd table { margin:3px 0 0 0; }
+
+
+.linkToFriend { position:absolute; width:29px; height:30px; z-index:7; right:8px; top:80px; }
 
 .detailsBox .confirmButton { top:195px; }
 .detailsBox .cancelButton { top:195px; }

@@ -39,6 +39,9 @@ class Request < DataStore::Model
   
   def process friend_key, request_id
     request = get_friend_request friend_key, request_id
+    
+    puts "!!!!!!!!!!!!!!!!!!!!!"
+    
     data = JSON.parse( request['data'] )
     expire_time = REQUEST_TYPES[ data['type'] ][ :expire ]
     if request && request['timestamp'] + expire_time > Time.now.to_i

@@ -153,7 +153,6 @@ var CrowdHandler = Class.create(UnitHandler, {
    },
 
    increaseFollowers: function(num){
-     console.log("increas engergy: " + num);
      for (var i = 0; i < this.objects.length; i++) {
        for (var j = 0; j < this.objects[i].length; j++) {
          if(this.objects[i][j]) this.objects[i][j].increaseFollowers(num);
@@ -162,7 +161,6 @@ var CrowdHandler = Class.create(UnitHandler, {
    },
 
    decreaseFollowers: function(num){
-     console.log("decreas engergy: " + num);
      for (var i = 0; i < this.objects.length; i++) {
        for (var j = 0; j < this.objects[i].length; j++) {
          if(this.objects[i][j]) this.objects[i][j].decreaseFollowers(num);

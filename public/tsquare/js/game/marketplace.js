@@ -91,7 +91,6 @@ var Marketplace = Class.create({
       socialEngine.buyItem( options.buyID );
     } else {
       this.network.buy(options, function(responseData){
-        console.log( "toot" )
         $('dialogBox').show();
       });
     }

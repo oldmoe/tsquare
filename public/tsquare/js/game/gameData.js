@@ -4,7 +4,7 @@ var missionData =
       "name": "doctor",
       "category": 'crowd',
       "index": 0,
-      "lane": 1,
+      "lane": 2,
       "x": 1,
       "order": 1
   },

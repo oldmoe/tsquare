@@ -123,9 +123,9 @@ var Game = Class.create({
                       if($$('#inProgress #loadingBarFill')[0])
                       $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
              }, onFinish:function(){        
-              self.missionLoaded = true;
-              var inGameMeterBar = new InGameMeterBar(self);
-              self.start();
+                  self.missionLoaded = true;
+                  var inGameMeterBar = new InGameMeterBar(self);
+                  self.start();
           }
         })
   },

@@ -1,7 +1,7 @@
 var NpcDisplay = Class.create(Display,{
-  noOfFrames : 8,  
+  noOfFrames : 7,  
   initialize : function($super,owner,properties){
-    this.characterImg = Loader.images.characters[owner.type+'_walk.png'];
+    this.characterImg = Loader.images.characters[owner.type+'_idle.png'];
     this.imgWidth = this.characterImg.width
     this.imgHeight = this.characterImg.height/this.noOfFrames
     $super(owner)

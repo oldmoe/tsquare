@@ -96,7 +96,6 @@ var Game = Class.create({
     this.mission = mission;
     missionData = mission;
     this.misssionLoaded = false;
-    $('gameContainer').show()
 	  var backgroundImages = ['background.png']
 
     var self = this;
@@ -120,7 +119,10 @@ var Game = Class.create({
     });
 	  
 	  new Loader().load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
-          { onFinish:function(){        
+          {onProgress : function(progress){
+                      if($$('#inProgress #loadingBarFill')[0])
+                      $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
+             }, onFinish:function(){        
               self.missionLoaded = true;
               var inGameMeterBar = new InGameMeterBar(self);
               self.start();
@@ -135,6 +137,7 @@ var Game = Class.create({
       this.scene = new TsquareScene();
       this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
 	  	this.scene.start();
+      $('gameContainer').show();
 	  	this.scene.fire("start");
     }
   },
@@ -147,9 +150,7 @@ var Game = Class.create({
   },
 
   show : function() {
-    if(!this.doneLoading){
       $('inProgress').show()
-    }
   },
   
   addLoadedImagesToDiv: function(divId){

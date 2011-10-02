@@ -46,7 +46,7 @@ var Game = Class.create({
             characterImages.push(characterNames[i]+"_"+imageNames[j]+".png")
         }
     }
-    var effectsImages = ['hydrate.png', 'hit1.png']
+    var effectsImages = ['hydrate.png', 'hit1.png','good_blue.png','bad_red.png']
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
     'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png']
     var hoveringIconsImages = ['lock.png', 'circle.png', 'march.png', 'push.png'];

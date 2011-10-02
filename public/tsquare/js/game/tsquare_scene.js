@@ -121,6 +121,8 @@ var TsquareScene = Class.create(Scene,{
     if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended)) {
       this.win = win
       this.reactor.stop()
+      $("container").innerHTML = ""
+      $("gameCanvas").innerHTML = ""
       this.fire('end', [{
         score: 1000,
         objectives: 0.6,

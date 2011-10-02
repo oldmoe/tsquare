@@ -19,7 +19,7 @@ var AudioManager = Class.create({
     this.levelChanged = true
 		this.levels = [
 			{tempo: 130, beats : [0]},
-      {tempo: 130, beats : [0, 1]},
+			{tempo: 130, beats : [0, 1]},
 			{tempo: 130, beats : [0, 2]},
 			{tempo: 130, beats : [0, 2]},
 			{tempo: 130, beats : [0, 4]},

@@ -52,6 +52,7 @@ var Game = Class.create({
     'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png']
     
     var metersBarImages = ["", ""];
+    var hoveringIconsImages = ["circle.png", "march.png"];
        
   	var self = this
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
@@ -87,6 +88,7 @@ var Game = Class.create({
   						  			self.start();
                       self.doneLoading = true
                       $('inProgress').hide()
+                      self.play(missionData);
   								  }
     });
   },
@@ -126,7 +128,6 @@ var Game = Class.create({
                       $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
              }, onFinish:function(){        
                   self.missionLoaded = true;
-                  var inGameMeterBar = new InGameMeterBar(self);
                   self.start();
           }
         })

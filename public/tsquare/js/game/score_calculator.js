@@ -40,7 +40,7 @@ var ScoreCalculator = Class.create({
   },
   
   updateScore: function(score){
-    
+    this.score += score
   },
   
   updateTime: function(){

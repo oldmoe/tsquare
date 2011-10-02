@@ -7,27 +7,32 @@ var GameManager = Class.create({
     this.network = new TSquareNetwork();
     this.templateManager = new TemplatesManager(this.network);  
     this.processParams(urlParams, function(data){self.processRequest(data)});
+		this.reactor = new Reactor();
+    Effect.Queues.create('global', this.reactor)
+    this.reactor.run();
+  },
+
+  initializeData : function(data){
+    self = this;
+    self.userData = data.user_data.data;
+    self.userData.crowd_members = data.user_data.data.crowd_members;
+    self.userData.coins = data.user_data.coins;
+    self.gameData = data.game_data.data;
+    self.missions = data.missions_data.data;
+    self.meterBar = new MeterBar(self);
+    self.scoreManager = new ScoreManager(self);
+    self.inbox = new Inbox(self);
+    self.marketplace = new Marketplace(self);
+    self.timelineManager = new Timeline(self);
+    self.missionManager = new MissionManager(self);
+    game = new Game(self);
+    self.game = game;
   },
 
   start : function(){
     var self = this;
-		this.reactor = new Reactor();
-    Effect.Queues.create('global', this.reactor)
-    this.reactor.run();
     var callback = function(data) {
-      self.userData = data.user_data.data;
-      self.userData.crowd_members = data.user_data.data.crowd_members;
-      self.userData.coins = data.user_data.coins;
-      self.gameData = data.game_data.data;
-      self.missions = data.missions_data.data;
-      self.meterBar = new MeterBar(self);
-      self.scoreManager = new ScoreManager(self);
-      self.inbox = new Inbox(self);
-      self.marketplace = new Marketplace(self);
-      self.timelineManager = new Timeline(self);
-      self.missionManager = new MissionManager(self);
-      game = new Game(self);
-      self.game = game;
+      self.initializeData(data);
       $('uiContainer').show();
     }
     this.network.gameData(callback);
@@ -39,8 +44,12 @@ var GameManager = Class.create({
       self.game.play(missionData.data);
       self.timelineManager.hide();
       self.missionManager.hide();
-      game.show();
+      self.game.show();
     });
+  },
+
+  replayMission : function(){
+    this.game.start();
   },
 
   openMainPage : function(){

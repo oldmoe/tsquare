@@ -20,6 +20,7 @@ var EnemyHandler = Class.create(UnitHandler, {
    },
    
    end : function(){
+     this.ended = true
      this.scene.end(true)
    },
    createOneManUnit : function(){

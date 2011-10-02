@@ -72,7 +72,7 @@ var DomImgSprite = Class.create(DomSprite, {
   },
   
 	setImgHeight : function(height){
-			this.imgHeight = height
+			this.imgHeight = height / this.noOfAnimationFrames
       this.img.setStyle({height:(height + "px")});
   },
 	
@@ -100,7 +100,7 @@ var DomImgSprite = Class.create(DomSprite, {
       if(this.flipped) Util.flip(this.div)
       else Util.removeTransform(this.div)
       if (this.owner.scene) {
-        var scale = ((this.owner.coords.y) / (this.owner.scene.view.height - this.defaultShiftY)) * 0.8 + 0.4
+        var scale = ((this.owner.coords.y) / (this.owner.scene.view.height - this.defaultShiftY)) * 0.6 + 0.4
         this.div.style.WebkitTransform +=' scale(' + scale + ')';
         this.div.style.MozTransform +=' scale(' + scale + ')';
       }

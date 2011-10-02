@@ -6,5 +6,6 @@ var SalafyDisplay = Class.create(CrowdMemberDisplay,{
     this.backImg = Loader.images.characters['salafy_back.png']
     this.frontImg = Loader.images.characters['salafy_front.png']
     this.holdImg = Loader.images.characters['salafy_hold.png']
+    this.blurImg = Loader.images.characters['salafy_blur.png']
   }
 })

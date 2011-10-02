@@ -16,6 +16,7 @@ var TsquareScene = Class.create(Scene,{
     view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25},
     activeLane: 1,
     win : false,
+    comboMistakes : {current : 0, max : 2},
     scoreCalculator: null,
     
     initialize: function($super){
@@ -33,11 +34,12 @@ var TsquareScene = Class.create(Scene,{
         };  
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
+        var mapping = {'crowd':'npc', 'protection':'protection_unit', 'enemy':'enemy'}
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
                 var elem = this.data[i][j]
-                if(this.handlers[elem.category])
-                    this.handlers[elem.category].add(elem);
+                if(this.handlers[mapping[elem.category]])
+                    this.handlers[mapping[elem.category]].add(elem);
             }
         }
         var self = this;
@@ -112,9 +114,15 @@ var TsquareScene = Class.create(Scene,{
     },
     
   end : function(win){
-//  this.reactor.stop()
-    this.win = win
-    this.fire('end', [{score:1000, objectives:0.6, combos: 0.8, win:true}]);
+    if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended)) {
+      this.win = win
+      this.fire('end', [{
+        score: 1000,
+        objectives: 0.6,
+        combos: 0.8,
+        win: true
+      }]);
+    }
     //send to the server
   },
   
@@ -182,13 +190,16 @@ var TsquareScene = Class.create(Scene,{
    },
    
    decreaseEnergy : function(){
-      this.audioManager.levelDown()
-      this.energy.current= Math.max(this.energy.current-this.energy.rate, 0)
-      this.fire("decreaseFollowers",  [this.speeds[this.speedIndex].followers])
-      if(this.speedIndex >0 && this.energy.current < this.speeds[this.speedIndex].energy){
+      if (++this.comboMistakes.current == this.comboMistakes.max) {
+        this.comboMistakes.current = 0
+        this.audioManager.levelDown()
+        this.energy.current = Math.max(this.energy.current - this.energy.rate, 0)
+        this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
+        if (this.speedIndex > 0 && this.energy.current < this.speeds[this.speedIndex].energy) {
           this.speedIndex--
           this.currentSpeed = this.speeds[this.speedIndex].value
           this.fire(this.speeds[this.speedIndex].state)
+        }
       } 
    }
   

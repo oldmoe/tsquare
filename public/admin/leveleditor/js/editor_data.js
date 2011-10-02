@@ -25,7 +25,7 @@ var EditorData = [
   {src:'images/objects/7alaman.png', name:'7alaman', category:'crowd'},
   {src:'images/objects/dehydrator.png', name:'dehydrator', category:'crowd'},
   {src:'images/objects/healer.png', name:'healer', category:'crowd'},
-  {src:'images/objects/salafi.png', name:'salafi', category:'crowd'}, 
+  {src:'images/objects/salafi.png', name:'salafy', category:'crowd'}, 
   {src:'images/objects/ultras.png', name:'ultras', category:'crowd'},
 
   //protection unit

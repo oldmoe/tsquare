@@ -17,6 +17,7 @@ class Game < DataStore::Model
   end
 
   def process_service_request user_key, request_data, friend_service_id
+    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
     case request_data['type']
     when 'link_a_friend'
       served_user = UserGameProfile.get user_key

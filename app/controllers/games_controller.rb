@@ -152,6 +152,7 @@ class GamesController < ApplicationController
     data['requests'].each do |id, request|
       user_requests.requests[id] = request
     end
+    puts "$$$$$$$$#{user_requests}"
     user_requests.save
   end
 

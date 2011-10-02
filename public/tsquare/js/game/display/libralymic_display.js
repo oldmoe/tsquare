@@ -6,5 +6,6 @@ LibralymicDisplay = Class.create(CrowdMemberDisplay,{
     this.backImg = Loader.images.characters['libralymic_back.png']
     this.frontImg = Loader.images.characters['libralymic_front.png']
     this.holdImg = Loader.images.characters['libralymic_hold.png']
+    this.blurImg = Loader.images.characters['libralymic_blur.png']
   }
 })

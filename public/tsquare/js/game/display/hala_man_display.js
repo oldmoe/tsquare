@@ -6,5 +6,6 @@ HalaManDisplay = Class.create(CrowdMemberDisplay,{
     this.backImg = Loader.images.characters['hala_man_back.png']
     this.frontImg = Loader.images.characters['hala_man_front.png']
     this.holdImg = Loader.images.characters['hala_man_hold.png']
+    this.blurImg = Loader.images.characters['hala_man_blur.png']
   }
  })

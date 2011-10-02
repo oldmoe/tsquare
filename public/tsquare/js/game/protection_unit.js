@@ -58,4 +58,5 @@ var ProtectionUnit = Class.create(Unit,{
         this.enemies[i].destroy()
     }
   }
+  
 })

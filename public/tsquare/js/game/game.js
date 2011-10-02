@@ -17,14 +17,21 @@ var Game = Class.create({
   },
 
   startLoading : function(){
-    this.initializeGame();
+    var self = this
+    var loadingImages = ['loading_background.png','loadingbar_left.png','loadingbar_right.png',
+    'loadingbar_middle.png']
+      new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
+        ,{
+          onFinish: function(){
+            $('inProgress').innerHTML = self.templateManager.load('loadingScreen')
+            $('inProgress').show()
+            self.initializeGame();
+          }
+        }
+      )
   },
   
   initializeGame : function(){
-      
-    $('inProgress').hide()
-    $('gameCanvas').show()
-    $('container').show()
     $('gameCanvas').observe('mouseover',function(e){
      //   console.log(e.pointerX(),e.pointerY())
     })
@@ -33,12 +40,13 @@ var Game = Class.create({
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
     'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man']
     var characterImages = ['follower.png']
-    var imageNames = ['walk','run','front','back','idle','hold']
+    var imageNames = ['walk','run','front','back','idle','hold','blur']
     for(var i=0;i<characterNames.length;i++){
         for(var j=0;j<imageNames.length;j++){
             characterImages.push(characterNames[i]+"_"+imageNames[j]+".png")
         }
     }
+    var effectsImages = ['hydrate.png', 'hit1.png']
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
     'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png']
     var hoveringIconsImages = ['lock.png', 'circle.png', 'march.png', 'push.png'];
@@ -49,6 +57,7 @@ var Game = Class.create({
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
   					{images: characterImages, path: 'images/characters/', store: 'characters'},
   					{images: hoveringIconsImages, path: 'images/icons/', store: 'hoveringIcons'},
+            {images: effectsImages, path: 'images/effects/', store: 'effects'},
                       {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
   				]
     
@@ -76,7 +85,8 @@ var Game = Class.create({
   								  onFinish:function(){
   					   				self.imagesLoaded = true;
   						  			self.start();
-  						  			self.play(missionData)
+                      self.doneLoading = true
+                      $('inProgress').hide()
   								  }
     });
   },
@@ -109,10 +119,13 @@ var Game = Class.create({
     });
 	  
 	  new Loader().load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
-          { onFinish:function(){        
-              self.missionLoaded = true;
-              var inGameMeterBar = new InGameMeterBar(self);
-              self.start();
+          {onProgress : function(progress){
+                      if($$('#inProgress #loadingBarFill')[0])
+                      $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
+             }, onFinish:function(){        
+                  self.missionLoaded = true;
+                  var inGameMeterBar = new InGameMeterBar(self);
+                  self.start();
           }
         })
   },
@@ -124,6 +137,7 @@ var Game = Class.create({
       this.scene = new TsquareScene();
       this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
 	  	this.scene.start();
+      $('gameContainer').show();
 	  	this.scene.fire("start");
     }
   },
@@ -136,7 +150,7 @@ var Game = Class.create({
   },
 
   show : function() {
-
+      $('inProgress').show()
   },
   
   addLoadedImagesToDiv: function(divId){

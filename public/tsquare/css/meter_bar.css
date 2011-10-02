@@ -1,8 +1,8 @@
 /*--------In Game meters-----------*/
 .inGameMeterBar { width:950px; height:50px; position: absolute} 
 .inGameMeterBar .energyBar {position:absolute; width:169px; height:32px; top:10px; right:350px;}
-.inGameMeterBar .energyBar .bar { position:absolute; width:140px; height:20px; z-index:4; left:3px; top:7px; }
-.inGameMeterBar .energyBar span {position:absolute; width:140px; height:20px; z-index:5; left:3px; top:7px; font-weight:bold; font-size:1.2em; color:#512d09; text-shadow:1px 1px 0 #fffce0; text-align:center; }
+.inGameMeterBar .energyBar .bar { position:absolute; width:140px; height:20px; z-index:4; left:3px; top:8px; }
+.inGameMeterBar .energyBar span {position:absolute; width:140px; height:20px; z-index:5; left:3px; top:8px; font-weight:bold; font-size:1.2em; color:#512d09; text-shadow:1px 1px 0 #fffce0; text-align:center; }
 
 .inGameMeterBar .energyBar .positioned { top:14px; }
 
@@ -23,8 +23,8 @@
 .facebookCurrencyBar a:hover img { top:-22px; }
 
 .experienceBar {position:absolute; width:178px; height:32px; top:17px; left:386px;}
-.experienceBar .bar { position:absolute; width:140px; height:20px; z-index:4; left:3px; top:9px; }
-.experienceBar span {position:absolute; width:140px; height:20px; z-index:5; left:3px; top:9px; font-weight:bold; font-size:1.2em; color:#05233a; text-shadow:1px 1px 0 #73a2c7; text-align:center; }
+.experienceBar .bar { position:absolute; width:140px; height:20px; z-index:4; left:3px; top:11px; }
+.experienceBar span {position:absolute; width:140px; height:20px; z-index:5; left:3px; top:11px; font-weight:bold; font-size:1.2em; color:#05233a; text-shadow:1px 1px 0 #73a2c7; text-align:center; }
 .experienceBar .positioned { top:-2px; }
 .experienceBar strong { position:absolute; width:37px; height:20px; z-index:5; right:0; font-weight:bold; font-size:1.2em; color:#052138; text-shadow:1px 1px 0 #73a2c7; text-align:center; top:7px; }
 

@@ -4,7 +4,8 @@ var AmnMarkazy = Class.create(Enemy,{
 	hitOffset: 10,
 	hittingTime: 0,
 	hitState : "amn_markazy_animation_"+"hit",
-  normalState : "amn_markazy_animation_"+"normal", 	
+  normalState : "amn_markazy_animation_"+"normal",
+  hitDone : false, 	
   initialize : function($super,scene,x,y, options){
      $super(scene,x,y, options) 
      this.type = "amn_markazy";
@@ -17,6 +18,7 @@ var AmnMarkazy = Class.create(Enemy,{
       if(this.target){
          if(this.hittingTime == this.hittingTicks){
             this.target.takeHit(this.power);
+            this.hitDone = true
          }
          this.hittingTime += 1;              
          this.hittingTime = this.hittingTime % (this.hittingTicks+1);

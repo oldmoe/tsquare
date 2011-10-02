@@ -211,6 +211,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    },
  
    end : function(){
+     this.ended = true
      this.scene.end(false)
    },
        

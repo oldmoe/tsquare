@@ -7,9 +7,9 @@ var SkyLine = Class.create({
       var images_cloud = [Loader.images.background['background.png']];
       var images_layer1 = [Loader.images.background[game.data.backgrounds.layer1[0].name]];
       var images_layer2 = [Loader.images.background[game.data.backgrounds.layer2[0].name]];
-      var images_lamp = [Loader.images.background['3amod.png'], Loader.images.background['3amod.png']]
-      var images_road = [Loader.images.background['land.png']]
-      var images_fence = [Loader.images.background['fence.png']]
+      var images_lamp = [Loader.images.background[game.data.backgrounds.lamp[0].name], Loader.images.background[game.data.backgrounds.lamp[0].name]]
+      var images_road = [Loader.images.background[game.data.backgrounds.land[0].name]]
+      var images_fence = [Loader.images.background[game.data.backgrounds.fence[0].name]]
         
       var self = this
       var background_cloud = new Background(this.scene, {speed : function(){return  self.scene.direction*(0)}, y: 0, imagesCount: 1, images:images_cloud, offsetX:0});

@@ -74,7 +74,7 @@ var DomImgSprite = Class.create(DomSprite, {
   },
   
 	setImgHeight : function(height){
-			this.imgHeight = height
+			this.imgHeight = height / this.noOfAnimationFrames
       this.img.setStyle({height:(height + "px")});
   },
 	

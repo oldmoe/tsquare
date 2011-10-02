@@ -22,6 +22,7 @@ var DomSprite = Class.create(Sprite, {
     else this.div.style.width = this.owner.imgWidth + "px";
 		if(properties.height)this.div.style.height = properties.height + "px";
     else this.div.style.height =  this.owner.imgHeight + "px";
+    if(properties.hidden)this.div.hide()
     Object.extend( this, properties );
   },
 
@@ -74,7 +75,7 @@ var DomSprite = Class.create(Sprite, {
     var position = {};
     position.x = Math.round(this.owner.coords.x);
     position.y = Math.round(this.owner.coords.y-this.owner.imgHeight/2) + this.defaultShiftY;
-	if(this.zIndex) position.zIndex = this.zIndex 
+	if(this.zIndex) position.zIndex = this.zIndex + this.shiftZ
     else position.zIndex = Math.round(this.owner.coords.y + this.owner.zdim + this.shiftZ);
     return position;
   },

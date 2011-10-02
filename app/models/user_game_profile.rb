@@ -1,7 +1,7 @@
 class UserGameProfile < DataStore::Model
 
   SEP = '-'.freeze
-  CURRENT_VERSION = 3
+  CURRENT_VERSION = 7
 
   index :timeline_score, :method => :timeline_index
   index :racing_score, :method => :racing_index
@@ -75,6 +75,11 @@ class UserGameProfile < DataStore::Model
       Mission::MODES.each do |mode|
         @data['current_mission'][mode] = game.data['missions'][mode].keys.min { |i| i.to_i }
         @data['missions'][mode] ||= {}
+        # This puts all the missions to the user .. should be removed once testing is done
+        game.data['missions'][mode].keys.each do |key|
+          @data['missions'][mode][key] ||= { 'score' => 0, 'stars'=>0}
+        end
+        # End of part to be removed
       end 
       @data['crowd_members'] = {
         'ultras_green' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },

@@ -3,13 +3,15 @@ var Display = Class.create({
 	ydim :0,
 	zdim :0,
 	sprites : null,
+	
 	initialize : function(owner,properties){
 		Object.extend(this,properties)
 		this.sprites = {}
 		this.owner = owner
-        Object.extend(this.owner,this)
-        this.createSprites()
+    Object.extend(this.owner,this)
+    this.createSprites()
 	},
+	
   //To be overwridden
   createSprites : function(){
     
@@ -26,10 +28,13 @@ var Display = Class.create({
 			this.sprites[sprite].destroy();
 	  }
 	},
+	
   getWidth : function(){
     return this.imgWidth 
   },
+  
   getHeight: function(){
     return this.imgHeight
   }
+  
 });

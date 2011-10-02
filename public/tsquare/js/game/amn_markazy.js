@@ -3,7 +3,6 @@ var AmnMarkazy = Class.create(Enemy,{
 	hittingTime: 0,
 	hitOffset: 10,
 	hittingTime: 0,
-	showHoveringIcon: true,
 	hitState : "amn_markazy_animation_"+"hit",
   normalState : "amn_markazy_animation_"+"normal", 	
   initialize : function($super,scene,x,y, options){

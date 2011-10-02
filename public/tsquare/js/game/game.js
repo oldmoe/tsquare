@@ -42,14 +42,12 @@ var Game = Class.create({
     }
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
     'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png']
-    var hoveringIconsImages = ['lock.png', 'circle.png', 'march.png', 'push.png'];
     
     var metersBarImages = ["", ""];
        
   	var self = this
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
   					{images: characterImages, path: 'images/characters/', store: 'characters'},
-  					{images: hoveringIconsImages, path: 'images/icons/', store: 'hoveringIcons'},
                       {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
   				]
     
@@ -108,11 +106,12 @@ var Game = Class.create({
     this.mission.backgrounds.land.each(function(elem){
       backgroundImages.push(elem.name);
     });
-	  
-	  new Loader().load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
+    
+    var hoveringIconsImages = ['lock.png', 'circle.png', 'march.png', 'push.png'];
+    
+	  new Loader().load([{images: backgroundImages, path: 'images/background/', store: 'background'},{images: hoveringIconsImages, path: 'images/icons/', store: 'hoveringIcons'}],
           { onFinish:function(){        
               self.missionLoaded = true;
-              self.inGameMeterBar = new InGameMeterBar(self);
               self.start();
           }
         })
@@ -126,6 +125,7 @@ var Game = Class.create({
       this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
 	  	this.scene.start();
 	  	this.scene.fire("start");
+      this.inGameMeterBar = new InGameMeterBar(this);	  	
     }
   },
 

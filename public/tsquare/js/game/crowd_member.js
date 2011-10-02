@@ -23,6 +23,7 @@ var CrowdMember = Class.create(Unit,{
     $super(options.scene, 0, options.scene.activeLane, options)
     this.type = "crowd_member";
     this.rotationPoints = []
+    this.followers = []
     this.name = options.name
     var self = this
     this.hp = this.maxHp = specs.hp
@@ -55,7 +56,6 @@ var CrowdMember = Class.create(Unit,{
       this.level = options.level
     else 
       this.level = 4
-    this.followers = []
   },
   
   increaseFollowers : function(noOfFollowers){
@@ -71,7 +71,6 @@ var CrowdMember = Class.create(Unit,{
       this.scene.push(follower)
       this.followers.push(follower);
     }
-    console.log("number of followers: "+this.followers.length);
   },
   
   decreaseFollowers: function(num){
@@ -188,6 +187,9 @@ var CrowdMember = Class.create(Unit,{
   },
   
   pushMove : function(target){
+    for(var i=0;i<this.followers.length;i++){
+      this.followers[i].pushMove(target)
+    }
     if(this.pushDirection == this.pushDirections.forward){
       return this.pushForward(target)
     }else{
@@ -215,9 +217,9 @@ var CrowdMember = Class.create(Unit,{
   
   reversePushDirection : function(){
     this.pushDirection = 1 - this.pushDirection
-//    if(this.pushDirection == this.pushDirections.forward){
-//    }else{
-//    } 
+    for(var i=0;i<this.followers.length;i++){
+      this.followers[i].reversePushDirection()
+    }
   },
   
   circleMove : function(){
@@ -226,9 +228,7 @@ var CrowdMember = Class.create(Unit,{
       return
     }
       if (this.rotationPoints.length == 0) {
-        console.log(this.target.hp)
         this.target.rotationComplete(this.attack)
-        console.log(this.target.hp)
         this.resetRotation()
         return
 //        if (this.target.hp < 0) {

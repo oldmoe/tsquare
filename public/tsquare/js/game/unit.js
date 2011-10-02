@@ -19,6 +19,7 @@ var Unit = Class.create({
   movingToTarget : false,
   type: null,
   neglected : false,
+  scalable: true, // for specifying which object can be scalable
 
   initialize : function(scene,x,lane, options){
     var self = this
@@ -124,7 +125,7 @@ var Unit = Class.create({
   },
   
   collidesWith: function(target){
-      if (this.coords.x + this.getWidth() > target.coords.x){
+      if (this.coords.x + this.getWidth()/2 > target.coords.x){
          return true;
       }
          

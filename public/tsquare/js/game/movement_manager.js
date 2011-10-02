@@ -1,5 +1,5 @@
 var MovementManager = Class.create({
-  UP : 0, DOWN : 1,
+  RIGHT : 0, LEFT : 1,
   move : [],
   movements : [],
   direction : 0,
@@ -32,7 +32,7 @@ var MovementManager = Class.create({
   },
   
   reset : function(){
-    this.move = [];
+    this.move = []; 
     this.beatMoving = false;
     this.comboStart = false;
     this.currentCombos = 0
@@ -86,6 +86,7 @@ var MovementManager = Class.create({
       }else{
             alert('!!!')            
       }
+      console.log(self.move)
       self.checkMove()
       self.ticksPassed = 0
   		if(e.keyCode == 49){
@@ -106,6 +107,7 @@ var MovementManager = Class.create({
   },
   
   checkMove : function(){
+    console.log('checkMove')
   	var index = 0
     var found = false
     var moveIndex = this.getNextMoveIndex()
@@ -127,10 +129,20 @@ var MovementManager = Class.create({
      }
    }
    if(!found){
+     if(this.move[this.move.length-1] == this.RIGHT){
+        this.scene.fire('rightWrong')
+     }else{
+       this.scene.fire('leftWrong')
+     }   
      self.reset()
      return
    }
    var code = this.moves[command].code
+   if(this.move[this.move.length-1] == this.RIGHT){
+      this.scene.fire('rightCorrect')
+   }else{
+     this.scene.fire('leftCorrect')
+   }   
    if(code.length==self.move.length){
      this.move=[]
      this.startMove(this.moves[command].index,self.nextTick*code.length)
@@ -145,12 +157,7 @@ var MovementManager = Class.create({
     if(commandIndex == this.moves.march.index){
         if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
         this.scene.fire('march')
-        if(collision){
-          this.scene.decreaseEnergy()
-          return
-        }else{
-          this.beatMoving = true    
-        }
+        this.beatMoving = true    
     }else if(commandIndex == this.moves.retreat.index){
         if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
         this.scene.fire('retreat')

@@ -11,10 +11,12 @@ var CrowdHandler = Class.create(UnitHandler, {
        this.scene.observe("increaseFollowers", function(num){self.increaseFollowers(num)});
        this.scene.observe("decreaseFollowers", function(num){self.decreaseFollowers(num)});
    },
+   
     tick : function($super){
       if(this.pushing)this.pushMove()
       else $super()
     },
+    
     getUserCrowds : function(){
        this.userCrowds = []
        var userCrowds = userData['crowd_members']
@@ -209,6 +211,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    },
  
    end : function(){
+     this.ended = true
      this.scene.end(false)
    },
        

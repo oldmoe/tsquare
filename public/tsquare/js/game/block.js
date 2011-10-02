@@ -2,7 +2,7 @@ var Block = Class.create(Enemy,{
     //params contains x,y(initial @x, @y of the block) and @rows,@columns which are the dimensions of the block
     //params also contain elememnts which are the objects in the block
     elements: null,
-    elementWidth : 60,
+    elementWidth : 70,
     elementHeight : 15,
     noDisplay : true,
     
@@ -30,7 +30,6 @@ var Block = Class.create(Enemy,{
             var randomX = Math.round(Math.random()*8) - 4
             this.elements[i][j].coords.x = this.coords.x + this.elementWidth * i - 10*j
             this.elements[i][j].coords.y = this.coords.y + this.elementHeight * (j-1)
-            this.elements[i][j].showHoveringIcon = false;
         }
       }
     },

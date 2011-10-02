@@ -6,5 +6,6 @@ JournalistDisplay = Class.create(CrowdMemberDisplay,{
     this.backImg = Loader.images.characters['journalist_back.png']
     this.frontImg = Loader.images.characters['journalist_front.png']
     this.holdImg = Loader.images.characters['journalist_hold.png']
+    this.blurImg = Loader.images.characters['journalist_blur.png']
   }
 })

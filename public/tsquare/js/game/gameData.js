@@ -1,5 +1,37 @@
 var missionData = 
-{"data":[[],[{"name":"twitter_guy","category":"protection","index":0,"lane":1,"x":1000,"order":0}],[]],"backgrounds":{"layer1":[{"name":"secondary_skyline.png"}],"layer2":[{"name":"main_skyline.png"}],"landmarks":[{"name":"landmark_2.png"}],"fence":[{"name":"fence.png"}],"lamp":[{"name":"3amod2.png"}],"land":[{"name":"land.png"}]},"environment":"day","missionDetails":"Use the Circle Command ( right, left, right, left.) to protect others."}
+  {"data":[[],[
+  {
+      "name": "wood_stick_cs",
+      "category": 'enemy',
+      "type": '3_2',
+      "index": 0,
+      "lane": 1,
+      "x": 1,
+      "order": 1
+  }, 
+  {
+      "name": "ambulance",
+      "category": 'protection_unit',
+      "type": '3_3',
+      "index": 0,
+      "lane": 1,
+      "x": 20,
+      "order": 1
+  }
+    ]],
+    
+    "backgrounds":{
+      
+      "layer1":[{"name":"secondary_skyline.png"}],
+      "layer2":[{"name":"main_skyline.png"}],
+      "landmarks":[{"name":"landmark_1.png"},{"name":"landmark_2.png"}],
+      "fence":[{"name":"fence.png"}],
+      "lamp":[{"name":"3amod.png"}],
+      "land":[{"name":"land.png"}]
+     },
+      
+      "environment":"day","gameModes":["normal"]}
+
 var  crowd_members = { 
       'ultras_green' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
       'journalist' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },  

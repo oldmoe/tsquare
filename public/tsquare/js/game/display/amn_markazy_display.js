@@ -4,7 +4,6 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
   imgHeight:80,
   noOfFrames : 8,
   states : ["hit","normal"],
-  hoverIcon: null,
   
   initialize : function($super,owner){
     this.blockImg = Loader.images.enemies['amn_markazy_stick_walk.png']
@@ -12,15 +11,10 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
     this.hitEffect = Loader.images.effects['hit1.png']
     this.imgWidth = this.blockImg.width
     this.imgHeight = this.blockImg.height/this.noOfFrames
-    this.createHoveringIcon();
     $super(owner)
     this.registerEvents()
   },
 
-  createHoveringIcon: function(){
-    this.setHoveringIcon(this.hoveringIcons.march);
-  },
-  
   registerEvents : function(){
     var self = this
     this.states.each(function(state){
@@ -33,18 +27,13 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
   hit: function(){
     this.sprites.block.switchAnimation("hit");
     this.sprites.block.currentAnimationFrame = Math.floor(Math.random()*this.sprites.block.noOfAnimationFrames)
-    if(this.owner.showHoveringIcon)
-      this.switchHoveringIcon(this.hoveringIcons.circle);
   },
 
   normal: function(){
     this.sprites.block.switchAnimation("normal")
-    if(this.owner.showHoveringIcon)
-      this.switchHoveringIcon(this.hoveringIcons.march);
   },
 
   createSprites:function(){
-    if(this.owner.showHoveringIcon)this.sprites.hoverIcon = new DomImgSprite(this.owner,{img:this.hoverIcon, noOfFrames : 1}, {shiftY:-10, shiftX:20})
     this.sprites.block = new DomImgSprite(this.owner,{img:this.blockImg, noOfFrames : 8})
     this.sprites.block.createAnimation({name:'hit',img:this.hitImage, noOfFrames:9})
     this.sprites.hitEffect = new DomImgSprite(this.owner, {

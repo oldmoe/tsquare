@@ -36,8 +36,6 @@ var TearGasEnemyDisplay = Class.create(EnemyDisplay,{
   },
 
   createSprites:function(){
-    if(this.owner.showHoveringIcon)
-    this.sprites.hoverIcon = new DomImgSprite(this.owner,{img:this.hoverIcon, noOfFrames : 1}, {shiftY:-10, shiftX:20})
     this.sprites.walking = new DomImgSprite(this.owner,{img:this.walkingImg, noOfFrames : 8})
     this.sprites.walking.createAnimation({name:'hit',img:this.hitImage, noOfFrames:16})
   },

@@ -2,7 +2,7 @@ var DomImgSprite = Class.create(DomSprite, {
 	animated : false,
 	clickable : false,
 	minAreaZIndex : 10000000,
-    animations : null,
+  animations : null,
   initialize : function($super, owner, imgAssets, properties){
     this.animations = {}
     this.createAnimation({
@@ -19,14 +19,15 @@ var DomImgSprite = Class.create(DomSprite, {
       this.div.addClassName('flippedSprite')
     }
     this.img = this.currentAnimation.img
-	this.div.appendChild(this.img)
-	this.currentAnimationFrame = 0
-	this.currentDirectionFrame = 0
-	this.noOfAnimationFrames = this.currentAnimation.noOfFrames
-	this.noOfDirections = 8
-	this.img.setStyle({height:"auto"});
+  	this.div.appendChild(this.img)
+  	this.currentAnimationFrame = 0
+  	this.currentDirectionFrame = 0
+  	this.noOfAnimationFrames = this.currentAnimation.noOfFrames
+  	this.noOfDirections = 8
+  	this.img.setStyle({height:"auto"});
     this.render()
   },
+  
   switchAnimation : function(name){
     var prevAnimation = this.currentAnimation
     this.currentAnimation = this.animations[name]
@@ -38,8 +39,9 @@ var DomImgSprite = Class.create(DomSprite, {
     if (this.currentAnimation.flipped)this.flipped = true;
     else this.flipped = false;
     this.img = this.currentAnimation.img
-	this.noOfAnimationFrames = this.currentAnimation.noOfFrames
+	  this.noOfAnimationFrames = this.currentAnimation.noOfFrames
   },
+  
   //options contain {name,noOfFrames, img, imageWidth, imgHeight, direction, startY}
   createAnimation : function(options){
     var img = options.img
@@ -99,13 +101,12 @@ var DomImgSprite = Class.create(DomSprite, {
       }
       if(this.flipped) Util.flip(this.div)
       else Util.removeTransform(this.div)
-      if (this.owner.scene) {
-        var scale = ((this.owner.coords.y) / (this.owner.scene.view.height - this.defaultShiftY)) * 0.6 + 0.4
+      if (this.owner.scene && this.owner.scalable) {
+        var scale = ((this.owner.coords.y) / (this.owner.scene.view.height - this.defaultShiftY)) * 0.8 + 0.4
         this.div.style.WebkitTransform +=' scale(' + scale + ')';
         this.div.style.MozTransform +=' scale(' + scale + ')';
       }
     }
-    
   },
   
 	destroy : function($super){

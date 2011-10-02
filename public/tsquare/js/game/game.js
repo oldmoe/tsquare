@@ -1,5 +1,6 @@
 var Game = Class.create({
   
+  inGameMeterBar : null,
 
   initialize: function(gameManager){
     this.imagesLoaded = false;
@@ -46,19 +47,19 @@ var Game = Class.create({
             characterImages.push(characterNames[i]+"_"+imageNames[j]+".png")
         }
     }
-    var effectsImages = ['hydrate.png', 'hit1.png']
+    var effectsImages = ['hydrate.png', 'hit1.png','good_blue.png','bad_red.png']
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
     'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png']
-    var hoveringIconsImages = ['lock.png', 'circle.png', 'march.png', 'push.png'];
     
     var metersBarImages = ["", ""];
+    var hoveringIconsImages = ["circle.png", "march.png"];
        
   	var self = this
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
   					{images: characterImages, path: 'images/characters/', store: 'characters'},
   					{images: hoveringIconsImages, path: 'images/icons/', store: 'hoveringIcons'},
             {images: effectsImages, path: 'images/effects/', store: 'effects'},
-                      {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
+            {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
   				]
     
     	var format = 'mp3'
@@ -117,7 +118,9 @@ var Game = Class.create({
     this.mission.backgrounds.land.each(function(elem){
       backgroundImages.push(elem.name);
     });
-	  
+    
+    var hoveringIconsImages = ['lock.png', 'circle.png', 'march.png', 'push.png'];
+    
 	  new Loader().load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
           {onProgress : function(progress){
                       if($$('#inProgress #loadingBarFill')[0])
@@ -139,6 +142,7 @@ var Game = Class.create({
 	  	this.scene.start();
       $('gameContainer').show();
 	  	this.scene.fire("start");
+      this.inGameMeterBar = new InGameMeterBar(this);	  	
     }
   },
 

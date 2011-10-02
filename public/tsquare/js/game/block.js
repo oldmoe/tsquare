@@ -30,7 +30,6 @@ var Block = Class.create(Enemy,{
             var randomX = Math.round(Math.random()*8) - 4
             this.elements[i][j].coords.x = this.coords.x + this.elementWidth * i - 10*j
             this.elements[i][j].coords.y = this.coords.y + this.elementHeight * (j-1)
-            this.elements[i][j].showHoveringIcon = false;
         }
       }
     },

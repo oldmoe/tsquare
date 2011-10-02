@@ -21,7 +21,9 @@ var TsquareScene = Class.create(Scene,{
     
     initialize: function($super){
         $super();
-		    Effect.Queues.create('global', this.reactor)
+		    Effect.Queues.create('global', this.reactor);
+		    this.guidingIcon = new GuidingIcon(this);
+		    this.guidingIconDisplay = new GuidingIconDisplay(this.guidingIcon);
         this.scoreCalculator = new ScoreCalculator(this);
         this.createRenderLoop('skyline',1);
         this.createRenderLoop('characters',2);
@@ -111,6 +113,8 @@ var TsquareScene = Class.create(Scene,{
         for(var handler in this.handlers){
             this.handlers[handler].tick();
         }
+        
+        this.guidingIcon.tick();
     },
     
   end : function(win){

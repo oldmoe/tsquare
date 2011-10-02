@@ -5,7 +5,7 @@ var Animation = Class.create(Display,{
     this.img = img
     this.imgWidth = img.width
     this.imgHeight = img.height/noOfFrames
-    this.owner = {coords:coords}
+    this.owner = {coords:coords, scalable:true}
     properties.shiftZ = 1000
     this.scene.pushToRenderLoop('characters',this)
     $super(this.owner,properties)

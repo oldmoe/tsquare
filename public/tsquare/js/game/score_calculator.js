@@ -21,8 +21,11 @@ var ScoreCalculator = Class.create({
   achievedObjectives: 0,
   totalObjectives: 0,
   
+  gameTime: 0,
+  
   initialize: function(scene){
     this.scene = scene;
+    this.gameTime = 0;
   },
   
   start: function(){
@@ -37,7 +40,19 @@ var ScoreCalculator = Class.create({
   },
   
   updateScore: function(score){
-    
+    this.score += score
+  },
+  
+  updateTime: function(){
+    this.gameTime +=1;
+  },
+  
+  getTimeDetails: function(){
+    var r = [0, 0, 0];
+    r[0] = parseInt(this.gameTime/(60*60));//hours
+    r[1] = parseInt(this.gameTime/(60));//minutes
+    r[2] = this.gameTime%(60);//seconds
+    return r;
   }
   
   

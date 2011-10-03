@@ -70,7 +70,9 @@
 .crowdMemeberDetails dl dd table { margin:3px 0 0 0; }
 
 
-.linkToFriend { position:absolute; width:29px; height:30px; z-index:7; right:8px; top:80px; }
+.linkToFriend { position:absolute; width:41px; height:51px; z-index:7; right:-7px; top:69px; }
+.linkButton { position:absolute; z-index:8; top:28px; }
+.faceboookImage { position:absolute; z-index:9; top:4px; left:4px; }
 
 .detailsBox .confirmButton { top:195px; }
 .detailsBox .cancelButton { top:195px; }

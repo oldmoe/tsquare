@@ -51,7 +51,15 @@ class GamesController < ApplicationController
   post '/:game_name/mission' do
     data = decode(params['data'])
     result = UserMissions.update(user_game_profile, data['id'], data['score'])
-    encode(result)
+    data = {
+      :game_data => { :data => Game::current.user_data(user_game_profile) } , 
+      :user_data => { :coins => user.coins,
+                      :data => user_game_profile.data
+                    },
+      :missions_data => { :data => UserMissions.all(user_game_profile) }
+    }
+    data[:user_data][:volatile_data] = user_game_profile['volatile_data'] || {}
+    encode(data)
   end
 
   # Change User to be nolonger a newbie

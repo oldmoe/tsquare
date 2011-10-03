@@ -1,4 +1,4 @@
-/*--------In Game meters-----------*/
+*--------In Game meters-----------*/
 .inGameMeterBar { width:950px; height:50px; position: absolute} 
 .inGameMeterBar .energyBar {position:absolute; width:169px; height:32px; top:10px; right:350px;}
 .inGameMeterBar .energyBar .bar { position:absolute; width:140px; height:20px; z-index:4; left:3px; top:8px; }

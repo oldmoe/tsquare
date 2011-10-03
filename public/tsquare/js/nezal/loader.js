@@ -85,15 +85,16 @@ var Loader = Class.create({
     if(!Loader[type][store])Loader[type][store] = {}
     for ( var  i=0 ; i < names.length ; i++ ){
       if(!Loader[type][store][names[i]]){ 
-      var src = ''
-      src = path + names[i]
-      Loader[type][store][names[i]] = self['load_'+type](src, this.options);
+        var src = ''
+        src = path + names[i]
+        Loader[type][store][names[i]] = self['load_'+type](src, this.options);
       }else{
-      self.loadedResources++
-      }
+        self.onload(this.options);
       //objects[names[i]] = Loader[type][store][names[i]]
+      }
     }
   },
+
   onload: function(options){
     this.loadedResources++;
     if(options.onProgress) options.onProgress(Math.round((this.loadedResources/this.currentLength)*100))

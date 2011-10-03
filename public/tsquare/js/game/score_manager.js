@@ -34,6 +34,7 @@ var ScoreManager = Class.create({
     this.network = gameManager.network;    
     this.templateManager = gameManager.templateManager;
     var self = this;
+    $('scoresInProgress').show();
     new Loader().load([ {images : ["1.png", "2.png", "3.png", 
                                   "friend_box.png", "friends_bar.png", "friendsRank.png", "friendsScore.png", "functions_background.png",
                                   "home_icon.png", "menu_icon.png", "worldRank.png", "inviteFriends.png"], 

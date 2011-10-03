@@ -137,6 +137,7 @@ var Game = Class.create({
     if(this.imagesLoaded == true && this.missionLoaded == true)
     {
       this.scene = new TsquareScene();
+      var inGameMeterBar = new InGameMeterBar(self);
       this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
 	  	this.scene.start();
       $('gameContainer').show();

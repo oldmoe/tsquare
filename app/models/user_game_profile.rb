@@ -1,7 +1,7 @@
 class UserGameProfile < DataStore::Model
 
   SEP = '-'.freeze
-  CURRENT_VERSION = 7
+  CURRENT_VERSION = 11
 
   index :timeline_score, :method => :timeline_index
   index :racing_score, :method => :racing_index
@@ -75,17 +75,14 @@ class UserGameProfile < DataStore::Model
       Mission::MODES.each do |mode|
         @data['current_mission'][mode] = game.data['missions'][mode].keys.min { |i| i.to_i }
         @data['missions'][mode] ||= {}
-        # This puts all the missions to the user .. should be removed once testing is done
-        game.data['missions'][mode].keys.each do |key|
-          @data['missions'][mode][key] ||= { 'score' => 0, 'stars'=>0}
-        end
-        # End of part to be removed
       end 
       @data['crowd_members'] = {
         'ultras_green' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
         'journalist' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },  
         'ultras_white' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
         'ultras_red' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
+        'bottleguy' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } },
+                       2 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } }
       }
       @data['holder_items'] ||= { 'cap' => 0, 'umbrella' => 0 }
       @data['special_items'] ||= { }
@@ -93,6 +90,13 @@ class UserGameProfile < DataStore::Model
       @data['energy'] ||= 50
       @data['version'] = CURRENT_VERSION
     end
+    # This puts all the missions to the user .. should be removed once testing is done
+    Mission::MODES.each do |mode|
+      game.data['missions'][mode].keys.each do |key|
+        @data['missions'][mode][key] ||= { 'score' => 0, 'stars'=>0}
+      end
+    end 
+    # End of part to be removed
     save
 =begin
       @data['special_items'] ||= { 'energy' : { 1 : count, 2: count, 3: count}, 'wash_powder' : 1 },

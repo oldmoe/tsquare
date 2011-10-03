@@ -15,6 +15,7 @@ var Animation = Class.create(Display,{
   },
   render : function($super){
     this.sprites.animation.currentAnimationFrame+=1
+    this.sprites.animation.setOpacity(0.9-0.1*this.sprites.animation.currentAnimationFrame)
     if(this.sprites.animation.currentAnimationFrame == this.noOfFrames){
       this.scene.removeFromRenderLoop('characters',this)
       this.destroy()

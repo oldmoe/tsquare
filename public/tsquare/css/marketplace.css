@@ -10,7 +10,7 @@
 
 /*-------Widnow-------*/
 .window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:46px 27px 0 19px; position:relative; height:401px; }
-.windowTitle { float:left; width:254px; height:44px; position:relative; top:-44px; left:240px; }
+.windowTitle { float:left; width:254px; height:44px; position:relative; top:-43px; left:240px; }
 .close { float:left; width:39px; height:39px; position:relative; left:436px; top:-15px; overflow:hidden }
 .close a { display:block; width:39px; height:39px; }
 .close a:hover img { position:absolute; top:-39px; }

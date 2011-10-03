@@ -24,3 +24,4 @@ img { border:none; outline:none;}
 .cancelButton span { position:absolute; z-index:7; width:97px; height:31px; text-align:center; padding:5px 0 0 0; }
 .cancelButton:hover img { position:absolute; top:-31px; }
 
+.overlay { float:left; width:100%; background:#000; height:620px; background:url(../images/common/overylay_background.png); }

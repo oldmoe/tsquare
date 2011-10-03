@@ -22,6 +22,8 @@
 .tabs li:hover a { color:#6b5623; }
 .tabs li:hover img { position:absolute; top:-86px; }
 .tabs li.selected:hover a { color:#000 }
+.tabs li.disabled a { color:#acacac; cursor:default; }
+.tabs li:hover.disabled img { position:absolute; top:0; }
 .tabs li.selected:hover img { position:absolute; top:-43px; }
 
 /*-------Scrolled Items-------*/

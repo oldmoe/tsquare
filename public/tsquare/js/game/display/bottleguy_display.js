@@ -33,6 +33,7 @@ BottleguyDisplay = Class.create(CrowdMemberDisplay,{
       shiftY: -this.hydrateImg.height/(18 * factor) + 15,
       shiftZ : 100
     })
+    this.sprites.range.currentAnimationFrame = Math.floor(this.noOfFrames * Math.random()) 
     this.sprites.range.setImgWidth(this.hydrateImg.width/ factor)
     this.sprites.range.setImgHeight(this.hydrateImg.height/factor)
     this.sprites.character.createAnimation({name:'hold',img:this.holdImg,noOfFrames:1})

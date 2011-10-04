@@ -9,6 +9,7 @@
 
 .winLoseScore { position:absolute; width:300px; top:20px; right:20px; z-index:6; }
 .winLoseScore h5 { float:left; width:30%; margin:20px 5% 0 0; font-weight:bold; font-size:1.2em; color:#011e2b;  }
+.winLoseScore h5.losing { color:#410707; }
 .winLoseScore span { float:left; width:40%; padding:5% 10%; font-size:2em; font-weight:bold; color:#f6d000;  text-align:center; position:absolute; z-index:3; }
 
 .winLoseScore img { z-index:2; left:102px; }
@@ -24,6 +25,7 @@
 .challengeFriends .friend { margin:0 20px; }
 
 .missionIcons { position:absolute; top:330px; left:332px; z-index:7; }
+.missionIcons.losing { left:372px; }
 .missionIcons a { float:left; width:60px; height:60px; overflow:hidden; margin:0 0 0 10px; position:relative; }
 .missionIcons a:hover img { position:absolute; top:-60px; }
 

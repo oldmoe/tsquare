@@ -21,7 +21,7 @@
 .homeMenuItem { position:absolute; top:59px; left:40px; z-index:2; width:70px; height:71px; overflow:hidden; }
 .homeMenuItem:hover img { position:absolute; top:-71px; }
 
-.friendsWrapper { float:right; width:745px; position:relative; top:61px; padding:0 0 0 5px; height:112px; }
+.friendsWrapper { float:right; width:740px; position:relative; top:61px; padding:4px 0 0 10px; height:108px; }
 .friend { display:inline-block; width:85px; position:relative; z-index:2; margin:5px 2px 0 2px; }
 .friend a { font-weight:bold; color:#000; text-decoration:none; }
 .friendAvatar { position:absolute; top:12px; left:12px; width:60px;}
@@ -36,11 +36,11 @@
 .friendsWrapper .rightControls img.rightOff, .friendsWrapper .leftControls img.leftOff { position:absolute; top:0px; }
 .friendsWrapper .rightControls img.rightOn, .friendsWrapper .leftControls img.leftOn { position:absolute; top:-33px; }
 
-.floatingFriends { display:inline-block; width:489px; overflow:hidden; position:relative; top:3px; }
+.floatingFriends { display:inline-block; width:462px; overflow:hidden; position:relative; top:3px; }
 .floatingFriends ul { width:1200px; }
 .floatingFriends li { display:inline-block; }
 
-#friends { float:right; width:656px; }
+#friends { float:right; width:645px; }
 
 .swithcingTabs { float:right; width:29px; position:relative; top:69px; z-index:3;}
 .swithcingTabs ul li { position:relative; width:29px; height:36px; overflow:hidden; margin:0 0 2px 0;  }

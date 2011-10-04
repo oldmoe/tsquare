@@ -38,33 +38,42 @@ var DomMeterSprite = Class.create(DomSprite, {
   },
     
   setMeterStyle : function(){
+    var styles = null;
     if(this.orientation == 'horizontal'){
-  		this.fullSpan.setStyle({width:this.getMeterLength()+"px"})
+      styles = {width:this.getMeterLength()+"px"};
   	}else{
-  	    var height = this.getMeterLength()
-  		this.fullSpan.setStyle({height:height+"px", top:this.height-height+"px"})																
+  	  var height = this.getMeterLength();
+      styles = {height:height+"px", top:this.height-height+"px"};
   	}
+    var changes = this.changedStyles(styles, 'fullSpan');
+    if (changes) {
+      this.fullSpan.setStyle(changes);
+    }
   },
 
   render : function($super){
-    $super();
-		if (this.hideWhenFull) {
-			if (this.meterFunc() == 1) {
-				this.div.hide()
-				return
-			}else{
-				this.div.show()
-			}
-		}
-		//this.div.show()
+    //$super();
+    if (this.hideWhenFull) {
+      if (this.meterFunc() == 1) {
+        this.div.hide()
+        return
+      }else{
+        this.div.show()
+      }
+    }
+    //this.div.show()
     try{
       if(this.owner.dead){
         return this.destroy();
       }
-    this.div.setStyle({left : this.owner.coords.x + this.owner.imgHeight/2 - this.width/2,
-                     top : this.owner.coords.y -Math.round(this.owner.imgHeight/2)+this.shiftY + this.defaultShiftY+ "px",
-                     zIndex : this.owner.coords.y+ this.shiftZ});
-	this.setMeterStyle()
+      var styles = {left : this.owner.coords.x + this.owner.imgHeight/2 - this.width/2,
+                    top : this.owner.coords.y -Math.round(this.owner.imgHeight/2)+this.shiftY + this.defaultShiftY+ "px",
+                    zIndex : this.owner.coords.y+ this.shiftZ}
+        var changes = this.changedStyles(styles, 'div');
+        if (changes) {
+          this.div.setStyle(changes);
+        }
+  	  this.setMeterStyle()
     }catch(e){
  //     console.log('Sprite#render: ',e)
     }

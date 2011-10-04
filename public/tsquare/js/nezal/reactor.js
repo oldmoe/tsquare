@@ -1,7 +1,7 @@
 var Reactor = Class.create({
 	
 	initialize : function(delay){
-		this.delay = delay || 50
+		this.delay = delay || 33
 		this.events = []
 		this.observers = {}
 		this.ticks = 0

@@ -1,5 +1,7 @@
 class UserMissions
 
+  MISSION_NEEDED_ENERGY = 5
+
   class << self  
     
     def all user_profile
@@ -17,8 +19,11 @@ class UserMissions
       data = {}
       mission_id = mission_id
       mode = Mission.mode mission_id
-      if user_profile.current_mission[mode]==mission_id || user_profile.missions[mode][mission_id]
+      if (user_profile.current_mission[mode]==mission_id || user_profile.missions[mode][mission_id]) && 
+              user_profile.energy >= MISSION_NEEDED_ENERGY
         data = Mission.get(mission_id)
+        user_profile.energy-= 5
+        user_profile.save
       end
       data
     end

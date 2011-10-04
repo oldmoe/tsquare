@@ -123,7 +123,6 @@ var TsquareScene = Class.create(Scene,{
     },
     
   end : function(win){
-    console.log('abcd',this.view.xPos , this.view.length + this.view.width)
     if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
      && this.view.xPos > this.view.length + this.view.width)) {
       this.win = win

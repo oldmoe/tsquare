@@ -53,7 +53,6 @@ var Background = Class.create({
     }else if(this.scene.direction == -1){
       if (this.offsetX > 0) {
         this.offsetX = 0
-        alert(1); 
       }if(this.offsetX == 0){
         this.reset()
       }

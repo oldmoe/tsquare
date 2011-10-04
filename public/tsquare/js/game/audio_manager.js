@@ -81,8 +81,15 @@ var AudioManager = Class.create({
 	run : function(){
 		this.reactor.pushEvery(0, this.reactor.timeToTicks(this.durations[this.level.tempo]), this.tick, this)
 	},
+	
 	nextBeatTicks : function(){
 		return this.reactor.timeToTicks(this.durations[this.level.tempo]/4)
+	},
+	 
+	stop : function(){
+		for(var i=0; i < this.nowPlaying.length; i++){
+			this.nowPlaying[i].stop()
+		 }
 	},
 	tick : function(){
 		console.log('tempo changed ', this.tempoChanged, 'level changed', this.levelChanged)

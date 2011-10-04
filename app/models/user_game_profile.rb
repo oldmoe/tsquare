@@ -1,7 +1,7 @@
 class UserGameProfile < DataStore::Model
 
   SEP = '-'.freeze
-  CURRENT_VERSION = 3
+  CURRENT_VERSION = 11
 
   index :timeline_score, :method => :timeline_index
   index :racing_score, :method => :racing_index
@@ -81,6 +81,8 @@ class UserGameProfile < DataStore::Model
         'journalist' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },  
         'ultras_white' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
         'ultras_red' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
+        'bottleguy' => { 1 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } },
+                       2 => {'level'=>1, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } }
       }
       @data['holder_items'] ||= { 'cap' => 0, 'umbrella' => 0 }
       @data['special_items'] ||= { }
@@ -88,11 +90,15 @@ class UserGameProfile < DataStore::Model
       @data['energy'] ||= 50
       @data['version'] = CURRENT_VERSION
     end
+    # This puts all the missions to the user .. should be removed once testing is done
+    Mission::MODES.each do |mode|
+      game.data['missions'][mode].keys.each do |key|
+        @data['missions'][mode][key] ||= { 'score' => 0, 'stars'=>0}
+      end
+    end 
+    # End of part to be removed
+    energy_gain
     save
-=begin
-      @data['special_items'] ||= { 'energy' : { 1 : count, 2: count, 3: count}, 'wash_powder' : 1 },
-      @data['power_ups'] ||= { id: {level : , amount : }},
-=end
   end
 
   def generate_scores 
@@ -144,6 +150,26 @@ class UserGameProfile < DataStore::Model
     appProfiles = list.select { |record|
                 record.service_type == service_type && record.game_key == game_key } 
     appProfiles
+  end
+
+  def energy_gain
+    max_energy = 50
+    energy_unit_time = 5 * 60
+    if( @data['energy'] >= max_energy )
+      return
+    end
+    time = Time.now.utc.to_i
+    @data['last_loaded'] ||= time
+    seconds_passed = time - @data['last_loaded']
+    @data['last_loaded'] = time
+    net_energy_units = seconds_passed / energy_unit_time
+    needed_energy = max_energy - @data['energy']
+    
+    if( net_energy_units >= needed_energy )
+      @data['energy']= max_energy
+      return
+    end
+    @data['energy']+= net_energy_units
   end
 
   class << self

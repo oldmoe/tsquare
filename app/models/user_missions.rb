@@ -1,5 +1,7 @@
 class UserMissions
 
+  MISSION_NEEDED_ENERGY = 5
+
   class << self  
     
     def all user_profile
@@ -17,8 +19,11 @@ class UserMissions
       data = {}
       mission_id = mission_id
       mode = Mission.mode mission_id
-      if user_profile.current_mission[mode]==mission_id || user_profile.missions[mode][mission_id]
+      if (user_profile.current_mission[mode]==mission_id || user_profile.missions[mode][mission_id]) && 
+              user_profile.energy >= MISSION_NEEDED_ENERGY
         data = Mission.get(mission_id)
+        user_profile.energy-= 5
+        user_profile.save
       end
       data
     end
@@ -35,6 +40,10 @@ class UserMissions
       end
       if score['win'] && user_profile.current_mission[mode] == mission_id
         user_profile.current_mission[mode] = Mission.get(mission_id)['next']
+        user_profile.scores['timeline'] += score['score']
+        user_profile.scores['global'] += score['score']
+      else
+        user_profile.scores['global'] += score['score']/2
       end
       # Add experience points here
       user_profile.save

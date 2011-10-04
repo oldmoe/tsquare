@@ -34,6 +34,7 @@ var ScoreManager = Class.create({
     this.network = gameManager.network;    
     this.templateManager = gameManager.templateManager;
     var self = this;
+    $('scoresInProgress').show();
     new Loader().load([ {images : ["1.png", "2.png", "3.png", 
                                   "friend_box.png", "friends_bar.png", "friendsRank.png", "friendsScore.png", "functions_background.png",
                                   "home_icon.png", "menu_icon.png", "worldRank.png", "inviteFriends.png"], 
@@ -137,7 +138,7 @@ var ScoreManager = Class.create({
     $('scores').innerHTML = this.templateManager.load('friends', params);
     Game.addLoadedImagesToDiv('scores');
     if(self.carousel) self.carousel.destroy();      
-    self.carousel = new Carousel("friends", self.images, 3);
+    self.carousel = new Carousel("friends", self.images, 5);
     self.carousel.scrollTo(rank);
     self.carousel.checkButtons();
     this.attachListeners();

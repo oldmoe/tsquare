@@ -13,10 +13,12 @@ var MissionManager = Class.create({
   end : function(score){
     score['stars'] = this.calculateStars(score);
     var self = this;
-    this.network.postMissionScore( this.currentMission.id, score, function(){
+    this.network.postMissionScore( this.currentMission.id, score, function(data){
       self.mode = self.gameManager.timelineManager.mode;
       self.gameManager.scoreManager.currentUser.missions[self.mode][self.currentMission['id']] = score;
       self.displayEndScreen(score);
+      self.gameManager.initializeData(data);
+//      self.gameManager.openMainPage();
     });
   },
 

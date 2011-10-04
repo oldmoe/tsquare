@@ -2,6 +2,8 @@
 /* CSS Document */
 body { margin:0px; padding:0px; font-size:12px; font-family:Tahoma, Geneva, sans-serif; width:100%;}
 ul { list-style:none; margin:0px; padding:0px; }
+a { outline:none; }
+img { border:none; outline:none;}
 
 .uiContainer { width:970px; height:620px; position:relative; top:0px; margin:0 auto; }
 .uiContainer .background { height:620px; position:absolute; left:0; top:0; width:970px; }
@@ -13,12 +15,15 @@ ul { list-style:none; margin:0px; padding:0px; }
 .close a { display:block; width:39px; height:39px; }
 .close a:hover img { position:absolute; top:-39px; }
 
-.confirmButton { width:97px; height:31px; overflow:hidden; position:absolute; top:85px; right:120px; z-index:6; display:block; font-weight:bold; font-size:1.2em; color:#304c00; text-shadow:1px 1px 0 #ccf08e; text-decoration:none; }
-.confirmButton span { position:absolute; z-index:7; width:97px; height:31px; text-align:center; padding:5px 0 0 0; }
-.confirmButton:hover img { position:absolute; top:-31px; }
+.confirmButton { width:115px; height:37px; overflow:hidden; position:absolute; top:85px; right:120px; z-index:6; display:block; font-weight:bold; font-size:1.2em; color:#304c00; text-shadow:1px 1px 0 #ccf08e; text-decoration:none; text-align:center; }
+.confirmButton span { position:absolute; z-index:7; width:115px; height:31px; padding:7px 0 0 0; }
+.confirmButton:hover span { left:0; }
+.confirmButton:hover img { position:absolute; top:-36px; left:0; }
 
 
 .cancelButton { width:97px; height:31px; overflow:hidden; position:absolute; top:85px; right:15px; z-index:6; display:block; font-weight:bold; font-size:1.2em; color:#802323; text-shadow:1px 1px 0 #f5cfcf; text-decoration:none; }
 .cancelButton span { position:absolute; z-index:7; width:97px; height:31px; text-align:center; padding:5px 0 0 0; }
 .cancelButton:hover img { position:absolute; top:-31px; }
 
+.overlay { float:left; width:100%; background:#000; height:620px; background:url(../images/common/overylay_background.png); }
+.container { width:760px; height:685px; margin:0 auto; }

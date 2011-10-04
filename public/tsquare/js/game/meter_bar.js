@@ -20,11 +20,11 @@ var MeterBar = Class.create({
   },
 
   energyBar : function(){
-    return $$('.energyBar .bar')[0];
+    return $$('.energyBar')[0];
   },
 
   experienceBar : function(){
-    return $$('.experienceBar .bar')[0];
+    return $$('.experienceBar')[0];
   },
 
   display : function(){
@@ -36,14 +36,20 @@ var MeterBar = Class.create({
 
   updateBars : function(){
     this.energyGain();
-    if(!this.energyBarWidth) this.energyBarWidth = parseInt(this.energyBar().getStyle('width').split('px')[0]);
-    if(!this.experienceBarWidth) this.experienceBarWidth = parseInt(this.experienceBar().getStyle('width').split('px')[0]);
-    this.energyBar().childElements('table')[0].setStyle({ 'width' : Math.floor(this.gameManager.userData.energy)/this.maxEnergy()* this.energyBarWidth} );
+    /* calculate the full bar width */
+    this.energyBarWidth = parseInt($$('.energyBar .bar')[0].getStyle('width').split('px')[0]);
+    this.experienceBarWidth = parseInt($$('.experienceBar .bar')[0] .getStyle('width').split('px')[0]);
+    /* set filled width for energy bar */
     $$('.energyBar span')[0].innerHTML = Math.floor(this.gameManager.userData.energy);
-
+    var energyBarFill = (Math.floor(this.gameManager.userData.energy)/this.maxEnergy()) * this.energyBarWidth;
+    $$('.energyBar .bar table')[0].setStyle({ 'width' : energyBarFill } );
+    if(energyBarFill == 0) $$('.energyBar .bar table')[0].hide();
+    /* set filled width for experience bar */
     var experienceNewWidth = (this.gameManager.userData.scores.global-this.rank()['lower_exp'])/(this.rank()['upper_exp'] - this.rank()['lower_exp'])
     if(experienceNewWidth > 1) experienceNewWidth = 1
-    this.experienceBar().childElements('table')[0].setStyle({width : experienceNewWidth * this.experienceBarWidth });
+    var experienceBarFill = experienceNewWidth * this.experienceBarWidth;
+    $$('.experienceBar .bar table')[0].setStyle({ 'width' : experienceBarFill });
+    if(experienceBarFill == 0) $$('.experienceBar .bar table')[0].hide();
   },
 
   energyGain : function(){

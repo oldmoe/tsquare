@@ -126,7 +126,9 @@ var TsquareScene = Class.create(Scene,{
     if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
      && this.view.xPos > this.view.length + this.view.width)) {
       this.win = win
+      alert(1)
       this.reactor.stop()
+      this.audioManager.stop()
       $("container").innerHTML = ""
       $("gameCanvas").innerHTML = ""
       this.fire('end', [{
@@ -190,7 +192,7 @@ var TsquareScene = Class.create(Scene,{
     this.audioManager.levelUp()
     if(this.energy.current < this.energy.max){
       this.energy.current+= this.energy.rate;
-      this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
+  //    this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
     }
     var next = this.speeds[this.speedIndex+1]
     if(next){
@@ -207,7 +209,7 @@ var TsquareScene = Class.create(Scene,{
         this.comboMistakes.current = 0
         this.audioManager.levelDown()
         this.energy.current = Math.max(this.energy.current - this.energy.rate, 0)
-        this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
+//        this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
         if (this.speedIndex > 0 && this.energy.current < this.speeds[this.speedIndex].energy) {
           this.speedIndex--
           this.currentSpeed = this.speeds[this.speedIndex].value

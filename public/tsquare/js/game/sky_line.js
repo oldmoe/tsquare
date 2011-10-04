@@ -5,6 +5,7 @@ var SkyLine = Class.create({
     	this.scene = scene
     	
       var images_cloud = [Loader.images.background['background.png']];
+      var images_crowd = [Loader.images.background['followers_crowd.png']];
       var images_layer1 = [Loader.images.background[game.data.backgrounds.layer1[0].name]];
       var images_layer2 = [Loader.images.background[game.data.backgrounds.layer2[0].name]];
       var images_lamp = [Loader.images.background[game.data.backgrounds.lamp[0].name], Loader.images.background[game.data.backgrounds.lamp[0].name]]
@@ -24,6 +25,7 @@ var SkyLine = Class.create({
                                                    offsetX: 2000-images_landmarks[0].width/2,
                                                    images:images_landmarks
                                                   });
+      var background_crowd = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed-1)}, y: 270, imagesCount: 2, images:images_crowd, offsetX:0});
       var background_fence = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 350, imagesCount: 14, images:images_fence})
       var background_lamp = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 200, imagesCount: 3, images:images_lamp})
       
@@ -39,6 +41,7 @@ var SkyLine = Class.create({
       this.backgrounds.push(background_road);
       this.backgrounds.push(background_fence);
       this.backgrounds.push(background_lamp);
+      this.backgrounds.push(background_crowd);
     		
     	for(var i=0; i<this.backgrounds.length; i++){
     		scene.objects.push(this.backgrounds[i])

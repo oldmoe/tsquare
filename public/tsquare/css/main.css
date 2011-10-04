@@ -2,6 +2,8 @@
 /* CSS Document */
 body { margin:0px; padding:0px; font-size:12px; font-family:Tahoma, Geneva, sans-serif; width:100%;}
 ul { list-style:none; margin:0px; padding:0px; }
+a { outline:none; }
+img { border:none; outline:none;}
 
 .uiContainer { width:970px; height:620px; position:relative; top:0px; margin:0 auto; }
 .uiContainer .background { height:620px; position:absolute; left:0; top:0; width:970px; }
@@ -22,3 +24,4 @@ ul { list-style:none; margin:0px; padding:0px; }
 .cancelButton span { position:absolute; z-index:7; width:97px; height:31px; text-align:center; padding:5px 0 0 0; }
 .cancelButton:hover img { position:absolute; top:-31px; }
 
+.overlay { float:left; width:100%; background:#000; height:620px; background:url(../images/common/overylay_background.png); }

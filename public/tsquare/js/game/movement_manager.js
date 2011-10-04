@@ -66,6 +66,8 @@ var MovementManager = Class.create({
           click = 1
       }else if (e.keyCode == 32) {
           click = 2
+      }else{
+        return
       }
        if(click!=-1 && self.ticksPassed >= self.nextTick-10 && self.ticksPassed <= self.nextTick+10){		
             console.log('=')

@@ -18,7 +18,7 @@
   cursor : progress;
 }
 /*--------Friends Bar-----------*/
-.friendsBar { margin:0 auto; width:739px; position:relative; }
+.friendsBar { margin:0 auto; width:939px; position:relative; }
 
 .gameFunctions { float:right; width:161px; height:161px; position:relative; z-index:5; }
 .gameFunctionsBackground { position:absolute; }
@@ -38,7 +38,7 @@
 .homeMenuItem { position:absolute; top:61px; left:22px; z-index:2; width:82px; height:82px; overflow:hidden; }
 .homeMenuItem:hover img { position:absolute; top:-82px; }
 
-.friendsWrapper { float:right; width:542px; position:relative; top:48px; padding:0 0 0 5px; height:112px; }
+.friendsWrapper { float:right; width:742px; position:relative; top:48px; padding:0 0 0 5px; height:112px; }
 .friend { display:inline-block; width:85px; position:relative; z-index:2; margin:5px 2px 0 2px; }
 .friend a { font-weight:bold; color:#000; text-decoration:none; }
 .friendAvatar { position:absolute; top:12px; left:12px; width:60px;}
@@ -53,11 +53,11 @@
 .friendsWrapper .rightControls img.rightOff, .friendsWrapper .leftControls img.leftOff { position:absolute; top:0px; }
 .friendsWrapper .rightControls img.rightOn, .friendsWrapper .leftControls img.leftOn { position:absolute; top:-33px; }
 
-.floatingFriends { display:inline-block; width:278px; overflow:hidden; position:relative; top:3px; }
+.floatingFriends { display:inline-block; width:483px; overflow:hidden; position:relative; top:3px; }
 .floatingFriends ul { width:1200px; }
 .floatingFriends li { display:inline-block; }
 
-#friends {display:inline-block;}
+#friends { float:right; width:653px; }
 
 .swithcingTabs { float:right; width:29px; position:relative; top:58px; z-index:3;}
 .swithcingTabs ul li { position:relative; width:29px; height:36px; overflow:hidden; margin:0 0 2px 0;  }

@@ -224,6 +224,7 @@ var CrowdMember = Class.create(Unit,{
   
   circleMove : function(){
     if (!this.target|| this.target.hp <= 0 || this.target.dead || this.target.doneProtection) {
+      this.scene.fire("circleEnd");
       this.resetRotation()
       return
     }

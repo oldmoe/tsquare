@@ -1,7 +1,9 @@
 var ProtectionUnit = Class.create(Unit,{
+  
   chargeTolerance : 0,
   enemies : null,
   rotationTolerance : 10,
+  
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)
     this.hp = this.maxHp = 1000

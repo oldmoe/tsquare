@@ -9,6 +9,7 @@ var TsquareScene = Class.create(Scene,{
       {state :'crowd_member_animation_jog' ,  value : 10,energy : 10, followers: 1},
       {state :'crowd_member_animation_run' ,  value : 15,energy : 20, followers: 1}
     ],
+    currentCommand: 0,
     speedIndex : 0,
     direction : 1,
     holdPowerDepression: 0.2,
@@ -18,9 +19,11 @@ var TsquareScene = Class.create(Scene,{
     win : false,
     comboMistakes : {current : 0, max : 2},
     scoreCalculator: null,
+    collision: false,
     
     initialize: function($super){
         $super();
+        this.collision = false;
 		    Effect.Queues.create('global', this.reactor);
 		    this.guidingIcon = new GuidingIcon(this);
 		    this.guidingIconDisplay = new GuidingIconDisplay(this.guidingIcon);
@@ -75,6 +78,7 @@ var TsquareScene = Class.create(Scene,{
     },
 
     wrongMove: function(){
+      this.fire("updateScore", [-5]);
       this.scoreCalculator.wrongMovesCount++;
       this.scoreCalculator.totalMovesCount++;
       this.decreaseEnergy();
@@ -82,6 +86,7 @@ var TsquareScene = Class.create(Scene,{
     },
 
     correctMove: function(){
+      this.fire("updateScore", [5]);
       this.scoreCalculator.correctMovesCount++;
       this.scoreCalculator.totalMovesCount++;
       this.increaseEnergy();
@@ -89,6 +94,7 @@ var TsquareScene = Class.create(Scene,{
     },
     
     wrongCommand: function(){
+      this.fire("updateScore", [-10]);
       this.scoreCalculator.wrongCommandsCount++;
       this.scoreCalculator.totalCommandsCount++;
       console.log("scene wrong command");
@@ -103,7 +109,7 @@ var TsquareScene = Class.create(Scene,{
     
     updateScore: function(score){
       console.log("score : " + score);
-      this.scoreCalculator.score += score;
+      this.scoreCalculator.updateScore(score);
     },
     
     tick: function($super){
@@ -162,18 +168,19 @@ var TsquareScene = Class.create(Scene,{
   },
   
   detectCollisions : function(){
-   var pairs = [['left','right'],['left','middle'],['middle','right']]  
-   for(var h1 in this.handlers){
-     for (var h2 in this.handlers) {
-         var handler1 = this.handlers[h1]; 
-         var handler2 = this.handlers[h2]; 
-        for(var i=0;i<pairs.length;i++){
-         if(handler1.type==pairs[i][0] && handler2.type==pairs[i][1]){
-           var collision = handler1.detectCollisions(handler2.objects)
-         }
-       } 
-     }
-   } 
+    this.collision = false;
+     var pairs = [['left','right'],['left','middle'],['middle','right']]  
+     for(var h1 in this.handlers){
+       for (var h2 in this.handlers) {
+           var handler1 = this.handlers[h1]; 
+           var handler2 = this.handlers[h2]; 
+          for(var i=0;i<pairs.length;i++){
+           if(handler1.type==pairs[i][0] && handler2.type==pairs[i][1]){
+             this.collision = this.collision || handler1.detectCollisions(handler2.objects)
+           }
+         } 
+       }
+     } 
   },
   
   handleCollision : function(collision){

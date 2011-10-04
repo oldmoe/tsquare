@@ -88,7 +88,6 @@ var MovementManager = Class.create({
       }else{
             alert('!!!')            
       }
-      console.log(self.move)
       self.checkMove()
       self.ticksPassed = 0
   		if(e.keyCode == 49){
@@ -109,7 +108,6 @@ var MovementManager = Class.create({
   },
   
   checkMove : function(){
-    console.log('checkMove')
   	var index = 0
     var found = false
     var moveIndex = this.getNextMoveIndex()

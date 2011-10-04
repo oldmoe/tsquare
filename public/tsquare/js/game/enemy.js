@@ -16,16 +16,16 @@ var Enemy = Class.create(Unit, {
      }
      this.maxHp = this.hp
   },
+  
   rotationComplete : function(attack){
     this.takeHit(attack)
   },
+  
   tick : function($super){
     $super()
     
     this.updatePosition();
-    
     this.handleCollision();
-    
   },
  
   
@@ -71,9 +71,6 @@ var Enemy = Class.create(Unit, {
         }
     }
     return targetChange  
-  },
-  getHoveringIconState: function(){
-      
   }
 
 });

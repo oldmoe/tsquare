@@ -47,7 +47,7 @@
 .crowedItemDetails a { color: #304C00; display: block; font-size: 1.2em; font-weight: bold; height: 28px; padding: 8px 0 0; position: absolute; text-align: center; text-decoration: none; text-shadow: 1px 1px 0 #CCF08E; width: 115px; z-index: 2; }
 .crowedItemDetails:hover img { position: absolute; top: -36px; }
 
-.crowedItemPrice { float:left; position:absolute; width:59px; height:33px; top:90px; left:68px; }
+.crowedItemPrice { float:left; position:absolute; width:59px; height:33px; top:85px; left:68px; }
 .crowedItemPrice h5 { position:absolute; width:59px; height:20px; z-index:2; margin:0px; padding:2px 0 0 0; text-align:center; font-size:1.1em; text-shadow:1px 1px 0 #fffaae; color:#763d00; }
 
 .crowedItemImage { float:left; width:60px; height:90px; position:absolute; top:23px; left:30px; }

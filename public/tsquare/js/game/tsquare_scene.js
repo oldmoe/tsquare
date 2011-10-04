@@ -14,7 +14,7 @@ var TsquareScene = Class.create(Scene,{
     direction : 1,
     holdPowerDepression: 0.2,
     energy : {current:0, rate: 3,max:30},
-    view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25},
+    view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25, length:0},
     activeLane: 1,
     win : false,
     comboMistakes : {current : 0, max : 2},
@@ -39,6 +39,11 @@ var TsquareScene = Class.create(Scene,{
         };  
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
+        for (var i = 0; i < this.data.length; i++) {
+          if (this.data[i].length > 0) {
+            this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth)
+          }
+        }
         var mapping = {'crowd':'npc', 'protection':'protection_unit', 'enemy':'enemy'}
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
@@ -124,9 +129,11 @@ var TsquareScene = Class.create(Scene,{
     },
     
   end : function(win){
-    if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended)) {
+    if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
+     && this.view.xPos > this.view.length + this.view.width)) {
       this.win = win
       this.reactor.stop()
+      this.audioManager.stop()
       $("container").innerHTML = ""
       $("gameCanvas").innerHTML = ""
       this.fire('end', [{
@@ -191,7 +198,7 @@ var TsquareScene = Class.create(Scene,{
     this.audioManager.levelUp()
     if(this.energy.current < this.energy.max){
       this.energy.current+= this.energy.rate;
-      this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
+  //    this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
     }
     var next = this.speeds[this.speedIndex+1]
     if(next){
@@ -208,7 +215,7 @@ var TsquareScene = Class.create(Scene,{
         this.comboMistakes.current = 0
         this.audioManager.levelDown()
         this.energy.current = Math.max(this.energy.current - this.energy.rate, 0)
-        this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
+//        this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
         if (this.speedIndex > 0 && this.energy.current < this.speeds[this.speedIndex].energy) {
           this.speedIndex--
           this.currentSpeed = this.speeds[this.speedIndex].value

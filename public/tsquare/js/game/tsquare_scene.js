@@ -126,7 +126,6 @@ var TsquareScene = Class.create(Scene,{
     if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
      && this.view.xPos > this.view.length + this.view.width)) {
       this.win = win
-      alert(1)
       this.reactor.stop()
       this.audioManager.stop()
       $("container").innerHTML = ""

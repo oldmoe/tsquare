@@ -15,13 +15,14 @@ img { border:none; outline:none;}
 .close a { display:block; width:39px; height:39px; }
 .close a:hover img { position:absolute; top:-39px; }
 
-.confirmButton { width:97px; height:31px; overflow:hidden; position:absolute; top:85px; right:120px; z-index:6; display:block; font-weight:bold; font-size:1.2em; color:#304c00; text-shadow:1px 1px 0 #ccf08e; text-decoration:none; }
+.confirmButton { width:97px; height:30px; overflow:hidden; position:relative;z-index:6; display:block; font-weight:bold; font-size:1.2em; color:#304c00; text-shadow:1px 1px 0 #ccf08e; text-decoration:none; }
 .confirmButton span { position:absolute; z-index:7; width:97px; height:31px; text-align:center; padding:5px 0 0 0; }
-.confirmButton:hover img { position:absolute; top:-31px; }
+.confirmButton:hover img { position:absolute; top:-30px; }
 
 
-.cancelButton { width:97px; height:31px; overflow:hidden; position:absolute; top:85px; right:15px; z-index:6; display:block; font-weight:bold; font-size:1.2em; color:#802323; text-shadow:1px 1px 0 #f5cfcf; text-decoration:none; }
+.cancelButton { width:97px; height:31px; overflow:hidden; position:relative; z-index:6; display:block; font-weight:bold; font-size:1.2em; color:#802323; text-shadow:1px 1px 0 #f5cfcf; text-decoration:none; }
 .cancelButton span { position:absolute; z-index:7; width:97px; height:31px; text-align:center; padding:5px 0 0 0; }
 .cancelButton:hover img { position:absolute; top:-31px; }
 
 .overlay { float:left; width:100%; background:#000; height:620px; background:url(../images/common/overylay_background.png); }
+.container { width:760px; height:685px; margin:0 auto; }

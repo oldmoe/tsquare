@@ -4,19 +4,21 @@ var DomSprite = Class.create(Sprite, {
   shiftY : 0,
   shiftZ : 0,
   defaultShiftY : 360,
-  
+  lastStyleVlaues : null,
   initialize : function(owner, assets, properties){
-  	properties = properties || {}
+  	properties = properties || {};
+    this.lastStyleVlaues = {};
     this.createDiv();
     this.div.addClassName('DomSprite');
-		if(properties.divClass)this.div.addClassName(properties.divClass)
+		if ( properties.divClass ) this.div.addClassName(properties.divClass);
     this.owner = owner;
-	var z =0 ;
-	if(properties.zIndex){
-		z = properties.zIndex
-		this.zIndex = z
-	}  
-	else z = this.owner.coords.y + this.owner.zdim + this.shiftZ
+    var z =0 ;
+    if (properties.zIndex) {
+      z = properties.zIndex
+      this.zIndex = z
+    } else {
+      z = this.owner.coords.y + this.owner.zdim + this.shiftZ;
+    }
     this.div.setStyle ({zIndex :(z)});
 		if(properties.width)this.div.style.width = properties.width + "px";
     else this.div.style.width = this.owner.imgWidth + "px";
@@ -53,16 +55,36 @@ var DomSprite = Class.create(Sprite, {
       }
       if (this.visible) {
         var position = this.position();
-        this.div.setStyle({
-          left: position.x + this.shiftX + "px",
-          top: position.y  + this.shiftY + "px",
-          zIndex: position.zIndex
-        });
+        
+        var styles = {
+          left : position.x + this.shiftX + "px",
+          top : position.y  + this.shiftY + "px",
+          zIndex : position.zIndex
+        }
+        var changes = this.changedStyles(styles);
+        if (changes) {
+          this.div.setStyle(changes);
+        }
       }
   
     }catch(e){
       //console.log('Sprite#render: ',e)
     }
+  },
+  
+  changedStyles : function(styles){
+    var stylesChanged = {};
+    var change = false;
+    for( var style in styles ){
+      var styleValue = styles[style];
+      if( !this.lastStyleVlaues[style] || this.lastStyleVlaues[style] != styleValue ){
+        //console.log(style, this.lastStyleVlaues[style], styleValue);
+        stylesChanged[style] = styleValue;
+        this.lastStyleVlaues[style] = styleValue;
+        change = stylesChanged;
+      }
+    }
+    return change
   },
   
 	destroy : function(){

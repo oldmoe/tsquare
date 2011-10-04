@@ -68,7 +68,7 @@ var MeterBar = Class.create({
 
   rank : function(){
     var self = this;
-    var userRank = {lower_exp : 0, upper_exp : 0};
+    var userRank = {lower_exp : 0, upper_exp : 1};
     for(var i in this.gameManager.gameData.ranks)
     {
       var rank = this.gameManager.gameData.ranks[i];

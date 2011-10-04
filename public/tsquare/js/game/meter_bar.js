@@ -7,7 +7,10 @@ var MeterBar = Class.create({
     this.network = gameManager.network;    
     this.templateManager = gameManager.templateManager;
     var self = this;
-    new Loader().load([ {images : ['energy_bar.png', 'loadingbar.png'], path: 'images/game_elements/', store: 'game_elements'}],
+    new Loader().load([ {images : ['energy_bar.png', 'experience_bar.png', 'game_currency_bar.png',
+                                  'experience_bar_left.png', 'experience_bar_right.png', 'experience_bar_center.png',
+                                  'energy_bar_left.png', 'energy_bar_right.png', 'energy_bar_center.png'],
+                         path: 'images/game_elements/', store: 'game_elements'}],
                       {
                         onFinish: function(){
                           gameManager.reactor.pushPeriodical(0, 1, gameManager.reactor.everySeconds(1), function(){self.updateBars()});
@@ -27,6 +30,7 @@ var MeterBar = Class.create({
   display : function(){
     $('meterBar').innerHTML = this.templateManager.load('meterBar', {score: this.gameManager.userData.scores.global,
                                 energy : this.gameManager.userData.energy, coins : this.gameManager.userData.coins});
+    Game.addLoadedImagesToDiv('meterBar');
     this.updateBars();
   },
 
@@ -34,12 +38,12 @@ var MeterBar = Class.create({
     this.energyGain();
     if(!this.energyBarWidth) this.energyBarWidth = parseInt(this.energyBar().getStyle('width').split('px')[0]);
     if(!this.experienceBarWidth) this.experienceBarWidth = parseInt(this.experienceBar().getStyle('width').split('px')[0]);
-    this.energyBar().setStyle({ 'width' : Math.floor(this.gameManager.userData.energy) / this.maxEnergy() * this.energyBarWidth  } );
+    this.energyBar().childElements('table')[0].setStyle({ 'width' : Math.floor(this.gameManager.userData.energy)/this.maxEnergy()* this.energyBarWidth} );
     $$('.energyBar span')[0].innerHTML = Math.floor(this.gameManager.userData.energy);
 
     var experienceNewWidth = (this.gameManager.userData.scores.global-this.rank()['lower_exp'])/(this.rank()['upper_exp'] - this.rank()['lower_exp'])
     if(experienceNewWidth > 1) experienceNewWidth = 1
-    this.experienceBar().setStyle({width : experienceNewWidth * this.experienceBarWidth });
+    this.experienceBar().childElements('table')[0].setStyle({width : experienceNewWidth * this.experienceBarWidth });
   },
 
   energyGain : function(){

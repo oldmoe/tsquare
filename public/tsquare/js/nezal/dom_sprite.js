@@ -29,7 +29,10 @@ var DomSprite = Class.create(Sprite, {
   },
 
   setStyle : function(style){
-    this.div.setStyle(style)
+    var changes = this.changedStyles(style, 'div');
+    if (changes) {
+      this.div.setStyle(changes);
+    }
   },
   
   setOpacity : function(opacity){
@@ -101,7 +104,7 @@ var DomSprite = Class.create(Sprite, {
     var position = {};
     position.x = Math.round(this.owner.coords.x);
     position.y = Math.round(this.owner.coords.y-this.owner.imgHeight/2) + this.defaultShiftY;
-	if(this.zIndex) position.zIndex = this.zIndex + this.shiftZ
+    if(this.zIndex) position.zIndex = this.zIndex + this.shiftZ
     else position.zIndex = Math.round(this.owner.coords.y + this.owner.zdim + this.shiftZ);
     return position;
   },

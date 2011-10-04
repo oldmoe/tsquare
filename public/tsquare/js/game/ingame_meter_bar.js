@@ -1,28 +1,27 @@
 var InGameMeterBar = Class.create({
 
   initialize : function(game){
-    /* This should be MOVED to initialize game part */
     this.game = game;
-    this.network = game.network;    
     this.templateManager = game.templateManager;
     this.scoreCalculator = game.scene.scoreCalculator;
+    $('inGameMeterBar').innerHTML = this.templateManager.load('inGameMeterBar');
+    
     var self = this;
-    // this.game.scene.reactor.push(this.game.scene.reactor.everySeconds(1), function(){self.display()});
-    this.game.scene.reactor.push(this.game.scene.reactor.everySeconds(1), function(){self.tick()});
-//    new Loader().load([ {images : [], path: 'images/game_elements/', store: 'game_elements'}],
-//                      {
-//                        onFinish: function(){
-                          // self.display();
-//                        }
-//                      });
+    game.scene.reactor.pushPeriodical(0, 1, gameManager.reactor.everySeconds(1), function(){self.tick();});
   },
   
-  tick: function(){
+  tick : function(){
+    //console.log("ticking");
     this.scoreCalculator.updateTime();
-    var time = this.scoreCalculator.getTimeDetails(); 
-    $('inGameMeterBar').innerHTML = this.templateManager.load('inGameMeterBar', {energy:this.game.scene.energy.current, hours:time[0]<10?"0"+time[0]:time[0], minutes:time[1]<10?"0"+time[1]:time[1], seconds:time[2]<10?"0"+time[2]:time[2]});
-    var self = this;
-    this.game.scene.reactor.push(this.game.scene.reactor.everySeconds(1), function(){self.tick()});
+  },
+  
+  render : function(){
+    //console.log("render");
+    var time = this.scoreCalculator.getTimeDetails();
+    var hours = time[0]<10?"0"+time[0]:time[0];
+    var minutes = time[1]<10?"0"+time[1]:time[1];
+    var seconds = time[2]<10?"0"+time[2]:time[2];
+    $('timer').innerHTML = hours + ":" + minutes + ":" + seconds;
+    $('energy').innerHTML = this.game.scene.energy.current;
   }
-
 });

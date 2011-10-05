@@ -29,7 +29,10 @@ var DomSprite = Class.create(Sprite, {
   },
 
   setStyle : function(style){
-    this.div.setStyle(style)
+    var changes = this.changedStyles(style, 'div');
+    if (changes) {
+      this.div.setStyle(changes);
+    }
   },
   
   setOpacity : function(opacity){
@@ -61,7 +64,8 @@ var DomSprite = Class.create(Sprite, {
           top : position.y  + this.shiftY + "px",
           zIndex : position.zIndex
         }
-        var changes = this.changedStyles(styles);
+        var changes = this.changedStyles(styles, 'div');
+        //var changes = styles //enable this to cancel the optimization
         if (changes) {
           this.div.setStyle(changes);
         }
@@ -72,15 +76,18 @@ var DomSprite = Class.create(Sprite, {
     }
   },
   
-  changedStyles : function(styles){
+  changedStyles : function(styles, element){
     var stylesChanged = {};
     var change = false;
     for( var style in styles ){
       var styleValue = styles[style];
-      if( !this.lastStyleVlaues[style] || this.lastStyleVlaues[style] != styleValue ){
+      if( !this.lastStyleVlaues[element] || !this.lastStyleVlaues[element][style] || this.lastStyleVlaues[element][style] != styleValue ){
         //console.log(style, this.lastStyleVlaues[style], styleValue);
         stylesChanged[style] = styleValue;
-        this.lastStyleVlaues[style] = styleValue;
+        if(!this.lastStyleVlaues[element]){
+          this.lastStyleVlaues[element] = {};
+        }
+        this.lastStyleVlaues[element][style] = styleValue;
         change = stylesChanged;
       }
     }
@@ -97,7 +104,7 @@ var DomSprite = Class.create(Sprite, {
     var position = {};
     position.x = Math.round(this.owner.coords.x);
     position.y = Math.round(this.owner.coords.y-this.owner.imgHeight/2) + this.defaultShiftY;
-	if(this.zIndex) position.zIndex = this.zIndex + this.shiftZ
+    if(this.zIndex) position.zIndex = this.zIndex + this.shiftZ
     else position.zIndex = Math.round(this.owner.coords.y + this.owner.zdim + this.shiftZ);
     return position;
   },

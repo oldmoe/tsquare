@@ -3,6 +3,7 @@ var DomImgSprite = Class.create(DomSprite, {
 	clickable : false,
 	minAreaZIndex : 10000000,
   animations : null,
+  lastCoords : null,
   initialize : function($super, owner, imgAssets, properties){
     this.animations = {}
     this.createAnimation({
@@ -16,7 +17,13 @@ var DomImgSprite = Class.create(DomSprite, {
     $super(owner, imgAssets, properties);
     //console.log( imgAssets )
     if(properties && properties.flipped){
-      this.div.addClassName('flippedSprite')
+      this.div.addClassName('flippedSprite');
+      Util.flip(this.div)
+      if (this.owner.scene && this.owner.scalable) {
+        var scale = ((this.owner.coords.y) / (this.owner.scene.view.height - this.defaultShiftY)) * 0.8 + 0.4
+        this.div.style.WebkitTransform += ' scale(' + scale + ')';
+        this.div.style.MozTransform += ' scale(' + scale + ')';
+      }
     }
     this.img = this.currentAnimation.img
   	this.div.appendChild(this.img)
@@ -90,21 +97,19 @@ var DomImgSprite = Class.create(DomSprite, {
 			this.div.setStyle({
 				zIndex: (this.owner.coords.y + this.minAreaZIndex)
 			})
-    }else{
-      this.img.setStyle({
+    } else {
+      var styles = {
         marginLeft: (-this.currentAnimation.imgWidth * this.owner.angle + "px"),
         marginTop: (-this.currentAnimationFrame * this.currentAnimation.imgHeight + "px")
-      });
+      }
+      var changes = this.changedStyles(styles, 'img');
+      if (changes) {
+        this.img.setStyle(changes);
+      }
+      
       if(this.owner.shake){
         Effect.Shake(this.div)
         this.owner.shake = false
-      }
-      if(this.flipped) Util.flip(this.div)
-      else Util.removeTransform(this.div)
-      if (this.owner.scene && this.owner.scalable) {
-        var scale = ((this.owner.coords.y) / (this.owner.scene.view.height - this.defaultShiftY)) * 0.8 + 0.4
-        this.div.style.WebkitTransform +=' scale(' + scale + ')';
-        this.div.style.MozTransform +=' scale(' + scale + ')';
       }
     }
   },

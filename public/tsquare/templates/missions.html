@@ -3,7 +3,7 @@
   <div class="winLose">
     <!--Close-->
     <div class="close">
-      <a href="#"><img src="images/game_elements/close_button.png" alt="close" /></a>
+      <a href="#"><span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close"></span></a>
     </div>  
   	<!--Win/Lose Title-->
   	<div class="winLoseTitle">
@@ -14,20 +14,20 @@
     <div class="winLoseScore">
     	<h5>Your Score</h5>
       <span>${score['score']}</span>
-      <img class="positioned" src="images/win_lose/score_background.png" alt="Score" />
+      <span class="loadedImg" imgSrc="images/win_lose/score_background.png" alt="Score" imgClasses="positioned"></span>
     </div>
     <!--Stars-->
     <div class="starsWrapper">
     	<span {if score.stars > 0} class="star selected" {else} class="star" {/if} >
-      	<img src="images/win_lose/star_icon.png" alt="Star" />
+      	<span class="loadedImg" imgSrc="images/win_lose/star_icon.png" alt="Star"></span>
       </span>
     	<span {if score.stars > 1} class="star selected" {else} class="star" {/if} >
-      	<img src="images/win_lose/star_icon.png" alt="Star" />
+      	<span class="loadedImg" imgSrc="images/win_lose/star_icon.png" alt="Star"></span>
       </span>
     	<span {if score.stars > 2} class="star selected" {else} class="star" {/if} >
-      	<img src="images/win_lose/star_icon.png" alt="Star" />
+      	<span class="loadedImg" imgSrc="images/win_lose/star_icon.png" alt="Star"></span>
       </span>
-    	<img class="positioned" src="images/win_lose/stars_background.png" alt="Stars" />
+    	<span class="loadedImg" imgSrc="images/win_lose/stars_background.png" alt="Stars" imgClasses="positioned"></span>
     </div>
     <!--Changes 28 Sept.-->
     <!--Objective-->
@@ -40,20 +40,20 @@
       {for friend in friends}
 			<!--Friend-->
     	<div class="friend">
-      	<a href="${friend['url']}">
+      	<a href="${friend['url']}" target="_blank">
           <span class="friendsScore">
-          	<span>{if friend.missions[mode][mission]['score']} ${friend.missions[mode][mission]} {else} 0 {/if}</span>
-          	<img class="positioned" src="images/friends/friendsScore.png" alt="Friends score" />
+          	<span>{if friend.missions[mode][mission]['score']} ${friend.missions[mode][mission]['score']} {else} 0 {/if}</span>
+          	<span class="loadedImg" imgSrc="images/friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>
           </span>
           <!--New changes end here-->
-          <img class="friendAvatar" src="${friend['picture']}" alt="Firend avatar" />
+          <img  class="friendAvatar" src="${friend['picture']}" alt="Firend avatar" />
           <span class="friendName">${friend.first_name}</span>
-          <img src="images/friends/friend_box.png" alt="friend" />
+          <span class="loadedImg" imgSrc="images/friends/friend_box.png" alt="friend"></span>
         </a>
         <!--Challenge button-->
-        <a class="cancelButton" href="javascript:void(0)">
+        <a class="cancelButton" href="javascript:void(0)" id="${friend.service_id}">
           <span>Challenge</span>
-          <img src="images/win_lose/button_cancel.png" alt="confirm" />
+          <span class="loadedImg" imgSrc="images/win_lose/button_cancel.png" alt="confirm" />
         </a>
       </div>
       {/for}
@@ -62,17 +62,17 @@
     <div class="missionIcons">
     	<!--Replay-->
       <a class="replayButton" href="javascript:void(0)">
-        <img src="images/win_lose/replay_button.png" alt="Replay" />
+        <span class="loadedImg" imgSrc="images/win_lose/replay_button.png" alt="Replay" />
       </a>
     	<!--Home-->
       <a class="homeButton" href="javascript:void(0)">
-        <img src="images/win_lose/home_button.png" alt="Replay" />
+        <span class="loadedImg" imgSrc="images/win_lose/home_button.png" alt="Replay" />
       </a>
     	<!--Next mission-->
       <a class="nextMissionButton" href="javascript:void(0)">
-        <img src="images/win_lose/next_mission_button.png" alt="Next Mission" />
+        <span class="loadedImg" imgSrc="images/win_lose/next_mission_button.png" alt="Next Mission" />
       </a>
     </div>
-  	<img class="positioned" src="images/win_lose/win_lose_window.png" alt="Win Lose" />
+    <span class="loadedImg" imgSrc="images/win_lose/win_lose_window.png" alt="Score" imgClasses="positioned"></span>
   </div>
 </textarea>

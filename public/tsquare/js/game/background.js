@@ -39,7 +39,7 @@ var Background = Class.create({
 	
 	render: function(forceRender){
      if((this.scene.currentSpeed <=0 || this.speed() == 0) && !forceRender)return;
-	   this.container.children[0].setStyle({marginLeft:this.offsetX+"px"})
+	   if(this.container.children[0])this.container.children[0].setStyle({marginLeft:this.offsetX+"px"})
 	},
 	
 	tick : function(){

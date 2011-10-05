@@ -69,7 +69,7 @@ var MovementManager = Class.create({
       }else{
         return
       }
-       if(click!=-1 && self.ticksPassed >= self.nextTick-10 && self.ticksPassed <= self.nextTick+10){		
+       if(click!=-1 && self.ticksPassed >= self.nextTick-4 && self.ticksPassed <= self.nextTick+4){		
             console.log('=')
       		  self.move.push(click)
       		  self.moveLength++

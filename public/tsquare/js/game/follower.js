@@ -6,6 +6,9 @@ var Follower = Class.create(Unit,{
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)
   	this.hp = 1;
+  },
+  init: function($super, options){
+    $super(options)
   }
   
 })

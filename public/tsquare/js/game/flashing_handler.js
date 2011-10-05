@@ -1,4 +1,5 @@
 var FlashingHandler = Class.create({
+  counter : 0,
   initialize : function(scene){
     this.scene = scene
     this.div = $('beatFlash')
@@ -6,6 +7,9 @@ var FlashingHandler = Class.create({
     this.createObservers()
   },
   flash : function(){
+//    if(this.counter < 4)this.scene.movementManager.process(0)
+    this.counter++
+    if(this.counter==8)this.counter = 0
     var ticks = this.scene.audioManager.nextBeatTicks()
     this.div.show()
     var fadeDuration = (ticks - 4)*this.scene.reactor.delay / 1000

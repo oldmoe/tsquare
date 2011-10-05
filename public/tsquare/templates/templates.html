@@ -79,6 +79,41 @@
                 	<span class="loadedImg" imgSrc="images/timeline/mission_icon_selected.png" alt="mission" />
                 </a>
               </li>
+            	<li id="mission_${mission['id']}" {if mission['playable'] == true } class="glowing" {/if}>
+                <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_icon.png" alt="mission" /></a>
+              	<a href="javascript:void(0)" class="hover">
+                	<span>${mission.name}</span>
+                	<span class="loadedImg" imgSrc="images/timeline/mission_icon_selected.png" alt="mission" />
+                </a>
+              </li>
+            	<li id="mission_${mission['id']}" {if mission['playable'] == true } class="glowing" {/if}>
+                <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_icon.png" alt="mission" /></a>
+              	<a href="javascript:void(0)" class="hover">
+                	<span>${mission.name}</span>
+                	<span class="loadedImg" imgSrc="images/timeline/mission_icon_selected.png" alt="mission" />
+                </a>
+              </li>
+            	<li id="mission_${mission['id']}" {if mission['playable'] == true } class="glowing" {/if}>
+                <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_icon.png" alt="mission" /></a>
+              	<a href="javascript:void(0)" class="hover">
+                	<span>${mission.name}</span>
+                	<span class="loadedImg" imgSrc="images/timeline/mission_icon_selected.png" alt="mission" />
+                </a>
+              </li>
+            	<li id="mission_${mission['id']}" {if mission['playable'] == true } class="glowing" {/if}>
+                <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_icon.png" alt="mission" /></a>
+              	<a href="javascript:void(0)" class="hover">
+                	<span>${mission.name}</span>
+                	<span class="loadedImg" imgSrc="images/timeline/mission_icon_selected.png" alt="mission" />
+                </a>
+              </li>
+            	<li id="mission_${mission['id']}" {if mission['playable'] == true } class="glowing" {/if}>
+                <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_icon.png" alt="mission" /></a>
+              	<a href="javascript:void(0)" class="hover">
+                	<span>${mission.name}</span>
+                	<span class="loadedImg" imgSrc="images/timeline/mission_icon_selected.png" alt="mission" />
+                </a>
+              </li>
             {/for}
             </ul>
           </div >
@@ -108,7 +143,7 @@
 <textarea style="display:none;" id='missionDetails'>
   <!--Close-->
   <div class="close">
-    <a href="#"><img src="images/game_elements/close_button.png" alt="close" /></a>
+    <a href="javascript:void(0);"><img src="images/game_elements/close_button.png" alt="close" /></a>
   </div>
   <div class="missionWrapper">
   	<div class="missionImages">
@@ -208,16 +243,16 @@
   	<div class="gameFunctions">
     	<!--Crowd menu button-->
     	<a class="crowdMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace(false);">
-        <span class="loadedImg" imgSrc="images/friends/menu_icon.png" alt="Menu Item" />
+        <span class="loadedImg" imgSrc="images/friends/icon_call.png" alt="Menu Item" />
       </a>
       <!--Marketplace button-->
       <a class="marketplaceMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace(true);">
-        <span class="loadedImg" imgSrc="images/friends/menu_icon.png" alt="Menu Item" />
+        <span class="loadedImg" imgSrc="images/friends/icon_crowds.png" alt="Menu Item" />
       </a>
       <!--Rank button-->
-      <a class="rankMenuItem" href="#"><span class="loadedImg" imgSrc="images/friends/menu_icon.png" alt="Menu Item" /></a>
+      <a class="rankMenuItem" href="javascript:void(0);"><span class="loadedImg" imgSrc="images/friends/icon_ranking.png" alt="Menu Item" /></a>
       <!--Vote button-->
-      <a class="voteMenuItem" href="#"><span class="loadedImg" imgSrc="images/friends/menu_icon.png" alt="Menu Item" /></a>
+      <a class="voteMenuItem" href="javascript:void(0);"><span class="loadedImg" imgSrc="images/friends/icon_vote.png" alt="Menu Item" /></a>
       <a class="homeMenuItem" href="javascript:void(0);" onclick="gameManager.openMainPage();">
         <span class="loadedImg" imgSrc="images/friends/home_icon.png" alt="Menu Item" />
       </a>

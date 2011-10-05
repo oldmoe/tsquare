@@ -32,6 +32,7 @@ var MissionManager = Class.create({
     this.score = score;
     if(this.imagesLoaded)
     {
+      this.eneded = false;
       score['stars'] = this.calculateStars(score);
       var self = this;
       this.network.postMissionScore( this.currentMission.id, score, function(data){
@@ -110,7 +111,13 @@ var MissionManager = Class.create({
     var self = this;
     this.friends = this.gameManager.scoreManager.friends.sortBy(function(friend){ 
       if(friend.missions[self.mode][self.currentMission['id']])
-        return friend.missions[self.mode][self.currentMission['id']]['score']
+      {
+        var extra = 0;
+        if(friend.missions[self.mode][self.currentMission['id']]['score'] == self.score.score && 
+            friend.service_id != socialEngine.userId()) 
+          extra = 1;
+        return (friend.missions[self.mode][self.currentMission['id']]['score'] + extra);
+      }
       else
         return 0;
     }).reverse();

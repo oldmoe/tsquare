@@ -22,7 +22,9 @@ class UserMissions
       if (user_profile.current_mission[mode]==mission_id || user_profile.missions[mode][mission_id]) && 
               user_profile.energy >= MISSION_NEEDED_ENERGY
         data = Mission.get(mission_id)
+=begin : Disable energy part for now
         user_profile.energy-= 5
+=end
         user_profile.save
       end
       data

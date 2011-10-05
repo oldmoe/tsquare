@@ -28,9 +28,9 @@ var TsquareScene = Class.create(Scene,{
 		    this.guidingIcon = new GuidingIcon(this);
 		    this.guidingIconDisplay = new GuidingIconDisplay(this.guidingIcon);
         this.scoreCalculator = new ScoreCalculator(this);
-        this.createRenderLoop('skyline',1);
-        this.createRenderLoop('characters',2);
-        this.createRenderLoop('meters',2);
+        this.createRenderLoop('skyline',2);
+        this.createRenderLoop('characters',3);
+        this.createRenderLoop('meters',3);
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
             // "rescue" : new RescueUnitHandler(this),
@@ -132,17 +132,21 @@ var TsquareScene = Class.create(Scene,{
   end : function(win){
     if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
      && this.view.xPos > this.view.length + this.view.width)) {
-      this.win = win
-      this.reactor.stop()
-      this.audioManager.stop()
-      $("container").innerHTML = ""
-      $("gameCanvas").innerHTML = ""
-      this.fire('end', [{
-        score: 1000,
-        objectives: 0.6,
-        combos: 0.8,
-        win: true
-      }]);
+      if(!this.stopped)
+      {
+        this.stopped = true;
+        this.win = win
+        this.reactor.stop()
+        this.audioManager.stop()
+        $("container").innerHTML = ""
+        $("gameCanvas").innerHTML = ""
+        this.fire('end', [{
+          score: 1000,
+          objectives: 0.6,
+          combos: 0.8,
+          win: true
+        }]);
+      }
     }
     //send to the server
   },
@@ -200,7 +204,8 @@ var TsquareScene = Class.create(Scene,{
     this.audioManager.levelUp()
     if(this.energy.current < this.energy.max){
       this.energy.current+= this.energy.rate;
-  //    this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
+      this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
+      this.fire(this.speeds[this.speedIndex].state)
     }
     var next = this.speeds[this.speedIndex+1]
     if(next){
@@ -217,7 +222,8 @@ var TsquareScene = Class.create(Scene,{
         this.comboMistakes.current = 0
         this.audioManager.levelDown()
         this.energy.current = Math.max(this.energy.current - this.energy.rate, 0)
-//        this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
+        this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
+        this.fire(this.speeds[this.speedIndex].state)
         if (this.speedIndex > 0 && this.energy.current < this.speeds[this.speedIndex].energy) {
           this.speedIndex--
           this.currentSpeed = this.speeds[this.speedIndex].value

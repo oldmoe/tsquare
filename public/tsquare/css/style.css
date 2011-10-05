@@ -175,14 +175,26 @@ body{
   
 } 
 .greenMeter{
-  background-color:green;
+  background:url('../images/game_elements/health_meter.png');
 }
 .redMeter{
-   background-color:red;
+   background:url('../images/game_elements/health_meter_empty.png');
 }
 .whiteMeter{
-   background-color:white;
+   background:url('../images/game_elements/hydration_meter.png');
 }
 .blueMeter{
-   background-color:blue;
+   background:url('../images/game_elements/hydration_meter_empty.png');
+}
+.meter .meterFull{
+    top : 0px;
+    left : 0px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 0;
+}
+.meter .meterEmpty{
+   top : 0px;
+   left : 0px;
+   position: absolute;
 }

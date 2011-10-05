@@ -1,5 +1,4 @@
 var CrowdMember = Class.create(Unit,{
-  
   xShift : 100,
   water : 7000,
   maxWater : 700,
@@ -8,7 +7,7 @@ var CrowdMember = Class.create(Unit,{
   waterDecreaseRate : 0.05,
   commandFilters: [],
   rotationPoints : null,
-  rotationSpeed : 15,
+  rotationSpeed : 12,
   rotating : false,
   pushing : false,
   holdingLevel: 0,
@@ -27,7 +26,7 @@ var CrowdMember = Class.create(Unit,{
     this.name = options.name
     var self = this
     this.hp = this.maxHp = specs.hp
-    this.water = this.maxWater =  specs.water 
+    this.water = this.maxWater =  specs.water
     this.attack = specs.attack || 0
     this.defense = specs.defense || 0 
     var crowdCommandFilters = [
@@ -167,7 +166,7 @@ var CrowdMember = Class.create(Unit,{
         x: target.coords.x + target.getWidth() - this.getWidth() / 2 - target.getHeight()/4,
         y: target.coords.y + target.getHeight() / 2 - 20
       },
-      state : this.getMovingState()
+      state : "run"
     })
     this.rotationPoints.push({
       values: {
@@ -181,7 +180,7 @@ var CrowdMember = Class.create(Unit,{
         x: target.coords.x - this.getWidth() / 2,
         y: target.coords.y - 20
       },
-      state : "reverse"
+      state : "reverseRun"
     })
   },
   
@@ -216,6 +215,7 @@ var CrowdMember = Class.create(Unit,{
   
   reversePushDirection : function(){
     this.pushDirection = 1 - this.pushDirection
+    this.moved = 0
     for(var i=0;i<this.followers.length;i++){
       this.followers[i].reversePushDirection()
     }
@@ -231,11 +231,6 @@ var CrowdMember = Class.create(Unit,{
         this.target.rotationComplete(this.attack)
         this.resetRotation()
         return
-//        if (this.target.hp < 0) {
-//          return
-//        }else{
-//          this.circle(this.target)
-//        }
       }
       var rp = this.rotationPoints[0]
       var move = Util.getNextMove(this.coords.x,this.coords.y,rp.values.x,rp.values.y,this.rotationSpeed)
@@ -250,7 +245,7 @@ var CrowdMember = Class.create(Unit,{
   setTarget: function($super,target){
     if(target && target.chargeTolerance > 0 && this.target!=target){
         this.scene.direction = 0
-    }  
+    }//else if(target == null && this.rotating)return  
     $super(target)
   },
   
@@ -260,14 +255,12 @@ var CrowdMember = Class.create(Unit,{
   
   resetRotation : function(){
     this.rotationPoints = []
-    this.target = null
+    this.scene.fire(this.scene.speeds[this.scene.speedIndex].state)
     this.rotating = false
-    this.scene.fire("crowd_member_animation_"+"normal")
   },
   
   getMovingState : function(){
-    if(this.scene.running)return "run"
-    return "walk"
+    return this.scene.speeds[this.scene.speedIndex].state
   },
   
   getReverseState : function(){

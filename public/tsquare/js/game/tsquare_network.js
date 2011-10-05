@@ -35,8 +35,8 @@ var TSquareNetwork = Class.create(Network, {
   buy : function(options, callback){
     this.genericPostRequest( 'buy_market_item', {'category' : options.category, 'name' : options.name},
                           function(response) {
-                            console.log(response);
-                            if(callback) callback();
+                            var data = JSON.parse(response.responseText);
+                            if(callback) callback(data);
                           });
   },
 

@@ -1,5 +1,7 @@
-var missionData = 
-  {"data":[[],[
+var missionData = {
+  
+  "data":[[],[
+
   {
       "name": "wood_stick_cs",
       "category": 'enemy',
@@ -29,10 +31,11 @@ var missionData =
       "order": 1
   }
 */
-    ]],
+
+  
+  ]],
     
     "backgrounds":{
-      
       "layer1":[{"name":"secondary_skyline.png"}],
       "layer2":[{"name":"main_skyline.png"}],
       "landmarks":[{"name":"landmark_1.png"},{"name":"landmark_2.png"}],
@@ -44,20 +47,14 @@ var missionData =
       "environment":"day","gameModes":["normal"]}
 
 var  crowd_members = { 
-      'ultras_green' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
-      'journalist' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },  
-      'ultras_white' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
-      'ultras_red' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
-      'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+        'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } 
+      ,2 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 }}}
    }
 
 var userData = {
   'crowd_members' : { 
-      'ultras_green' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
-      'journalist' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },  
-      'ultras_white' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
-      'ultras_red' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
-      'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+        'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } 
+      ,2 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 }}}
    }, 
   'holder_items' : { 'cap' : 0, 'umbrella' : 0 },
   'special_items' : { },
@@ -101,41 +98,29 @@ var gameData = {
                       'dehydrator' : { 1 : 10, 2 : 20, 3 : 30 }
                      },
       'crowd_members' : {
-              'category' : { 'salafy' : {type : 'normal'},
-                        'ultras_green' : {type : 'normal'},
-                        'ultras_white' : {type : 'normal'},
-                        'ultras_red' : {type : 'normal'},
-                        'journalist' : {type : 'normal'},
-                        'attacker' : {type : 'special'},
-                        'leader' : {type : 'special'},
-                        'healer' : {type : 'special'},
-                        'bottleguy' : {type : 'special'},
-                        'supplier' : {type : 'special'},
-                        'energy_booster' : {type : 'special'},
-                        'wael_ghoneim' : {type : 'limited_edition'},
-                        'amr_salama' : {type : 'limited_edition'} 
+              'category' : { 'salafy' : {type : 'normal', name : 'Normal'},
+                        'ultras_green' : {type : 'normal', name : 'Normal'},
+                        'ultras_white' : {type : 'normal', name : 'Normal'},
+                        'ultras_red' : {type : 'normal', name : 'Normal'},
+                        'journalist' : {type : 'normal', name : 'Normal'},
+                        'attacker' : {type : 'special', name : 'Attacker'},
+                        'leader' : {type : 'special', name : 'Leader'},
+                        'healer' : {type : 'special', name : 'Healer'},
+                        'bottleguy' : {type : 'special', name : 'Bottle Guy'},
+                        'energy_booster' : {type : 'special', name : 'Energy Booster'}
               },
               'specs' : { 
-                    'normal' : { 1 : { 'hp' : 50, 'h2o' : 50, 'attack' : 5, 'defense' : 50 } } , 
-                    'attacker' : { 1 : { 'special' : { 'attack' : 1 }, 'hp' : 75, 'h2o' : 50, 'attack' : 10, 'defense' : 50 } },
-                    'leader' : { 1 : { 'special' : { 'followers' : 1 }, 'hp' : 50, 'h2o' : 25, 'attack' : 5, 'defense' : 25 } },   
+                    'normal' : { 1 : { 'hp' : 50, 'water' : 50, 'attack' : 5, 'defense' : 50 } } , 
+                    'attacker' : { 1 : { 'special' : { 'attack' : 1 }, 'hp' : 75, 'water' : 50, 'attack' : 10, 'defense' : 50 } },
+                    'leader' : { 1 : { 'special' : { 'followers' : 1 }, 'hp' : 50, 'water' : 25, 'attack' : 5, 'defense' : 25 } },   
                     'healer' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'hp' : 10 }, 
-                                                       'hp' : 75, 'h2o' : 75, 'attack' : 2, 'defense' : 75 } 
+                                                       'hp' : 75, 'water' : 75, 'attack' : 2, 'defense' : 75 } 
                                 },
-                    'bottleguy' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'h2o' : 10}, 
-                                                            'hp' : 75 , 'h2o' : 75 , 'attack' : 2  , 'defense' : 75 }  
-                                },
-                    'supplier' : { 1 : {'special' : { 'item' : 1, 'slots_to_power' : 1 },
-                                                       'hp' : 50, 'h2o' : 75, 'attack' : 0, 'defense' : 75 }
+                    'bottleguy' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'water' : 10}, 
+                                                            'hp' : 75 , 'water' : 75 , 'attack' : 2  , 'defense' : 75 }  
                                 },
                     'energy_booster' : { 1 : { 'special' : { 'slots_to_power' : 1, 'time' : 10, 'energy' : 5 },
-                                                'hp' : 25, 'h2o' : 75, 'attack' : 2, 'defense' : 25 }
-                                },
-                    'amr_salama' : { 1 : { 'special' : { 'followers' : 5, 'slots_to_power' : 1, 'defense' : 4, 'time' : 10, 'energy' : 5 },
-                                            'hp' : 200, 'h2o' : 200, 'attack' : 15, 'defense' : 200 }
-                                },
-                    'wael_ghoneim' : { 1 : { 'special' : { 'followers' : 5, 'slots_to_power' : 1, 'attack' : 2, 'time' : 10, 'energy' : 5 },
-                                            'hp' : 200, 'h2o' : 200, 'attack' : 15, 'defense' : 200 }
+                                                'hp' : 25, 'water' : 75, 'attack' : 2, 'defense' : 25 }
                                 }
               }  
 

@@ -43,7 +43,13 @@ var Marketplace = Class.create({
       var specIds = specs.specIds;
       var memberSpecs = specs.memberSpecs;
       
-      this.adjustedMembers.push({name : item, specs : memberSpecs, specIds : specIds, buyID : this.members['category'][item]['buyID']});
+      this.adjustedMembers.push(
+                        {displayName : this.members['category'][item].name,
+                         codeName : item,
+                         specs : memberSpecs,
+                         specIds : specIds,
+                         buyID : this.members['category'][item]['buyID']
+                        });
       membersImages.push(item + ".png");
     }
     new Loader().load([ {images : membersImages, path: 'images/marketplace/members/', store: 'marketplace'}], {
@@ -80,7 +86,14 @@ var Marketplace = Class.create({
       var specIds = specs.specIds;
       var memberSpecs = specs.memberSpecs;
       for(var memberID in this.myMembers[memberName]){
-        adjustedMyMembers.push( {name : memberName, memberData : this.myMembers[memberName][memberID], specs : memberSpecs, specIds : specIds, memberID : memberID} )
+        adjustedMyMembers.push( 
+                        {codeName : memberName,
+                         displayName : this.members['category'][memberName].name,
+                         memberData : this.myMembers[memberName][memberID],
+                         specs : memberSpecs,
+                         specIds : specIds,
+                         memberID : memberID
+                        });
       }
     }
     return adjustedMyMembers;
@@ -90,8 +103,10 @@ var Marketplace = Class.create({
     if(!options.buyID.empty()) {
       socialEngine.buyItem( options.buyID );
     } else {
+      var self = this;
       this.network.buy(options, function(responseData){
         $('dialogBox').show();
+        self.gameManager.initializeData(responseData);
       });
     }
   },

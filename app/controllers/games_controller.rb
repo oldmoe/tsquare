@@ -171,7 +171,14 @@ class GamesController < ApplicationController
       when 'marketMembers'
         response = Marketplace.buyCrowdMember user_game_profile, data['name'], true
     end
-    return encode( response )
+    response = {
+      :game_data => { :data => Game::current.user_data(user_game_profile) } , 
+      :user_data => { :coins => user.coins,
+                      :data => user_game_profile.data
+                    },
+      :missions_data => { :data => UserMissions.all(user_game_profile) }
+    }
+    return encode(response)
   end
 
   get '/:game_name/' do

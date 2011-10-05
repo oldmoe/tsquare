@@ -77,6 +77,7 @@ var TsquareScene = Class.create(Scene,{
     },
     
     fire: function(event, params){
+        console.log("Scene Firing")
         this.reactor.fire(event, params);
     },
 
@@ -126,17 +127,21 @@ var TsquareScene = Class.create(Scene,{
   end : function(win){
     if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
      && this.view.xPos > this.view.length + this.view.width)) {
-      this.win = win
-      this.reactor.stop()
-      this.audioManager.stop()
-      $("container").innerHTML = ""
-      $("gameCanvas").innerHTML = ""
-      this.fire('end', [{
-        score: 1000,
-        objectives: 0.6,
-        combos: 0.8,
-        win: true
-      }]);
+      if(!this.stopped)
+      {
+        this.stopped = true;
+        this.win = win
+        this.reactor.stop()
+        this.audioManager.stop()
+        $("container").innerHTML = ""
+        $("gameCanvas").innerHTML = ""
+        this.fire('end', [{
+          score: 1000,
+          objectives: 0.6,
+          combos: 0.8,
+          win: true
+        }]);
+      }
     }
     //send to the server
   },

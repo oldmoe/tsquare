@@ -1,5 +1,5 @@
 #scores { bottom: 0; height: 180px; margin: 0 auto; padding: 0 5px; position: absolute; width:99%; }
-#scoresInProgress{ background: none repeat scroll 0 0 black; bottom: 0; height: 180px; margin: 0 auto; position: absolute; width: 100%; opacity : 0.6; z-index : 5; cursor : progress;}
+#scoresInProgress{ background:none; bottom: 0; height: 180px; margin: 0 auto; position: absolute; width: 100%; opacity : 0.6; z-index : 5; cursor : progress;}
 /*--------Friends Bar-----------*/
 .friendsBar { margin:0 auto; width:951px; position:relative; }
 

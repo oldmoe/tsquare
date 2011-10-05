@@ -1,41 +1,41 @@
-var missionData = 
-  {"data":[[],[
+var missionData = {
+  
+  "data":[[],[
+
   {
-      "name": "ambulance",
-      "category": 'protection',
+      "name": "wood_stick_cs",
+      "category": 'enemy',
+      "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 4,
+      "x": 2,
       "order": 1
-  },
-   {
-     "name": "ambulance",
-     "category": 'protection',
-     "index": 0,
-     "lane": 1,
-     "x": 5,
-     "order": 1
-   },
-   {
-     "name": "ambulance",
-     "category": 'protection',
-     "index": 0,
-     "lane": 1,
-     "x": 6,
-     "order": 1
-   },
-   {
-     "name": "ambulance",
-     "category": 'protection',
-     "index": 0,
-     "lane": 1,
-     "x": 7,
-     "order": 1
-   }
-    ]],
+  }, 
+  {
+      "name": "twitter_guy",
+      "category": 'protection',
+      "type": '3_3',
+      "index": 0,
+      "lane": 1,
+      "x": 1,
+      "order": 1
+  }
+
+/*  ,{
+      "name": "journalist_rescue",
+      "category": 'rescue',
+      "type": '3_3',
+      "index": 0,
+      "lane": 1,
+      "x": 1,
+      "order": 1
+  }
+*/
+
+  
+  ]],
     
     "backgrounds":{
-      
       "layer1":[{"name":"secondary_skyline.png"}],
       "layer2":[{"name":"main_skyline.png"}],
       "landmarks":[{"name":"landmark_1.png"},{"name":"landmark_2.png"}],

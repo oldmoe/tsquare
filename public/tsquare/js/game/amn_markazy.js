@@ -1,4 +1,5 @@
 var AmnMarkazy = Class.create(Enemy,{
+	
 	hitting : false,
 	hittingTime: 0,
 	hitOffset: 10,
@@ -6,6 +7,7 @@ var AmnMarkazy = Class.create(Enemy,{
 	hitState : "amn_markazy_animation_"+"hit",
   normalState : "amn_markazy_animation_"+"normal",
   hitDone : false, 	
+  
   initialize : function($super,scene,x,y, options){
      $super(scene,x,y, options) 
      this.type = "amn_markazy";

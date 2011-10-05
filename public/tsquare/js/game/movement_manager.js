@@ -1,4 +1,5 @@
 var MovementManager = Class.create({
+  
   RIGHT : 0, LEFT : 1,
   move : [],
   movements : [],
@@ -94,7 +95,6 @@ var MovementManager = Class.create({
       }else{
             alert('!!!')            
       }
-      console.log(self.move)
       self.checkMove()
       self.ticksPassed = 0
   },
@@ -103,7 +103,6 @@ var MovementManager = Class.create({
   },
   
   checkMove : function(){
-    //console.log('checkMove')
   	var index = 0
     var found = false
     var moveIndex = this.getNextMoveIndex()

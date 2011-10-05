@@ -55,7 +55,7 @@
             <div class="close">
               <a href="javascript:void(0)" onclick="$('dialogBox').hide();"><img src="images/marketplace/close_button.png" alt="close" /></a>
             </div>          
-            <h2>Successful Purchase</h2>
+            <h2>Successful Contact</h2>
             <p>Crowd member called successfully, it is now in your "My Stuff" menu</p>
             <img class="positioned" src="images/marketplace/dialog_box.png" alt="Dialog Background" />
           </div>
@@ -78,8 +78,8 @@
   <ul>
     <!--Crowed Item-->
     {for item in categoryItems}
-    <li id="${item.codeName}_container">
-      <div id="${item.codeName}_details" class="detailsBox" style="display:none; left:120px, top:0">
+    <li id="${item.codeName}${item.memberID}_container">
+      <div id="${item.codeName}${item.memberID}_details" class="detailsBox" style="display:none; left:120px, top:0">
         <div class="crowdMemeberDetails">
           {for spec in item.specIds}
             <!--Crowd statistic-->
@@ -99,7 +99,12 @@
         </div>
         <!--Crowed Image-->
         <div class="crowedItemImage">
-          <img id=${item.codeName} class="positioned" src="images/marketplace/members/${item.codeName}.png" alt="Crowed" style="width:95px;" />
+          <img id=${item.codeName} 
+               memberID="${item.memberID}" 
+               class="positioned" 
+               src="images/marketplace/members/${item.codeName}.png" 
+               alt="Crowed" 
+               style="width:95px;" />
         </div>
         {if screen == "marketplace"}
           <div onclick="gameManager.marketplace.buy({category : 'marketMembers', name : '${item.codeName}', buyID : '${item.buyID}' })" class="crowedItemDetails">
@@ -107,13 +112,21 @@
             <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
           </div>
         {else}
+          <div class="linkToFriend">
           {if item.memberData.linked_to}
-            Linked
+            <img style="width:33px;"
+                 class="positioned faceboookImage linkedMember" 
+                 id="${item.memberData.linked_to}" 
+                 alt="">
+            <img style="display:none" src="https://graph.facebook.com/${item.memberData.linked_to}">
+            <img class="positioned" alt="Linked" src="images/marketplace/Linked_background.png">
           {else}
-            <div class="linkToFriend">
-              <a id="${item.codeName}-${item.memberID}" class="linkMembers" href="javascript:void(0)" title="Linked to a friend"><img alt="Linked" src="images/marketplace/linked.png"></a>
-            </div>
+            <a id="${item.codeName}-${item.memberID}" class="linkButton" href="javascript:void(0)" title="Linked to a friend">
+              <img alt="Linked" src="images/marketplace/link_button.png">
+            </a>
+            <img class="positioned" alt="Linked" src="images/marketplace/Linked_background.png">
           {/if}
+          </div>
           <div class="crowedItemDetails">
             <a href="javascript:void(0)" title="Not supported yet!">Upgrade</a>
             <img class="positioned" src="images/marketplace/item_details.png"  alt="Upgrade Details" />

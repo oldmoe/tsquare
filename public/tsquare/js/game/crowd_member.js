@@ -1,5 +1,4 @@
 var CrowdMember = Class.create(Unit,{
-  
   xShift : 100,
   water : 7000,
   maxWater : 700,
@@ -110,21 +109,20 @@ var CrowdMember = Class.create(Unit,{
   },
  
   takeHit: function($super, power){
-        var hitPower = power;
+    var hitPower = power;
 //    if(this.currentAction == "hold"){
 //      hitPower = hitPower * (1-this.scene.holdPowerDepression);
 //      this.scene.energy.current += this.scene.energy.rate;
 //    }else{
 //      this.scene.energy.current -= this.scene.energy.rate;
 //    }
-        
-        if (this.followers && this.followers.length > 0) {
-          this.followers[0].takeHit(hitPower)
-        }
-        else{
-          if(this.defense) hitPower-=this.defense
-          $super(hitPower)
-        } 
+    
+    if (this.followers && this.followers.length > 0) {
+      this.followers[0].takeHit(hitPower)
+    }else{
+      if(this.defense) hitPower-=this.defense
+      $super(hitPower)
+    } 
   },
   
   circle : function(){
@@ -225,6 +223,7 @@ var CrowdMember = Class.create(Unit,{
   
   circleMove : function(){
     if (!this.target|| this.target.hp <= 0 || this.target.dead || this.target.doneProtection) {
+      this.scene.fire("circleEnd");
       this.resetRotation()
       return
     }

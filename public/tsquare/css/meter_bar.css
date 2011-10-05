@@ -1,8 +1,8 @@
 *--------In Game meters-----------*/
 .inGameMeterBar { width:950px; height:50px; position: absolute} 
 .inGameMeterBar .energyBar {position:absolute; width:169px; height:32px; top:10px; right:350px;}
-.inGameMeterBar .energyBar .bar { position:absolute; width:140px; height:20px; z-index:4; left:3px; top:8px; }
-.inGameMeterBar .energyBar span {position:absolute; width:140px; height:20px; z-index:5; left:3px; top:8px; font-weight:bold; font-size:1.2em; color:#512d09; text-shadow:1px 1px 0 #fffce0; text-align:center; }
+.inGameMeterBar .energyBar .bar { position:absolute; width:140px; height:20px; z-index:4; left:3px; top:21px; }
+.inGameMeterBar .energyBar span {position:absolute; width:140px; height:20px; z-index:5; left:3px; top:21px; font-weight:bold; font-size:1.2em; color:#512d09; text-shadow:1px 1px 0 #fffce0; text-align:center; }
 
 .inGameMeterBar .energyBar .positioned { top:14px; }
 
@@ -45,3 +45,16 @@
 
 .healthMeter { position:absolute; top:-23px; left:20px; width:27px; height:28px; z-index:7; }
 .healthMeter span { position:absolute; z-index:8; font-weight:bold; color:#FFF; font-size:.6em; top:13px; width:27px; text-align:center;	 }
+
+/*--------Game meters-----------*/
+.movesWrapper { float:right; width:382px; height:106px; position:relative; z-index:2; top:360px; }
+.nextMove { float:right; width:112px; height:106px; position:relative; z-index:2; }
+.moveContainer { float:left; width:84px; height:64px; position:relative; z-index:3; margin:29px 0 0 15px;  }
+.movesIndicator { float:right; width:235px; height:70px; position:relative; z-index:2; right:-30px; top:26px; padding:0 35px 0 0; }
+.movesIndicator span { float:right; width:45px; height:45px; overflow:hidden; z-index:3; position:relative; margin:10px 0 0 5px }
+.movesIndicator span.wrong { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; -webkit-box-shadow: 0px 0px 4px #FF0000; -moz-box-shadow: 0px 0px 4px #FF0000; box-shadow: 0px 0px 4px #FF0000; }
+.movesIndicator span:hover img, .movesIndicator span.right img { position:relative; top:-45px; }
+
+.trigger { float:right; width:13px; height:14px; overflow:hidden; position:absolute; z-index:3; left:37px; top:55px; }
+.triggered { float:right; width:13px; height:15px; overflow:hidden; position:absolute; z-index:3; left:39px; top:54px; }
+.triggered img { position:relative; top:-14px;   }

@@ -1,4 +1,5 @@
 var MovementManager = Class.create({
+  
   RIGHT : 0, LEFT : 1,
   move : [],
   movements : [],
@@ -13,7 +14,7 @@ var MovementManager = Class.create({
   beatMoving: false,
   comboStart: false,
   currentCombos: 0,
-  
+    
   initialize : function(scene){
     this.scene = scene
     this.registerListeners()
@@ -56,8 +57,6 @@ var MovementManager = Class.create({
     document.observe('keydown', function(e){
       if(self.beatMoving){
         self.reset()
-      }else if(self.scene.currentSpeed > 0){
-        self.comboStart = true
       }
       var click = -1
       if (e.keyCode == 39) {
@@ -69,47 +68,41 @@ var MovementManager = Class.create({
       }else{
         return
       }
-       if(click!=-1 && self.ticksPassed >= self.nextTick-4 && self.ticksPassed <= self.nextTick+4){		
+      self.process(click)
+		})
+  },
+  process : function(click){
+      var self = this
+      if(self.scene.currentSpeed > 0){
+        self.comboStart = true
+      }
+      if(click!=-1 && self.ticksPassed >= self.nextTick-4 && self.ticksPassed <= self.nextTick+4){   
             console.log('=')
-      		  self.move.push(click)
-      		  self.moveLength++
+            self.move.push(click)
+            self.moveLength++
       }else if(self.ticksPassed <  self.nextTick-10){
             console.log('<')
             self.reset()
             self.moveLength = 1
-      		  self.move = [click]
+            self.move = [click]
             self.totalMoveTicks =0
       }else if(self.ticksPassed > self.ticksPassed <= self.nextTick+10){
             console.log('>')
             self.reset()
             self.moveLength = 1
-			      self.move = [click]
+            self.move = [click]
             self.totalMoveTicks =0
       }else{
             alert('!!!')            
       }
-      console.log(self.move)
       self.checkMove()
       self.ticksPassed = 0
-  		if(e.keyCode == 49){
-        self.beatAccelaration = 0
-        self.playSounds(0,0)
-      }else if(e.keyCode == 50){
-        self.beatAccelaration = 0
-        self.playSounds(1,0)
-      }else if(e.keyCode == 51){
-        self.beatAccelaration = 0
-        self.playSounds(2,0)
-      }
-		})
   },
-  
   getNextMoveIndex : function(){
     return 0
   },
   
   checkMove : function(){
-    console.log('checkMove')
   	var index = 0
     var found = false
     var moveIndex = this.getNextMoveIndex()
@@ -186,8 +179,8 @@ var MovementManager = Class.create({
         this.combos++
         if(this.beatAccelaration<9)this.beatAccelaration+=2
         this.currentCombos++
+        console.log('correctMove')
         this.scene.fire('correctMove')
-        //this.createNextFollower()
       }
       this.beatMoving = false
   }

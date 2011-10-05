@@ -50,6 +50,15 @@ var ScoreManager = Class.create({
                       });
   },
 
+  show : function(){
+    $('scores').setStyle({'visibility' : 'visible'});
+  },
+  
+  hide : function(){
+    $('scores').setStyle({'visibility' : 'hidden'});
+    $('scoresInProgress').setStyle({'visi‎bility' : 'hidden'});
+  },
+
   loadFriendsTab : function(gameMode) {
     this.mode = 'friends'
     this.gameMode = gameMode;
@@ -136,13 +145,14 @@ var ScoreManager = Class.create({
         }        
       }
     }
+    if(self.carousel) self.carousel.destroy();
+    $('scores').innerHTML = '';
     $('scores').innerHTML = this.templateManager.load('friends', params);
     Game.addLoadedImagesToDiv('scores');
-    if(self.carousel) self.carousel.destroy();      
+    this.attachListeners();
     self.carousel = new Carousel("friends", self.images, 5);
     self.carousel.scrollTo(rank);
     self.carousel.checkButtons();
-    this.attachListeners();
     $('scoresInProgress').hide();
   },
 

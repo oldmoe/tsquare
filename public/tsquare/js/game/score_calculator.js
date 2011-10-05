@@ -49,11 +49,13 @@ var ScoreCalculator = Class.create({
   
   getTimeDetails: function(){
     var r = [0, 0, 0];
-    r[0] = parseInt(this.gameTime/(60*60));//hours
-    r[1] = parseInt(this.gameTime/(60));//minutes
-    r[2] = this.gameTime%(60);//seconds
+    var time = this.gameTime;
+    r[0] = parseInt(time/(60*60));//hours
+    time -= r[0] * 60 * 60;
+    r[1] = parseInt(time / 60);//minutes
+    time -= r[1] * 60;
+    r[2] = time;//seconds
     return r;
   }
-  
   
 })

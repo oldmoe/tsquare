@@ -40,12 +40,14 @@ var GameManager = Class.create({
   
   playMission : function(id){
     var self = this;
+    $$('#uiContainer .background')[0].hide();
+    self.meterBar.hide();
+    self.timelineManager.hide();
+    self.scoreManager.hide();
+    self.missionManager.hide();
+    self.game.show();
     this.missionManager.load(id, function(missionData){
       self.game.play(missionData.data);
-      self.timelineManager.hide();
-      self.meterBar.hide();
-      self.missionManager.hide();
-      self.game.show();
     });
   },
 
@@ -54,9 +56,11 @@ var GameManager = Class.create({
   },
 
   openMainPage : function(){
+    $$('#uiContainer .background')[0].show();
     $('gameContainer').hide();
     this.missionManager.hide();
     this.meterBar.show();
+    this.scoreManager.show();
     this.timelineManager.display();
   },
 

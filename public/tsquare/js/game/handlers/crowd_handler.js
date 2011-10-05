@@ -4,6 +4,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    crowdMembersPerColumn : 2,
    marchingStates: ["normal", "walk", "jog", "run"],//display
    commands: ["circle", "hold", "march", "retreat"],
+   currentId : 0,
    initialize: function($super,scene){
        $super(scene)
        this.addCommandObservers();
@@ -38,7 +39,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    addCrowdMember : function(name, specs){
      var klassName = name.formClassName()
      var klass = eval(klassName)
-     var obj = new klass(specs,{handler : this, scene:this.scene})
+     var obj = new klass(specs,{handler : this, scene:this.scene, id : this.currentId++})
      var displayKlass = eval(klassName + "Display")
      var objDisplay = new displayKlass(obj)
      this.objects[this.scene.activeLane].push(obj)
@@ -78,6 +79,11 @@ var CrowdHandler = Class.create(UnitHandler, {
           self.scene.observe(event,function(){self[event]()}); 
        });
    },
+   
+   //1 : march
+   //2 : circle
+   //3 : hold
+   //4 : retreat
    
    hold: function(){
      var enemy = this.scene.handlers.enemy.objects[this.scene.activeLane][0]; 
@@ -120,7 +126,7 @@ var CrowdHandler = Class.create(UnitHandler, {
           
         this.scene.fire("correctCommand");
         this.executeCommand("hold", {holdingLevel: holdingLevel});
-
+        this.scene.currentCommand = 3;
      }else{
        this.energy.current -= this.energy.rate;
        this.scene.fire("wrongCommand");
@@ -132,8 +138,9 @@ var CrowdHandler = Class.create(UnitHandler, {
      this.scene.direction = 1
      if(this.target && this.target.chargeTolerance <= 0) this.target = null
      this.scene.fire("correctCommand");
+     this.scene.currentCommand = 1;
      if (!this.target) {
-      return this.executeCommand("march");
+       return this.executeCommand("march");
      }
      this.pushing = true
      this.pushMove()
@@ -143,6 +150,7 @@ var CrowdHandler = Class.create(UnitHandler, {
      this.scene.direction = -1
      this.scene.fire("correctCommand");
      this.executeCommand("retreat");
+     this.scene.currentCommand = 4;
    },
 
    circle: function(){
@@ -152,6 +160,7 @@ var CrowdHandler = Class.create(UnitHandler, {
      } 
      this.scene.fire("correctCommand");
      this.executeCommand("circle");
+     this.scene.currentCommand = 2;
    },
 
    increaseFollowers: function(num){
@@ -188,7 +197,7 @@ var CrowdHandler = Class.create(UnitHandler, {
     for (var j = 0; j < this.objects[this.target.lane].length; j++) {
       var ret = this.objects[this.target.lane][j].pushMove(this.target)
       if(j == closestIndex && ret == true && 
-      true//this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.forward
+        true//this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.forward
       ){
         reverseDirection = true
       }
@@ -215,9 +224,11 @@ var CrowdHandler = Class.create(UnitHandler, {
    },
        
    detectCollisions : function($super,others){
-     if($super(others)){
+     var res = $super(others); 
+     if(res){
        this.scene.direction = 0
      }
+     return res;
    }, 
    
    getCrowdsCount: function(){

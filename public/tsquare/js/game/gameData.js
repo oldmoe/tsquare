@@ -1,18 +1,41 @@
-var missionData = 
-  {"data":[[],[
+var missionData = {
+  
+  "data":[[],[
+
   {
       "name": "wood_stick_cs",
       "category": 'enemy',
+      "type": '1_2',
+      "index": 0,
+      "lane": 1,
+      "x": 2,
+      "order": 1
+  }, 
+  {
+      "name": "twitter_guy",
+      "category": 'protection',
       "type": '3_3',
       "index": 0,
       "lane": 1,
-      "x": 100,
+      "x": 1,
       "order": 1
   }
-    ]],
+
+/*  ,{
+      "name": "journalist_rescue",
+      "category": 'rescue',
+      "type": '3_3',
+      "index": 0,
+      "lane": 1,
+      "x": 1,
+      "order": 1
+  }
+*/
+
+  
+  ]],
     
     "backgrounds":{
-      
       "layer1":[{"name":"secondary_skyline.png"}],
       "layer2":[{"name":"main_skyline.png"}],
       "landmarks":[{"name":"landmark_1.png"},{"name":"landmark_2.png"}],
@@ -87,17 +110,17 @@ var gameData = {
                         'energy_booster' : {type : 'special', name : 'Energy Booster'}
               },
               'specs' : { 
-                    'normal' : { 1 : { 'hp' : 50, 'h2o' : 50, 'attack' : 5, 'defense' : 50 } } , 
-                    'attacker' : { 1 : { 'special' : { 'attack' : 1 }, 'hp' : 75, 'h2o' : 50, 'attack' : 10, 'defense' : 50 } },
-                    'leader' : { 1 : { 'special' : { 'followers' : 1 }, 'hp' : 50, 'h2o' : 25, 'attack' : 5, 'defense' : 25 } },   
+                    'normal' : { 1 : { 'hp' : 50, 'water' : 50, 'attack' : 5, 'defense' : 50 } } , 
+                    'attacker' : { 1 : { 'special' : { 'attack' : 1 }, 'hp' : 75, 'water' : 50, 'attack' : 10, 'defense' : 50 } },
+                    'leader' : { 1 : { 'special' : { 'followers' : 1 }, 'hp' : 50, 'water' : 25, 'attack' : 5, 'defense' : 25 } },   
                     'healer' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'hp' : 10 }, 
-                                                       'hp' : 75, 'h2o' : 75, 'attack' : 2, 'defense' : 75 } 
+                                                       'hp' : 75, 'water' : 75, 'attack' : 2, 'defense' : 75 } 
                                 },
-                    'bottleguy' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'h2o' : 10}, 
-                                                            'hp' : 75 , 'h2o' : 75 , 'attack' : 2  , 'defense' : 75 }  
+                    'bottleguy' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'water' : 10}, 
+                                                            'hp' : 75 , 'water' : 75 , 'attack' : 2  , 'defense' : 75 }  
                                 },
                     'energy_booster' : { 1 : { 'special' : { 'slots_to_power' : 1, 'time' : 10, 'energy' : 5 },
-                                                'hp' : 25, 'h2o' : 75, 'attack' : 2, 'defense' : 25 }
+                                                'hp' : 25, 'water' : 75, 'attack' : 2, 'defense' : 25 }
                                 }
               }  
 

@@ -59,11 +59,13 @@ var Unit = Class.create({
   },
   
   takeHit : function(attack){
-    this.hp-= attack;
+    this.hp -= attack;
     if(this.hp <=0){
         this.die()
         this.handler.removeObject(this, this.lane);
-    }   
+        return true;
+    }
+    return false;   
   },
   
   move : function(dx,dy){
@@ -131,6 +133,7 @@ var Unit = Class.create({
          
       return false;  
   },
+  
   die : function(){
     
   }

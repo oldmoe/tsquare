@@ -25,9 +25,9 @@ var TsquareScene = Class.create(Scene,{
 		    this.guidingIcon = new GuidingIcon(this);
 		    this.guidingIconDisplay = new GuidingIconDisplay(this.guidingIcon);
         this.scoreCalculator = new ScoreCalculator(this);
-        this.createRenderLoop('skyline',1);
-        this.createRenderLoop('characters',2);
-        this.createRenderLoop('meters',2);
+        this.createRenderLoop('skyline',2);
+        this.createRenderLoop('characters',3);
+        this.createRenderLoop('meters',3);
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
             "crowd" : new CrowdHandler(this),

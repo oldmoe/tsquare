@@ -48,7 +48,8 @@ var Marketplace = Class.create({
                          codeName : item,
                          specs : memberSpecs,
                          specIds : specIds,
-                         buyID : this.members['category'][item]['buyID']
+                         buyID : this.members['category'][item]['buyID'],
+                         memberID : ""
                         });
       membersImages.push(item + ".png");
     }
@@ -115,15 +116,16 @@ var Marketplace = Class.create({
     $$('#floatingItems')[0].innerHTML = this.templateManager.load('floatingItems', { categoryItems: categoryItems, screen : screen });
     Game.addLoadedImagesToDiv('marketplace');
     $$('#floatingItems li div.crowedItem div.crowedItemImage img').each(function(img){
-      var offsetLeft = $(img.id + '_container').offsetLeft + 136;
-      var offsetTop = $(img.id + '_container').offsetTop;
-      if( offsetTop > 0 ) offsetTop = 90;
+      var id = img.id + img.getAttribute("memberID");
+      var offsetLeft = $(id + "_container").offsetLeft + 136;
+      var offsetTop = $(id + "_container").offsetTop;
+      if( offsetTop > 0 ) offsetTop = 110;
       if( offsetLeft > 408 ){
         offsetLeft -= 215+136;
       }
-      $(img.id + '_details').setStyle({left : offsetLeft + 'px', top : offsetTop + 'px'});
-      img.observe('mouseover', function(event){ $(img.id + '_details').show(); });
-      img.observe('mouseout', function(event){ $(img.id + '_details').hide(); });
+      $(id + '_details').setStyle({left : offsetLeft + 'px', top : offsetTop + 'px'});
+      img.observe('mouseover', function(event){ $(id + '_details').show(); });
+      img.observe('mouseout', function(event){ $(id + '_details').hide(); });
     });
     this.containerWidth = Math.ceil( categoryItems.size() / this.rows) * this.itemWidth;
     this.containerWidth = Math.max( this.containerWidth, this.columns * this.itemWidth );
@@ -149,7 +151,8 @@ var Marketplace = Class.create({
     //Loading the template of the auto selected tab
     self.renderFloatingItems(categoryItems, screen);
     if( myStuff ){
-      $$('.linkMembers').each(function(link){
+      //Activating feature : linking a crowd member to a friend
+      $$('.linkButton').each(function(link){
         link.observe("click", function(event){
           var request = {};
           request['data'] = {type : 'link_a_friend', memberID : link.id};
@@ -161,6 +164,18 @@ var Marketplace = Class.create({
           } )
         });
       });
+      
+      //Activating feature : adding the name of the fb friend to the facebook image
+      var userIDS = []
+      $$('.linkedMember').each(function(link){
+        userIDS.push(link.id)
+      });
+      socialEngine.getUsersInfo(userIDS, function(users){
+        users.each(function(user){
+          $(user.uid).src = user.pic_square;
+          $(user.uid).title = user.name;
+        })
+      })
     }
       
     $$('#marketplace .close')[0].stopObserving('click');

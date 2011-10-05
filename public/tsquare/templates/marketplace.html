@@ -73,8 +73,8 @@
   <ul>
     <!--Crowed Item-->
     {for item in categoryItems}
-    <li id="${item.name}_container">
-      <div id="${item.name}_details" class="detailsBox" style="display:none; left:120px, top:0">
+    <li id="${item.codeName}_container">
+      <div id="${item.codeName}_details" class="detailsBox" style="display:none; left:120px, top:0">
         <div class="crowdMemeberDetails">
           {for spec in item.specIds}
             <!--Crowd statistic-->
@@ -90,15 +90,15 @@
         <img class="positioned" src="images/marketplace/item_background.png" alt="Item background" />
         <!--Crowed Title-->
         <div class="crowedItemTitle">
-          <h2>${item.name.humanize()}</h2>
+          <h2>${item.displayName}</h2>
           <img class="positioned" src="images/marketplace/item_title_background.png" alt="Title" />
         </div>
         <!--Crowed Image-->
         <div class="crowedItemImage">
-          <img id=${item.name} class="positioned" src="images/marketplace/members/${item.name}.png" alt="Crowed" style="width:73px;" />
+          <img id=${item.codeName} class="positioned" src="images/marketplace/members/${item.codeName}.png" alt="Crowed" style="width:73px;" />
         </div>
         {if screen == "marketplace"}
-          <div onclick="gameManager.marketplace.buy({category : 'marketMembers', name : '${item.name}', buyID : '${item.buyID}' })" class="crowedItemDetails">
+          <div onclick="gameManager.marketplace.buy({category : 'marketMembers', name : '${item.codeName}', buyID : '${item.buyID}' })" class="crowedItemDetails">
             <a href="javascript:void(0)">1200 Call</a>
             <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
           </div>
@@ -107,7 +107,7 @@
             Linked
           {else}
             <div class="linkToFriend">
-              <a id="${item.name}-${item.memberID}" class="linkMembers" href="javascript:void(0)" title="Linked to a friend"><img alt="Linked" src="images/marketplace/linked.png"></a>
+              <a id="${item.codeName}-${item.memberID}" class="linkMembers" href="javascript:void(0)" title="Linked to a friend"><img alt="Linked" src="images/marketplace/linked.png"></a>
             </div>
           {/if}
           <div class="crowedItemDetails">

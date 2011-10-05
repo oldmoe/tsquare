@@ -7,19 +7,44 @@ var MissionManager = Class.create({
     this.templateManager = gameManager.templateManager;
     this.gameManager = gameManager;
     var self = this;
+    new Loader().load([ {images : ["score_background.png", "star_icon.png", "stars_background.png", 
+                                  "button_cancel.png", "replay_button.png", "home_button.png", "next_mission_button.png", "win_lose_window.png"],
+                          path: 'images/win_lose/', store: 'win_lose' }, 
+                        {images : ["close_button.png"], 
+                          path: 'images/game_elements/', store: 'game_elements' },
+                        {images : ["friendsScore.png", "friend_box.png"], 
+                          path: 'images/friends/', store: 'friends' }
+                      ],
+                      {
+                        onFinish: function(){
+                          self.imagesLoaded = true;
+                          if(self.ended == true)
+                          {
+                            self.end(self.score);
+                          }
+                        }
+                      });
 //    self.display();   
   },
 
   end : function(score){
-    score['stars'] = this.calculateStars(score);
-    var self = this;
-    this.network.postMissionScore( this.currentMission.id, score, function(data){
-      self.mode = self.gameManager.timelineManager.mode;
-      self.gameManager.scoreManager.currentUser.missions[self.mode][self.currentMission['id']] = score;
-      self.displayEndScreen(score);
-      self.gameManager.initializeData(data);
-//      self.gameManager.openMainPage();
-    });
+    this.ended = true;
+    this.score = score;
+    if(this.imagesLoaded)
+    {
+      this.eneded = false;
+      score['stars'] = this.calculateStars(score);
+      var self = this;
+      this.network.postMissionScore( this.currentMission.id, score, function(data){
+        self.mode = self.gameManager.timelineManager.mode;
+        if(self.gameManager.scoreManager.currentUser)
+        {
+          self.gameManager.scoreManager.currentUser.missions[self.mode][self.currentMission['id']] = score;
+          self.displayEndScreen(score);
+          self.gameManager.initializeData(data);
+        }
+      });
+    }
   },
 
   hide : function(){
@@ -41,6 +66,7 @@ var MissionManager = Class.create({
     this.sortFriends();
     $('winLose').innerHTML = this.templateManager.load('winLose', {'friends' : this.friends.slice(this.rank+1, this.rank+4),
                              'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score });
+    Game.addLoadedImagesToDiv('winLose');
     this.attachListener();
     $('winLose').show();
   },
@@ -72,7 +98,12 @@ var MissionManager = Class.create({
       self.gameManager.playMission(self.currentMission.next);
     });
     $$('#winLose .close')[0].observe('click', function(event){
-      self.hide();
+      self.gameManager.openMainPage();
+    });
+    $$('#winLose .challengeFriends .friend .cancelButton').each(function(element){
+      element.observe('click', function(event){
+        self.challengeFriend(element.id);
+      });
     });
   },
 
@@ -80,7 +111,13 @@ var MissionManager = Class.create({
     var self = this;
     this.friends = this.gameManager.scoreManager.friends.sortBy(function(friend){ 
       if(friend.missions[self.mode][self.currentMission['id']])
-        return friend.missions[self.mode][self.currentMission['id']]['score']
+      {
+        var extra = 0;
+        if(friend.missions[self.mode][self.currentMission['id']]['score'] == self.score.score && 
+            friend.service_id != socialEngine.userId()) 
+          extra = 1;
+        return (friend.missions[self.mode][self.currentMission['id']]['score'] + extra);
+      }
       else
         return 0;
     }).reverse();
@@ -92,6 +129,13 @@ var MissionManager = Class.create({
       else
         break;
     }
+  }, 
+
+  challengeFriend : function(friendId){
+    var message = "Too low of a score, mate!!. So I topped your miserable score with " + 
+                this.score.score + " in the " + this.currentMission.name + ". Up for some challenge?";
+    var data = {type : 'challenge', mission : this.currentMission.id};
+    socialEngine.sendFriendRequest(friendId, message, data);
   }
 
 });

@@ -43,6 +43,7 @@ var GameManager = Class.create({
     this.missionManager.load(id, function(missionData){
       self.game.play(missionData.data);
       self.timelineManager.hide();
+      self.meterBar.hide();
       self.missionManager.hide();
       self.game.show();
     });
@@ -55,6 +56,7 @@ var GameManager = Class.create({
   openMainPage : function(){
     $('gameContainer').hide();
     this.missionManager.hide();
+    this.meterBar.show();
     this.timelineManager.display();
   },
 

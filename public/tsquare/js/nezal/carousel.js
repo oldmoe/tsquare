@@ -44,7 +44,7 @@ var Carousel = Class.create( {
         this.listSize =  $$('#' + this.ulId + ' li').length;
         $(this.ulId).style.left = 0;
         $(this.ulId).style.border = 'none';
-        $(this.ulId).style.width = this.width* lis.length + "px";
+        $(this.ulId).style.width = this.width * (lis.length + 1)  + "px";
         if($(this.ulId).getStyle('direction') == 'rtl')
         {
           this.direction = -1;

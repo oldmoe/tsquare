@@ -7,8 +7,7 @@ var InGameMeterBar = Class.create({
     this.templateManager = game.templateManager;
     this.scoreCalculator = game.scene.scoreCalculator;
     var self = this;
-    // this.game.scene.reactor.push(this.game.scene.reactor.everySeconds(1), function(){self.display()});
-    this.game.scene.reactor.push(this.game.scene.reactor.everySeconds(1), function(){self.tick()});
+    // this.game.scene.reactor.push(this.game.scene.reactor.everySeconds(1), function(){self.tick()});
 //    new Loader().load([ {images : [], path: 'images/game_elements/', store: 'game_elements'}],
 //                      {
 //                        onFinish: function(){

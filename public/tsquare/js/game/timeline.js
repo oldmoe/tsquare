@@ -26,6 +26,10 @@ var Timeline = Class.create({
   },
 
   display : function(){
+    if(this.carousel) 
+    {
+      this.carousel.destroy();
+    }
     $('home').innerHTML = this.templateManager.load('home', {'missions' : this.gameManager.missions});
     for(var i in this.gameManager.missions[this.mode])
     {
@@ -39,6 +43,9 @@ var Timeline = Class.create({
     this.attachListener();
     Game.addLoadedImagesToDiv('home');
     Game.addLoadedImagesToDiv('timeline');
+    this.displayMissions();
+    this.carousel = new Carousel("missions", this.images, 5);
+    this.carousel.checkButtons();
     this.displayHome();
   },  
   
@@ -64,9 +71,6 @@ var Timeline = Class.create({
     $$('.calendarWrapper')[0].hide();
     $('missions').show();
     $('timeline').show();
-    if(this.carousel) this.carousel.destroy();      
-    this.carousel = new Carousel("missions", this.images, 5);
-    this.carousel.checkButtons();
   },
 
   displayMissionDetails : function(id){

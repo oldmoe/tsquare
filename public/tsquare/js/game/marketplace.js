@@ -90,8 +90,10 @@ var Marketplace = Class.create({
     if(!options.buyID.empty()) {
       socialEngine.buyItem( options.buyID );
     } else {
+      var self = this;
       this.network.buy(options, function(responseData){
         $('dialogBox').show();
+        self.gameManager.initializeData(responseData);
       });
     }
   },

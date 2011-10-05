@@ -92,7 +92,7 @@ var Game = Class.create({
   						  			self.start();
                       self.doneLoading = true
                       $('inProgress').hide()
-                      self.play(missionData)
+                      // self.play(missionData)
   								  }
     });
   },

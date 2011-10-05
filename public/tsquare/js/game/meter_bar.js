@@ -50,6 +50,8 @@ var MeterBar = Class.create({
     var experienceBarFill = experienceNewWidth * this.experienceBarWidth;
     $$('.experienceBar .bar table')[0].setStyle({ 'width' : experienceBarFill });
     if(experienceBarFill == 0) $$('.experienceBar .bar table')[0].hide();
+    /* update user coins */
+    $$('.gameCurrencyBar span')[0].innerHTML = this.gameManager.userData.coins;
   },
 
   energyGain : function(){

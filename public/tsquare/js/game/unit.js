@@ -63,7 +63,9 @@ var Unit = Class.create({
     if(this.hp <=0){
         this.die()
         this.handler.removeObject(this, this.lane);
-    }   
+        return true;
+    }
+    return false;   
   },
   
   move : function(dx,dy){

@@ -33,6 +33,7 @@ var TsquareScene = Class.create(Scene,{
         this.createRenderLoop('meters',2);
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
+            // "rescue" : new RescueUnitHandler(this),
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
             "enemy" : new EnemyHandler(this),  
@@ -45,7 +46,7 @@ var TsquareScene = Class.create(Scene,{
             this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth)
           }
         }
-        var mapping = {'crowd':'npc', 'protection':'protection_unit', 'enemy':'enemy'}
+        var mapping = {'crowd':'npc', 'protection':'protection_unit', 'enemy':'enemy', 'rescue':'rescue'}
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
                 var elem = this.data[i][j]
@@ -84,7 +85,7 @@ var TsquareScene = Class.create(Scene,{
     },
 
     wrongMove: function(){
-      this.fire("updateScore", [-5]);
+      this.fire("updateScore", [-2]);
       this.scoreCalculator.wrongMovesCount++;
       this.scoreCalculator.totalMovesCount++;
       this.decreaseEnergy();
@@ -100,7 +101,7 @@ var TsquareScene = Class.create(Scene,{
     },
     
     wrongCommand: function(){
-      this.fire("updateScore", [-10]);
+      this.fire("updateScore", [-5]);
       this.scoreCalculator.wrongCommandsCount++;
       this.scoreCalculator.totalCommandsCount++;
       console.log("scene wrong command");
@@ -125,7 +126,6 @@ var TsquareScene = Class.create(Scene,{
         for(var handler in this.handlers){
             this.handlers[handler].tick();
         }
-        
         this.guidingIcon.tick();
     },
     
@@ -184,7 +184,8 @@ var TsquareScene = Class.create(Scene,{
            var handler2 = this.handlers[h2]; 
           for(var i=0;i<pairs.length;i++){
            if(handler1.type==pairs[i][0] && handler2.type==pairs[i][1]){
-             this.collision = this.collision || handler1.detectCollisions(handler2.objects)
+             var res = handler1.detectCollisions(handler2.objects);
+             this.collision = this.collision || res;
            }
          } 
        }

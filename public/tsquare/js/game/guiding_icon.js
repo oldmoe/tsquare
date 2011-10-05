@@ -30,7 +30,7 @@ var GuidingIcon = Class.create({
         this.circleFlag = true;
       }
       if(this.circleFlag) command = 2;
-    }    
+    }
     
     switch(command){
       case 1: this.setState("march");break;

@@ -1,5 +1,4 @@
 var CrowdMember = Class.create(Unit,{
-  
   xShift : 100,
   water : 7000,
   maxWater : 700,

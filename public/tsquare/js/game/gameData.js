@@ -1,14 +1,37 @@
 var missionData = 
   {"data":[[],[
   {
-      "name": "wood_stick_cs",
-      "category": 'enemy',
-      "type": '3_3',
+      "name": "ambulance",
+      "category": 'protection',
       "index": 0,
       "lane": 1,
-      "x": 100,
+      "x": 4,
       "order": 1
-  }
+  },
+   {
+     "name": "ambulance",
+     "category": 'protection',
+     "index": 0,
+     "lane": 1,
+     "x": 5,
+     "order": 1
+   },
+   {
+     "name": "ambulance",
+     "category": 'protection',
+     "index": 0,
+     "lane": 1,
+     "x": 6,
+     "order": 1
+   },
+   {
+     "name": "ambulance",
+     "category": 'protection',
+     "index": 0,
+     "lane": 1,
+     "x": 7,
+     "order": 1
+   }
     ]],
     
     "backgrounds":{
@@ -87,17 +110,17 @@ var gameData = {
                         'energy_booster' : {type : 'special', name : 'Energy Booster'}
               },
               'specs' : { 
-                    'normal' : { 1 : { 'hp' : 50, 'h2o' : 50, 'attack' : 5, 'defense' : 50 } } , 
-                    'attacker' : { 1 : { 'special' : { 'attack' : 1 }, 'hp' : 75, 'h2o' : 50, 'attack' : 10, 'defense' : 50 } },
-                    'leader' : { 1 : { 'special' : { 'followers' : 1 }, 'hp' : 50, 'h2o' : 25, 'attack' : 5, 'defense' : 25 } },   
+                    'normal' : { 1 : { 'hp' : 50, 'water' : 50, 'attack' : 5, 'defense' : 50 } } , 
+                    'attacker' : { 1 : { 'special' : { 'attack' : 1 }, 'hp' : 75, 'water' : 50, 'attack' : 10, 'defense' : 50 } },
+                    'leader' : { 1 : { 'special' : { 'followers' : 1 }, 'hp' : 50, 'water' : 25, 'attack' : 5, 'defense' : 25 } },   
                     'healer' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'hp' : 10 }, 
-                                                       'hp' : 75, 'h2o' : 75, 'attack' : 2, 'defense' : 75 } 
+                                                       'hp' : 75, 'water' : 75, 'attack' : 2, 'defense' : 75 } 
                                 },
-                    'bottleguy' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'h2o' : 10}, 
-                                                            'hp' : 75 , 'h2o' : 75 , 'attack' : 2  , 'defense' : 75 }  
+                    'bottleguy' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'water' : 10}, 
+                                                            'hp' : 75 , 'water' : 75 , 'attack' : 2  , 'defense' : 75 }  
                                 },
                     'energy_booster' : { 1 : { 'special' : { 'slots_to_power' : 1, 'time' : 10, 'energy' : 5 },
-                                                'hp' : 25, 'h2o' : 75, 'attack' : 2, 'defense' : 25 }
+                                                'hp' : 25, 'water' : 75, 'attack' : 2, 'defense' : 25 }
                                 }
               }  
 

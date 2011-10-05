@@ -5,6 +5,7 @@ var ProtectionUnit = Class.create(Unit,{
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)
     this.hp = this.maxHp = 1000
+    this.neglected = false
    },
   
   createEnemies : function(){

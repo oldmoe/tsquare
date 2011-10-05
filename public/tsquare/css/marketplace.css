@@ -15,7 +15,7 @@
 .tabsContent { float:left; width:694px; background:#dadada; border:3px solid #757575; -webkit-border-radius: 10px; -webkit-border-top-left-radius: 0; -moz-border-radius: 10px; -moz-border-radius-topleft: 0; border-radius: 10px; border-top-left-radius: 0; position:relative; top:-3px; height:339px;}
 
 .tabs { float:left; width:699px;}
-.tabs li { float:left; width:109px; height:43px; margin:0 5px 0 0; position:relative; overflow:hidden;}
+.tabs li { float:left; width:109px; height:43px; margin:0 5px 0 0; position:relative; overflow:hidden; z-index: 1}
 .tabs li a { float:left; width:109px; height:30px;text-align:center; text-decoration:none; font-weight:bold; font-size:1.1em; color:#636363; text-shadow:1px 1px 0px #f0f0f0; padding:13px 0 0 0; position:absolute; z-index:2; }
 .tabs li.selected a { color:#000; }
 .tabs li.selected img { position:absolute; top:-43px; }
@@ -50,7 +50,7 @@
 .crowedItemPrice { float:left; position:absolute; width:59px; height:33px; top:85px; left:68px; }
 .crowedItemPrice h5 { position:absolute; width:59px; height:20px; z-index:2; margin:0px; padding:2px 0 0 0; text-align:center; font-size:1.1em; text-shadow:1px 1px 0 #fffaae; color:#763d00; }
 
-.crowedItemImage { float:left; width:60px; height:90px; position:absolute; top:23px; left:30px; }
+.crowedItemImage { float:left; width:60px; height:90px; position:absolute; top:19px; left:14px; }
 
 
 .dialogBox { position:absolute; z-index:6; width:513px; height:131px; top:95px; left:95px; }
@@ -58,13 +58,13 @@
 .dialogBox p { position:absolute; z-index:6; top:50px; left:20px; color:#513b05; text-shadow:1px 1px 0 #fff7e2; }
 .dialogBox .close { z-index:7; left:483px; top:-10px; }
 
-.detailsBox { position:absolute; z-index:8; width:215px; height:170px; top:45px; left:95px; background:#303030; border:3px solid #a49b86; -webkit-border-radius: 10px; -webkit-border-top-left-radius: 0; -moz-border-radius: 10px; color:#aeaeae; padding:20px 0; }
+.detailsBox { position:absolute; z-index:8; width:215px; top:45px; left:95px; background:#303030; border:3px solid #a49b86; -webkit-border-radius: 10px; -webkit-border-top-left-radius: 0; -moz-border-radius: 10px; color:#aeaeae; padding:20px 0; }
 .detailsBox .close { z-index:7; left:483px; top:-10px; }
 .crowedMemberImage { position:absolute; z-index:7; width:60px; height:90px; overflow:hidden; }
 .detailsBox .crowedItem { position:absolute; z-index:7; top:20px; left:20px; }
 
-.crowdMemeberDetails { position:absolute; z-index:7; width:215px; top:5px;}
-.crowdMemeberDetails dl { float:left; width:100%; margin:20px 0 0 0;}
+.crowdMemeberDetails { position:relative; z-index:7; width:215px; top:5px;}
+.crowdMemeberDetails dl { float:left; width:100%;}
 .crowdMemeberDetails dl + dl { margin:10px 0 0 0; }
 .crowdMemeberDetails dl dt { float:left; width:55%; margin:0px; padding:0px; text-align:right; padding:0 4% 0 0; font-weight:bold; }
 .crowdMemeberDetails dl dd { float:left; width:25%; margin:0px; padding:0px; text-align: center; }

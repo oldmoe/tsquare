@@ -74,6 +74,7 @@ var UnitHandler = Class.create({
     }
     if(done) this.end()
   },
+  
   end : function(){
     
   },
@@ -108,7 +109,9 @@ var UnitHandler = Class.create({
            }
        }
     }
-    if(collision.length > 0) return true
+    if(collision.length > 0){
+      return true;
+    } 
     return false
   },
   
@@ -116,7 +119,9 @@ var UnitHandler = Class.create({
       if(this.objects[lane].indexOf(object)!=-1){
           this.objects[lane].remove(object);
           object.destroy();
+          return true;
       }
+      return false;
    }
       
     

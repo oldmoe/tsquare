@@ -22,7 +22,7 @@ class Request < DataStore::Model
     ids = []
     time = Time.now.to_i
     requests.each do |id, request|
-      data = JSON.parse( request['data'] )
+      data = JSON.parse( request['data'] ) if request['data']
       if time - request['timestamp'] < REQUEST_TYPES[ data['type'] ][ :exclude ]
         #ids << request['to']
       end
@@ -39,21 +39,14 @@ class Request < DataStore::Model
   
   def process friend_key, request_id
     request = get_friend_request friend_key, request_id
-    
-    puts "!!!!!!!!!!!!!!!!!!!!!"
-    
-    data = JSON.parse( request['data'] )
-    expire_time = REQUEST_TYPES[ data['type'] ][ :expire ]
-    if request && request['timestamp'] + expire_time > Time.now.to_i
-      request['expired'] = true
+    if request && request['data']
+      data = JSON.parse( request['data'] )
+      expire_time = REQUEST_TYPES[ data['type'] ][ :expire ]
+      if request && request['timestamp'] + expire_time > Time.now.to_i
+        request['expired'] = true
+      end
+      Game::current.process_service_request(key, data, friend_key)
     end
-    
-    puts "!!!!!!!!!!!!! my key = #{request['to']}"
-    puts "!!!!!!!!!!!!! friend key = #{key}"
-    puts "!!!!!!!!!!!!! friend key = #{friend_key}"
-    puts "!!!!!!!!!!!!! data = #{data}"
-    
-    Game::current.process_service_request(key, data, friend_key)
     requests.delete(request_id)
     save
   end

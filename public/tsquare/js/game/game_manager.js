@@ -40,12 +40,14 @@ var GameManager = Class.create({
   
   playMission : function(id){
     var self = this;
+    $$('#uiContainer .background')[0].hide();
+    self.meterBar.hide();
+    self.timelineManager.hide();
+    self.scoreManager.hide();
+    self.missionManager.hide();
+    self.game.show();
     this.missionManager.load(id, function(missionData){
       self.game.play(missionData.data);
-      self.timelineManager.hide();
-      self.meterBar.hide();
-      self.missionManager.hide();
-      self.game.show();
     });
   },
 
@@ -54,9 +56,11 @@ var GameManager = Class.create({
   },
 
   openMainPage : function(){
+    $$('#uiContainer .background')[0].show();
     $('gameContainer').hide();
     this.missionManager.hide();
     this.meterBar.show();
+    this.scoreManager.show();
     this.timelineManager.display();
   },
 
@@ -79,13 +83,15 @@ var GameManager = Class.create({
       var requestData = {};
       if(params['request_ids'])
       {
-        console.log( params['request_ids'],  requests_data);
-        var requestData = requests_data[params['request_ids']];
-        console.log( "!@!@!@@!!@!@!@!@", requestData);
-        if(params['request_ids'])
+        params['request_ids'] = params['request_ids'].split("%");
+        for(var i = 0; i < params['request_ids'].length; i++ )
         {
-          gameManager.network.genericPostRequest('requests/accept', {request_id : params['request_ids'], from : requestData['from']['id']});
-          socialEngine.deleteObject(params['request_ids']);
+          var requestData = requests_data[params['request_ids'][i]];
+          if(requestData)
+          {
+            gameManager.network.genericPostRequest('requests/accept', {request_id : params['request_ids'][i], from : requestData['from']['id']});
+            socialEngine.deleteObject(params['request_ids'][i]);
+          }
         }
       }
       gameCallback(requestData);

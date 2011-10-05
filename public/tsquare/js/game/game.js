@@ -92,6 +92,7 @@ var Game = Class.create({
   						  			self.start();
                       self.doneLoading = true
                       $('inProgress').hide()
+                      // self.play(missionData)
   								  }
     });
   },
@@ -124,8 +125,6 @@ var Game = Class.create({
       backgroundImages.push(elem.name);
     });
     
-    var hoveringIconsImages = ['lock.png', 'circle.png', 'march.png', 'push.png'];
-    
 	  new Loader().load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
           {onProgress : function(progress){
                       if($$('#inProgress #loadingBarFill')[0])
@@ -141,11 +140,10 @@ var Game = Class.create({
     var self = this;
     if(this.imagesLoaded == true && this.missionLoaded == true) {
       this.scene = new TsquareScene();
-   //   this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
+      this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
 	  	this.scene.start();
       $('gameContainer').show();
 	  	this.scene.fire("start");
-      
       this.inGameMeterBar = new InGameMeterBar(this);
       this.scene.pushToRenderLoop('meters', this.inGameMeterBar)
     }

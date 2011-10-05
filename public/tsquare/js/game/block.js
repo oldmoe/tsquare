@@ -36,6 +36,7 @@ var Block = Class.create(Enemy,{
     updatePosition : function($super){
       $super()
    },
+   
     getWidth : function(){
       if(!this.elements[0] || !this.elements[0][0])return 0
       return this.elementWidth * this.elements.length + (this.elements[0][0].imgWidth - this.elementWidth)  
@@ -71,24 +72,26 @@ var Block = Class.create(Enemy,{
     
     split : function(){
       if(this.elements.length == 1)return
-         if(this.elements.length == 3 || this.elements.length == 2){
-            this.setTarget(null)
-            var options = this.options
-            options.type = "3_1";
-            var blocks = [] 
-            for(var i=0;i<this.elements.length;i++){
-              var b = new Block(this.scene,this.elements[i][0].coords.x ,1, options)
-              b.coords.y = this.coords.y
-              b.moveToTarget({x:this.coords.x + (100+150*i),y:this.coords.y})
-              b.elements = [this.elements[i]]              
-              blocks.pushFirst(b)
-            }
-            for (var i = 0; i < this.elements.length; i++) {
-              this.handler.objects[this.lane].pushFirst(blocks[i])
-            }
+      this.scene.fire("updateScore", [10]);
+       if(this.elements.length == 3 || this.elements.length == 2){
+          this.setTarget(null)
+          var options = this.options
+          options.type = "3_1";
+          var blocks = [] 
+          for(var i=0;i<this.elements.length;i++){
+            var b = new Block(this.scene,this.elements[i][0].coords.x ,1, options)
+            b.coords.y = this.coords.y
+            b.moveToTarget({x:this.coords.x + (100+150*i),y:this.coords.y})
+            b.elements = [this.elements[i]]              
+            blocks.pushFirst(b)
+          }
+          for (var i = 0; i < this.elements.length; i++) {
+            this.handler.objects[this.lane].pushFirst(blocks[i])
+          }
         }
         this.handler.objects[this.lane].remove(this)
     },
+    
     setElements : function(elements){
         this.elements = elements
     },
@@ -122,6 +125,7 @@ var Block = Class.create(Enemy,{
         this.moveElements(dx,dy)
     },    
     takePush : function(){
+      this.scene.fire("updateScore", [10]);
        this.chargeTolerance--
        if(this.chargeTolerance == 0) this.split()
     },

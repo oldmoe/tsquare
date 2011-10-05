@@ -40,9 +40,9 @@
       {for friend in friends}
 			<!--Friend-->
     	<div class="friend">
-      	<a href="${friend['url']}">
+      	<a href="${friend['url']}" target="_blank">
           <span class="friendsScore">
-          	<span>{if friend.missions[mode][mission]['score']} ${friend.missions[mode][mission]} {else} 0 {/if}</span>
+          	<span>{if friend.missions[mode][mission]['score']} ${friend.missions[mode][mission]['score']} {else} 0 {/if}</span>
           	<img class="positioned" src="images/friends/friendsScore.png" alt="Friends score" />
           </span>
           <!--New changes end here-->
@@ -51,7 +51,7 @@
           <img src="images/friends/friend_box.png" alt="friend" />
         </a>
         <!--Challenge button-->
-        <a class="cancelButton" href="javascript:void(0)">
+        <a class="cancelButton" href="javascript:void(0)" id="${friend.service_id}">
           <span>Challenge</span>
           <img src="images/win_lose/button_cancel.png" alt="confirm" />
         </a>

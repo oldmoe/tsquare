@@ -15,10 +15,12 @@ var MissionManager = Class.create({
     var self = this;
     this.network.postMissionScore( this.currentMission.id, score, function(data){
       self.mode = self.gameManager.timelineManager.mode;
-      self.gameManager.scoreManager.currentUser.missions[self.mode][self.currentMission['id']] = score;
-      self.displayEndScreen(score);
-      self.gameManager.initializeData(data);
-//      self.gameManager.openMainPage();
+      if(self.gameManager.scoreManager.currentUser)
+      {
+        self.gameManager.scoreManager.currentUser.missions[self.mode][self.currentMission['id']] = score;
+        self.displayEndScreen(score);
+        self.gameManager.initializeData(data);
+      }
     });
   },
 
@@ -39,6 +41,7 @@ var MissionManager = Class.create({
   
   displayEndScreen : function(score){
     this.sortFriends();
+    this.score = score;
     $('winLose').innerHTML = this.templateManager.load('winLose', {'friends' : this.friends.slice(this.rank+1, this.rank+4),
                              'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score });
     this.attachListener();
@@ -74,6 +77,11 @@ var MissionManager = Class.create({
     $$('#winLose .close')[0].observe('click', function(event){
       self.hide();
     });
+    $$('#winLose .challengeFriends .friend .cancelButton').each(function(element){
+      element.observe('click', function(event){
+        self.challengeFriend(element.id);
+      });
+    });
   },
 
   sortFriends : function(score) {
@@ -92,6 +100,13 @@ var MissionManager = Class.create({
       else
         break;
     }
+  }, 
+
+  challengeFriend : function(friendId){
+    var message = "Too low of a score, mate!!. So I topped your miserable score with " + 
+                this.score.score + " in the " + this.currentMission.name + ". Up for some challenge?";
+    var data = {type : 'challenge', mission : this.currentMission.id};
+    socialEngine.sendFriendRequest(friendId, message, data);
   }
 
 });

@@ -77,7 +77,6 @@ var TsquareScene = Class.create(Scene,{
     },
     
     fire: function(event, params){
-        console.log("Scene Firing")
         this.reactor.fire(event, params);
     },
 

@@ -24,7 +24,6 @@ var TsquareScene = Class.create(Scene,{
     initialize: function($super){
         $super();
         this.collision = false;
-		    Effect.Queues.create('global', this.reactor);
 		    this.guidingIcon = new GuidingIcon(this);
 		    this.guidingIconDisplay = new GuidingIconDisplay(this.guidingIcon);
         this.scoreCalculator = new ScoreCalculator(this);

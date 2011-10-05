@@ -18,25 +18,30 @@
       <div class="tabsWrapper">
         <!--Tabs-->
         <ul class="tabs">
-          <li>
+          <li class="disabled">
             <a id="marketMoves" href="javascript:void(0)">Moves</a>
             <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
           </li>
           <li class="selected">
             <a id="marketMembers" href="javascript:void(0)">Members</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/></li>
-          <li>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
+          </li>
+          <li class="disabled">
             <a id="marketItems" href="javascript:void(0)">Items</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/></li>
-          <li>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
+          </li>
+          <li class="disabled">
             <a id="marketPowerups" href="javascript:void(0)">Powerups</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/></li>
-          <li>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
+          </li>
+          <li class="disabled">
             <a id="marketSpecial" href="javascript:void(0)">Special</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/></li>
-          <li>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
+          </li>
+          <li class="disabled">
             <a id="marketCrowdItems" href="javascript:void(0)">Crowd Items</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/></li>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
+          </li>
         </ul>
         <!--Tabs Content-->
         <div class="tabsContent">
@@ -84,7 +89,6 @@
             </dl>
           {/for}
         </div>
-        <img style="width:215px; height:240px;" class="positioned" src="images/marketplace/details_box.png" alt="Dialog Background" />
       </div>
       <div class="crowedItem">
         <img class="positioned" src="images/marketplace/item_background.png" alt="Item background" />
@@ -95,7 +99,7 @@
         </div>
         <!--Crowed Image-->
         <div class="crowedItemImage">
-          <img id=${item.codeName} class="positioned" src="images/marketplace/members/${item.codeName}.png" alt="Crowed" style="width:73px;" />
+          <img id=${item.codeName} class="positioned" src="images/marketplace/members/${item.codeName}.png" alt="Crowed" style="width:95px;" />
         </div>
         {if screen == "marketplace"}
           <div onclick="gameManager.marketplace.buy({category : 'marketMembers', name : '${item.codeName}', buyID : '${item.buyID}' })" class="crowedItemDetails">

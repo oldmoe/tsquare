@@ -192,7 +192,8 @@ var TsquareScene = Class.create(Scene,{
     this.audioManager.levelUp()
     if(this.energy.current < this.energy.max){
       this.energy.current+= this.energy.rate;
-  //    this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
+      this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
+      this.fire(this.speeds[this.speedIndex].state)
     }
     var next = this.speeds[this.speedIndex+1]
     if(next){
@@ -209,7 +210,8 @@ var TsquareScene = Class.create(Scene,{
         this.comboMistakes.current = 0
         this.audioManager.levelDown()
         this.energy.current = Math.max(this.energy.current - this.energy.rate, 0)
-//        this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
+        this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
+        this.fire(this.speeds[this.speedIndex].state)
         if (this.speedIndex > 0 && this.energy.current < this.speeds[this.speedIndex].energy) {
           this.speedIndex--
           this.currentSpeed = this.speeds[this.speedIndex].value

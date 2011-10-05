@@ -17,7 +17,7 @@ var SkyLine = Class.create({
       var background_layer1 = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed-2)}, y: 0, imagesCount: 3, images:images_layer1})
       var background_layer2 = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed-1)}, y: 65, imagesCount: 3, images:images_layer2})
       var background_road = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 340, imagesCount: 2, offsetX:0, images:images_road})
-      var background_crowd = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed-1)}, y: 270, imagesCount: 2, images:images_crowd, offsetX:0});
+      var background_crowd = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 270, imagesCount: 2, images:images_crowd, offsetX:0});
       var background_fence = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 350, imagesCount: 14, images:images_fence})
       var background_lamp = new Background(this.scene, {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, y: 200, imagesCount: 3, images:images_lamp})
       

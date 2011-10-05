@@ -113,9 +113,10 @@ var MissionManager = Class.create({
       if(friend.missions[self.mode][self.currentMission['id']])
       {
         var extra = 0;
-        if(friend.missions[self.mode][self.currentMission['id']]['score'] == self.score.score) 
+        if(friend.missions[self.mode][self.currentMission['id']]['score'] == self.score.score && 
+            friend.service_id != socialEngine.userId()) 
           extra = 1;
-        return friend.missions[self.mode][self.currentMission['id']]['score'] + extra;
+        return (friend.missions[self.mode][self.currentMission['id']]['score'] + extra);
       }
       else
         return 0;

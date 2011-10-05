@@ -4,6 +4,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    crowdMembersPerColumn : 2,
    marchingStates: ["normal", "walk", "jog", "run"],//display
    commands: ["circle", "hold", "march", "retreat"],
+   currentId : 0,
    initialize: function($super,scene){
        $super(scene)
        this.addCommandObservers();
@@ -38,7 +39,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    addCrowdMember : function(name, specs){
      var klassName = name.formClassName()
      var klass = eval(klassName)
-     var obj = new klass(specs,{handler : this, scene:this.scene})
+     var obj = new klass(specs,{handler : this, scene:this.scene, id : this.currentId++})
      var displayKlass = eval(klassName + "Display")
      var objDisplay = new displayKlass(obj)
      this.objects[this.scene.activeLane].push(obj)
@@ -188,7 +189,7 @@ var CrowdHandler = Class.create(UnitHandler, {
     for (var j = 0; j < this.objects[this.target.lane].length; j++) {
       var ret = this.objects[this.target.lane][j].pushMove(this.target)
       if(j == closestIndex && ret == true && 
-      true//this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.forward
+        true//this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.forward
       ){
         reverseDirection = true
       }

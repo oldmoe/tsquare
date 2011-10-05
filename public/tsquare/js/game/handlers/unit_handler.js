@@ -9,6 +9,7 @@ var UnitHandler = Class.create({
        this.unitsClassMappings = {}
        this.incoming = [[],[],[]];
        this.objects = [[],[],[]];
+       this.ended = false
        this.scene = scene;       
    },
    

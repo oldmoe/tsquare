@@ -1,4 +1,5 @@
 var CrowdMember = Class.create(Unit,{
+  
   xShift : 100,
   water : 7000,
   maxWater : 700,
@@ -225,6 +226,7 @@ var CrowdMember = Class.create(Unit,{
   circleMove : function(){
     if (!this.target|| this.target.hp <= 0 || this.target.dead || this.target.doneProtection) {
       this.resetRotation()
+      alert(1)
       return
     }
       if (this.rotationPoints.length == 0) {

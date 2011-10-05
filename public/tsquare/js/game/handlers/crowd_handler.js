@@ -1,11 +1,11 @@
 var CrowdHandler = Class.create(UnitHandler, {
-   type : "left",   
-   initialPositions : [{x:150,y:30},{x:150,y:110},{x:150,y:200}],
+   type : "left",      
    crowdMembersPerColumn : 2,
    marchingStates: ["normal", "walk", "jog", "run"],//display
    commands: ["circle", "hold", "march", "retreat"],
    currentId : 0,
    initialize: function($super,scene){
+       this.initialPositions = [{x:150,y:30},{x:150,y:110},{x:150,y:200}]
        $super(scene)
        this.addCommandObservers();
        var self = this;
@@ -189,7 +189,7 @@ var CrowdHandler = Class.create(UnitHandler, {
     for (var j = 0; j < this.objects[this.target.lane].length; j++) {
       var ret = this.objects[this.target.lane][j].pushMove(this.target)
       if(j == closestIndex && ret == true && 
-        true//this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.forward
+      true//this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.forward
       ){
         reverseDirection = true
       }

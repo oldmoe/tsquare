@@ -75,7 +75,7 @@ var MovementManager = Class.create({
       if(self.scene.currentSpeed > 0){
         self.comboStart = true
       }
-      if(click!=-1 && self.ticksPassed >= self.nextTick-4 && self.ticksPassed <= self.nextTick+4){   
+      if(click!=-1 && self.ticksPassed >= self.nextTick-8 && self.ticksPassed <= self.nextTick+8){   
             console.log('=')
             self.move.push(click)
             self.moveLength++

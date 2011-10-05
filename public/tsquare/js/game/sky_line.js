@@ -29,17 +29,17 @@ var SkyLine = Class.create({
       this.backgrounds.push(background_cloud);
       this.backgrounds.push(background_layer1);
       this.backgrounds.push(background_layer2);
-//      if( game.data.backgrounds.landmarks.length > 0 ){
-//        var images_landmarks = [Loader.images.background[game.data.backgrounds.landmarks[0].name]]
-//        var background_landmarks = new Background(this.scene, 
-//                                                    {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, 
-//                                                     y: 113,
-//                                                     imagesCount: 1,
-//                                                     offsetX: 2000-images_landmarks[0].width/2,
-//                                                     images:images_landmarks
-//                                                    });
-//        this.backgrounds.push(background_landmarks);
-//      }
+      if( game.data.backgrounds.landmarks.length > 0 ){
+        var images_landmarks = [Loader.images.background[game.data.backgrounds.landmarks[0].name]]
+        var background_landmarks = new Background(this.scene, 
+                                                    {speed : function(){return  self.scene.direction*(self.scene.currentSpeed)}, 
+                                                     y: 113,
+                                                     imagesCount: 1,
+                                                     offsetX: 2000-images_landmarks[0].width/2,
+                                                     images:images_landmarks
+                                                    });
+        this.backgrounds.push(background_landmarks);
+      }
       this.backgrounds.push(background_road);
       this.backgrounds.push(background_fence);
       this.backgrounds.push(background_lamp);

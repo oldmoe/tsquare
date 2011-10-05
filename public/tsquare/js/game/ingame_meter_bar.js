@@ -7,7 +7,11 @@ var InGameMeterBar = Class.create({
     $('inGameMeterBar').innerHTML = this.templateManager.load('inGameMeterBar');
     
     var self = this;
-    game.scene.reactor.pushPeriodical(0, 1, gameManager.reactor.everySeconds(1), function(){self.tick();});
+//    if (gameManager) {
+//      game.scene.reactor.pushPeriodical(0, 1, gameManager.reactor.everySeconds(1), function(){
+//        self.tick();
+//      });
+//    }
   },
   
   tick : function(){

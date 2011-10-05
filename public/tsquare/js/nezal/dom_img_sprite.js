@@ -19,11 +19,9 @@ var DomImgSprite = Class.create(DomSprite, {
     if(properties && properties.flipped){
       this.div.addClassName('flippedSprite');
       Util.flip(this.div)
-      if (this.owner.scene && this.owner.scalable) {
-        var scale = ((this.owner.coords.y) / (this.owner.scene.view.height - this.defaultShiftY)) * 0.8 + 0.4
-        this.div.style.WebkitTransform += ' scale(' + scale + ')';
-        this.div.style.MozTransform += ' scale(' + scale + ')';
-      }
+    }
+    if (this.owner.scene && this.owner.scalable) {
+        this.scaleDiv()
     }
     this.img = this.currentAnimation.img
   	this.div.appendChild(this.img)
@@ -34,7 +32,14 @@ var DomImgSprite = Class.create(DomSprite, {
   	this.img.setStyle({height:"auto"});
     this.render()
   },
-  
+  scaleDiv : function(){
+      var scales = [0.8,1,1.2]
+      //var scale = ((this.owner.coords.y) / (this.owner.scene.view.height - this.defaultShiftY)) * 0.8 + 0.4
+      var scale = scales[this.owner.lane]
+      this.div.style.WebkitTransform += ' scale(' + scale + ')';
+      this.div.style.MozTransform += ' scale(' + scale + ')';
+    
+  },
   switchAnimation : function(name){
     var prevAnimation = this.currentAnimation
     this.currentAnimation = this.animations[name]
@@ -43,8 +48,14 @@ var DomImgSprite = Class.create(DomSprite, {
     this.replaceImg(this.currentAnimation.img)
     this.div.style.width = this.currentAnimation.imgWidth + "px"
     this.div.style.height = this.currentAnimation.imgHeight + "px"
-    if (this.currentAnimation.flipped)this.flipped = true;
-    else this.flipped = false;
+    Util.removeTransform(this.div)
+    if (this.currentAnimation.flipped) {
+      this.flipped = true;
+      Util.flip(this.div)
+    }
+    else 
+      this.flipped = false;
+    this.scaleDiv()
     this.img = this.currentAnimation.img
 	  this.noOfAnimationFrames = this.currentAnimation.noOfFrames
   },

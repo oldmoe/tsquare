@@ -2,7 +2,7 @@ var CrowdMemberDisplay = Class.create(Display,{
   
   noOfFrames : 7,  
   
-  states : ["normal", "hold", "walk","reverse", "front", "back","run","reverseRun"],
+  states : ["normal", "hold", "walk","reverseWalk", "front", "back","run","reverseRun"],
   
   initialize : function($super,owner,properties){
     this.initImages()
@@ -46,33 +46,32 @@ var CrowdMemberDisplay = Class.create(Display,{
 //      height: this.blurImg.height,
 //      shiftX : -(this.characterImg.width - this.blurImg.width)
 //    })
-    this.sprites.health = new DomMeterSprite(this.owner, {
-      meterFunc: function(){
-        return this.owner.hpRatio()
-      },
-      styleClass: {
-        full: 'greenMeter',
-        empty: 'redMeter'
-      }
-    });
+   
     this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : 7})
     this.sprites.character.createAnimation({name:'hold',img:this.holdImg,noOfFrames:1})
     this.sprites.character.createAnimation({name:'walk',img:this.walkImg,noOfFrames:8})
     this.sprites.character.createAnimation({name:'front',img:this.frontImg,noOfFrames:4})
     this.sprites.character.createAnimation({name:'back' ,img:this.backImg,noOfFrames:4})
     this.sprites.character.createAnimation({name:'run'  ,img:this.runImg,noOfFrames:6})
-    this.sprites.character.createAnimation({name:'reverse'  ,img:this.walkImg,noOfFrames:8, flipped : true})
+    this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:8, flipped : true})
     this.sprites.character.createAnimation({name:'reverseRun'  ,img:this.runImg, noOfFrames:6, flipped : true})
-   
-    this.sprites.water = new DomMeterSprite(this.owner, {
+     this.sprites.health = new ImgMeterSprite(this.owner,
+    {empty:Loader.images.gameElements['health_meter_empty.png'] ,full:Loader.images.gameElements['health_meter.png']},
+     {
+      meterFunc: function(){
+        return this.owner.hpRatio()
+      },
+      orientation : 'vertical',
+      shiftX : 20
+    });
+    this.sprites.water = new ImgMeterSprite(this.owner,
+    {empty:Loader.images.gameElements['hydration_meter_empty.png'] ,full:Loader.images.gameElements['hydration_meter.png']},
+     {
       meterFunc: function(){
         return this.owner.waterRatio()
       },
-      styleClass: {
-        full: 'blueMeter',
-        empty: 'whiteMeter'
-      },
-      shiftY : 5
+      orientation : 'vertical',
+      shiftX : 50
     });
   },
   

@@ -1,6 +1,6 @@
 var CrowdHandler = Class.create(UnitHandler, {
    type : "left",   
-   initialPositions : [{x:150,y:30},{x:150,y:100},{x:150,y:200}],
+   initialPositions : [{x:150,y:30},{x:150,y:110},{x:150,y:200}],
    crowdMembersPerColumn : 2,
    marchingStates: ["normal", "walk", "jog", "run"],//display
    commands: ["circle", "hold", "march", "retreat"],
@@ -197,7 +197,6 @@ var CrowdHandler = Class.create(UnitHandler, {
       this.target.takePush()
       for (var j = 0; j < this.objects[this.target.lane].length; j++) {
         this.objects[this.target.lane][j].reversePushDirection()
-        this.objects[this.target.lane][j].moved = 0
       }
     }  
    },

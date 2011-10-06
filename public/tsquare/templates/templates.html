@@ -108,7 +108,7 @@
 <textarea style="display:none;" id='missionDetails'>
   <!--Close-->
   <div class="close">
-    <a href="#"><img src="images/game_elements/close_button.png" alt="close" /></a>
+    <a href="javascript:void(0);"><img src="images/game_elements/close_button.png" alt="close" /></a>
   </div>
   <div class="missionWrapper">
   	<div class="missionImages">
@@ -177,18 +177,14 @@
       <!--Timer Bar-->
       <div class="timerBar">
         <div class="timerBarNumbers">
-          <span>${hours}</span>
-          <span>:</span>
-          <span>${minutes}</span>
-          <span>:</span>
-          <span>${seconds}</span>
+          <span id="timer">00:00:00</span>
         </div>
         <img class="positioned" src="images/game_elements/timer.png" alt="Facebook currency bar" />
       </div>
     
       <!--Energy Bar-->
       <div class="energyBar">
-        <span>${energy}</span>
+        <span id="energy">0</span>
         <div class="bar">
           <!--Value to be changed-->
           <table cellpadding="0" cellspacing="0" width="90%">
@@ -204,6 +200,7 @@
     </div>
 </textarea>
 
+
 <textarea style="display:none;" id='friends'>
 	<!--Friends Bar-->
   <div class="friendsBar">
@@ -211,16 +208,16 @@
   	<div class="gameFunctions">
     	<!--Crowd menu button-->
     	<a class="crowdMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace(false);">
-        <span class="loadedImg" imgSrc="images/friends/menu_icon.png" alt="Menu Item" />
+        <span class="loadedImg" imgSrc="images/friends/icon_call.png" alt="Menu Item" />
       </a>
       <!--Marketplace button-->
       <a class="marketplaceMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace(true);">
-        <span class="loadedImg" imgSrc="images/friends/menu_icon.png" alt="Menu Item" />
+        <span class="loadedImg" imgSrc="images/friends/icon_crowds.png" alt="Menu Item" />
       </a>
       <!--Rank button-->
-      <a class="rankMenuItem" href="#"><span class="loadedImg" imgSrc="images/friends/menu_icon.png" alt="Menu Item" /></a>
+      <a class="rankMenuItem" href="javascript:void(0);"><span class="loadedImg" imgSrc="images/friends/icon_ranking.png" alt="Menu Item" /></a>
       <!--Vote button-->
-      <a class="voteMenuItem" href="#"><span class="loadedImg" imgSrc="images/friends/menu_icon.png" alt="Menu Item" /></a>
+      <a class="voteMenuItem" href="javascript:void(0);"><span class="loadedImg" imgSrc="images/friends/icon_vote.png" alt="Menu Item" /></a>
       <a class="homeMenuItem" href="javascript:void(0);" onclick="gameManager.openMainPage();">
         <span class="loadedImg" imgSrc="images/friends/home_icon.png" alt="Menu Item" />
       </a>
@@ -271,7 +268,7 @@
           	<li>
               <!--Friend-->
               <div class="friend">
-                <a href="${friend['url']}">
+                <a href="${friend['url']}" target="_blank">
                   <span class="friendsScore">
                   	<span>${friend['scores'][scoreManager.gameMode]}</span>
                   	<span class="loadedImg" imgSrc="images/friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>

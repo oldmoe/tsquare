@@ -16,27 +16,31 @@ var Enemy = Class.create(Unit, {
      }
      this.maxHp = this.hp
   },
+  
   rotationComplete : function(attack){
-    this.takeHit(attack)
+    if(this.takeHit(attack)) 
+      this.scene.fire("updateScore", [25]);
+    else
+      this.scene.fire("updateScore", [10]);
   },
+  
   tick : function($super){
     $super()
     
     this.updatePosition();
-    
     this.handleCollision();
-    
   },
- 
   
   handleCollision : function(){
   },
+  
   updatePosition: function(){
     if(!this.charging)
       this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);
     else  
       this.move(-(this.scene.currentSpeed * this.scene.direction+this.chargingSpeed), 0);
   },
+  
   setTarget: function(target){
       this.target = target;
   },
@@ -71,9 +75,6 @@ var Enemy = Class.create(Unit, {
         }
     }
     return targetChange  
-  },
-  getHoveringIconState: function(){
-      
   }
 
 });

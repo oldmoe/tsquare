@@ -44,6 +44,7 @@ var Carousel = Class.create( {
         this.listSize =  $$('#' + this.ulId + ' li').length;
         $(this.ulId).style.left = 0;
         $(this.ulId).style.border = 'none';
+        $(this.ulId).style.width = this.width * (lis.length + 1)  + "px";
         if($(this.ulId).getStyle('direction') == 'rtl')
         {
           this.direction = -1;
@@ -76,7 +77,9 @@ var Carousel = Class.create( {
         if(this.last) {
           this.last.carousel = this;
           this.last.observe('click', function(event){
-                                                        Event.element(event).carousel.scrollTo(Event.element(event).carousel.listSize-1);
+                                                        var carousel = Event.element(event).carousel
+                                                        if(carousel.listSize > carousel.displayCount)
+                                                          carousel.scrollTo(Event.element(event).carousel.listSize-1);
                                                     });
         }
         this.checkButtons()

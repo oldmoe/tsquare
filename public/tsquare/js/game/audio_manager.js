@@ -92,7 +92,7 @@ var AudioManager = Class.create({
 		 }
 	},
 	tick : function(){
-		console.log('tempo changed ', this.tempoChanged, 'level changed', this.levelChanged)
+		//console.log('tempo changed ', this.tempoChanged, 'level changed', this.levelChanged)
 		if(this.index % 2 == 1){
 			// we should play the hetaf here, nothing will change with the beats though
 			this.index++

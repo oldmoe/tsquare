@@ -32,6 +32,13 @@ var SocialEngine = Class.create(FBConnect, {
     socialEngine.requestFromNoneAppUsers({'title' :'Invite your friends', 'message':'Revolt with me !!!'}, function(){});
   },
 
+  sendFriendRequest : function(id, message, data){
+    var request = {};
+    request['message'] = message;
+    request['data'] = data;
+    this.requestFromId(id, request);
+  },
+
   sendRequest : function(request){
     var fbCallback = function(requests_data){
       var requests = {};

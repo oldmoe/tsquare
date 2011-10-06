@@ -37,7 +37,8 @@ var ScoreManager = Class.create({
     $('scoresInProgress').show();
     new Loader().load([ {images : ["1.png", "2.png", "3.png", 
                                   "friend_box.png", "friends_bar.png", "friendsRank.png", "friendsScore.png", "functions_background.png",
-                                  "home_icon.png", "menu_icon.png", "worldRank.png", "inviteFriends.png"], 
+                                  "home_icon.png", "menu_icon.png", "worldRank.png", "inviteFriends.png", "icon_crowds.png", "icon_call.png",
+                                  "icon_ranking.png", "icon_vote.png"],
                           path: 'images/friends/', store: 'friends' }, 
                         {images : ["first_button.png", "last_button.png", 'next_button.png', 'previous_button.png'], 
                           path: 'images/game_elements/', store: 'game_elements' }
@@ -47,6 +48,15 @@ var ScoreManager = Class.create({
                           self.loadFriendsTab('global');
                         }
                       });
+  },
+
+  show : function(){
+    $('scores').setStyle({'visibility' : 'visible'});
+  },
+  
+  hide : function(){
+    $('scores').setStyle({'visibility' : 'hidden'});
+    $('scoresInProgress').setStyle({'visi‎bility' : 'hidden'});
   },
 
   loadFriendsTab : function(gameMode) {
@@ -135,13 +145,14 @@ var ScoreManager = Class.create({
         }        
       }
     }
+    if(self.carousel) self.carousel.destroy();
+    $('scores').innerHTML = '';
     $('scores').innerHTML = this.templateManager.load('friends', params);
     Game.addLoadedImagesToDiv('scores');
-    if(self.carousel) self.carousel.destroy();      
+    this.attachListeners();
     self.carousel = new Carousel("friends", self.images, 5);
     self.carousel.scrollTo(rank);
     self.carousel.checkButtons();
-    this.attachListeners();
     $('scoresInProgress').hide();
   },
 

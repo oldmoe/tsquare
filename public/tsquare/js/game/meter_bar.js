@@ -19,12 +19,12 @@ var MeterBar = Class.create({
                       });
   },
 
-  energyBar : function(){
-    return $$('.energyBar')[0];
+  hide : function(){
+    $('meterBar').hide();
   },
 
-  experienceBar : function(){
-    return $$('.experienceBar')[0];
+  show : function(){
+    $('meterBar').show();
   },
 
   display : function(){
@@ -50,6 +50,8 @@ var MeterBar = Class.create({
     var experienceBarFill = experienceNewWidth * this.experienceBarWidth;
     $$('.experienceBar .bar table')[0].setStyle({ 'width' : experienceBarFill });
     if(experienceBarFill == 0) $$('.experienceBar .bar table')[0].hide();
+    /* update user coins */
+    $$('.gameCurrencyBar span')[0].innerHTML = this.gameManager.userData.coins;
   },
 
   energyGain : function(){
@@ -78,7 +80,7 @@ var MeterBar = Class.create({
     for(var i in this.gameManager.gameData.ranks)
     {
       var rank = this.gameManager.gameData.ranks[i];
-      if(this.gameManager.userData.scores.global > rank.lower_exp &&  this.gameManager.userData.scores.global < rank.upper_exp)
+      if(this.gameManager.userData.scores.global >= rank.lower_exp &&  this.gameManager.userData.scores.global < rank.upper_exp)
       {
         userRank = rank;
         break;

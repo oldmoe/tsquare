@@ -38,6 +38,7 @@ var TsquareScene = Class.create(Scene,{
             "enemy" : new EnemyHandler(this),  
             "npc" : new NPCHandler(this)
         };  
+        this.view.xPos = 0
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         for (var i = 0; i < this.data.length; i++) {

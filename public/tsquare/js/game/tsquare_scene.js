@@ -114,7 +114,7 @@ var TsquareScene = Class.create(Scene,{
     },
     
     updateScore: function(score){
-      console.log("score : " + score);
+      //console.log("score : " + score);
       this.scoreCalculator.updateScore(score);
     },
     

@@ -5,6 +5,8 @@ var Follower = Class.create(Unit,{
     
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)
+    this.crowd = options.crowd
+    this.target = this.crowd.target
   	this.hp = 1;
   },
   init: function($super, options){

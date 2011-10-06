@@ -46,7 +46,6 @@ var GameManager = Class.create({
     self.missionManager.hide();
     self.game.show();
     this.missionManager.load(id, function(missionData){
-      self.game.reset();
       self.game.play(missionData.data);
     });
   },

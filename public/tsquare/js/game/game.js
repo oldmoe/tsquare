@@ -139,6 +139,7 @@ var Game = Class.create({
   start : function(){
     var self = this;
     if(this.imagesLoaded == true && this.missionLoaded == true) {
+      this.game.reset();
       this.scene = new TsquareScene();
       this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
 	  	this.scene.start();

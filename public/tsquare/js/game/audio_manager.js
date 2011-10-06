@@ -48,13 +48,13 @@ var AudioManager = Class.create({
 			{tempo: 130, beats : [{beat : 0, volume : 12}]},
 			{tempo: 130, beats : [{beat : 0, volume : 18}]},
 			{tempo: 130, beats : [{beat : 0, volume : 24}]},
+			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 2, volume : 48}]},
 			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 5, volume : 48}]},
-			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 2, volume : 96}]},
 			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 1, volume : 48}]},
 			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 3, volume : 48}]},
-			{tempo: 140, beats : [{beat : 0, volume : 24}, {beat : 3, volume : 64}]},
+			{tempo: 140, beats : [{beat : 0, volume : 24}, {beat : 3, volume : 96}]},
 			{tempo: 150, beats : [{beat : 0, volume : 24}, {beat : 3, volume : 80}]},
-			{tempo: 160, beats : [{beat : 0, volume : 24}, {beat : 3, volume : 96}]}
+			{tempo: 160, beats : [{beat : 0, volume : 24}, {beat : 3, volume : 80}]}
 		]
 		
 		var self = this
@@ -107,7 +107,7 @@ var AudioManager = Class.create({
 		if(this.tempoChanged){
 			this.tempoChanged = false
 			for(var i=0; i < this.nowPlaying.length; i++){
-				Audio.Fade(this.nowPlaying[i], 0, this.durations[this.level.tempo]/2, this.reactor, function(s){s.stop()})
+				Audio.Fade(this.nowPlaying[i], 0, this.durations[this.level.tempo]/8, this.reactor, function(s){s.stop()})
 			}
 			this.nowPlaying = []			
 			for(var i=0; i< this.levelBeats[this.level.tempo].length; i++){
@@ -119,9 +119,10 @@ var AudioManager = Class.create({
 			}
 			for(var i=0; i < this.level.beats.length;i++){
 				var sound = this.level.beats[i].beat
-				sound.setVolume(0)
+				//sound.setVolume(0)
 				sound.unmute()
-				Audio.Fade(sound, this.level.beats[i].volume, this.durations[this.level.tempo], this.reactor)
+				sound.setVolume(this.level.beats[i].volume)
+				//Audio.Fade(sound, this.level.beats[i].volume, this.durations[this.level.tempo], this.reactor)
 			}
 			this.reactor.pushEvery(0, this.reactor.timeToTicks(this.durations[this.level.tempo]), this.tick, this)
 			return false // return false so we stop the current periodical reactor

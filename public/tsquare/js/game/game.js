@@ -162,10 +162,8 @@ var Game = Class.create({
   },
   
   reset : function(){
-    console.log("here", $("container"), $("gameCanvas"))
     $("container").innerHTML = ""
     $("gameCanvas").innerHTML = ""
-    console.log("here", $("container"), $("gameCanvas").childElements().length)
   },
 
   addLoadedImagesToDiv: function(divId){

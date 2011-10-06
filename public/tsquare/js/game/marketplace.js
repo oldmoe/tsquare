@@ -25,8 +25,12 @@ var Marketplace = Class.create({
     
     this.myMembers = this.gameManager.userData.crowd_members;
     
-    new Loader().load([ {images : ["my_stuff_title.png", "buy_window_title.png", "close_button.png", "tab_background.png"],
-                                     path: 'images/marketplace/', store: 'marketplace'}], {
+    new Loader().load([ {images : ["my_stuff_title.png", "buy_window_title.png", "tab_background.png", "dialog_box.png",
+                               'item_background.png', 'item_title_background.png', 'item_details.png', 'link_button.png', 
+                                'Linked_background.png' ],
+                                     path: 'images/marketplace/', store: 'marketplace'},
+                        {images : ["close_button.png", "first_button.png", "last_button.png", 'next_button.png', 'previous_button.png'], 
+                          path: 'images/game_elements/', store: 'game_elements' }], {
       onFinish : function(){}
     });
     

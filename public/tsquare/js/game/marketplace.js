@@ -177,9 +177,12 @@ var Marketplace = Class.create({
       });
       socialEngine.getUsersInfo(userIDS, function(users){
         users.each(function(user){
-          $$('#' + user.uid + "'").each(function(image){
-           image.src = user.pic_square;
-            image.title = user.name;
+          $$('.linkedMember').each(function(image){
+            if(image.id == user.uid) 
+            {
+              image.src = user.pic_square;
+              image.title = user.name;
+            }
           });
         })
       })

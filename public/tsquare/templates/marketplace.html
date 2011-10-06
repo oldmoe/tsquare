@@ -99,12 +99,10 @@
         </div>
         <!--Crowed Image-->
         <div class="crowedItemImage">
-          <img id=${item.codeName} 
-               memberID="${item.memberID}" 
-               class="positioned" 
-               src="images/marketplace/members/${item.codeName}.png" 
-               alt="Crowd" 
-               style="width:95px;" />
+          <span class="loadedImg" imgSrc="images/marketplace/${item.codeName}.png" 
+               imgId=${item.codeName}${item.memberID}
+               imgClasses="positioned" 
+               imgStyle="width:95px;" >
         </div>
         {if screen == "marketplace"}
           <div onclick="gameManager.marketplace.buy({category : 'marketMembers', name : '${item.codeName}', buyID : '${item.buyID}' })" class="crowedItemDetails">

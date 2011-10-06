@@ -205,7 +205,10 @@ Game.addLoadedImagesToDiv = function(divId){
     for (var i = 0; i < imgPath.length; i++) {
       imgPart = imgPart[imgPath[i]]
     }
-    var img = $(imgPart).clone()
+    if($(imgPart))
+    {
+      img = $(imgPart).clone()
+    }
     var parent = $(imgSpan.parentNode)
     img = parent.insertBefore(img, imgSpan)
     parent.removeChild(imgSpan)
@@ -223,5 +226,7 @@ Game.addLoadedImagesToDiv = function(divId){
     var style = imgSpan.getAttribute('imgStyle')
     if (style) 
       img.setAttribute('style', style)
+    if (imgSpan.getAttribute('alt')) 
+      img.setAttribute('alt', imgSpan.getAttribute('alt'));
   })
 }

@@ -160,6 +160,13 @@ var Game = Class.create({
       $('inProgress').show()
   },
   
+  reset : function(){
+    console.log("here", $("container"), $("gameCanvas"))
+    $("container").innerHTML = ""
+    $("gameCanvas").innerHTML = ""
+    console.log("here", $("container"), $("gameCanvas").childElements().length)
+  },
+
   addLoadedImagesToDiv: function(divId){
     $$('#' + divId + ' .loadedImg').each(function(imgSpan){
       var classes = null

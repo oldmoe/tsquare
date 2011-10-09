@@ -3,11 +3,11 @@ var TsquareScene = Class.create(Scene,{
     handlers: null,
     skyline: null,
     currentSpeed : 0,
-    speeds : [
-      {state :'crowd_member_animation_normal' , value : 0 ,energy : 0, followers: 1},
-      {state :'crowd_member_animation_walk' , value : 3 ,energy : 1, followers: 1},
-      {state :'crowd_member_animation_jog' ,  value : 10,energy : 10, followers: 1},
-      {state :'crowd_member_animation_run' ,  value : 15,energy : 20, followers: 1}
+    speeds : [//the following states for the crowd members
+      {state :'normal' , value : 0 ,energy : 0, followers: 1},
+      {state :'walk' , value : 3 ,energy : 1, followers: 1},
+      {state :'jog' ,  value : 10,energy : 10, followers: 1},
+      {state :'run' ,  value : 15,energy : 20, followers: 1}
     ],
     currentCommand: 0,
     speedIndex : 0,

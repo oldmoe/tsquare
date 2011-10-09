@@ -1,18 +1,34 @@
 var CrowdHandler = Class.create(UnitHandler, {
+   
    type : "left",   
    initialPositions : [{x:150,y:30},{x:150,y:110},{x:150,y:200}],
    crowdMembersPerColumn : 2,
    marchingStates: ["normal", "walk", "jog", "run"],//display
    commands: ["circle", "hold", "march", "retreat"],
    currentId : 0,
+   
    initialize: function($super,scene){
        $super(scene)
        this.addCommandObservers();
+       this.addMarchingStates();
        var self = this;
        this.scene.observe("increaseFollowers", function(num){self.increaseFollowers(num)});
        this.scene.observe("decreaseFollowers", function(num){self.decreaseFollowers(num)});
    },
-   
+  
+    addMarchingStates: function(){
+       var self = this
+       this.marchingStates.each(function(event){
+          self.scene.observe(event,function(){
+           for(var i=0;i<self.objects.length;i++){
+             for(var j=0;j<self.objects[i].length;j++){
+                 if(self.objects[i][j])self.objects[i][j].fire(event);
+             }
+           }          
+          }); 
+       });
+    }, 
+     
     tick : function($super){
       if(this.pushing)this.pushMove()
       else $super()

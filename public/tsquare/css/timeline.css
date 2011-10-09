@@ -1,4 +1,4 @@
-#home, #timeline { margin:0 auto; position:relative; top:20px; width:760px; z-index:10;}
+#home, #timeline { margin:0 auto; position:relative; top:20px; width:970px; z-index:10;}
 #missions { position:relative; top:0px; margin:0 auto; }
 
 /*--------Home Screen-----------*/
@@ -35,21 +35,25 @@
 .timelineMissions { height:200px; overflow:hidden; position:relative; }
 .timelineBar .missionsContainer { position:relative; height:200px; width:94%; margin:0 auto; overflow:hidden; display:inline-block; margin:0px 0px 0px -2%;}
 .timelineMissions ul { float:left; width:5000px; position:absolute; top:70px; z-index:5;  }
-.timelineMissions li { float:left; width:auto; margin:0 43.5px;  }
+.timelineMissions li { float:left; width:auto; margin:0 33.5px;  }
 .timelineMissions li a.hover { display:none; }
- .timelineMissions li.glowing img { -webkit-border-radius: 50px; -moz-border-radius: 50px; border-radius: 50px; -webkit-box-shadow: 0px 0px 24px #007ca9; -moz-box-shadow: 0px 0px 24px #007ca9; box-shadow: 0px 0px 24px #007ca9; }
+ .timelineMissions li.glowing img { -webkit-border-radius: 50px; -moz-border-radius: 50px; border-radius: 50px; -webkit-box-shadow: 0px 0px 24px #007ca9; -moz-box-shadow: 0px 0px 24px #007ca9; box-shadow: 0px 0px 20px #007ca9; }
 .timelineMissions li a.normal { display:inline; }
-.timelineMissions li.selected { margin:-25px 16px 16px; position:relative; }
+.timelineMissions li.selected { margin:-25px 5px 16px; position:relative; }
 .timelineMissions li.selected a.hover { display:inline;  text-decoration:none;}
 .timelineMissions li.selected a.normal { display:none; }
-.timelineMissions li.selected span { position:absolute; font-size:1.4em; font-weight:bold; top:30px; width:90%; padding:5%; text-align:center; color:#763d00; text-shadow:1px 1px 0 #d7bd47;}
+.timelineMissions li.selected span { position:absolute; font-size:1.2em; font-weight:bold; top:30px; width:90%; padding:5%; text-align:center; color:#763d00; text-shadow:1px 1px 0 #d7bd47;}
 
 .walkingCrowdMemeber { position:absolute; top:128px; }
 
 .timelineMissions .rightControls { display:inline-block; float:none; position:relative; top:20px; vertical-align:top; z-index:2; right:0px; overflow:hidden; height:72px; margin:0px 0px 0px -2%;}
 .timelineMissions .leftControls { display:inline-block; float:none; position:relative; top:20px; vertical-align:top; z-index:2; left:0px; overflow:hidden; height:72px;}
-.timelineMissions .leftControls .left, .timelineMissions .rightControls .right{height:33px; overflow:hidden; position:relative;}
-.timelineMissions .leftControls .first, .timelineMissions .rightControls .last{height:33px; overflow:hidden; position:relative;}
+.timelineMissions .leftControls .left, .timelineMissions .rightControls .right{height:33px; overflow:hidden; position:relative; margin:0 0 5px 0;}
+.timelineMissions .leftControls .first, .timelineMissions .rightControls .last{height:33px; overflow:hidden; position:relative; margin:0 0 5px 0;}
 
-.timelineMissions .rightControls img.rightOff, .timelineMissions .leftControls img.leftOff { position:absolute; top:0px; }
-.timelineMissions .rightControls img.rightOn, .timelineMissions .leftControls img.leftOn { position:absolute; top:-33px; }
+.timelineMissions .rightControls img.rightOff, .timelineMissions .leftControls img.leftOff { position:absolute; top:0px; margin:0 0 5px 0; }
+.timelineMissions .rightControls img.rightOn, .timelineMissions .leftControls img.leftOn { position:absolute; top:-33px; margin:0 0 5px 0; }
+
+.friendScore { position:absolute; width:175px; height:67px; left:337px; top:-66px; }
+.smallImageWrapper { position:relative; float:left; width:33px; height:33px; z-index:8; border:3px solid #887103; margin:7px 0 0 9px; }
+.friendScore h3, .friendScore h5 { color:#362c00; text-shadow:1px 1px 0 #e2c231; position:relative; z-index:9; float:left; width: 114px; margin:5px 0 0 3px; padding:0; }

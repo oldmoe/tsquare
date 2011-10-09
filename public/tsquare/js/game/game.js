@@ -139,6 +139,7 @@ var Game = Class.create({
   start : function(){
     var self = this;
     if(this.imagesLoaded == true && this.missionLoaded == true) {
+      this.reset();
       this.scene = new TsquareScene();
       this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
 	  	this.scene.start();
@@ -160,6 +161,11 @@ var Game = Class.create({
       $('inProgress').show()
   },
   
+  reset : function(){
+    $("container").innerHTML = ""
+    $("gameCanvas").innerHTML = ""
+  },
+
   addLoadedImagesToDiv: function(divId){
     $$('#' + divId + ' .loadedImg').each(function(imgSpan){
       var classes = null
@@ -205,7 +211,10 @@ Game.addLoadedImagesToDiv = function(divId){
     for (var i = 0; i < imgPath.length; i++) {
       imgPart = imgPart[imgPath[i]]
     }
-    var img = $(imgPart).clone()
+    if($(imgPart))
+    {
+      img = $(imgPart).clone()
+    }
     var parent = $(imgSpan.parentNode)
     img = parent.insertBefore(img, imgSpan)
     parent.removeChild(imgSpan)
@@ -223,5 +232,7 @@ Game.addLoadedImagesToDiv = function(divId){
     var style = imgSpan.getAttribute('imgStyle')
     if (style) 
       img.setAttribute('style', style)
+    if (imgSpan.getAttribute('alt')) 
+      img.setAttribute('alt', imgSpan.getAttribute('alt'));
   })
 }

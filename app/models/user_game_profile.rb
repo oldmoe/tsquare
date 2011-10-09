@@ -1,7 +1,7 @@
 class UserGameProfile < DataStore::Model
 
   SEP = '-'.freeze
-  CURRENT_VERSION = 12
+  CURRENT_VERSION = 13
 
   index :timeline_score, :method => :timeline_index
   index :racing_score, :method => :racing_index

@@ -15,7 +15,6 @@ var GameManager = Class.create({
   initializeData : function(data){
     self = this;
     self.userData = data.user_data.data;
-    self.userData.crowd_members = data.user_data.data.crowd_members;
     self.userData.coins = data.user_data.coins;
     self.gameData = data.game_data.data;
     self.missions = data.missions_data.data;

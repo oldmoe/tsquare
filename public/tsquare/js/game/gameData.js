@@ -21,7 +21,7 @@ var missionData = {
       "x": 1,
       "order": 1
   }
- ,{
+  ,{
       "name": "journalist_rescue",
       "category": 'rescue',
       "type": '3_3',

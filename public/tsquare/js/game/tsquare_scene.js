@@ -38,6 +38,7 @@ var TsquareScene = Class.create(Scene,{
             "enemy" : new EnemyHandler(this),  
             "npc" : new NPCHandler(this)
         };  
+        this.view.xPos = 0
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         for (var i = 0; i < this.data.length; i++) {
@@ -114,7 +115,7 @@ var TsquareScene = Class.create(Scene,{
     },
     
     updateScore: function(score){
-      console.log("score : " + score);
+      //console.log("score : " + score);
       this.scoreCalculator.updateScore(score);
     },
     
@@ -137,8 +138,6 @@ var TsquareScene = Class.create(Scene,{
         this.win = win
         this.reactor.stop()
         this.audioManager.stop()
-        $("container").innerHTML = ""
-        $("gameCanvas").innerHTML = ""
         this.fire('end', [{
           score: 1000,
           objectives: 0.6,
@@ -149,7 +148,6 @@ var TsquareScene = Class.create(Scene,{
     }
     //send to the server
   },
-  
   addObject : function(objHash){
      var klassName = objHash.name.formClassName()
      var klass = eval(klassName)

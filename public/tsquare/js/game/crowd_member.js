@@ -132,7 +132,7 @@ var CrowdMember = Class.create(Unit,{
           this.currentAction = "circle";
           this.rotating = true 
           this.addRotationPoints(this.target)
-          this.scene.fire("crowd_member_animation_"+this.rotationPoints[0].state)
+          this.fire(this.rotationPoints[0].state)
           for(var i=0; this.followers && i<this.followers.length; i++){
             this.followers[i].circle();
           }          
@@ -239,7 +239,7 @@ var CrowdMember = Class.create(Unit,{
       if (this.coords.x <= rp.values.x + 0.001 && this.coords.x >= rp.values.x - 0.001 &&
       this.coords.y <= rp.values.y + 0.001 &&this.coords.y >= rp.values.y - 0.001) {
           this.rotationPoints.shift()
-          if(this.rotationPoints.length > 0 ) this.scene.fire("crowd_member_animation_"+this.rotationPoints[0].state)
+          if(this.rotationPoints.length > 0 ) this.fire(this.rotationPoints[0].state)
       }
   },
   
@@ -256,7 +256,7 @@ var CrowdMember = Class.create(Unit,{
   
   resetRotation : function(){
     this.rotationPoints = []
-    this.scene.fire(this.scene.speeds[this.scene.speedIndex].state)
+    this.fire(this.scene.speeds[this.scene.speedIndex].state)
     this.rotating = false
   },
   

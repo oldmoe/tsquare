@@ -21,7 +21,7 @@ var TearGasEnemyDisplay = Class.create(EnemyDisplay,{
   registerEvents : function(){
     var self = this
     this.states.each(function(state){
-      self.owner.scene.observe(state,function(){
+      self.owner.observe(state,function(){
         self[state]();
       })
     })

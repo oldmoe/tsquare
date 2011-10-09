@@ -54,6 +54,6 @@
 .timelineMissions .rightControls img.rightOff, .timelineMissions .leftControls img.leftOff { position:absolute; top:0px; margin:0 0 5px 0; }
 .timelineMissions .rightControls img.rightOn, .timelineMissions .leftControls img.leftOn { position:absolute; top:-33px; margin:0 0 5px 0; }
 
-.friendScore { position:absolute; width:175px; height:67px; left:407px; top:-66px; }
+.friendScore { position:absolute; width:175px; height:67px; left:337px; top:-66px; }
 .smallImageWrapper { position:relative; float:left; width:33px; height:33px; z-index:8; border:3px solid #887103; margin:7px 0 0 9px; }
 .friendScore h3, .friendScore h5 { color:#362c00; text-shadow:1px 1px 0 #e2c231; position:relative; z-index:9; float:left; width: 114px; margin:5px 0 0 3px; padding:0; }

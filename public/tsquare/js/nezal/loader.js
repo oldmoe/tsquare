@@ -133,32 +133,46 @@ var Loader = Class.create({
   },
   
   load_sounds : function(src, options){
-	var self = this
-	var sound = null
-	if(soundManager && soundManager.ok()){
-		sound = soundManager.createSound({
-			id : src.split('.')[0],
-			url : src,
-			autoPlay : false,
-			autoLoad : true,
-			volume : 100,
-			multiShot : true,
-			onload : function(){self.onload(options)}	
-		})
-	}else{
-		sound = new Audio
-		sound.onload = function(){self.onload(options)}
-		sound.src
-	}
+	  var self = this
+	  var sound = null
+	  if(soundManager && soundManager.ok()){
+		  sound = soundManager.createSound({
+			  id : src.split('.')[0],
+			  url : src,
+			  autoPlay : false,
+			  autoLoad : true,
+			  volume : 100,
+			  multiShot : true,
+			  onload : function(){self.onload(options)}	
+		  })
+	  }else{
+		  sound = new Audio
+		  sound.onload = function(){self.onload(options)}
+		  sound.src
+	  }
     return sound
   },
   load_animations :function(src,options){
     return this.load_images(src,options)
+  },
+  load_htmls : function(src, options){
+    var self = this;
+    var content = {html : ''};
+    new Ajax.Request(src, {
+      method : 'get',
+      asynchronous : true,
+      onSuccess: function(response) {
+        content.html = response.responseText;
+        self.onload(options);
+      }
+    })
+    return content;
   }
 })
 
 Loader.images ={}
 Loader.sounds = {}
 Loader.animations = {}
-Loader.resourceTypes = ['images', 'sounds','animations']
+Loader.htmls = {} 
+Loader.resourceTypes = ['images', 'sounds','animations', 'htmls']
 

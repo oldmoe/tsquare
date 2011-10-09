@@ -1,18 +1,20 @@
 var TemplatesManager = Class.create({
   initialize : function(network){
+    var templates = ['templates.html', 'marketplace.html', 'missions.html', 'notifications.html'];
     var templatesRootNode = $(document.createElement('div'));
-    network.fetchTemplate( "templates/templates.html", function(responseText){
-      templatesRootNode.innerHTML = responseText;
-      network.fetchTemplate( "templates/marketplace.html", function(responseText){
-        templatesRootNode.innerHTML += responseText;
-        network.fetchTemplate( "templates/missions.html", function(responseText){
-          templatesRootNode.innerHTML += responseText;
-          templatesRootNode.select('textarea').each(function(node){
-              node.setAttribute('id', node.getAttribute('id') + "-template");
-          });
-        });
-      });
-    });
+    templatesRootNode.innerHTML = '';
+    new Loader().load([{ htmls : templates,
+                      path : 'templates/', store: 'templates' }], 
+                      {
+                        onFinish : function(){
+                          templates.each(function(templateName){
+                            templatesRootNode.innerHTML += Loader.htmls.templates[templateName]['html'];
+                          });
+                          templatesRootNode.select('textarea').each(function(node){
+                            node.setAttribute('id', node.getAttribute('id') + "-template");
+                          });
+                        }
+                      });
     $(document.body.appendChild(templatesRootNode)).hide();
   },
 

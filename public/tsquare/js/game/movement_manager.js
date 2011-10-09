@@ -18,18 +18,18 @@ var MovementManager = Class.create({
   initialize : function(scene){
     this.scene = scene
     this.registerListeners()
-    this.playSounds()
+    this.checkUserDelay()
     this.scene.push(this)
   },
 
-  playSounds : function(){
+  checkUserDelay : function(){
    if(this.ticksPassed > this.nextTick+10){
       this.reset()
    } 
    this.nextTick = this.scene.audioManager.nextBeatTicks()
    //Sounds.play(Sounds.gameSounds.beat)
    var self = this
-   this.scene.reactor.push(this.nextTick,function(){self.playSounds()})
+   this.scene.reactor.push(this.nextTick,function(){self.checkUserDelay()})
   },
   
   reset : function(){

@@ -28,7 +28,7 @@ var TsquareScene = Class.create(Scene,{
 		    this.guidingIconDisplay = new GuidingIconDisplay(this.guidingIcon);
         this.scoreCalculator = new ScoreCalculator(this);
         this.createRenderLoop('skyline',2);
-        this.createRenderLoop('characters',3);
+        this.createRenderLoop('characters',2);
         this.createRenderLoop('meters',3);
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
@@ -39,6 +39,8 @@ var TsquareScene = Class.create(Scene,{
             "npc" : new NPCHandler(this)
         };  
         this.view.xPos = 0
+        this.energy =  {current:0, rate: 3,max:30}
+        this.comboMistakes = {current : 0, max : 2}
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         for (var i = 0; i < this.data.length; i++) {

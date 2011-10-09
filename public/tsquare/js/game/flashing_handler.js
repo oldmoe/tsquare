@@ -3,13 +3,17 @@ var FlashingHandler = Class.create({
   initialize : function(scene){
     this.scene = scene
     this.div = $('beatFlash')
-    this.flash()
     this.createObservers()
+    this.repeatFlash()
+//    this.flash()
   },
   flash : function(){
-//    if(this.counter < 4)this.scene.movementManager.process(0)
+    if (this.counter == 4) {
+      console.log('flash end')
+      this.counter = 0
+      return
+    }
     this.counter++
-    if(this.counter==8)this.counter = 0
     var ticks = this.scene.audioManager.nextBeatTicks()
     this.div.show()
     var fadeDuration = (ticks - 4)*this.scene.reactor.delay / 1000
@@ -20,6 +24,12 @@ var FlashingHandler = Class.create({
       })
     }) 
     this.scene.reactor.push(ticks,this.flash,this)
+  },
+  repeatFlash : function(){
+    this.flash()    
+    console.log('repeat')
+    var ticks = this.scene.audioManager.nextLoopTicks()
+    this.scene.reactor.push(ticks,this.repeatFlash,this)
   },
   createObservers : function(){
     var directions = ['leftCorrect','rightCorrect','leftWrong','rightWrong']

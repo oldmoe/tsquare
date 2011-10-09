@@ -25,8 +25,8 @@ Audio.Fade = function(sound, to, duration, reactor, callback){
 var AudioManager = Class.create({
 
 	durations : {
-			130 : 1800,
-			140 : 1700,
+			130 : 1850,
+			140 : 1750,
 			150 : 1600,
 			160 : 1500
 	},
@@ -85,7 +85,9 @@ var AudioManager = Class.create({
 	nextBeatTicks : function(){
 		return this.reactor.timeToTicks(this.durations[this.level.tempo]/4)
 	},
-	 
+	nextLoopTicks : function(){
+    return this.reactor.timeToTicks(this.durations[this.level.tempo])
+  },
 	stop : function(){
 		for(var i=0; i < this.nowPlaying.length; i++){
 			this.nowPlaying[i].stop()
@@ -114,7 +116,7 @@ var AudioManager = Class.create({
 				var sound = this.levelBeats[this.level.tempo][i]
 				sound.mute()
 				sound.loop = true
-				sound.play({ loops : 100000 })
+				sound.play({ loops : 100000, onfinish : function(){console.log('finished')}})
 				this.nowPlaying.push(sound)
 			}
 			for(var i=0; i < this.level.beats.length;i++){

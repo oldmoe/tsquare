@@ -13,11 +13,8 @@ var ImgMeterSprite = Class.create(DomSprite, {
     this.fullDivContainer.appendChild(this.fullImg)
     this.emptyDivContainer = document.createElement('div')
     this.emptyDivContainer.appendChild(this.emptyImg)
-    this.div.appendChild(this.emptyDivContainer);
-    this.div.appendChild(this.fullDivContainer);
     this.emptyDivContainer.addClassName('meterEmpty')
     this.fullDivContainer.addClassName('meterFull')  
-    this.div.addClassName('meter')  
     this.emptyDivContainer.setStyle({'position':'absolute'
                           , height:this.emptyImg.height+"px"
                           , width:this.emptyImg.width+"px"
@@ -26,6 +23,10 @@ var ImgMeterSprite = Class.create(DomSprite, {
                           , height:this.fullImg.width+"px"
                           , width:this.fullImg.height+"px"
                           });
+
+    this.div.appendChild(this.emptyDivContainer);
+    this.div.appendChild(this.fullDivContainer);
+    this.div.addClassName('meter')  
     this.setMeterStyle()
     this.height = this.fullImg.height
     this.width = this.fullImg.width

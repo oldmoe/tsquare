@@ -39,6 +39,7 @@ var TsquareScene = Class.create(Scene,{
             "npc" : new NPCHandler(this)
         };  
         this.view.xPos = 0
+        this.initCounter = 3
         this.energy =  {current:0, rate: 3,max:30}
         this.comboMistakes = {current : 0, max : 2}
         this.data = missionData.data;
@@ -67,17 +68,30 @@ var TsquareScene = Class.create(Scene,{
     },
     
     init: function(){
-        this.skyLine = new SkyLine(this)
-        for(var handler in this.handlers){
-            this.handlers[handler].start()
-        }
-        this.audioManager = new AudioManager(this.reactor)
-        this.movementManager = new MovementManager(this);
-        this.flashingHandler = new FlashingHandler(this)
-        this.audioManager.run()
-        //this.physicsHandler.step()
+       this.skyLine = new SkyLine(this)
+       for(var handler in this.handlers){
+          this.handlers[handler].start()
+       }
+       this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
     },
-    
+    doInit : function(){
+      // take action
+      $('initCounter').show()
+      $('initCounter').innerHTML = this.initCounter
+      Effect.Puff('initCounter')
+      this.initCounter--
+      if (this.initCounter == 0) {
+        this.reactor.push(this.reactor.everySeconds(1), function(){
+          $('initCounter').show()
+          $('initCounter').innerHTML = 'GO!'
+          Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
+          this.audioManager = new AudioManager(this.reactor)
+          this.movementManager = new MovementManager(this);
+          this.audioManager.run()          
+        }, this)
+        return false
+      }
+    },    
     observe: function(event, callback, scope){
         this.reactor.observe(event, callback, scope);
     },

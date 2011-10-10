@@ -17,7 +17,6 @@ var CrowdMemberDisplay = Class.create(Display,{
     var self = this
     this.states.each(function(state){
       self.owner.observe(state,function(){
-        console.log('staaaaate',state)
         self.sprites.character.switchAnimation(state)
         self.sprites.character.currentAnimationFrame = Math.round((Math.random()* self.sprites.character.currentAnimation.noOfFrames-1)) 
       })

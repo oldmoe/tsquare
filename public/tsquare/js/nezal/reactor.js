@@ -2,6 +2,7 @@ var Reactor = Class.create(Observer, {
 	
 	initialize : function($super, delay){
 	  $super();
+    this.delay = delay || 50
 		this.events = []
 		this.ticks = 0
 		this.running = false
@@ -56,7 +57,7 @@ var Reactor = Class.create(Observer, {
 		}
 		this.ticks++
     var delay = new Date().getTime() - time_before
-		setTimeout(function(){self.tick()}, Math.max(this.delay-delay,0))
+		setTimeout(function(){self.tick()}, Math.max(self.delay-delay,0))
 	},
 
 	_eventIndex : function(ticks, insert){

@@ -5,7 +5,7 @@ var CrowdMember = Class.create(Unit,{
   maxWater : 700,
   randomDx : 0,
   randomDy : 0,
-  waterDecreaseRate : 0.1,
+  waterDecreaseRate : 1,
   commandFilters: [],
   rotationPoints : null,
   rotationSpeed : 12,
@@ -25,6 +25,7 @@ var CrowdMember = Class.create(Unit,{
     this.rotationPoints = []
     this.followers = []
     this.name = options.name
+    this.secondTicks = this.scene.reactor.everySeconds(1)
     var self = this
     this.hp = this.maxHp = specs.hp
     this.water = this.maxWater =  specs.water
@@ -98,7 +99,7 @@ var CrowdMember = Class.create(Unit,{
     }  
     this.stateChanged = true
     
-    this.updateState();
+    if(this.scene.reactor.ticks % this.secondTicks == 0)this.updateState();
     
     if(this.followers)this.checkFollowersState();
   },
@@ -119,13 +120,6 @@ var CrowdMember = Class.create(Unit,{
  
   takeHit: function($super, power){
         var hitPower = power;
-//    if(this.currentAction == "hold"){
-//      hitPower = hitPower * (1-this.scene.holdPowerDepression);
-//      this.scene.energy.current += this.scene.energy.rate;
-//    }else{
-//      this.scene.energy.current -= this.scene.energy.rate;
-//    }
-        
         if (this.followers && this.followers.length > 0) {
           this.followers[0].takeHit(hitPower)
         }
@@ -238,7 +232,6 @@ var CrowdMember = Class.create(Unit,{
     }
     if (this.rotationPoints.length == 0) {
       this.fire(this.getMovingState())
-      console.log('fire done')
       this.target.rotationComplete(this.attack)
       this.resetRotation()
       return

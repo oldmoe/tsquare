@@ -4,7 +4,6 @@ var Enemy = Class.create(Unit, {
   charging : false, 
   chargingSpeed : 3,
   hp : 25, attack : 10 , defense : 25, chargeTolerance : 2, circleSize : 1,
-  hitState : null,normalState:null,
   
   initialize : function($super,scene,x,y,options){
      $super(scene,x,y,options)
@@ -59,7 +58,7 @@ var Enemy = Class.create(Unit, {
     if(minIndex!=-1 && minDistance <= this.getWidth()){
         if(this.target == null){
           this.target = targets[minIndex]
-          this.scene.fire(this.hitState)
+          this.fire("hit")
           targetChange = true
         }
         
@@ -70,7 +69,7 @@ var Enemy = Class.create(Unit, {
     }else{
         if (this.target) {
             this.target = null
-            this.scene.fire(this.normalState)
+            this.fire("normal")
             targetChange = true
         }
     }

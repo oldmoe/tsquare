@@ -109,10 +109,25 @@ var Loader = Class.create({
     }
   },
 
+  onerror: function(resource, options){
+    this.loadedResources++;
+    resource.src = '';
+    if(this.loadedResources == this.currentLength){
+      this.loadedResources = 0
+      if(options.onError){
+        options.onError()
+      }
+    } 
+    else if(this.resources.length>0){
+      this.loadResource()
+    }
+  },
+
   load_images : function(src, options){
     var image = new Image();
     var self = this
     image.onload = function(){self.onload(options);}
+    image.onerror = function(){self.onerror(this, options);}
     image.src = src
     return $(image)
   },
@@ -146,3 +161,4 @@ Loader.images ={}
 Loader.sounds = {}
 Loader.animations = {}
 Loader.resourceTypes = ['images', 'sounds','animations']
+

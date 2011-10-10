@@ -3,11 +3,11 @@ var TsquareScene = Class.create(Scene,{
     handlers: null,
     skyline: null,
     currentSpeed : 0,
-    speeds : [
-      {state :'crowd_member_animation_normal' , value : 0 ,energy : 0, followers: 1},
-      {state :'crowd_member_animation_walk' , value : 3 ,energy : 1, followers: 1},
-      {state :'crowd_member_animation_jog' ,  value : 10,energy : 10, followers: 1},
-      {state :'crowd_member_animation_run' ,  value : 15,energy : 20, followers: 1}
+    speeds : [//the following states for the crowd members
+      {state :'normal' , value : 0 ,energy : 0, followers: 1},
+      {state :'walk' , value : 3 ,energy : 1, followers: 1},
+      {state :'jog' ,  value : 10,energy : 10, followers: 1},
+      {state :'run' ,  value : 15,energy : 20, followers: 1}
     ],
     currentCommand: 0,
     speedIndex : 0,
@@ -38,6 +38,7 @@ var TsquareScene = Class.create(Scene,{
             "enemy" : new EnemyHandler(this),  
             "npc" : new NPCHandler(this)
         };  
+        this.view.xPos = 0
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         for (var i = 0; i < this.data.length; i++) {
@@ -137,8 +138,6 @@ var TsquareScene = Class.create(Scene,{
         this.win = win
         this.reactor.stop()
         this.audioManager.stop()
-        $("container").innerHTML = ""
-        $("gameCanvas").innerHTML = ""
         this.fire('end', [{
           score: 1000,
           objectives: 0.6,
@@ -149,7 +148,6 @@ var TsquareScene = Class.create(Scene,{
     }
     //send to the server
   },
-  
   addObject : function(objHash){
      var klassName = objHash.name.formClassName()
      var klass = eval(klassName)

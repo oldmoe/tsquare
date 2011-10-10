@@ -75,10 +75,18 @@ var Timeline = Class.create({
 
   displayMissionDetails : function(id){
     var id = parseInt(id);
-    $$('#timeline .missionDetails')[0].innerHTML = this.templateManager.load('missionDetails', {'mission' : this.gameManager.missions[this.mode][id]});
-    Game.addLoadedImagesToDiv('timeline');
-    this.attachMissionDetailsListeners();
-    $$('.missionDetails')[0].show();
+    var self = this;
+    var callback =  function(){
+        $$('#timeline .missionDetails')[0].innerHTML = self.templateManager.load('missionDetails', {'mission' : self.gameManager.missions[self.mode][id]});
+        Game.addLoadedImagesToDiv('timeline');
+        self.attachMissionDetailsListeners();
+        $$('.missionDetails')[0].show();
+    }
+    new Loader().load([ {images : [id + ".png"], path: 'images/missions/', store: 'missions'}],
+                      {
+                        onFinish: callback,
+                        onError : callback
+                      });
   },
 
   hideMissionDetails : function(){

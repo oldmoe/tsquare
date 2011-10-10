@@ -25,13 +25,23 @@
             <a href="#"><img src="images/game_elements/first_button.png" alt="First" /></a>            	
           </div>
         	<ul>
+          		<!--Finished Mission-->
             	<li id="mission_${mission['id']}">
-                <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_icon.png" alt="mission" /></a>
+                <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_finished.png" alt="mission" /></a>
               	<a href="javascript:void(0)" class="hover">
                 	<span>Name</span>
                 	<img src="images/timeline/mission_icon_selected.png" alt="mission" />
                 </a>
               </li>
+              <!--Current Mission-->
+            	<li id="mission_${mission['id']}">
+                <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_current.png" alt="mission" /></a>
+              	<a href="javascript:void(0)" class="hover">
+                	<span>Name</span>
+                	<img src="images/timeline/mission_icon_selected.png" alt="mission" />
+                </a>
+              </li>
+              <!--Hovered Mission-->
             	<li class="selected" id="mission_${mission['id']}">
                 <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_icon.png" alt="mission" /></a>
               	<a href="javascript:void(0)" class="hover">
@@ -39,8 +49,25 @@
                 	<img src="images/timeline/mission_icon_selected.png" alt="mission" />
                 </a>
               </li>
+              <!--Challenged Mission-->
+              <div class="friendScore">
+              	<div class="smallImageWrapper">
+                	<img src="images/dummy/facebook_image.png" alt="Facebook Image"/>
+                </div>
+                <h3>Michael Youssef</h3>
+                <h5>3:21</h5>
+                <img class="positioned" src="images/timeline/challenge_box.png" alt="Friend score" />
+              </div>
             	<li class="glowing" id="mission_${mission['id']}">
-                <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_icon.png" alt="mission" /></a>
+                <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_current.png" alt="mission" /></a>
+              	<a href="javascript:void(0)" class="hover">
+                	<span>Name</span>
+                	<img src="images/timeline/mission_icon_selected.png" alt="mission" />
+                </a>       
+              </li>
+          		<!--Locked Mission-->
+            	<li id="mission_${mission['id']}">
+                <a href="javascript:void(0)" class="normal"><img src="images/timeline/mission_locked.png" alt="mission" /></a>
               	<a href="javascript:void(0)" class="hover">
                 	<span>Name</span>
                 	<img src="images/timeline/mission_icon_selected.png" alt="mission" />
@@ -67,10 +94,7 @@
         </div>
 	      <div class="missionWrapper">
         	<div class="missionImages">
-          	<img src="images/timeline/missionImage.gif" alt="Mission Image" />
-            <img src="images/timeline/missionImage.gif" alt="Mission Image" />
-            <img src="images/timeline/missionImage.gif" alt="Mission Image" />
-            <img src="images/timeline/missionImage.gif" alt="Mission Image" />
+          	<img src="images/missions_images/mission_06.jpg" alt="Mission Image" />
           </div>
           <div class="missionContent">
           	<h3>Mission Story</h3>

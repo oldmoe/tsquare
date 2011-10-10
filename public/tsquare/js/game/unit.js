@@ -1,4 +1,4 @@
-var Unit = Class.create({
+var Unit = Class.create(Observer,{
   
   x:0,y:0,
   speed : 1,
@@ -21,7 +21,8 @@ var Unit = Class.create({
   neglected : false,
   scalable: true, // for specifying which object can be scalable
 
-  initialize : function(scene,x,lane, options){
+  initialize : function($super, scene,x,lane, options){
+    $super();
     var self = this
     this.commandFilters = [
       {command: function(){return self.movingToTarget}, callback: function(){self.moveToTargetPoint()}}
@@ -130,7 +131,6 @@ var Unit = Class.create({
       if (this.coords.x + this.getWidth()/2 > target.coords.x){
          return true;
       }
-         
       return false;  
   },
   

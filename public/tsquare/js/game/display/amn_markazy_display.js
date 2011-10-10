@@ -18,7 +18,7 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
   registerEvents : function(){
     var self = this
     this.states.each(function(state){
-      self.owner.scene.observe("amn_markazy_animation_"+state,function(){
+      self.owner.observe(state,function(){
         self[state]();
       })
     })

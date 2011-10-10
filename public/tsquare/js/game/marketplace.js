@@ -24,13 +24,7 @@ var Marketplace = Class.create({
     this.crowd_items = gameData.crowd_items;
     
     this.myMembers = this.gameManager.userData.crowd_members;
-    
-    new Loader().load([ {images : ["my_stuff_title.png", "buy_window_title.png", "close_button.png", "tab_background.png"],
-                                     path: 'images/marketplace/', store: 'marketplace'}], {
-      onFinish : function(){}
-    });
-    
-    
+
     var self = this;
     
     this.adjustedMyMembers = this.adjustMyMembers();
@@ -53,9 +47,18 @@ var Marketplace = Class.create({
                         });
       membersImages.push(item + ".png");
     }
-    new Loader().load([ {images : membersImages, path: 'images/marketplace/members/', store: 'marketplace'}], {
+    new Loader().load([ {images : ["my_stuff_title.png", "buy_window_title.png", "tab_background.png", "dialog_box.png",
+                               'item_background.png', 'item_title_background.png', 'item_details.png', 'link_button.png', 
+                                'Linked_background.png' ],
+                                     path: 'images/marketplace/', store: 'marketplace'},
+                        {images : membersImages,
+                                     path: 'images/marketplace/members/', store: 'marketplace'},
+                        {images : ["close_button.png", "first_button.png", "last_button.png", 'next_button.png', 'previous_button.png'], 
+                          path: 'images/game_elements/', store: 'game_elements' }], {
       onFinish : function(){}
     });
+    
+
   },
   
   gatherSpecs : function(memberName){
@@ -116,15 +119,17 @@ var Marketplace = Class.create({
     $$('#floatingItems')[0].innerHTML = this.templateManager.load('floatingItems', { categoryItems: categoryItems, screen : screen });
     Game.addLoadedImagesToDiv('marketplace');
     $$('#floatingItems li div.crowedItem div.crowedItemImage img').each(function(img){
-      var id = img.id + img.getAttribute("memberID");
-      var offsetLeft = $(id + "_container").offsetLeft + 136;
-      var offsetTop = $(id + "_container").offsetTop;
-      if( offsetTop > 0 ) offsetTop = 110;
-      if( offsetLeft > 408 ){
-        offsetLeft -= 215+136;
-      }
-      $(id + '_details').setStyle({left : offsetLeft + 'px', top : offsetTop + 'px'});
-      img.observe('mouseover', function(event){ $(id + '_details').show(); });
+      var id = img.id;
+      img.observe('mouseover', function(event){ 
+        var offsetLeft = $(id + "_container").offsetLeft + 136;
+        var offsetTop = $(id + "_container").offsetTop;
+        if( offsetTop > 0 ) offsetTop = 110;
+        if( offsetLeft > 408 ){
+          offsetLeft -= 215+136;
+        }
+        $(id + '_details').setStyle({left : offsetLeft + 'px', top : offsetTop + 'px'});
+        $(id + '_details').show(); 
+      });
       img.observe('mouseout', function(event){ $(id + '_details').hide(); });
     });
     this.containerWidth = Math.ceil( categoryItems.size() / this.rows) * this.itemWidth;
@@ -172,8 +177,13 @@ var Marketplace = Class.create({
       });
       socialEngine.getUsersInfo(userIDS, function(users){
         users.each(function(user){
-          $(user.uid).src = user.pic_square;
-          $(user.uid).title = user.name;
+          $$('.linkedMember').each(function(image){
+            if(image.id == user.uid) 
+            {
+              image.src = user.pic_square;
+              image.title = user.name;
+            }
+          });
         })
       })
     }

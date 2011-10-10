@@ -173,13 +173,11 @@ var MovementManager = Class.create({
   },
 
   moveEnd : function(){
-    console.log('combo start',this.comboStart)
-    if(this.comboStart){
+      if(this.comboStart){
         this.comboStart= false
         this.combos++
         if(this.beatAccelaration<9)this.beatAccelaration+=2
         this.currentCombos++
-        console.log('correctMove')
         this.scene.fire('correctMove')
       }
       this.beatMoving = false

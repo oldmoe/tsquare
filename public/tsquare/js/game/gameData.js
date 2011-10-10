@@ -8,7 +8,7 @@ var missionData = {
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 5,
+      "x": 2,
       "order": 1
   }
 /*  
@@ -18,7 +18,7 @@ var missionData = {
       "type": '3_3',
       "index": 0,
       "lane": 1,
-      "x": 1,
+      "x": 3,
       "order": 1
   }
   ,{
@@ -27,7 +27,7 @@ var missionData = {
       "type": '3_3',
       "index": 0,
       "lane": 1,
-      "x": 1,
+      "x": 4,
       "order": 1
   }
 */
@@ -47,14 +47,12 @@ var missionData = {
       "environment":"day","gameModes":["normal"]}
 
 var  crowd_members = { 
-        'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } 
-      ,2 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 }}}
+        'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } }
    }
 
 var userData = {
   'crowd_members' : { 
-        'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } 
-      ,2 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 }}}
+        'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } }
    }, 
   'holder_items' : { 'cap' : 0, 'umbrella' : 0 },
   'special_items' : { },

@@ -22,6 +22,7 @@ var MedicDisplay = Class.create(CrowdMemberDisplay,{
     this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : 7})
     this.sprites.character.createAnimation({name:'hold',img:this.holdImg,noOfFrames:1})
     this.sprites.character.createAnimation({name:'walk',img:this.walkImg,noOfFrames:8})
+    this.sprites.character.createAnimation({name:'jog',img:this.walkImg,noOfFrames:8})
     this.sprites.character.createAnimation({name:'front',img:this.frontImg,noOfFrames:4})
     this.sprites.character.createAnimation({name:'back' ,img:this.backImg,noOfFrames:4})
     this.sprites.character.createAnimation({name:'run'  ,img:this.runImg,noOfFrames:7})

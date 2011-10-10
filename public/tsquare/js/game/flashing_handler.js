@@ -9,7 +9,6 @@ var FlashingHandler = Class.create({
   },
   flash : function(){
     if (this.counter == 4) {
-      console.log('flash end')
       this.counter = 0
       return
     }
@@ -27,7 +26,6 @@ var FlashingHandler = Class.create({
   },
   repeatFlash : function(){
     this.flash()    
-    console.log('repeat')
     var ticks = this.scene.audioManager.nextLoopTicks()
     this.scene.reactor.push(ticks,this.repeatFlash,this)
   },

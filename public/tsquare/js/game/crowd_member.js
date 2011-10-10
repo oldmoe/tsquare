@@ -5,7 +5,7 @@ var CrowdMember = Class.create(Unit,{
   maxWater : 700,
   randomDx : 0,
   randomDy : 0,
-  waterDecreaseRate : 0.05,
+  waterDecreaseRate : 0.1,
   commandFilters: [],
   rotationPoints : null,
   rotationSpeed : 12,
@@ -28,6 +28,7 @@ var CrowdMember = Class.create(Unit,{
     var self = this
     this.hp = this.maxHp = specs.hp
     this.water = this.maxWater =  specs.water
+    this.water = this.maxWater = 100
     this.attack = specs.attack || 0
     this.defense = specs.defense || 0 
     var crowdCommandFilters = [
@@ -82,7 +83,14 @@ var CrowdMember = Class.create(Unit,{
     }
       
   },
-  
+  fire : function($super,event){
+    if (this.followers) {
+      for (var i = 0; i < this.followers.length; i++) {
+        this.followers[i].fire(event)
+      }
+    }
+    $super(event)
+  },
   tick : function($super){
     $super()
     if(!this.movinngToTarget && Math.abs(this.coords.x - this.originalPosition.x) > 0.1 || Math.abs(this.coords.y!=this.originalPosition.y) >0.1){
@@ -228,19 +236,23 @@ var CrowdMember = Class.create(Unit,{
       this.resetRotation()
       return
     }
-      if (this.rotationPoints.length == 0) {
-        this.target.rotationComplete(this.attack)
-        this.resetRotation()
-        return
-      }
-      var rp = this.rotationPoints[0]
-      var move = Util.getNextMove(this.coords.x,this.coords.y,rp.values.x,rp.values.y,this.rotationSpeed)
-      this.move(move[0],move[1])
-      if (this.coords.x <= rp.values.x + 0.001 && this.coords.x >= rp.values.x - 0.001 &&
-      this.coords.y <= rp.values.y + 0.001 &&this.coords.y >= rp.values.y - 0.001) {
-          this.rotationPoints.shift()
-          if(this.rotationPoints.length > 0 ) this.fire(this.rotationPoints[0].state)
-      }
+    if (this.rotationPoints.length == 0) {
+      this.fire(this.getMovingState())
+      console.log('fire done')
+      this.target.rotationComplete(this.attack)
+      this.resetRotation()
+      return
+    }
+    var rp = this.rotationPoints[0]
+    var move = Util.getNextMove(this.coords.x,this.coords.y,rp.values.x,rp.values.y,this.rotationSpeed)
+    this.move(move[0],move[1])
+    if (this.coords.x <= rp.values.x + 0.001 && this.coords.x >= rp.values.x - 0.001 &&
+    this.coords.y <= rp.values.y + 0.001 &&this.coords.y >= rp.values.y - 0.001) {
+        this.rotationPoints.shift()
+        if (this.rotationPoints.length > 0) {
+          this.fire(this.rotationPoints[0].state)
+        }
+    }
   },
   
   setTarget: function($super,target){

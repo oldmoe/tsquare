@@ -1,7 +1,7 @@
 #scores { bottom: 0; height: 180px; margin: 0 auto; padding: 0 5px; position: absolute; width:99%; }
 #scoresInProgress{ background:none; bottom: 0; height: 180px; margin: 0 auto; position: absolute; width: 100%; opacity : 0.6; z-index : 5; cursor : progress;}
 /*--------Friends Bar-----------*/
-.friendsBar { margin:0 auto; width:951px; position:relative; }
+.friendsBar { margin:0 auto; width:951px; position:relative; z-index:3; }
 
 .gameFunctions { float:right; width:172px; height:181px; position:relative; z-index:5; }
 .gameFunctionsBackground { position:absolute; }

@@ -1,4 +1,4 @@
-#home, #timeline { margin:0 auto; position:relative; top:20px; width:970px; z-index:10;}
+#home, #timeline { margin:0 auto; position:relative; top:20px; width:970px; z-index:1;}
 #missions { position:relative; top:0px; margin:0 auto; }
 
 /*--------Home Screen-----------*/

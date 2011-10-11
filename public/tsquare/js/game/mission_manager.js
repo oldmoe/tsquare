@@ -33,6 +33,7 @@ var MissionManager = Class.create({
     if(this.imagesLoaded)
     {
       this.eneded = false;
+      this.displayStaticEndScreen();
       score['stars'] = this.calculateStars(score);
       var self = this;
       this.network.postMissionScore( this.currentMission.id, score, function(data){
@@ -45,6 +46,13 @@ var MissionManager = Class.create({
         }
       });
     }
+  },
+  
+  displayStaticEndScreen : function(){
+    $('winLose').innerHTML = this.templateManager.load('staticWinLose');
+    Game.addLoadedImagesToDiv('winLose');
+    this.attachListener();
+    $('winLose').show();
   },
 
   hide : function(){

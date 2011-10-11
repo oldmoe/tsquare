@@ -35,13 +35,17 @@ var Timeline = Class.create({
     var currentMissionIndex = 0;
     for(var i in this.gameManager.missions[this.mode])
     {
-      if(this.gameManager.userData.current_mission[this.mode] == i)
-        currentMissionIndex = i;
       if(this.gameManager.userData.missions[this.mode][i] || this.gameManager.userData.current_mission[this.mode] == i)
         this.gameManager.missions[this.mode][i]['playable'] = true;
       else
         this.gameManager.missions[this.mode][i]['playable'] = false;
-
+    }
+    for(var i in this.gameManager.missions[this.mode])
+    {
+      if(this.gameManager.userData.current_mission[this.mode] != i)
+        currentMissionIndex += 1;
+      else
+        break;
     }
     $('timeline').innerHTML = this.templateManager.load('timeline', {'missions' : this.gameManager.missions[this.mode],
                'currentMission' : this.gameManager.userData.current_mission[this.mode]});

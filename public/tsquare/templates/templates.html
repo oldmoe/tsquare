@@ -73,7 +73,15 @@
           	<ul id="missions-ul">
             {for mission in missions}
             	<li id="mission_${mission['id']}" {if mission['playable'] == true } class="glowing" {/if}>
-                <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_icon.png" alt="mission" /></a>
+                {if mission['id'] == currentMission}
+                  <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_current.png" alt="mission" /></a>
+                {else}
+                  {if mission['playable'] == true}
+                    <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_finished.png" alt="mission" /></a>
+                  {else}
+                    <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_locked.png" alt="mission" /></a>
+                  {/if}
+                {/if}
               	<a href="javascript:void(0)" class="hover">
                 	<span>${mission.name}</span>
                 	<span class="loadedImg" imgSrc="images/timeline/mission_icon_selected.png" alt="mission" />

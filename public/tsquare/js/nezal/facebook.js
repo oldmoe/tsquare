@@ -282,7 +282,7 @@ var FBConnect = {
             
     },
 
-    deleteObject : function(id){
+    deleteObject : function(id, callback){
         FB.api( id, 'delete', function(response){
                             if(callback) callback(response);
               });

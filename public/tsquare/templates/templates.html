@@ -76,10 +76,11 @@
                 {if mission['id'] == currentMission}
                   <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_current.png" alt="mission" /></a>
                 {else}
-                  <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_finished.png" alt="mission" /></a>
-                {/if}
-                {if mission['playable'] != true }
-                  <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_locked.png" alt="mission" /></a>
+                  {if mission['playable'] == true}
+                    <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_finished.png" alt="mission" /></a>
+                  {else}
+                    <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_locked.png" alt="mission" /></a>
+                  {/if}
                 {/if}
               	<a href="javascript:void(0)" class="hover">
                 	<span>${mission.name}</span>

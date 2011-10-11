@@ -1,5 +1,6 @@
 /*--------Win Lose Screen-----------*/
-.winLose { position:relative; top:-200px; width:643px; height:411px; z-index:11; margin:0 auto; }
+.winLose { position:relative; top:-192px; width:643px; height:411px; z-index:11; margin:0 auto; }
+.staticWinLose { top:50px; }
 .winLose .close { z-index:6; left:615px; }
 
 .winLoseTitle { position:absolute; width:300px;  top:10px; left:30px; z-index:6; color:#fff; }

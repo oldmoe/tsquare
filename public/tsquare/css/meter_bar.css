@@ -47,7 +47,7 @@
 .healthMeter span { position:absolute; z-index:8; font-weight:bold; color:#FFF; font-size:.6em; top:13px; width:27px; text-align:center;	 }
 
 /*--------Game meters-----------*/
-.movesWrapper { float:right; width:231px; height:57px; position:relative; z-index:2; top:412px; right:5px; overflow:hidden; }
+.movesWrapper { float:right; width:231px; height:57px; position:relative; z-index:2; top:500px; right:18px; overflow:hidden; }
 .nextMove { float:right; width:70px; height:57px; position:relative; z-index:4; }
 .moveContainer { float:left; width:55px; height:48px; position:relative; z-index:3; margin:5px 0 0 10px;  }
 .movesIndicator { float:right; width:161px; height:37px; position:relative; z-index:2; top:11px; padding:0 0 0 0; }
@@ -59,3 +59,27 @@
 .trigger { float:right; width:13px; height:13px; overflow:hidden; position:relative; z-index:3; left:-143px; top:-12px; }
 .triggered { float:right; width:13px; height:15px; overflow:hidden; position:relative; z-index:3; left:-1px; top:-12px; }
 .triggered img { position:relative; top:-14px;   }
+
+/*--------Power Bar-----------*/
+.powerbar { position:absolute; top:60px; left:10px; z-index:8; width:247px; height:42px; }
+.powerPercentage { position:absolute; z-index:10; width:100%; text-align:center; padding:10px; font-weight:bold; font-size:1.2em; color:#FFF; }
+.powerLevel01 { position:absolute; z-index:9; overflow:hidden; width:55px; height:42px; }
+.powerLevel01 div { overflow:hidden; position:absolute; height:42px; }
+
+.powerLevel02 { position:absolute; z-index:9; left:56px; overflow:hidden;  width:53px; height:42px; }
+.powerLevel02 div { overflow:hidden; position:absolute; height:42px; }
+
+.powerLevel03 { position:absolute; z-index:9; left:110px; overflow:hidden;  width:52px; height:42px; }
+.powerLevel03 div { overflow:hidden; position:absolute; height:42px; }
+
+.powerLevel04 { position:absolute; z-index:9; left:163px; overflow:hidden;  width:81px; height:42px; }
+.powerLevel04 div { overflow:hidden; position:absolute; height:42px; }
+
+
+
+
+
+
+
+
+

@@ -42,7 +42,12 @@
     	<div class="friend">
       	<a href="${friend['url']}" target="_blank">
           <span class="friendsScore">
-          	<span>{if friend.missions[mode][mission]['score']} ${friend.missions[mode][mission]['score']} {else} 0 {/if}</span>
+          	<span>{if friend.missions[mode][mission] && friend.missions[mode][mission]['score']}
+                     ${friend.missions[mode][mission]['score']} 
+                  {else}
+                     0 
+                  {/if}
+            </span>
           	<span class="loadedImg" imgSrc="images/friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>
           </span>
           <!--New changes end here-->

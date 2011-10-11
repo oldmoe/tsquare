@@ -6,7 +6,6 @@ var MovementManager = Class.create({
   direction : 0,
   ticksPassed : 0,
   totalMoveTicks : 0,
-  moveLength : 0,
   beatAccelaration : 0,
   lastMoveClicked : false,
   beatDelay : 15,
@@ -23,8 +22,10 @@ var MovementManager = Class.create({
   },
 
   playSounds : function(){
-   if(this.ticksPassed > this.nextTick+10){
+   if(this.ticksPassed > this.nextTick+5){
+      // console.log("et2a5rt keteer ya 7biby");
       this.reset()
+      // this.scene.fire("pressDelay")
    } 
    this.nextTick = this.scene.audioManager.nextBeatTicks()
    //Sounds.play(Sounds.gameSounds.beat)
@@ -66,11 +67,13 @@ var MovementManager = Class.create({
       }else if (e.keyCode == 32) {
           click = 2
       }else{
+        // self.scene.fire("keypressed", [click, self.move.length])
         return
       }
       self.process(click)
 		})
   },
+  
   process : function(click){
       var self = this
       if(self.scene.currentSpeed > 0){
@@ -79,25 +82,27 @@ var MovementManager = Class.create({
       if(click!=-1 && self.ticksPassed >= self.nextTick-8 && self.ticksPassed <= self.nextTick+8){   
             console.log('=')
             self.move.push(click)
-            self.moveLength++
+            // self.scene.fire("keypressed", [click, self.move.length])
       }else if(self.ticksPassed <  self.nextTick-10){
             console.log('<')
             self.reset()
-            self.moveLength = 1
             self.move = [click]
-            self.totalMoveTicks =0
-      }else if(self.ticksPassed > self.ticksPassed <= self.nextTick+10){
+            self.totalMoveTicks = 0
+            // self.scene.fire("keypressed", [click, self.move.length, 1])
+      }else if(self.ticksPassed > self.nextTick+10){
             console.log('>')
             self.reset()
-            self.moveLength = 1
             self.move = [click]
-            self.totalMoveTicks =0
+            self.totalMoveTicks = 0
+            // self.scene.fire("keypressed", [click, self.move.length, 1])
       }else{
             alert('!!!')            
       }
+      // console.log(click, self.move.length);
       self.checkMove()
       self.ticksPassed = 0
   },
+  
   getNextMoveIndex : function(){
     return 0
   },
@@ -113,7 +118,7 @@ var MovementManager = Class.create({
       var found = true
       var code = this.moves[move].code
       command = move
-      for (var i = 0; i < self.moveLength; i++) {
+      for (var i = 0; i < self.move.length; i++) {
        if (self.move[i] != code[i]) {
          found = false
          break
@@ -141,7 +146,6 @@ var MovementManager = Class.create({
    if(code.length==self.move.length){
      this.move=[]
      this.startMove(this.moves[command].index,self.nextTick*code.length)
-     this.moveLength = 0
      //Sounds.play(Sounds.gameSounds.correct_move)
    }
   },

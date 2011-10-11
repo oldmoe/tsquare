@@ -23,6 +23,30 @@ var GuidingIconDisplay = Class.create(Display, {
       
   }
   
+/*  
+  initImages : function(){
+    this.circleImg = Loader.images.guidingBar['normal_idle.png']
+    this.marchImg = Loader.images.guidingBar['normal_walk.png']
+    this.blockImg = Loader.images.guidingBar['normal_run.png']
+  },
+  
+  createSprites : function(){
+    this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : 7})
+    this.sprites.character.createAnimation({name:'hold',img:this.holdImg,noOfFrames:1})
+    this.sprites.character.createAnimation({name:'walk',img:this.walkImg,noOfFrames:8})
+  },
+
+  registerCommands : function(){
+    var self = this
+    this.commands.each(function(state){
+      self.observe(state,function(){
+        self.sprites.character.switchAnimation(state)
+        self.sprites.character.currentAnimationFrame = Math.round((Math.random()* self.sprites.character.currentAnimation.noOfFrames-1)) 
+      })
+    })
+  },
+*/
+  
   
   
 });

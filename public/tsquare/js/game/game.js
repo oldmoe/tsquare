@@ -92,7 +92,7 @@ var Game = Class.create({
   						  			self.start();
                       self.doneLoading = true
                       $('inProgress').hide()
-                      // self.play(missionData)
+                      self.play(missionData)
   								  }
     });
   },
@@ -146,7 +146,9 @@ var Game = Class.create({
       $('gameContainer').show();
 	  	this.scene.fire("start");
       this.inGameMeterBar = new InGameMeterBar(this);
-      this.scene.pushToRenderLoop('meters', this.inGameMeterBar)
+      this.guidingIcon = new GuidingIcon(this);
+      this.scene.pushToRenderLoop('meters', this.inGameMeterBar);
+      this.scene.pushToRenderLoop('meters', this.guidingIcon);
     }
   },
 

@@ -24,8 +24,6 @@ var TsquareScene = Class.create(Scene,{
     initialize: function($super){
         $super();
         this.collision = false;
-		    this.guidingIcon = new GuidingIcon(this);
-		    this.guidingIconDisplay = new GuidingIconDisplay(this.guidingIcon);
         this.scoreCalculator = new ScoreCalculator(this);
         this.createRenderLoop('skyline',2);
         this.createRenderLoop('characters',3);
@@ -126,7 +124,6 @@ var TsquareScene = Class.create(Scene,{
         for(var handler in this.handlers){
             this.handlers[handler].tick();
         }
-        this.guidingIcon.tick();
     },
     
   end : function(win){

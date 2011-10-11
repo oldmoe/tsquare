@@ -4,17 +4,17 @@
 /*--------Home Screen-----------*/
 .homeWrapper { position:relative; top:60px; text-align:center;}
 .upcomingModes { position:relative; top:10px;}
-.timelineButton { position:absolute; left:151px; top:24px; width:213px; height:101px; overflow:hidden; }
+.timelineButton { position:absolute; left:255px; top:24px; width:213px; height:101px; overflow:hidden; }
 .timelineButton img { position:absolute; top:0px; left:0 }
 .timelineButton:hover img { position:absolute; top:-101px; left:0 }
 
 /*--------Calender Screen-----------*/
 .calendarWrapper { position:relative;  top:60px;  }
-.calendarWrapper ul { width:82%; margin:0px auto; padding:0px; position:relative;}
+.calendarWrapper ul { width:64%; margin:0px auto; padding:0px; position:relative;}
 .calendarWrapper ul li { float:left; width:195px; margin:0 10px 0 0; padding:0px; }
 
 /*--------Timeline Screen-----------*/
-.missionDetails { position:relative; top:-210px; left:15px; float:left; width:730px; height:316px; z-index:6; }
+.missionDetails { position:relative; top:-210px; left:122px; float:left; width:730px; height:316px; z-index:6; }
 .missionDetails .close { left:704px; top:21px; z-index:8; }
 
 .missionWrapper { float:left; width:690px; margin:-19px 20px 20px 20px; height:200px; position:relative; z-index:7; }
@@ -33,7 +33,7 @@
 .timelineBar { position:relative; top:230px; z-index:5; }
 .timelineBarImage { top:96px; z-index:4;  }
 .timelineMissions { height:200px; overflow:hidden; position:relative; }
-.timelineBar .missionsContainer { position:relative; height:200px; width:94%; margin:0 auto; overflow:hidden; display:inline-block; margin:0px 0px 0px -2%;}
+.timelineBar .missionsContainer { position:relative; height:200px; width:87%; margin:0 auto; overflow:hidden; display:inline-block; margin:0px 0px 0px 3%;}
 .timelineMissions ul { float:left; width:5000px; position:absolute; top:70px; z-index:5;  }
 .timelineMissions li { float:left; width:auto; margin:0 33.5px;  }
 .timelineMissions li a.hover { display:none; }
@@ -47,7 +47,7 @@
 .walkingCrowdMemeber { position:absolute; top:128px; }
 
 .timelineMissions .rightControls { display:inline-block; float:none; position:relative; top:20px; vertical-align:top; z-index:2; right:0px; overflow:hidden; height:72px; margin:0px 0px 0px -2%;}
-.timelineMissions .leftControls { display:inline-block; float:none; position:relative; top:20px; vertical-align:top; z-index:2; left:0px; overflow:hidden; height:72px;}
+.timelineMissions .leftControls { display:inline-block; float:none; position:relative; top:20px; vertical-align:top; z-index:2; left:50px; overflow:hidden; height:72px;}
 .timelineMissions .leftControls .left, .timelineMissions .rightControls .right{height:33px; overflow:hidden; position:relative; margin:0 0 5px 0;}
 .timelineMissions .leftControls .first, .timelineMissions .rightControls .last{height:33px; overflow:hidden; position:relative; margin:0 0 5px 0;}
 

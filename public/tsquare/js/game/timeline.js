@@ -16,7 +16,8 @@ var Timeline = Class.create({
     this.mode = 'timeline';
     var self = this;
     new Loader().load([ {images : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png", "coming_soon_missions.png",
-                                  "home_background.gif", "mission_details.png", "timeline_screen.png", "mission_icon.png", "crowd_member_small.png",
+                                  "home_background.gif", "mission_details.png", "timeline_screen.png", "mission_current.png",
+                                  "mission_locked.png", "mission_finished.png", "crowd_member_small.png",
                                   "mission_icon_selected.png", "play_button.png", "timeline.png"], path: 'images/timeline/', store: 'timeline'}],
                       {
                         onFinish: function(){
@@ -39,7 +40,8 @@ var Timeline = Class.create({
         this.gameManager.missions[this.mode][i]['playable'] = false;
 
     }
-    $('timeline').innerHTML = this.templateManager.load('timeline', {'missions' : this.gameManager.missions[this.mode]});
+    $('timeline').innerHTML = this.templateManager.load('timeline', {'missions' : this.gameManager.missions[this.mode],
+               'currentMission' : this.gameManager.userData.current_mission[this.mode]});
     this.attachListener();
     Game.addLoadedImagesToDiv('home');
     Game.addLoadedImagesToDiv('timeline');

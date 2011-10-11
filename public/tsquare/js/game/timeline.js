@@ -32,8 +32,11 @@ var Timeline = Class.create({
       this.carousel.destroy();
     }
     $('home').innerHTML = this.templateManager.load('home', {'missions' : this.gameManager.missions});
+    var currentMissionIndex = 0;
     for(var i in this.gameManager.missions[this.mode])
     {
+      if(this.gameManager.userData.current_mission[this.mode] == i)
+        currentMissionIndex = i;
       if(this.gameManager.userData.missions[this.mode][i] || this.gameManager.userData.current_mission[this.mode] == i)
         this.gameManager.missions[this.mode][i]['playable'] = true;
       else
@@ -46,7 +49,8 @@ var Timeline = Class.create({
     Game.addLoadedImagesToDiv('home');
     Game.addLoadedImagesToDiv('timeline');
     this.displayMissions();
-    this.carousel = new Carousel("missions", this.images, 5);
+    this.carousel = new Carousel("missions", this.images, 7, 2);
+    this.carousel.center(currentMissionIndex);
     this.carousel.checkButtons();
     this.displayHome();
   },  

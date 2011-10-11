@@ -150,8 +150,8 @@ var ScoreManager = Class.create({
     $('scores').innerHTML = this.templateManager.load('friends', params);
     Game.addLoadedImagesToDiv('scores');
     this.attachListeners();
-    self.carousel = new Carousel("friends", self.images, 5);
-    self.carousel.scrollTo(rank);
+    self.carousel = new Carousel("friends", self.images, 5, 2);
+    self.carousel.center(rank);
     self.carousel.checkButtons();
     $('scoresInProgress').hide();
   },

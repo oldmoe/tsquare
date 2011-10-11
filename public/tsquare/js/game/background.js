@@ -13,6 +13,7 @@ var Background = Class.create({
 		this.scene = scene
 		this.speed = options.speed
 		this.images = options.images
+    this.noRepeat = options.noRepeat;
     if(options.alwaysMove) this.alwaysMove = true
 		this.y = options.y || 0
 		this.container = $(document.createElement('div'))
@@ -43,12 +44,13 @@ var Background = Class.create({
 	},
 	
 	tick : function(){
+    if( this.imagesCount == 1 ) console.log("this.offsetX = " + this.offsetX);
     if(this.scene.currentSpeed <=0 || this.speed() == 0)return;
     if(this.scene.direction==1){
   		this.offsetX -= this.speed()
   		var firstImg = this.container.children[0]
   		if((firstImg.getWidth()+this.offsetX) <= 0){
-  			this.reset();
+  			if(!this.noRepeat) this.reset();
   		}
     }else if(this.scene.direction == -1){
       if (this.offsetX > 0) {

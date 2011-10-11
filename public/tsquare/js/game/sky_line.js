@@ -36,8 +36,10 @@ var SkyLine = Class.create({
                                                      y: 113,
                                                      imagesCount: 1,
                                                      offsetX: 2000-images_landmarks[0].width/2,
-                                                     images:images_landmarks
+                                                     images:images_landmarks,
+                                                     noRepeat : true
                                                     });
+        console.log( 2000-images_landmarks[0].width/2 );
         this.backgrounds.push(background_landmarks);
       }
       this.backgrounds.push(background_road);

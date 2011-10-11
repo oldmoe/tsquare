@@ -5,6 +5,7 @@
 <title>Thawragy</title>
 <link href="css/main.css" rel="stylesheet" type="text/css" />
 <link href="css/meter_bar.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" language="javascript"></script>
 </head>
 
 <body>
@@ -86,23 +87,42 @@
   <div class="movesWrapper">
   	<div class="nextMove">
     	<span class="moveContainer">
-      	<img class="positioned" src="images/dummy/moves.png" alt="Move" />
+      	<img class="positioned" src="images/game_elements/circle_move.png" alt="Move" />
       </span>
     	<img class="positioned" src="images/game_elements/move_indicator.png" alt="Next move" />
     </div>
     <div class="movesIndicator">
     	<span class="wrong"><img src="images/game_elements/right_arrow.png" alt="Right" /></span>
-      <span class="pressed"><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
+      <span class="right"><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
     	<span><img src="images/game_elements/right_arrow.png" alt="Right" /></span>
       <span><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
       <img class="positioned" src="images/game_elements/move_background.png" alt="moves background" />
     </div>
     <div class="trigger">
-    	<a href="javascript:void(0)"><img src="images/game_elements/moves_arrows.png" alt="trigger" /></a>
+    	<a id="trigger" href="javascript:void(0)"><img src="images/game_elements/moves_arrows.png" alt="trigger" /></a>
     </div>
   </div>
 	<img class="background" src="images/timeline/home_background.gif" alt="background"></span>
 </div>
-
+<script  type="text/javascript">
+	
+	$('.trigger').click(function() {
+		$('.trigger').toggleClass('triggered');
+		$('.triggered').removeClass('trigger');	
+	  	$('.movesIndicator').animate({
+    		right: '-143px'},
+				500, function() {
+	  	});
+	});
+	
+	$('.triggered').click(function() {
+		$('.triggered').toggleClass('trigger');
+		$('.triggere').removeClass('triggered');
+	  	$('.movesIndicator').animate({
+    		right: '0px'},
+				500, function() {
+	  	});
+	});
+</script>
 </body>
 </html>

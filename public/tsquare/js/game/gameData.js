@@ -8,7 +8,7 @@ var missionData = {
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 5,
+      "x": 7,
       "order": 1
   }
 /*  

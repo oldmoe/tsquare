@@ -45,6 +45,7 @@ var TsquareScene = Class.create(Scene,{
           }
         }
         var mapping = {'crowd':'npc', 'protection':'protection_unit', 'enemy':'enemy', 'rescue':'rescue'}
+
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
                 var elem = this.data[i][j]
@@ -53,13 +54,10 @@ var TsquareScene = Class.create(Scene,{
             }
         }
         var self = this;
-        this.observe("start", function(){self.scoreCalculator.start();})
-        this.observe("end", function(){self.scoreCalculator.end();})
         this.observe('wrongMove',function(){self.wrongMove()})
         this.observe('correctMove',function(){self.correctMove()})
         this.observe('wrongCommand',function(){self.wrongCommand()})
         this.observe('correctCommand',function(){self.correctCommand()})
-        this.observe("updateScore", function(score){self.updateScore(score)});
     },
     
     init: function(){
@@ -83,38 +81,20 @@ var TsquareScene = Class.create(Scene,{
     },
 
     wrongMove: function(){
-      this.fire("updateScore", [-2]);
-      this.scoreCalculator.wrongMovesCount++;
-      this.scoreCalculator.totalMovesCount++;
       this.decreaseEnergy();
       // console.log("scene wrong move");
     },
 
     correctMove: function(){
-      this.fire("updateScore", [5]);
-      this.scoreCalculator.correctMovesCount++;
-      this.scoreCalculator.totalMovesCount++;
       this.increaseEnergy();
       console.log("scene correct moved");
     },
     
     wrongCommand: function(){
-      this.fire("updateScore", [-5]);
-      this.scoreCalculator.wrongCommandsCount++;
-      this.scoreCalculator.totalCommandsCount++;
       console.log("scene wrong command");
     },
 
     correctCommand: function(){
-      this.fire("updateScore", [10]);
-      console.log("scene correct command");
-      this.scoreCalculator.correctCommandsCount++;
-      this.scoreCalculator.totalCommandsCount++;
-    },
-    
-    updateScore: function(score){
-      //console.log("score : " + score);
-      this.scoreCalculator.updateScore(score);
     },
     
     tick: function($super){
@@ -136,10 +116,10 @@ var TsquareScene = Class.create(Scene,{
         this.reactor.stop()
         this.audioManager.stop()
         this.fire('end', [{
-          score: 1000,
-          objectives: 0.6,
-          combos: 0.8,
-          win: true
+          score: this.scoreCalculator.score,
+          objectives: this.scoreCalculator.getObjectivesRatio(),
+          combos: this.scoreCalculator.getCombos(),
+          win: this.win
         }]);
       }
     }

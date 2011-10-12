@@ -4,7 +4,7 @@ var GuidingIcon = Class.create(Observer,{
   
   commands: ["normal", "retreat", "circle", "hold"],
   moveIndex : 0,
-  currentCommandIndex: 0,
+  currentCommandIndex: -1,
   
   moves : [
     {code:[0,0,0,0],index:0},
@@ -16,17 +16,30 @@ var GuidingIcon = Class.create(Observer,{
   initialize: function(game){
     
     this.scene = game.scene;
+    this.moveIndex = 1;
     
     $('guidingBar').innerHTML = game.templateManager.load('guidingBar');
+    
+    $$("#guidingBarSlide")[0].observe("click", function(){
+      if(this.hasClassName('trigger')){
+        this.removeClassName('trigger');
+        this.toggleClassName("triggered");
+        $$('.movesIndicator')[0].style.left = "140px";
+        // new Effect.Move($$('.movesIndicator')[0], {x:140,duration:2})
+      }else if(this.hasClassName('triggered')){
+        this.removeClassName('triggered');
+        this.toggleClassName("trigger");
+        $$('.movesIndicator')[0].style.left = "0px";
+        // new Effect.Move($$('.movesIndicator')[0], {x:0,duration:2})
+      }
+    });
     
     var self = this;
     game.scene.observe("keypressed", function(key, moveIndex, reset){self.keypressed(key, moveIndex, reset)});
     game.scene.observe("pressLate", function(){self.pressLate()});
     
-    // game.scene.reactor.pushEvery(0, 1, function(){self.tick();});
-    this.moveIndex = 1;
-    
-    // game.scene.observe("circleEnd", function(){self.circleEnd()});
+    game.scene.reactor.pushEvery(0, 1, function(){self.tick();});
+    game.scene.observe("circleEnd", function(){self.circleEnd()});
   },
   
   keypressed: function(key, moveIndex, flag){
@@ -46,6 +59,7 @@ var GuidingIcon = Class.create(Observer,{
     if(key == -1){
       this.wrongKey();
     }else {
+      if(this.moveIndex == 1) this.reset(4);
       this.correctPress(this.moveIndex);
     }
   },
@@ -90,7 +104,6 @@ var GuidingIcon = Class.create(Observer,{
   },
   
   tick: function(){
-    
     var command = 0;
     if(this.scene.handlers.enemy.objects[1] && this.scene.handlers.enemy.objects[1][0]){
       if(!this.scene.handlers.enemy.objects[1][0].chargeTolerance)
@@ -146,6 +159,6 @@ var GuidingIcon = Class.create(Observer,{
   
   // new Effect.Move(element, {x:10,y:10,duration:1})
 
-
+  
   
 });

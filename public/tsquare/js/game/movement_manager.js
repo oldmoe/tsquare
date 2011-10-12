@@ -25,7 +25,7 @@ var MovementManager = Class.create({
    if(this.ticksPassed > this.nextTick+5){
       // console.log("et2a5rt keteer ya 7biby");
       this.reset()
-      // this.scene.fire("pressDelay")
+      this.scene.fire("pressLate")
    } 
    this.nextTick = this.scene.audioManager.nextBeatTicks()
    //Sounds.play(Sounds.gameSounds.beat)
@@ -82,19 +82,18 @@ var MovementManager = Class.create({
       if(click!=-1 && self.ticksPassed >= self.nextTick-8 && self.ticksPassed <= self.nextTick+8){   
             console.log('=')
             self.move.push(click)
-            // self.scene.fire("keypressed", [click, self.move.length])
+            self.scene.fire("keypressed", [click, self.move.length])
       }else if(self.ticksPassed <  self.nextTick-10){
             console.log('<')
             self.reset()
             self.move = [click]
             self.totalMoveTicks = 0
-            // self.scene.fire("keypressed", [click, self.move.length, 1])
+            self.scene.fire("keypressed", [click, self.move.length, 1])
       }else if(self.ticksPassed > self.nextTick+10){
             console.log('>')
             self.reset()
             self.move = [click]
             self.totalMoveTicks = 0
-            // self.scene.fire("keypressed", [click, self.move.length, 1])
       }else{
             alert('!!!')            
       }

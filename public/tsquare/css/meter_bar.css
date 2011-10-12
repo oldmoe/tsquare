@@ -47,7 +47,7 @@
 .healthMeter span { position:absolute; z-index:8; font-weight:bold; color:#FFF; font-size:.6em; top:13px; width:27px; text-align:center;	 }
 
 /*--------Game meters-----------*/
-.movesWrapper { float:right; width:231px; height:57px; position:relative; z-index:2; top:500px; right:18px; overflow:hidden; }
+.movesWrapper { float:right; width:231px; height:57px; position:relative; z-index:2; top:547px; right:18px; overflow:hidden; }
 .nextMove { float:right; width:70px; height:57px; position:relative; z-index:4; }
 .moveContainer { float:left; width:55px; height:48px; position:relative; z-index:3; margin:5px 0 0 10px;  }
 .movesIndicator { float:right; width:161px; height:37px; position:relative; z-index:2; top:11px; padding:0 0 0 0; }

@@ -57,11 +57,15 @@ var MissionManager = Class.create({
     $('winLose').innerHTML = this.templateManager.load(screenName, staticData);
     Game.addLoadedImagesToDiv('winLose');
     this.attachListener();
-    $('winLose').show();
+    this.show();
   },
 
   hide : function(){
-    $('winLose').hide();
+    Effects.fade($('winLose'));
+  },
+
+  show:function(){
+    Effects.appear($('winLose'));
   },
 
   calculateStars : function(score) {
@@ -82,7 +86,7 @@ var MissionManager = Class.create({
                              'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score });
     Game.addLoadedImagesToDiv('winLose');
     this.attachListener();
-    $('winLose').show();
+    this.show();
   },
 
   load : function(id, gameCallback){

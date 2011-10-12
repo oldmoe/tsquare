@@ -44,7 +44,6 @@ var Background = Class.create({
 	},
 	
 	tick : function(){
-    if( this.imagesCount == 1 ) console.log("this.offsetX = " + this.offsetX);
     if(this.scene.currentSpeed <=0 || this.speed() == 0)return;
     if(this.scene.direction==1){
   		this.offsetX -= this.speed()

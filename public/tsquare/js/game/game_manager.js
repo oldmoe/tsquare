@@ -55,12 +55,18 @@ var GameManager = Class.create({
   },
 
   openMainPage : function(){
-    $$('#uiContainer .background')[0].show();
-    $('gameContainer').hide();
+    var self = this;
     this.missionManager.hide();
-    this.meterBar.show();
-    this.scoreManager.show();
-    this.timelineManager.display();
+    self.meterBar.hide();      
+    self.scoreManager.hide();
+    self.timelineManager.hide();
+    Effects.fade($('gameContainer'), function(){
+      Effects.appear($$('#uiContainer .background')[0], function(){
+        self.meterBar.show();
+        self.scoreManager.show();
+        self.timelineManager.display();
+      });
+    });
   },
 
   /* If there is a request object acceptance has lead to opening the game, 

@@ -21,17 +21,66 @@ var Timeline = Class.create({
                                   "mission_icon_selected.png", "play_button.png", "timeline.png"], path: 'images/timeline/', store: 'timeline'}],
                       {
                         onFinish: function(){
-                          self.display();   
+                          self.display();
                         }
                       });
   },
 
   display : function(){
+    $('home').innerHTML = this.templateManager.load('home', {'missions' : this.gameManager.missions});
+    Game.addLoadedImagesToDiv('home');
+    this.attachHomeListener();
+    this.displayHome();
+  },  
+  
+  hide : function(){
+    $('home').hide();
+    $('timeline').hide();
+  },
+
+  displayHome : function() {
+    var homeDiv = $('home');
+    var timelineDiv = $('timeline');
+    homeDiv.hide();
+    if(timelineDiv.getStyle('display') != 'none')
+      Effects.fade(timelineDiv, function(){Effects.appear(homeDiv)});
+    else
+      Effects.appear(homeDiv);
+  },
+
+  displayCalender : function(){
+    var self = this;
+    var homeDiv = $('home');
+    var timelineDiv = $('timeline');
+    var missionsDiv = $('missions');
+    var callback = function(){
+      $('timeline').hide();
+      $('timeline').innerHTML = self.templateManager.load('calender');
+      self.attachCalenderListener();
+      Game.addLoadedImagesToDiv('timeline');
+      $$('.calendarWrapper')[0].show();
+      Effects.appear(timelineDiv);
+    }
+    if(homeDiv.getStyle('display') != 'none')
+    {
+      Effects.fade(homeDiv, function(){
+        callback();
+      });
+    } else if(missionsDiv && missionsDiv.getStyle('display') != 'none'){
+      Effects.fade(timelineDiv, function(){
+        callback();
+      });
+    }else{
+      Effects.appear(timelineDiv);
+    }
+  },
+
+  displayMissions : function(){
+    var self = this;
     if(this.carousel) 
     {
       this.carousel.destroy();
     }
-    $('home').innerHTML = this.templateManager.load('home', {'missions' : this.gameManager.missions});
     var currentMissionIndex = 0;
     for(var i in this.gameManager.missions[this.mode])
     {
@@ -47,50 +96,42 @@ var Timeline = Class.create({
       else
         break;
     }
-    $('timeline').innerHTML = this.templateManager.load('timeline', {'missions' : this.gameManager.missions[this.mode],
-               'currentMission' : this.gameManager.userData.current_mission[this.mode]});
-    this.attachListener();
-    Game.addLoadedImagesToDiv('home');
-    Game.addLoadedImagesToDiv('timeline');
-    this.displayMissions();
-    this.carousel = new Carousel("missions", this.images, 7, 2);
-    this.carousel.center(currentMissionIndex);
-    this.carousel.checkButtons();
-    this.displayHome();
-  },  
-  
-  hide : function(){
+    var callback = function() {
+      $('timeline').innerHTML = self.templateManager.load('missions', {'missions' : self.gameManager.missions[self.mode],
+               'currentMission' : self.gameManager.userData.current_mission[self.mode]});
+      self.attachMissionsListener();
+      Game.addLoadedImagesToDiv('timeline');
+      $('timeline').show();
+      self.carousel = new Carousel("missions", self.images, 7, 2);
+      self.carousel.center(currentMissionIndex);
+      self.carousel.checkButtons();
+      $('timeline').hide();
+    }
+    var homeDiv = $('home');
+    var timelineDiv = $('timeline');
+    var missionsDiv = $('missions');
     $('home').hide();
-    $('timeline').hide();
-  },
-
-  displayHome : function() {
-    $('home').show();
-    $('timeline').hide();
-  },
-
-  displayTimeline : function(){
-    $('home').hide();
-    $$('.calendarWrapper')[0].show();
-    $('missions').hide();
-    $('timeline').show();
-  },
-
-  displayMissions : function(){
-    $('home').hide();
-    $$('.calendarWrapper')[0].hide();
-    $('missions').show();
-    $('timeline').show();
+    if($$('.calendarWrapper')[0].getStyle('display') != 'none')
+    {
+      Effects.fade(timelineDiv, function(){
+        callback();
+        Effects.appear(timelineDiv);
+      });
+    } else {
+      Effects.appear(timelineDiv);
+    }
   },
 
   displayMissionDetails : function(id){
     var id = parseInt(id);
     var self = this;
     var callback =  function(){
-        $$('#timeline .missionDetails')[0].innerHTML = self.templateManager.load('missionDetails', {'mission' : self.gameManager.missions[self.mode][id]});
-        Game.addLoadedImagesToDiv('timeline');
-        self.attachMissionDetailsListeners();
-        $$('.missionDetails')[0].show();
+        Effects.fade($$('.missionDetails')[0], function(){
+          $$('#timeline .missionDetails')[0].innerHTML = self.templateManager.load('missionDetails', {'mission' : self.gameManager.missions[self.mode][id]});
+          Game.addLoadedImagesToDiv('timeline');
+          self.attachMissionDetailsListeners();
+          Effects.appear($$('.missionDetails')[0]);
+        });
     }
     new Loader().load([ {images : [id + ".png"], path: 'images/missions/', store: 'missions'}],
                       {
@@ -100,21 +141,29 @@ var Timeline = Class.create({
   },
 
   hideMissionDetails : function(){
-    $$('.missionDetails')[0].hide();
+    Effects.fade($$('.missionDetails')[0]);
   },
 
-  attachListener : function(){
+  attachHomeListener : function(){
     var self = this;
     $$('#home .timelineButton').each(function(element){
       element.observe('click', function(event){
-        self.displayTimeline();
+        self.displayCalender();
       });
     });
+  },
+
+  attachCalenderListener : function(){
+    var self = this;
     $$('#timeline .calendar').each(function(element){
       element.observe('click', function(event){
         self.displayMissions();
       });
     });
+  },
+
+  attachMissionsListener : function(){
+    var self = this;
     $$('#timeline .timelineMissions li').each(function(element){
       element.observe('mouseover', function(event) {
         element.addClassName('selected');

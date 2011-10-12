@@ -142,7 +142,7 @@ var TsquareScene = Class.create(Scene,{
           score: 1000,
           objectives: 0.6,
           combos: 0.8,
-          win: true
+          win: false
         }]);
       }
     }

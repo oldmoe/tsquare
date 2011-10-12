@@ -21,7 +21,7 @@ var Carousel = Class.create( {
                 'right' : "",
                 'right-disabled' : "" },
     
-    initialize : function(id, images, displayCount){
+    initialize : function(id, images, displayCount, scrollCount){
         this.id = id;
         this.images = images;
         var lis = $$('#' + this.id + ' ul li')
@@ -39,7 +39,10 @@ var Carousel = Class.create( {
           this.width = $(this.id + "-container").getWidth()/displayCount;
         }
         this.displayCount = displayCount;
-        this.scroll = displayCount;
+        if(scrollCount) 
+          this.scroll = scrollCount;
+        else
+          this.scroll = displayCount;
         this.ulId = $$('#' + this.id + ' ul')[0].id;
         this.listSize =  $$('#' + this.ulId + ' li').length;
         $(this.ulId).style.left = 0;
@@ -126,12 +129,19 @@ var Carousel = Class.create( {
     },
     
     scrollTo : function(index){
+        if(index < 0)
+          index = 0;
         if(index > Math.abs(this.listSize - this.displayCount))
             index = this.listSize - this.displayCount
         var distance = this.direction * (this.currIndex - index) * this.width;
         this.currIndex = index;
         new Effect.Move(this.ulId, {x:distance, y: 0, mode: 'relative', duration: 0.3, afterFinish : function(){ }})
         this.checkButtons();
+    },
+
+    center : function(index){
+      index = index - Math.floor(this.displayCount/2);
+      this.scrollTo(index);
     },
     
     checkButtons : function(){  

@@ -104,42 +104,52 @@ body{
 
 
 /* loading bar styling */
-
-#inProgress #logo{
-    left: 154px;
+#inProgress #loadingbg{
+ left: 0;
+  position: absolute;
+  top: 0;
+}
+#inProgress #loadingBarBackground{
+    left: 177px;
     position: absolute;
+    top: 366px;
+}
+#inProgress #logo{
+    left: 125px;
+    position: absolute;
+    top: 159px;
 }
 #loadingBarEmpty{
     height: 50px;
-    left: 159px;
+    left: 178px;
     position: absolute;
-    top: 224px;
-    width: 316px;
+    top: 364px;
+    width: 283px;
 }
 
 #loadingBarEmpty div{
-	height : 25px;
+	height : 34px;
 	float : left;
 	margin-top:8px;
 }
 
 #loadingBarEmpty #loadingBarRight{				
-	height:30px;
-	width:15px;
+	height:34px;
+	width:16px;
 	background:url("../images/loading/loadingbar_right.png");
 }
 
 #loadingBarEmpty #loadingBarFill{
-	height:30px;
+	height:34px;
 	background-repeat:repeat-x;				
 	background:url("../images/loading/loadingbar_middle.png");
 }
 
 #loadingBarEmpty #loadingBarLeft{
 	background:url("../images/loading/loadingbar_left.png");
-	height:30px;
+	height:34px;
 	margin-left:5px;
-	width:15px;
+	width:16px;
 }
 
 #inProgress{

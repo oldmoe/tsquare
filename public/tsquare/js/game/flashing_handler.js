@@ -8,7 +8,10 @@ var FlashingHandler = Class.create({
 //    this.flash()
   },
   flash : function(){
-    if (this.counter == 4) {
+    if(this.counter < 4){
+      this.scene.movementManager.process(0)
+    }
+    if (this.counter == 8) {
       this.counter = 0
       return
     }

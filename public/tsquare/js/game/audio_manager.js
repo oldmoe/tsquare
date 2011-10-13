@@ -39,9 +39,9 @@ var AudioManager = Class.create({
 
 		this.levelBeats = {
 			130 : [0, 1, 2, 3, 4, 5], 
-			140 : [0, 1, 2, 3, 4], 
-			150 : [0, 1, 2, 3, 4], 
-			160 : [0, 1, 2, 3, 4]
+			140 : [0, 3], 
+			150 : [0, 3], 
+			160 : [0, 3]
 		} 
 	
 		this.levels = [
@@ -82,6 +82,9 @@ var AudioManager = Class.create({
 		this.reactor.pushEvery(0, this.reactor.timeToTicks(this.durations[this.level.tempo]), this.tick, this)
 	},
 	
+  nextBeatTime: function(){
+    return this.durations[this.level.tempo]/4
+  },
 	nextBeatTicks : function(){
 		return this.reactor.timeToTicks(this.durations[this.level.tempo]/4)
 	},
@@ -109,7 +112,8 @@ var AudioManager = Class.create({
 		if(this.tempoChanged){
 			this.tempoChanged = false
 			for(var i=0; i < this.nowPlaying.length; i++){
-				Audio.Fade(this.nowPlaying[i], 0, this.durations[this.level.tempo]/8, this.reactor, function(s){s.stop()})
+				this.nowPlaying[i].stop()
+        //Audio.Fade(this.nowPlaying[i], 0, this.durations[this.level.tempo]/8, this.reactor, function(s){s.stop()})
 			}
 			this.nowPlaying = []			
 			for(var i=0; i< this.levelBeats[this.level.tempo].length; i++){
@@ -121,10 +125,8 @@ var AudioManager = Class.create({
 			}
 			for(var i=0; i < this.level.beats.length;i++){
 				var sound = this.level.beats[i].beat
-				//sound.setVolume(0)
+        sound.setVolume(this.level.beats[i].volume)
 				sound.unmute()
-				sound.setVolume(this.level.beats[i].volume)
-				//Audio.Fade(sound, this.level.beats[i].volume, this.durations[this.level.tempo], this.reactor)
 			}
 			this.reactor.pushEvery(0, this.reactor.timeToTicks(this.durations[this.level.tempo]), this.tick, this)
 			return false // return false so we stop the current periodical reactor
@@ -149,8 +151,11 @@ var AudioManager = Class.create({
 		if(this.levelIndex == (this.levels.length - 1)) return
 		this.levelIndex+=1
 		this.levelChanged = true
-		if(this.levels[this.levelIndex].tempo != this.levels[this.levelIndex-1].tempo) this.tempoChanged = true
+    if(this.levels[this.levelIndex].tempo != this.levels[this.levelIndex-1].tempo) this.tempoChanged = true
 		this.level = this.levels[this.levelIndex]
+    if(this.tempoChanged){
+      console.info("TEMPO CHANGED NOW!!!! UPPPPPPPPP")
+    }
 	},
 	
 	levelDown : function(){
@@ -159,5 +164,8 @@ var AudioManager = Class.create({
 		this.levelChanged = true
 		if(this.levels[this.levelIndex].tempo != this.levels[this.levelIndex+1].tempo) this.tempoChanged = true
 		this.level = this.levels[this.levelIndex]
+    if(this.tempoChanged){
+      console.info("TEMPO CHANGED NOW!!!! DOWWWWWWWWN")
+    }
 	}	
 })

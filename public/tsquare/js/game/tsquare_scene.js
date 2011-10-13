@@ -231,7 +231,7 @@ var TsquareScene = Class.create(Scene,{
    },
    
    decreaseEnergy : function(){
-      if (++this.comboMistakes.current == this.comboMistakes.max) {
+//      if (++this.comboMistakes.current == this.comboMistakes.max) {
         this.comboMistakes.current = 0
         this.audioManager.levelDown()
         this.energy.current = Math.max(this.energy.current - this.energy.rate, 0)
@@ -242,7 +242,7 @@ var TsquareScene = Class.create(Scene,{
           this.currentSpeed = this.speeds[this.speedIndex].value
           this.fire(this.speeds[this.speedIndex].state)
         }
-      } 
+//      } 
    }
   
 });

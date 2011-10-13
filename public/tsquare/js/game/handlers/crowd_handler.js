@@ -8,7 +8,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    currentId : 0,
    
    initialize: function($super,scene){
-       this.initialPositions = [{x:150,y:30},{x:150,y:110},{x:150,y:200}]
+       this.initialPositions = [{x:250,y:30},{x:250,y:110},{x:250,y:200}]
        $super(scene)
        this.addCommandObservers();
        this.addMarchingStates();

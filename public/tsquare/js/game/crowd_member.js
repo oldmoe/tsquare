@@ -42,13 +42,13 @@ var CrowdMember = Class.create(Unit,{
   init: function(options){
     this.originalPosition = {x:0,y:0}
     this.originalPosition.y = this.handler.initialPositions[this.lane].y - this.handler.crowdMembersPerColumn * 10
-    this.originalPosition.x = this.handler.initialPositions[this.lane].x + 15*this.handler.crowdMembersPerColumn
+    this.originalPosition.x = this.handler.initialPositions[this.lane].x + 30*this.handler.crowdMembersPerColumn
     this.coords.x = this.originalPosition.x
     this.coords.y = this.originalPosition.y
     this.handler.crowdMembersPerColumn-- 
     if(this.handler.crowdMembersPerColumn == -1){
       this.handler.crowdMembersPerColumn = 2
-      this.handler.initialPositions[this.lane].x-=60
+      this.handler.initialPositions[this.lane].x-=100
     }
     this.randomDx = Math.round(Math.random()*50)
     this.coords.x +=this.randomDx
@@ -67,10 +67,10 @@ var CrowdMember = Class.create(Unit,{
       return;
     } 
     for(var i=0;i<noOfFollowers && i<remaining;i++){
-      var x = this.originalPosition.x - parseInt(noOfFollowers* 30 * Math.random())
-      var y = this.originalPosition.y + parseInt(50 * Math.random()) - 40;
+      var x = this.handler.objects[this.lane][this.handler.objects[this.lane].length-1].originalPosition.x - parseInt(noOfFollowers* 150 * Math.random());
+      var y = this.originalPosition.y + parseInt(70 * Math.random()) - 35;
       var follower = this.handler.addFollower("normal", x, y, this.lane, this);
-      this.scene.push(follower)
+      this.scene.push(follower);
       this.followers.push(follower);
     }
   },
@@ -82,7 +82,6 @@ var CrowdMember = Class.create(Unit,{
         elem.destroy();
       })
     }
-      
   },
   fire : function($super,event){
     if (this.followers) {

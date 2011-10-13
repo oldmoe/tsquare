@@ -20,7 +20,7 @@ var Game = Class.create({
   startLoading : function(){
     var self = this
     var loadingImages = ['loading_background.png','loadingbar_left.png','loadingbar_right.png',
-    'loadingbar_middle.png']
+    'loadingbar_middle.png','bar_background.png','background.png']
       new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
         ,{
           onFinish: function(){

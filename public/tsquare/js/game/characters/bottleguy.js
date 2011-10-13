@@ -1,6 +1,6 @@
 var Bottleguy = Class.create(CrowdMember,{
  rate : 1,
- waterAmount : 1,
+ waterAmount : 6,
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)
     if(options && options.rate)this.rate = options.rate

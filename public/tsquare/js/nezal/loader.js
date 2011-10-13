@@ -4,6 +4,7 @@ var Loader = Class.create({
   initialize: function (){
     this.loadedResources =0
     this.chunk = 25
+    this.options = [];
   },
   /*
   this method loads the images
@@ -13,7 +14,7 @@ var Loader = Class.create({
     onFinish        a callback that is called after all images are loaded
   */
   setLength : function(resources){
-    this.currentLength = 0
+    if(! this.currentLength) this.currentLength = 0
     var self = this
     resources.each(function(resource){
       Loader.resourceTypes.each(function(type){
@@ -26,8 +27,9 @@ var Loader = Class.create({
 
   load : function(resources, options){
     this.resources = resources
-    this.options = options
-    if(this.loadedResources==0)this.setLength(resources)
+    this.options.push(options)
+//    if(this.loadedResources==0)
+    this.setLength(resources)
     var self = this
     var objects = []
     var toLoad = []
@@ -96,30 +98,42 @@ var Loader = Class.create({
   },
 
   onload: function(options){
+    var self = this;
     this.loadedResources++;
-    if(options.onProgress) options.onProgress(Math.round((this.loadedResources/this.currentLength)*100))
-    if(this.loadedResources == this.currentLength){
-      this.loadedResources = 0
-      if(options.onFinish){
-        options.onFinish()
-      }
+    options.each(function(options){
+      if(options.onProgress) options.onProgress(Math.round((self.loadedResources/self.currentLength)*100))
+    });
+    if(self.loadedResources == self.currentLength){
+      self.loadedResources = 0
+      self.currentLength = 0
+      options.each(function(options){
+        if(options.onFinish){
+          options.onFinish()
+        }
+      });
+      self.options = [];
     } 
-    else if(this.resources.length>0){
-      this.loadResource()
+    else if(self.resources.length>0){
+      self.loadResource()
     }
   },
 
   onerror: function(resource, options){
+    var self = this;
     this.loadedResources++;
     resource.src = '';
-    if(this.loadedResources == this.currentLength){
-      this.loadedResources = 0
-      if(options.onError){
-        options.onError()
-      }
+    if(self.loadedResources == self.currentLength){
+      self.loadedResources = 0
+      self.currentLength = 0
+      options.each(function(options){
+        if(options.onError){
+          options.onError()
+        }
+      });
+      self.options = [];
     } 
-    else if(this.resources.length>0){
-      this.loadResource()
+    else if(self.resources.length>0){
+      self.loadResource()
     }
   },
 

@@ -14,8 +14,9 @@ var Timeline = Class.create({
     this.templateManager = gameManager.templateManager;
     this.gameManager = gameManager;
     this.mode = 'timeline';
+    this.loader = gameManager.loader;
     var self = this;
-    new Loader().load([ {images : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png", "coming_soon_missions.png",
+    this.loader.load([ {images : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png", "coming_soon_missions.png",
                                   "home_background.gif", "mission_details.png", "timeline_screen.png", "mission_current.png",
                                   "mission_locked.png", "mission_finished.png", "crowd_member_small.png",
                                   "mission_icon_selected.png", "play_button.png", "timeline.png"], path: 'images/timeline/', store: 'timeline'}],

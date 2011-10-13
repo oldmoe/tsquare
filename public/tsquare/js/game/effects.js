@@ -1,7 +1,6 @@
 var Effects = {
   
   fade : function(div, afterFinishFn){
-    console.log("Effect Fade", div)
     new Effect.Fade(div, {
 			duration: 0.5,
       afterFinish: function(){
@@ -12,7 +11,6 @@ var Effects = {
     })
   },
   appear : function(div, afterFinishFn){
-    console.log("Effect Appear", div)
     new Effect.Appear(div, {
 			duration: 0.5,
       afterFinish: function(){

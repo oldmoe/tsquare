@@ -47,7 +47,8 @@ var Marketplace = Class.create({
                         });
       membersImages.push(item + "_icon.png");
     }
-    new Loader().load([ {images : ["my_stuff_title.png", "buy_window_title.png", "tab_background.png", "dialog_box.png",
+    this.loader = this.gameManager.loader
+    this.loader.load([ {images : ["my_stuff_title.png", "buy_window_title.png", "tab_background.png", "dialog_box.png",
                                'item_background.png', 'item_title_background.png', 'item_details.png', 'link_button.png', 
                                 'Linked_background.png' ],
                                      path: 'images/marketplace/', store: 'marketplace'},
@@ -59,6 +60,14 @@ var Marketplace = Class.create({
     });
     
 
+  },
+
+  show : function(){
+    Effects.appear($('marketplace'));
+  },
+
+  hide : function(){
+    Effects.fade($('marketplace'), function(){$('marketplace').innerHTML = ""});
   },
   
   gatherSpecs : function(memberName){
@@ -140,6 +149,7 @@ var Marketplace = Class.create({
   },
   
   openMarketplace : function(myStuff){
+    $('marketplace').hide();
     var self = this;
     var screen = myStuff ? 'myStaff' : 'marketplace'
     $('marketplace').innerHTML = this.templateManager.load('marketplace', {screen : screen});
@@ -187,11 +197,12 @@ var Marketplace = Class.create({
         })
       })
     }
-      
+    var self = this;  
     $$('#marketplace .close')[0].stopObserving('click');
     $$('#marketplace .close')[0].observe('click', function(event){
-      $('marketplace').innerHTML = "";
+      self.hide();
     })
+    this.show();
   },
   
   adjustNavigators : function(marketTab){

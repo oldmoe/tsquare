@@ -105,7 +105,7 @@ body{
 
 /* loading bar styling */
 
-#inProgress #logo{
+#inProgress #logo, #gameInProgress #logo{
     left: 154px;
     position: absolute;
 }
@@ -142,7 +142,7 @@ body{
 	width:15px;
 }
 
-#inProgress{
+#inProgress, #gameInProgress{
 	width : 760px;
 	height:410px;
 }

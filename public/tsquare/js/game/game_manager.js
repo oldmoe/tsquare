@@ -7,8 +7,8 @@ var GameManager = Class.create({
     this.network = new TSquareNetwork();
     this.templateManager = new TemplatesManager(this.network);
     this.loader = new Loader();
-    var loadingImages = ['loading_background.png','loadingbar_left.png','loadingbar_right.png',
-                        'loadingbar_middle.png'];
+    var loadingImages =['loading_background.png','loadingbar_left.png','loadingbar_right.png',
+    'loadingbar_middle.png','bar_background.png','background.png'];
     this.loader.load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
         ,{
           onFinish: function(){
@@ -39,7 +39,7 @@ var GameManager = Class.create({
     this.loader.load([], {
                           onProgress : function(progress){
                             if($$('#inProgress #loadingBarFill')[0])
-                              $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
+                              $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
                           },
                           onFinish : function(){
                             $('inProgress').hide();

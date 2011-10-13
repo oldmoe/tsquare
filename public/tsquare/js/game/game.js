@@ -20,7 +20,7 @@ var Game = Class.create({
   startLoading : function(){
     var self = this
     var loadingImages = ['loading_background.png','loadingbar_left.png','loadingbar_right.png',
-    'loadingbar_middle.png']
+    'loadingbar_middle.png','bar_background.png','background.png']
       new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
         ,{
           onFinish: function(){
@@ -84,8 +84,8 @@ var Game = Class.create({
     						
   	new Loader().load(toLoad, {
   								  onProgress : function(progress){
-  									  if($$('#gameInProgress #loadingBarFill')[0])
-  									  $$('#gameInProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
+  									  if($$('#inProgress #loadingBarFill')[0])
+  									  $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
   								  },
   								  onFinish:function(){
                       $('gameInProgress').hide()
@@ -126,8 +126,8 @@ var Game = Class.create({
     
 	  new Loader().load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
           {onProgress : function(progress){
-                      if($$('#gameInProgress #loadingBarFill')[0])
-                      $$('#gameInProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
+                      if($$('#inProgress #loadingBarFill')[0])
+                      $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
              }, onFinish:function(){        
                   self.missionLoaded = true;
                   self.start();

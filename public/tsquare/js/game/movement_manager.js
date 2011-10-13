@@ -18,12 +18,12 @@ var MovementManager = Class.create({
     this.scene = scene
     this.registerListeners()
     this.checkUserDelay()
-    this.scene.push(this)
     this.time = new Date().getTime()
+    this.tick()
   },
 
   checkUserDelay : function(){
-   var upperBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length + 300
+   var upperBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length + 400
    var now = new Date().getTime()
    if(now > upperBound){
      if(this.move.length > 0)console.log(now-this.time);
@@ -41,7 +41,6 @@ var MovementManager = Class.create({
     this.comboStart = false;
     this.currentCombos = 0
     this.beatAccelaration = 0
-    this.ticksPassed = 0
     this.scene.fire('wrongMove')
   },
   getThreeDigits : function(num){
@@ -50,13 +49,16 @@ var MovementManager = Class.create({
   tick : function(){
     if(this.beatMoving){
       var now = new Date().getTime()
-      if (now > this.time + this.endTime * 2) {
+      if (now > this.time + this.endTime * 2 - 100) {
         this.moveEnd()
+        $('initCounter').show()
         this.time = now      
       }
     }else{
       this.checkUserDelay()
     }
+    var self = this
+    setTimeout(function(){self.tick()}, 10)
   },
   
   registerListeners  : function(){
@@ -88,22 +90,21 @@ var MovementManager = Class.create({
         self.comboStart = true
       }
       var now = new Date().getTime()
-      var lowerBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length - 300
-      var upperBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length + 300
+      var lowerBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length - 400
+      var upperBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length + 400
       //console.log(this.getThreeDigits(now),this.getThreeDigits(lowerBound),this.getThreeDigits(upperBound))
       if(now  < lowerBound){
             console.log('<')
             self.reset()
             console.log('reset3')
-            self.moveLength = 1
             self.move = [click]
-            self.totalMoveTicks =0
+            $('initCounter').hide()
             self.scene.fire("keypressed", [click, self.move.length, 1])
       }
       else if(click!=-1 && now > lowerBound && now < upperBound){   
             console.log('=')
             self.move.push(click)
-            self.moveLength++
+            $('initCounter').hide()
             self.scene.fire("keypressed", [click, self.move.length])
       }
       else{

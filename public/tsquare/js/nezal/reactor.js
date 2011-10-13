@@ -5,6 +5,7 @@ var Reactor = Class.create(Observer, {
     this.delay = delay || 50
 		this.events = []
 		this.ticks = 0
+    this.time = 0
 		this.running = false
 	},
 	
@@ -29,14 +30,15 @@ var Reactor = Class.create(Observer, {
 	run : function(callback){
 		this.running = true;
 		if(callback) callback();
-		this.tick();
+    this.time = new Date().getTime()
+    var self = this
+		setTimeout(function(){self.tick()}, self.delay)
 	},
 	
 	tick : function(){
 		if(!this.running) return
 		var self = this	
 		var toFire = []
-    var time_before = new Date().getTime()
 		try{
 			var event = this.events.last();
 			while(event && event[0] <= this.ticks){
@@ -55,9 +57,14 @@ var Reactor = Class.create(Observer, {
 //			console.log(e)
 			//alert('inside reactor : '+ e)
 		}
-		this.ticks++
-    var delay = new Date().getTime() - time_before
-		setTimeout(function(){self.tick()}, Math.max(self.delay-delay,0))
+    this.ticks++
+    var newTime = new Date().getTime()
+    var timeDifference =  newTime - this.time - this.delay
+    //if(Math.abs(timeDifference) > 10)console.log(timeDifference)
+    var delay = this.delay
+    if(timeDifference > 0 )delay = Math.max(this.delay - timeDifference, 0)
+    this.time = newTime
+		setTimeout(function(){self.tick()}, delay)
 	},
 
 	_eventIndex : function(ticks, insert){

@@ -41,6 +41,7 @@ var DomImgSprite = Class.create(DomSprite, {
     
   },
   switchAnimation : function(name){
+    if(this.currentAnimation.name == name) return
     var prevAnimation = this.currentAnimation
     this.currentAnimation = this.animations[name]
     this.currentAnimationFrame = 0

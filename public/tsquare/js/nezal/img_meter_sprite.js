@@ -32,6 +32,7 @@ var ImgMeterSprite = Class.create(DomSprite, {
     this.width = this.fullImg.width
     this.div.style.width = this.fullImg.width + "px";                         
     this.div.style.height = this.fullImg.height + "px"; 
+    this.render()
   },
   
   getMeterLength : function(){

@@ -77,13 +77,13 @@ var ScoreCalculator = Class.create({
   },
   
   getCombos: function(){
-    var t = wrongMovesCount+correctMovesCount;
+    var t = this.wrongMovesCount+this.correctMovesCount;
     if(t == 0) t = 1;
-    return Number(correctMovesCount/t).toFixed(2);
+    return Number(this.correctMovesCount/t).toFixed(2);
   },
   
   getObjectivesRatio: function(){
-    return Number(correctObjectiveCount/totalObjectives).toFixed(2);
+    return Number(this.correctObjectiveCount/this.totalObjectives).toFixed(2);
   },
   
   updateTime: function(){

@@ -75,7 +75,7 @@
           <div id="missions-container" class="missionsContainer" >
           	<ul id="missions-ul">
             {for mission in missions}
-            	<li id="mission_${mission['id']}" {if mission['playable'] == true } class="glowing" {/if}>
+            	<li id="mission_${mission['id']}">
                 {if mission['id'] == currentMission}
                   <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_current.png" alt="mission" /></a>
                 {else}

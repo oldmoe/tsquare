@@ -101,26 +101,18 @@ var gameData = {
                         'ultras_white' : {type : 'normal', name : 'Normal'},
                         'ultras_red' : {type : 'normal', name : 'Normal'},
                         'journalist' : {type : 'normal', name : 'Normal'},
-                        'attacker' : {type : 'special', name : 'Attacker'},
-                        'leader' : {type : 'special', name : 'Leader'},
                         'healer' : {type : 'special', name : 'Healer'},
-                        'bottleguy' : {type : 'special', name : 'Bottle Guy'},
-                        'energy_booster' : {type : 'special', name : 'Energy Booster'}
+                        'bottleguy' : {type : 'special', name : 'Bottle Guy'}
               },
               'specs' : { 
                     'normal' : { 1 : { 'hp' : 50, 'water' : 50, 'attack' : 5, 'defense' : 50 } } , 
-                    'attacker' : { 1 : { 'special' : { 'attack' : 1 }, 'hp' : 75, 'water' : 50, 'attack' : 10, 'defense' : 50 } },
-                    'leader' : { 1 : { 'special' : { 'followers' : 1 }, 'hp' : 50, 'water' : 25, 'attack' : 5, 'defense' : 25 } },   
                     'healer' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'hp' : 10 }, 
                                                        'hp' : 75, 'water' : 75, 'attack' : 2, 'defense' : 75 } 
                                 },
                     'bottleguy' : { 1 : { 'special' : { 'time' : 2, 'units' : 1, 'water' : 10}, 
                                                             'hp' : 75 , 'water' : 75 , 'attack' : 2  , 'defense' : 75 }  
-                                },
-                    'energy_booster' : { 1 : { 'special' : { 'slots_to_power' : 1, 'time' : 10, 'energy' : 5 },
-                                                'hp' : 25, 'water' : 75, 'attack' : 2, 'defense' : 25 }
                                 }
-              }  
+                   }  
 
         }, 
         'enemies' : { 'wood_stick_cs' : {

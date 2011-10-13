@@ -8,7 +8,10 @@ var MissionManager = Class.create({
     this.gameManager = gameManager;
     var self = this;
     new Loader().load([ {images : ["score_background.png", "star_icon.png", "stars_background.png", 
-                                  "button_cancel.png", "replay_button.png", "home_button.png", "next_mission_button.png", "win_lose_window.png"],
+                                  "replay_button.png", "home_button.png", "next_mission_button.png",
+                                  "lose_score_background.png", "lose_star_icon.png", "lose_stars_background.png",
+                                  "lose_replay_button.png", "lose_home_button.png", "lose_next_mission_button.png", 
+                                  "win_lose_window.png", "lose_window.png", "button_cancel.png"],
                           path: 'images/win_lose/', store: 'win_lose' }, 
                         {images : ["close_button.png"], 
                           path: 'images/game_elements/', store: 'game_elements' },
@@ -34,6 +37,7 @@ var MissionManager = Class.create({
     {
       this.eneded = false;
       score['stars'] = this.calculateStars(score);
+      this.displayStaticEndScreen();
       var self = this;
       this.network.postMissionScore( this.currentMission.id, score, function(data){
         self.mode = self.gameManager.timelineManager.mode;
@@ -46,9 +50,22 @@ var MissionManager = Class.create({
       });
     }
   },
+  
+  displayStaticEndScreen : function(){
+    var staticData = {'friends' : [], 'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : {score : '...', objectives : 0, stars : 0} };
+    var screenName = (this.score.win == true) ? 'win' : 'lose';
+    $('winLose').innerHTML = this.templateManager.load(screenName, staticData);
+    Game.addLoadedImagesToDiv('winLose');
+    this.attachListener();
+    this.show();
+  },
 
   hide : function(){
-    $('winLose').hide();
+    Effects.fade($('winLose'));
+  },
+
+  show:function(){
+    Effects.appear($('winLose'));
   },
 
   calculateStars : function(score) {
@@ -64,11 +81,12 @@ var MissionManager = Class.create({
   
   displayEndScreen : function(score){
     this.sortFriends();
-    $('winLose').innerHTML = this.templateManager.load('winLose', {'friends' : this.friends.slice(this.rank+1, this.rank+4),
+    var screenName = (this.score.win == true) ? 'win' : 'lose';
+    $('winLose').innerHTML = this.templateManager.load(screenName, {'friends' : this.friends.slice(this.rank+1, this.rank+4),
                              'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score });
     Game.addLoadedImagesToDiv('winLose');
     this.attachListener();
-    $('winLose').show();
+    this.show();
   },
 
   load : function(id, gameCallback){
@@ -94,8 +112,10 @@ var MissionManager = Class.create({
     $$('#winLose .homeButton')[0].observe('click', function(event){
       self.gameManager.openMainPage();
     });
-    $$('#winLose .nextMissionButton')[0].observe('click', function(event){
-      self.gameManager.playMission(self.currentMission.next);
+    $$('#winLose .nextMissionButton').each(function(button){
+      button.observe('click', function(event){
+        self.gameManager.playMission(self.currentMission.next);
+      });
     });
     $$('#winLose .close')[0].observe('click', function(event){
       self.gameManager.openMainPage();

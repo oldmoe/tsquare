@@ -31,7 +31,7 @@
   </div>
 </textarea>
 
-<textarea style="display:none;" id='timeline'>
+<textarea style="display:none;" id='calender'>
 	<!--Calendar-->   
   <div class="calendarWrapper">
   	<ul>
@@ -52,6 +52,9 @@
       </li>
     </ul>
   </div>
+</textarea>
+
+<textarea style="display:none;" id='missions'>
   <div id="missions">
     <!--Timeline Bar-->
     <div id="missions">
@@ -73,7 +76,15 @@
           	<ul id="missions-ul">
             {for mission in missions}
             	<li id="mission_${mission['id']}" {if mission['playable'] == true } class="glowing" {/if}>
-                <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_icon.png" alt="mission" /></a>
+                {if mission['id'] == currentMission}
+                  <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_current.png" alt="mission" /></a>
+                {else}
+                  {if mission['playable'] == true}
+                    <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_finished.png" alt="mission" /></a>
+                  {else}
+                    <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_locked.png" alt="mission" /></a>
+                  {/if}
+                {/if}
               	<a href="javascript:void(0)" class="hover">
                 	<span>${mission.name}</span>
                 	<span class="loadedImg" imgSrc="images/timeline/mission_icon_selected.png" alt="mission" />
@@ -200,6 +211,26 @@
     </div>
 </textarea>
 
+<textarea style="display:none;" id="guidingBar">
+  <div class="movesWrapper">
+    <div class="nextMove">
+      <span class="moveContainer">
+        <img class="positioned" src="images/game_elements/circle_move.png" alt="Move" />
+      </span>
+      <img class="positioned" src="images/game_elements/move_indicator.png" alt="Next move" />
+    </div>
+    <div class="movesIndicator">
+      <span class="wrong"><img src="images/game_elements/right_arrow.png" alt="Right" /></span>
+      <span class="right"><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
+      <span><img src="images/game_elements/right_arrow.png" alt="Right" /></span>
+      <span><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
+      <img class="positioned" src="images/game_elements/move_background.png" alt="moves background" />
+    </div>
+    <div id="guidingBarSlide" class="trigger">
+      <a id="trigger" ><img src="images/game_elements/moves_arrows.png" alt="trigger" /></a>
+    </div>
+  </div>
+</textarea>
 
 <textarea style="display:none;" id='friends'>
 	<!--Friends Bar-->

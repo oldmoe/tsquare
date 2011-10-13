@@ -5,8 +5,8 @@ var GameManager = Class.create({
     var self = this;
     this.urlParams = urlParams;
     this.network = new TSquareNetwork();
-    this.templateManager = new TemplatesManager(this.network);  
-    this.processParams(urlParams, function(data){self.processRequest(data)});
+    this.templateManager = new TemplatesManager(this.network);
+    this.processParams(this.urlParams, function(data){self.processRequest(data)});
 		this.reactor = new Reactor();
     Effect.Queues.create('global', this.reactor)
     this.reactor.run();
@@ -55,12 +55,18 @@ var GameManager = Class.create({
   },
 
   openMainPage : function(){
-    $$('#uiContainer .background')[0].show();
-    $('gameContainer').hide();
+    var self = this;
     this.missionManager.hide();
-    this.meterBar.show();
-    this.scoreManager.show();
-    this.timelineManager.display();
+    self.meterBar.hide();      
+    self.scoreManager.hide();
+    self.timelineManager.hide();
+    Effects.fade($('gameContainer'), function(){
+      Effects.appear($$('#uiContainer .background')[0], function(){
+        self.meterBar.show();
+        self.scoreManager.show();
+        self.timelineManager.display();
+      });
+    });
   },
 
   /* If there is a request object acceptance has lead to opening the game, 
@@ -68,7 +74,6 @@ var GameManager = Class.create({
     example : request['date']['type'] = 'challenge'
     then open in the game on the mission page */
   processRequest : function(request){
-    
     this.start();
   },
 
@@ -78,24 +83,18 @@ var GameManager = Class.create({
         Delete request from user requests on social network
   */
   processParams : function(params, gameCallback){
-    var callback = function(requests_data){
-      var requestData = {};
-      if(params['request_ids'])
-      {
-        params['request_ids'] = params['request_ids'].split("%");
-        for(var i = 0; i < params['request_ids'].length; i++ )
-        {
-          var requestData = requests_data[params['request_ids'][i]];
-          if(requestData)
-          {
-            gameManager.network.genericPostRequest('requests/accept', {request_id : params['request_ids'][i], from : requestData['from']['id']});
-            socialEngine.deleteObject(params['request_ids'][i]);
-          }
-        }
+    if(params['request_ids'])
+    {
+      params['request_ids'] = params['request_ids'].split("%")
+      this.notifyFirst = params['request_ids']; 
+      var callback = function(requests_data){
+        var requestData = {};
+        gameCallback(requestData);
       }
-      gameCallback(requestData);
+      socialEngine.getObject(params, callback);
     }
-    socialEngine.getObject(params['request_ids'], callback);
+    else 
+      gameCallback();
   }
 
 

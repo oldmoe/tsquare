@@ -44,7 +44,6 @@ body{
   position: absolute;
   top: 9px;
   width: 950px;
-  z-index: 200;
 }
 .DomSprite{
   position : absolute;

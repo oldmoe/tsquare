@@ -4,7 +4,7 @@
 .container { width:760px; height:685px; margin:0 auto; }
 
 /*-------Widnow-------*/
-.window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:46px 27px 0 19px; position:relative; height:401px; }
+.window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:35px 27px 0 45px; position:relative; height:401px; }
 .windowTitle { float:left; width:254px; height:44px; position:relative; top:-43px; left:267px; }
 .close { float:left; width:39px; height:39px; position:relative; left:436px; top:-15px; overflow:hidden; z-index:3; }
 .close a { display:block; width:39px; height:39px; }

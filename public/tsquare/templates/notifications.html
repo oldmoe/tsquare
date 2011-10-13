@@ -1,0 +1,47 @@
+<textarea style="display:none;" id='notifications'>
+  <!--Notification-->
+  <div class="window notifications">
+  	<!--Title-->
+  	<div class="windowTitle">
+    	<span class="loadedImg" imgSrc="images/notifications/title_inbox.png" alt="title"></span>
+    </div>
+    <!--Close-->
+    <div class="close">
+    	<a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close"></span></a>
+    </div>
+    <div class="notificationWrapper">
+    </div>
+    <span class="loadedImg" imgSrc="images/marketplace/window_background.png" alt="window" imgClasses="windowBackground positioned"></span>
+  </div>
+</textarea>
+
+<textarea style="display:none;" id='notificationsList'>
+  {for notification in list}
+    <!--Notification Items-->
+    <div class="notificationItem">
+      <!--Image Wrapper-->
+      <div class="notificationImage">
+        <img src="images/dummy/facebook_image_large.png" alt="Facebook image" id="${notification.from.id}"/>
+      </div>
+      <!--Content Wrapper-->
+      <div class="notificationContent">
+        <h3><a href="javascript:void(0)">${notification.from.name}</a></h3>
+        <h5>${notification.message}</h5>
+      </div>
+      <!--Notification Actions-->
+      <div class="notificationActions">
+        <!--Buy button-->
+        <a class="confirmButton" href="javascript:void(0)" requestId="${notification.id}">
+          <span>Accept</span>
+          <span class="loadedImg" imgSrc="images/notifications/confirm_button.png" alt="confirm"></span>
+        </a>
+        <!--Cancel button-->
+        <a class="cancelButton" href="javascript:void(0)" requestId="${notification.id}">
+          <span>Cancel</span>
+          <span class="loadedImg" imgSrc="images/notifications/button_cancel.png" alt="Cancel"></span>
+        </a>
+      </div>
+      <span class="loadedImg" imgSrc="images/notifications/notifications_item.png" alt="notification item" imgClasses="positioned"></span>
+    </div>
+  {/for}
+</textarea>

@@ -6,7 +6,6 @@ var MovementManager = Class.create({
   direction : 0,
   ticksPassed : 0,
   totalMoveTicks : 0,
-  moveLength : 0,
   beatAccelaration : 0,
   lastMoveClicked : false,
   beatDelay : 15,
@@ -28,6 +27,7 @@ var MovementManager = Class.create({
    var now = new Date().getTime()
    if(now > upperBound){
      if(this.move.length > 0)console.log(now-this.time);
+      this.scene.fire("pressLate")
      this.time = now
      console.log('reset1')
      this.reset()
@@ -75,11 +75,13 @@ var MovementManager = Class.create({
       }else if (e.keyCode == 32) {
           click = 2
       }else{
+        // self.scene.fire("keypressed", [click, self.move.length])
         return
       }
       self.process(click)
 		})
   },
+  
   process : function(click){
       var self = this
       if(self.scene.currentSpeed > 0){
@@ -96,18 +98,22 @@ var MovementManager = Class.create({
             self.moveLength = 1
             self.move = [click]
             self.totalMoveTicks =0
+            self.scene.fire("keypressed", [click, self.move.length, 1])
       }
       else if(click!=-1 && now > lowerBound && now < upperBound){   
             console.log('=')
             self.move.push(click)
             self.moveLength++
+            self.scene.fire("keypressed", [click, self.move.length])
       }
       else{
             //alert('!!!')            
       }
+      // console.log(click, self.move.length);
       self.checkMove()
       self.ticksPassed = 0
   },
+  
   getNextMoveIndex : function(){
     return 0
   },
@@ -153,7 +159,6 @@ var MovementManager = Class.create({
    if(code.length==self.move.length){
      this.move=[]
      this.startMove(this.moves[command].index,this.scene.audioManager.nextBeatTime()*4)
-     this.moveLength = 0
      //Sounds.play(Sounds.gameSounds.correct_move)
    }
   },

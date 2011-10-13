@@ -47,14 +47,39 @@
 .healthMeter span { position:absolute; z-index:8; font-weight:bold; color:#FFF; font-size:.6em; top:13px; width:27px; text-align:center;	 }
 
 /*--------Game meters-----------*/
-.movesWrapper { float:right; width:382px; height:106px; position:relative; z-index:2; top:500px; right:18px; }
-.nextMove { float:right; width:112px; height:106px; position:relative; z-index:2; }
-.moveContainer { float:left; width:84px; height:64px; position:relative; z-index:3; margin:29px 0 0 15px;  }
-.movesIndicator { float:right; width:235px; height:70px; position:relative; z-index:2; right:-30px; top:26px; padding:0 35px 0 0; }
-.movesIndicator span { float:right; width:45px; height:45px; overflow:hidden; z-index:3; position:relative; margin:10px 0 0 5px }
-.movesIndicator span.wrong { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; -webkit-box-shadow: 0px 0px 4px #FF0000; -moz-box-shadow: 0px 0px 4px #FF0000; box-shadow: 0px 0px 4px #FF0000; }
-.movesIndicator span:hover img, .movesIndicator span.pressed img { position:relative; top:-45px; }
+.movesWrapper { float:right; width:231px; height:57px; position:relative; z-index:2; top:547px; right:18px; overflow:hidden; }
+.nextMove { float:right; width:70px; height:57px; position:relative; z-index:4; }
+.moveContainer { float:left; width:55px; height:48px; position:relative; z-index:3; margin:5px 0 0 10px;  }
+.movesIndicator { float:right; width:161px; height:37px; position:relative; z-index:2; top:11px; padding:0 0 0 0; }
+.movesIndicator span { float:right; width:29px; height:18px; overflow:hidden; z-index:3; position:relative; margin:10px 0 0 5px;  }
+.movesIndicator span img {  position:relative; top:-36px;  }
+.movesIndicator span.wrong img { position:relative; top:0px; }
+.movesIndicator span.right img { position:relative; top:-18px; }
 
-.trigger { float:right; width:13px; height:14px; overflow:hidden; position:absolute; z-index:3; left:37px; top:55px; }
-.triggered { float:right; width:13px; height:15px; overflow:hidden; position:absolute; z-index:3; left:39px; top:54px; }
+.trigger { float:right; width:13px; height:13px; overflow:hidden; position:relative; z-index:3; left:-143px; top:-12px; }
+.triggered { float:right; width:13px; height:15px; overflow:hidden; position:relative; z-index:3; left:-1px; top:-12px; }
 .triggered img { position:relative; top:-14px;   }
+
+/*--------Power Bar-----------*/
+.powerbar { position:absolute; top:60px; left:10px; z-index:8; width:247px; height:42px; }
+.powerPercentage { position:absolute; z-index:10; width:100%; text-align:center; padding:10px; font-weight:bold; font-size:1.2em; color:#FFF; }
+.powerLevel01 { position:absolute; z-index:9; overflow:hidden; width:55px; height:42px; }
+.powerLevel01 div { overflow:hidden; position:absolute; height:42px; }
+
+.powerLevel02 { position:absolute; z-index:9; left:56px; overflow:hidden;  width:53px; height:42px; }
+.powerLevel02 div { overflow:hidden; position:absolute; height:42px; }
+
+.powerLevel03 { position:absolute; z-index:9; left:110px; overflow:hidden;  width:52px; height:42px; }
+.powerLevel03 div { overflow:hidden; position:absolute; height:42px; }
+
+.powerLevel04 { position:absolute; z-index:9; left:163px; overflow:hidden;  width:81px; height:42px; }
+.powerLevel04 div { overflow:hidden; position:absolute; height:42px; }
+
+
+
+
+
+
+
+
+

@@ -45,7 +45,7 @@ var Marketplace = Class.create({
                          buyID : this.members['category'][item]['buyID'],
                          memberID : ""
                         });
-      membersImages.push(item + ".png");
+      membersImages.push(item + "_icon.png");
     }
     new Loader().load([ {images : ["my_stuff_title.png", "buy_window_title.png", "tab_background.png", "dialog_box.png",
                                'item_background.png', 'item_title_background.png', 'item_details.png', 'link_button.png', 

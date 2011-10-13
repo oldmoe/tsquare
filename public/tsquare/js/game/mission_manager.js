@@ -7,7 +7,7 @@ var MissionManager = Class.create({
     this.templateManager = gameManager.templateManager;
     this.gameManager = gameManager;
     var self = this;
-    new Loader().load([ {images : ["score_background.png", "star_icon.png", "stars_background.png", 
+    this.gameManager.loader.load([ {images : ["score_background.png", "star_icon.png", "stars_background.png", 
                                   "replay_button.png", "home_button.png", "next_mission_button.png",
                                   "lose_score_background.png", "lose_star_icon.png", "lose_stars_background.png",
                                   "lose_replay_button.png", "lose_home_button.png", "lose_next_mission_button.png", 

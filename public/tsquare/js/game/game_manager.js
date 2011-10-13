@@ -6,7 +6,19 @@ var GameManager = Class.create({
     this.urlParams = urlParams;
     this.network = new TSquareNetwork();
     this.templateManager = new TemplatesManager(this.network);
-    this.processParams(this.urlParams, function(data){self.processRequest(data)});
+    this.loader = new Loader();
+    var loadingImages =['loading_background.png','loadingbar_left.png','loadingbar_right.png',
+    'loadingbar_middle.png','bar_background.png','background.png'];
+    this.loader.load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
+        ,{
+          onFinish: function(){
+            $('inProgress').innerHTML = self.templateManager.load('loadingScreen');
+            $('uiContainer').hide();
+            $('inProgress').show();
+            self.processParams(self.urlParams, function(data){self.processRequest(data)});
+          }
+        }
+      )
 		this.reactor = new Reactor();
     Effect.Queues.create('global', this.reactor)
     this.reactor.run();
@@ -24,6 +36,16 @@ var GameManager = Class.create({
     self.marketplace = new Marketplace(self);
     self.timelineManager = new Timeline(self);
     self.missionManager = new MissionManager(self);
+    this.loader.load([], {
+                          onProgress : function(progress){
+                            if($$('#inProgress #loadingBarFill')[0])
+                              $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
+                          },
+                          onFinish : function(){
+                            $('inProgress').hide();
+                            $('uiContainer').show();
+                          }
+                })
     game = new Game(self);
     self.game = game;
   },
@@ -32,7 +54,6 @@ var GameManager = Class.create({
     var self = this;
     var callback = function(data) {
       self.initializeData(data);
-      $('uiContainer').show();
     }
     this.network.gameData(callback);
   },
@@ -56,17 +77,22 @@ var GameManager = Class.create({
 
   openMainPage : function(){
     var self = this;
-    this.missionManager.hide();
-    self.meterBar.hide();      
-    self.scoreManager.hide();
-    self.timelineManager.hide();
-    Effects.fade($('gameContainer'), function(){
-      Effects.appear($$('#uiContainer .background')[0], function(){
-        self.meterBar.show();
-        self.scoreManager.show();
-        self.timelineManager.display();
+    if($('gameContainer').getStyle('display') != 'none')
+    {
+      this.missionManager.hide();
+      self.meterBar.hide();      
+      self.scoreManager.hide();
+      self.timelineManager.hide();
+      Effects.fade($('gameContainer'), function(){
+        Effects.appear($$('#uiContainer .background')[0], function(){
+          self.meterBar.show();
+          self.scoreManager.show();
+          self.timelineManager.display();
+        });
       });
-    });
+    }else{
+      self.timelineManager.display();
+    }
   },
 
   /* If there is a request object acceptance has lead to opening the game, 

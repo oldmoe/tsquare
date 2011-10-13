@@ -24,8 +24,8 @@ var Game = Class.create({
       new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
         ,{
           onFinish: function(){
-            $('inProgress').innerHTML = self.templateManager.load('loadingScreen')
-            $('inProgress').show()
+            $('gameInProgress').innerHTML = self.templateManager.load('loadingScreen')
+            $('gameInProgress').show()
             self.initializeGame();
           }
         }
@@ -88,10 +88,10 @@ var Game = Class.create({
   									  $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
   								  },
   								  onFinish:function(){
+                      $('gameInProgress').hide()
   					   				self.imagesLoaded = true;
   						  			self.start();
                       self.doneLoading = true
-                      $('inProgress').hide()
   								  }
     });
   },
@@ -159,7 +159,7 @@ var Game = Class.create({
   },
 
   show : function() {
-      $('inProgress').show()
+      $('gameInProgress').show()
   },
   
   reset : function(){

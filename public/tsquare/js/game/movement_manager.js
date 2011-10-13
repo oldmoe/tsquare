@@ -26,10 +26,10 @@ var MovementManager = Class.create({
    var upperBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length + 400
    var now = new Date().getTime()
    if(now > upperBound){
-     if(this.move.length > 0)console.log(now-this.time);
+      $('initCounter').hide()
       this.scene.fire("pressLate")
      this.time = now
-     console.log('reset1')
+//     console.log('reset1')
      this.reset()
    } 
   },
@@ -67,7 +67,7 @@ var MovementManager = Class.create({
     document.observe('keydown', function(e){
       if(self.beatMoving){
         self.reset()
-        console.log('reset2')
+//        console.log('reset2')
       }
       var click = -1
       if (e.keyCode == 39) {
@@ -94,15 +94,15 @@ var MovementManager = Class.create({
       var upperBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length + 400
       //console.log(this.getThreeDigits(now),this.getThreeDigits(lowerBound),this.getThreeDigits(upperBound))
       if(now  < lowerBound){
-            console.log('<')
+//            console.log('<')
             self.reset()
-            console.log('reset3')
+//            console.log('reset3')
             self.move = [click]
             $('initCounter').hide()
             self.scene.fire("keypressed", [click, self.move.length, 1])
       }
       else if(click!=-1 && now > lowerBound && now < upperBound){   
-            console.log('=')
+//            console.log('=')
             self.move.push(click)
             $('initCounter').hide()
             self.scene.fire("keypressed", [click, self.move.length])
@@ -146,7 +146,7 @@ var MovementManager = Class.create({
      }else{
        this.scene.fire('leftWrong')
      }   
-     console.log('reset4')
+//     console.log('reset4')
      
      self.reset()
      return
@@ -191,7 +191,7 @@ var MovementManager = Class.create({
         this.currentCombos++
         this.scene.fire('correctMove')
       }
-      console.log('end move')
+//      console.log('end move')
       this.beatMoving = false
   }
   

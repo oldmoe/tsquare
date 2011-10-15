@@ -2,6 +2,7 @@ var Inbox = Class.create({
 
   requests : {},
 
+  listeners : [],
 
   initialize : function(gameManager){
     this.network = gameManager.network;    
@@ -24,20 +25,20 @@ var Inbox = Class.create({
                           self.display();
                         }
                       });
-    this.getInboxRequests();
+    this.getInboxRequests(function(){self.display()});
   },
 
   show : function(){
-    $('notifications').show();
+     Effects.appear($('notifications'));
   },
 
   hide : function(){
-    $('notifications').hide();
+     Effects.fade($('notifications'));
   },
 
   display : function(){
     var self = this;
-    if(this.imagesLoaded && this.dataLoaded)
+    if(this.imagesLoaded && this.dataLoaded & this.noOfRequests > 0)
     {
       $('notifications').innerHTML = this.templateManager.load('notifications', {inbox : this});
       $$('.notifications .close a').each(function(button){
@@ -93,11 +94,17 @@ var Inbox = Class.create({
 
   acceptRequest : function(requestId){
     this.network.genericPostRequest('requests/accept', {request_id : requestId, from : this.requests[requestId]['from']['id']});
+    var request = this.requests[requestId];
     delete(this.requests[requestId]);
     var self = this;
     new Effect.BlindUp($$('.notificationWrapper')[0].select(".notificationItem[requestId=" + requestId + "]")[0], 
                         { afterFinish: function(){
                             self.displayList();
+                            if(request.data.type=='challenge')          
+                            {
+                              self.hide();
+                              self.gameManager.timelineManager.displayMissions(request);
+                            }
                           }, 
                           duration : 0.3
                         });
@@ -123,7 +130,7 @@ var Inbox = Class.create({
     })
   },
   
-  getInboxRequests : function(){
+  getInboxRequests : function(callback){
     var self = this;
     socialEngine.getAppRequests(function(requests){
       requests.each(function(request){
@@ -132,7 +139,10 @@ var Inbox = Class.create({
       }); 
       self.dataLoaded = true;
       self.noOfRequests = requests.length;
-      self.display();
+      self.listeners.each(function(listener){
+        listener();
+      });
+      if(callback) callback();
     });
   },
 
@@ -149,6 +159,26 @@ var Inbox = Class.create({
       else
         return request.id 
     }).reverse();
+  },
+
+  challenges : function(callback){
+    var self = this;
+    var challenges = [];
+    loadingCallback = function(){
+      for(var i in self.requests)
+      {
+        if(self.requests[i]['data']['type'] == 'challenge')
+          challenges.push(self.requests[i]);
+      }
+      callback(challenges)
+    }
+    if(!this.dataLoaded)
+    {
+      this.listeners.push(loadingCallback)
+    }else{
+      loadingCallback();  
+    }
+
   }
 
 });

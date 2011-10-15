@@ -24,6 +24,7 @@ var Carousel = Class.create( {
     initialize : function(id, images, displayCount, scrollCount){
         this.id = id;
         this.images = images;
+        this.scrollListeners = [];
         var lis = $$('#' + this.id + ' ul li')
 				if (lis[0] && lis[1]) {
           this.width = Math.abs(lis[1].cumulativeOffset().left - lis[0].cumulativeOffset().left );
@@ -107,7 +108,11 @@ var Carousel = Class.create( {
             var step = -1 * this.direction * (newIndex - this.currIndex) * this.width;
             this.currIndex = newIndex;
             var carousel = this;
-            new Effect.Move(this.ulId, {x: step, y: 0, mode: 'relative', duration: 0.5, afterFinish : function(){ carousel.enabled = true; } })
+            new Effect.Move(this.ulId, {x: step, y: 0, mode: 'relative', duration: 0.3, afterFinish : function(){ 
+                carousel.enabled = true; 
+                carousel.scrollListeners.each(function(listener){ listener() });
+              } 
+            });
             this.checkButtons();              
         }
     },
@@ -123,25 +128,40 @@ var Carousel = Class.create( {
             var step = -1 * this.direction * (newIndex - this.currIndex) * this.width;
             this.currIndex = newIndex;
             var carousel = this;
-            new Effect.Move(this.ulId, {x: step, y: 0, mode: 'relative', duration: 0.3, afterFinish : function(){ carousel.enabled = true; } })
+            new Effect.Move(this.ulId, {x: step, y: 0, mode: 'relative', duration: 0.3, afterFinish : function(){ 
+                carousel.enabled = true; 
+                carousel.scrollListeners.each(function(listener){ listener() });
+              } 
+            });
             this.checkButtons();
         }
     },
     
     scrollTo : function(index){
+        if(!this.enabled) return;
+        this.enabled = false;
         if(index < 0)
           index = 0;
         if(index > Math.abs(this.listSize - this.displayCount))
             index = this.listSize - this.displayCount
         var distance = this.direction * (this.currIndex - index) * this.width;
         this.currIndex = index;
-        new Effect.Move(this.ulId, {x:distance, y: 0, mode: 'relative', duration: 0.3, afterFinish : function(){ }})
+        var carousel = this;
+        new Effect.Move(this.ulId, {x:distance, y: 0, mode: 'relative', duration: 0.3, afterFinish : function(){   
+                carousel.enabled = true; 
+                carousel.scrollListeners.each(function(listener){ listener() });
+              } 
+            });
         this.checkButtons();
     },
 
     center : function(index){
       index = index - Math.floor(this.displayCount/2);
       this.scrollTo(index);
+    },
+
+    observeScrolling : function(callback){
+      this.scrollListeners.push(callback)
     },
     
     checkButtons : function(){  

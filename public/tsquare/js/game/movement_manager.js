@@ -27,10 +27,11 @@ var MovementManager = Class.create({
    var now = new Date().getTime()
    if(now > upperBound){
       $('initCounter').hide()
-      this.scene.fire("pressLate")
-     this.time = now
-//     console.log('reset1')
-     this.reset()
+      this.time = now
+      if(this.move.length > 0){
+        this.scene.fire("pressLate")
+      }
+      this.reset();
    } 
   },
   
@@ -41,11 +42,14 @@ var MovementManager = Class.create({
     this.comboStart = false;
     this.currentCombos = 0
     this.beatAccelaration = 0
-    this.scene.fire('wrongMove')
+    this.scene.fire('wrongMove');
+    console.log("reset11")
   },
+  
   getThreeDigits : function(num){
     return parseInt((num/1000 - parseInt(num/1000))* 1000)
   },
+  
   tick : function(){
     if(this.beatMoving){
       var now = new Date().getTime()
@@ -77,7 +81,8 @@ var MovementManager = Class.create({
       }else if (e.keyCode == 32) {
           click = 2
       }else{
-        // self.scene.fire("keypressed", [click, self.move.length])
+        self.scene.fire("keypressed", [click, self.move.length])
+        self.reset();
         return
       }
       self.process(click)
@@ -97,7 +102,6 @@ var MovementManager = Class.create({
 //            console.log('<')
             self.reset()
 //            console.log('reset3')
-            self.move = [click]
             $('initCounter').hide()
             self.scene.fire("keypressed", [click, self.move.length, 1])
       }
@@ -147,7 +151,7 @@ var MovementManager = Class.create({
        this.scene.fire('leftWrong')
      }   
 //     console.log('reset4')
-     
+     self.scene.fire("keypressed", [-1, self.move.length-1])
      self.reset()
      return
    }
@@ -166,6 +170,7 @@ var MovementManager = Class.create({
   
   startMove : function(commandIndex,endTime){
     var collision = this.scene.detectCollisions()
+    this.scene.fire("beatMoving");
     if(commandIndex == this.moves.march.index){
         if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
         this.scene.fire('march')

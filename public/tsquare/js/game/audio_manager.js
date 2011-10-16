@@ -48,13 +48,10 @@ var AudioManager = Class.create({
 			{tempo: 130, beats : [{beat : 0, volume : 12}]},
 			{tempo: 130, beats : [{beat : 0, volume : 18}]},
 			{tempo: 130, beats : [{beat : 0, volume : 24}]},
-			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 2, volume : 48}]},
-			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 5, volume : 48}]},
-			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 1, volume : 48}]},
-			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 3, volume : 48}]},
-			{tempo: 140, beats : [{beat : 0, volume : 24}, {beat : 3, volume : 96}]},
-			{tempo: 150, beats : [{beat : 0, volume : 24}, {beat : 3, volume : 80}]},
-			{tempo: 160, beats : [{beat : 0, volume : 24}, {beat : 3, volume : 80}]}
+			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 2, volume : 30}]},
+			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 5, volume : 30}]},
+			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 1, volume : 30}]},
+			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 3, volume : 30}]}
 		]
 		
 		var self = this

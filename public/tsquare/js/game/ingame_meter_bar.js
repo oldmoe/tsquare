@@ -6,9 +6,8 @@ var InGameMeterBar = Class.create({
     this.scoreCalculator = game.scene.scoreCalculator;
     this.currentEnergy = -1;
     $('inGameMeterBar').innerHTML = this.templateManager.load('inGameMeterBar');
-    this.energyBarWidth = parseInt($$('.inGameMeterBar .energyBar .bar')[0].getStyle('width').split('px')[0]);
     var self = this;
-    game.scene.reactor.pushEvery(0, game.scene.reactor.everySeconds(1), function(){self.tick();});
+    this.game.scene.reactor.pushEvery(0, game.scene.reactor.everySeconds(1), function(){self.tick();});
   },
   
   tick : function(){
@@ -24,12 +23,29 @@ var InGameMeterBar = Class.create({
     
     if(this.currentEnergy != this.game.scene.energy.current){
       this.currentEnergy = this.game.scene.energy.current;
-      $$('.inGameMeterBar .energyBar span')[0].innerHTML = Math.floor(this.game.scene.energy.current);
-      var energyBarFill = (Math.floor(this.game.scene.energy.current)/this.game.scene.energy.max) * this.energyBarWidth;
-      console.log(energyBarFill);
-      $$('.inGameMeterBar .energyBar .bar table')[0].setStyle({ 'width' : energyBarFill } );
-      if(energyBarFill == 0) $$('.inGameMeterBar .energyBar .bar table')[0].hide();
-      else $$('.inGameMeterBar .energyBar .bar table')[0].show();
+      this.setPowerMeterStyle()
     }
+  },
+  setPowerMeterStyle : function(){
+    for(var i=1;i<5;i++){
+      var minEnergy = this.game.scene.speeds[i].energy
+      var maxEnergy = 0
+      if(this.game.scene.speeds[i+1]){
+        maxEnergy = this.game.scene.speeds[i+1].energy
+      }else{
+        maxEnergy = this.game.scene.energy.max
+      }
+      var currentEnergy = this.game.scene.energy.current
+      if(currentEnergy > maxEnergy)      
+        $$('.inGameMeterBar .powerbar .powerLevel0'+(i) + ' div')[0].style.width = "90%"
+      else if(currentEnergy < minEnergy){
+        $$('.inGameMeterBar .powerbar .powerLevel0'+(i) + ' div')[0].style.width = "00%"
+      } 
+      else{
+        var percent = (currentEnergy - minEnergy)*90/ (maxEnergy - minEnergy)
+          $$('.inGameMeterBar .powerbar .powerLevel0'+(i) + ' div')[0].style.width = percent+"%"
+      } 
+    }
+    $$('.inGameMeterBar .powerbar .powerPercentage')[0].innerHTML = Math.floor(this.game.scene.energy.current*100/ this.game.scene.energy.max) + "%"
   }
 });

@@ -42,6 +42,7 @@ BottleguyDisplay = Class.create(CrowdMemberDisplay,{
     this.sprites.character.createAnimation({name:'front',img:this.frontImg,noOfFrames:4})
     this.sprites.character.createAnimation({name:'back' ,img:this.backImg,noOfFrames:4})
     this.sprites.character.createAnimation({name:'run'  ,img:this.runImg,noOfFrames:6})
+    this.sprites.character.createAnimation({name:'sprint'  ,img:this.runImg,noOfFrames:6})
     this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:8, flipped : true})
     this.sprites.character.createAnimation({name:'reverseRun'  ,img:this.runImg, noOfFrames:6, flipped : true})
     this.sprites.health = new ImgMeterSprite(this.owner,

@@ -3,7 +3,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    type : "left",   
    initialPositions : null,
    crowdMembersPerColumn : 2,
-   marchingStates: ["normal", "walk", "jog", "run"],//display
+   marchingStates: ["normal", "walk", "jog", "run", "sprint"],//display
    commands: ["circle", "hold", "march", "retreat"],
    currentId : 0,
    
@@ -145,7 +145,7 @@ var CrowdHandler = Class.create(UnitHandler, {
         this.executeCommand("hold", {holdingLevel: holdingLevel});
         this.scene.currentCommand = 3;
      }else{
-       this.energy.current -= this.energy.rate;
+       this.scene.energy.current -= this.scene.energy.rate;
        this.scene.fire("wrongCommand");
      }
      

@@ -92,6 +92,7 @@ var Game = Class.create({
   					   				self.imagesLoaded = true;
   						  			self.start();
                       self.doneLoading = true
+                      // self.play(missionData);
   								  }
     });
   },

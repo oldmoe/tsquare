@@ -49,6 +49,7 @@ var ScoreManager = Class.create({
                       {
                         onFinish: function(){
                           self.imagesLoaded = true;
+                          self.display();
                         }
                       });
     this.loadFriendsTab('global');

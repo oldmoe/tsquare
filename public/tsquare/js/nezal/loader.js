@@ -129,6 +129,9 @@ var Loader = Class.create({
         if(options.onError){
           options.onError()
         }
+        else if(options.onFinish){
+          options.onFinish()
+        }
       });
       self.options = [];
     } 

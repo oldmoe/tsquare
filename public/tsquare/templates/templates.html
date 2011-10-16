@@ -66,6 +66,17 @@
       <div class="timelineBar">
       	<!--Missions-->
       	<div class="timelineMissions">
+          {if challenge}
+            <div class="friendScore" mission="${challenge.data.mission}">
+            	<div class="smallImageWrapper">
+              	<span class="loadedImg" imgSrc="images/dummy/facebook_image_large.png" alt="Facebook Image"
+                  imgId="${challenge.from.id}" imgStyle="width:33px;"></span>
+              </div>
+              <h3>${challenge.from.name}</h3>
+              <h5>${challenge.data.score}</h5>
+              <span class="loadedImg" imgSrc="images/timeline/challenge_box.png" alt="Friend score" imgClasses="positioned"></span>
+            </div>
+          {/if}
           <!--Changes 28 Sept.-->
           <!--Left controls-->
           <div class="leftControls">
@@ -79,7 +90,7 @@
           <div id="missions-container" class="missionsContainer" >
           	<ul id="missions-ul">
             {for mission in missions}
-            	<li id="mission_${mission['id']}">
+            	<li id="mission_${mission['id']}" {if challenge && challenge.data.mission == mission.id} class="glowing" {/if}>
                 {if mission['id'] == currentMission}
                   <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_current.png" alt="mission" /></a>
                 {else}

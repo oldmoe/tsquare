@@ -5,20 +5,21 @@ var GameManager = Class.create({
     var self = this;
     this.urlParams = urlParams;
     this.network = new TSquareNetwork();
-    this.templateManager = new TemplatesManager(this.network);
     this.loader = new Loader();
     var loadingImages =['loading_background.png','loadingbar_left.png','loadingbar_right.png',
     'loadingbar_middle.png','bar_background.png','background.png'];
-    this.loader.load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
-        ,{
-          onFinish: function(){
-            $('inProgress').innerHTML = self.templateManager.load('loadingScreen');
-            $('uiContainer').hide();
-            $('inProgress').show();
-            self.processParams(self.urlParams, function(data){self.processRequest(data)});
+    this.templateManager = new TemplatesManager(function(){
+      new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
+          ,{
+            onFinish: function(){
+              $('inProgress').innerHTML = self.templateManager.load('loadingScreen');
+              $('uiContainer').hide();
+              $('inProgress').show();
+              self.processParams(self.urlParams, function(data){self.processRequest(data)});
+            },
           }
-        }
       )
+    });
 		this.reactor = new Reactor();
     Effect.Queues.create('global', this.reactor)
     this.reactor.run();
@@ -30,13 +31,7 @@ var GameManager = Class.create({
     self.userData.coins = data.user_data.coins;
     self.gameData = data.game_data.data;
     self.missions = data.missions_data.data;
-    self.meterBar = new MeterBar(self);
-    self.scoreManager = new ScoreManager(self);
-    self.inbox = new Inbox(self);
-    self.marketplace = new Marketplace(self);
-    self.timelineManager = new Timeline(self);
-    self.missionManager = new MissionManager(self);
-    this.loader.load([], {
+    self.loader.options.push({
                           onProgress : function(progress){
                             if($$('#inProgress #loadingBarFill')[0])
                               $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
@@ -45,7 +40,13 @@ var GameManager = Class.create({
                             $('inProgress').hide();
                             $('uiContainer').show();
                           }
-                })
+                        })
+    self.meterBar = new MeterBar(self);
+    self.scoreManager = new ScoreManager(self);
+    self.inbox = new Inbox(self);
+    self.marketplace = new Marketplace(self);
+    self.timelineManager = new Timeline(self);
+    self.missionManager = new MissionManager(self);
     game = new Game(self);
     self.game = game;
   },

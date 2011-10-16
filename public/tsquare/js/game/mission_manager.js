@@ -154,7 +154,7 @@ var MissionManager = Class.create({
   challengeFriend : function(friendId){
     var message = "Too low of a score, mate!!. So I topped your miserable score with " + 
                 this.score.score + " in the " + this.currentMission.name + ". Up for some challenge?";
-    var data = {type : 'challenge', mission : this.currentMission.id};
+    var data = {type : 'challenge', mission : this.currentMission.id, score : this.score.score};
     socialEngine.sendFriendRequest(friendId, message, data);
   }
 

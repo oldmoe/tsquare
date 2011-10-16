@@ -37,9 +37,9 @@ var GuidingIcon = Class.create(Observer,{
     var self = this;
     game.scene.observe("keypressed", function(key, moveIndex, reset){self.keypressed(key, moveIndex, reset)});
     game.scene.observe("pressLate", function(){self.pressLate()});
-    
-    game.scene.reactor.pushEvery(0, 1, function(){self.tick();});
-    game.scene.observe("circleEnd", function(){self.circleEnd()});
+    game.scene.observe("beatMoving", function(){self.beatMoving()});
+    game.scene.reactor.pushEvery(0 , 1, function(){self.tick()});
+    // game.scene.observe("circleEnd", function(){self.circleEnd()});
   },
   
   keypressed: function(key, moveIndex, flag){
@@ -57,11 +57,17 @@ var GuidingIcon = Class.create(Observer,{
       this.moveIndex = 1;
     
     if(key == -1){
-      this.wrongKey();
+      this.wrongKey(moveIndex+1);
     }else {
-      if(this.moveIndex == 1) this.reset(4);
+      // if(this.moveIndex == 1) this.reset(4);
       this.correctPress(this.moveIndex);
+
     }
+  },
+  
+  beatMoving: function(){
+    var self = this;
+    this.scene.reactor.push(10, function(){self.reset(4)});
   },
   
   correctPress: function(moveIndex){
@@ -82,40 +88,53 @@ var GuidingIcon = Class.create(Observer,{
     }
   },
 
-  wrongKey: function(){
-    this.wrongPress(this.moveIndex);
+  wrongKey: function(index){
+    this.wrongPress(index);
     var self = this;
-    this.scene.reactor.push(20, function(){self.reset(self.moveIndex);});
+    this.scene.reactor.push(5, function(){self.reset(index);});
   },
   
   pressEarly: function(){
     var self = this;
-    this.scene.reactor.push(10, function(){self.reset(self.moveIndex+1);});
-    this.scene.reactor.push(50, function(){self.correctPress(1);});
+    self.reset(self.moveIndex+1);
   },
 
   pressLate: function(){
+    this.wrongPress(this.moveIndex+1);
     var self = this;
-    this.scene.reactor.push(50, function(){self.reset(self.moveIndex+1);});
+    this.scene.reactor.push(5, function(){self.reset(self.moveIndex+1);});
   },
   
   circleEnd: function(){
     this.circleFlag = false;
   },
   
+  
   tick: function(){
     var command = 0;
+    
     if(this.scene.handlers.enemy.objects[1] && this.scene.handlers.enemy.objects[1][0]){
       if(!this.scene.handlers.enemy.objects[1][0].chargeTolerance)
         command = 2;
       else
         command = 0;
     }
-
+/*
     if(this.scene.handlers.protection_unit.objects[1] && this.scene.handlers.protection_unit.objects[1][0]){
       if(!this.scene.handlers.protection_unit.objects[1][0].chargeTolerance && this.scene.collision && !this.circleFlag){
         this.circleFlag = true;
       }
+      if(this.circleFlag) command = 2;
+    }
+*/
+    if(this.scene.handlers.protection_unit.objects[1] && this.scene.handlers.protection_unit.objects[1][0]){
+      if(!this.scene.handlers.protection_unit.objects[1][0].doneProtection && this.scene.collision){
+        this.circleFlag = true;
+      }
+      if(this.scene.handlers.protection_unit.objects[1][0].doneProtection){
+        this.circleFlag = false;
+      }
+      
       if(this.circleFlag) command = 2;
     }
     
@@ -142,7 +161,7 @@ var GuidingIcon = Class.create(Observer,{
     }
         
     for(var i=0; i<this.moves[index].code.length; i++){
-      this.loadButton(i, this.moves[index].code[i]);
+      this.loadButton(i, this.moves[index].code[this.moves[index].code.length-i-1]);
     }
   },
 

@@ -6,14 +6,15 @@ var TsquareScene = Class.create(Scene,{
     speeds : [//the following states for the crowd members
       {state :'normal' , value : 0 ,energy : 0, followers: 1},
       {state :'walk' , value : 3 ,energy : 1, followers: 1},
-      {state :'jog' ,  value : 10,energy : 10, followers: 1},
-      {state :'run' ,  value : 15,energy : 20, followers: 1}
+      {state :'jog' ,  value : 10,energy : 25, followers: 1},
+      {state :'run' ,  value : 15,energy : 50, followers: 1},
+      {state :'sprint' ,  value : 25,energy : 75, followers: 1}
     ],
     currentCommand: 0,
     speedIndex : 0,
     direction : 1,
     holdPowerDepression: 0.2,
-    energy : {current:0, rate: 3,max:30},
+    energy : null,
     view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25, length:0},
     activeLane: 1,
     win : false,
@@ -38,7 +39,7 @@ var TsquareScene = Class.create(Scene,{
         };  
         this.view.xPos = 0
         this.initCounter = 3
-        this.energy =  {current:0, rate: 3,max:30}
+        this.energy =  {current:0, rate: 5,max:100}
         this.comboMistakes = {current : 0, max : 2}
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
@@ -208,7 +209,7 @@ var TsquareScene = Class.create(Scene,{
    },
    
    decreaseEnergy : function(){
-//      if (++this.comboMistakes.current == this.comboMistakes.max) {
+     if (++this.comboMistakes.current == this.comboMistakes.max) {
         this.comboMistakes.current = 0
         this.audioManager.levelDown()
         this.energy.current = Math.max(this.energy.current - this.energy.rate, 0)
@@ -219,7 +220,7 @@ var TsquareScene = Class.create(Scene,{
           this.currentSpeed = this.speeds[this.speedIndex].value
           this.fire(this.speeds[this.speedIndex].state)
         }
-//      } 
+      } 
    }
   
 });

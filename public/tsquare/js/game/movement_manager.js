@@ -43,7 +43,6 @@ var MovementManager = Class.create({
     this.currentCombos = 0
     this.beatAccelaration = 0
     this.scene.fire('wrongMove');
-    console.log("reset11")
   },
   
   getThreeDigits : function(num){

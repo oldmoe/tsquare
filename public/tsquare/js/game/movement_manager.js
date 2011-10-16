@@ -92,7 +92,6 @@ var MovementManager = Class.create({
       var now = new Date().getTime()
       var lowerBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length - 400
       var upperBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length + 400
-      //console.log(this.getThreeDigits(now),this.getThreeDigits(lowerBound),this.getThreeDigits(upperBound))
       if(now  < lowerBound){
 //            console.log('<')
             self.reset()

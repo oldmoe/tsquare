@@ -24,7 +24,7 @@ class Request < DataStore::Model
     requests.each do |id, request|
       data = JSON.parse( request['data'] ) if request['data']
       if time - request['timestamp'] < REQUEST_TYPES[ data['type'] ][ :exclude ]
-        #ids << request['to']
+        ids << request['to']
       end
     end
     ids.uniq

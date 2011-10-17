@@ -18,7 +18,7 @@ var Normal = Class.create(CrowdMember,{
     $super();
     this.target = this.crowd.target;
     if(this.back){
-      this.move(-10,0);
+      this.move(-15,0);
       if(this.coords.x < -150) {
         this.hp = -1;
       }

@@ -32,10 +32,10 @@ var TsquareScene = Class.create(Scene,{
         this.createRenderLoop('meters',3);
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
-            // "rescue" : new RescueUnitHandler(this),
+            "rescue" : new RescueUnitHandler(this),
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
-            "enemy" : new EnemyHandler(this),  
+            "enemy" : new EnemyHandler(this),
             "npc" : new NPCHandler(this)
         };  
         this.view.xPos = 0
@@ -47,6 +47,14 @@ var TsquareScene = Class.create(Scene,{
           }
         }
         var mapping = {'crowd':'npc', 'protection':'protection_unit', 'enemy':'enemy', 'rescue':'rescue'}
+        this.data[1][0] = { "name": "journalist_rescue",
+                            "category": 'rescue',
+                            "type": '3_3',
+                            "index": 0,
+                            "lane": 1,
+                            "x": 1,
+                            "order": 1
+                          }
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
                 var elem = this.data[i][j]

@@ -113,6 +113,7 @@ var Unit = Class.create(Observer,{
         this.target = targets[minIndex]
     }  
   },
+  
   getCoods : function(){
     return {x: this.coords.x+this.scene.x}
   },

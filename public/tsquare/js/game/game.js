@@ -10,7 +10,7 @@ var Game = Class.create({
       this.templateManager = gameManager.templateManager;
      else{
       this.network = new TSquareNetwork();
-      this.templateManager = new TemplatesManager(this.network);  
+      this.templateManager = new TemplatesManager(null);  
      }
     if(gameManager)gameData = gameManager.gameData;
     if(gameManager)userData = gameManager.userData;
@@ -92,7 +92,7 @@ var Game = Class.create({
   					   				self.imagesLoaded = true;
   						  			self.start();
                       self.doneLoading = true
-                      // self.play(missionData);
+                      self.play(missionData);
   								  }
     });
   },

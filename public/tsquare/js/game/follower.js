@@ -9,8 +9,12 @@ var Follower = Class.create(Unit,{
     this.target = this.crowd.target
   	this.hp = 1;
   },
+  
   init: function($super, options){
     $super(options)
+  },
+  
+  die: function(){
   }
   
 })

@@ -25,7 +25,6 @@ var Game = Class.create({
         ,{
           onFinish: function(){
             $('gameInProgress').innerHTML = self.templateManager.load('loadingScreen')
-            $('gameInProgress').show()
             self.initializeGame();
           }
         }

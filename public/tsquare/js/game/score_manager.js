@@ -33,9 +33,12 @@ var ScoreManager = Class.create({
     /* This should be MOVED to initialize game part */
     this.network = gameManager.network;    
     this.templateManager = gameManager.templateManager;
+    this.loader = gameManager.loader
     var self = this;
     $('scoresInProgress').show();
-    new Loader().load([ {images : ["1.png", "2.png", "3.png", 
+    this.friends = [];
+    this.topScorers = [];
+    this.loader.load([ {images : ["1.png", "2.png", "3.png", 
                                   "friend_box.png", "friends_bar.png", "friendsRank.png", "friendsScore.png", "functions_background.png",
                                   "home_icon.png", "menu_icon.png", "worldRank.png", "inviteFriends.png", "icon_crowds.png", "icon_call.png",
                                   "icon_ranking.png", "icon_vote.png"],
@@ -45,9 +48,11 @@ var ScoreManager = Class.create({
                       ],
                       {
                         onFinish: function(){
-                          self.loadFriendsTab('global');
+                          self.imagesLoaded = true;
+                          self.display();
                         }
                       });
+    this.loadFriendsTab('global');
   },
 
   show : function(){
@@ -73,6 +78,7 @@ var ScoreManager = Class.create({
         self.friends = scores;
         self.sortFriends();
         socialEngine.fillSocialData(self.friends, socialData);
+        self.friendsLoaded = true;
         self.display();
       }
       self.network.friends(friendsIds, callback);
@@ -90,6 +96,7 @@ var ScoreManager = Class.create({
       socialEngine.getUsersInfo(ids, function(data){
         socialEngine.fillSocialData(self.topScorers['top'], data)
         socialEngine.fillSocialData(self.topScorers['list'], data)
+        self.globalLoaded = true;
         self.display();
       })
     }
@@ -106,54 +113,58 @@ var ScoreManager = Class.create({
 
   display : function(){
     var self = this;
-    // Set green_notification field to true to users whom current user passed
-    // Set red_notification field to true to users who passed current user
-    var params = {scoreManager:this};
-    if(this.mode == 'friends')
+    var dataLoaded = (this.mode == 'friends') ? this.friendsLoaded : this.globalLoaded;
+    if(this.imagesLoaded && dataLoaded) 
     {
-        params['topThree'] = this.friends.slice(0,1);
-        params['list'] = this.friends
-    }else
-    {
-        params['topThree'] = this.topScorers.top.slice(0,1);
-        params['list'] = this.topScorers['list'];
-    }
-    var rank = 0;
-    for(var i=0; i< params['list'].length; i++)
-    {
-      if(params['list'][i].service_id != socialEngine.userId())
-        rank ++;
-      else{
-        this.currentUser = params['list'][i]; 
-        break;   
-      }
-    }
-    if(self.mode == 'friends')
-    {
-      for(var i=0; i< this.friends.length; i++)
+      // Set green_notification field to true to users whom current user passed
+      // Set red_notification field to true to users who passed current user
+      var params = {scoreManager:this};
+      if(this.mode == 'friends')
       {
-        this.friends[i]['redNotification'] = false;
-        this.friends[i]['greenNotification'] = false;
-        if(this.friends[i].scores[this.gameMode] > this.currentUser.scores[this.gameMode] && 
-            this.friends[i].scores.update_time[this.gameMode] > this.currentUser.last_read)
-        {
-          this.friends[i]['redNotification'] = true;
-        }else if(this.currentUser && this.friends[i].scores[this.gameMode] < this.currentUser.scores[this.gameMode] && 
-            this.friends[i].scores.update_time[this.gameMode] > this.currentUser.last_read)
-        {
-          this.friends[i]['greenNotification'] = true;
-        }        
+          params['topThree'] = this.friends.slice(0,1);
+          params['list'] = this.friends
+      }else
+      {
+          params['topThree'] = this.topScorers.top.slice(0,1);
+          params['list'] = this.topScorers['list'];
       }
+      var rank = 0;
+      for(var i=0; i< params['list'].length; i++)
+      {
+        if(params['list'][i].service_id != socialEngine.userId())
+          rank ++;
+        else{
+          this.currentUser = params['list'][i]; 
+          break;   
+        }
+      }
+      if(self.mode == 'friends')
+      {
+        for(var i=0; i< this.friends.length; i++)
+        {
+          this.friends[i]['redNotification'] = false;
+          this.friends[i]['greenNotification'] = false;
+          if(this.friends[i].scores[this.gameMode] > this.currentUser.scores[this.gameMode] && 
+              this.friends[i].scores.update_time[this.gameMode] > this.currentUser.last_read)
+          {
+            this.friends[i]['redNotification'] = true;
+          }else if(this.currentUser && this.friends[i].scores[this.gameMode] < this.currentUser.scores[this.gameMode] && 
+              this.friends[i].scores.update_time[this.gameMode] > this.currentUser.last_read)
+          {
+            this.friends[i]['greenNotification'] = true;
+          }        
+        }
+      }
+      if(self.carousel) self.carousel.destroy();
+      $('scores').innerHTML = '';
+      $('scores').innerHTML = this.templateManager.load('friends', params);
+      Game.addLoadedImagesToDiv('scores');
+      this.attachListeners();
+      self.carousel = new Carousel("friends", self.images, 5, 2);
+      self.carousel.center(rank);
+      self.carousel.checkButtons();
+      $('scoresInProgress').hide();
     }
-    if(self.carousel) self.carousel.destroy();
-    $('scores').innerHTML = '';
-    $('scores').innerHTML = this.templateManager.load('friends', params);
-    Game.addLoadedImagesToDiv('scores');
-    this.attachListeners();
-    self.carousel = new Carousel("friends", self.images, 5, 2);
-    self.carousel.center(rank);
-    self.carousel.checkButtons();
-    $('scoresInProgress').hide();
   },
 
   attachListeners : function() {

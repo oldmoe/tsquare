@@ -5,7 +5,7 @@ var CrowdMember = Class.create(Unit,{
   maxWater : 700,
   randomDx : 0,
   randomDy : 0,
-  waterDecreaseRate : 0.05,
+  waterDecreaseRate : 1,
   commandFilters: [],
   rotationPoints : null,
   rotationSpeed : 12,
@@ -25,9 +25,11 @@ var CrowdMember = Class.create(Unit,{
     this.rotationPoints = []
     this.followers = []
     this.name = options.name
+    this.secondTicks = this.scene.reactor.everySeconds(1)
     var self = this
     this.hp = this.maxHp = specs.hp
     this.water = this.maxWater =  specs.water
+    this.water = this.maxWater = 100
     this.attack = specs.attack || 0
     this.defense = specs.defense || 0 
     var crowdCommandFilters = [
@@ -40,13 +42,13 @@ var CrowdMember = Class.create(Unit,{
   init: function(options){
     this.originalPosition = {x:0,y:0}
     this.originalPosition.y = this.handler.initialPositions[this.lane].y - this.handler.crowdMembersPerColumn * 10
-    this.originalPosition.x = this.handler.initialPositions[this.lane].x + 15*this.handler.crowdMembersPerColumn
+    this.originalPosition.x = this.handler.initialPositions[this.lane].x + 30*this.handler.crowdMembersPerColumn
     this.coords.x = this.originalPosition.x
     this.coords.y = this.originalPosition.y
     this.handler.crowdMembersPerColumn-- 
     if(this.handler.crowdMembersPerColumn == -1){
       this.handler.crowdMembersPerColumn = 2
-      this.handler.initialPositions[this.lane].x-=60
+      this.handler.initialPositions[this.lane].x-=100
     }
     this.randomDx = Math.round(Math.random()*50)
     this.coords.x +=this.randomDx
@@ -65,10 +67,10 @@ var CrowdMember = Class.create(Unit,{
       return;
     } 
     for(var i=0;i<noOfFollowers && i<remaining;i++){
-      var x = this.originalPosition.x - parseInt(noOfFollowers* 30 * Math.random())
-      var y = this.originalPosition.y + parseInt(50 * Math.random()) - 40;
+      var x = this.handler.objects[this.lane][this.handler.objects[this.lane].length-1].originalPosition.x - parseInt(noOfFollowers* 150 * Math.random());
+      var y = this.originalPosition.y + parseInt(70 * Math.random()) - 35;
       var follower = this.handler.addFollower("normal", x, y, this.lane, this);
-      this.scene.push(follower)
+      this.scene.push(follower);
       this.followers.push(follower);
     }
   },
@@ -80,9 +82,15 @@ var CrowdMember = Class.create(Unit,{
         elem.destroy();
       })
     }
-      
   },
-  
+  fire : function($super,event){
+    if (this.followers) {
+      for (var i = 0; i < this.followers.length; i++) {
+        this.followers[i].fire(event)
+      }
+    }
+    $super(event)
+  },
   tick : function($super){
     $super()
     if(!this.movinngToTarget && Math.abs(this.coords.x - this.originalPosition.x) > 0.1 || Math.abs(this.coords.y!=this.originalPosition.y) >0.1){
@@ -90,7 +98,7 @@ var CrowdMember = Class.create(Unit,{
     }  
     this.stateChanged = true
     
-    this.updateState();
+    if(this.scene.reactor.ticks % this.secondTicks == 0)this.updateState();
     
     if(this.followers)this.checkFollowersState();
   },
@@ -111,13 +119,6 @@ var CrowdMember = Class.create(Unit,{
  
   takeHit: function($super, power){
         var hitPower = power;
-//    if(this.currentAction == "hold"){
-//      hitPower = hitPower * (1-this.scene.holdPowerDepression);
-//      this.scene.energy.current += this.scene.energy.rate;
-//    }else{
-//      this.scene.energy.current -= this.scene.energy.rate;
-//    }
-        
         if (this.followers && this.followers.length > 0) {
           this.followers[0].takeHit(hitPower)
         }
@@ -228,19 +229,22 @@ var CrowdMember = Class.create(Unit,{
       this.resetRotation()
       return
     }
-      if (this.rotationPoints.length == 0) {
-        this.target.rotationComplete(this.attack)
-        this.resetRotation()
-        return
-      }
-      var rp = this.rotationPoints[0]
-      var move = Util.getNextMove(this.coords.x,this.coords.y,rp.values.x,rp.values.y,this.rotationSpeed)
-      this.move(move[0],move[1])
-      if (this.coords.x <= rp.values.x + 0.001 && this.coords.x >= rp.values.x - 0.001 &&
-      this.coords.y <= rp.values.y + 0.001 &&this.coords.y >= rp.values.y - 0.001) {
-          this.rotationPoints.shift()
-          if(this.rotationPoints.length > 0 ) this.fire(this.rotationPoints[0].state)
-      }
+    if (this.rotationPoints.length == 0) {
+      this.fire(this.getMovingState())
+      this.target.rotationComplete(this.attack)
+      this.resetRotation()
+      return
+    }
+    var rp = this.rotationPoints[0]
+    var move = Util.getNextMove(this.coords.x,this.coords.y,rp.values.x,rp.values.y,this.rotationSpeed)
+    this.move(move[0],move[1])
+    if (this.coords.x <= rp.values.x + 0.001 && this.coords.x >= rp.values.x - 0.001 &&
+    this.coords.y <= rp.values.y + 0.001 &&this.coords.y >= rp.values.y - 0.001) {
+        this.rotationPoints.shift()
+        if (this.rotationPoints.length > 0) {
+          this.fire(this.rotationPoints[0].state)
+        }
+    }
   },
   
   setTarget: function($super,target){

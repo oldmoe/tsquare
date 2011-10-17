@@ -20,12 +20,11 @@ var Game = Class.create({
   startLoading : function(){
     var self = this
     var loadingImages = ['loading_background.png','loadingbar_left.png','loadingbar_right.png',
-    'loadingbar_middle.png']
+    'loadingbar_middle.png','bar_background.png','background.png']
       new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
         ,{
           onFinish: function(){
-            $('inProgress').innerHTML = self.templateManager.load('loadingScreen')
-            $('inProgress').show()
+            $('gameInProgress').innerHTML = self.templateManager.load('loadingScreen')
             self.initializeGame();
           }
         }
@@ -85,14 +84,14 @@ var Game = Class.create({
   	new Loader().load(toLoad, {
   								  onProgress : function(progress){
   									  if($$('#inProgress #loadingBarFill')[0])
-  									  $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
+  									  $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
   								  },
   								  onFinish:function(){
+                      $('gameInProgress').hide()
   					   				self.imagesLoaded = true;
   						  			self.start();
                       self.doneLoading = true
-                      $('inProgress').hide()
-                      // self.play(missionData)
+                      // self.play(missionData);
   								  }
     });
   },
@@ -128,7 +127,7 @@ var Game = Class.create({
 	  new Loader().load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
           {onProgress : function(progress){
                       if($$('#inProgress #loadingBarFill')[0])
-                      $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,88)+"%"
+                      $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
              }, onFinish:function(){        
                   self.missionLoaded = true;
                   self.start();
@@ -146,7 +145,9 @@ var Game = Class.create({
       $('gameContainer').show();
 	  	this.scene.fire("start");
       this.inGameMeterBar = new InGameMeterBar(this);
-      this.scene.pushToRenderLoop('meters', this.inGameMeterBar)
+      this.guidingIcon = new GuidingIcon(this);
+      this.scene.pushToRenderLoop('meters', this.inGameMeterBar);
+      this.scene.pushToRenderLoop('meters', this.guidingIcon);
     }
   },
 
@@ -158,7 +159,7 @@ var Game = Class.create({
   },
 
   show : function() {
-      $('inProgress').show()
+      $('gameInProgress').show()
   },
   
   reset : function(){

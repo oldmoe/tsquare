@@ -3,12 +3,12 @@ var CrowdHandler = Class.create(UnitHandler, {
    type : "left",   
    initialPositions : null,
    crowdMembersPerColumn : 2,
-   marchingStates: ["normal", "walk", "jog", "run"],//display
+   marchingStates: ["normal", "walk", "jog", "run", "sprint"],//display
    commands: ["circle", "hold", "march", "retreat"],
    currentId : 0,
    
    initialize: function($super,scene){
-       this.initialPositions = [{x:150,y:30},{x:150,y:110},{x:150,y:200}]
+       this.initialPositions = [{x:250,y:30},{x:250,y:110},{x:250,y:200}]
        $super(scene)
        this.addCommandObservers();
        this.addMarchingStates();
@@ -145,7 +145,7 @@ var CrowdHandler = Class.create(UnitHandler, {
         this.executeCommand("hold", {holdingLevel: holdingLevel});
         this.scene.currentCommand = 3;
      }else{
-       this.energy.current -= this.energy.rate;
+       this.scene.energy.current -= this.scene.energy.rate;
        this.scene.fire("wrongCommand");
      }
      

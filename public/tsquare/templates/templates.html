@@ -9,7 +9,11 @@
 
 <textarea id='loadingScreen'>
   <div id="intro">
-  	    <img id="logo" src="${Loader.images.loading['loading_background.png'].src}"/>
+      <img id="loadingbg" src="${Loader.images.loading['background.png'].src}">  
+  	  <img id="logo" src="${Loader.images.loading['loading_background.png'].src}"/>
+      <div id="loadingBarBackground">
+        <img src="${Loader.images.loading['bar_background.png'].src}">
+      </div>
 		  <div id="loadingBarEmpty">
 	  	  <div id="loadingBarLeft"> </div>
 	   		<div id="loadingBarFill"> </div>
@@ -31,7 +35,7 @@
   </div>
 </textarea>
 
-<textarea style="display:none;" id='timeline'>
+<textarea style="display:none;" id='calender'>
 	<!--Calendar-->   
   <div class="calendarWrapper">
   	<ul>
@@ -52,6 +56,9 @@
       </li>
     </ul>
   </div>
+</textarea>
+
+<textarea style="display:none;" id='missions'>
   <div id="missions">
     <!--Timeline Bar-->
     <div id="missions">
@@ -59,6 +66,17 @@
       <div class="timelineBar">
       	<!--Missions-->
       	<div class="timelineMissions">
+          {if challenge}
+            <div class="friendScore" mission="${challenge.data.mission}">
+            	<div class="smallImageWrapper">
+              	<span class="loadedImg" imgSrc="images/dummy/facebook_image_large.png" alt="Facebook Image"
+                  imgId="${challenge.from.id}" imgStyle="width:33px;"></span>
+              </div>
+              <h3>${challenge.from.name}</h3>
+              <h5>${challenge.data.score}</h5>
+              <span class="loadedImg" imgSrc="images/timeline/challenge_box.png" alt="Friend score" imgClasses="positioned"></span>
+            </div>
+          {/if}
           <!--Changes 28 Sept.-->
           <!--Left controls-->
           <div class="leftControls">
@@ -72,7 +90,7 @@
           <div id="missions-container" class="missionsContainer" >
           	<ul id="missions-ul">
             {for mission in missions}
-            	<li id="mission_${mission['id']}" {if mission['playable'] == true } class="glowing" {/if}>
+            	<li id="mission_${mission['id']}" {if challenge && challenge.data.mission == mission.id} class="glowing" {/if}>
                 {if mission['id'] == currentMission}
                   <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_current.png" alt="mission" /></a>
                 {else}
@@ -189,25 +207,61 @@
         </div>
         <img class="positioned" src="images/game_elements/timer.png" alt="Facebook currency bar" />
       </div>
-    
-      <!--Energy Bar-->
-      <div class="energyBar">
-        <span id="energy">0</span>
-        <div class="bar">
-          <!--Value to be changed-->
-          <table cellpadding="0" cellspacing="0" width="90%">
-            <tr>
-              <td style="width:9px;"><img src="images/game_elements/energy_bar_left.png" alt="Energy bar" /></td>
-              <td style="width:90%;"><img style="width:100%; height:19px;" src="images/game_elements/energy_bar_center.png" alt="Energy bar" /></td>
-              <td style="width:9px;"><img src="images/game_elements/energy_bar_right.png" alt="Energy bar" /></td>
-            </tr>
-          </table>
-        </div>
-        <img class="positioned" src="images/game_elements/energy_bar.png" alt="Energy bar" />
+
+    <div class="powerbar">
+      <!--Power Percentage-->
+      <div class="powerPercentage">
+        0%
       </div>
+      <!--Power Level 01-->
+      <div class="powerLevel01">
+        <div style="width:90%">
+          <img class="positioned" src="images/game_elements/power_level01.png" alt="level 01" />
+        </div>
+      </div>
+      <!--Power Level 02-->
+      <div class="powerLevel02">
+        <div style="width:90%">
+          <img class="positioned" src="images/game_elements/power_level02.png" alt="level 01" />
+        </div>
+      </div>
+      <!--Power Level 03-->
+      <div class="powerLevel03">
+        <div style="width:90%">
+          <img class="positioned" src="images/game_elements/power_level03.png" alt="level 01" />
+        </div>
+      </div>
+      <!--Power Level 04-->
+      <div class="powerLevel04">
+        <div style="width:90%">
+          <img class="positioned" src="images/game_elements/power_level04.png" alt="level 01" />
+        </div>
+      </div>
+      <img class="positioned" src="images/game_elements/power_bar.png" alt="Power" />
     </div>
+  </div>
 </textarea>
 
+<textarea style="display:none;" id="guidingBar">
+  <div class="movesWrapper">
+    <div class="nextMove">
+      <span class="moveContainer">
+        <img class="positioned" src="images/game_elements/circle_move.png" alt="Move" />
+      </span>
+      <img class="positioned" src="images/game_elements/move_indicator.png" alt="Next move" />
+    </div>
+    <div class="movesIndicator">
+      <span class="wrong"><img src="images/game_elements/right_arrow.png" alt="Right" /></span>
+      <span class="right"><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
+      <span><img src="images/game_elements/right_arrow.png" alt="Right" /></span>
+      <span><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
+      <img class="positioned" src="images/game_elements/move_background.png" alt="moves background" />
+    </div>
+    <div id="guidingBarSlide" class="trigger">
+      <a id="trigger" ><img src="images/game_elements/moves_arrows.png" alt="trigger" /></a>
+    </div>
+  </div>
+</textarea>
 
 <textarea style="display:none;" id='friends'>
 	<!--Friends Bar-->

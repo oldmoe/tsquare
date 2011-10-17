@@ -2,7 +2,7 @@ var CrowdMemberDisplay = Class.create(Display,{
   
   noOfFrames : 7,  
   
-  states : ["normal", "hold", "walk","reverseWalk", "front", "back","run","reverseRun"],
+  states : ["normal", "hold", "walk","reverseWalk", "front", "back", "run", "reverseRun", "jog", "sprint"],
   
   initialize : function($super,owner,properties){
     this.initImages()
@@ -51,9 +51,11 @@ var CrowdMemberDisplay = Class.create(Display,{
     this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : 7})
     this.sprites.character.createAnimation({name:'hold',img:this.holdImg,noOfFrames:1})
     this.sprites.character.createAnimation({name:'walk',img:this.walkImg,noOfFrames:8})
+    this.sprites.character.createAnimation({name:'jog',img:this.walkImg,noOfFrames:8})
     this.sprites.character.createAnimation({name:'front',img:this.frontImg,noOfFrames:4})
     this.sprites.character.createAnimation({name:'back' ,img:this.backImg,noOfFrames:4})
     this.sprites.character.createAnimation({name:'run'  ,img:this.runImg,noOfFrames:6})
+    this.sprites.character.createAnimation({name:'sprint'  ,img:this.runImg,noOfFrames:6})
     this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:8, flipped : true})
     this.sprites.character.createAnimation({name:'reverseRun'  ,img:this.runImg, noOfFrames:6, flipped : true})
      this.sprites.health = new ImgMeterSprite(this.owner,

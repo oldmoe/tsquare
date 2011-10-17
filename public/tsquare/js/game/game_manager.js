@@ -5,8 +5,21 @@ var GameManager = Class.create({
     var self = this;
     this.urlParams = urlParams;
     this.network = new TSquareNetwork();
-    this.templateManager = new TemplatesManager(this.network);
-    this.processParams(this.urlParams, function(data){self.processRequest(data)});
+    this.loader = new Loader();
+    var loadingImages =['loading_background.png','loadingbar_left.png','loadingbar_right.png',
+    'loadingbar_middle.png','bar_background.png','background.png'];
+    this.templateManager = new TemplatesManager(function(){
+      new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
+          ,{
+            onFinish: function(){
+              $('inProgress').innerHTML = self.templateManager.load('loadingScreen');
+              $('uiContainer').hide();
+              $('inProgress').show();
+              self.processParams(self.urlParams, function(data){self.processRequest(data)});
+            },
+          }
+      )
+    });
 		this.reactor = new Reactor();
     Effect.Queues.create('global', this.reactor)
     this.reactor.run();
@@ -18,6 +31,16 @@ var GameManager = Class.create({
     self.userData.coins = data.user_data.coins;
     self.gameData = data.game_data.data;
     self.missions = data.missions_data.data;
+    self.loader.options.push({
+                          onProgress : function(progress){
+                            if($$('#inProgress #loadingBarFill')[0])
+                              $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
+                          },
+                          onFinish : function(){
+                            $('inProgress').hide();
+                            $('uiContainer').show();
+                          }
+                        })
     self.meterBar = new MeterBar(self);
     self.scoreManager = new ScoreManager(self);
     self.inbox = new Inbox(self);
@@ -32,7 +55,6 @@ var GameManager = Class.create({
     var self = this;
     var callback = function(data) {
       self.initializeData(data);
-      $('uiContainer').show();
     }
     this.network.gameData(callback);
   },
@@ -55,12 +77,23 @@ var GameManager = Class.create({
   },
 
   openMainPage : function(){
-    $$('#uiContainer .background')[0].show();
-    $('gameContainer').hide();
-    this.missionManager.hide();
-    this.meterBar.show();
-    this.scoreManager.show();
-    this.timelineManager.display();
+    var self = this;
+    if($('gameContainer').getStyle('display') != 'none')
+    {
+      this.missionManager.hide();
+      self.meterBar.hide();      
+      self.scoreManager.hide();
+      self.timelineManager.hide();
+      Effects.fade($('gameContainer'), function(){
+        Effects.appear($$('#uiContainer .background')[0], function(){
+          self.meterBar.show();
+          self.scoreManager.show();
+          self.timelineManager.display();
+        });
+      });
+    }else{
+      self.timelineManager.display();
+    }
   },
 
   /* If there is a request object acceptance has lead to opening the game, 

@@ -7,7 +7,7 @@ var MissionManager = Class.create({
     this.templateManager = gameManager.templateManager;
     this.gameManager = gameManager;
     var self = this;
-    new Loader().load([ {images : ["score_background.png", "star_icon.png", "stars_background.png", 
+    this.gameManager.loader.load([ {images : ["score_background.png", "star_icon.png", "stars_background.png", 
                                   "replay_button.png", "home_button.png", "next_mission_button.png",
                                   "lose_score_background.png", "lose_star_icon.png", "lose_stars_background.png",
                                   "lose_replay_button.png", "lose_home_button.png", "lose_next_mission_button.png", 
@@ -57,11 +57,15 @@ var MissionManager = Class.create({
     $('winLose').innerHTML = this.templateManager.load(screenName, staticData);
     Game.addLoadedImagesToDiv('winLose');
     this.attachListener();
-    $('winLose').show();
+    this.show();
   },
 
   hide : function(){
-    $('winLose').hide();
+    Effects.fade($('winLose'));
+  },
+
+  show:function(){
+    Effects.appear($('winLose'));
   },
 
   calculateStars : function(score) {
@@ -82,7 +86,7 @@ var MissionManager = Class.create({
                              'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score });
     Game.addLoadedImagesToDiv('winLose');
     this.attachListener();
-    $('winLose').show();
+    this.show();
   },
 
   load : function(id, gameCallback){
@@ -150,7 +154,7 @@ var MissionManager = Class.create({
   challengeFriend : function(friendId){
     var message = "Too low of a score, mate!!. So I topped your miserable score with " + 
                 this.score.score + " in the " + this.currentMission.name + ". Up for some challenge?";
-    var data = {type : 'challenge', mission : this.currentMission.id};
+    var data = {type : 'challenge', mission : this.currentMission.id, score : this.score.score};
     socialEngine.sendFriendRequest(friendId, message, data);
   }
 

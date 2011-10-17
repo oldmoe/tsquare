@@ -9,7 +9,7 @@
     <div class="close">
     	<a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close"></span></a>
     </div>
-    <div class="notificationWrapper">
+    <div class="notificationWrapper" id="notificationWrapper">
     </div>
     <span class="loadedImg" imgSrc="images/marketplace/window_background.png" alt="window" imgClasses="windowBackground positioned"></span>
   </div>
@@ -18,10 +18,10 @@
 <textarea style="display:none;" id='notificationsList'>
   {for notification in list}
     <!--Notification Items-->
-    <div class="notificationItem">
+    <div class="notificationItem" requestId="${notification.id}">
       <!--Image Wrapper-->
       <div class="notificationImage">
-        <img src="images/dummy/facebook_image_large.png" alt="Facebook image" id="${notification.from.id}"/>
+        <span class="loadedImg" imgSrc="images/dummy/facebook_image_large.png" alt="Facebook image" imgId="${notification.from.id}"/>
       </div>
       <!--Content Wrapper-->
       <div class="notificationContent">

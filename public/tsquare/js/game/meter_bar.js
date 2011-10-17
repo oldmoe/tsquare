@@ -6,8 +6,9 @@ var MeterBar = Class.create({
     this.gameManager = gameManager;
     this.network = gameManager.network;    
     this.templateManager = gameManager.templateManager;
+    this.loader = gameManager.loader;
     var self = this;
-    new Loader().load([ {images : ['energy_bar.png', 'experience_bar.png', 'game_currency_bar.png',
+    this.loader.load([ {images : ['energy_bar.png', 'experience_bar.png', 'game_currency_bar.png',
                                   'experience_bar_left.png', 'experience_bar_right.png', 'experience_bar_center.png',
                                   'energy_bar_left.png', 'energy_bar_right.png', 'energy_bar_center.png'],
                          path: 'images/game_elements/', store: 'game_elements'}],

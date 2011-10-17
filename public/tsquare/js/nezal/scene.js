@@ -17,9 +17,8 @@ var Scene = Class.create({
 	//runs the reactor , starts _tick function and then render the start
 	start : function(){
 		this.init()
-		var self = this
 		this.reactor.run()
-		this.reactor.push(0, function(){self._tick()},undefined)
+		this.reactor.push(0, this._tick, this)
 		return this
 	},
 	
@@ -36,7 +35,6 @@ var Scene = Class.create({
 	tick : function(){
 /*    if(game.attackManager.attacking)
       console.log("New Loop")*/
-		try{
 			var remainingObjects = []
 			var self = this
 			this.objects.each(function(object){
@@ -46,9 +44,6 @@ var Scene = Class.create({
 				}
 			})
 			this.objects = remainingObjects
-		}catch(x){//console.log(x)
-		  alert(x)
-		}
 		return this
 	},
 	//moves objects in the scene 
@@ -58,14 +53,14 @@ var Scene = Class.create({
 		this.render()
 		var self = this
 		this.reactor.push(0, function(){self._tick()})
-        this.fpsCounter++
-        this.fpsTime+= new Date().getTime() - t1
-        if(this.fpsCounter == 50){
-            this.fps = Math.round(this.fpsCounter * 1000/ this.fpsTime) 
-            $('fps').innerHTML = this.fps
-            this.fpsCounter = 0
-            this.fpsTime = 0
-        }
+    this.fpsCounter++
+    this.fpsTime+= new Date().getTime() - t1
+    if(this.fpsCounter == 50){
+        this.fps = Math.round(this.fpsCounter * 1000/ this.fpsTime) 
+        $('fps').innerHTML = this.fps
+        this.fpsCounter = 0
+        this.fpsTime = 0
+    }
 	},
 
 	createRenderLoop : function(name, delay){

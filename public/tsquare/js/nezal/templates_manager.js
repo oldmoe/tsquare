@@ -1,5 +1,5 @@
 var TemplatesManager = Class.create({
-  initialize : function(network){
+  initialize : function(callback){
     var templates = ['templates.html', 'marketplace.html', 'missions.html', 'notifications.html'];
     var templatesRootNode = $(document.createElement('div'));
     templatesRootNode.innerHTML = '';
@@ -13,6 +13,7 @@ var TemplatesManager = Class.create({
                           templatesRootNode.select('textarea').each(function(node){
                             node.setAttribute('id', node.getAttribute('id') + "-template");
                           });
+                          if(callback) callback();
                         }
                       });
     $(document.body.appendChild(templatesRootNode)).hide();

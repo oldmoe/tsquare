@@ -6,7 +6,6 @@ var MovementManager = Class.create({
   direction : 0,
   ticksPassed : 0,
   totalMoveTicks : 0,
-  moveLength : 0,
   beatAccelaration : 0,
   lastMoveClicked : false,
   beatDelay : 15,
@@ -18,37 +17,51 @@ var MovementManager = Class.create({
   initialize : function(scene){
     this.scene = scene
     this.registerListeners()
-    this.playSounds()
-    this.scene.push(this)
+    this.checkUserDelay()
+    this.time = new Date().getTime()
+    this.tick()
   },
 
-  playSounds : function(){
-   if(this.ticksPassed > this.nextTick+10){
-      this.reset()
+  checkUserDelay : function(){
+   var upperBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length + 400
+   var now = new Date().getTime()
+   if(now > upperBound){
+      $('initCounter').hide()
+      this.time = now
+      if(this.move.length > 0){
+        this.scene.fire("pressLate")
+      }
+      this.reset();
    } 
-   this.nextTick = this.scene.audioManager.nextBeatTicks()
-   //Sounds.play(Sounds.gameSounds.beat)
-   var self = this
-   this.scene.reactor.push(this.nextTick,function(){self.playSounds()})
   },
   
   reset : function(){
     this.move = []; 
+    this.time = new Date().getTime()
     this.beatMoving = false;
     this.comboStart = false;
     this.currentCombos = 0
     this.beatAccelaration = 0
-    this.ticksPassed = 0
-    this.scene.fire('wrongMove')
+    this.scene.fire('wrongMove');
+  },
+  
+  getThreeDigits : function(num){
+    return parseInt((num/1000 - parseInt(num/1000))* 1000)
   },
   
   tick : function(){
     if(this.beatMoving){
-      this.ticksPassed = 0
-      return
+      var now = new Date().getTime()
+      if (now > this.time + this.endTime * 2 - 100) {
+        this.moveEnd()
+        $('initCounter').show()
+        this.time = now      
+      }
+    }else{
+      this.checkUserDelay()
     }
-    this.ticksPassed++
-    this.totalMoveTicks++  
+    var self = this
+    setTimeout(function(){self.tick()}, 10)
   },
   
   registerListeners  : function(){
@@ -57,6 +70,7 @@ var MovementManager = Class.create({
     document.observe('keydown', function(e){
       if(self.beatMoving){
         self.reset()
+//        console.log('reset2')
       }
       var click = -1
       if (e.keyCode == 39) {
@@ -66,38 +80,44 @@ var MovementManager = Class.create({
       }else if (e.keyCode == 32) {
           click = 2
       }else{
+        self.scene.fire("keypressed", [click, self.move.length])
+        self.reset();
         return
       }
       self.process(click)
 		})
   },
+  
   process : function(click){
       var self = this
       if(self.scene.currentSpeed > 0){
         self.comboStart = true
       }
-      if(click!=-1 && self.ticksPassed >= self.nextTick-8 && self.ticksPassed <= self.nextTick+8){   
-            console.log('=')
-            self.move.push(click)
-            self.moveLength++
-      }else if(self.ticksPassed <  self.nextTick-10){
-            console.log('<')
+      var now = new Date().getTime()
+      var lowerBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length - 400
+      var upperBound =  this.time + this.scene.audioManager.nextBeatTime()*this.move.length + 400
+      //console.log(this.getThreeDigits(now),this.getThreeDigits(lowerBound),this.getThreeDigits(upperBound))
+      if(now  < lowerBound){
+//            console.log('<')
             self.reset()
-            self.moveLength = 1
-            self.move = [click]
-            self.totalMoveTicks =0
-      }else if(self.ticksPassed > self.ticksPassed <= self.nextTick+10){
-            console.log('>')
-            self.reset()
-            self.moveLength = 1
-            self.move = [click]
-            self.totalMoveTicks =0
-      }else{
-            alert('!!!')            
+//            console.log('reset3')
+            $('initCounter').hide()
+            self.scene.fire("keypressed", [click, self.move.length, 1])
       }
+      else if(click!=-1 && now > lowerBound && now < upperBound){   
+//            console.log('=')
+            self.move.push(click)
+            $('initCounter').hide()
+            self.scene.fire("keypressed", [click, self.move.length])
+      }
+      else{
+            //alert('!!!')            
+      }
+      // console.log(click, self.move.length);
       self.checkMove()
       self.ticksPassed = 0
   },
+  
   getNextMoveIndex : function(){
     return 0
   },
@@ -113,7 +133,7 @@ var MovementManager = Class.create({
       var found = true
       var code = this.moves[move].code
       command = move
-      for (var i = 0; i < self.moveLength; i++) {
+      for (var i = 0; i < self.move.length; i++) {
        if (self.move[i] != code[i]) {
          found = false
          break
@@ -129,6 +149,8 @@ var MovementManager = Class.create({
      }else{
        this.scene.fire('leftWrong')
      }   
+//     console.log('reset4')
+     self.scene.fire("keypressed", [-1, self.move.length-1])
      self.reset()
      return
    }
@@ -140,15 +162,14 @@ var MovementManager = Class.create({
    }   
    if(code.length==self.move.length){
      this.move=[]
-     this.startMove(this.moves[command].index,self.nextTick*code.length)
-     this.moveLength = 0
+     this.startMove(this.moves[command].index,this.scene.audioManager.nextBeatTime()*4)
      //Sounds.play(Sounds.gameSounds.correct_move)
    }
   },
   
-  startMove : function(commandIndex,noOfTicks){
-//    if(this.conversationOn) return
+  startMove : function(commandIndex,endTime){
     var collision = this.scene.detectCollisions()
+    this.scene.fire("beatMoving");
     if(commandIndex == this.moves.march.index){
         if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
         this.scene.fire('march')
@@ -164,24 +185,17 @@ var MovementManager = Class.create({
         this.scene.fire('hold')
         this.beatMoving = true
     }
-
-    var self = this
-    this.scene.reactor.push(noOfTicks, function(){
-      self.moveEnd()
-    })
-    
+    this.endTime = endTime    
   },
 
   moveEnd : function(){
-    console.log('combo start',this.comboStart)
-    if(this.comboStart){
+      if(this.comboStart){
         this.comboStart= false
         this.combos++
-        if(this.beatAccelaration<9)this.beatAccelaration+=2
         this.currentCombos++
-        console.log('correctMove')
         this.scene.fire('correctMove')
       }
+//      console.log('end move')
       this.beatMoving = false
   }
   

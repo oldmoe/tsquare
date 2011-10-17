@@ -55,7 +55,7 @@ var Enemy = Class.create(Unit, {
         }
     }
     var targetChange = false
-    if(minIndex!=-1 && minDistance <= this.getWidth()){
+    if(minIndex!=-1 && minDistance <= this.getWidth()*3/2){
         if(this.target == null){
           this.target = targets[minIndex]
           this.fire("hit")

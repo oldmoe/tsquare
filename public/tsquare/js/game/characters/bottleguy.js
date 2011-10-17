@@ -1,9 +1,10 @@
 var Bottleguy = Class.create(CrowdMember,{
- rate : 10,
- waterAmount : 1,
+ rate : 1,
+ waterAmount : 6,
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)
     if(options && options.rate)this.rate = options.rate
+    this.rate = this.scene.reactor.everySeconds(this.rate)
   },
   tick : function($super){
     $super()
@@ -21,7 +22,7 @@ var Bottleguy = Class.create(CrowdMember,{
       }
     }
     if(minLane!=-1){
-      var crowd = this.handler.objects[minLane][minIndex] 
+      var crowd = this.handler.objects[minLane][minIndex]
       crowd.water = Math.min(crowd.water+this.waterAmount, crowd.maxWater)
     }
   }

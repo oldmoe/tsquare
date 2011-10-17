@@ -55,13 +55,6 @@ class UserGameProfile < DataStore::Model
 
   def init
     time = Time.now.to_i
-=begin
-    @data ||= { 'scores' => { 'timeline'=>0, 'racing'=>0, 'cooperation'=>0, 'global'=>0,
-                             'update_time'=> { 'timeline'=>time, 'racing'=>time, 'cooperation'=>time, 'global'=>time} 
-                            } 
-              }
-=end
-    # generate random scores for now
     game = Game::current
     @data ||= {}
     @data['version'] ||= 0
@@ -133,13 +126,6 @@ class UserGameProfile < DataStore::Model
         record.read_time= Time.now.to_i
         record.save
         protected_data['last_read'] = record.last_read
-# This part here is for testing purposes should be removed
-      else
-        mode = ['timeline', 'racing', 'cooperation', 'global'][(rand * 10).to_i % 4]
-        sign = [-1, 1][(rand * 10).to_i % 2]
-        protected_data['scores'][mode] = self.scores[mode] + sign * ((rand * 10).to_i % 4 + 1)
-        protected_data['scores']['update_time'][mode] = Time.now.to_i + (rand * 10).to_i % 100
-# END OF PART TO REMOVE
       end
       protected_data
     end

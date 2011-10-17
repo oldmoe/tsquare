@@ -7,6 +7,7 @@
   user-select: none;
 }
 body{
+  overflow:hidden;
 	padding : 0px;
 	margin : 0px;
 }
@@ -43,7 +44,6 @@ body{
   position: absolute;
   top: 9px;
   width: 950px;
-  z-index: 200;
 }
 .DomSprite{
   position : absolute;
@@ -104,45 +104,56 @@ body{
 
 
 /* loading bar styling */
-
-#inProgress #logo{
-    left: 154px;
+#inProgress #loadingbg, #gameInProgress #loadingbg{
+ left: 0;
+  position: absolute;
+  top: 0;
+}
+#inProgress #loadingBarBackground, #gameInProgress #loadingBarBackground{
+    left: 177px;
     position: absolute;
+    top: 366px;
+}
+
+#inProgress #logo, #gameInProgress #logo{
+    left: 125px;
+    position: absolute;
+    top: 159px;
 }
 #loadingBarEmpty{
     height: 50px;
-    left: 159px;
+    left: 178px;
     position: absolute;
-    top: 224px;
-    width: 316px;
+    top: 364px;
+    width: 283px;
 }
 
 #loadingBarEmpty div{
-	height : 25px;
+	height : 34px;
 	float : left;
 	margin-top:8px;
 }
 
 #loadingBarEmpty #loadingBarRight{				
-	height:30px;
-	width:15px;
+	height:34px;
+	width:16px;
 	background:url("../images/loading/loadingbar_right.png");
 }
 
 #loadingBarEmpty #loadingBarFill{
-	height:30px;
+	height:34px;
 	background-repeat:repeat-x;				
 	background:url("../images/loading/loadingbar_middle.png");
 }
 
 #loadingBarEmpty #loadingBarLeft{
 	background:url("../images/loading/loadingbar_left.png");
-	height:30px;
+	height:34px;
 	margin-left:5px;
-	width:15px;
+	width:16px;
 }
 
-#inProgress{
+#inProgress, #gameInProgress{
 	width : 760px;
 	height:410px;
 }
@@ -197,4 +208,17 @@ body{
    top : 0px;
    left : 0px;
    position: absolute;
+}
+#initCounter{
+  color: #FFD800;
+  font-family: Georgia;
+  font-size: 128px;
+  font-weight: bold;
+  height: 187px;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 123px;
+  width: 100%;
+  z-index: 100;
 }

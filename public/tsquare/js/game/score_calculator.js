@@ -10,22 +10,30 @@ var ScoreCalculator = Class.create({
   
   correctCommandsCount: 0,
   wrongCommandsCount: 0,
-  totalCommandsCount: 0,
   
   correctMovesCount: 0,
   wrongMovesCount: 0,
-  totalMovesCount: 0,
   
   crowdsCount: 0,
   
-  achievedObjectives: 0,
-  totalObjectives: 0,
+  totalObjectives: 1,
+  correctObjectiveCount: 0,
   
   gameTime: 0,
   
   initialize: function(scene){
     this.scene = scene;
     this.gameTime = 0;
+    
+    var self = this;
+    this.scene.observe("start", function(){self.start();})
+    this.scene.observe("setObjectivesCount", function(objectives){self.totalObjectives = objectives;})
+    this.scene.observe('wrongMove',function(){self.wrongMove()})
+    this.scene.observe('correctMove',function(){self.correctMove()})
+    this.scene.observe('correctObjective',function(){self.correctObjective()})
+    this.scene.observe('wrongCommand',function(){self.wrongCommand()})
+    this.scene.observe('correctCommand',function(){self.correctCommand()})
+    this.scene.observe("updateScore", function(score){self.updateScore(score)});
   },
   
   start: function(){
@@ -38,9 +46,44 @@ var ScoreCalculator = Class.create({
     
     this.crowdsCount = this.scene.handlers.crowd.getCrowdsCount();
   },
+
+  wrongMove: function(){
+    this.updateScore(-2);
+    this.wrongMovesCount++;
+  },
+
+  correctMove: function(){
+    this.updateScore(10);
+    this.correctMovesCount++;
+  },
+
+  correctObjective: function(){
+    this.updateScore(20);
+    this.correctObjectiveCount++;
+  },
+  
+  wrongCommand: function(){
+    this.updateScore(-5);
+    this.wrongCommandsCount++;
+  },
+
+  correctCommand: function(){
+    this.updateScore(20);
+    this.correctCommandsCount++;
+  },
   
   updateScore: function(score){
     this.score += score
+  },
+  
+  getCombos: function(){
+    var t = this.wrongMovesCount+this.correctMovesCount;
+    if(t == 0) t = 1;
+    return Number(this.correctMovesCount/t).toFixed(2);
+  },
+  
+  getObjectivesRatio: function(){
+    return Number(this.correctObjectiveCount/this.totalObjectives).toFixed(2);
   },
   
   updateTime: function(){

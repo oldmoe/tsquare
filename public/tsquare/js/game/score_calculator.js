@@ -73,6 +73,7 @@ var ScoreCalculator = Class.create({
   },
   
   updateScore: function(score){
+    if(score < 0 && this.score == 0) return;
     this.score += score
   },
   

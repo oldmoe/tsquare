@@ -15,7 +15,7 @@ var TsquareScene = Class.create(Scene,{
     direction : 1,
     holdPowerDepression: 0.2,
     energy : null,
-    view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25, length:0},
+    view: {width: 950, height: 460, xPos: 0, tileWidth: 600, laneMiddle : 25, length:0},
     activeLane: 1,
     win : false,
     comboMistakes : {current : 0, max : 2},
@@ -39,7 +39,7 @@ var TsquareScene = Class.create(Scene,{
         };  
         this.view.xPos = 0
         this.initCounter = 3
-        this.energy =  {current:0, rate: 5,max:100}
+        this.energy =  {current:0, rate: 10,max:100}
         this.comboMistakes = {current : 0, max : 2}
         this.data = missionData.data;
         this.noOfLanes = this.data.length;

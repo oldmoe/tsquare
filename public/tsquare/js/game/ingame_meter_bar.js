@@ -37,12 +37,12 @@ var InGameMeterBar = Class.create({
       }
       var currentEnergy = this.game.scene.energy.current
       if(currentEnergy > maxEnergy)      
-        $$('.inGameMeterBar .powerbar .powerLevel0'+(i) + ' div')[0].style.width = "90%"
+        $$('.inGameMeterBar .powerbar .powerLevel0'+(i) + ' div')[0].style.width = "100%"
       else if(currentEnergy < minEnergy){
         $$('.inGameMeterBar .powerbar .powerLevel0'+(i) + ' div')[0].style.width = "00%"
       } 
       else{
-        var percent = (currentEnergy - minEnergy)*90/ (maxEnergy - minEnergy)
+        var percent = (currentEnergy - minEnergy)*100/ (maxEnergy - minEnergy)
           $$('.inGameMeterBar .powerbar .powerLevel0'+(i) + ' div')[0].style.width = percent+"%"
       } 
     }

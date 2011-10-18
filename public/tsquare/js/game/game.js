@@ -10,7 +10,7 @@ var Game = Class.create({
       this.templateManager = gameManager.templateManager;
      else{
       this.network = new TSquareNetwork();
-      this.templateManager = new TemplatesManager(this.network);  
+      this.templateManager = new TemplatesManager(null);  
      }
     if(gameManager)gameData = gameManager.gameData;
     if(gameManager)userData = gameManager.userData;
@@ -18,7 +18,7 @@ var Game = Class.create({
   },
 
   startLoading : function(){
-    var self = this
+    var self = this    
     var loadingImages = ['loading_background.png','loadingbar_left.png','loadingbar_right.png',
     'loadingbar_middle.png','bar_background.png','background.png']
       new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
@@ -63,14 +63,11 @@ var Game = Class.create({
   				]
     
     	var format = 'mp3'
-    	for(var i=0; i < 4; i++){ //number of tempos
+    	for(var i=0; i < 1; i++){ //number of tempos
     		var beats = []
-    		for(var j=0; j < 5; j++){
+    		for(var j=0; j < 4; j++){
     			beats.push(j+'.'+format)
     		}
-			if(i == 0){
-				beats.push('5.'+format)
-			}		
     		var hetaf = []
     		for(var j=0; j < 11; j++){
     			hetaf.push((j+1)+'.'+format)

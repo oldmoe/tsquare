@@ -11,7 +11,9 @@
 /*--------Calender Screen-----------*/
 .calendarWrapper { position:relative;  top:60px;  }
 .calendarWrapper ul { width:64%; margin:0px auto; padding:0px; position:relative;}
-.calendarWrapper ul li { float:left; width:195px; margin:0 10px 0 0; padding:0px; }
+.calendarWrapper ul li { float:left; width:178px; margin:0 10px 0 0; padding:0px; height:224px; }
+.calendarWrapper ul li a { float:left; width:178px; height:224px; overflow:hidden; position:relative; }
+.calendarWrapper ul li a:hover img { position:relative; top:-224px;  }
 
 /*--------Timeline Screen-----------*/
 .missionDetails { position:relative; top:-210px; left:122px; float:left; width:730px; height:316px; z-index:6; }

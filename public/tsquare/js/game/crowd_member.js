@@ -76,26 +76,28 @@ var CrowdMember = Class.create(Unit,{
   },
   
   decreaseFollowers: function(num){
-    if(this.followers.length > 0){
-      var deleted = this.followers.splice(0,num);
-      deleted.each(function(elem){
-        elem.destroy();
-      })
-    }
+    for (var i=0; i < num && i < this.followers.length; i++) {
+      if(!this.followers[i].back)
+        this.followers[i].die();
+    };
   },
+  
   fire : function($super,event){
     if (this.followers) {
       for (var i = 0; i < this.followers.length; i++) {
-        this.followers[i].fire(event)
+        if(!this.followers[i].back)
+          this.followers[i].fire(event)
       }
     }
     $super(event)
   },
+  
   tick : function($super){
     $super()
-    if(!this.movinngToTarget && Math.abs(this.coords.x - this.originalPosition.x) > 0.1 || Math.abs(this.coords.y!=this.originalPosition.y) >0.1){
+    if(!this.movingToTarget && Math.abs(this.coords.x - this.originalPosition.x) > 0.1 || Math.abs(this.coords.y!=this.originalPosition.y) >0.1){
         this.moveToTarget(this.originalPosition)
-    }  
+    } 
+     
     this.stateChanged = true
     
     if(this.scene.reactor.ticks % this.secondTicks == 0)this.updateState();
@@ -110,7 +112,7 @@ var CrowdMember = Class.create(Unit,{
    
   checkFollowersState : function(move){
      for(var i=0;i<this.followers.length;i++){
-        if(this.followers[i].hp <=0){
+        if(this.followers[i].hp <= 0){
           this.followers[i].destroy()
           this.followers.splice(i,1)
         }
@@ -118,14 +120,14 @@ var CrowdMember = Class.create(Unit,{
   },
  
   takeHit: function($super, power){
-        var hitPower = power;
-        if (this.followers && this.followers.length > 0) {
-          this.followers[0].takeHit(hitPower)
-        }
-        else{
-          if(this.defense) hitPower-=this.defense
-          $super(hitPower)
-        } 
+    var hitPower = power;
+    if (this.followers && this.followers.length > 0) {
+      this.followers[0].takeHit(hitPower)
+    }
+    else{
+      if(this.defense) hitPower-=this.defense
+      $super(hitPower)
+    } 
   },
   
   circle : function(){
@@ -135,7 +137,8 @@ var CrowdMember = Class.create(Unit,{
           this.addRotationPoints(this.target)
           this.fire(this.rotationPoints[0].state)
           for(var i=0; this.followers && i<this.followers.length; i++){
-            this.followers[i].circle();
+            if(!this.followers[i].back)
+              this.followers[i].circle();
           }          
       }else{
          console.log("invalid command"); 
@@ -189,7 +192,8 @@ var CrowdMember = Class.create(Unit,{
   
   pushMove : function(target){
     for(var i=0;i<this.followers.length;i++){
-      this.followers[i].pushMove(target)
+      if(!this.followers[i].back)
+        this.followers[i].pushMove(target)
     }
     if(this.pushDirection == this.pushDirections.forward){
       return this.pushForward(target)
@@ -220,7 +224,8 @@ var CrowdMember = Class.create(Unit,{
     this.pushDirection = 1 - this.pushDirection
     this.moved = 0
     for(var i=0;i<this.followers.length;i++){
-      this.followers[i].reversePushDirection()
+      if(!this.followers[i].back)
+        this.followers[i].reversePushDirection()
     }
   },
   

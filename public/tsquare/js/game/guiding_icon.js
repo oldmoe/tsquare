@@ -59,9 +59,11 @@ var GuidingIcon = Class.create(Observer,{
     if(key == -1){
       this.wrongKey(moveIndex+1);
     }else {
-      // if(this.moveIndex == 1) this.reset(4);
-      this.correctPress(this.moveIndex);
-
+      if(key == this.moves[this.currentCommandIndex].code[this.moveIndex-1])
+        this.correctPress(this.moveIndex);
+      else{
+        this.wrongKey(this.moveIndex);
+      }
     }
   },
   
@@ -113,25 +115,21 @@ var GuidingIcon = Class.create(Observer,{
   tick: function(){
     var command = 0;
     
-    if(this.scene.handlers.enemy.objects[1] && this.scene.handlers.enemy.objects[1][0]){
-      if(!this.scene.handlers.enemy.objects[1][0].chargeTolerance)
+    var enemy = null, protectionUnit = null;
+    if(this.scene.handlers.enemy.objects[1] && this.scene.handlers.enemy.objects[1][0]) enemy =  this.scene.handlers.enemy.objects[1][0];
+    if(this.scene.handlers.protection_unit.objects[1] && this.scene.handlers.protection_unit.objects[1][0]) protectionUnit = this.scene.handlers.protection_unit.objects[1][0];  
+    
+    if(enemy){
+      if(!enemy.chargeTolerance)
         command = 2;
       else
         command = 0;
-    }
-/*
-    if(this.scene.handlers.protection_unit.objects[1] && this.scene.handlers.protection_unit.objects[1][0]){
-      if(!this.scene.handlers.protection_unit.objects[1][0].chargeTolerance && this.scene.collision && !this.circleFlag){
+    }else if(protectionUnit){
+      if(!protectionUnit.doneProtection && this.scene.collision){
         this.circleFlag = true;
       }
-      if(this.circleFlag) command = 2;
-    }
-*/
-    if(this.scene.handlers.protection_unit.objects[1] && this.scene.handlers.protection_unit.objects[1][0]){
-      if(!this.scene.handlers.protection_unit.objects[1][0].doneProtection && this.scene.collision){
-        this.circleFlag = true;
-      }
-      if(this.scene.handlers.protection_unit.objects[1][0].doneProtection){
+      
+      if(protectionUnit.doneProtection){
         this.circleFlag = false;
       }
       

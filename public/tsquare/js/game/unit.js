@@ -59,6 +59,7 @@ var Unit = Class.create(Observer,{
       else this.movingToTarget = false  
   },
   
+  //Return true if unit dies
   takeHit : function(attack){
     this.hp -= attack;
     if(this.hp <=0){
@@ -74,6 +75,7 @@ var Unit = Class.create(Observer,{
     this.coords.y+=dy
   },
   
+  //Kickingout is meant to kickout a mondass, but, we have no mondaseen yet.
   startKickingOut : function(){
     this.kickedout = true
   },

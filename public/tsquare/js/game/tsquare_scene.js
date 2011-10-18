@@ -18,13 +18,12 @@ var TsquareScene = Class.create(Scene,{
     view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25, length:0},
     activeLane: 1,
     win : false,
-    comboMistakes : {current : 0, max : 2},
+    comboMistakes : null,
     scoreCalculator: null,
     collision: false,
     
     initialize: function($super){
         $super();
-        this.collision = false;
         this.scoreCalculator = new ScoreCalculator(this);
         this.createRenderLoop('skyline',1);
         this.createRenderLoop('characters',2);
@@ -45,7 +44,7 @@ var TsquareScene = Class.create(Scene,{
         this.noOfLanes = this.data.length;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
-            this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth)
+            this.view.length = Math.max(this.view.length, this.data[i].last().x * this.view.tileWidth)
           }
         }
         var mapping = {'crowd':'npc', 'protection':'protection_unit', 'enemy':'enemy', 'rescue':'rescue'}

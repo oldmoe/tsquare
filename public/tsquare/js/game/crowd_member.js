@@ -29,7 +29,7 @@ var CrowdMember = Class.create(Unit,{
     var self = this
     this.hp = this.maxHp = specs.hp
     this.water = this.maxWater =  specs.water
-    this.water = this.maxWater = 100
+    //this.water = this.maxWater = 100
     this.attack = specs.attack || 0
     this.defense = specs.defense || 0 
     var crowdCommandFilters = [

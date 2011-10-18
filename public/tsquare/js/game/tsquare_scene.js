@@ -71,16 +71,19 @@ var TsquareScene = Class.create(Scene,{
        }
        this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
     },
+    
     doInit : function(){
       // take action
       $('initCounter').show()
-      $('initCounter').innerHTML = this.initCounter
+      $('initCounter').update("");
+      $('initCounter').appendChild(Loader.images.countDown[this.initCounter+".png"]);
       Effect.Puff('initCounter')
       this.initCounter--
       if (this.initCounter == 0) {
         this.reactor.push(this.reactor.everySeconds(1), function(){
           $('initCounter').show()
-          $('initCounter').innerHTML = 'GO!'
+          $('initCounter').update("");
+          $('initCounter').appendChild(Loader.images.countDown["go.png"]);
           Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
           this.audioManager = new AudioManager(this.reactor)
           this.movementManager = new MovementManager(this);
@@ -88,7 +91,8 @@ var TsquareScene = Class.create(Scene,{
         }, this)
         return false
       }
-    },    
+    },
+        
     observe: function(event, callback, scope){
         this.reactor.observe(event, callback, scope);
     },

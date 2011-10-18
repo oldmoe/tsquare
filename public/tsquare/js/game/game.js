@@ -36,7 +36,7 @@ var Game = Class.create({
      //   console.log(e.pointerX(),e.pointerY())
     })
     
-    var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png', 'world.png',
+    var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png',
     'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png']
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
     'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man']
@@ -51,13 +51,12 @@ var Game = Class.create({
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
     'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png']
     
-    var metersBarImages = ["", ""];
-    var hoveringIconsImages = ["circle.png", "march.png"];
+    var countDownImages = ["1.png", "2.png", "3.png", "go.png"];
        
   	var self = this
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
+  	        {images: countDownImages, path: 'images/game_elements/', store: 'countDown'},
   					{images: characterImages, path: 'images/characters/', store: 'characters'},
-  					{images: hoveringIconsImages, path: 'images/icons/', store: 'hoveringIcons'},
             {images: effectsImages, path: 'images/effects/', store: 'effects'},
             {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
   				]

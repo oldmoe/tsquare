@@ -24,7 +24,6 @@ var Display = Class.create({
   },
   
 	destroy : function(){
-    this.renderLoop.objects.remove(this)
 		for(var sprite in this.sprites){
 			this.sprites[sprite].destroy();
 	  }

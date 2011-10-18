@@ -78,6 +78,7 @@ var Scene = Class.create({
 
 	pushToRenderLoop : function(name, object){
 		var self = this
+    object.renderLoop = self.renderStores[name]
 		this.reactor.push(0, function(){self.renderStores[name].objects.push(object)})
 	},
 	

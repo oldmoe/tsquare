@@ -38,20 +38,16 @@ var AudioManager = Class.create({
 		this.levelChanged = true
 
 		this.levelBeats = {
-			130 : [0, 1, 2, 3, 4, 5], 
-			140 : [0, 3], 
-			150 : [0, 3], 
-			160 : [0, 3]
+			130 : [0, 1, 2], 
 		} 
 	
 		this.levels = [
-			{tempo: 130, beats : [{beat : 0, volume : 12}]},
-			{tempo: 130, beats : [{beat : 0, volume : 18}]},
-			{tempo: 130, beats : [{beat : 0, volume : 24}]},
-			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 2, volume : 30}]},
-			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 5, volume : 30}]},
-			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 1, volume : 30}]},
-			{tempo: 130, beats : [{beat : 0, volume : 24}, {beat : 3, volume : 30}]}
+			{tempo: 130, beats : [{beat : 0, volume : 40}]},
+			{tempo: 130, beats : [{beat : 0, volume : 70}]},
+			{tempo: 130, beats : [{beat : 0, volume : 70}, {beat : 1, volume : 10}]},
+			{tempo: 130, beats : [{beat : 0, volume : 70}, {beat : 1, volume : 10}]},
+			{tempo: 130, beats : [{beat : 0, volume : 70}, {beat : 1, volume : 10}, {beat : 2, volume : 15}]},
+      {tempo: 130, beats : [{beat : 0, volume : 70}, {beat : 1, volume : 10}, {beat : 2, volume : 20}]}
 		]
 		
 		var self = this
@@ -74,9 +70,15 @@ var AudioManager = Class.create({
 		this.nowPlaying = []
 		this.tempoChanged = true;
 	},
-
+  playHetaf : function(){
+    var id = Math.round(Math.random()*15) + 1
+    if(id <= 11)Loader.sounds['hetaf.130'][id+'.mp3'].play({volume : 15})
+  },
 	run : function(){
 		this.reactor.pushEvery(0, this.reactor.timeToTicks(this.durations[this.level.tempo]), this.tick, this)
+    this.background_audio = Loader.sounds['beats.'+130][3+'.'+this.format] 
+    this.background_audio.loop = true
+    this.background_audio.play({volume : 18, loop:true,loops:10000})
 	},
 	
   nextBeatTime: function(){
@@ -92,6 +94,7 @@ var AudioManager = Class.create({
 		for(var i=0; i < this.nowPlaying.length; i++){
 			this.nowPlaying[i].stop()
 		 }
+     this.background_audio.stop()
 	},
 	tick : function(){
 		//console.log('tempo changed ', this.tempoChanged, 'level changed', this.levelChanged)

@@ -13,7 +13,7 @@ var Npc = Class.create(Unit,{
       $super()
       var displacement = (this.direction*this.speed -  this.scene.currentSpeed*this.scene.direction)
       this.move(displacement,0)
-      this.moved+=Math.abs(displacement)
+      this.moved+=Math.abs(this.direction*this.speed)
       if(this.moved > this.maxDisplacement){
         this.moved = 0
         this.direction *= -1 

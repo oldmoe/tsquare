@@ -63,14 +63,11 @@ var Game = Class.create({
   				]
     
     	var format = 'mp3'
-    	for(var i=0; i < 4; i++){ //number of tempos
+    	for(var i=0; i < 1; i++){ //number of tempos
     		var beats = []
-    		for(var j=0; j < 5; j++){
+    		for(var j=0; j < 4; j++){
     			beats.push(j+'.'+format)
     		}
-			if(i == 0){
-				beats.push('5.'+format)
-			}		
     		var hetaf = []
     		for(var j=0; j < 11; j++){
     			hetaf.push((j+1)+'.'+format)

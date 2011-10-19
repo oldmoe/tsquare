@@ -16,9 +16,15 @@ var Mission = {
        method : 'get',
        onSuccess : function(response){
           Mission.currMission = JSON.parse(response.responseText);
+          $('missionName').value = Mission.currMission.name;
           var levelLoader = new LevelLoader();
        }
     });
+  },
+
+  editMissionName : function(){
+    Mission.currMission.name = $('missionName').value;
+    Mission.saveToServer();
   },
 
   saveToServer : function(){

@@ -108,11 +108,11 @@ var TsquareScene = Class.create(Scene,{
 
     correctMove: function(){
       this.increaseEnergy();
-      console.log("scene correct moved");
+//      console.log("scene correct moved");
     },
     
     wrongCommand: function(){
-      console.log("scene wrong command");
+//      console.log("scene wrong command");
     },
 
     correctCommand: function(){

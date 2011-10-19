@@ -8,7 +8,7 @@ var CrowdMember = Class.create(Unit,{
   waterDecreaseRate : 1,
   commandFilters: [],
   rotationPoints : null,
-  rotationSpeed : 12,
+  rotationSpeed : 25,
   rotating : false,
   pushing : false,
   holdingLevel: 0,
@@ -63,7 +63,6 @@ var CrowdMember = Class.create(Unit,{
   increaseFollowers : function(noOfFollowers){
     var remaining = this.level - (this.followers.length);
     if(remaining <= 0){
-      console.log("reached maximum number of followers");
       return;
     } 
     for(var i=0;i<noOfFollowers && i<remaining;i++){
@@ -141,7 +140,6 @@ var CrowdMember = Class.create(Unit,{
               this.followers[i].circle();
           }          
       }else{
-         console.log("invalid command"); 
       }
   },
   
@@ -188,6 +186,15 @@ var CrowdMember = Class.create(Unit,{
       },
       state : "reverseRun"
     })
+    var difference = Math.abs(this.rotationPoints[0].values.x - this.rotationPoints[1].values.x)
+    var minCircle = 200
+    var extra  = (minCircle - difference)/2
+    if(extra > 0){
+      var multipliers = [-1 , 1, 1, -1]
+      for(var i =0;i<this.rotationPoints.length;i++){
+        this.rotationPoints[i].values.x +=extra * multipliers[i] 
+      }
+    }
   },
   
   pushMove : function(target){

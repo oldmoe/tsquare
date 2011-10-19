@@ -1,4 +1,5 @@
 var MedicDisplay = Class.create(CrowdMemberDisplay,{
+  
   initImages : function(){
     this.characterImg = Loader.images.characters['medic_idle.png']
     this.walkImg = Loader.images.characters['medic_walk.png']
@@ -8,6 +9,7 @@ var MedicDisplay = Class.create(CrowdMemberDisplay,{
     this.holdImg = Loader.images.characters['medic_hold.png']
     this.blurImg = Loader.images.characters['medic_blur.png']
   },
+  
   createSprites : function(){
     this.sprites.runEffectForward = new DomImgSprite(this.owner,
     {

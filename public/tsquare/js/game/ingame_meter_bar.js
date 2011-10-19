@@ -15,8 +15,6 @@ var InGameMeterBar = Class.create({
     
     $$('.inGameMeterBar .levelMeterHighlight')[0].style.width = "8%";
     
-    this.character = new DomImgSprite({coords:{x:10} }, {img : this.characterImg, noOfFrames:9})
-    
     var self = this;
     this.game.scene.reactor.pushEvery(0, game.scene.reactor.everySeconds(1), function(){self.tick();});
   },

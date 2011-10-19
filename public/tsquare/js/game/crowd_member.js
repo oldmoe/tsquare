@@ -63,7 +63,6 @@ var CrowdMember = Class.create(Unit,{
   increaseFollowers : function(noOfFollowers){
     var remaining = this.level - (this.followers.length);
     if(remaining <= 0){
-      console.log("reached maximum number of followers");
       return;
     } 
     for(var i=0;i<noOfFollowers && i<remaining;i++){
@@ -141,7 +140,6 @@ var CrowdMember = Class.create(Unit,{
               this.followers[i].circle();
           }          
       }else{
-         console.log("invalid command"); 
       }
   },
   

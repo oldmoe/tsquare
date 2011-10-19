@@ -97,7 +97,6 @@ var AudioManager = Class.create({
      this.background_audio.stop()
 	},
 	tick : function(){
-		//console.log('tempo changed ', this.tempoChanged, 'level changed', this.levelChanged)
 		if(this.index % 2 == 1){
 			// we should play the hetaf here, nothing will change with the beats though
 			this.index++
@@ -120,7 +119,7 @@ var AudioManager = Class.create({
 				var sound = this.levelBeats[this.level.tempo][i]
 				sound.mute()
 				sound.loop = true
-				sound.play({ loops : 100000, onfinish : function(){console.log('finished')}})
+				sound.play({ loops : 100000})
 				this.nowPlaying.push(sound)
 			}
 			for(var i=0; i < this.level.beats.length;i++){
@@ -153,9 +152,6 @@ var AudioManager = Class.create({
 		this.levelChanged = true
     if(this.levels[this.levelIndex].tempo != this.levels[this.levelIndex-1].tempo) this.tempoChanged = true
 		this.level = this.levels[this.levelIndex]
-    if(this.tempoChanged){
-      console.info("TEMPO CHANGED NOW!!!! UPPPPPPPPP")
-    }
 	},
 	
 	levelDown : function(){
@@ -164,8 +160,5 @@ var AudioManager = Class.create({
 		this.levelChanged = true
 		if(this.levels[this.levelIndex].tempo != this.levels[this.levelIndex+1].tempo) this.tempoChanged = true
 		this.level = this.levels[this.levelIndex]
-    if(this.tempoChanged){
-      console.info("TEMPO CHANGED NOW!!!! DOWWWWWWWWN")
-    }
 	}	
 })

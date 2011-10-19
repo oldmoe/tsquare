@@ -34,6 +34,9 @@ var DomImgSprite = Class.create(DomSprite, {
       var scales = [0.8,1,1.2]
       //var scale = ((this.owner.coords.y) / (this.owner.scene.view.height - this.defaultShiftY)) * 0.8 + 0.4
       var scale = scales[this.owner.lane]
+      if (this.owner.extraScale) {
+        scale *= this.owner.extraScale
+      }
       this.div.style.WebkitTransform += ' scale(' + scale + ')';
       this.div.style.MozTransform += ' scale(' + scale + ')';
     

@@ -36,11 +36,11 @@ var MissionManager = Class.create({
     if(this.imagesLoaded)
     {
       this.eneded = false;
+      this.mode = this.gameManager.timelineManager.mode;
       score['stars'] = this.calculateStars(score);
       this.displayStaticEndScreen();
       var self = this;
       this.network.postMissionScore( this.currentMission.id, score, function(data){
-        self.mode = self.gameManager.timelineManager.mode;
         if(self.gameManager.scoreManager.currentUser)
         {
           self.gameManager.scoreManager.currentUser.missions[self.mode][self.currentMission['id']] = score;
@@ -52,7 +52,9 @@ var MissionManager = Class.create({
   },
   
   displayStaticEndScreen : function(){
-    var staticData = {'friends' : [], 'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : {score : '...', objectives : 0, stars : 0} };
+    var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] ? true : false;
+    var staticData = {'friends' : [], 'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : {score : '...', objectives : 0, stars : 0},
+                      next : nextMission  };
     var screenName = (this.score.win == true) ? 'win' : 'lose';
     $('winLose').innerHTML = this.templateManager.load(screenName, staticData);
     Game.addLoadedImagesToDiv('winLose');
@@ -82,8 +84,9 @@ var MissionManager = Class.create({
   displayEndScreen : function(score){
     this.sortFriends();
     var screenName = (this.score.win == true) ? 'win' : 'lose';
+    var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] ? true : false;
     $('winLose').innerHTML = this.templateManager.load(screenName, {'friends' : this.friends.slice(this.rank+1, this.rank+4),
-                             'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score });
+                             'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score, next : nextMission });
     Game.addLoadedImagesToDiv('winLose');
     this.attachListener();
     this.show();

@@ -11,7 +11,7 @@ var LevelLoader = Class.create({
   },
   
   load: function(){
-    if(this.mission && this.mission.name)$("missionName").update(this.mission.name);
+//    if(this.mission && this.mission.name)$("missionName").update(this.mission.name);
     if(this.missionData){
       if(this.missionData.data)this.loadObjects(this.missionData.data);
       if(this.missionData.backgrounds)this.loadBackgrounds(this.missionData.backgrounds);

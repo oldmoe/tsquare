@@ -3,6 +3,6 @@ var Ambulance = Class.create(ProtectionUnit,{
     this.neglected = true
     this.handler.objects[this.lane].remove(this)
     this.handler.objects[this.lane].push(this)
-    this.move(5,0)
+    this.move(15,0)
   }
 })

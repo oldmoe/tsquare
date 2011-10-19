@@ -28,7 +28,6 @@ var CrowdMemberDisplay = Class.create(Display,{
   
   initImages : function(){
     this.characterImg = Loader.images.characters['crowd_member.png'];
-    
   },
   
   createShadow: function(){

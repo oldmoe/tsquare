@@ -36,7 +36,7 @@ var CrowdMemberDisplay = Class.create(Display,{
     }, {
       width: this.blurImg.width,
       height: this.blurImg.height,
-      shiftX : this.characterImg.width - this.blurImg.width - 20,
+      shiftX : this.characterImg.width - this.blurImg.width,
       hidden : true
     })
 //    this.sprites.runEffectBackward = new DomImgSprite(this.owner,{

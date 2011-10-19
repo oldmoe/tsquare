@@ -120,7 +120,7 @@ var GuidingIcon = Class.create(Observer,{
     if(this.scene.handlers.enemy.objects[1] && this.scene.handlers.enemy.objects[1][0]) enemy =  this.scene.handlers.enemy.objects[1][0];
     if(this.scene.handlers.protection_unit.objects[1] && this.scene.handlers.protection_unit.objects[1][0]) protectionUnit = this.scene.handlers.protection_unit.objects[1][0];  
     
-    var choice = 0; // 0: enemy, 1:protectionUnit
+    var choice = -1; // 0: enemy, 1:protectionUnit
     
     if(enemy && !protectionUnit) choice = 0;
     else if(!enemy && protectionUnit) choice = 1;

@@ -48,7 +48,7 @@ var Scene = Class.create({
 	},
 	//moves objects in the scene 
 	_tick : function(){
-       var t1 = new Date().getTime()
+    var t1 = new Date().getTime()
 		this.tick()
 		this.render()
 		var self = this
@@ -78,13 +78,13 @@ var Scene = Class.create({
 
 	pushToRenderLoop : function(name, object){
 		var self = this
-    object.renderLoop = self.renderStores[name]
+    if(object.owner)object.owner.renderLoop = name
 		this.reactor.push(0, function(){self.renderStores[name].objects.push(object)})
 	},
 	
 	removeFromRenderLoop : function(name, object){
 		var self = this
-		this.reactor.push(0, function(){self.renderStores[name].objects.remove(object)})
+		this.reactor.push(0, function(){console.log(self.renderStores[name].objects.length);self.renderStores[name].objects.remove(object);console.log(self.renderStores[name].objects.length)})
 	},
 
 	render : function(){
@@ -93,7 +93,19 @@ var Scene = Class.create({
         var store = this.renderStores[storeIndex]
         if (this.reactor.ticks >= store.tick + store.delay && store.working) {
           store.tick = this.reactor.ticks
-          store.objects.invoke('render')
+          var remainedDisplays = []
+          for (var i = 0; i < store.objects.length; i++) {
+            if (store.objects[i].owner) {
+              if (!store.objects[i].owner.removed) {
+                store.objects[i].render()
+                remainedDisplays.push(store.objects[i])
+              }
+            }else{
+                store.objects[i].render()
+                remainedDisplays.push(store.objects[i])
+            }
+          }
+          store.objects = remainedDisplays
         }
       }      
 		}catch(x){

@@ -67,6 +67,7 @@ var MovementManager = Class.create({
       if(self.scene.currentSpeed > 0){
         self.comboStart = true
       }
+      if(!this.sound)return
       var position = this.sound.position
       var beatTime  = this.sound.duration/this.beatsPerAudio
       this.beatTime = beatTime

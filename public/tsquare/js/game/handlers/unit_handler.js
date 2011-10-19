@@ -42,7 +42,6 @@ var UnitHandler = Class.create({
     for (var i = 0; i < this.objects.length; i++) {
       for (var j = 0; this.objects[i] && j < this.objects[i].length; j++) {
          if(this.objects[i][j].dead || this.objects[i][j].coords.x +  this.objects[i][j].getWidth()< 0){
-           alert(1)
            this.objects[i][j].destroy()
            this.objects[i].splice(j, 1)
            j--

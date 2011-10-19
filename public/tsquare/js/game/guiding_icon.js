@@ -39,7 +39,8 @@ var GuidingIcon = Class.create(Observer,{
     game.scene.observe("pressLate", function(){self.pressLate()});
     game.scene.observe("beatMoving", function(){self.beatMoving()});
     game.scene.reactor.pushEvery(0 , 1, function(){self.tick()});
-    // game.scene.observe("circleEnd", function(){self.circleEnd()});
+    
+    game.scene.observe("targetCircleComplete", function(){self.targetCircleComplete()});
   },
   
   keypressed: function(key, moveIndex, flag){
@@ -119,27 +120,37 @@ var GuidingIcon = Class.create(Observer,{
     if(this.scene.handlers.enemy.objects[1] && this.scene.handlers.enemy.objects[1][0]) enemy =  this.scene.handlers.enemy.objects[1][0];
     if(this.scene.handlers.protection_unit.objects[1] && this.scene.handlers.protection_unit.objects[1][0]) protectionUnit = this.scene.handlers.protection_unit.objects[1][0];  
     
-    if(enemy){
-      if(!enemy.chargeTolerance)
-        command = 2;
-      else
-        command = 0;
-    }else if(protectionUnit){
-      if(!protectionUnit.doneProtection && this.scene.collision){
+    var choice = 0; // 0: enemy, 1:protectionUnit
+    
+    if(enemy && !protectionUnit) choice = 0;
+    else if(!enemy && protectionUnit) choice = 1;
+    else if(enemy && protectionUnit){
+      if(enemy.coords.x < protectionUnit.coords.x) 
+        choice = 0; 
+      else 
+        choice = 1;
+    } 
+    
+    if(choice == 0){
+      if(!enemy.chargeTolerance && this.scene.collision)
         this.circleFlag = true;
-      }
-      
-      if(protectionUnit.doneProtection){
-        this.circleFlag = false;
-      }
-      
-      if(this.circleFlag) command = 2;
+        
+        
+    }else if(choice == 1){
+      if(!protectionUnit.doneProtection && this.scene.collision)
+        this.circleFlag = true;
     }
+
+    if(this.circleFlag) command = 2;
     
     if(this.currentCommandIndex != command){
       this.currentCommandIndex = command;
       this.displayCommand(this.currentCommandIndex)
     }
+  },
+  
+  targetCircleComplete: function(){
+    this.circleFlag = false;
   },
   
   displayCommand: function(index){

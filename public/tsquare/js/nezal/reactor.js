@@ -60,7 +60,6 @@ var Reactor = Class.create(Observer, {
     this.ticks++
     var newTime = new Date().getTime()
     var timeDifference =  newTime - this.time - this.delay
-    //if(Math.abs(timeDifference) > 10)console.log(timeDifference)
     var delay = this.delay
     if(timeDifference > 0 )delay = Math.max(this.delay - timeDifference, 0)
     this.time = newTime

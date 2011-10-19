@@ -12,8 +12,6 @@ var DomImgSprite = Class.create(DomSprite, {
         noOfFrames : imgAssets.noOfFrames || 1
      })
     this.currentAnimation = this.animations['normal']
-    //owner.imgWidth = this.currentAnimation.imgWidth
-    //owner.imgHeight = this.currentAnimation.imgHeight
     $super(owner, imgAssets, properties);
     //console.log( imgAssets )
     if(properties && properties.flipped){

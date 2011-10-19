@@ -52,12 +52,15 @@ var Game = Class.create({
     'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png']
     
     var countDownImages = ["1.png", "2.png", "3.png", "go.png"];
+    
+    var shadowImages = ["crowd_shadow.png", "box_car_shadow.png", "amn_markazy_shadow.png", "ambulance_shadow.png"];
        
   	var self = this
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
   	        {images: countDownImages, path: 'images/game_elements/', store: 'countDown'},
   					{images: characterImages, path: 'images/characters/', store: 'characters'},
             {images: effectsImages, path: 'images/effects/', store: 'effects'},
+            {images: shadowImages, path: 'images/effects/', store: 'effects'},
             {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
   				]
     

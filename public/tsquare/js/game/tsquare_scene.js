@@ -45,7 +45,7 @@ var TsquareScene = Class.create(Scene,{
         this.noOfLanes = this.data.length;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
-            this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth)
+            this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)
           }
         }
         var mapping = {'crowd':'npc', 'protection':'protection_unit', 'enemy':'enemy', 'rescue':'rescue'}
@@ -108,11 +108,11 @@ var TsquareScene = Class.create(Scene,{
 
     correctMove: function(){
       this.increaseEnergy();
-      console.log("scene correct moved");
+//      console.log("scene correct moved");
     },
     
     wrongCommand: function(){
-      console.log("scene wrong command");
+//      console.log("scene wrong command");
     },
 
     correctCommand: function(){
@@ -129,7 +129,7 @@ var TsquareScene = Class.create(Scene,{
     
   end : function(win){
     if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
-     && this.view.xPos > this.view.length + this.view.width)) {
+     && this.view.xPos > this.view.length)) {
       if(!this.stopped)
       {
         this.stopped = true;

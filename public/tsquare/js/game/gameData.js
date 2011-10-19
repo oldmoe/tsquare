@@ -2,15 +2,6 @@ var missionData = {
   
   "data":[[],[
 
-  {
-      "name": "wood_stick_cs",
-      "category": 'enemy',
-      "type": '1_2',
-      "index": 0,
-      "lane": 1,
-      "x": 5,
-      "order": 1
-  }
 /*  ,{
       "name": "twitter_guy",
       "category": 'protection',
@@ -19,27 +10,26 @@ var missionData = {
       "lane": 1,
       "x": 2,
       "order": 1
-  }
-  ,{
+  }*/
+  {
       "name": "ambulance",
       "category": 'protection',
       "type": '3_3',
       "index": 0,
       "lane": 1,
-      "x": 3,
+      "x": 1,
       "order": 1
   },
+
   {
       "name": "wood_stick_cs",
       "category": 'enemy',
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 10,
+      "x": 2,
       "order": 1
   }
-  
-*/  
   
   
 /*  ,{

@@ -1,11 +1,20 @@
 var InGameMeterBar = Class.create({
 
+  xPos: 0,
+  currentEnergy: 0,
+  
+
   initialize : function(game){
     this.game = game;
     this.templateManager = game.templateManager;
     this.scoreCalculator = game.scene.scoreCalculator;
     this.currentEnergy = -1;
+    this.xPos = this.game.scene.view.xPos;
+    
     $('inGameMeterBar').innerHTML = this.templateManager.load('inGameMeterBar');
+    
+    $$('.inGameMeterBar .levelMeterHighlight')[0].style.width = "8%";
+    
     var self = this;
     this.game.scene.reactor.pushEvery(0, game.scene.reactor.everySeconds(1), function(){self.tick();});
   },
@@ -25,7 +34,15 @@ var InGameMeterBar = Class.create({
       this.currentEnergy = this.game.scene.energy.current;
       this.setPowerMeterStyle()
     }
+
+    if(this.xPos != this.game.scene.view.xPos){
+      this.xPos = this.game.scene.view.xPos;
+      
+      $$('.inGameMeterBar .levelMeterHighlight')[0].style.width = (8+92*(this.xPos/this.game.scene.view.length))+"%";
+    }
+    
   },
+  
   setPowerMeterStyle : function(){
     for(var i=1;i<5;i++){
       var minEnergy = this.game.scene.speeds[i].energy
@@ -40,8 +57,7 @@ var InGameMeterBar = Class.create({
         $$('.inGameMeterBar .powerbar .powerLevel0'+(i) + ' div')[0].style.width = "100%"
       else if(currentEnergy < minEnergy){
         $$('.inGameMeterBar .powerbar .powerLevel0'+(i) + ' div')[0].style.width = "00%"
-      } 
-      else{
+      }else{
         var percent = (currentEnergy - minEnergy)*100/ (maxEnergy - minEnergy)
           $$('.inGameMeterBar .powerbar .powerLevel0'+(i) + ' div')[0].style.width = percent+"%"
       } 

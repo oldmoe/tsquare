@@ -1,9 +1,10 @@
 var Healer = Class.create(CrowdMember,{
-  rate : 30,
-  healAmount : 10,
+  rate : 1,
+  healAmount : 5,
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)
     if(options && options.rate)this.rate = options.rate
+    this.rate = this.scene.reactor.everySeconds(this.rate)
   },
   tick : function($super){
     $super()

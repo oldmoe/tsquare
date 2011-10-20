@@ -2,22 +2,22 @@ var missionData = {
   
   "data":[[],[
   {
-      "name": "twitter_guy",
-      "category": 'protection',
-      "type": '1_2',
-      "index": 0,
-      "lane": 1,
-      "x": 1,
-      "order": 1
-  },
-
-  {
       "name": "wood_stick_cs",
       "category": 'enemy',
       "type": '1_1',
       "index": 0,
       "lane": 1,
       "x": 2,
+      "order": 1
+  },
+
+  {
+      "name": "twitter_guy",
+      "category": 'protection',
+      "type": '1_2',
+      "index": 0,
+      "lane": 1,
+      "x": 1,
       "order": 1
   },
   {

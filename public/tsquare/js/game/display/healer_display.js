@@ -1,4 +1,4 @@
-var MedicDisplay = Class.create(CrowdMemberDisplay,{
+var HealerDisplay = Class.create(CrowdMemberDisplay,{
   
   initImages : function(){
     this.characterImg = Loader.images.characters['medic_idle.png']

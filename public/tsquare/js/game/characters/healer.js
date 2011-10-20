@@ -1,4 +1,4 @@
-var Medic = Class.create(CrowdMember,{
+var Healer = Class.create(CrowdMember,{
   rate : 30,
   healAmount : 10,
   initialize : function($super,scene,x,y,options){

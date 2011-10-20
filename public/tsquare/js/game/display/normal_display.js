@@ -5,7 +5,7 @@ var NormalDisplay = Class.create(CrowdMemberDisplay,{
   },
   
   initImages : function(){
-    var names = ['normal','salafy','girl7egab','journalist']
+    var names = ['normal','salafy','girl7egab','journalist','girl']
     var name = names.random()
     this.characterImg = Loader.images.characters[name+'_idle.png']
     this.walkImg = Loader.images.characters[name+'_walk.png']

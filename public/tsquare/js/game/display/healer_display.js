@@ -11,6 +11,7 @@ var HealerDisplay = Class.create(CrowdMemberDisplay,{
   },
   
   createSprites : function(){
+    this.createShadow();
      this.sprites.runEffectForward = new DomImgSprite(this.owner,
     {
       img: this.blurImg,
@@ -44,7 +45,7 @@ var HealerDisplay = Class.create(CrowdMemberDisplay,{
     this.sprites.character.createAnimation({name:'run'  ,img:this.runImg,noOfFrames:7})
     this.sprites.character.createAnimation({name:'sprint'  ,img:this.runImg,noOfFrames:7})
     this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:8, flipped : true})
-    this.sprites.character.createAnimation({name:'reverseRun'  ,img:this.runImg, noOfFrames:6, flipped : true})
+    this.sprites.character.createAnimation({name:'reverseRun'  ,img:this.runImg, noOfFrames:7, flipped : true})
     this.sprites.health = new ImgMeterSprite(this.owner,
     {empty:Loader.images.gameElements['health_meter_empty.png'] ,full:Loader.images.gameElements['health_meter.png']},
      {

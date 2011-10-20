@@ -145,8 +145,6 @@ var Game = Class.create({
 	  	this.scene.fire("start");
       this.inGameMeterBar = new InGameMeterBar(this);
       this.guidingIcon = new GuidingIcon(this);
-      this.scene.pushToRenderLoop('meters', this.inGameMeterBar);
-      this.scene.pushToRenderLoop('meters', this.guidingIcon);
     }
   },
 

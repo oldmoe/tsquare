@@ -14,6 +14,7 @@ var Game = Class.create({
      }
     if(gameManager)gameData = gameManager.gameData;
     if(gameManager)userData = gameManager.userData;
+    this.loader = new Loader();
     this.startLoading();
   },
 
@@ -21,7 +22,7 @@ var Game = Class.create({
     var self = this    
     var loadingImages = ['loading_background.png','loadingbar_left.png','loadingbar_right.png',
     'loadingbar_middle.png','bar_background.png','background.png']
-      new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
+      this.loader.load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
         ,{
           onFinish: function(){
             $('gameInProgress').innerHTML = self.templateManager.load('loadingScreen')
@@ -82,16 +83,18 @@ var Game = Class.create({
     						
   	new Loader().load(toLoad, {
   								  onProgress : function(progress){
-  									  if($$('#inProgress #loadingBarFill')[0])
-  									  $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
+  									  if($$('#gameInProgress #loadingBarFill')[0])
+  									  $$('#gameInProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
   								  },
   								  onFinish:function(){
-                      $('gameInProgress').hide()
   					   				self.imagesLoaded = true;
   						  			self.start();
-                      self.doneLoading = true
                       // self.play(missionData);
-  								  }
+  								  },
+                    onError:function(){
+  					   				self.imagesLoaded = true;
+  						  			self.start();
+                    }
     });
   },
 
@@ -123,10 +126,10 @@ var Game = Class.create({
       backgroundImages.push(elem.name);
     });
     
-	  new Loader().load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
+	  this.loader.load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
           {onProgress : function(progress){
-                      if($$('#inProgress #loadingBarFill')[0])
-                      $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
+                      if($$('#gameInProgress #loadingBarFill')[0])
+                      $$('#gameInProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
              }, onFinish:function(){        
                   self.missionLoaded = true;
                   self.start();
@@ -137,6 +140,7 @@ var Game = Class.create({
   start : function(){
     var self = this;
     if(this.imagesLoaded == true && this.missionLoaded == true) {
+      $('gameInProgress').hide();
       this.reset();
       this.scene = new TsquareScene();
       this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});

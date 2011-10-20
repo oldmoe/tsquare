@@ -10,11 +10,24 @@ var InGameMeterBar = Class.create({
     this.scoreCalculator = game.scene.scoreCalculator;
     this.currentEnergy = -1;
     this.xPos = this.game.scene.view.xPos;
-    
+
+    var images = ["level_meter_crowd.png", "level_meter_highlighted.png", "level_meter.png", "timer.png", "power_bar.png", "power_level01.png", "power_level02.png", "power_level03.png", "power_level04.png"];
+    var self = this;
+    new Loader().load([{images: images, path: 'images/game_elements/', store: 'game_elements'}],
+          {onFinish:function(){        
+             self.display();
+          }
+        })
+  },
+  
+  display: function(){
     $('inGameMeterBar').innerHTML = this.templateManager.load('inGameMeterBar');
+    
+    Game.addLoadedImagesToDiv('inGameMeterBar');
     
     $$('.inGameMeterBar .levelMeterHighlight')[0].style.width = "8%";
     
+    this.game.scene.pushToRenderLoop('meters', this);
     var self = this;
     this.game.scene.reactor.pushEvery(0, game.scene.reactor.everySeconds(1), function(){self.tick();});
   },
@@ -28,7 +41,7 @@ var InGameMeterBar = Class.create({
     var hours = time[0]<10?"0"+time[0]:time[0];
     var minutes = time[1]<10?"0"+time[1]:time[1];
     var seconds = time[2]<10?"0"+time[2]:time[2];
-    $('timer').innerHTML = hours + ":" + minutes + ":" + seconds;
+    $('timerTxt').innerHTML = hours + ":" + minutes + ":" + seconds;
     
     if(this.currentEnergy != this.game.scene.energy.current){
       this.currentEnergy = this.game.scene.energy.current;

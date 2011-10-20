@@ -17,8 +17,19 @@ var GuidingIcon = Class.create(Observer,{
     
     this.scene = game.scene;
     this.moveIndex = 1;
-    
+    var images = ["circle_move.png", "move_indicator.png", "right_arrow.png", "left_arrow.png", "move_background.png", "moves_arrows.png"];
+    var self = this;
+    new Loader().load([{images: images, path: 'images/game_elements/', store: 'game_elements'}],
+          {onFinish:function(){        
+             self.display();
+          }
+        })
+  },
+  
+  display: function(){
     $('guidingBar').innerHTML = game.templateManager.load('guidingBar');
+    
+    Game.addLoadedImagesToDiv('guidingBar');
     
     $$("#guidingBarSlide")[0].observe("click", function(){
       if(this.hasClassName('trigger')){
@@ -33,14 +44,13 @@ var GuidingIcon = Class.create(Observer,{
         // new Effect.Move($$('.movesIndicator')[0], {x:0,duration:2})
       }
     });
-    
+    this.scene.pushToRenderLoop('meters', this);
+    this.scene.observe("keypressed", function(key, moveIndex, reset){self.keypressed(key, moveIndex, reset)});
+    this.scene.observe("pressLate", function(){self.pressLate()});
+    this.scene.observe("beatMoving", function(){self.beatMoving()});
+    this.scene.reactor.pushEvery(0 , 1, function(){self.tick()});
     var self = this;
-    game.scene.observe("keypressed", function(key, moveIndex, reset){self.keypressed(key, moveIndex, reset)});
-    game.scene.observe("pressLate", function(){self.pressLate()});
-    game.scene.observe("beatMoving", function(){self.beatMoving()});
-    game.scene.reactor.pushEvery(0 , 1, function(){self.tick()});
-    
-    game.scene.observe("targetCircleComplete", function(){self.targetCircleComplete()});
+    this.scene.observe("targetCircleComplete", function(){self.targetCircleComplete()});
   },
   
   keypressed: function(key, moveIndex, flag){

@@ -10,7 +10,9 @@ BottleguyDisplay = Class.create(CrowdMemberDisplay,{
     this.blurImg = Loader.images.characters['bottleguy_blur.png']
     this.hydrateImg = Loader.images.effects['hydrate.png']
   },
+  
   createSprites : function(){
+    this.createShadow();
     this.sprites.runEffectForward = new DomImgSprite(this.owner,
     {
       img: this.blurImg,

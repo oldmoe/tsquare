@@ -1,6 +1,16 @@
 var missionData = {
   
-  "data":[[],[
+  "data":[[
+  {
+      "name": "ultras_white",
+      "category": 'crowd',
+      "type": '1_1',
+      "index": 0,
+      "lane": 0,
+      "x": 0,
+      "order": 1
+  }  
+  ],[
   {
       "name": "wood_stick_cs",
       "category": 'enemy',

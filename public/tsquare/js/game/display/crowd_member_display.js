@@ -11,8 +11,6 @@ var CrowdMemberDisplay = Class.create(Display,{
     $super(owner)
     this.sprites.character.currentAnimationFrame = Math.round((Math.random()* this.sprites.character.currentAnimation.noOfFrames-1))
     this.registerEvents()
-    
-    this.createShadow();
   },
   
   registerEvents : function(){
@@ -41,6 +39,7 @@ var CrowdMemberDisplay = Class.create(Display,{
   },
   
   createSprites : function(){
+    this.createShadow();
      this.sprites.runEffectForward = new DomImgSprite(this.owner,
     {
       img: this.blurImg,

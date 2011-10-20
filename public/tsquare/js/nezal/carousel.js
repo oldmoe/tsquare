@@ -39,6 +39,7 @@ var Carousel = Class.create( {
         }else {
           this.width = $(this.id + "-container").getWidth()/displayCount;
         }
+        if(this.width == 0 ) this.width = $(this.id + "-container").getWidth()/displayCount;
         this.displayCount = displayCount;
         if(scrollCount) 
           this.scroll = scrollCount;
@@ -48,7 +49,8 @@ var Carousel = Class.create( {
         this.listSize =  $$('#' + this.ulId + ' li').length;
         $(this.ulId).style.left = 0;
         $(this.ulId).style.border = 'none';
-        $(this.ulId).style.width = this.width * (lis.length + 1)  + "px";
+//        $(this.ulId).style.width = this.width * (lis.length + 1)  + "px";
+        $(this.ulId).style.width = 50000 + "px";
         if($(this.ulId).getStyle('direction') == 'rtl')
         {
           this.direction = -1;

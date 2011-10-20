@@ -39,6 +39,7 @@ var Carousel = Class.create( {
         }else {
           this.width = $(this.id + "-container").getWidth()/displayCount;
         }
+        if(this.width == 0 ) this.width = $(this.id + "-container").getWidth()/displayCount;
         this.displayCount = displayCount;
         if(scrollCount) 
           this.scroll = scrollCount;

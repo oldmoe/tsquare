@@ -17,17 +17,17 @@ var missionData = {
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 1,
+      "x": 30,
       "order": 1
   },
 
-  {
+/*  {
       "name": "wood_stick_cs",
       "category": 'enemy',
-      "type": '1_1',
+      "type": '3_3',
       "index": 0,
       "lane": 1,
-      "x": 2,
+      "x": 10,
       "order": 1
   },
   {
@@ -36,7 +36,7 @@ var missionData = {
       "type": '3_3',
       "index": 0,
       "lane": 1,
-      "x": 3,
+      "x": 30,
       "order": 1
   }
 

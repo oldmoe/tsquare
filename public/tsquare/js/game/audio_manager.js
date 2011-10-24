@@ -25,7 +25,7 @@ Audio.Fade = function(sound, to, duration, reactor, callback){
 var AudioManager = Class.create({
 
 	durations : {
-			130 : 1850,
+			130 : 1800,
 			140 : 1750,
 			150 : 1600,
 			160 : 1500
@@ -38,16 +38,18 @@ var AudioManager = Class.create({
 		this.levelChanged = true
 
 		this.levelBeats = {
-			130 : [0, 1, 2], 
+			130 : [0, 1, 2, 3, 4], 
 		} 
 	
 		this.levels = [
-			{tempo: 130, beats : [{beat : 0, volume : 40}]},
-			{tempo: 130, beats : [{beat : 0, volume : 70}]},
-			{tempo: 130, beats : [{beat : 0, volume : 70}, {beat : 1, volume : 10}]},
-			{tempo: 130, beats : [{beat : 0, volume : 70}, {beat : 1, volume : 10}]},
-			{tempo: 130, beats : [{beat : 0, volume : 70}, {beat : 1, volume : 10}, {beat : 2, volume : 15}]},
-      {tempo: 130, beats : [{beat : 0, volume : 70}, {beat : 1, volume : 10}, {beat : 2, volume : 20}]}
+			{tempo: 130, beats : [{beat : 0, volume : 25}]},
+			{tempo: 130, beats : [{beat : 0, volume : 50}]},
+			{tempo: 130, beats : [{beat : 0, volume : 50}, {beat : 2, volume : 25}]},
+			{tempo: 130, beats : [{beat : 0, volume : 50}, {beat : 2, volume : 50}]},
+      {tempo: 130, beats : [{beat : 0, volume : 50}, {beat : 3, volume : 50}]},
+      {tempo: 130, beats : [{beat : 0, volume : 50}, {beat : 3, volume : 75}]}      
+      // {tempo: 130, beats : [{beat : 0, volume : 50}, {beat : 4, volume : 50}]},
+      // {tempo: 130, beats : [{beat : 0, volume : 50}, {beat : 4, volume : 70}]}
 		]
 		
 		var self = this
@@ -70,15 +72,22 @@ var AudioManager = Class.create({
 		this.nowPlaying = []
 		this.tempoChanged = true;
 	},
+	
+	playHetafLoop : function(){
+	  this.playHetaf()
+    this.reactor.push(Math.random() * 100 + 50, this.playHetafLoop, this)
+	},
+	
   playHetaf : function(){
     var id = Math.round(Math.random()*15) + 1
-    if(id <= 11)Loader.sounds['hetaf.130'][id+'.mp3'].play({volume : 15})
+    if(id <= 11)Loader.sounds['hetaf.130'][id+'.mp3'].play({volume : 10})
   },
 	run : function(){
 		this.reactor.pushEvery(0, this.reactor.timeToTicks(this.durations[this.level.tempo]), this.tick, this)
     this.background_audio = Loader.sounds['beats.'+130][3+'.'+this.format] 
     this.background_audio.loop = true
     this.background_audio.play({volume : 18, loop:true,loops:10000})
+    this.playHetafLoop();
 	},
 	
   nextBeatTime: function(){

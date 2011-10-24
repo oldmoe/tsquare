@@ -106,7 +106,9 @@ class UserGameProfile < DataStore::Model
  
   def global_scores(game_mode, count)
     after_users = filterAppProfiles(self.previous(game_mode + '_score', count)).collect { |record| {'service_id' => record.service_id, 'scores' => record.scores} }
-    before_users = filterAppProfiles(self.next(game_mode + '_score', count)).collect { |record| {'service_id' => record.service_id, 'scores' => record.scores} }
+    before_users = (filterAppProfiles(self.next(game_mode + '_score', count)).collect do
+       |record| {'service_id' => record.service_id, 'scores' => record.scores} 
+    end).reverse
     top_users = filterAppProfiles(self.class.last(game_mode + '_score', count)).collect { |record| {'service_id' => record.service_id, 'scores' => record.scores} }
     { :list => before_users + [{'service_id' => self.service_id, 'scores' => self.scores}] + after_users, :top => top_users }
   end

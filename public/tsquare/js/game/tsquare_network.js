@@ -46,6 +46,6 @@ var TSquareNetwork = Class.create(Network, {
                       var data = JSON.parse(response.responseText);
                       if(callback) callback(data);
                     });
-  },
+  }
 
 });

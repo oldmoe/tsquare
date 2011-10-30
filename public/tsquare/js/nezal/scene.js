@@ -84,11 +84,10 @@ var Scene = Class.create({
 	
 	removeFromRenderLoop : function(name, object){
 		var self = this
-		this.reactor.push(0, function(){console.log(self.renderStores[name].objects.length);self.renderStores[name].objects.remove(object);console.log(self.renderStores[name].objects.length)})
+		this.reactor.push(0, function(){self.renderStores[name].objects.remove(object);})
 	},
 
 	render : function(){
-		try{
 			for (var storeIndex in this.renderStores) {
         var store = this.renderStores[storeIndex]
         if (this.reactor.ticks >= store.tick + store.delay && store.working) {
@@ -108,9 +107,6 @@ var Scene = Class.create({
           store.objects = remainedDisplays
         }
       }      
-		}catch(x){
-		//	console.log(x.message);
-		}
 	}
 	
 })

@@ -31,7 +31,6 @@ var Marketplace = Class.create({
     
     this.adjustedMembers = [];
     var membersImages = [];
-    
     for(var item in this.members['category']){
       var specs = this.gatherSpecs(item);
       var specIds = specs.specIds;
@@ -47,6 +46,13 @@ var Marketplace = Class.create({
                         });
       membersImages.push(item + "_icon.png");
     }
+    membersImages.remove('attacker_icon.png')
+    membersImages.remove('supplier_icon.png')
+    membersImages.remove('leader_icon.png')
+    membersImages.remove('energy_booster_icon.png')
+    membersImages.remove('amr_salama_icon.png')
+    membersImages.remove('wael_ghoneim_icon.png')
+    
     this.loader = this.gameManager.loader
     this.loader.load([ {images : ["my_stuff_title.png", "buy_window_title.png", "tab_background.png", "dialog_box.png",
                                'item_background.png', 'item_title_background.png', 'item_details.png', 'link_button.png', 

@@ -9,7 +9,6 @@ var GameManager = Class.create({
     var loadingImages =['loading_background.png','loadingbar_left.png','loadingbar_right.png',
     'loadingbar_middle.png','bar_background.png','background.png'];
   	var format = 'mp3'
-    soundManager.mute()
     this.templateManager = new TemplatesManager(function(){
       new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}, 
                         {sounds: ['intro.mp3'], path: 'sounds/'+format+'/intro/', store: 'intro'}]

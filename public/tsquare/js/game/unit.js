@@ -40,7 +40,7 @@ var Unit = Class.create(Observer,{
   
   processCommand: function(){
     for(var i=0;i<this.commandFilters.length;i++){
-        if(this.commandFilters[i].command){
+        if(this.commandFilters[i].command()){
             if(!this.commandFilters[i].callback()) break;
         }    
     }

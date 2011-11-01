@@ -41,6 +41,9 @@ var MovementManager = Class.create({
     var self = this
     document.stopObserving('keydown')
     document.observe('keydown', function(e){
+      if (e.preventDefault) {
+            e.preventDefault();
+      }
       self.sound = self.scene.audioManager.nowPlaying[0]
       if(self.beatMoving){
         self.reset()

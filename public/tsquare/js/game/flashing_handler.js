@@ -1,5 +1,7 @@
 var FlashingHandler = Class.create({
+  
   counter : 0,
+  
   initialize : function(scene){
     this.scene = scene
     this.div = $('beatFlash')
@@ -7,6 +9,7 @@ var FlashingHandler = Class.create({
     this.repeatFlash()
 //    this.flash()
   },
+  
   flash : function(){
     if(this.counter < 4){
       this.scene.movementManager.process(0)
@@ -27,13 +30,16 @@ var FlashingHandler = Class.create({
     }) 
     this.scene.reactor.push(ticks,this.flash,this)
   },
+  
   repeatFlash : function(){
     this.flash()    
     var ticks = this.scene.audioManager.nextLoopTicks()
     this.scene.reactor.push(ticks,this.repeatFlash,this)
   },
+  
   createObservers : function(){
   },
+  
   addObserver : function(direction){
       var self = this
       this.scene.observe(direction,function(){

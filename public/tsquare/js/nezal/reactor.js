@@ -39,7 +39,6 @@ var Reactor = Class.create(Observer, {
 		if(!this.running) return
 		var self = this	
 		var toFire = []
-		try{
 			var event = this.events.last();
 			while(event && event[0] <= this.ticks){
 				var length = this.events.length - 1
@@ -53,14 +52,9 @@ var Reactor = Class.create(Observer, {
 					event[1]()
 				}
 			})
-		}catch(e){
-//			console.log(e)
-			//alert('inside reactor : '+ e)
-		}
     this.ticks++
     var newTime = new Date().getTime()
     var timeDifference =  newTime - this.time - this.delay
-    //if(Math.abs(timeDifference) > 10)console.log(timeDifference)
     var delay = this.delay
     if(timeDifference > 0 )delay = Math.max(this.delay - timeDifference, 0)
     this.time = newTime

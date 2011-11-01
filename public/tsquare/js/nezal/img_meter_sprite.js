@@ -50,13 +50,16 @@ var ImgMeterSprite = Class.create(DomSprite, {
   },
 
   render : function($super){
-    $super();
       if (this.meterFunc() <= 0.5 && this.div.style.display=="none") {
         this.div.show()
         return
       }else if(this.meterFunc() > 0.5 && this.div.style.display!="none"){
         this.div.hide()
       }
+      if (this.meterFunc() > 0.5 && this.div.style.display=="none") {
+        return               
+      }
+      $super();
     try{
       if(this.owner.dead){
         return this.destroy();

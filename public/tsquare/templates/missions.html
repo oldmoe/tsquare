@@ -58,7 +58,7 @@
         <!--Challenge button-->
         <a class="cancelButton" href="javascript:void(0)" id="${friend.service_id}">
           <span>Challenge</span>
-          <span class="loadedImg" imgSrc="images/win_lose/button_cancel.png" alt="confirm" />
+          <span class="loadedImg" imgSrc="images/win_lose/button_cancel.png" alt="confirm" > </span>
         </a>
       </div>
       {/for}
@@ -67,16 +67,18 @@
     <div class="missionIcons">
     	<!--Replay-->
       <a class="replayButton" href="javascript:void(0)">
-        <span class="loadedImg" imgSrc="images/win_lose/replay_button.png" alt="Replay" />
+        <span class="loadedImg" imgSrc="images/win_lose/replay_button.png" alt="Replay" > </span>
       </a>
     	<!--Home-->
       <a class="homeButton" href="javascript:void(0)">
-        <span class="loadedImg" imgSrc="images/win_lose/home_button.png" alt="Replay" />
+        <span class="loadedImg" imgSrc="images/win_lose/home_button.png" alt="Replay" > </span>
       </a>
     	<!--Next mission-->
+      {if next == true}
       <a class="nextMissionButton" href="javascript:void(0)">
-        <span class="loadedImg" imgSrc="images/win_lose/next_mission_button.png" alt="Next Mission" />
+        <span class="loadedImg" imgSrc="images/win_lose/next_mission_button.png" alt="Next Mission" > </span>
       </a>
+      {/if}
     </div>
     <span class="loadedImg" imgSrc="images/win_lose/win_lose_window.png" alt="Score" imgClasses="positioned"></span>
   </div>
@@ -142,7 +144,7 @@
         <!--Challenge button-->
         <a class="cancelButton" href="javascript:void(0)" id="${friend.service_id}">
           <span>Challenge</span>
-          <span class="loadedImg" imgSrc="images/win_lose/button_cancel.png" alt="confirm" />
+          <span class="loadedImg" imgSrc="images/win_lose/button_cancel.png" alt="confirm" > </span>
         </a>
       </div>
       {/for}
@@ -151,11 +153,11 @@
     <div class="missionIcons losing">
     	<!--Replay-->
       <a class="replayButton" href="javascript:void(0)">
-        <span class="loadedImg" imgSrc="images/win_lose/lose_replay_button.png" alt="Replay" />
+        <span class="loadedImg" imgSrc="images/win_lose/lose_replay_button.png" alt="Replay" > </span>
       </a>
     	<!--Home-->
       <a class="homeButton" href="javascript:void(0)">
-        <span class="loadedImg" imgSrc="images/win_lose/lose_home_button.png" alt="Replay" />
+        <span class="loadedImg" imgSrc="images/win_lose/lose_home_button.png" alt="Replay" > </span>
       </a>
     </div>
     <span class="loadedImg" imgSrc="images/win_lose/lose_window.png" alt="Score" imgClasses="positioned"></span>

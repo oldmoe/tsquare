@@ -9,13 +9,6 @@ var BlockDisplay = Class.create(EnemyDisplay, {
        this.owner.scene.pushToRenderLoop('characters',objDisplay) 
       }
     }
-  },
-  
-  setHoveringIcon: function(icon){
-    this.hoverIcon = Loader.images.hoveringIcons[icon]
-  },
-
-  switchHoveringIcon: function(icon){
-    this.sprites.hoverIcon.replaceImg(Loader.images.hoveringIcons[icon].clone());
   }
+  
 })

@@ -8,6 +8,7 @@ var Display = Class.create({
 		Object.extend(this,properties)
 		this.sprites = {}
 		this.owner = owner
+    this.removed = false
     Object.extend(this.owner,this)
     this.createSprites()
 	},
@@ -24,7 +25,7 @@ var Display = Class.create({
   },
   
 	destroy : function(){
-    this.renderLoop.objects.remove(this)
+    this.removed = true
 		for(var sprite in this.sprites){
 			this.sprites[sprite].destroy();
 	  }

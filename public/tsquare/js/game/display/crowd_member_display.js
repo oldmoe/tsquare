@@ -17,6 +17,7 @@ var CrowdMemberDisplay = Class.create(Display,{
     var self = this
     this.states.each(function(state){
       self.owner.observe(state,function(){
+        if(state == "run")self.sprites.runEffectForward.show(); else self.sprites.runEffectForward.hide();
         self.sprites.character.switchAnimation(state)
         self.sprites.character.currentAnimationFrame = Math.round((Math.random()* self.sprites.character.currentAnimation.noOfFrames-1)) 
       })
@@ -27,7 +28,18 @@ var CrowdMemberDisplay = Class.create(Display,{
     this.characterImg = Loader.images.characters['crowd_member.png'];
   },
   
+  createShadow: function(){
+    this.shadowImg = Loader.images.effects['crowd_shadow.png'];
+    this.sprites.shadow = new DomImgSprite(this.owner, {img : this.shadowImg,noOfFrames : 1}, {
+      width: this.shadowImg.width,
+      height: this.shadowImg.height,
+      shiftX : -(this.shadowImg.width-this.characterImg.width)-10,
+      shiftY : -10
+    })    
+  },
+  
   createSprites : function(){
+    this.createShadow();
      this.sprites.runEffectForward = new DomImgSprite(this.owner,
     {
       img: this.blurImg,
@@ -35,18 +47,9 @@ var CrowdMemberDisplay = Class.create(Display,{
     }, {
       width: this.blurImg.width,
       height: this.blurImg.height,
-      shiftX : this.characterImg.width - this.blurImg.width - 20,
+      shiftX : this.characterImg.width - this.blurImg.width,
       hidden : true
     })
-//    this.sprites.runEffectBackward = new DomImgSprite(this.owner,{
-//      img: this.blurImg,
-//      noOfFrames: 1,
-//      flipped: true
-//    }, {
-//      width: this.blurImg.width,
-//      height: this.blurImg.height,
-//      shiftX : -(this.characterImg.width - this.blurImg.width)
-//    })
    
     this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : 7})
     this.sprites.character.createAnimation({name:'hold',img:this.holdImg,noOfFrames:1})
@@ -58,7 +61,7 @@ var CrowdMemberDisplay = Class.create(Display,{
     this.sprites.character.createAnimation({name:'sprint'  ,img:this.runImg,noOfFrames:6})
     this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:8, flipped : true})
     this.sprites.character.createAnimation({name:'reverseRun'  ,img:this.runImg, noOfFrames:6, flipped : true})
-     this.sprites.health = new ImgMeterSprite(this.owner,
+    this.sprites.health = new ImgMeterSprite(this.owner,
     {empty:Loader.images.gameElements['health_meter_empty.png'] ,full:Loader.images.gameElements['health_meter.png']},
      {
       meterFunc: function(){

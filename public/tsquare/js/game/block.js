@@ -54,6 +54,8 @@ var Block = Class.create(Enemy,{
           this.elements[i][j].takeHit(power)
           maxHp = Math.max(this.elements[i][j].hp,maxHp ) 
           if (this.elements[i][j].hp <= 0) {
+            this.scene.collision = false;
+            this.scene.fire("targetCircleComplete");
             this.elements[i][j].destroy()
             this.elements[i].remove(this.elements[i][j])
             j--

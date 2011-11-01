@@ -1,27 +1,29 @@
-Audio.prototype.stop = function(){
-	this.pause()
-	this.currentTime = 0
+if (window.Audio) {
+  Audio.prototype.stop = function(){
+    this.pause()
+    this.currentTime = 0
+  }
+  
+  Audio.prototype.setVolume = function(volume){
+    this.volume = volume / 100
+  }
+  
+  
+  Audio.Fade = function(sound, to, duration, reactor, callback){
+    var from = sound.volume
+    var step = (to - from) / (duration / reactor.delay)
+    var tick = function(){
+      sound.setVolume(sound.volume + step)
+      if ((step > 0 && sound.volume >= to) || (step < 0 && sound.volume <= to)) {
+        sound.setVolume(to)
+        if (callback) 
+          callback(sound)
+        return false
+      }
+    }
+    reactor.pushEvery(0, 1, tick)
+  }
 }
-
-Audio.prototype.setVolume = function(volume){
-	this.volume = volume/100
-}
-
-
-Audio.Fade = function(sound, to, duration, reactor, callback){
-	var from = sound.volume
-	var step = (to - from) / (duration/reactor.delay)
-	var tick = function(){
-		sound.setVolume(sound.volume + step)
-		if((step > 0 && sound.volume >= to) || (step < 0 && sound.volume <= to)){
-			sound.setVolume(to)
-			if(callback) callback(sound)
-			return false
-		}
-	}
-	reactor.pushEvery(0, 1, tick)
-}
-
 var AudioManager = Class.create({
 
 	durations : {
@@ -38,7 +40,7 @@ var AudioManager = Class.create({
 		this.levelChanged = true
 
 		this.levelBeats = {
-			130 : [0, 1, 2], 
+			130 : [0, 1, 2]
 		} 
 	
 		this.levels = [
@@ -97,7 +99,6 @@ var AudioManager = Class.create({
      this.background_audio.stop()
 	},
 	tick : function(){
-		//console.log('tempo changed ', this.tempoChanged, 'level changed', this.levelChanged)
 		if(this.index % 2 == 1){
 			// we should play the hetaf here, nothing will change with the beats though
 			this.index++
@@ -120,7 +121,7 @@ var AudioManager = Class.create({
 				var sound = this.levelBeats[this.level.tempo][i]
 				sound.mute()
 				sound.loop = true
-				sound.play({ loops : 100000, onfinish : function(){console.log('finished')}})
+				sound.play({ loops : 100000})
 				this.nowPlaying.push(sound)
 			}
 			for(var i=0; i < this.level.beats.length;i++){
@@ -153,9 +154,6 @@ var AudioManager = Class.create({
 		this.levelChanged = true
     if(this.levels[this.levelIndex].tempo != this.levels[this.levelIndex-1].tempo) this.tempoChanged = true
 		this.level = this.levels[this.levelIndex]
-    if(this.tempoChanged){
-      console.info("TEMPO CHANGED NOW!!!! UPPPPPPPPP")
-    }
 	},
 	
 	levelDown : function(){
@@ -164,8 +162,5 @@ var AudioManager = Class.create({
 		this.levelChanged = true
 		if(this.levels[this.levelIndex].tempo != this.levels[this.levelIndex+1].tempo) this.tempoChanged = true
 		this.level = this.levels[this.levelIndex]
-    if(this.tempoChanged){
-      console.info("TEMPO CHANGED NOW!!!! DOWWWWWWWWN")
-    }
 	}	
 })

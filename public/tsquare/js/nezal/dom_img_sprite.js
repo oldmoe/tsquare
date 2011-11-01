@@ -12,8 +12,6 @@ var DomImgSprite = Class.create(DomSprite, {
         noOfFrames : imgAssets.noOfFrames || 1
      })
     this.currentAnimation = this.animations['normal']
-    //owner.imgWidth = this.currentAnimation.imgWidth
-    //owner.imgHeight = this.currentAnimation.imgHeight
     $super(owner, imgAssets, properties);
     //console.log( imgAssets )
     if(properties && properties.flipped){
@@ -36,6 +34,9 @@ var DomImgSprite = Class.create(DomSprite, {
       var scales = [0.8,1,1.2]
       //var scale = ((this.owner.coords.y) / (this.owner.scene.view.height - this.defaultShiftY)) * 0.8 + 0.4
       var scale = scales[this.owner.lane]
+      if (this.owner.extraScale) {
+        scale *= this.owner.extraScale
+      }
       this.div.style.WebkitTransform += ' scale(' + scale + ')';
       this.div.style.MozTransform += ' scale(' + scale + ')';
     

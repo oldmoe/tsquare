@@ -2,6 +2,7 @@ var Npc = Class.create(Unit,{
     speed : 5,
     moved : 0,
     maxDisplacement : 300,
+    extraScale : 0.85,
     initialize : function($super,scene,x,lane, options){
       $super(scene,x,lane, options)
       this.coords.x+=Math.round(Math.randomSign()*Math.random()*this.scene.view.tileWidth/4)

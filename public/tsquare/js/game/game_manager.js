@@ -8,15 +8,28 @@ var GameManager = Class.create({
     this.loader = new Loader();
     var loadingImages =['loading_background.png','loadingbar_left.png','loadingbar_right.png',
     'loadingbar_middle.png','bar_background.png','background.png'];
+  	var format = 'mp3'
     this.templateManager = new TemplatesManager(function(){
-      new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}]
+      new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}, 
+                        {sounds: ['intro.mp3'], path: 'sounds/'+format+'/intro/', store: 'intro'}]
           ,{
             onFinish: function(){
               $('inProgress').innerHTML = self.templateManager.load('loadingScreen');
               $('uiContainer').hide();
+              var time = Loader.sounds.intro['intro.mp3'].duration;
+              window.setTimeout(function(){
+                            self.soundPlayed = true;
+                            if(self.imagesLoaded && self.soundPlayed)
+                            {
+                              Loader.sounds.intro['intro.mp3'].stop();
+                              $('inProgress').hide();
+                              $('uiContainer').show();
+                            }}, time);
+              Loader.sounds.intro['intro.mp3'].loop = true;
+              Loader.sounds.intro['intro.mp3'].play({loop:true,loops:1000});
               $('inProgress').show();
               self.processParams(self.urlParams, function(data){self.processRequest(data)});
-            },
+            }
           }
       )
     });
@@ -26,28 +39,33 @@ var GameManager = Class.create({
   },
 
   initializeData : function(data){
-    self = this;
+    var self = this;
     self.userData = data.user_data.data;
     self.userData.coins = data.user_data.coins;
     self.gameData = data.game_data.data;
     self.missions = data.missions_data.data;
-    self.loader.options.push({
+    this.loader.options.push({
                           onProgress : function(progress){
                             if($$('#inProgress #loadingBarFill')[0])
                               $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
                           },
                           onFinish : function(){
-                            $('inProgress').hide();
-                            $('uiContainer').show();
+                            self.imagesLoaded = true;
+                            if(self.imagesLoaded && self.soundPlayed)
+                            {
+                              Loader.sounds.intro['intro.mp3'].stop();
+                              $('inProgress').hide();
+                              $('uiContainer').show();
+                            }
                           }
                         })
-    self.meterBar = new MeterBar(self);
-    self.scoreManager = new ScoreManager(self);
-    self.inbox = new Inbox(self);
-    self.marketplace = new Marketplace(self);
-    self.timelineManager = new Timeline(self);
-    self.missionManager = new MissionManager(self);
-    game = new Game(self);
+    self.meterBar = new MeterBar(this);
+    self.scoreManager = new ScoreManager(this);
+    self.inbox = new Inbox(this);
+    self.marketplace = new Marketplace(this);
+    self.timelineManager = new Timeline(this);
+    self.missionManager = new MissionManager(this);
+    game = new Game(this);
     self.game = game;
   },
 

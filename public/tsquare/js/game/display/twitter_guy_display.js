@@ -7,7 +7,7 @@ var TwitterGuyDisplay = Class.create(Display,{
     $super(owner)
   },
   createSprites : function(){
-    this.sprites.twitterguy = new DomImgSprite(this.owner,{img:this.img, noOfFrames:this.noOfFrames}, {shiftY:30})
+    this.sprites.twitterguy = new DomImgSprite(this.owner,{img:this.img, noOfFrames:this.noOfFrames}, {shiftY:10})
   },
   render : function($super){
       this.sprites.twitterguy.currentAnimationFrame = (this.sprites.twitterguy.currentAnimationFrame + 1) % this.noOfFrames

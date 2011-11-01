@@ -15,7 +15,7 @@ var TsquareScene = Class.create(Scene,{
     direction : 1,
     holdPowerDepression: 0.2,
     energy : null,
-    view: {width: 950, height: 460, xPos: 0, tileWidth: 600, laneMiddle : 25, length:0},
+    view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25, length:0},
     activeLane: 1,
     win : false,
     comboMistakes : null,
@@ -44,7 +44,7 @@ var TsquareScene = Class.create(Scene,{
         this.noOfLanes = this.data.length;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
-            this.view.length = Math.max(this.view.length, this.data[i].last().x * this.view.tileWidth)
+            this.view.length = Math.max(this.view.length, this.data[i].last().x * this.view.tileWidth + this.view.width)
           }
         }
         var mapping = {'crowd':'npc', 'protection':'protection_unit', 'enemy':'enemy', 'rescue':'rescue'}
@@ -78,16 +78,19 @@ var TsquareScene = Class.create(Scene,{
        }
        this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
     },
+    
     doInit : function(){
       // take action
       $('initCounter').show()
-      $('initCounter').innerHTML = this.initCounter
+      $('initCounter').update("");
+      $('initCounter').appendChild(Loader.images.countDown[this.initCounter+".png"]);
       Effect.Puff('initCounter')
       this.initCounter--
       if (this.initCounter == 0) {
         this.reactor.push(this.reactor.everySeconds(1), function(){
           $('initCounter').show()
-          $('initCounter').innerHTML = 'GO!'
+          $('initCounter').update("");
+          $('initCounter').appendChild(Loader.images.countDown["go.png"]);
           Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
           this.audioManager = new AudioManager(this.reactor)
           this.movementManager = new MovementManager(this);
@@ -95,7 +98,8 @@ var TsquareScene = Class.create(Scene,{
         }, this)
         return false
       }
-    },    
+    },
+        
     observe: function(event, callback, scope){
         this.reactor.observe(event, callback, scope);
     },
@@ -111,11 +115,11 @@ var TsquareScene = Class.create(Scene,{
 
     correctMove: function(){
       this.increaseEnergy();
-      console.log("scene correct moved");
+//      console.log("scene correct moved");
     },
     
     wrongCommand: function(){
-      console.log("scene wrong command");
+//      console.log("scene wrong command");
     },
 
     correctCommand: function(){
@@ -132,7 +136,7 @@ var TsquareScene = Class.create(Scene,{
     
   end : function(win){
     if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
-     && this.view.xPos > this.view.length + this.view.width)) {
+     && this.view.xPos > this.view.length)) {
       if(!this.stopped)
       {
         this.stopped = true;
@@ -162,18 +166,15 @@ var TsquareScene = Class.create(Scene,{
   },
   
   tickObjects : function(objects){
-       try{
-            var remainingObjects = []
-            var self = this
-            objects.each(function(object){
-                if(!object.finished){
-                    object.tick()
-                    remainingObjects.push(object)
-                }
-            })
-            objects = remainingObjects
-        }catch(x){//console.log(x)
-        }
+        var remainingObjects = []
+        var self = this
+        objects.each(function(object){
+            if(!object.finished){
+                object.tick()
+                remainingObjects.push(object)
+            }
+        })
+        objects = remainingObjects
         return this
   },
   

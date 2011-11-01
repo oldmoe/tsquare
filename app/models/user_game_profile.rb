@@ -1,7 +1,7 @@
 class UserGameProfile < DataStore::Model
 
   SEP = '-'.freeze
-  CURRENT_VERSION = 16
+  CURRENT_VERSION = 19
 
   index :timeline_score, :method => :timeline_index
   index :racing_score, :method => :racing_index
@@ -83,13 +83,13 @@ class UserGameProfile < DataStore::Model
       @data['energy'] ||= 50
       @data['version'] = CURRENT_VERSION
     end
-    # This puts all the missions to the user .. should be removed once testing is done
+=begin    # This puts all the missions to the user .. should be removed once testing is done
     Mission::MODES.each do |mode|
       game.data['missions'][mode].keys.each do |key|
         @data['missions'][mode][key] ||= { 'score' => 0, 'stars'=>0}
       end
     end 
-    # End of part to be removed
+=end    # End of part to be removed
     energy_gain
     save
   end
@@ -106,7 +106,9 @@ class UserGameProfile < DataStore::Model
  
   def global_scores(game_mode, count)
     after_users = filterAppProfiles(self.previous(game_mode + '_score', count)).collect { |record| {'service_id' => record.service_id, 'scores' => record.scores} }
-    before_users = filterAppProfiles(self.next(game_mode + '_score', count)).collect { |record| {'service_id' => record.service_id, 'scores' => record.scores} }
+    before_users = (filterAppProfiles(self.next(game_mode + '_score', count)).collect do
+       |record| {'service_id' => record.service_id, 'scores' => record.scores} 
+    end).reverse
     top_users = filterAppProfiles(self.class.last(game_mode + '_score', count)).collect { |record| {'service_id' => record.service_id, 'scores' => record.scores} }
     { :list => before_users + [{'service_id' => self.service_id, 'scores' => self.scores}] + after_users, :top => top_users }
   end

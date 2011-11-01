@@ -14,7 +14,7 @@ var MovementManager = Class.create({
   comboStart: false,
   currentCombos: 0,
   counter:0,
-  tolerance :200,
+  tolerance :250,
   beatTime : 0,  
   beatsPerAudio : 1,
   initialize : function(scene){
@@ -41,6 +41,9 @@ var MovementManager = Class.create({
     var self = this
     document.stopObserving('keydown')
     document.observe('keydown', function(e){
+      if (e.preventDefault) {
+            e.preventDefault();
+      }
       self.sound = self.scene.audioManager.nowPlaying[0]
       if(self.beatMoving){
         self.reset()
@@ -67,6 +70,7 @@ var MovementManager = Class.create({
       if(self.scene.currentSpeed > 0){
         self.comboStart = true
       }
+      if(!this.sound)return
       var position = this.sound.position
       var beatTime  = this.sound.duration/this.beatsPerAudio
       this.beatTime = beatTime
@@ -92,15 +96,17 @@ var MovementManager = Class.create({
            }
            if(found){ 
               this.move.push(click)
-              self.scene.fire("keypressed", [click, this.move.length])
+              this.scene.fire("keypressed", [click, this.move.length])
               this.counter++
               this.checkDelay(this.counter,beatTime + this.tolerance+ timeDiff)
               this.time = now + timeDiff
+            }else{
+              this.scene.fire("keypressed", [click, self.move.length,1])
             }
       }else{
         if(now > this.time + beatTime - this.tolerance){
           this.move.push(click)
-          self.scene.fire("keypressed", [click, this.move.length])
+          this.scene.fire("keypressed", [click, this.move.length])
           this.counter++
           var delayDiff = this.time + beatTime - now
           if(this.move.length != 4){
@@ -109,8 +115,8 @@ var MovementManager = Class.create({
           this.time = this.time + beatTime
         }
         else{
-          this.reset()
           this.scene.fire("keypressed", [click, this.move.length, 1])
+          this.reset()
         }
       }
       if(this.checkMove()){
@@ -132,9 +138,9 @@ var MovementManager = Class.create({
    },
   doCheckDelay : function(counter){
       if (this.counter == counter) {
+        if(this.move.length>0)this.scene.fire("pressLate")
         this.reset()
         var self = this
-        this.scene.fire("pressLate")
       }
   },  
   getNextMoveIndex : function(){

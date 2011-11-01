@@ -5,6 +5,7 @@ var DomSprite = Class.create(Sprite, {
   shiftZ : 0,
   defaultShiftY : 360,
   lastStyleVlaues : null,
+  
   initialize : function(owner, assets, properties){
   	properties = properties || {};
     this.lastStyleVlaues = {};
@@ -53,9 +54,6 @@ var DomSprite = Class.create(Sprite, {
 
   render : function(){
     try{
-      if(this.owner.dead){
-        return this.destroy()
-      }
       if (this.visible) {
         var position = this.position();
         

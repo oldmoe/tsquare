@@ -94,7 +94,6 @@ var CrowdMember = Class.create(Unit,{
   tick : function($super){
     $super()
     if(!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y!=this.originalPosition.y) > 1)){
-        console.log(this.coords,this.originalPosition)
         this.moveToTarget(this.originalPosition)
     } 
      

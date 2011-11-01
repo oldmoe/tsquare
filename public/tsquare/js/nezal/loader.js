@@ -145,7 +145,7 @@ var Loader = Class.create({
     var self = this
     image.onload = function(){self.onload(options);}
     image.onerror = function(){self.onerror(this, options);}
-    image.src = src
+    image.src = src.replace(".png", "-" + urls[src.replace("images", "")] + ".png" );
     return $(image)
   },
   
@@ -153,6 +153,7 @@ var Loader = Class.create({
 	  var self = this
 	  var sound = null
 	  if(soundManager && soundManager.ok()){
+	    src = src.replace(".mp3", "-" + urls[src.replace("sounds", "")] + ".mp3" );
 		  sound = soundManager.createSound({
 			  id : src.split('.')[0],
 			  url : src,
@@ -175,6 +176,7 @@ var Loader = Class.create({
   load_htmls : function(src, options){
     var self = this;
     var content = {html : ''};
+    src = src.replace(".html", "-" + urls[src.replace("templates", "")] + ".html" );
     new Ajax.Request(src, {
       method : 'get',
       asynchronous : true,

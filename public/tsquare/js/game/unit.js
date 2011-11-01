@@ -53,7 +53,7 @@ var Unit = Class.create(Observer,{
   
   moveToTargetPoint : function(){
     if (this.targetPoint) {
-      if (Math.abs(this.targetPoint.x - this.coords.x) > this.movingSpeed || Math.abs(this.targetPoint.y - this.coords.y) > this.movingSpeed) {
+      if (Math.abs(this.targetPoint.x - this.coords.x) > 1 || Math.abs(this.targetPoint.y - this.coords.y) > 1) {
         var move = Util.getNextMove(this.coords.x, this.coords.y, this.targetPoint.x, this.targetPoint.y, this.movingSpeed)
         this.move(move[0], move[1])
       }

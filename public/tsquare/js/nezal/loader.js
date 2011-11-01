@@ -4,6 +4,8 @@ var Loader = Class.create({
   initialize: function (){
     this.loadedResources =0
     this.chunk = 25
+    this.currentLength = 0
+    this.resources = []
     this.options = [];
   },
   /*
@@ -14,7 +16,6 @@ var Loader = Class.create({
     onFinish        a callback that is called after all images are loaded
   */
   setLength : function(resources){
-    if(! this.currentLength) this.currentLength = 0
     var self = this
     resources.each(function(resource){
       Loader.resourceTypes.each(function(type){
@@ -26,20 +27,19 @@ var Loader = Class.create({
   },  
 
   load : function(resources, options){
-    this.resources = resources
     this.options.push(options)
-//    if(this.loadedResources==0)
     this.setLength(resources)
     var self = this
     var objects = []
     var toLoad = []
     var l =0
     var remainedResources = []
-    this.resources.each(function(resource){
+    resources = resources.clone()
+    resources.each(function(resource){
       Loader.resourceTypes.each(function(type){
         if(resource[type]){
-          var names = resource[type]
           if(l>self.chunk)  remainedResources.push(resource)
+          var names = resource[type]
           if(names.length+l<self.chunk){
             l+=names.length
             toLoad.push(Nezal.clone_obj(resource))
@@ -55,8 +55,7 @@ var Loader = Class.create({
         }
       })
     })
-    this.resources = remainedResources
-
+    this.addResources(remainedResources)
     toLoad.each(function(resource){
       Loader.resourceTypes.each(function(type){
         if(resource[type]){
@@ -68,7 +67,12 @@ var Loader = Class.create({
       })
     })
   },
-
+  addResources : function(resources){
+    var self = this
+    resources.each(function(resource){
+      self.resources.push(resource)
+    })
+  },
   loadResource : function(){
     var self = this
     var resource = this.resources[0]

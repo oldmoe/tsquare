@@ -52,11 +52,14 @@ var Unit = Class.create(Observer,{
   },
   
   moveToTargetPoint : function(){
-    if(Math.abs(this.targetPoint.x - this.coords.x) > this.movingSpeed || Math.abs(this.targetPoint.y - this.coords.y) > this.movingSpeed){
-          var move = Util.getNextMove(this.coords.x, this.coords.y , this.targetPoint.x, this.targetPoint.y, this.movingSpeed)
-          this.move(move[0],move[1])
+    if (this.targetPoint) {
+      if (Math.abs(this.targetPoint.x - this.coords.x) > this.movingSpeed || Math.abs(this.targetPoint.y - this.coords.y) > this.movingSpeed) {
+        var move = Util.getNextMove(this.coords.x, this.coords.y, this.targetPoint.x, this.targetPoint.y, this.movingSpeed)
+        this.move(move[0], move[1])
       }
-      else this.movingToTarget = false  
+      else 
+        this.movingToTarget = false
+    }  
   },
   
   takeHit : function(attack){

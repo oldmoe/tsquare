@@ -31,8 +31,12 @@ var CrowdHandler = Class.create(UnitHandler, {
     }, 
      
     tick : function($super){
-      if(this.pushing)this.pushMove()
-      else $super()
+      if (this.pushing) {
+        this.pushMove()
+        this.scene.direction = 0
+      }
+      else 
+        $super()
     },
     
     getUserCrowds : function(){

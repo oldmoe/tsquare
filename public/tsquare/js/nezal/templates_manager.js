@@ -3,7 +3,7 @@ var TemplatesManager = Class.create({
     var templates = ['templates.html', 'marketplace.html', 'missions.html', 'notifications.html'];
     var templatesRootNode = $(document.createElement('div'));
     templatesRootNode.innerHTML = '';
-    new Loader().load([{ htmls : templates,
+    new Loader().load([{ htmls : templates.clone(),
                       path : 'templates/', store: 'templates' }], 
                       {
                         onFinish : function(){

@@ -159,18 +159,15 @@ var TsquareScene = Class.create(Scene,{
   },
   
   tickObjects : function(objects){
-       try{
-            var remainingObjects = []
-            var self = this
-            objects.each(function(object){
-                if(!object.finished){
-                    object.tick()
-                    remainingObjects.push(object)
-                }
-            })
-            objects = remainingObjects
-        }catch(x){//console.log(x)
-        }
+        var remainingObjects = []
+        var self = this
+        objects.each(function(object){
+            if(!object.finished){
+                object.tick()
+                remainingObjects.push(object)
+            }
+        })
+        objects = remainingObjects
         return this
   },
   

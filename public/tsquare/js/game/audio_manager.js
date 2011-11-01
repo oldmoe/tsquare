@@ -1,27 +1,29 @@
-Audio.prototype.stop = function(){
-	this.pause()
-	this.currentTime = 0
+if (window.Audio) {
+  Audio.prototype.stop = function(){
+    this.pause()
+    this.currentTime = 0
+  }
+  
+  Audio.prototype.setVolume = function(volume){
+    this.volume = volume / 100
+  }
+  
+  
+  Audio.Fade = function(sound, to, duration, reactor, callback){
+    var from = sound.volume
+    var step = (to - from) / (duration / reactor.delay)
+    var tick = function(){
+      sound.setVolume(sound.volume + step)
+      if ((step > 0 && sound.volume >= to) || (step < 0 && sound.volume <= to)) {
+        sound.setVolume(to)
+        if (callback) 
+          callback(sound)
+        return false
+      }
+    }
+    reactor.pushEvery(0, 1, tick)
+  }
 }
-
-Audio.prototype.setVolume = function(volume){
-	this.volume = volume/100
-}
-
-
-Audio.Fade = function(sound, to, duration, reactor, callback){
-	var from = sound.volume
-	var step = (to - from) / (duration/reactor.delay)
-	var tick = function(){
-		sound.setVolume(sound.volume + step)
-		if((step > 0 && sound.volume >= to) || (step < 0 && sound.volume <= to)){
-			sound.setVolume(to)
-			if(callback) callback(sound)
-			return false
-		}
-	}
-	reactor.pushEvery(0, 1, tick)
-}
-
 var AudioManager = Class.create({
 
 	durations : {
@@ -38,7 +40,7 @@ var AudioManager = Class.create({
 		this.levelChanged = true
 
 		this.levelBeats = {
-			130 : [0, 1, 2], 
+			130 : [0, 1, 2]
 		} 
 	
 		this.levels = [

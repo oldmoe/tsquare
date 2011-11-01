@@ -193,7 +193,7 @@ var GuidingIcon = Class.create(Observer,{
     
   render: function(){
     
-  },
+  }
   
   // new Effect.Move(element, {x:10,y:10,duration:1})
 

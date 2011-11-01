@@ -143,13 +143,23 @@ var Loader = Class.create({
       self.loadResource()
     }
   },
+  
+  _convertToCachedSRC : function(src, dirName, extension){
+    var result = "";
+    var adjusted_string = urls[src.replace(dirName, "")];
+    if( adjusted_string == null || adjusted_string.empty() ){
+      return src;
+    } else {
+      return src.replace(extension, "-" + adjusted_string + extension );
+    }
+  },
 
   load_images : function(src, options){
     var image = new Image();
     var self = this
     image.onload = function(){self.onload(options);}
     image.onerror = function(){self.onerror(this, options);}
-    image.src = src.replace(".png", "-" + urls[src.replace("images", "")] + ".png" );
+    image.src = this._convertToCachedSRC( src, "images", ".png" );
     return $(image)
   },
   
@@ -157,7 +167,7 @@ var Loader = Class.create({
 	  var self = this
 	  var sound = null
 	  if(soundManager && soundManager.ok()){
-	    src = src.replace(".mp3", "-" + urls[src.replace("sounds", "")] + ".mp3" );
+	    src = this._convertToCachedSRC( src, "sounds", ".mp3" );
 		  sound = soundManager.createSound({
 			  id : src.split('.')[0],
 			  url : src,
@@ -180,7 +190,7 @@ var Loader = Class.create({
   load_htmls : function(src, options){
     var self = this;
     var content = {html : ''};
-    src = src.replace(".html", "-" + urls[src.replace("templates", "")] + ".html" );
+    src = this._convertToCachedSRC( src, "templates", ".html" );
     new Ajax.Request(src, {
       method : 'get',
       asynchronous : true,

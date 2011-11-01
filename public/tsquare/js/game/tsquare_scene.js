@@ -5,10 +5,10 @@ var TsquareScene = Class.create(Scene,{
     currentSpeed : 0,
     speeds : [//the following states for the crowd members
       {state :'normal' , value : 0 ,energy : 0, followers: 1},
-      {state :'walk' , value : 3 ,energy : 1, followers: 1},
-      {state :'jog' ,  value : 10,energy : 25, followers: 1},
-      {state :'run' ,  value : 15,energy : 50, followers: 1},
-      {state :'sprint' ,  value : 25,energy : 75, followers: 1}
+      {state :'walk' , value : 3, energy : 1, followers: 1},
+      {state :'jog' ,  value : 10 ,energy : 25, followers: 1},
+      {state :'run' ,  value : 25 ,energy : 50, followers: 1},
+      {state :'sprint' ,  value : 40 ,energy : 75, followers: 1}
     ],
     currentCommand: 0,
     speedIndex : 0,
@@ -21,6 +21,7 @@ var TsquareScene = Class.create(Scene,{
     comboMistakes : {current : 0, max : 2},
     scoreCalculator: null,
     collision: false,
+    // targetSpeedIndex: 0,
     
     initialize: function($super){
         $super();
@@ -41,6 +42,10 @@ var TsquareScene = Class.create(Scene,{
         this.initCounter = 3
         this.energy =  {current:0, rate: 10,max:100}
         this.comboMistakes = {current : 0, max : 2}
+        
+        this.audioManager = new AudioManager(this.reactor);
+        this.movementManager = new MovementManager(this);
+        
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         for (var i = 0; i < this.data.length; i++) {
@@ -69,6 +74,7 @@ var TsquareScene = Class.create(Scene,{
        for(var handler in this.handlers){
           this.handlers[handler].start()
        }
+
        this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
     },
     
@@ -85,9 +91,8 @@ var TsquareScene = Class.create(Scene,{
           $('initCounter').update("");
           $('initCounter').appendChild(Loader.images.countDown["go.png"]);
           Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
-          this.audioManager = new AudioManager(this.reactor)
-          this.movementManager = new MovementManager(this);
-          this.audioManager.run()          
+          this.audioManager.run()
+          this.handlers.crowd.playHetafLoop();          
         }, this)
         return false
       }
@@ -200,16 +205,45 @@ var TsquareScene = Class.create(Scene,{
     if(this.energy.current < this.energy.max){
       this.energy.current+= this.energy.rate;
       this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
-      this.fire(this.speeds[this.speedIndex].state)
     }
     var next = this.speeds[this.speedIndex+1]
     if(next){
         if(this.energy.current>=next.energy){
-            this.speedIndex++
-            this.currentSpeed = this.speeds[this.speedIndex].value
-            this.fire(next.state)
+          if(this.speedIndex >= 1){
+            var self = this;
+            console.log("increase");
+            // this.targetSpeedIndex = this.speedIndex+1;
+            this.reactor.pushEvery(0,10, function(){return self.updateSpeed(self.speedIndex+1)})
+          }else{
+            console.log("pre increase");
+            this.speedIndex += 1;
+            this.currentSpeed += this.speeds[this.speedIndex].value;
+            this.fire(this.speeds[this.speedIndex].state);
+          }
         } 
     }
+   },
+   
+   updateSpeed: function(targetSpeedIndex){
+     if(targetSpeedIndex < 0 || targetSpeedIndex == this.speeds.length ){
+       this.moving = false;
+       return false;
+     }
+     this.moving = true; 
+     console.log(this.currentSpeed, this.speedIndex, targetSpeedIndex);
+      if(Math.abs(this.currentSpeed - this.speeds[targetSpeedIndex].value) < 1 ){
+        this.speedIndex = targetSpeedIndex
+        this.fire(this.speeds[targetSpeedIndex].state)
+        this.moving = false;
+        return false;
+      }
+      
+      if(this.speedIndex < targetSpeedIndex) 
+        this.currentSpeed += 1;
+      else{
+        this.currentSpeed -= 1;
+        // if(this.currentSpeed <=2)this.currentSpeed = 0
+      }
    },
    
    decreaseEnergy : function(){
@@ -218,11 +252,10 @@ var TsquareScene = Class.create(Scene,{
         this.audioManager.levelDown()
         this.energy.current = Math.max(this.energy.current - this.energy.rate, 0)
         this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
-        this.fire(this.speeds[this.speedIndex].state)
         if (this.speedIndex > 0 && this.energy.current < this.speeds[this.speedIndex].energy) {
-          this.speedIndex--
-          this.currentSpeed = this.speeds[this.speedIndex].value
-          this.fire(this.speeds[this.speedIndex].state)
+            var self = this;
+            console.log("decrease");
+            this.reactor.pushEvery(0,10, function(){return self.updateSpeed(self.speedIndex-1)})
         }
       } 
    }

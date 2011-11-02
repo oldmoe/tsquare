@@ -2,18 +2,26 @@
 #missions { position:relative; top:0px; margin:0 auto; }
 
 /*--------Home Screen-----------*/
-.homeWrapper { position:relative; top:60px; text-align:center;}
-.upcomingModes { position:relative; top:10px;}
-.timelineButton { position:absolute; left:255px; top:24px; width:213px; height:101px; overflow:hidden; }
-.timelineButton img { position:absolute; top:0px; left:0 }
-.timelineButton:hover img { position:absolute; top:-101px; left:0 }
+
+.homeWrapper { position:relative;  top:150px;  }
+.homeWrapper ul { width:93%; margin:0px auto; padding:0px; position:relative;}
+.homeWrapper ul li { float:left; width:218px; padding:0px; height:144px; }
+.homeWrapper ul li + li { margin:0 0 0 10px; }
+.homeWrapper ul li a { float:left; width:218px; height:144px; overflow:hidden; position:relative; }
+.homeWrapper ul li a:hover { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; -webkit-box-shadow: 0px 0px 24px #F00; -moz-box-shadow: 0px 0px 24px #F00; box-shadow: 0px 0px 20px #F00; }
+.homeWrapper ul li a:hover img { position:relative; top:-144px;  }
+.homeWrapper ul li a.active:hover { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; -webkit-box-shadow: 0px 0px 24px #f85d00; -moz-box-shadow: 0px 0px 24px #f85d00; box-shadow: 0px 0px 20px #f85d00; }
+
+.homeWrapper .walkingCrowdMemeber { top:220px; }
 
 /*--------Calender Screen-----------*/
-.calendarWrapper { position:relative;  top:60px;  }
-.calendarWrapper ul { width:64%; margin:0px auto; padding:0px; position:relative;}
+.calendarWrapper { position:relative;  top:100px;  }
+.calendarWrapper ul { width:59%; margin:0px auto; padding:0px; position:relative;}
 .calendarWrapper ul li { float:left; width:178px; margin:0 10px 0 0; padding:0px; height:224px; }
 .calendarWrapper ul li a { float:left; width:178px; height:224px; overflow:hidden; position:relative; }
+.calendarWrapper ul li a:hover { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; -webkit-box-shadow: 0px 0px 24px #F00; -moz-box-shadow: 0px 0px 24px #F00; box-shadow: 0px 0px 20px #F00; }
 .calendarWrapper ul li a:hover img { position:relative; top:-224px;  }
+.calendarWrapper ul li a.active:hover { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; -webkit-box-shadow: 0px 0px 24px #f85d00; -moz-box-shadow: 0px 0px 24px #f85d00; box-shadow: 0px 0px 20px #f85d00; }
 
 /*--------Timeline Screen-----------*/
 .missionDetails { position:relative; top:-210px; left:122px; float:left; width:730px; height:316px; z-index:6; }
@@ -23,13 +31,13 @@
 .missionImages { float:left; width:200px; margin:43px 0 0 10px; }
 .missionImages img { float:left; width:190px; margin:0 5px 5px 0;}
 
-.missionContent { float:left; width:473px; margin:30px 0 0 0; }
+.missionContent { float:left; width:315px; margin:30px 0 0 0; }
 .missionContent h3 { width:100%; font-weight:bold; font-size:2em; margin:5px 0 0 0;  }
 .missionContent p { margin:5px 0 0 0; font-size:1.2em; }
 .missionContent ul { list-style:square;  font-size:1.2em; margin:5px 0 0 0; }
 .missionContent ul li { margin:0 0 5px 20px; }
 
-.playButton { float:right; width:142px; height:60px; overflow:hidden; position:absolute; top:177px; right:5px; }
+.playButton { float:right; width:142px; height:60px; overflow:hidden; position:absolute; top:206px; right:5px; }
 .playButton:hover img { position:relative; top:-60px;  }
 
 .timelineBar { position:relative; top:230px; z-index:5; }
@@ -46,6 +54,11 @@
 .timelineMissions li.selected a.normal { display:none; }
 .timelineMissions li.selected span { position:absolute; font-size:1.2em; font-weight:bold; top:30px; width:90%; padding:5%; text-align:center; color:#763d00; text-shadow:1px 1px 0 #d7bd47;}
 
+.missionSide { float:left; width:162px; position:relative; margin:40px 0 0 0; }
+.newStuff { float:left; width:162px; height:147px; }
+.newStuffItem { position:relative; z-index:12; height:97px; width:131px; float:left; margin:40px 0 0 16px; }
+
+
 .walkingCrowdMemeber { position:absolute; top:128px; }
 
 .timelineMissions .rightControls { display:inline-block; float:none; position:relative; top:20px; vertical-align:top; z-index:2; right:0px; overflow:hidden; height:72px; margin:0px 0px 0px -2%;}
@@ -59,3 +72,5 @@
 .friendScore { position:absolute; width:175px; height:67px; left:337px; top:-66px; }
 .smallImageWrapper { position:relative; float:left; width:33px; height:33px; z-index:8; border:3px solid #887103; margin:7px 0 0 9px; }
 .friendScore h3, .friendScore h5 { color:#362c00; text-shadow:1px 1px 0 #e2c231; position:relative; z-index:9; float:left; width: 114px; margin:5px 0 0 3px; padding:0; }
+
+.calendarWrapper .walkingCrowdMemeber { top:330px; }

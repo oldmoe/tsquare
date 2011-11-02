@@ -17,6 +17,7 @@ var CrowdMember = Class.create(Unit,{
   maxPushDisplacement : 100,
   extraSpeed : 0,
   moved : 0,
+  endPosition : 1050,
   
   name : null,
   initialize : function($super,specs,options){
@@ -93,8 +94,20 @@ var CrowdMember = Class.create(Unit,{
   
   tick : function($super){
     $super()
+    if(this.ending && this.coords.x >= this.endPosition)
+    {
+      if(this.followers)
+      {
+        for(var i=0;i<this.followers.length;i++){
+          if(this.followers[i].coords.x <  this.endPosition){
+            return;
+          }
+        }
+      }
+      if(this.endMoveCallback) this.endMoveCallback();
+      return;
+    }
     if(!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y!=this.originalPosition.y) > 1)){
-        console.log(this.coords,this.originalPosition)
         this.moveToTarget(this.originalPosition)
     } 
      
@@ -271,6 +284,21 @@ var CrowdMember = Class.create(Unit,{
     $super(dx,dy);
   },
   
+  /* March out of the screen with the followers and then call callback after done */
+  endMove : function(callback){
+    this.ending = true;
+    this.endMoveCallback = callback;
+    this.moveToTarget({x:this.endPosition, y:this.coords.y});
+    if (this.followers) {
+      for (var i = 0; i < this.followers.length; i++) {
+        if(!this.followers[i].back){
+          this.followers[i].ending = true;
+          this.followers[i].moveToTarget({x:this.endPosition, y:this.followers[i].coords.y});
+        }
+      }
+    }
+  },
+
   resetRotation : function(){
     this.rotationPoints = []
     this.fire(this.scene.speeds[this.scene.speedIndex].state)

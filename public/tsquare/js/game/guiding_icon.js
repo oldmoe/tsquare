@@ -48,9 +48,15 @@ var GuidingIcon = Class.create(Observer,{
     this.scene.observe("keypressed", function(key, moveIndex, reset){self.keypressed(key, moveIndex, reset)});
     this.scene.observe("pressLate", function(){self.pressLate()});
     this.scene.observe("beatMoving", function(){self.beatMoving()});
-    this.scene.reactor.pushEvery(0 , 1, function(){self.tick()});
+    this.scene.push(this);
+//  this.scene.reactor.pushEvery(0 , 1, function(){self.tick()});
     var self = this;
     this.scene.observe("targetCircleComplete", function(){self.targetCircleComplete()});
+    /* When play ends stop updating meter bar */ 
+    this.scene.observe("end", function(){
+      self.scene.removeFromRenderLoop('meters', self);
+      self.scene.remove(self);
+    });
   },
   
   keypressed: function(key, moveIndex, flag){

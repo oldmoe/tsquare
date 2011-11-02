@@ -63,6 +63,10 @@ var MovementManager = Class.create({
       }
       self.process(click)
 		})
+    /* When play ends : stop observing movement */
+    this.scene.observe('end', function(params){
+      document.stopObserving('keydown')
+    });
   },
   
   process : function(click){

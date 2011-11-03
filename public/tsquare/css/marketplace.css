@@ -27,21 +27,24 @@
 .tabs li.selected:hover img { position:absolute; top:-43px; }
 
 /*-------Scrolled Items-------*/
-.leftControls { float:left; width:33px; position:absolute; left:-21px; top:130px; }
+.leftControls { float:left; width:33px; position:absolute; left:-21px; top:130px; z-index:10; }
 .leftControls a { display:block; width:33px; height:33px; margin:3px 0;  overflow:hidden; position:relative; cursor:default; }
 .leftControls a.selected img { position:absolute; top:-33px; cursor:pointer; }
 
-.rightControls { float:left; width:33px; position:absolute; right:-21px; top:130px; }
+.rightControls { float:left; width:33px; position:absolute; right:-21px; top:130px; z-index:10; }
 .rightControls a { display:block; width:33px; height:33px; margin:3px 0;  overflow:hidden; position:relative; cursor:default; }
 .rightControls a.selected img { position:absolute; top:-33px; cursor:pointer;  }
 
-.floatingItems { float:left; width:678px; overflow:hidden; margin:8px 8px 5px 8px; position:relative; }
+.floatingItems { float:left; width:687px; overflow:hidden; margin:3px 3px 5px 3px; position:relative; }
 .floatingItems ul { float:left; width:680px; }
-.floatingItems ul li { float:left; width:136px; height:167px; }
+.floatingItems ul li { float:left; width:136px; height:167px; position:relative; }
 
-.crowedItem { float:left; width:120px; height:136px; position:absolute; margin:10px 0 0 5px; }
+.crowedItem { float:left; width:136px; height:167px; position:absolute; margin:10px 0 0 5px; top:5px; left:5px; }
+.crowedItem:hover .highlighted, .crowedItem.selected .highlighted { display:block;}
 .crowedItemTitle { width:117px; height:31px; position:absolute; top:-10px; left:3px;  }
 .crowedItemTitle h2 {font-size: 1.2em; height: 26px; margin: 0; padding: 5px 0 0; position: absolute; text-align: center; text-shadow: 1px 1px 0 #FFCE57; width: 117px; z-index: 2; }
+
+.highlighted { display:none; position:absolute; z-index:0; top:-14px; left:-7px; }
 
 .crowedItemDetails { float: left; height: 36px; left: 4px; overflow: hidden; position: absolute; top: 110px; width: 115px;}
 .crowedItemDetails a { color: #304C00; display: block; font-size: 1.2em; font-weight: bold; height: 28px; padding: 8px 0 0; position: absolute; text-align: center; text-decoration: none; text-shadow: 1px 1px 0 #CCF08E; width: 115px; z-index: 2; }
@@ -72,7 +75,7 @@
 .crowdMemeberDetails dl dd table { margin:3px 0 0 0; }
 
 
-.linkToFriend { position:absolute; width:41px; height:51px; z-index:7; right:-7px; top:69px; }
+.linkToFriend { position:absolute; width:41px; height:51px; z-index:7; right:8px; top:69px; }
 .linkButton { position:absolute; z-index:8; top:28px; }
 .faceboookImage { position:absolute; z-index:9; top:4px; left:4px; }
 

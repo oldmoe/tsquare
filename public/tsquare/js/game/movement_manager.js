@@ -1,6 +1,6 @@
 var MovementManager = Class.create({
   
-  RIGHT : 0, LEFT : 1,
+  RIGHT : 0, LEFT : 1,UP : 2, DOWN : 3,
   move : [],
   movements : [],
   direction : 0,
@@ -17,6 +17,8 @@ var MovementManager = Class.create({
   tolerance :250,
   beatTime : 0,  
   beatsPerAudio : 1,
+  modes : {"normal" : 0, "clash": 1},
+  currentMode : 0,
   initialize : function(scene){
     this.scene = scene
     this.registerListeners()
@@ -41,7 +43,8 @@ var MovementManager = Class.create({
     var self = this
     document.stopObserving('keydown')
     document.observe('keydown', function(e){
-      if (e.preventDefault) {
+      var k = e.keyCode
+      if (k >=37 && k<= 40 && e.preventDefault) {
             e.preventDefault();
       }
       self.sound = self.scene.audioManager.nowPlaying[0]
@@ -56,15 +59,22 @@ var MovementManager = Class.create({
           click = 1
       }else if (e.keyCode == 32) {
           click = 2
+      }else if(e.keyCode == 38){
+          click = 3
+      }else if (e.keyCode == 40){
+          click = 4
       }else{
         self.scene.fire("keypressed", [click, self.move.length])
         self.reset();
         return
       }
-      self.process(click)
+      if (self.currentMode == self.modes.normal) 
+        self.process(click)
+      else {
+        self.scene.clashDirectionsGenerator.processDirection(click)
+      }
 		})
   },
-  
   process : function(click){
       var self = this
       if(self.scene.currentSpeed > 0){

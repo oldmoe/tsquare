@@ -145,7 +145,7 @@ var Game = Class.create({
       $('gameInProgress').hide();
       this.reset();
       this.scene = new TsquareScene();
-      this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
+      this.gameManager.missionManager.registerSceneListeners(this.scene);
 	  	this.scene.start();
       $('gameContainer').show();
 	  	this.scene.fire("start");

@@ -29,6 +29,9 @@ var InGameMeterBar = Class.create({
     
     this.game.scene.pushToRenderLoop('meters', this);
     var self = this;
+    this.game.scene.observe("end", function(){
+      self.game.scene.removeFromRenderLoop('meters', self);
+    });
     this.game.scene.reactor.pushEvery(0, game.scene.reactor.everySeconds(1), function(){self.tick();});
   },
   

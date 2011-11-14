@@ -30,6 +30,15 @@ var MissionManager = Class.create({
 //    self.display();   
   },
 
+  registerSceneListeners : function(scene){
+    var self = this;
+    scene.observe('end', function(params){self.end(params)});
+    scene.observe('animationEnd', function(){
+      self.endAnimationDone = true;
+      self.displayEndScreen(self.score);
+    });
+  },
+
   end : function(score){
     this.ended = true;
     this.score = score;
@@ -38,9 +47,9 @@ var MissionManager = Class.create({
       this.eneded = false;
       this.mode = this.gameManager.timelineManager.mode;
       score['stars'] = this.calculateStars(score);
-      this.displayStaticEndScreen();
       var self = this;
       this.network.postMissionScore( this.currentMission.id, score, function(data){
+        self.donePosting = true;
         if(self.gameManager.scoreManager.currentUser)
         {
           self.gameManager.scoreManager.currentUser.missions[self.mode][self.currentMission['id']] = score;
@@ -51,17 +60,6 @@ var MissionManager = Class.create({
     }
   },
   
-  displayStaticEndScreen : function(){
-    var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] ? true : false;
-    var staticData = {'friends' : [], 'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : {score : '...', objectives : 0, stars : 0},
-                      next : nextMission  };
-    var screenName = (this.score.win == true) ? 'win' : 'lose';
-    $('winLose').innerHTML = this.templateManager.load(screenName, staticData);
-    Game.addLoadedImagesToDiv('winLose');
-    this.attachListener();
-    this.show();
-  },
-
   hide : function(){
     Effects.fade($('winLose'));
   },
@@ -80,16 +78,32 @@ var MissionManager = Class.create({
       stars+=1;
     return stars;
   },
-  
-  displayEndScreen : function(score){
-    this.sortFriends();
-    var screenName = (this.score.win == true) ? 'win' : 'lose';
+
+  displayStaticEndScreen : function(){
     var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] ? true : false;
-    $('winLose').innerHTML = this.templateManager.load(screenName, {'friends' : this.friends.slice(this.rank+1, this.rank+4),
-                             'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score, next : nextMission });
+    var staticData = {'friends' : [], 'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : {score : '...', objectives : 0, stars : 0},
+                      next : nextMission  };
+    var screenName = (this.score.win == true) ? 'win' : 'lose';
+    $('winLose').innerHTML = this.templateManager.load(screenName, staticData);
     Game.addLoadedImagesToDiv('winLose');
     this.attachListener();
     this.show();
+  },
+  
+  displayEndScreen : function(score){
+    if(this.donePosting && this.endAnimationDone)
+    {
+      this.sortFriends();
+      var screenName = (this.score.win == true) ? 'win' : 'lose';
+      var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] ? true : false;
+      $('winLose').innerHTML = this.templateManager.load(screenName, {'friends' : this.friends.slice(this.rank+1, this.rank+4),
+                               'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score, next : nextMission });
+      Game.addLoadedImagesToDiv('winLose');
+      this.attachListener();
+      this.show();
+    }else if(this.endAnimationDone){
+      this.displayStaticEndScreen();
+    }
   },
 
   load : function(id, gameCallback){

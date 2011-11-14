@@ -42,6 +42,7 @@ var TsquareScene = Class.create(Scene,{
         this.comboMistakes = {current : 0, max : 2}
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
+        this.view.length = this.view.width;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
             this.view.length = Math.max(this.view.length, this.data[i].last().x * this.view.tileWidth + this.view.width)
@@ -92,7 +93,10 @@ var TsquareScene = Class.create(Scene,{
           $('initCounter').update("");
           $('initCounter').appendChild(Loader.images.countDown["go.png"]);
           Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
-          this.audioManager = new AudioManager(this.reactor)
+          this.audioManager = new AudioManager(this.reactor);
+          this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
+          this.clashDirectionsGenerator.run()
+          this.push(this.clashDirectionsGenerator)
           this.movementManager = new MovementManager(this);
           this.audioManager.run()          
         }, this)
@@ -135,23 +139,32 @@ var TsquareScene = Class.create(Scene,{
     },
     
   end : function(win){
+    var self = this;
+    var afterMarchCallback = function(){
+      self.fire('animationEnd');
+      self.reactor.stop();
+      self.audioManager.stop();
+    }
     if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
      && this.view.xPos > this.view.length)) {
       if(!this.stopped)
       {
         this.stopped = true;
-        this.win = win
-        this.reactor.stop()
-        this.audioManager.stop()
-        this.fire('end', [{
-          score: this.scoreCalculator.score,
-          objectives: this.scoreCalculator.getObjectivesRatio(),
-          combos: this.scoreCalculator.getCombos(),
-          win: this.win
+        this.win = win;
+        this.finish(afterMarchCallback);
+        self.fire('end', [{
+          score: self.scoreCalculator.score,
+          objectives: self.scoreCalculator.getObjectivesRatio(),
+          combos: self.scoreCalculator.getCombos(),
+          win: self.win
         }]);
       }
     }
     //send to the server
+  },
+  finish : function(callback){
+    this.fire(this.speeds[this.lastSpeedIndex].state)
+    this.handlers.crowd.marchOut(callback);
   },
   addObject : function(objHash){
      var klassName = objHash.name.formClassName()
@@ -200,6 +213,9 @@ var TsquareScene = Class.create(Scene,{
   },
     
   increaseEnergy : function(){
+    if(this.speedIndex != 0)
+      this.lastSpeedIndex = this.speedIndex;
+    if(this.stopped) return;
     this.audioManager.levelUp()
     if(this.energy.current < this.energy.max){
       this.energy.current+= this.energy.rate;
@@ -216,19 +232,22 @@ var TsquareScene = Class.create(Scene,{
     }
    },
    
-   decreaseEnergy : function(){
-     if (++this.comboMistakes.current == this.comboMistakes.max) {
-        this.comboMistakes.current = 0
-        this.audioManager.levelDown()
-        this.energy.current = Math.max(this.energy.current - this.energy.rate, 0)
-        this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
+  decreaseEnergy : function(){
+    if(this.speedIndex != 0)
+      this.lastSpeedIndex = this.speedIndex;
+    if(this.stopped) return;
+    if (++this.comboMistakes.current == this.comboMistakes.max) {
+      this.comboMistakes.current = 0
+      this.audioManager.levelDown()
+      this.energy.current = Math.max(this.energy.current - this.energy.rate, 0)
+      this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
+      this.fire(this.speeds[this.speedIndex].state)
+      if (this.speedIndex > 0 && this.energy.current < this.speeds[this.speedIndex].energy) {
+        this.speedIndex--
+        this.currentSpeed = this.speeds[this.speedIndex].value
         this.fire(this.speeds[this.speedIndex].state)
-        if (this.speedIndex > 0 && this.energy.current < this.speeds[this.speedIndex].energy) {
-          this.speedIndex--
-          this.currentSpeed = this.speeds[this.speedIndex].value
-          this.fire(this.speeds[this.speedIndex].state)
-        }
-      } 
+      }
+    } 
    }
   
 });

@@ -20,7 +20,7 @@ var Unit = Class.create(Observer,{
   type: null,
   neglected : false,
   scalable: true, // for specifying which object can be scalable
-
+  moveToTargetCallback : null,
   initialize : function($super, scene,x,lane, options){
     $super();
     var self = this
@@ -57,8 +57,10 @@ var Unit = Class.create(Observer,{
         var move = Util.getNextMove(this.coords.x, this.coords.y, this.targetPoint.x, this.targetPoint.y, this.movingSpeed)
         this.move(move[0], move[1])
       }
-      else 
+      else {
         this.movingToTarget = false
+        if(this.moveToTargetCallback)this.moveToTargetCallback()
+      }
     }  
   },
   
@@ -99,9 +101,10 @@ var Unit = Class.create(Observer,{
     }
   },
  
-  moveToTarget : function(targetPoint){
+  moveToTarget : function(targetPoint, callback){
    this.movingToTarget = true
    this.targetPoint = targetPoint
+   if(callback)this.moveToTargetCallback = callback
   },
   
   pickTarget : function(targets){

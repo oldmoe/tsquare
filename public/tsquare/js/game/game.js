@@ -38,7 +38,8 @@ var Game = Class.create({
     })
     
     var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png',
-    'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png']
+    'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png',
+    'square.png']
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
     'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man']
     var characterImages = ['follower.png']
@@ -144,7 +145,7 @@ var Game = Class.create({
       $('gameInProgress').hide();
       this.reset();
       this.scene = new TsquareScene();
-      this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
+      this.gameManager.missionManager.registerSceneListeners(this.scene);
 	  	this.scene.start();
       $('gameContainer').show();
 	  	this.scene.fire("start");

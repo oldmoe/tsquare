@@ -15,8 +15,10 @@ var CrowdHandler = Class.create(UnitHandler, {
        var self = this;
        this.scene.observe("increaseFollowers", function(num){self.increaseFollowers(num)});
        this.scene.observe("decreaseFollowers", function(num){self.decreaseFollowers(num)});
+       this.scene.observe("clashUnit", function(){self.crowdStepAhead()})
+       this.scene.observe("clashUnitDeath", function(){self.crowdStepBack()})
    },
-  
+    
     addMarchingStates: function(){
        var self = this
        this.marchingStates.each(function(event){
@@ -277,6 +279,32 @@ var CrowdHandler = Class.create(UnitHandler, {
        }
      }
      return count;
+   },
+   crowdStepAhead : function(){
+     var self = this
+     var crowd = this.objects[this.scene.activeLane][0] 
+     var y = this.scene.view.laneMiddle*2*crowd.lane+this.scene.view.laneMiddle;
+     var x = 150
+     crowd.fire('walk')
+     crowd.fixedPlace = false
+     crowd.moveToTarget({x:x - 32,y: y + 18}, function(){
+       self.scene.clashDirectionsGenerator.setCrowd(self.objects[self.scene.activeLane][0])
+     })
+     for(var i = 1;i<this.objects[this.scene.activeLane].length;i++){
+       var crowd = this.objects[this.scene.activeLane][i]
+       crowd.fixedPlace = false
+       crowd.fire('reverseWalk')
+       this.setCrowdAfterMove(crowd,0,crowd.coords.y,'normal')
+     }
+   },
+   crowdStepBack : function(){
+     for (var i = 0; i < this.objects[this.scene.activeLane].length; i++) {
+       this.objects[this.scene.activeLane][i].fixedPlace = true
+     }
+   },
+   setCrowdAfterMove : function(crowd,x,y,state){
+     crowd.moveToTarget({x:x,y:y}, function(){
+       crowd.fire(state)
+     })
    }
-     
 });

@@ -18,8 +18,9 @@ var CrowdMember = Class.create(Unit,{
   extraSpeed : 0,
   moved : 0,
   endPosition : 1050,
-  
+  fixedPlace : true,
   name : null,
+  clashing : false,
   initialize : function($super,specs,options){
     $super(options.scene, 0, options.scene.activeLane, options)
     this.type = "crowd_member";
@@ -34,7 +35,8 @@ var CrowdMember = Class.create(Unit,{
     this.attack = specs.attack || 0
     this.defense = specs.defense || 0 
     var crowdCommandFilters = [
-        {command: function(){return self.rotating}, callback: function(){self.circleMove()}},
+        {command: function(){return self.clashing}, callback: function(){self.clashMove()}},
+        {command: function(){return self.rotating}, callback: function(){self.circleMove()}}
     ]
     this.commandFilters = crowdCommandFilters.concat(this.commandFilters)      
     this.init(options);
@@ -107,7 +109,7 @@ var CrowdMember = Class.create(Unit,{
       if(this.endMoveCallback) this.endMoveCallback();
       return;
     }
-    if(!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y!=this.originalPosition.y) > 1)){
+    if(this.fixedPlace && (!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y!=this.originalPosition.y) > 1))){
         this.moveToTarget(this.originalPosition)
     } 
      
@@ -318,6 +320,21 @@ var CrowdMember = Class.create(Unit,{
   },
   waterRatio : function(){
     return this.water/ this.maxWater
-  }
+  },
+  startClash : function(target){
+    this.clashing = true
+    this.fire('run')
+    this.clash.target = target
+  },
+  clashMove : function(){
+    if (this.coords.x + this.getWidth()  - 35 < this.clash.target.coords.x) {
+      this.move(this.clash.runningSpeed, 0)
+    }
+  },
+  clashPush : function(){
+    this.move(this.clash.pushSpeed,0)
+    this.clash.target.move(this.clash.pushSpeed,0)
+  },
+  clash : {firstMove: true,runningSpeed : 15, pushSpeed : 12, target : null}
 })
   

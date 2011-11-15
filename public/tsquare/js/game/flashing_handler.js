@@ -28,7 +28,7 @@ var FlashingHandler = Class.create({
         duration: fadeDuration 
       })
     }) 
-    this.scene.reactor.push(ticks,this.flash,this)
+//    this.scene.reactor.push(ticks,this.flash,this)
   },
   
   repeatFlash : function(){

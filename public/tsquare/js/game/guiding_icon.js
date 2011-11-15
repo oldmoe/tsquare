@@ -17,7 +17,7 @@ var GuidingIcon = Class.create(Observer,{
     
     this.scene = game.scene;
     this.moveIndex = 1;
-    var images = ["circle_move.png", "move_indicator.png", "right_arrow.png", "left_arrow.png", "move_background.png", "moves_arrows.png"];
+    var images = ["circle_move.png", "move_indicator.png", "right_arrow.png", 'up_arrow.png','down_arrow.png', "left_arrow.png", "move_background.png", "moves_arrows.png"];
     var self = this;
     new Loader().load([{images: images, path: 'images/game_elements/', store: 'game_elements'}],
           {onFinish:function(){        

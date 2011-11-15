@@ -1,16 +1,15 @@
 var missionData = {
   
   "data":[[
-  {
-      "name": "ultras_white",
-      "category": 'crowd',
-      "type": '1_1',
+  ],[
+   {
+      "name": "clash_enemy",
+      "category": 'clash_enemy',
       "index": 0,
       "lane": 0,
       "x": 0,
       "order": 1
-  }  
-  ],[
+  },
   {
       "name": "wood_stick_cs",
       "category": 'enemy',

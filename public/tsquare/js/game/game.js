@@ -39,7 +39,7 @@ var Game = Class.create({
     
     var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png',
     'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png',
-    'square.png']
+    'square.png','line.png']
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
     'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man']
     var characterImages = ['follower.png']
@@ -51,7 +51,9 @@ var Game = Class.create({
     }
     var effectsImages = ['hydrate.png', 'hit1.png','good_blue.png','bad_red.png']
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
-    'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png']
+    'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png',
+    'amn_kalabsh_back.png','amn_kalabsh_blur.png','amn_kalabsh_front.png','amn_kalabsh_run.png',
+    'amn_kalabsh_walk.png']
     
     var countDownImages = ["1.png", "2.png", "3.png", "go.png"];
     

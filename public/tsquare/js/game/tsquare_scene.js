@@ -35,7 +35,8 @@ var TsquareScene = Class.create(Scene,{
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
             "enemy" : new EnemyHandler(this),  
-            "npc" : new NPCHandler(this)
+            "npc" : new NPCHandler(this),
+            "clash_enemy" : new ClashEnemyHandler(this)
         };  
         this.view.xPos = 0
         this.initCounter = 3
@@ -49,7 +50,8 @@ var TsquareScene = Class.create(Scene,{
             this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)
           }
         }
-        var mapping = {'crowd':'npc', 'protection':'protection_unit', 'enemy':'enemy', 'rescue':'rescue'}
+        var mapping = {'crowd':'npc', 'protection':'protection_unit',
+         'enemy':'enemy', 'rescue':'rescue', 'clash_enemy':'clash_enemy'}
 
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
@@ -88,7 +90,6 @@ var TsquareScene = Class.create(Scene,{
           Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
           this.audioManager = new AudioManager(this.reactor);
           this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
-          this.clashDirectionsGenerator.run()
           this.push(this.clashDirectionsGenerator)
           this.movementManager = new MovementManager(this);
           this.audioManager.run()          
@@ -206,6 +207,7 @@ var TsquareScene = Class.create(Scene,{
   },
     
   increaseEnergy : function(){
+    if(!this.movementManager.currentMode == this.movementManager.modes.normal)return 
     if(this.speedIndex != 0)
       this.lastSpeedIndex = this.speedIndex;
     if(this.stopped) return;
@@ -226,6 +228,10 @@ var TsquareScene = Class.create(Scene,{
    },
    
   decreaseEnergy : function(){
+    if(!this.movementManager.currentMode == this.movementManager.modes.normal){
+      this.direction = 0
+      return
+    }
     if(this.speedIndex != 0)
       this.lastSpeedIndex = this.speedIndex;
     if(this.stopped) return;

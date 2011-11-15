@@ -1,46 +1,52 @@
 var missionData = {
   
   "data":[[
-  {
-      "name": "ultras_white",
-      "category": 'crowd',
-      "type": '1_1',
-      "index": 0,
-      "lane": 0,
-      "x": 0,
-      "order": 1
-  }  
+  // {
+      // "name": "ultras_white",
+      // "category": 'crowd',
+      // "type": '1_1',
+      // "index": 0,
+      // "lane": 0,
+      // "x": 1,
+      // "order": 1
+  // },
+  // {
+      // "name": "wood_stick_cs",
+      // "category": 'enemy',
+      // "type": '2_3',
+      // "index": 0,
+      // "lane": 0,
+      // "x": 1,
+      // "order": 1
+  // }  
   ],[
-  {
-      "name": "twitter_guy",
-      "category": 'protection',
-      "type": '1_2',
-      "index": 0,
-      "lane": 1,
-      "x": 30,
-      "order": 1
-  },
-
-/*  {
-      "name": "wood_stick_cs",
-      "category": 'enemy',
-      "type": '3_3',
-      "index": 0,
-      "lane": 1,
-      "x": 10,
-      "order": 1
-  },
-  {
+/* {
       "name": "ambulance",
       "category": 'protection',
       "type": '3_3',
       "index": 0,
       "lane": 1,
-      "x": 30,
+      "x": 2,
+      "order": 1
+  },
+/*  {
+      "name": "twitter_guy",
+      "category": 'protection',
+      "type": '1_2',
+      "index": 0,
+      "lane": 1,
+      "x": 4,
+      "order": 1
+  },*/
+  {
+      "name": "wood_stick_cs",
+      "category": 'enemy',
+      "type": '2_3',
+      "index": 0,
+      "lane": 1,
+      "x": 2,
       "order": 1
   }
-
-  
   
 /*  ,{
       "name": "journalist_rescue",
@@ -68,12 +74,19 @@ var missionData = {
 
 var  crowd_members = { 
         'healer' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } }
-        
+        // 'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+        // 'ultras_red' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+        // 'ultras_white' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+        // 'ultras_green' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } }
    }
 
 var userData = {
   'crowd_members' : { 
-        'healer' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } }
+        'healer' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+        'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+        'ultras_red' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+        'ultras_white' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+        'ultras_green' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } }
    }, 
   'holder_items' : { 'cap' : 0, 'umbrella' : 0 },
   'special_items' : { },

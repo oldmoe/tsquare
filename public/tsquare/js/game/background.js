@@ -50,7 +50,7 @@ var Background = Class.create({
 	},
 	
 	tick : function(){
-    if(this.scene.currentSpeed <=0 || this.speed() == 0)return;
+    if(this.scene.currentSpeed <=1 || this.speed() == 0)return;
     if(this.scene.direction==1){
   		this.offsetX -= this.speed()
   		var firstImg = this.container.children[0]

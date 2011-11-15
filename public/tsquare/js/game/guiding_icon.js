@@ -56,12 +56,17 @@ var GuidingIcon = Class.create(Observer,{
   keypressed: function(key, moveIndex, flag){
     if(flag == 1){ //early
       this.pressEarly();
+      console.log("press early")
+      this.moveIndex = 1;
+      return ;
+    }
+
+    if(flag == 2){ //pressed while the waiting beats
+      this.wrongKey(1);
       this.moveIndex = 1;
       return ;
     }
     
-    var moveLength = this.moves[this.currentCommandIndex].code.length;
-
     if(moveIndex)
       this.moveIndex = moveIndex;
     else 

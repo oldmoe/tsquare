@@ -15,20 +15,22 @@ var CrowdHandler = Class.create(UnitHandler, {
        var self = this;
        this.scene.observe("increaseFollowers", function(num){self.increaseFollowers(num)});
        this.scene.observe("decreaseFollowers", function(num){self.decreaseFollowers(num)});
+       
+       this.hetafVolume = 15;
    },
   
-    addMarchingStates: function(){
-       var self = this
-       this.marchingStates.each(function(event){
-          self.scene.observe(event,function(){
-           for(var i=0;i<self.objects.length;i++){
-             for(var j=0;j<self.objects[i].length;j++){
-                 if(self.objects[i][j])self.objects[i][j].fire(event);
-             }
-           }          
-          }); 
-       });
-    }, 
+  addMarchingStates: function(){
+     var self = this
+     this.marchingStates.each(function(event){
+        self.scene.observe(event,function(){
+         for(var i=0;i<self.objects.length;i++){
+           for(var j=0;j<self.objects[i].length;j++){
+               if(self.objects[i][j])self.objects[i][j].fire(event);
+           }
+         }          
+        }); 
+     });
+  }, 
      
     tick : function($super){
       if(this.pushing)this.pushMove()
@@ -180,20 +182,32 @@ var CrowdHandler = Class.create(UnitHandler, {
      this.scene.currentCommand = 2;
    },
 
+	playHetafLoop : function(){
+	 this.playHetaf()
+	 this.scene.reactor.push(Math.random() * 100 + 50, this.playHetafLoop, this)
+	},
+	
+  playHetaf : function(){
+    var id = Math.round(Math.random()*15) + 1
+    if(id <= 11)Loader.sounds['hetaf.130'][id+'.mp3'].play({volume : 0})
+  },
+   
    increaseFollowers: function(num){
-     for (var i = 0; i < this.objects.length; i++) {
-       for (var j = 0; j < this.objects[i].length; j++) {
-         if(this.objects[i][j]) this.objects[i][j].increaseFollowers(num);
-       }
-     }
+   	var increased = false;
+   	for(var i=0;i<this.objects[this.scene.activeLane].length;i++){
+   		if(this.objects[this.scene.activeLane][i]) 
+   			if(this.objects[this.scene.activeLane][i].increaseFollowers(num)) {increased = true; break;}
+   	} 
+	   if(increased && this.hetafVolume < 30) this.hetafVolume += 5;    
    },
 
    decreaseFollowers: function(num){
-     for (var i = 0; i < this.objects.length; i++) {
-       for (var j = 0; j < this.objects[i].length; j++) {
-         if(this.objects[i][j]) this.objects[i][j].decreaseFollowers(num);
-       }
-     }
+   	var decreased = false;
+   	for(var i=0;i<this.objects[this.scene.activeLane].length;i++){
+   		if(this.objects[this.scene.activeLane][i]) 
+   			if(this.objects[this.scene.activeLane][i].decreaseFollowers(num)) {decreased = true; break;}
+   	} 
+   	if(decreased && this.hetafVolume > 10) this.hetafVolume -= 5;
    },
    
    pushMove : function(){

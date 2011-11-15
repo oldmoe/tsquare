@@ -54,7 +54,7 @@ var Game = Class.create({
     
     var countDownImages = ["1.png", "2.png", "3.png", "go.png"];
     
-    var shadowImages = ["crowd_shadow.png", "box_car_shadow.png", "amn_markazy_shadow.png", "ambulance_shadow.png"];
+    var shadowImages = ["crowd_shadow.png", "box_car_shadow.png", "amn_markazy_shadow.png", "ambulance_shadow.png", "twitter_shadow.png"];
        
   	var self = this
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
@@ -65,19 +65,25 @@ var Game = Class.create({
             {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
   				]
     
-    	var format = 'mp3'
-    	for(var i=0; i < 1; i++){ //number of tempos
+    	var format = ['mp3'];
+    	for(var i=0; i < format.length; i++){ //number of tempos
     		var beats = []
     		for(var j=0; j < 5; j++){
-    			beats.push(j+'.'+format)
+    			beats.push(j+'.'+format[i])
     		}
     		var hetaf = []
     		for(var j=0; j < 11; j++){
-    			hetaf.push((j+1)+'.'+format)
+    			hetaf.push((j+1)+'.'+format[i])
     		} 
     		var tempo = 130+(i*10)
-    		toLoad.push({sounds: beats, path: 'sounds/'+format+'/'+tempo+'/beats/', store: 'beats.'+tempo})
-       	toLoad.push({sounds: hetaf, path: 'sounds/'+format+'/'+tempo+'/hetaf/', store: 'hetaf.'+tempo})
+    		toLoad.push({sounds: beats, path: 'sounds/'+format[i]+'/'+tempo+'/beats/', store: 'beats.'+tempo})
+       	toLoad.push({sounds: hetaf, path: 'sounds/'+format[i]+'/'+tempo+'/hetaf/', store: 'hetaf.'+tempo})
+       	
+       	var sfx = ["ambient", "Ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", "Gun-shot", "Hit-police-car", "Morning-air-birds", "Night-sound", "Police", "Police-march", "Punch", "Tank-move", "Tear-gas"];
+        for(var j=0; j < sfx.length; j++){
+          sfx[j] = sfx[j]+'.'+format[i];
+        } 
+       	toLoad.push({sounds: sfx, path: 'sounds/'+format[i]+"/sfx/", store: 'sfx'});
     		
     	}					
     						

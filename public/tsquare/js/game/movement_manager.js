@@ -14,7 +14,7 @@ var MovementManager = Class.create({
   comboStart: false,
   currentCombos: 0,
   counter:0,
-  tolerance :250,
+  tolerance :200,
   beatTime : 0,  
   beatsPerAudio : 8,
   initialize : function(scene){
@@ -69,10 +69,11 @@ var MovementManager = Class.create({
       }
       if(!this.sound)return
       var beatTime  = this.sound.duration/this.beatsPerAudio
-      if((this.sound.position / beatTime) > 4){
-          this.scene.fire("keypressed", [-1, 1, 1])
-          this.reset()
-          console.log("ittt")
+      var index = Math.round(this.sound.position / beatTime);
+      if(index >= 4 && index <=7){
+          this.scene.fire("keypressed", [0, 1, 2])
+          this.reset();
+          return;
       }
       var position = this.sound.position % beatTime
       this.beatTime = beatTime
@@ -140,9 +141,9 @@ var MovementManager = Class.create({
    },
   doCheckDelay : function(counter){
       if (this.counter == counter) {
-        if(this.move.length>0)this.scene.fire("pressLate")
+        if(this.move.length>0)
+          this.scene.fire("pressLate")
         this.reset()
-        var self = this
       }
   },  
   getNextMoveIndex : function(){

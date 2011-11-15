@@ -164,10 +164,11 @@ body{
   left : 40px;
 }
 #beatFlash{
-  background-color: #333;
-  height: 610px;
+  background-color: #FFFFFF;
+  height: 599px;
   position: absolute;
-  width: 968px;
+  width: 949px;
+  border: solid 10px black;
 }
 #fps{
   left: 970px;

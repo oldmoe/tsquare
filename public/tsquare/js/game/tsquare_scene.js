@@ -5,10 +5,10 @@ var TsquareScene = Class.create(Scene,{
     currentSpeed : 0,
     speeds : [//the following states for the crowd members
       {state :'normal' , value : 0 ,energy : 0, followers: 1},
-      {state :'walk' , value : 3, energy : 1, followers: 1},
-      {state :'jog' ,  value : 10 ,energy : 25, followers: 1},
-      {state :'run' ,  value : 25 ,energy : 50, followers: 1},
-      {state :'sprint' ,  value : 40 ,energy : 75, followers: 1}
+      {state :'walk' , value : 3, energy : 25, followers: 1},
+      {state :'jog' ,  value : 10 ,energy : 50, followers: 1},
+      {state :'run' ,  value : 25 ,energy : 75, followers: 1},
+      {state :'sprint' ,  value : 50 ,energy : 100, followers: 1}
     ],
     currentCommand: 0,
     speedIndex : 0,
@@ -21,7 +21,9 @@ var TsquareScene = Class.create(Scene,{
     comboMistakes : {current : 0, max : 2},
     scoreCalculator: null,
     collision: false,
-    // targetSpeedIndex: 0,
+    targetSpeedIndex: 0,
+    targetEnergy: 0,
+    flashingHandler: null,
     
     initialize: function($super){
         $super();
@@ -40,10 +42,13 @@ var TsquareScene = Class.create(Scene,{
         };  
         this.view.xPos = 0
         this.initCounter = 3
-        this.energy =  {current:0, rate: 10,max:100}
+        this.energy =  {current:0, rate: 10, max:100}
         this.comboMistakes = {current : 0, max : 2}
         
+        // Effect.Queues.create('global', this.reactor)
+        
         this.audioManager = new AudioManager(this.reactor);
+        this.flashingHandler = new FlashingHandler(this);
         this.movementManager = new MovementManager(this);
         
         this.data = missionData.data;
@@ -92,7 +97,10 @@ var TsquareScene = Class.create(Scene,{
           $('initCounter').appendChild(Loader.images.countDown["go.png"]);
           Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
           this.audioManager.run()
-          this.handlers.crowd.playHetafLoop();          
+          this.flashingHandler.run();
+          this.handlers.crowd.playHetafLoop();
+          var self = this;
+          this.reactor.pushEvery(0,10, function(){return self.updateSpeed()})
         }, this)
         return false
       }
@@ -202,62 +210,67 @@ var TsquareScene = Class.create(Scene,{
     
   increaseEnergy : function(){
     this.audioManager.levelUp()
-    if(this.energy.current < this.energy.max){
-      this.energy.current+= this.energy.rate;
-      this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
-    }
-    var next = this.speeds[this.speedIndex+1]
-    if(next){
-        if(this.energy.current>=next.energy){
-          if(this.speedIndex >= 1){
-            var self = this;
-            console.log("increase");
-            // this.targetSpeedIndex = this.speedIndex+1;
-            this.reactor.pushEvery(0,10, function(){return self.updateSpeed(self.speedIndex+1)})
-          }else{
-            console.log("pre increase");
-            this.speedIndex += 1;
-            this.currentSpeed += this.speeds[this.speedIndex].value;
-            this.fire(this.speeds[this.speedIndex].state);
-          }
-        } 
-    }
-   },
-   
-   updateSpeed: function(targetSpeedIndex){
-     if(targetSpeedIndex < 0 || targetSpeedIndex == this.speeds.length ){
-       this.moving = false;
-       return false;
-     }
-     this.moving = true; 
-     console.log(this.currentSpeed, this.speedIndex, targetSpeedIndex);
-      if(Math.abs(this.currentSpeed - this.speeds[targetSpeedIndex].value) < 1 ){
-        this.speedIndex = targetSpeedIndex
-        this.fire(this.speeds[targetSpeedIndex].state)
-        this.moving = false;
-        return false;
-      }
-      
-      if(this.speedIndex < targetSpeedIndex) 
-        this.currentSpeed += 1;
-      else{
-        this.currentSpeed -= 1;
-        // if(this.currentSpeed <=2)this.currentSpeed = 0
-      }
+    this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
+    this.targetEnergy = Math.min(this.targetEnergy + this.energy.rate, this.energy.max);
+    if(this.speedIndex < (this.speeds.length-1) && this.targetEnergy > this.speeds[this.speedIndex].energy){
+      this.targetSpeedIndex = this.speedIndex+1;
+      if(this.targetSpeedIndex == 1){
+        this.speedIndex = 1;
+        this.targetEnergy = this.speeds[this.speedIndex].energy;
+        this.currentSpeed = this.speeds[this.speedIndex].value;
+        this.fire(this.speeds[this.speedIndex].state);
+      }        
+    }        
    },
    
    decreaseEnergy : function(){
      if (++this.comboMistakes.current == this.comboMistakes.max) {
         this.comboMistakes.current = 0
         this.audioManager.levelDown()
-        this.energy.current = Math.max(this.energy.current - this.energy.rate, 0)
+        this.targetEnergy = Math.max(this.targetEnergy - this.energy.rate, 0);
         this.fire("decreaseFollowers", [this.speeds[this.speedIndex].followers])
-        if (this.speedIndex > 0 && this.energy.current < this.speeds[this.speedIndex].energy) {
-            var self = this;
-            console.log("decrease");
-            this.reactor.pushEvery(0,10, function(){return self.updateSpeed(self.speedIndex-1)})
+        if (this.speedIndex > 0 && this.targetEnergy < this.speeds[this.speedIndex].energy) {
+            this.targetSpeedIndex = this.speedIndex-1;
+            if(this.targetSpeedIndex == 0){
+              this.speedIndex = 0;
+              this.targetEnergy = this.speeds[this.speedIndex].energy;
+              this.currentSpeed = this.speeds[this.speedIndex].value;
+              this.fire(this.speeds[this.speedIndex].state);
+            }
         }
       } 
+   },
+
+   updateSpeed: function(){
+      // console.log(this.energy.current, this.targetEnergy)
+      
+      if(this.targetEnergy - this.energy.current > 1){
+        this.energy.current += 2;
+      }else if (this.targetEnergy - this.energy.current < -1){
+        if(this.energy.current > 0)this.energy.current -= 2;        
+      }
+      
+     if(this.speedIndex == this.targetSpeedIndex) return;
+     
+     for (var i=0; i < this.speeds.length; i++) {
+        if(Math.abs(this.currentSpeed - this.speeds[i].value) < 1 && this.speedIndex != i){
+          this.speedIndex = i
+          this.fire(this.speeds[i].state)
+          break;
+        }
+     }
+      
+      if(this.speedIndex < this.targetSpeedIndex){ 
+        if(this.speeds[this.targetSpeedIndex].value > this.currentSpeed)this.currentSpeed += 1;
+      }else if(this.speedIndex > this.targetSpeedIndex){
+        if(this.currentSpeed > 0)this.currentSpeed -= 1;
+      }else{
+        // if(this.targetEnergy < this.energy.current){
+          // if(this.energy.current > 0)this.energy.current -= 2;
+        // }else if(this.targetEnergy > this.energy.current){
+          // if(this.energy.max > this.energy.current)this.energy.current += 2;
+        // }
+      }
    }
   
 });

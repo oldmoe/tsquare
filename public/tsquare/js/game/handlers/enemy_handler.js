@@ -18,7 +18,7 @@ var EnemyHandler = Class.create(UnitHandler, {
           obj.options.rows = rows
           obj.options.columns = cols
       }
-      return $super(obj)   
+      return $super(obj);    
    },
    
    end : function(){

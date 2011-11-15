@@ -40,17 +40,30 @@ var AudioManager = Class.create({
 		this.levelBeats = {
 			130 : [0, 1, 2, 3, 4], 
 		} 
-	
+/*	
 		this.levels = [
-			{tempo: 130, beats : [{beat : 0, volume : 25}]},
-			{tempo: 130, beats : [{beat : 0, volume : 50}]},
-			{tempo: 130, beats : [{beat : 0, volume : 50}, {beat : 2, volume : 25}]},
-			{tempo: 130, beats : [{beat : 0, volume : 50}, {beat : 2, volume : 50}]},
-      {tempo: 130, beats : [{beat : 0, volume : 50}, {beat : 3, volume : 50}]},
-      {tempo: 130, beats : [{beat : 0, volume : 50}, {beat : 3, volume : 75}]}      
-      // {tempo: 130, beats : [{beat : 0, volume : 50}, {beat : 4, volume : 50}]},
-      // {tempo: 130, beats : [{beat : 0, volume : 50}, {beat : 4, volume : 70}]}
+			{tempo: 130, beats : [{beat : 0, volume : 1}]},
+			{tempo: 130, beats : [{beat : 0, volume : 1}]},
+			{tempo: 130, beats : [{beat : 0, volume : 1}, {beat : 2, volume : 1}]},
+			{tempo: 130, beats : [{beat : 0, volume : 1}, {beat : 2, volume : 1}]},
+      {tempo: 130, beats : [{beat : 0, volume : 1}, {beat : 3, volume : 1}]},
+      {tempo: 130, beats : [{beat : 0, volume : 1}, {beat : 3, volume : 1}]}      
 		]
+*/
+    this.levels = [
+      {tempo: 130, beats : [{beat : 0, volume : 30}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 1, volume : 40}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 1, volume : 40}]},
+      
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 2, volume : 40}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 2, volume : 40}]},
+      
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 3, volume : 40}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 3, volume : 40}]},
+      
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 40}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 40}]}      
+    ]
 		
 		var self = this
 		
@@ -71,23 +84,22 @@ var AudioManager = Class.create({
 		
 		this.nowPlaying = []
 		this.tempoChanged = true;
+		
+		// this.playAmbient();
 	},
-	
-	playHetafLoop : function(){
-	  this.playHetaf()
-    this.reactor.push(Math.random() * 100 + 50, this.playHetafLoop, this)
-	},
-	
-  playHetaf : function(){
-    var id = Math.round(Math.random()*15) + 1
-    if(id <= 11)Loader.sounds['hetaf.130'][id+'.mp3'].play({volume : 10})
+
+  playAmbient : function(){
+    var self = this;
+    Loader.sounds['sfx']['ambient.mp3'].play({volume : 30, onfinish: function(){
+      self.playAmbient();
+    }})
   },
+	
 	run : function(){
 		this.reactor.pushEvery(0, this.reactor.timeToTicks(this.durations[this.level.tempo]), this.tick, this)
     this.background_audio = Loader.sounds['beats.'+130][3+'.'+this.format] 
     this.background_audio.loop = true
-    this.background_audio.play({volume : 18, loop:true,loops:10000})
-    this.playHetafLoop();
+    // this.background_audio.play({volume : 100, loop:true,loops:10000})
 	},
 	
   nextBeatTime: function(){
@@ -169,5 +181,31 @@ var AudioManager = Class.create({
 		this.levelChanged = true
 		if(this.levels[this.levelIndex].tempo != this.levels[this.levelIndex+1].tempo) this.tempoChanged = true
 		this.level = this.levels[this.levelIndex]
-	}	
+	},
+	
+	play: function(sound, options, repeat){
+		if(repeat){
+		  sound.play(options);
+		  return;
+		}
+		if(sound.playersCount){
+			sound.playersCount += 1;
+		}else{
+      sound.playersCount = 1;
+      sound.play(options);
+		}
+	},
+	
+	mute: function(sound){
+	  if(sound.playersCount == null){
+	    sound.stop();
+	  }else if(sound.playersCount > 1){
+	    sound.playersCount -= 1;
+    }else{
+      sound.playersCount = 0;
+      sound.stop();
+    }
+	}
+	
+		
 })

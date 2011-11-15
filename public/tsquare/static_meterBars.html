@@ -110,40 +110,89 @@
       </div>
     	<img class="positioned" src="images/game_elements/power_bar.png" alt="Power" />
     </div>
+    <!--Power-ups-->
+    <div class="powerUpsWrapper">
+    	<a class="powerUp selected" href="javascript: void(0)">
+      	<span><img src="images/game_elements/powerUpRunning.png" alt="Running" /></span>
+      	<img class="positioned" src="images/game_elements/powerups_highlighted.png" />
+      </a>
+    	<a class="powerUp" href="javascript: void(0)">
+      	<span><img src="images/game_elements/powerUpRunning.png" alt="Running" /></span>
+      	<img class="positioned" src="images/game_elements/powerups.png" />
+      </a>
+    </div>
+    <!--Items slots-->
+    <div class="itemsSlotsWrapper">
+    	<!--Item slot-->
+    	<div class="itemSlot">
+      	<span><img src="images/game_elements/item_empty.png" alt="Item" /></span>
+				<img class="positioned" src="images/game_elements/item_slot.png" alt="Item slot" />
+      </div>
+    	<!--Item slot-->
+    	<div class="itemSlot">
+      	<span><img src="images/game_elements/item.png" alt="Item" /></span>
+        <small class="empty">
+        <strong>0</strong>
+        <img class="positioned" src="images/game_elements/item_numbers.png" alt="numbers" />
+        </small>
+				<img class="positioned" src="images/game_elements/item_slot.png" alt="Item slot" />
+      </div>
+    	<!--Item slot-->
+    	<div class="itemSlot">
+      	<span><img src="images/game_elements/item.png" alt="Item" /></span>
+        <small>
+        <strong>11</strong>
+        <img class="positioned" src="images/game_elements/item_numbers.png" alt="numbers" />
+        </small>
+				<img class="positioned" src="images/game_elements/item_slot.png" alt="Item slot" />
+      </div>
+    	<!--Item slot-->
+    	<div class="itemSlot">
+      	<span><img src="images/game_elements/item.png" alt="Item" /></span>
+        <small>
+        <strong>11</strong>
+        <img class="positioned" src="images/game_elements/item_numbers.png" alt="numbers" />
+        </small>
+				<img class="positioned" src="images/game_elements/item_slot.png" alt="Item slot" />
+      </div>
+      	<img class="positioned" src="images/game_elements/item_slots_wrapper.png" alt="Item Slots" />
+    </div>
+    <!--Game meters-->
+    <div class="player">
+      <!--Hydration Meter-->
+      <div class="hydrationMeter">
+        <span>25</span>
+        <img src="images/game_elements/hydration_meter.png" alt="Hydration meter" />
+      </div>
+      <!--Health Meter-->
+      <div class="healthMeter">
+        <span>25</span>
+        <img src="images/game_elements/health_meter.png" alt="Health meter" />
+      </div>
+      <img src="images/characters/ultras_red_hold.png" alt="Crowd Member" />
+    </div>
+    <!--Moves indicator-->
+    <div class="movesWrapper">
+      <div class="nextMove">
+        <img class="positioned" src="images/game_elements/circle_move.png" alt="Move" />
+      </div>
+      <div class="movesIndicator">
+        <span class="wrong"><img src="images/game_elements/right_arrow.png" alt="Right" /></span>
+        <span class="right"><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
+        <span><img src="images/game_elements/right_arrow.png" alt="Right" /></span>
+        <span><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
+      </div>
+    </div>
+    <!--Pause button-->
+    <div class="pauseScreen">
+    	<img src="images/game_elements/paused_screen.png" alt="Pasue" />
+    </div>
+    <!--Resume button-->
+    <div class="resumeScreen">
+    	<img src="images/game_elements/resume_screen.png" alt="Resume" />
+    </div>
   </div>
-  <!--Game meters-->
-  <div class="player">
-    <!--Hydration Meter-->
-    <div class="hydrationMeter">
-      <span>25</span>
-      <img src="images/game_elements/hydration_meter.png" alt="Hydration meter" />
-    </div>
-    <!--Health Meter-->
-    <div class="healthMeter">
-      <span>25</span>
-      <img src="images/game_elements/health_meter.png" alt="Health meter" />
-    </div>
-    <img src="images/characters/ultras_red_hold.png" alt="Crowd Member" />
-  </div>
-  <!--Moves indicator-->
-  <div class="movesWrapper">
-  	<div class="nextMove">
-    	<span class="moveContainer">
-      	<img class="positioned" src="images/game_elements/circle_move.png" alt="Move" />
-      </span>
-    	<img class="positioned" src="images/game_elements/move_indicator.png" alt="Next move" />
-    </div>
-    <div class="movesIndicator">
-    	<span class="wrong"><img src="images/game_elements/right_arrow.png" alt="Right" /></span>
-      <span class="right"><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
-    	<span><img src="images/game_elements/right_arrow.png" alt="Right" /></span>
-      <span><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
-      <img class="positioned" src="images/game_elements/move_background.png" alt="moves background" />
-    </div>
-    <div class="trigger">
-    	<a id="trigger" href="javascript:void(0)"><img src="images/game_elements/moves_arrows.png" alt="trigger" /></a>
-    </div>
-  </div>
+
 	<img class="background" src="images/timeline/home_background.gif" alt="background"></span>
 </div>
 <script  type="text/javascript">

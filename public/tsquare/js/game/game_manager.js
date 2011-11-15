@@ -29,7 +29,7 @@ var GameManager = Class.create({
               Loader.sounds.intro['intro.mp3'].play({loop:true,loops:1000});
               $('inProgress').show();
               self.processParams(self.urlParams, function(data){self.processRequest(data)});
-            },
+            }
           }
       )
     });
@@ -39,12 +39,12 @@ var GameManager = Class.create({
   },
 
   initializeData : function(data){
-    self = this;
+    var self = this;
     self.userData = data.user_data.data;
     self.userData.coins = data.user_data.coins;
     self.gameData = data.game_data.data;
     self.missions = data.missions_data.data;
-    self.loader.options.push({
+    this.loader.options.push({
                           onProgress : function(progress){
                             if($$('#inProgress #loadingBarFill')[0])
                               $$('#inProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
@@ -59,13 +59,13 @@ var GameManager = Class.create({
                             }
                           }
                         })
-    self.meterBar = new MeterBar(self);
-    self.scoreManager = new ScoreManager(self);
-    self.inbox = new Inbox(self);
-    self.marketplace = new Marketplace(self);
-    self.timelineManager = new Timeline(self);
-    self.missionManager = new MissionManager(self);
-    game = new Game(self);
+    self.meterBar = new MeterBar(this);
+    self.scoreManager = new ScoreManager(this);
+    self.inbox = new Inbox(this);
+    self.marketplace = new Marketplace(this);
+    self.timelineManager = new Timeline(this);
+    self.missionManager = new MissionManager(this);
+    game = new Game(this);
     self.game = game;
   },
 

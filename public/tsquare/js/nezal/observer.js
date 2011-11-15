@@ -19,6 +19,7 @@ var Observer = Class.create({
       var toRemove = []
       for(var i=0;i<observers.length;i++){
         var scope = observers[i][1] || this
+        if(!params)params = []
         if(observers[i][0].apply(scope, params) === false){
           toRemove.push(observers[i])
         }

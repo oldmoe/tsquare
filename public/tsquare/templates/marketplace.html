@@ -5,14 +5,14 @@
       <!--Title-->
       <div class="windowTitle">
         {if screen == "marketplace"}
-          <span class="loadedImg" imgSrc="images/marketplace/buy_window_title.png" alt="title"/>
+          <span class="loadedImg" imgSrc="images/marketplace/buy_window_title.png" alt="title">  </span>
         {else}
-          <span class="loadedImg" imgSrc="images/marketplace/my_stuff_title.png" alt="close" />
+          <span class="loadedImg" imgSrc="images/marketplace/my_stuff_title.png" alt="close" > </span>
         {/if}
       </div>
       <!--Close-->
       <div class="close">
-        <a href="javascript:void(0)"> <span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close" /></a>
+        <a href="javascript:void(0)"> <span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close" > </span></a>
       </div>
       <!--Tabs Wrapper-->
       <div class="tabsWrapper">
@@ -20,44 +20,44 @@
         <ul class="tabs">
           <li class="disabled">
             <a id="marketMoves" href="javascript:void(0)">Moves</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"> </span>
           </li>
           <li class="selected">
             <a id="marketMembers" href="javascript:void(0)">Members</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"> </span>
           </li>
           <li class="disabled">
             <a id="marketItems" href="javascript:void(0)">Items</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab" ></span>
           </li>
           <li class="disabled">
             <a id="marketPowerups" href="javascript:void(0)">Powerups</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab" > </span>
           </li>
           <li class="disabled">
             <a id="marketSpecial" href="javascript:void(0)">Special</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"> </span>
           </li>
           <li class="disabled">
             <a id="marketCrowdItems" href="javascript:void(0)">Crowd Items</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"/>
+            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"> </span>
           </li>
         </ul>
         <!--Tabs Content-->
         <div class="tabsContent">
           <!--Left controls-->
           <div class="leftControls">
-            <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/previous_button.png" alt="Previous" /></a>
-            <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/first_button.png" alt="First" /></a>              
+            <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/previous_button.png" alt="Previous" > </span></a>
+            <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/first_button.png" alt="First" > </span></a>              
           </div>
           <div style="display:none;" id="dialogBox" class="dialogBox">
             <!--Close-->
             <div class="close">
-              <a href="javascript:void(0)" onclick="$('dialogBox').hide();"><span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close" /></a>
+              <a href="javascript:void(0)" onclick="$('dialogBox').hide();"><span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close" ></span></a>
             </div>          
             <h2>Successful Contact</h2>
             <p>Crowd member called successfully, it is now in your "My Stuff" menu</p>
-            <span class="loadedImg" imgSrc="images/marketplace/dialog_box.png" alt="Dialog Background" imgClasses="positioned"/>
+            <span class="loadedImg" imgSrc="images/marketplace/dialog_box.png" alt="Dialog Background" imgClasses="positioned"> </span>
           </div>
           <!--Floating Items-->
           <div id="floatingItems" class="floatingItems">
@@ -65,8 +65,8 @@
           </div>
           <!--Right controls-->
           <div class="rightControls">
-            <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/next_button.png" alt="Next" /></a>
-            <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/last_button.png" alt="Last" /></a>
+            <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/next_button.png" alt="Next" > </span></a>
+            <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/last_button.png" alt="Last" > </span></a>
           </div>
         </div>
       </div>
@@ -102,7 +102,7 @@
           <span class="loadedImg" imgSrc="images/marketplace/${item.codeName}_icon.png" 
                imgId=${item.codeName}${item.memberID}
                imgClasses="positioned" 
-               imgStyle="width:95px;" >
+               imgStyle="width:95px;" ></span>
         </div>
         {if screen == "marketplace"}
           <div onclick="gameManager.marketplace.buy({category : 'marketMembers', name : '${item.codeName}', buyID : '${item.buyID}' })" class="crowedItemDetails">

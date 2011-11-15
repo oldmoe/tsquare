@@ -28,6 +28,7 @@ var missionData = {
       "lane": 1,
       "x": 2,
       "order": 1
+<<<<<<< HEAD
   },
 /*  {
       "name": "twitter_guy",
@@ -36,6 +37,17 @@ var missionData = {
       "index": 0,
       "lane": 1,
       "x": 4,
+=======
+  }  
+  ],[
+  {
+      "name": "wood_stick_cs",
+      "category": 'enemy',
+      "type": '1_1',
+      "index": 0,
+      "lane": 1,
+      "x": 2,
+>>>>>>> ec597280d1eeea08dcf033f839f45e0f1290e2e8
       "order": 1
   },*/
   {
@@ -44,7 +56,7 @@ var missionData = {
       "type": '2_3',
       "index": 0,
       "lane": 1,
-      "x": 2,
+      "x": 1,
       "order": 1
   }
   
@@ -86,7 +98,8 @@ var userData = {
         'bottleguy' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
         'ultras_red' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
         'ultras_white' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
-        'ultras_green' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } }
+        'ultras_green' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } },
+        'libralymic' : { 1 : {'level' : 1, 'upgrades' : { 'hp' : [], 'water' : [], 'attack' : [], 'defense' : [], 'arrest' : 0, 'block' : 0 } } }
    }, 
   'holder_items' : { 'cap' : 0, 'umbrella' : 0 },
   'special_items' : { },
@@ -131,6 +144,7 @@ var gameData = {
                      },
       'crowd_members' : {
               'category' : { 'salafy' : {type : 'normal', name : 'Normal'},
+                        'libralymic' : {type : 'normal', name : 'Normal'},
                         'ultras_green' : {type : 'normal', name : 'Normal'},
                         'ultras_white' : {type : 'normal', name : 'Normal'},
                         'ultras_red' : {type : 'normal', name : 'Normal'},
@@ -156,7 +170,7 @@ var gameData = {
                                         '2_3' : {'hp' : 200, 'attack' : 80 , 'defense' : 70, 'charge_tolerance' : 3, 'circle_size' : 2 },  
                                         '3_3' : {'hp' : 300, 'attack' : 100 , 'defense' : 90, 'charge_tolerance' : 3, 'circle_size' : 3 },  
                                         '6_3' : {'hp' : 600, 'attack' : 150 , 'defense' : 100, 'charge_tolerance' : 4, 'circle_size' : 4 },
-                                        '9_3' : {'hp' : 900, 'attack' : 200 , 'defense' : 120, 'charge_tolerance' : 4, 'circle_size' : 5 },    
+                                        '9_3' : {'hp' : 900, 'attack' : 200 , 'defense' : 120, 'charge_tolerance' : 4, 'circle_size' : 5 }    
                                      },
                       'tear_gas_gunner_cs' : { 
                                         'rate' : { 'time' : 5, 'shots' : 1 }, 
@@ -177,7 +191,7 @@ var gameData = {
                       'kalabshat_arrestor_pc' : { 'cars' : 1, 'hp' : 150, 'defense' : 70, 'charge_tolerance' : 2,
                                                    'circle_size' : 2, 'kalabshat_arrestor_cs' : ['1_1', '1_2', '1_3'] }, 
                       'troop_carrier' : { 'cars' : 1, 'hp' : 200, 'defense' : 90, 'charge_tolerance' : 3,
-                                                    'circle_size' : 2, 'wood_stick_cs' : ['1_1', '1_2', '1_3', '2_3', '3_3'] }, 
+                                                    'circle_size' : 2, 'wood_stick_cs' : ['1_1', '1_2', '1_3', '2_3', '3_3'] } 
   
         }
 }

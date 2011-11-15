@@ -38,7 +38,8 @@ var Game = Class.create({
     })
     
     var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png',
-    'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png']
+    'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png',
+    'square.png']
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
     'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man']
     var characterImages = ['follower.png']
@@ -102,6 +103,7 @@ var Game = Class.create({
   						  			self.start();
                     }
     });
+    Game.addLoadedImagesToDiv("uiContainer");
   },
 
   play : function(mission){
@@ -149,7 +151,7 @@ var Game = Class.create({
       $('gameInProgress').hide();
       this.reset();
       this.scene = new TsquareScene();
-      this.scene.observe('end', function(params){self.gameManager.missionManager.end(params)});
+      this.gameManager.missionManager.registerSceneListeners(this.scene);
 	  	this.scene.start();
       $('gameContainer').show();
 	  	this.scene.fire("start");
@@ -172,40 +174,7 @@ var Game = Class.create({
   reset : function(){
     $("container").innerHTML = ""
     $("gameCanvas").innerHTML = ""
-  },
-
-  addLoadedImagesToDiv: function(divId){
-    $$('#' + divId + ' .loadedImg').each(function(imgSpan){
-      var classes = null
-      if (imgSpan.getAttribute('imgClasses')) {
-        var classes = imgSpan.getAttribute('imgClasses').split('-')
-      }
-      var imgPath = imgSpan.getAttribute('imgSrc').split('/')
-      var imgPart = Loader
-      for (var i = 0; i < imgPath.length; i++) {
-        imgPart = imgPart[imgPath[i]]
-      }
-      var img = $(imgPart).clone()
-      var parent = $(imgSpan.parentNode)
-      img = parent.insertBefore(img, imgSpan)
-      parent.removeChild(imgSpan)
-      if (imgSpan.getAttribute('imgId')) 
-        img.id = imgSpan.getAttribute('imgId')
-      if (imgSpan.getAttribute('hidden') == "true") 
-        img.setStyle({
-          "display": 'none'
-        });
-      if (classes) {
-        for (var i = 0; i < classes.length; i++) {
-          img.addClassName(classes[i])
-        }
-      }
-      var style = imgSpan.getAttribute('imgStyle')
-      if (style) 
-        img.setAttribute('style', style)
-    })
   }
-
 });
 
 Game.addLoadedImagesToDiv = function(divId){

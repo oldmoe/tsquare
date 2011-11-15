@@ -66,5 +66,5 @@ var HealerDisplay = Class.create(CrowdMemberDisplay,{
       shiftX : 55,
       shiftY: -10
     });
-  },
+  }
 })

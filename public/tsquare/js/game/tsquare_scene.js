@@ -53,6 +53,7 @@ var TsquareScene = Class.create(Scene,{
         
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
+        this.view.length = this.view.width;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
             this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)
@@ -96,11 +97,18 @@ var TsquareScene = Class.create(Scene,{
           $('initCounter').update("");
           $('initCounter').appendChild(Loader.images.countDown["go.png"]);
           Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
+
+          this.audioManager = new AudioManager(this.reactor);
+          // this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
+          // this.clashDirectionsGenerator.run()
+          // this.push(this.clashDirectionsGenerator)
+          this.movementManager = new MovementManager(this);
           this.audioManager.run()
           this.flashingHandler.run();
           this.handlers.crowd.playHetafLoop();
           var self = this;
           this.reactor.pushEvery(0,10, function(){return self.updateSpeed()})
+                    
         }, this)
         return false
       }
@@ -141,23 +149,32 @@ var TsquareScene = Class.create(Scene,{
     },
     
   end : function(win){
+    var self = this;
+    var afterMarchCallback = function(){
+      self.fire('animationEnd');
+      self.reactor.stop();
+      self.audioManager.stop();
+    }
     if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
      && this.view.xPos > this.view.length)) {
       if(!this.stopped)
       {
         this.stopped = true;
-        this.win = win
-        this.reactor.stop()
-        this.audioManager.stop()
-        this.fire('end', [{
-          score: this.scoreCalculator.score,
-          objectives: this.scoreCalculator.getObjectivesRatio(),
-          combos: this.scoreCalculator.getCombos(),
-          win: this.win
+        this.win = win;
+        this.finish(afterMarchCallback);
+        self.fire('end', [{
+          score: self.scoreCalculator.score,
+          objectives: self.scoreCalculator.getObjectivesRatio(),
+          combos: self.scoreCalculator.getCombos(),
+          win: self.win
         }]);
       }
     }
     //send to the server
+  },
+  finish : function(callback){
+    this.fire(this.speeds[this.lastSpeedIndex].state)
+    this.handlers.crowd.marchOut(callback);
   },
   addObject : function(objHash){
      var klassName = objHash.name.formClassName()
@@ -172,18 +189,15 @@ var TsquareScene = Class.create(Scene,{
   },
   
   tickObjects : function(objects){
-       try{
-            var remainingObjects = []
-            var self = this
-            objects.each(function(object){
-                if(!object.finished){
-                    object.tick()
-                    remainingObjects.push(object)
-                }
-            })
-            objects = remainingObjects
-        }catch(x){//console.log(x)
-        }
+        var remainingObjects = []
+        var self = this
+        objects.each(function(object){
+            if(!object.finished){
+                object.tick()
+                remainingObjects.push(object)
+            }
+        })
+        objects = remainingObjects
         return this
   },
   
@@ -209,6 +223,9 @@ var TsquareScene = Class.create(Scene,{
   },
     
   increaseEnergy : function(){
+    if(this.speedIndex != 0)
+      this.lastSpeedIndex = this.speedIndex;
+    if(this.stopped) return;
     this.audioManager.levelUp()
     this.fire("increaseFollowers",  [this.speeds[this.speedIndex].followers])
     this.targetEnergy = Math.min(this.targetEnergy + this.energy.rate, this.energy.max);
@@ -224,6 +241,10 @@ var TsquareScene = Class.create(Scene,{
    },
    
    decreaseEnergy : function(){
+    if(this.speedIndex != 0)
+      this.lastSpeedIndex = this.speedIndex;
+    if(this.stopped) return;
+     
      if (++this.comboMistakes.current == this.comboMistakes.max) {
         this.comboMistakes.current = 0
         this.audioManager.levelDown()

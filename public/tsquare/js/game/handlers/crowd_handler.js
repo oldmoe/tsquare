@@ -33,8 +33,12 @@ var CrowdHandler = Class.create(UnitHandler, {
   }, 
      
     tick : function($super){
-      if(this.pushing)this.pushMove()
-      else $super()
+      if (this.pushing) {
+        this.pushMove()
+        this.scene.direction = 0
+      }
+      else 
+        $super()
     },
     
     getUserCrowds : function(){
@@ -254,6 +258,23 @@ var CrowdHandler = Class.create(UnitHandler, {
      this.scene.end(false)
    },
        
+    marchOut : function(callback){
+      var self = this;
+      this.finishedCrowds = 0;
+      var noOfCrowds = 0;
+      for(var i=0;i<this.objects.length;i++){
+        noOfCrowds += this.objects[i].length;
+        for(var j=0;this.objects[i] && j<this.objects[i].length;j++){
+          if(this.objects[i][j]){
+            this.objects[i][j].endMove(function(){
+              self.finishedCrowds++;
+              if(self.finishedCrowds == noOfCrowds && callback) callback();
+            });
+          }
+        }
+      }
+    },
+
    detectCollisions : function($super,others){
      var res = $super(others); 
      if(res){

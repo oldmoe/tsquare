@@ -157,7 +157,7 @@ var TsquareScene = Class.create(Scene,{
       self.audioManager.stop();
     }
     if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
-     && this.view.xPos > this.view.length)) {
+     && this.view.xPos > this.view.length && this.handlers.clash_enemy.ended)) {
       if(!this.stopped)
       {
         this.stopped = true;
@@ -226,8 +226,6 @@ var TsquareScene = Class.create(Scene,{
   increaseEnergy : function(){
     if (!this.movementManager.currentMode == this.movementManager.modes.normal) {
       this.direction = 0
-      console.log('here')
-      return
     } 
     if(this.speedIndex != 0)
       this.lastSpeedIndex = this.speedIndex;
@@ -249,7 +247,6 @@ var TsquareScene = Class.create(Scene,{
   decreaseEnergy : function(){
     if(!this.movementManager.currentMode == this.movementManager.modes.normal){
       this.direction = 0
-      return
     }
     if(this.speedIndex != 0)
       this.lastSpeedIndex = this.speedIndex;

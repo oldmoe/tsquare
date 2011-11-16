@@ -28,7 +28,10 @@ var ClashDirectionsGenerator = Class.create({
     this.scene.observe('clashUnit',function(){
       self.run()
     })
-    this.scene.observe('clashUnitDeath', function(){
+    this.scene.observe('clashWin', function(){
+      self.stop()
+    })
+    this.scene.observe('clashLose', function(){
       self.stop()
     })
   },
@@ -68,9 +71,9 @@ var ClashDirectionsGenerator = Class.create({
   },
   checkEnd : function(){
     if(this.crowd.coords.x > this.scene.view.width - 180){
-      this.scene.fire('clashUnitDeath')
+      this.scene.fire('clashWin')
     }else if(this.enemy.coords.x < 100){
-      this.scene.fire('clashUnitDeath')
+      this.scene.fire('clashLose')
     }
   },
   updateSpeed : function(){
@@ -140,7 +143,6 @@ var ClashDirectionsGenerator = Class.create({
   stop : function(){
     this.hide()
     this.running = false
-    this.enemy.handler.removeObject(this.enemy, this.enemy.lane)
     this.firstCorrect = false
     this.crowd = null
     this.enemy = null

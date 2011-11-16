@@ -16,7 +16,8 @@ var CrowdHandler = Class.create(UnitHandler, {
        this.scene.observe("increaseFollowers", function(num){self.increaseFollowers(num)});
        this.scene.observe("decreaseFollowers", function(num){self.decreaseFollowers(num)});
        this.scene.observe("clashUnit", function(){self.crowdStepAhead()})
-       this.scene.observe("clashUnitDeath", function(){self.crowdStepBack()})
+       this.scene.observe("clashWin", function(){self.crowdStepBack()})
+       this.scene.observe("clashLose", function(){self.ArrestCrowd()})
        this.hetafVolume = 15;
    },
       
@@ -315,7 +316,11 @@ var CrowdHandler = Class.create(UnitHandler, {
      }
      var crowd = this.objects[this.scene.activeLane][0]
      crowd.fire('reverseWalk')
+     crowd.stopClash()
+     var self = this
      crowd.moveToTarget(crowd.originalPosition, function(){
+       self.scene.fire('clashEnd')
+       crowd.fire('normal')
        crowd.fixedPlace = true
      })
    },
@@ -323,5 +328,9 @@ var CrowdHandler = Class.create(UnitHandler, {
      crowd.moveToTarget({x:x,y:y}, function(){
        crowd.fire(state)
      })
+   },
+   ArrestCrowd : function(){
+      this.removeObject(this.objects[this.scene.activeLane][0],this.scene.activeLane)
+      this.scene.fire('clashEnd')
    }
 });

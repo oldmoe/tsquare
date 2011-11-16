@@ -8,10 +8,20 @@ var ClashEnemy = Class.create(Unit,{
      this.maxHp = 30;
      this.power = 10;
      var self = this
+     this.createObservers()
      this.moveToTarget({x:this.scene.view.width - 180,y:this.coords.y}, function(){
        self.scene.fire('clashUnit')
        self.scene.clashDirectionsGenerator.setEnemy(self)
      })
+  },
+  createObservers : function(){
+    var self = this
+    this.scene.observe('clashLose', function(){
+        self.handler.removeObject(self,self.lane)
+    })
+    this.scene.observe('clashWin', function(){
+        self.handler.removeObject(self,self.lane)
+    })
   },
   tick : function($super){
     $super()

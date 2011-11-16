@@ -114,7 +114,11 @@ var CrowdMember = Class.create(Unit,{
       return;
     }
     if(this.fixedPlace && (!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y!=this.originalPosition.y) > 1))){
-        this.moveToTarget(this.originalPosition)
+        this.fire('walk')
+        var self= this
+        this.moveToTarget(this.originalPosition, function(){
+          self.fire('normal')
+        })
     } 
      
     this.stateChanged = true
@@ -123,7 +127,9 @@ var CrowdMember = Class.create(Unit,{
     
     if(this.followers)this.checkFollowersState();
   },
-
+  moveToTarget : function($super,targetPoint, callback){
+    $super(targetPoint, callback)
+  },
   updateState: function(){
     this.water-=this.waterDecreaseRate
     if(this.water <= 0) this.dead = true;   
@@ -338,6 +344,9 @@ var CrowdMember = Class.create(Unit,{
     this.move(this.clash.pushSpeed,0)
     this.clash.target.move(this.clash.pushSpeed,0)
   },
-  clash : {firstMove: true,runningSpeed : 15, pushSpeed : 12, target : null}
+  stopClash : function(){
+    this.clashing = false
+  },
+  clash : {runningSpeed : 15, pushSpeed : 12, target : null}
 })
   

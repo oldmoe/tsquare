@@ -43,6 +43,7 @@ var ClashEnemyDisplay = Class.create(EnemyDisplay,{
     this.sprites.character.createAnimation({name:'run',img:this.runImg, noOfFrames:6})
     this.sprites.character.createAnimation({name:'front',img:this.frontImg, noOfFrames:4})
     this.sprites.character.createAnimation({name:'back',img:this.backImg, noOfFrames:4})
+    this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:8, flipped : true})
    },
    createShadow: function(){
     this.shadowImg = Loader.images.effects['amn_markazy_shadow.png'];

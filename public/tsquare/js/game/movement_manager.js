@@ -82,7 +82,7 @@ var MovementManager = Class.create({
     this.scene.observe('clashUnit',function(){
       self.currentMode = self.modes.clash
     })
-    this.scene.observe('clashUnitDeath',function(){
+    this.scene.observe('clashEnd',function(){
       self.currentMode = self.modes.normal
     })
   },

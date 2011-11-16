@@ -66,22 +66,26 @@ var CrowdMember = Class.create(Unit,{
   increaseFollowers : function(noOfFollowers){
     var remaining = this.level - (this.followers.length);
     if(remaining <= 0){
-      return;
+      return false;
     } 
     for(var i=0;i<noOfFollowers && i<remaining;i++){
       var x = this.handler.objects[this.lane][this.handler.objects[this.lane].length-1].originalPosition.x - parseInt(noOfFollowers* 150 * Math.random());
       var y = this.originalPosition.y + parseInt(70 * Math.random()) - 35;
       var follower = this.handler.addFollower("normal", x, y, this.lane, this);
+      follower.fire(this.scene.speeds[this.scene.speedIndex].state);
       this.scene.push(follower);
       this.followers.push(follower);
     }
+    return true;
   },
   
   decreaseFollowers: function(num){
+  	if(this.followers.length == 0) return false;
     for (var i=0; i < num && i < this.followers.length; i++) {
       if(!this.followers[i].back)
         this.followers[i].die();
-    };
+    }
+    return true;
   },
   
   fire : function($super,event){
@@ -161,7 +165,6 @@ var CrowdMember = Class.create(Unit,{
   
   retreat : function(){
       this.currentAction = "retreat";
-      
   },
   
   march : function(){

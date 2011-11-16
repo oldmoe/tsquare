@@ -20,11 +20,17 @@ var Background = Class.create({
 		$("container").appendChild(this.container)
 		this.container.addClassName('skyline')
 		if(style && style.opacity)this.container.style.opacity = style['opacity']
+		
 		var maxWidth = this.images[0].width
+		var minWidth = this.images[0].width;
 		for(var i=1; i<this.images.length; i++){
 			if( maxWidth < this.images[i].width)
 				maxWidth = this.images[i].width	
+      if( minWidth < this.images[i].width)
+        minWidth = this.images[i].width 
 		}
+		
+		// var count = this
 		
     if(options.offsetX != null)
       this.offsetX = options.offsetX
@@ -44,7 +50,7 @@ var Background = Class.create({
 	},
 	
 	tick : function(){
-    if(this.scene.currentSpeed <=0 || this.speed() == 0)return;
+    if(this.scene.currentSpeed <=1 || this.speed() == 0)return;
     if(this.scene.direction==1){
   		this.offsetX -= this.speed()
   		var firstImg = this.container.children[0]

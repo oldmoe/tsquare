@@ -1,49 +1,67 @@
 var FlashingHandler = Class.create({
   
   counter : 0,
+  delay: 0,
+  lastDelay: 0,
+  
   
   initialize : function(scene){
     this.scene = scene
+    
+    // this.delay = 3600/8;
+    // this.lastDelay = 3600/8+72;
+  
+    // this.grayList = ['#000000', '#222222', '#444444', '#666666', '#888888', '#aaaaaa', '#cccccc', '#eeeeee', '#ffffff'];
+    
+    this.grayList = ['#000000', '#222222', '#888888', '#cccccc', '#ffffff'];
+      
+    this.delay = this.scene.reactor.timeToTicks(3600/8);
+    this.lastDelay = this.scene.reactor.timeToTicks(3600/8+72);
+    
+    this.fadeIndex = 0;
+    
     this.div = $('beatFlash')
-    this.createObservers()
-    this.repeatFlash()
-//    this.flash()
+  },
+  
+  run: function(){
+    this.flash();
   },
   
   flash : function(){
-    if(this.counter < 4){
-      this.scene.movementManager.process(0)
-    }
+
+    this.fadeIn();
+    this.fadeOut();
+
+    var self = this
+    
     if (this.counter == 8) {
       this.counter = 0
-      return
+      
+      this.scene.reactor.push(this.lastDelay, this.flash, this)
+      // setTimeout(function(){self.flash()}, this.lastDelay);
+    }else{
+      this.counter++
+      this.scene.reactor.push(this.delay, this.flash, this)
+      // setTimeout(function(){self.flash()}, this.lastDelay);
     }
-    this.counter++
-    var ticks = this.scene.audioManager.nextBeatTicks()
-    this.div.show()
-    var fadeDuration = (ticks - 4)*this.scene.reactor.delay / 1000
-    var self = this
-    this.scene.reactor.push(0,function(){
-      new Effect.Fade(self.div, {
-        duration: fadeDuration 
-      })
-    }) 
-//    this.scene.reactor.push(ticks,this.flash,this)
   },
   
-  repeatFlash : function(){
-    this.flash()    
-    var ticks = this.scene.audioManager.nextLoopTicks()
-    this.scene.reactor.push(ticks,this.repeatFlash,this)
+  fadeIn: function(){
+    this.div.style.borderColor =  "#000";
   },
   
-  createObservers : function(){
-  },
-  
-  addObserver : function(direction){
-      var self = this
-      this.scene.observe(direction,function(){
-        self[direction]()
-      })
+  fadeOut: function(){
+
+    if(this.fadeIndex == 5){
+      this.fadeIndex = 0;
+      return;
+    }
+    
+    this.div.style.borderColor = this.grayList[this.fadeIndex];
+    this.fadeIndex++;
+    
+    var self = this;
+    this.scene.reactor.push(0, this.fadeOut, this);
   }
+  
 })

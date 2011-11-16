@@ -78,6 +78,10 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
 //        }
 //      }
       $super()
+  },
+  
+  destroy: function($super){
+    $super();
   }
   
 })

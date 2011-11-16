@@ -1,11 +1,11 @@
 var NormalDisplay = Class.create(CrowdMemberDisplay,{
-  extraScale : 0.75,
+  extraScale : 0.85,
   initialize: function($super, owner){
     $super(owner);
   },
   
   initImages : function(){
-    var names = ['normal','salafy','girl7egab','journalist','girl','hala_man']
+    var names = ['follower1','follower2','follower3']
     var name = names.random()
     this.characterImg = Loader.images.characters[name+'_idle.png']
     this.walkImg = Loader.images.characters[name+'_walk.png']

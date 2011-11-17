@@ -60,6 +60,7 @@ var Unit = Class.create(Observer,{
       else {
         this.movingToTarget = false
         if(this.moveToTargetCallback)this.moveToTargetCallback()
+        this.moveToTargetCallback = null
       }
     }  
   },

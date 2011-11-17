@@ -38,14 +38,15 @@ var TsquareScene = Class.create(Scene,{
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
             "enemy" : new EnemyHandler(this),  
-            "npc" : new NPCHandler(this)
+            "npc" : new NPCHandler(this),
+            "clash_enemy" : new ClashEnemyHandler(this)
         };  
         this.view.xPos = 0
         this.initCounter = 3
         this.energy =  {current:0, rate: 10, max:100}
         this.comboMistakes = {current : 0, max : 2}
         
-        // Effect.Queues.create('global', this.reactor)
+        Effect.Queues.create('global', this.reactor)
         
         this.audioManager = new AudioManager(this.reactor);
         this.flashingHandler = new FlashingHandler(this);
@@ -59,7 +60,8 @@ var TsquareScene = Class.create(Scene,{
             this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)
           }
         }
-        var mapping = {'crowd':'npc', 'protection':'protection_unit', 'enemy':'enemy', 'rescue':'rescue'}
+        var mapping = {'crowd':'npc', 'protection':'protection_unit',
+         'enemy':'enemy', 'rescue':'rescue', 'clash_enemy':'clash_enemy'}
 
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
@@ -99,9 +101,8 @@ var TsquareScene = Class.create(Scene,{
           Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
 
           this.audioManager = new AudioManager(this.reactor);
-          // this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
-          // this.clashDirectionsGenerator.run()
-          // this.push(this.clashDirectionsGenerator)
+          this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
+          this.push(this.clashDirectionsGenerator)
           this.movementManager = new MovementManager(this);
           this.audioManager.run()
           this.flashingHandler.run();
@@ -156,7 +157,7 @@ var TsquareScene = Class.create(Scene,{
       self.audioManager.stop();
     }
     if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
-     && this.view.xPos > this.view.length)) {
+     && this.view.xPos > this.view.length && this.handlers.clash_enemy.ended)) {
       if(!this.stopped)
       {
         this.stopped = true;
@@ -223,6 +224,9 @@ var TsquareScene = Class.create(Scene,{
   },
     
   increaseEnergy : function(){
+    if (!this.movementManager.currentMode == this.movementManager.modes.normal) {
+      this.direction = 0
+    } 
     if(this.speedIndex != 0)
       this.lastSpeedIndex = this.speedIndex;
     if(this.stopped) return;
@@ -240,7 +244,10 @@ var TsquareScene = Class.create(Scene,{
     }        
    },
    
-   decreaseEnergy : function(){
+  decreaseEnergy : function(){
+    if(!this.movementManager.currentMode == this.movementManager.modes.normal){
+      this.direction = 0
+    }
     if(this.speedIndex != 0)
       this.lastSpeedIndex = this.speedIndex;
     if(this.stopped) return;

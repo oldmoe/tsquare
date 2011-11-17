@@ -44,7 +44,6 @@ var FlashingHandler = Class.create({
       this.scene.reactor.push(this.delay, this.flash, this)
       // setTimeout(function(){self.flash()}, this.lastDelay);
     }
-    
   },
   
   fadeIn: function(){

@@ -9,6 +9,8 @@ var EditorData = [
   {src:'images/objects/amn_markazy_car.png', name:'amn_markazy_car', category:'enemy'}, 
   {src:'images/objects/box_car.png', name:'box_car', category:'enemy'},
   
+  {src:'images/objects/am1.png', name:'clash_enemy', category:'clash_enemy'},
+  
   //in game powerups
   {src:'images/powerups/health_powerup.jpg', name:'health_boost', category:'powerup', type:"1"},
   {src:'images/powerups/health_powerup.jpg', name:'health_boost', category:'powerup', type:"2"},

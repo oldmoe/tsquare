@@ -7,7 +7,7 @@
   user-select: none;
 }
 body{
-  overflow:hidden;
+  overflow:auto;
 	padding : 0px;
 	margin : 0px;
 }

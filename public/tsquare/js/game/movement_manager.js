@@ -14,7 +14,7 @@ var MovementManager = Class.create({
   comboStart: false,
   currentCombos: 0,
   counter:0,
-  tolerance :200,
+  tolerance :250,
   beatTime : 0,  
   beatsPerAudio : 8,
   modes : {"normal" : 0, "clash": 1},
@@ -64,7 +64,7 @@ var MovementManager = Class.create({
           click = 3
       }else if (e.keyCode == 40){
           click = 4
-      }else{
+      }else{// wrong key
         self.scene.fire("keypressed", [click, self.move.length])
         self.reset();
         return
@@ -88,7 +88,7 @@ var MovementManager = Class.create({
       if(!this.sound)return
       var beatTime  = this.sound.duration/this.beatsPerAudio
       var index = Math.round(this.sound.position / beatTime);
-      if(index >= 4 && index <=7){
+      if(index >= 4 && index <=7){//pressed on the low beats, or wrong timing
           this.scene.fire("keypressed", [0, 1, 2])
           this.reset();
           return;
@@ -119,10 +119,10 @@ var MovementManager = Class.create({
               this.move.push(click)
               this.scene.fire("keypressed", [click, this.move.length])
               this.counter++
-              this.checkDelay(this.counter,beatTime + this.tolerance+ timeDiff)
+              this.checkDelay(this.counter, beatTime + this.tolerance+ timeDiff)
               this.time = now + timeDiff
             }else{
-              this.scene.fire("keypressed", [click, self.move.length,1])
+              this.scene.fire("keypressed", [click, self.move.length, 1])
             }
       }else{
         if(now > this.time + beatTime - this.tolerance){

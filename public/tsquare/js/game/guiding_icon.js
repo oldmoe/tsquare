@@ -5,6 +5,9 @@ var GuidingIcon = Class.create(Observer,{
   commands: ["normal", "retreat", "circle", "hold"],
   moveIndex : 0,
   currentCommandIndex: -1,
+  correctCommands: 0,
+  wrongCommands : 0,
+  arrowsHidden: false,
   
   moves : [
     {code:[0,0,0,0],index:0},
@@ -17,6 +20,7 @@ var GuidingIcon = Class.create(Observer,{
     
     this.scene = game.scene;
     this.moveIndex = 1;
+    this.correctCommands = 0;
     var images = ["circle_move.png", "move_indicator.png", "right_arrow.png", "left_arrow.png", "move_background.png", "moves_arrows.png"];
     var self = this;
     new Loader().load([{images: images, path: 'images/game_elements/', store: 'game_elements'}],
@@ -24,6 +28,8 @@ var GuidingIcon = Class.create(Observer,{
              self.display();
           }
         })
+        
+    this.scene.observe('correctCommand',function(){self.increaseCorrectCommandsCount()})    
   },
   
   display: function(){
@@ -31,19 +37,6 @@ var GuidingIcon = Class.create(Observer,{
     
     Game.addLoadedImagesToDiv('guidingBar');
     
-    $$("#guidingBarSlide")[0].observe("click", function(){
-      if(this.hasClassName('trigger')){
-        this.removeClassName('trigger');
-        this.toggleClassName("triggered");
-        $$('.movesIndicator')[0].style.left = "140px";
-        // new Effect.Move($$('.movesIndicator')[0], {x:140,duration:2})
-      }else if(this.hasClassName('triggered')){
-        this.removeClassName('triggered');
-        this.toggleClassName("trigger");
-        $$('.movesIndicator')[0].style.left = "0px";
-        // new Effect.Move($$('.movesIndicator')[0], {x:0,duration:2})
-      }
-    });
     this.scene.pushToRenderLoop('meters', this);
     this.scene.observe("keypressed", function(key, moveIndex, reset){self.keypressed(key, moveIndex, reset)});
     this.scene.observe("pressLate", function(){self.pressLate()});
@@ -61,13 +54,14 @@ var GuidingIcon = Class.create(Observer,{
   
   keypressed: function(key, moveIndex, flag){
     if(flag == 1){ //early
+      this.increaseWrongCommandsCount();
       this.pressEarly();
-      console.log("press early")
       this.moveIndex = 1;
       return ;
     }
 
     if(flag == 2){ //pressed while the waiting beats
+      this.increaseWrongCommandsCount();
       this.wrongKey(1);
       this.moveIndex = 1;
       return ;
@@ -78,12 +72,14 @@ var GuidingIcon = Class.create(Observer,{
     else 
       this.moveIndex = 1;
     
-    if(key == -1){
+    if(key == -1){//not arrow key
+      this.increaseWrongCommandsCount();
       this.wrongKey(moveIndex+1);
     }else {
-      if(key == this.moves[this.currentCommandIndex].code[this.moveIndex-1])
+      if(key == this.moves[this.currentCommandIndex].code[this.moveIndex-1]){
         this.correctPress(this.moveIndex);
-      else{
+      }else{//arrow key but not the right key
+        this.increaseWrongCommandsCount();
         this.wrongKey(this.moveIndex);
       }
     }
@@ -168,6 +164,31 @@ var GuidingIcon = Class.create(Observer,{
       this.currentCommandIndex = command;
       this.displayCommand(this.currentCommandIndex)
     }
+    
+    if(this.correctCommands > 2 && !this.arrowsHidden){
+      $$('.movesIndicator')[0].hide();
+      this.arrowsHidden = true;
+      console.log("hide")
+    }
+    
+    if(this.wrongCommands > 1 && this.arrowsHidden){
+      $$('.movesIndicator')[0].show();
+      this.arrowsHidden = false;
+      console.log("show")
+    }
+
+  },
+
+  increaseWrongCommandsCount: function(){
+    this.wrongCommands+=1;
+    this.correctCommands = 0;
+    console.log("w: " + this.wrongCommands);
+  },
+
+  increaseCorrectCommandsCount: function(){
+    this.correctCommands+=1;
+    this.wrongCommands = 0;
+    console.log("c: " + this.correctCommands);
   },
   
   targetCircleComplete: function(){
@@ -177,11 +198,11 @@ var GuidingIcon = Class.create(Observer,{
   displayCommand: function(index){
     
     if(index == 0) //march
-      $$('.moveContainer img')[0].src = "images/game_elements/walk_move.png";
+      $$('.nextMove img')[0].src = "images/game_elements/walk_move.png";
     else if(index == 1) //retreat  
-      $$('.moveContainer img')[0].src = "images/game_elements/retreat_move.png";
+      $$('.nextMove img')[0].src = "images/game_elements/retreat_move.png";
     else if(index == 2) //cricle
-      $$('.moveContainer img')[0].src = "images/game_elements/circle_move.png";
+      $$('.nextMove img')[0].src = "images/game_elements/circle_move.png";
 
     //empty current command
     for(var i=0; i<4; i++){

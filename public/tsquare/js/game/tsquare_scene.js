@@ -46,7 +46,7 @@ var TsquareScene = Class.create(Scene,{
         this.energy =  {current:0, rate: 10, max:100}
         this.comboMistakes = {current : 0, max : 2}
         
-        // Effect.Queues.create('global', this.reactor)
+        Effect.Queues.create('global', this.reactor)
         
         this.audioManager = new AudioManager(this.reactor);
         this.flashingHandler = new FlashingHandler(this);

@@ -26,16 +26,6 @@ var missionData = {
       "x": 2,
       "order": 1
   },*/
-  {
-      "name": "wood_stick_cs",
-      "category": 'enemy',
-      "type": '2_3',
-      "index": 0,
-      "lane": 1,
-      "x": 1,
-      "order": 1
-  }
-  
 /*  ,{
       "name": "journalist_rescue",
       "category": 'rescue',

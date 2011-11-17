@@ -193,7 +193,9 @@ var GameInitializer = function(){
       socialEngine.init(function(params){
         try {
           gameManager = new GameManager(params);
-        } catch(e){}
+        } catch(e){
+          console.log(e);
+        }
       });
     })
   }

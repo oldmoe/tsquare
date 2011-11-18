@@ -6,7 +6,19 @@ var TwitterGuyDisplay = Class.create(Display,{
     this.imgWidth = this.img.width
     $super(owner)
   },
+
+  createShadow: function(){
+    this.shadowImg = Loader.images.effects['twitter_shadow.png'];
+    this.sprites.shadow = new DomImgSprite(this.owner, {img : this.shadowImg,noOfFrames : 1}, {
+      width: this.shadowImg.width,
+      height: this.shadowImg.height,
+      shiftX : -(this.shadowImg.width-this.img.width)-10,
+      shiftY : -10
+    })    
+  },
+  
   createSprites : function(){
+    this.createShadow();
     this.sprites.twitterguy = new DomImgSprite(this.owner,{img:this.img, noOfFrames:this.noOfFrames}, {shiftY:10})
   },
   render : function($super){

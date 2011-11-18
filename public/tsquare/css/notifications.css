@@ -24,3 +24,8 @@
 
 .notificationActions { float:left; width:16%; position:relative; z-index:9; margin:20px 0 0 20px; }
 .notificationActions a { float:right; margin:0 0 5px 0; }
+
+
+.promotions .close { top:-18px; left:690px; }
+
+.promotionsWrapper { float:left; width:100%; height:379px; overflow:hidden; position:relative; top:-28px; z-index:2; left:10px; }

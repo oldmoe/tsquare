@@ -11,6 +11,15 @@ var Display = Class.create({
     this.removed = false
     Object.extend(this.owner,this)
     this.createSprites()
+    this.initAudio();
+	},
+	
+	initAudio: function(){
+	  
+	},
+	
+	destroyAudio: function(){
+	  
 	},
 	
   //To be overwridden
@@ -25,6 +34,7 @@ var Display = Class.create({
   },
   
 	destroy : function(){
+	  this.destroyAudio();
     this.removed = true
 		for(var sprite in this.sprites){
 			this.sprites[sprite].destroy();

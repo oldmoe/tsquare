@@ -38,9 +38,10 @@ var Game = Class.create({
     })
     
     var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png',
-    'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png']
+    'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png',
+    'square.png','line.png']
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
-    'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man']
+    'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man', 'follower1','follower2','follower3']
     var characterImages = ['follower.png']
     var imageNames = ['walk','run','front','back','idle','hold','blur']
     for(var i=0;i<characterNames.length;i++){
@@ -50,11 +51,13 @@ var Game = Class.create({
     }
     var effectsImages = ['hydrate.png', 'hit1.png','good_blue.png','bad_red.png']
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
-    'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png']
+    'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png',
+    'amn_kalabsh_back.png','amn_kalabsh_blur.png','amn_kalabsh_front.png','amn_kalabsh_run.png',
+    'amn_kalabsh_walk.png']
     
     var countDownImages = ["1.png", "2.png", "3.png", "go.png"];
     
-    var shadowImages = ["crowd_shadow.png", "box_car_shadow.png", "amn_markazy_shadow.png", "ambulance_shadow.png"];
+    var shadowImages = ["crowd_shadow.png", "box_car_shadow.png", "amn_markazy_shadow.png", "ambulance_shadow.png", "twitter_shadow.png"];
        
   	var self = this
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
@@ -65,19 +68,25 @@ var Game = Class.create({
             {images: enemiesImages, path: 'images/enemies/', store: 'enemies'}
   				]
     
-    	var format = 'mp3'
-    	for(var i=0; i < 1; i++){ //number of tempos
+    	var format = ['mp3'];
+    	for(var i=0; i < format.length; i++){ //number of tempos
     		var beats = []
-    		for(var j=0; j < 4; j++){
-    			beats.push(j+'.'+format)
+    		for(var j=0; j < 5; j++){
+    			beats.push(j+'.'+format[i])
     		}
     		var hetaf = []
     		for(var j=0; j < 11; j++){
-    			hetaf.push((j+1)+'.'+format)
+    			hetaf.push((j+1)+'.'+format[i])
     		} 
     		var tempo = 130+(i*10)
-    		toLoad.push({sounds: beats, path: 'sounds/'+format+'/'+tempo+'/beats/', store: 'beats.'+tempo})
-       	toLoad.push({sounds: hetaf, path: 'sounds/'+format+'/'+tempo+'/hetaf/', store: 'hetaf.'+tempo})
+    		toLoad.push({sounds: beats, path: 'sounds/'+format[i]+'/'+tempo+'/beats/', store: 'beats.'+tempo})
+       	toLoad.push({sounds: hetaf, path: 'sounds/'+format[i]+'/'+tempo+'/hetaf/', store: 'hetaf.'+tempo})
+       	
+       	var sfx = ["ambient", "Ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", "Gun-shot", "Hit-police-car", "Morning-air-birds", "Night-sound", "Police", "Police-march", "Punch", "Tank-move", "Tear-gas"];
+        for(var j=0; j < sfx.length; j++){
+          sfx[j] = sfx[j]+'.'+format[i];
+        } 
+       	toLoad.push({sounds: sfx, path: 'sounds/'+format[i]+"/sfx/", store: 'sfx'});
     		
     	}					
     						
@@ -144,7 +153,7 @@ var Game = Class.create({
       $('gameInProgress').hide();
       this.reset();
       this.scene = new TsquareScene();
-      this.gameManager.missionManager.registerSceneListeners(this.scene);
+      if(this.gameManager)this.gameManager.missionManager.registerSceneListeners(this.scene);
 	  	this.scene.start();
       $('gameContainer').show();
 	  	this.scene.fire("start");

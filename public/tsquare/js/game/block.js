@@ -6,10 +6,10 @@ var Block = Class.create(Enemy,{
     elementHeight : 15,
     noDisplay : true,
     
-    initialize : function($super,scene,x,y,options){
+    initialize : function($super,scene,x,lane,options){
       this.type = "block";
       this.elements = []
-      $super(scene,x,y,options)
+      $super(scene,x,lane,options)
       if (options && options.obj) {
           this.objectType = options.obj
           this.addElementsToBlock(options)
@@ -17,54 +17,39 @@ var Block = Class.create(Enemy,{
       this.options = options
     },
     
-    
     addElementsToBlock : function(options){
       var counter = 0
-      var blockObjectKlass = eval(options.obj.formClassName())
       for(var i=0;i<options.rows;i++){
         this.elements[i] = []
-        options.type = "1_1"
         for (var j = 0; j < options.columns; j++) {
-            this.elements[i][j] = new blockObjectKlass(this.scene,0,this.lane,options)
             var randomY = Math.round(Math.random()*8) - 4
             var randomX = Math.round(Math.random()*8) - 4
-            this.elements[i][j].coords.x = this.coords.x + this.elementWidth * i - 10*j
-            this.elements[i][j].coords.y = this.coords.y + this.elementHeight * (j-1)
+            var x = this.coords.x + this.elementWidth * i - 10*j + this.scene.view.xPos;
+            options.y = this.coords.y + this.elementHeight * (j-1);
+            this.elements[i][j] = this.scene.addObject({name: options.obj, x: x, lane:this.lane, options:options});
         }
       }
     },
-    updatePosition : function($super){
+    
+   updatePosition : function($super){
       $super()
    },
    
-    getWidth : function(){
-      if(!this.elements[0] || !this.elements[0][0])return 0
-      return this.elementWidth * this.elements.length + (this.elements[0][0].imgWidth - this.elementWidth)  
-    },
-    
-    getHeight : function(){
-      if(!this.elements[0]  || !this.elements[0][0])return 0
-      return this.elementHeight * this.elements.length + (this.elements[0][0].imgHeight - this.elementHeight)
-    },
-    
     takeHit : function(power){
       var maxHp = 0
       for (var i = 0; i < this.elements.length; i++) {
         for (var j = 0; j < this.elements[i].length; j++) {
           this.elements[i][j].takeHit(power)
           maxHp = Math.max(this.elements[i][j].hp,maxHp ) 
-          if (this.elements[i][j].hp <= 0) {
-            this.scene.collision = false;
-            this.scene.fire("targetCircleComplete");
-            this.elements[i][j].destroy()
-            this.elements[i].remove(this.elements[i][j])
-            j--
+          if (maxHp <= 0) {
+            break;
           }
         }
       }
-      if(maxHp<= 0 && this.handler.objects[this.lane].indexOf(this)!=-1 ){
-        this.dead = true
-        this.handler.objects[this.lane].remove(this)
+      if(maxHp<= 0){
+        this.scene.collision = false;
+        this.scene.fire("targetCircleComplete");
+        this.destroy();
       }
     },
     
@@ -79,9 +64,15 @@ var Block = Class.create(Enemy,{
           this.setTarget(null)
           var options = this.options
           options.type = "3_1";
+          options.obj = null
           var blocks = [] 
           for(var i=0;i<this.elements.length;i++){
-            var b = new Block(this.scene,this.elements[i][0].coords.x ,1, options)
+            var b = new Block(this.scene,this.elements[i][0].coords.x ,this.scene.activeLane, options)
+		        var displayKlass = eval("BlockDisplay")
+		        var objDisplay = new displayKlass(b)
+    		     if (!b.noDisplay) {
+    		       this.pushToRenderLoop('characters', objDisplay)
+    		     }
             b.coords.y = this.coords.y
             b.moveToTarget({x:this.coords.x + (100+150*i),y:this.coords.y})
             b.elements = [this.elements[i]]              
@@ -91,7 +82,7 @@ var Block = Class.create(Enemy,{
             this.handler.objects[this.lane].pushFirst(blocks[i])
           }
         }
-        this.handler.objects[this.lane].remove(this)
+        this.destroy(true);
     },
     
     setElements : function(elements){
@@ -139,6 +130,7 @@ var Block = Class.create(Enemy,{
             }
         }
     },
+    
     setCoords : function(coords){
       this.coords = coords
       for (var i = 0; i < this.elements.length; i++) {
@@ -146,12 +138,6 @@ var Block = Class.create(Enemy,{
           this.elements[i][j].coords = Nezal.clone_obj(coords) 
         }
       }
-    },
-  destroy : function(){
-    for (var i = 0; i < this.elements.length; i++) {
-      for (var j = 0; j < this.elements[i].length; j++) {
-        this.elements[i][j].destroy()
-      }
-    }     
-  }    
+    }
+    
 })

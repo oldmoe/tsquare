@@ -4,7 +4,7 @@ var Normal = Class.create(CrowdMember,{
   
   init: function(options){
     this.speed = 10 * Math.random();
-    this.coords.x = 0;
+    this.coords.x = -50;
     this.coords.y = options.y;
     this.originalPosition = {x:options.x,y:options.y}
     this.crowd =  options.crowd;

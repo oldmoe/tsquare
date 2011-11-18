@@ -102,3 +102,6 @@
 .itemSlot small.empty  .positioned { top:0; }
 
 .itemSlot small .positioned { top:-16px; }
+
+.pauseScreen { float:left; width:100%; text-align:center; position:absolute; z-index:100; opacity:.3; top:150px; }
+.resumeScreen { float:left; width:100%; text-align:center; position:absolute; z-index:100; opacity:.3; top:150px; }

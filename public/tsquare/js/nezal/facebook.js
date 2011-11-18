@@ -1,7 +1,7 @@
 var FBConnect = {
 
     appIds : { 'thawragy' : "280248505323133",
-               'local-thawragy' : "245272925509018" },
+               'local-crowds' : "227777603955853" },
     
     location : null,
     

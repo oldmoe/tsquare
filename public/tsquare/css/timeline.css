@@ -3,11 +3,11 @@
 
 /*--------Home Screen-----------*/
 
-.homeWrapper { position:relative;  top:150px;  }
-.homeWrapper ul { width:93%; margin:0px auto; padding:0px; position:relative;}
+.homeWrapper { position:relative;  top:60px;  text-align: center}
+.homeWrapper ul { width:93%; margin:0px auto; padding:0px}
 .homeWrapper ul li { float:left; width:218px; padding:0px; height:144px; }
 .homeWrapper ul li + li { margin:0 0 0 10px; }
-.homeWrapper ul li a { float:left; width:218px; height:144px; overflow:hidden; position:relative; }
+.homeWrapper ul li a { float:left; width:218px; height:144px; overflow:hidden; position:absolute;left: 255px; top: -15px; width: 220px }
 .homeWrapper ul li a:hover { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; -webkit-box-shadow: 0px 0px 24px #F00; -moz-box-shadow: 0px 0px 24px #F00; box-shadow: 0px 0px 20px #F00; }
 .homeWrapper ul li a:hover img { position:relative; top:-144px;  }
 .homeWrapper ul li a.active:hover { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; -webkit-box-shadow: 0px 0px 24px #f85d00; -moz-box-shadow: 0px 0px 24px #f85d00; box-shadow: 0px 0px 20px #f85d00; }

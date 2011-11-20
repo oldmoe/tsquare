@@ -15,9 +15,13 @@ var CrowdHandler = Class.create(UnitHandler, {
        var self = this;
        this.scene.observe("increaseFollowers", function(num){self.increaseFollowers(num)});
        this.scene.observe("decreaseFollowers", function(num){self.decreaseFollowers(num)});
+       this.scene.observe("clashUnit", function(){self.crowdStepAhead()})
+       this.scene.observe("clashWin", function(){self.crowdStepBack()})
+       this.scene.observe("clashLose", function(){self.ArrestCrowd()})
+       this.hetafVolume = 15;
    },
-  
-    addMarchingStates: function(){
+      
+   addMarchingStates: function(){
        var self = this
        this.marchingStates.each(function(event){
           self.scene.observe(event,function(){
@@ -28,8 +32,7 @@ var CrowdHandler = Class.create(UnitHandler, {
            }          
           }); 
        });
-    }, 
-     
+    },      
     tick : function($super){
       if (this.pushing) {
         this.pushMove()
@@ -184,20 +187,32 @@ var CrowdHandler = Class.create(UnitHandler, {
      this.scene.currentCommand = 2;
    },
 
+	playHetafLoop : function(){
+	 this.playHetaf()
+	 this.scene.reactor.push(Math.random() * 100 + 50, this.playHetafLoop, this)
+	},
+	
+  playHetaf : function(){
+    var id = Math.round(Math.random()*15) + 1
+    if(id <= 11)Loader.sounds['hetaf.130'][id+'.mp3'].play({volume : 0})
+  },
+   
    increaseFollowers: function(num){
-     for (var i = 0; i < this.objects.length; i++) {
-       for (var j = 0; j < this.objects[i].length; j++) {
-         if(this.objects[i][j]) this.objects[i][j].increaseFollowers(num);
-       }
-     }
+   	var increased = false;
+   	for(var i=0;i<this.objects[this.scene.activeLane].length;i++){
+   		if(this.objects[this.scene.activeLane][i]) 
+   			if(this.objects[this.scene.activeLane][i].increaseFollowers(num)) {increased = true; break;}
+   	} 
+	   if(increased && this.hetafVolume < 30) this.hetafVolume += 5;    
    },
 
    decreaseFollowers: function(num){
-     for (var i = 0; i < this.objects.length; i++) {
-       for (var j = 0; j < this.objects[i].length; j++) {
-         if(this.objects[i][j]) this.objects[i][j].decreaseFollowers(num);
-       }
-     }
+   	var decreased = false;
+   	for(var i=0;i<this.objects[this.scene.activeLane].length;i++){
+   		if(this.objects[this.scene.activeLane][i]) 
+   			if(this.objects[this.scene.activeLane][i].decreaseFollowers(num)) {decreased = true; break;}
+   	} 
+   	if(decreased && this.hetafVolume > 10) this.hetafVolume -= 5;
    },
    
    pushMove : function(){
@@ -277,6 +292,45 @@ var CrowdHandler = Class.create(UnitHandler, {
        }
      }
      return count;
+   },
+   crowdStepAhead : function(){
+     var self = this
+     var crowd = this.objects[this.scene.activeLane][0] 
+     var y = this.scene.view.laneMiddle*2*crowd.lane+this.scene.view.laneMiddle;
+     var x = 150
+     crowd.fire('walk')
+     crowd.fixedPlace = false
+     crowd.moveToTarget({x:x - 32,y: y + 18}, function(){
+       self.scene.clashDirectionsGenerator.setCrowd(self.objects[self.scene.activeLane][0])
+     })
+     for(var i = 1;i<this.objects[this.scene.activeLane].length;i++){
+       var crowd = this.objects[this.scene.activeLane][i]
+       crowd.fixedPlace = false
+       crowd.fire('reverseWalk')
+       this.setCrowdAfterMove(crowd,0,crowd.coords.y,'normal')
+     }
+   },
+   crowdStepBack : function(){
+     for (var i = 1; i < this.objects[this.scene.activeLane].length; i++) {
+       this.objects[this.scene.activeLane][i].fixedPlace = true
+     }
+     var crowd = this.objects[this.scene.activeLane][0]
+     crowd.fire('reverseWalk')
+     crowd.stopClash()
+     var self = this
+     crowd.moveToTarget(crowd.originalPosition, function(){
+       self.scene.fire('clashEnd')
+       crowd.fire('normal')
+       crowd.fixedPlace = true
+     })
+   },
+   setCrowdAfterMove : function(crowd,x,y,state){
+     crowd.moveToTarget({x:x,y:y}, function(){
+       crowd.fire(state)
+     })
+   },
+   ArrestCrowd : function(){
+      this.removeObject(this.objects[this.scene.activeLane][0],this.scene.activeLane)
+      this.scene.fire('clashEnd')
    }
-     
 });

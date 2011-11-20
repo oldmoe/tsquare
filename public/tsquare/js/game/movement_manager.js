@@ -16,9 +16,10 @@ var MovementManager = Class.create({
   counter:0,
   tolerance :250,
   beatTime : 0,  
-  beatsPerAudio : 1,
+  beatsPerAudio : 8,
   modes : {"normal" : 0, "clash": 1},
   currentMode : 0,
+  
   initialize : function(scene){
     this.scene = scene
     this.registerListeners()
@@ -54,15 +55,15 @@ var MovementManager = Class.create({
       }
       var click = -1
       if (e.keyCode == 39) {
-        click = 0
+        click = self.RIGHT
       }else if (e.keyCode == 37) {
-          click = 1
+          click = self.LEFT
       }else if (e.keyCode == 32) {
-          click = 2
-      }else if(e.keyCode == 38){
-          click = 3
-      }else if (e.keyCode == 40){
           click = 4
+      }else if(e.keyCode == 38){
+          click = self.UP
+      }else if (e.keyCode == 40){
+          click = self.DOWN
       }else{
         self.scene.fire("keypressed", [click, self.move.length])
         self.reset();
@@ -78,6 +79,12 @@ var MovementManager = Class.create({
     this.scene.observe('end', function(params){
       document.stopObserving('keydown')
     });
+    this.scene.observe('clashUnit',function(){
+      self.currentMode = self.modes.clash
+    })
+    this.scene.observe('clashEnd',function(){
+      self.currentMode = self.modes.normal
+    })
   },
   process : function(click){
       var self = this
@@ -85,15 +92,21 @@ var MovementManager = Class.create({
         self.comboStart = true
       }
       if(!this.sound)return
-      var position = this.sound.position
       var beatTime  = this.sound.duration/this.beatsPerAudio
+      var index = Math.round(this.sound.position / beatTime);
+      if(index >= 4 && index <=7){
+          this.scene.fire("keypressed", [0, 1, 2])
+          this.reset();
+          return;
+      }
+      var position = this.sound.position % beatTime
       this.beatTime = beatTime
       var found = false
       var now = new Date().getTime()
       var timeDiff = 0
       if(this.move.length == 0){
-          if(position > this.sound.duration - this.tolerance){
-              timeDiff = this.sound.duration - position
+          if(position > beatTime - this.tolerance){
+              timeDiff = beatTime - position
               found = true;
           }else if(position < this.tolerance){
               timeDiff = -position
@@ -152,9 +165,9 @@ var MovementManager = Class.create({
    },
   doCheckDelay : function(counter){
       if (this.counter == counter) {
-        if(this.move.length>0)this.scene.fire("pressLate")
+        if(this.move.length>0)
+          this.scene.fire("pressLate")
         this.reset()
-        var self = this
       }
   },  
   getNextMoveIndex : function(){
@@ -206,7 +219,6 @@ var MovementManager = Class.create({
   },
   
   startMove : function(commandIndex){
-    this.scene.audioManager.playHetaf()
     var collision = this.scene.detectCollisions()
     this.scene.fire("beatMoving");
     if(commandIndex == this.moves.march.index){

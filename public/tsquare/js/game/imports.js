@@ -42,6 +42,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/follower.js",
                  "js/game/crowd_member.js",
                  "js/game/amn_markazy.js",
+                 "js/game/clash_enemy.js",
                  "js/game/charging_amn_markazy.js",
                  "js/game/tear_gas_enemy.js",
                  "js/game/block.js",
@@ -56,7 +57,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/handlers/protection_unit_handler.js",
                  "js/game/handlers/npc_handler.js",
                  "js/game/handlers/rescue_unit_handler.js",
-                 
+                 "js/game/handlers/clash_enemy_handler.js",
                  "js/game/physics/physics_handler.js",
                  
                  "js/game/display/enemy_display.js",
@@ -65,6 +66,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/display/crowd_member_display.js",
                  "js/game/display/block_display.js",
                  "js/game/display/amn_markazy_display.js",
+                 "js/game/display/clash_enemy_display.js",
                  "js/game/display/tear_gas_enemy_display.js",
                  "js/game/display/charging_amn_markazy_display.js",
                  "js/game/display/bubble_display.js"],
@@ -194,7 +196,9 @@ var GameInitializer = function(){
       socialEngine.init(function(params){
         try {
           gameManager = new GameManager(params);
-        } catch(e){}
+        } catch(e){
+          console.log(e);
+        }
       });
     })
   }

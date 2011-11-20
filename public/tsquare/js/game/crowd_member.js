@@ -18,8 +18,9 @@ var CrowdMember = Class.create(Unit,{
   extraSpeed : 0,
   moved : 0,
   endPosition : 1050,
-  
+  fixedPlace : true,
   name : null,
+  clashing : false,
   initialize : function($super,specs,options){
     $super(options.scene, 0, options.scene.activeLane, options)
     this.type = "crowd_member";
@@ -34,7 +35,8 @@ var CrowdMember = Class.create(Unit,{
     this.attack = specs.attack || 0
     this.defense = specs.defense || 0 
     var crowdCommandFilters = [
-        {command: function(){return self.rotating}, callback: function(){self.circleMove()}},
+        {command: function(){return self.clashing}, callback: function(){self.clashMove()}},
+        {command: function(){return self.rotating}, callback: function(){self.circleMove()}}
     ]
     this.commandFilters = crowdCommandFilters.concat(this.commandFilters)      
     this.init(options);
@@ -64,22 +66,26 @@ var CrowdMember = Class.create(Unit,{
   increaseFollowers : function(noOfFollowers){
     var remaining = this.level - (this.followers.length);
     if(remaining <= 0){
-      return;
+      return false;
     } 
     for(var i=0;i<noOfFollowers && i<remaining;i++){
       var x = this.handler.objects[this.lane][this.handler.objects[this.lane].length-1].originalPosition.x - parseInt(noOfFollowers* 150 * Math.random());
       var y = this.originalPosition.y + parseInt(70 * Math.random()) - 35;
       var follower = this.handler.addFollower("normal", x, y, this.lane, this);
+      follower.fire(this.scene.speeds[this.scene.speedIndex].state);
       this.scene.push(follower);
       this.followers.push(follower);
     }
+    return true;
   },
   
   decreaseFollowers: function(num){
+  	if(this.followers.length == 0) return false;
     for (var i=0; i < num && i < this.followers.length; i++) {
       if(!this.followers[i].back)
         this.followers[i].die();
-    };
+    }
+    return true;
   },
   
   fire : function($super,event){
@@ -107,8 +113,12 @@ var CrowdMember = Class.create(Unit,{
       if(this.endMoveCallback) this.endMoveCallback();
       return;
     }
-    if(!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y!=this.originalPosition.y) > 1)){
-        this.moveToTarget(this.originalPosition)
+    if(this.fixedPlace && (!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y!=this.originalPosition.y) > 1))){
+        this.fire('walk')
+        var self= this
+        this.moveToTarget(this.originalPosition, function(){
+          self.fire('normal')
+        })
     } 
      
     this.stateChanged = true
@@ -117,7 +127,9 @@ var CrowdMember = Class.create(Unit,{
     
     if(this.followers)this.checkFollowersState();
   },
-
+  moveToTarget : function($super,targetPoint, callback){
+    $super(targetPoint, callback)
+  },
   updateState: function(){
     this.water-=this.waterDecreaseRate
     if(this.water <= 0) this.dead = true;   
@@ -159,7 +171,6 @@ var CrowdMember = Class.create(Unit,{
   
   retreat : function(){
       this.currentAction = "retreat";
-      
   },
   
   march : function(){
@@ -318,6 +329,24 @@ var CrowdMember = Class.create(Unit,{
   },
   waterRatio : function(){
     return this.water/ this.maxWater
-  }
+  },
+  startClash : function(target){
+    this.clashing = true
+    this.fire('run')
+    this.clash.target = target
+  },
+  clashMove : function(){
+    if (this.coords.x + this.getWidth()  - 35 < this.clash.target.coords.x) {
+      this.move(this.clash.runningSpeed, 0)
+    }
+  },
+  clashPush : function(){
+    this.move(this.clash.pushSpeed,0)
+    this.clash.target.move(this.clash.pushSpeed,0)
+  },
+  stopClash : function(){
+    this.clashing = false
+  },
+  clash : {runningSpeed : 15, pushSpeed : 12, target : null}
 })
   

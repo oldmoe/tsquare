@@ -11,6 +11,21 @@ var AmbulanceDisplay = Class.create(Display,{
     $super(owner)
   },
   
+  initAudio : function(){
+    this.playAudio();
+  },
+
+  playAudio : function(repeat){
+    var self = this;
+    this.owner.scene.audioManager.play(Loader.sounds['sfx']['Ambulance.mp3'], {volume : 10, onfinish: function(){
+      self.playAudio(true);
+    }}, repeat);
+  },
+  
+  destroyAudio: function(){
+    this.owner.scene.audioManager.mute(Loader.sounds['sfx']['Ambulance.mp3']);
+  },
+  
   createSprites : function(){
     this.sprites.shadow = new DomImgSprite(this.owner, {img : this.shadowImg,noOfFrames : 1}, {
       width: this.shadowImg.width,
@@ -27,5 +42,5 @@ var AmbulanceDisplay = Class.create(Display,{
       this.sprites.ambulance.currentAnimationFrame = (this.sprites.ambulance.currentAnimationFrame + 1) % this.noOfFrames
     }
     $super()
-  }
+  }  
 })

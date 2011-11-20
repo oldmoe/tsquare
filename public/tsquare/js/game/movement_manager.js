@@ -63,13 +63,8 @@ var MovementManager = Class.create({
       }else if(e.keyCode == 38){
           click = self.UP
       }else if (e.keyCode == 40){
-<<<<<<< HEAD
-          click = 4
-      }else{// wrong key
-=======
           click = self.DOWN
       }else{
->>>>>>> 44a1f54bdd91adbccb02e992dedeff482716860a
         self.scene.fire("keypressed", [click, self.move.length])
         self.reset();
         return
@@ -166,6 +161,7 @@ var MovementManager = Class.create({
    },
   checkDelay : function(counter,delay){
       var self = this
+      console.log("tick: " + counter);
       setTimeout(function(){self.doCheckDelay(counter)}, delay)
    },
   doCheckDelay : function(counter){

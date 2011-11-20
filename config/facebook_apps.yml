@@ -9,3 +9,9 @@
   name : local-crowds
   secret : "47b3170c46ff7e851494d82bf5d17184"
   game_name : tsquare
+  
+"162980287109407" :
+  id : "162980287109407"
+  name : staging-thawragy
+  secret : "06c9b90f3bb7b70f10c4d324d80c9be9"
+  game_name : tsquare

@@ -161,7 +161,6 @@ var MovementManager = Class.create({
    },
   checkDelay : function(counter,delay){
       var self = this
-      console.log("tick: " + counter);
       setTimeout(function(){self.doCheckDelay(counter)}, delay)
    },
   doCheckDelay : function(counter){
@@ -223,11 +222,9 @@ var MovementManager = Class.create({
     var collision = this.scene.detectCollisions()
     this.scene.fire("beatMoving");
     if(commandIndex == this.moves.march.index){
-        if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
         this.scene.fire('march')
         this.beatMoving = true    
     }else if(commandIndex == this.moves.retreat.index){
-        if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
         this.scene.fire('retreat')
         this.beatMoving = true    
     }else if(commandIndex == this.moves.circle.index){

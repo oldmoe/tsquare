@@ -124,21 +124,25 @@ var TsquareScene = Class.create(Scene,{
     },
 
     wrongMove: function(){
-      this.decreaseEnergy();
-      // console.log("scene wrong move");
+     if (this.movementManager.currentMode == this.movementManager.modes.normal) {
+       this.decreaseEnergy();
+     }
     },
 
     correctMove: function(){
+     if (this.movementManager.currentMode == this.movementManager.modes.normal) {
       this.increaseEnergy();
-//      console.log("scene correct moved");
+     }
     },
     
     wrongCommand: function(){
 //      console.log("scene wrong command");
     },
-
+    
     correctCommand: function(){
     },
+    
+    
     
     tick: function($super){
         $super()
@@ -224,7 +228,7 @@ var TsquareScene = Class.create(Scene,{
   },
     
   increaseEnergy : function(){
-    if (!this.movementManager.currentMode == this.movementManager.modes.normal) {
+    if (this.movementManager.currentMode != this.movementManager.modes.normal) {
       this.direction = 0
     } 
     if(this.speedIndex != 0)
@@ -245,13 +249,12 @@ var TsquareScene = Class.create(Scene,{
    },
    
   decreaseEnergy : function(){
-    if(!this.movementManager.currentMode == this.movementManager.modes.normal){
+    if(this.movementManager.currentMode != this.movementManager.modes.normal){
       this.direction = 0
     }
     if(this.speedIndex != 0)
       this.lastSpeedIndex = this.speedIndex;
     if(this.stopped) return;
-     
      if (++this.comboMistakes.current == this.comboMistakes.max) {
         this.comboMistakes.current = 0
         this.audioManager.levelDown()

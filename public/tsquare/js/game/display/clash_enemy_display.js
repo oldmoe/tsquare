@@ -1,6 +1,6 @@
 var ClashEnemyDisplay = Class.create(EnemyDisplay,{
   noOfFrames : 8,
-   states : ["normal", "front", "back", "run"],
+   states : ["normal", "front", "back", "run", 'reverseWalk' ],
   initialize : function($super,owner){
     this.walkImg = Loader.images.enemies['amn_kalabsh_walk.png']
     this.runImg = Loader.images.enemies['amn_kalabsh_run.png']

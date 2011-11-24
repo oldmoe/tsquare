@@ -21,6 +21,7 @@ var CrowdMember = Class.create(Unit,{
   fixedPlace : true,
   name : null,
   clashing : false,
+  clash : {runningSpeed : 15, pushSpeed : 12, target : null},
   initialize : function($super,specs,options){
     $super(options.scene, 0, options.scene.activeLane, options)
     this.type = "crowd_member";
@@ -127,9 +128,7 @@ var CrowdMember = Class.create(Unit,{
     
     if(this.followers)this.checkFollowersState();
   },
-  moveToTarget : function($super,targetPoint, callback){
-    $super(targetPoint, callback)
-  },
+ 
   updateState: function(){
     this.water-=this.waterDecreaseRate
     if(this.water <= 0) this.dead = true;   
@@ -346,7 +345,6 @@ var CrowdMember = Class.create(Unit,{
   },
   stopClash : function(){
     this.clashing = false
-  },
-  clash : {runningSpeed : 15, pushSpeed : 12, target : null}
+  }
 })
   

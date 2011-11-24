@@ -5,6 +5,7 @@ var Block = Class.create(Enemy,{
     elementWidth : 70,
     elementHeight : 15,
     noDisplay : true,
+    distaceBetweenUnits : 10,
     
     initialize : function($super,scene,x,lane,options){
       this.type = "block";
@@ -24,7 +25,7 @@ var Block = Class.create(Enemy,{
         for (var j = 0; j < options.columns; j++) {
             var randomY = Math.round(Math.random()*8) - 4
             var randomX = Math.round(Math.random()*8) - 4
-            var x = this.coords.x + this.elementWidth * i - 10*j + this.scene.view.xPos;
+            var x = this.coords.x + this.elementWidth * i - this.distaceBetweenUnits*j + this.scene.view.xPos;
             options.y = this.coords.y + this.elementHeight * (j-1);
             this.elements[i][j] = this.scene.addObject({name: options.obj, x: x, lane:this.lane, options:options});
         }

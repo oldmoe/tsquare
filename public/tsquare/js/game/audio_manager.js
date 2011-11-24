@@ -54,17 +54,17 @@ var AudioManager = Class.create({
 */
     this.levels = [
       {tempo: 130, beats : [{beat : 0, volume : 30}]},
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 1, volume : 40}]},
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 1, volume : 40}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 1, volume : 50}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 1, volume : 50}]},
       
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 2, volume : 40}]},
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 2, volume : 40}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 2, volume : 50}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 2, volume : 50}]},
       
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 3, volume : 40}]},
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 3, volume : 40}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 3, volume : 50}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 3, volume : 50}]},
       
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 40}]},
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 40}]}      
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 50}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 50}]}      
     ]
 		
 		var self = this

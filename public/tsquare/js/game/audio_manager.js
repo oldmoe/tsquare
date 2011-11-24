@@ -41,7 +41,7 @@ var AudioManager = Class.create({
 		this.levelChanged = true
 
 		this.levelBeats = {
-			130 : [0, 1, 2, 3, 4] 
+			130 : [0, 1, 2, 3, 4, 5] 
 		} 
 		
     this.rewardSounds = {
@@ -49,14 +49,14 @@ var AudioManager = Class.create({
     };
     
     this.rewardLevels = [
-      {tempo: 130, rewards : [{sound : 2, volume : 30}, {sound : 3, volume : 30}]}
-      // {tempo: 130, rewards : [{sound : 4, volume : 30}, {sound : 5, volume : 30}]},
-      // {tempo: 130, rewards : [{sound : 6, volume : 30}, {sound : 7, volume : 30}]},
-      // {tempo: 130, rewards : [{sound : 17, volume : 30}, {sound : 18, volume : 30}]},
-      // {tempo: 130, rewards : [{sound : 8, volume : 30}, {sound : 9, volume : 30}]},
-      // {tempo: 130, rewards : [{sound : 10, volume : 30}, {sound : 11, volume : 30}]},
-      // {tempo: 130, rewards : [{sound : 13, volume : 30}, {sound : 14, volume : 30}]},
-      // {tempo: 130, rewards : [{sound : 15, volume : 30}, {sound : 16, volume : 30}]}
+      {tempo: 130, rewards : [{sound : 2, volume : 100}, {sound : 3, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 4, volume : 100}, {sound : 5, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 6, volume : 100}, {sound : 7, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 17, volume : 100}, {sound : 18, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 8, volume : 100}, {sound : 9, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 10, volume : 100}, {sound : 11, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 13, volume : 100}, {sound : 14, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 15, volume : 100}, {sound : 16, volume : 100}]}
       
     ];
 /*
@@ -74,8 +74,10 @@ var AudioManager = Class.create({
 */    
     this.levels = [
       {tempo: 130, beats : [{beat : 0, volume : 20}]},
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 1, volume : 50}]},
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 1, volume : 50}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 5, volume : 80}]}/*,
+      {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
+      {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
+       {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
       
       {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 2, volume : 50}]},
       {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 2, volume : 50}]},
@@ -84,7 +86,7 @@ var AudioManager = Class.create({
       {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 3, volume : 50}]},
       
       {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 50}]},
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 50}]}      
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 50}]}      */
     ]
 		
 		var self = this
@@ -167,10 +169,6 @@ var AudioManager = Class.create({
       //Audio.Fade(this.nowPlaying[i], 0, this.durations[this.level.tempo]/8, this.reactor, function(s){s.stop()})
     }
 
-    // for(var i=0; i < this.playingRewards.length; i++){
-      // this.playingRewards[i].stop()
-    // }
-    
     this.nowPlaying = []      
     for(var i=0; i< this.levelBeats[this.level.tempo].length; i++){
       var sound = this.levelBeats[this.level.tempo][i]
@@ -212,13 +210,19 @@ var AudioManager = Class.create({
   playHetaf: function(position){
     // console.log(this.nowPlaying[0].position, position, this.currentRewardIndex, this.levelIndex)
     var delay = position;
-    if(delay == 0)delay = this.nowPlaying[0].position - (this.nowPlaying[0].duration-72)/2;
-    console.log(delay)
+    
+    //if(delay == 0)delay = this.nowPlaying[0].position - (this.nowPlaying[0].duration-28);
+    //console.log(this.nowPlaying[0].position , delay)
       this.currentReward.rewards[this.currentRewardIndex].sound.play({volume:this.currentReward.rewards[this.currentRewardIndex].volume, position:delay});
-      if(this.currentRewardIndex)
+      if(this.currentRewardIndex){
         this.currentRewardIndex = 0;
-      else
-        this.currentRewardIndex = 1;    
+      }
+      else{
+        this.currentRewardIndex = 1;
+        this.rewardIndex = Math.round(Math.random()*(this.rewardLevels.length-1));
+        this.currentReward = this.rewardLevels[this.rewardIndex];
+      }
+            
   },
   
   switchHetafChannels: function(){
@@ -251,23 +255,24 @@ var AudioManager = Class.create({
 		if(this.levels[this.levelIndex].tempo != this.levels[this.levelIndex+1].tempo) this.changeTempo();
 		this.level = this.levels[this.levelIndex]
 		this.switchBeatsChannels();
-		this.rewardDown();
+		// this.rewardDown();
 	},
 
   rewardUp : function(){
-    var mid = (this.nowPlaying[0].duration-72)/2;
+    var mid = (this.nowPlaying[0].duration-28);
     var pos = this.nowPlaying[0].position; 
     if(pos < mid){
       var self = this;
-      var pre = this.nowPlaying[0].position;
-      setTimeout(function(){self.playHetaf(0)}, (mid-pos));
+      console.log((mid-pos));
+      self.playHetaf(0);
+      //setTimeout(function(){self.playHetaf(0)}, (mid-pos));
     }else{
       this.playHetaf(pos-mid);
     }
 
-    if(this.rewardIndex == (this.rewardLevels.length - 1)) return
-    this.rewardIndex+=1
-    this.currentReward = this.rewardLevels[this.rewardIndex]
+    // if(this.rewardIndex == (this.rewardLevels.length - 1)) return
+    // this.rewardIndex+=1
+    // this.currentReward = this.rewardLevels[this.rewardIndex]
   },
 
   rewardDown : function(){

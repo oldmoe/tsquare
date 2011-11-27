@@ -2,23 +2,39 @@ var missionData = {
   
   "data":[[
   ],[
-/*   {
-      "name": "clash_enemy",
+     {
+      "name": "box_car",
       "category": 'clash_enemy',
       "index": 0,
       "lane": 1,
-      "x": 2,
+      "x": 3,
+      "order": 1,
+      "type" : "1_1"      
+  },
+   {
+      "name": "box_car",
+      "category": 'clash_enemy',
+      "index": 0,
+      "lane": 1,
+      "x": 100,
       "order": 1
-  },*/
+  },
+/*  {
+      "name": "twitter_guy",
+      "category": 'protection',
+      "type": '1_2',
+      "index": 0,
+      "lane": 1,
+      "x": 4,
   {
       "name": "wood_stick_cs",
       "category": 'enemy',
       "type": '1_1',
       "index": 0,
       "lane": 1,
-      "x": 20,
+      "x": 2,
       "order": 1
-  }
+  },*/
 /*  ,{
       "name": "journalist_rescue",
       "category": 'rescue',
@@ -132,7 +148,7 @@ var gameData = {
                                         '9_3' : {'hp' : 900, 'attack' : 200 , 'defense' : 120, 'charge_tolerance' : 4, 'circle_size' : 5 }    
                                      },
                       'tear_gas_gunner_cs' : { 
-                                        'rate' : { 'time' : 5, 'shots' : 1 }, 
+                                        'rate' : { 'time' : 3, 'shots' : 1 }, 
                                         '1_1' : { 'attack' : 5, 'charge_tolerance' : 1, 'circle_size' : 1 },
                                         '1_2' : { 'attack' : 10, 'charge_tolerance' : 1, 'circle_size' : 1 },
                                         '1_3' : { 'attack' : 15, 'charge_tolerance' : 2, 'circle_size' : 2 }

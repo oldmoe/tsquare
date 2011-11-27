@@ -154,6 +154,28 @@ var AudioManager = Class.create({
     }
 	},
 	
+  
+	playClash : function(){
+    this.stop()
+    Loader.sounds['sfx']['clash_scenario.mp3'].play({loops : 1000})
+  },
+  
+  pause : function(){
+    for(var i=0; i < this.nowPlaying.length; i++){
+      this.nowPlaying[i].pause()
+    }
+    this.background_audio.pause()
+  },
+  
+  stopClash : function(){
+    Loader.sounds['sfx']['clash_scenario.mp3'].stop()
+    for(var i=0; i < this.nowPlaying.length; i++){
+      this.nowPlaying[i].play({loops : 1000})
+    }
+    this.background_audio.play({loops : 1000})
+
+  },
+  
 	run : function(){
 	  this.playAmbient();
 	  this.changeTempo();

@@ -294,6 +294,7 @@ var CrowdHandler = Class.create(UnitHandler, {
      return count;
    },
    crowdStepAhead : function(){
+     var moveSpeed= 4
      var self = this
      var crowd = this.objects[this.scene.activeLane][0] 
      var y = this.scene.view.laneMiddle*2*crowd.lane+this.scene.view.laneMiddle;
@@ -302,13 +303,29 @@ var CrowdHandler = Class.create(UnitHandler, {
      crowd.fixedPlace = false
      crowd.moveToTarget({x:x - 32,y: y + 18}, function(){
        self.scene.clashDirectionsGenerator.setCrowd(self.objects[self.scene.activeLane][0])
-     })
-     for(var i = 1;i<this.objects[this.scene.activeLane].length;i++){
+     },moveSpeed)
+     this.moveCrowdsBack(1,moveSpeed);
+   },
+   moveCrowdsBack : function(startIndex,speed){
+     var crowd = this.objects[this.scene.activeLane][startIndex]
+     crowd.fixedPlace = false
+     crowd.fire('walk')
+     var self = this
+     crowd.moveToTarget({x:-crowd.getWidth(), y:crowd.coords.y},function(){
+       self.objects[this.scene.activeLane][startIndex].fire('normal')
+       self.scene.fire('clashCrowdsBack')
+     }, speed)
+     for(var i = startIndex+1;i<this.objects[this.scene.activeLane].length;i++){
        var crowd = this.objects[this.scene.activeLane][i]
        crowd.fixedPlace = false
-       crowd.fire('reverseWalk')
-       this.setCrowdAfterMove(crowd,0,crowd.coords.y,'normal')
+       crowd.fire('walk')
+       this.setCrowdAfterMove(crowd,-crowd.getWidth(),crowd.coords.y,'normal', speed)
      }
+   },
+   setCrowdAfterMove : function(crowd,x,y,state, speed){
+     crowd.moveToTarget({x:x,y:y}, function(){
+       crowd.fire(state)
+     }, speed)
    },
    crowdStepBack : function(){
      for (var i = 1; i < this.objects[this.scene.activeLane].length; i++) {
@@ -324,13 +341,16 @@ var CrowdHandler = Class.create(UnitHandler, {
        crowd.fixedPlace = true
      })
    },
-   setCrowdAfterMove : function(crowd,x,y,state){
-     crowd.moveToTarget({x:x,y:y}, function(){
-       crowd.fire(state)
-     })
-   },
    ArrestCrowd : function(){
-      this.removeObject(this.objects[this.scene.activeLane][0],this.scene.activeLane)
+       for (var i = 1; i < this.objects[this.scene.activeLane].length; i++) {
+          this.objects[this.scene.activeLane][i].fixedPlace = true
+       }
       this.scene.fire('clashEnd')
+   },
+   gatherTriangle : function(x){
+     for (var i = 0; i < this.objects[this.scene.activeLane].length; i++) {
+        this.objects[this.scene.activeLane][i].fixedPlace = false
+     }
+     new CrowdAction(this.scene).gatherTriangle(this.objects[this.scene.activeLane],x,-1)
    }
 });

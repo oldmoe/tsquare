@@ -16,7 +16,7 @@ var MovementManager = Class.create({
   counter:0,
   tolerance :350,
   beatTime : 0,  
-  beatsPerAudio : 8,
+  beatsPerAudio : 4,
   modes : {"normal" : 0, "clash": 1},
   currentMode : 0,
   
@@ -94,11 +94,11 @@ var MovementManager = Class.create({
       if(!this.sound)return
       var beatTime  = this.sound.duration/this.beatsPerAudio
       var index = Math.round(this.sound.position / beatTime);
-      if(index >= 4 && index <=7){//pressed on the low beats, or wrong timing
-          this.scene.fire("keypressed", [0, 1, 2])
-          this.reset();
-          return;
-      }
+      // if(index >= 4 && index <=7){//pressed on the low beats, or wrong timing
+          // this.scene.fire("keypressed", [0, 1, 2])
+          // this.reset();
+          // return;
+      // }
       var position = this.sound.position % beatTime
       this.beatTime = beatTime
       var found = false
@@ -222,13 +222,11 @@ var MovementManager = Class.create({
     var collision = this.scene.detectCollisions()
     this.scene.fire("beatMoving");
     if(commandIndex == this.moves.march.index){
-      if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
-      this.scene.fire('march')
-      this.beatMoving = true    
+        this.scene.fire('march')
+        this.beatMoving = true    
     }else if(commandIndex == this.moves.retreat.index){
-      if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
-      this.scene.fire('retreat')
-      this.beatMoving = true    
+        this.scene.fire('retreat')
+        this.beatMoving = true    
     }else if(commandIndex == this.moves.circle.index){
       this.scene.fire('circle')
       this.beatMoving = true

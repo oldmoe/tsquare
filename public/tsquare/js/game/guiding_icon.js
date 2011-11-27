@@ -164,17 +164,16 @@ var GuidingIcon = Class.create(Observer,{
       this.currentCommandIndex = command;
       this.displayCommand(this.currentCommandIndex)
     }
+
     
     if(this.correctCommands > 2 && !this.arrowsHidden){
-      $$('.movesIndicator')[0].hide();
+      // $$('.movesIndicator')[0].hide();
       this.arrowsHidden = true;
-      console.log("hide")
     }
     
     if(this.wrongCommands > 1 && this.arrowsHidden){
       $$('.movesIndicator')[0].show();
       this.arrowsHidden = false;
-      console.log("show")
     }
 
   },
@@ -182,13 +181,11 @@ var GuidingIcon = Class.create(Observer,{
   increaseWrongCommandsCount: function(){
     this.wrongCommands+=1;
     this.correctCommands = 0;
-    console.log("w: " + this.wrongCommands);
   },
 
   increaseCorrectCommandsCount: function(){
     this.correctCommands+=1;
     this.wrongCommands = 0;
-    console.log("c: " + this.correctCommands);
   },
   
   targetCircleComplete: function(){

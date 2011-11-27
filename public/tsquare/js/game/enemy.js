@@ -7,7 +7,7 @@ var Enemy = Class.create(Unit, {
   
   initialize : function($super,scene,x,lane,options){
      $super(scene,x,lane,options)
-     this.mappingName = options.mappingName
+     this.mappingName = options.mappingName || options.obj
      this.type = options.type 
      var specs = gameData.enemies[this.mappingName][this.type];
      for(var spec in specs){

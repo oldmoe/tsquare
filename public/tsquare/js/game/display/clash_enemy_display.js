@@ -37,7 +37,7 @@ var ClashEnemyDisplay = Class.create(EnemyDisplay,{
       hidden : true,
     })
     this.sprites.character = new DomImgSprite(this.owner,{img:this.walkImg, noOfFrames : 8},{
-      shiftY : 25,
+      shiftY : 20,
       shiftX : 15
     })
     this.sprites.character.createAnimation({name:'run',img:this.runImg, noOfFrames:6})

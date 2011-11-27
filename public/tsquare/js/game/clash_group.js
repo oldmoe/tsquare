@@ -7,7 +7,6 @@ var ClashGroup = Class.create({
    initialize : function(scene,elements, handler){
       this.scene = scene
       this.elements = []
-      this.noOfElements = noOfElements
       this.handler = handler
       this.elements = elements
    },

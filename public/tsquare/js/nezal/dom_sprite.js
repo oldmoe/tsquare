@@ -67,6 +67,7 @@ var DomSprite = Class.create(Sprite, {
         if (changes) {
           this.div.setStyle(changes);
         }
+        this.updateRotation()
       }
   
     }catch(e){
@@ -97,14 +98,25 @@ var DomSprite = Class.create(Sprite, {
 			this.div = $(this.div.parentNode.removeChild(this.div))
 		}
 	},
-
+  
   position : function(){
     var position = {};
     position.x = Math.round(this.owner.coords.x);
     position.y = Math.round(this.owner.coords.y-this.owner.imgHeight/2) + this.defaultShiftY;
-    if(this.zIndex) position.zIndex = this.zIndex + this.shiftZ
-    else position.zIndex = Math.round(this.owner.coords.y + this.owner.zdim + this.shiftZ);
+    if(this.zIndex) position.zIndex = Math.max(1,this.zIndex + this.shiftZ)
+    else position.zIndex = Math.max(1,Math.round(this.owner.coords.y + this.owner.zdim + this.shiftZ));
     return position;
+  },
+  
+  updateRotation : function() {
+    // TODO: boolean rotationChanged 
+    if(!this.owner.theta) return;
+    this.div.style.webkitTransformOrigin = this.owner.rx + "px " + this.owner.ry + "px"; 
+    this.div.style.webkitTransform = "rotate("+this.owner.theta * 180 / Math.PI +"deg)";
+    this.div.style.MozTransform = "rotate("+this.owner.theta * 180 / Math.PI +"deg)";
+    this.div.style.OTransform = "rotate("+this.owner.theta * 180 / Math.PI +"deg)";
+    this.div.style.msTransform = "rotate("+this.owner.theta * 180 / Math.PI +"deg)";
+
   },
 
   createDiv : function() {

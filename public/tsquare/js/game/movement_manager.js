@@ -161,7 +161,6 @@ var MovementManager = Class.create({
    },
   checkDelay : function(counter,delay){
       var self = this
-      console.log("tick: " + counter);
       setTimeout(function(){self.doCheckDelay(counter)}, delay)
    },
   doCheckDelay : function(counter){

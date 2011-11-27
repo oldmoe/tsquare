@@ -4,7 +4,7 @@ var RescueMission = new Class.create({
     this.scene = scene
     this.createEnemies()
     this.createCrowds()
-    this.setFromations()
+    this.setFormations()
   },
   createEnemies : function(){
     var elements = []

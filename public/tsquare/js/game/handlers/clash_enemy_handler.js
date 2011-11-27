@@ -7,6 +7,7 @@ var ClashEnemyHandler = Class.create(UnitHandler, {
       if (self.incomingObject) 
         self.objects[self.incomingObject.lane].push(self.addObject(self.incomingObject))
         self.incoming[self.incomingObject.lane].splice(0, 1)
+        self.incomingObject = null
      })
   },
   end: function(){
@@ -29,6 +30,7 @@ var ClashEnemyHandler = Class.create(UnitHandler, {
     return obj
   },
   checkIncomingObjects: function(){
+    if(this.incomingObject)return
     for (var i = 0; i < this.incoming.length; i++) {
       for (var j = 0; this.incoming[i] && j < this.incoming[i].length; j++) {
         if (this.incoming[i][j].x < this.scene.view.xPos + this.scene.view.width) {

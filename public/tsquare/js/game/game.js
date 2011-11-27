@@ -53,7 +53,7 @@ var Game = Class.create({
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
     'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png',
     'amn_kalabsh_back.png','amn_kalabsh_blur.png','amn_kalabsh_front.png','amn_kalabsh_run.png',
-    'amn_kalabsh_walk.png', 'box_car.png']
+    'amn_kalabsh_walk.png', 'box_car.png', 'tear_gas_bomb.png']
     
     var countDownImages = ["1.png", "2.png", "3.png", "go.png"];
     

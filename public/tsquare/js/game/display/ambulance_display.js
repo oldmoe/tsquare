@@ -17,13 +17,13 @@ var AmbulanceDisplay = Class.create(Display,{
 
   playAudio : function(repeat){
     var self = this;
-    this.owner.scene.audioManager.play(Loader.sounds['sfx']['Ambulance.mp3'], {volume : 10, onfinish: function(){
+    this.owner.scene.audioManager.play(Loader.sounds['sfx']['ambulance.mp3'], {volume : 50, onfinish: function(){
       self.playAudio(true);
     }}, repeat);
   },
   
   destroyAudio: function(){
-    this.owner.scene.audioManager.mute(Loader.sounds['sfx']['Ambulance.mp3']);
+    this.owner.scene.audioManager.mute(Loader.sounds['sfx']['ambulance.mp3']);
   },
   
   createSprites : function(){

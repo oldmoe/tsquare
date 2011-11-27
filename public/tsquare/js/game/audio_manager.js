@@ -33,8 +33,8 @@ var AudioManager = Class.create({
 			160 : 1500
 	},
 	
-	initialize : function(reactor){
-		this.reactor = reactor
+	initialize : function(scene){
+		this.reactor = scene.reactor
 		this.index = 0
 		// this.rewardIndex = 0		
 		this.format = "mp3"
@@ -59,25 +59,12 @@ var AudioManager = Class.create({
       {tempo: 130, rewards : [{sound : 15, volume : 100}, {sound : 16, volume : 100}]}
       
     ];
-/*
-    this.rewardLevels = [
-      {tempo: 130, rewards : [{sound : 2, volume : 30}]},
-      {tempo: 130, rewards : [{sound : 4, volume : 30}]},
-      {tempo: 130, rewards : [{sound : 6, volume : 30}]},
-      {tempo: 130, rewards : [{sound : 17, volume : 30}]},
-      {tempo: 130, rewards : [{sound : 8, volume : 30}]},
-      {tempo: 130, rewards : [{sound : 10, volume : 30}]},
-      {tempo: 130, rewards : [{sound : 13, volume : 30}]},
-      {tempo: 130, rewards : [{sound : 15, volume : 30}]}
-      
-    ];
-*/    
+
     this.levels = [
-      {tempo: 130, beats : [{beat : 0, volume : 20}]},
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 5, volume : 80}]}/*,
+      {tempo: 130, beats : [{beat : 0, volume : 10}]},
+      
       {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
       {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
-       {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
       
       {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 2, volume : 50}]},
       {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 2, volume : 50}]},
@@ -86,7 +73,7 @@ var AudioManager = Class.create({
       {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 3, volume : 50}]},
       
       {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 50}]},
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 50}]}      */
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 50}]}      
     ]
 		
 		var self = this
@@ -126,17 +113,49 @@ var AudioManager = Class.create({
 		this.playingRewards = []
 		this.tempoChanged = true;
 		
-		// this.playAmbient();
+		scene.observe('keySound',function(keyIndex){self.playKeySound(keyIndex)});
+		
+		this.cc = false;
 	},
 
   playAmbient : function(){
     var self = this;
-    Loader.sounds['sfx']['ambient.mp3'].play({volume : 30, onfinish: function(){
-      self.playAmbient();
-    }})
+    var sound_ambient = Loader.sounds['sfx']['ambient.mp3'];
+    sound_ambient.loop = true;
+    sound_ambient.play({volume:80, loops:10000});
+
+    var sound_background_music = Loader.sounds['sfx']['background_music.mp3'];
+    sound_background_music.loop = true;
+    sound_background_music.play({volume:80, loops:10000});
+
+    var sound_background_ascending = Loader.sounds['sfx']['background_ascending.mp3'];
+    sound_background_ascending.loop = true;
+    sound_background_ascending.play({volume:80, loops:10000});
+
+    
+    // .play({volume : 30, onfinish: function(){
+      // self.playAmbient();
+    // }})
   },
 	
+	playKeySound: function(keyIndex){
+	  if(keyIndex == 0){
+	    if(this.cc)
+        Loader.sounds['sfx']['ha.mp3'].play({volume:80});
+      else
+        Loader.sounds['sfx']['hii.mp3'].play({volume:80});
+      this.cc = !this.cc;	    
+	  }else if(keyIndex == 1){
+      Loader.sounds['sfx']['hii.mp3'].play({volume:80});
+    }else if(keyIndex == 2){
+      
+    }else if(keyIndex == 3){
+      
+    }
+	},
+	
 	run : function(){
+	  this.playAmbient();
 	  this.changeTempo();
 	  this.switchBeatsChannels();
 		// this.reactor.pushEvery(0, this.reactor.timeToTicks(this.durations[this.level.tempo]), this.tick, this)
@@ -178,15 +197,6 @@ var AudioManager = Class.create({
       this.nowPlaying.push(sound)
     }
     
-    // this.playingRewards = [];
-    // for(var i=0; i< this.rewardSounds[this.currentReward.tempo].length; i++){
-      // var sound = this.rewardSounds[this.currentReward.tempo][i]
-      // sound.mute()
-      // sound.loop = true
-      // sound.play({ loops : 100000})
-      // this.playingRewards.push(sound)
-    // }
-    
     for(var i=0; i < this.level.beats.length;i++){
       var sound = this.level.beats[i].beat
       sound.setVolume(this.level.beats[i].volume)
@@ -208,7 +218,6 @@ var AudioManager = Class.create({
   },
   
   playHetaf: function(position){
-    // console.log(this.nowPlaying[0].position, position, this.currentRewardIndex, this.levelIndex)
     var delay = position;
     
     //if(delay == 0)delay = this.nowPlaying[0].position - (this.nowPlaying[0].duration-28);
@@ -263,7 +272,6 @@ var AudioManager = Class.create({
     var pos = this.nowPlaying[0].position; 
     if(pos < mid){
       var self = this;
-      console.log((mid-pos));
       self.playHetaf(0);
       //setTimeout(function(){self.playHetaf(0)}, (mid-pos));
     }else{

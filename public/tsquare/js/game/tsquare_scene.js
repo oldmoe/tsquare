@@ -48,9 +48,8 @@ var TsquareScene = Class.create(Scene,{
         
         // Effect.Queues.create('global', this.reactor)
         
-        this.audioManager = new AudioManager(this.reactor);
+        this.audioManager = new AudioManager(this);
         this.flashingHandler = new FlashingHandler(this);
-        // this.movementManager = new MovementManager(this);
         
         this.data = missionData.data;
         this.noOfLanes = this.data.length;

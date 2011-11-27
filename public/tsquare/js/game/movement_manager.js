@@ -56,14 +56,18 @@ var MovementManager = Class.create({
       var click = -1
       if (e.keyCode == 39) {
         click = self.RIGHT
+        self.scene.fire("keySound", [0])
       }else if (e.keyCode == 37) {
           click = self.LEFT
+          self.scene.fire("keySound", [1])
       }else if (e.keyCode == 32) {
           click = 4
       }else if(e.keyCode == 38){
           click = self.UP
+          self.scene.fire("keySound", [3])
       }else if (e.keyCode == 40){
           click = self.DOWN
+          self.scene.fire("keySound", [4])
       }else{
         self.scene.fire("keypressed", [click, self.move.length])
         self.reset();

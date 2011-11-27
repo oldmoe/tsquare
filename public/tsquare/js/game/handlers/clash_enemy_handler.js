@@ -8,6 +8,7 @@ var ClashEnemyHandler = Class.create(UnitHandler, {
         self.objects[self.incomingObject.lane].push(self.addObject(self.incomingObject))
         self.incoming[self.incomingObject.lane].splice(0, 1)
         self.incomingObject = null
+        self.scene.audioManager.playClash()
      })
   },
   end: function(){

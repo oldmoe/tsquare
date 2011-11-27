@@ -11,6 +11,7 @@ var TearGasGunnerCsDisplay = Class.create(EnemyDisplay,{
     this.imgHeight = this.walkingImg.height/this.noOfFrames
     $super(owner)
     this.registerEvents()
+    this.createShadow()
   },
  
   registerEvents : function(){
@@ -35,6 +36,16 @@ var TearGasGunnerCsDisplay = Class.create(EnemyDisplay,{
     this.sprites.walking.createAnimation({name:'hit',img:this.hitImage, noOfFrames:16})
   },
   
+  createShadow: function(){
+    this.shadowImg = Loader.images.effects['amn_markazy_tear_gas_shadow.png'];
+    this.sprites.shadow = new DomImgSprite(this.owner, {img : this.shadowImg,noOfFrames : 1}, {
+      width: this.shadowImg.width,
+      height: this.shadowImg.height,
+      shiftX : -(this.shadowImg.width-this.walkingImg.width)-10,
+      shiftY : -10
+    })    
+  },
+    
   render : function($super){
     var sprite = this.sprites.walking
     if (sprite.currentAnimation.name == "hit" &&

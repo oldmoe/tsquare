@@ -16,7 +16,7 @@ var TearGasBomb = Class.create({
     initialize: function(scene, enemy, coords, velocity, theta, angle_0){
         this.scene = scene;
         this.coords = coords;
-        this.ground = 150;
+        this.ground = 130;
         this.enemy = enemy;
         this.theta = theta;
         this.vx = velocity * Math.cos(angle_0);

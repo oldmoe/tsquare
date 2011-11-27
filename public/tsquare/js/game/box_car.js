@@ -46,6 +46,7 @@ var BoxCar = Class.create(Unit,{
       function(){
         self.boxUnit.handler.removeObject(self.boxUnit,self.boxUnit.lane)
         self.clashDone = true
+        self.scene.audioManager.stopClash();
       })
     })
   },
@@ -66,6 +67,7 @@ var BoxCar = Class.create(Unit,{
         }, function(){
           self.boxUnit.handler.removeObject(self.boxUnit, self.boxUnit.lane)
           self.clashDone = true
+          self.scene.audioManager.stopClash()
         })
       })
       self.boxUnit.target.moveToTarget({

@@ -17,7 +17,7 @@ var AmbulanceDisplay = Class.create(Display,{
 
   playAudio : function(repeat){
     var self = this;
-    this.owner.scene.audioManager.play(Loader.sounds['sfx']['ambulance.mp3'], {volume : 50, onfinish: function(){
+    this.owner.scene.audioManager.play(Loader.sounds['sfx']['ambulance.mp3'], {volume : 20, onfinish: function(){
       self.playAudio(true);
     }}, repeat);
   },

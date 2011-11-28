@@ -130,9 +130,6 @@ var TsquareScene = Class.create(Scene,{
     },
 
     correctMove: function(){
-     if (this.movementManager.currentMode == this.movementManager.modes.normal) {
-      this.increaseEnergy();
-     }
     },
     
     wrongCommand: function(){
@@ -141,7 +138,9 @@ var TsquareScene = Class.create(Scene,{
     },
     
     correctCommand: function(){
+     if (this.movementManager.currentMode == this.movementManager.modes.normal) {
       this.increaseEnergy();
+     }
     },
     
     

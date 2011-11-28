@@ -49,20 +49,26 @@ var AudioManager = Class.create({
     };
     
     this.rewardLevels = [
-      {tempo: 130, rewards : [{sound : 2, volume : 100}, {sound : 3, volume : 100}]},
-      {tempo: 130, rewards : [{sound : 4, volume : 100}, {sound : 5, volume : 100}]},
-      {tempo: 130, rewards : [{sound : 6, volume : 100}, {sound : 7, volume : 100}]},
-      {tempo: 130, rewards : [{sound : 17, volume : 100}, {sound : 18, volume : 100}]},
-      {tempo: 130, rewards : [{sound : 8, volume : 100}, {sound : 9, volume : 100}]},
-      {tempo: 130, rewards : [{sound : 10, volume : 100}, {sound : 11, volume : 100}]},
-      {tempo: 130, rewards : [{sound : 13, volume : 100}, {sound : 14, volume : 100}]},
-      {tempo: 130, rewards : [{sound : 15, volume : 100}, {sound : 16, volume : 100}]}
-      
+      {tempo: 130, rewards : [{sound : 12, volume : 20}, {sound : 13, volume : 20}]}/*,
+      {tempo: 130, rewards : [{sound : 4, volume : 80}, {sound : 5, volume : 80}]},
+      {tempo: 130, rewards : [{sound : 6, volume : 80}, {sound : 7, volume : 80}]},
+      {tempo: 130, rewards : [{sound : 17, volume : 80}, {sound : 18, volume : 80}]},
+      {tempo: 130, rewards : [{sound : 8, volume : 80}, {sound : 9, volume : 80}]},
+      {tempo: 130, rewards : [{sound : 10, volume : 80}, {sound : 11, volume : 80}]},
+      {tempo: 130, rewards : [{sound : 13, volume : 80}, {sound : 14, volume : 80}]},
+      {tempo: 130, rewards : [{sound : 15, volume : 80}, {sound : 16, volume : 80}]}
+      */
     ];
 
     this.levels = [
-      {tempo: 130, beats : [{beat : 0, volume : 10}]},
+      {tempo: 130, beats : [{beat : 0, volume : 5}]},
+
+      {tempo: 130, beats : [{beat : 0, volume : 20}, {beat : 1, volume : 20}]},
+      {tempo: 130, beats : [{beat : 0, volume : 20}, {beat : 1, volume : 20}]},
       
+      {tempo: 130, beats : [{beat : 0, volume : 20}, {beat : 1, volume : 20}, {beat : 2, volume : 20}]},
+      {tempo: 130, beats : [{beat : 0, volume : 20}, {beat : 1, volume : 20}, {beat : 2, volume : 20}]}
+/*      
       {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
       {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
       
@@ -73,7 +79,7 @@ var AudioManager = Class.create({
       {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 3, volume : 50}]},
       
       {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 50}]},
-      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 50}]}      
+      {tempo: 130, beats : [{beat : 0, volume : 40}, {beat : 4, volume : 50}]}*/      
     ]
 		
 		var self = this
@@ -96,13 +102,13 @@ var AudioManager = Class.create({
         return {sound: Loader.sounds['reward.'+level.tempo][reward.sound+'.'+self.format], volume: reward.volume}
       })
     })
-
+/*
     for(var tempo in this.rewardSounds){
       this.rewardSounds[tempo] = this.rewardSounds[tempo].collect(function(sound){
         return Loader.sounds['reward.'+tempo][sound+'.'+self.format]
       });
     }
-		
+*/		
 		this.level = this.levels[0]
 		this.currentReward = this.rewardLevels[0]
 		this.levelIndex = 0
@@ -113,7 +119,7 @@ var AudioManager = Class.create({
 		this.playingRewards = []
 		this.tempoChanged = true;
 		
-		scene.observe('keySound',function(keyIndex){self.playKeySound(keyIndex)});
+		// scene.observe('keySound',function(keyIndex){self.playKeySound(keyIndex)});
 		
 		this.cc = false;
 	},
@@ -122,7 +128,7 @@ var AudioManager = Class.create({
     var self = this;
     var sound_ambient = Loader.sounds['sfx']['ambient.mp3'];
     sound_ambient.loop = true;
-    sound_ambient.play({volume:80, loops:10000});
+    sound_ambient.play({volume:60, loops:10000});
 
     var sound_background_music = Loader.sounds['sfx']['background_music.mp3'];
     sound_background_music.loop = true;
@@ -130,7 +136,7 @@ var AudioManager = Class.create({
 
     var sound_background_ascending = Loader.sounds['sfx']['background_ascending.mp3'];
     sound_background_ascending.loop = true;
-    sound_background_ascending.play({volume:80, loops:10000});
+    // sound_background_ascending.play({volume:60, loops:10000});
 
     
     // .play({volume : 30, onfinish: function(){
@@ -141,12 +147,12 @@ var AudioManager = Class.create({
 	playKeySound: function(keyIndex){
 	  if(keyIndex == 0){
 	    if(this.cc)
-        Loader.sounds['sfx']['ha.mp3'].play({volume:80});
+        Loader.sounds['sfx']['hoh.mp3'].play({volume:80});
       else
-        Loader.sounds['sfx']['hii.mp3'].play({volume:80});
+        Loader.sounds['sfx']['hm.mp3'].play({volume:80});
       this.cc = !this.cc;	    
 	  }else if(keyIndex == 1){
-      Loader.sounds['sfx']['hii.mp3'].play({volume:80});
+      Loader.sounds['sfx']['hm.mp3'].play({volume:80});
     }else if(keyIndex == 2){
       
     }else if(keyIndex == 3){
@@ -180,7 +186,6 @@ var AudioManager = Class.create({
 	  this.playAmbient();
 	  this.changeTempo();
 	  this.switchBeatsChannels();
-		// this.reactor.pushEvery(0, this.reactor.timeToTicks(this.durations[this.level.tempo]), this.tick, this)
     this.background_audio = Loader.sounds['beats.'+130][3+'.'+this.format] 
     this.background_audio.loop = true
     // this.background_audio.play({volume : 100, loop:true,loops:10000})
@@ -211,11 +216,18 @@ var AudioManager = Class.create({
     }
 
     this.nowPlaying = []      
-    for(var i=0; i< this.levelBeats[this.level.tempo].length; i++){
+
+    var sound = this.levelBeats[this.level.tempo][0]
+    sound.mute()
+    sound.loop = true
+    sound.play({ loops : 100000})
+    this.nowPlaying.push(sound)
+
+    for(var i=1; i< this.levelBeats[this.level.tempo].length; i++){
       var sound = this.levelBeats[this.level.tempo][i]
       sound.mute()
       sound.loop = true
-      sound.play({ loops : 100000})
+      sound.play({ loops : 100000, position:this.nowPlaying[0].position})
       this.nowPlaying.push(sound)
     }
     

@@ -7,7 +7,8 @@ var ClashDirection = Class.create(Display,{
     this.imgWidth = this.img.width
     this.imgHeight = this.img.height/this.noOfFrames
     $super(owner)    
-    this.sprites.direction = new DomImgSprite(owner,{img : this.img, noOfFrames : this.noOfFrames})
+    this.sprites.direction = new DomImgSprite(owner,{img : this.img, noOfFrames : this.noOfFrames},
+    {shiftZ:1000})
   },
   correct : function(){
     this.directionCorrect = true

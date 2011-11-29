@@ -46,15 +46,15 @@ var TsquareScene = Class.create(Scene,{
         this.energy =  {current:0, rate: 10, max:100}
         this.comboMistakes = {current : 0, max : 2}
         
-        // Effect.Queues.create('global', this.reactor)
+        //Effect.Queues.create('global', this.reactor)
         
-        this.audioManager = new AudioManager(this.reactor);
+        this.audioManager = new AudioManager(this);
         this.flashingHandler = new FlashingHandler(this);
-        // this.movementManager = new MovementManager(this);
         
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         this.view.length = this.view.width;
+        // this.data[1][0].x = 200;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
             this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)
@@ -124,21 +124,26 @@ var TsquareScene = Class.create(Scene,{
     },
 
     wrongMove: function(){
-      this.decreaseEnergy();
-      // console.log("scene wrong move");
+     if (this.movementManager.currentMode == this.movementManager.modes.normal) {
+       this.decreaseEnergy();
+     }
     },
 
     correctMove: function(){
-      this.increaseEnergy();
-//      console.log("scene correct moved");
     },
     
     wrongCommand: function(){
+      
 //      console.log("scene wrong command");
     },
-
+    
     correctCommand: function(){
+     if (this.movementManager.currentMode == this.movementManager.modes.normal) {
+      this.increaseEnergy();
+     }
     },
+    
+    
     
     tick: function($super){
         $super()
@@ -224,7 +229,7 @@ var TsquareScene = Class.create(Scene,{
   },
     
   increaseEnergy : function(){
-    if (!this.movementManager.currentMode == this.movementManager.modes.normal) {
+    if (this.movementManager.currentMode != this.movementManager.modes.normal) {
       this.direction = 0
     } 
     if(this.speedIndex != 0)
@@ -245,13 +250,12 @@ var TsquareScene = Class.create(Scene,{
    },
    
   decreaseEnergy : function(){
-    if(!this.movementManager.currentMode == this.movementManager.modes.normal){
+    if(this.movementManager.currentMode != this.movementManager.modes.normal){
       this.direction = 0
     }
     if(this.speedIndex != 0)
       this.lastSpeedIndex = this.speedIndex;
     if(this.stopped) return;
-     
      if (++this.comboMistakes.current == this.comboMistakes.max) {
         this.comboMistakes.current = 0
         this.audioManager.levelDown()

@@ -25,7 +25,7 @@ var ClashDirectionsGenerator = Class.create({
   },
   createObservers : function(){
     var self = this
-    this.scene.observe('clashUnit',function(){
+    this.scene.observe('clashCrowdsBack',function(){
       self.run()
     })
     this.scene.observe('clashWin', function(){
@@ -50,8 +50,8 @@ var ClashDirectionsGenerator = Class.create({
       this.directions[i].owner.coords.x-= this.speed 
       this.directions[i].owner.moved +=this.speed
     }
-   if(this.directions[0] && this.startingDirection == 0 && this.directions[0].owner.coords.x < this.scene.view.width / 2 - 15){
-     var self = this
+    if(this.directions[0] && this.startingDirection == 0 && this.directions[0].owner.coords.x < this.scene.view.width / 2 - 15){
+      var self = this
       self.startingDirection = 1
       Effect.Fade(this.directions[0].obj.sprites.direction.div, {duration : 0.3, afterFinish: function(){
         if(self.directionsArrived == 0){
@@ -80,11 +80,10 @@ var ClashDirectionsGenerator = Class.create({
     this.speed = this.minSpeed + (this.crowd.coords.x - this.scene.view.width/2)/100
   },
   removeFirstDirection : function(){
-        // mistake
-        this.directions[0].obj.destroy()
-        this.directions[0].obj.removed = true
-        this.directions.shift()
-        this.startingDirection = 0
+    this.directions[0].obj.destroy()
+    this.directions[0].obj.removed = true
+    this.directions.shift()
+    this.startingDirection = 0
   },
   createFrame : function(){
     var frameOwner = {coords: {
@@ -158,39 +157,45 @@ var ClashDirectionsGenerator = Class.create({
   start : function(){
      this.scene.reactor.pushEvery(0,this.scene.reactor.everySeconds(1),this.doStart,this)
   },
-  doStart : function(){
-     $('initCounter').show()
-      $('initCounter').update("");
-      $('initCounter').appendChild(Loader.images.countDown[this.startCounter+".png"]);
-      Effect.Puff('initCounter')
-      this.startCounter--
-      if (this.startCounter == 0) {
-        this.scene.reactor.push(this.scene.reactor.everySeconds(1), function(){
-          $('initCounter').show()
-          $('initCounter').update("");
-          $('initCounter').appendChild(Loader.images.countDown["go.png"]);
-          Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
-          this.running = true
-          this.generateDirection()
-        }, this)
-        return false
-      }
+  doStart: function(){
+    $('initCounter').show()
+    $('initCounter').update("");
+    $('initCounter').appendChild(Loader.images.countDown[this.startCounter + ".png"]);
+    Effect.Puff('initCounter')
+    this.startCounter--
+    if (this.startCounter == 0) {
+      this.scene.reactor.push(this.scene.reactor.everySeconds(1), function(){
+        $('initCounter').show()
+        $('initCounter').update("");
+        $('initCounter').appendChild(Loader.images.countDown["go.png"]);
+        Effect.Puff('initCounter', {
+          transition: Effect.Transitions.sinoidal
+        })
+        this.running = true
+        this.generateDirection()
+      }, this)
+      return false
+    }
   },
-  setCrowd : function(crowd){
+  setCrowd: function(crowd){
+    console.log('setting crowd')
     this.crowd = crowd
-    if(this.enemy) this.start()
+    if (this.enemy) 
+      this.start()
   },
-  setEnemy : function(enemy){
+  setEnemy: function(enemy){
+    console.log('setting enemy')
     this.enemy = enemy
-    if(this.crowd)this.start()
+    if (this.crowd) 
+      this.start()
   },
-  hide : function(){
-    for(var sprite in this.sprites){
+  hide: function(){
+    for (var sprite in this.sprites) {
       this.sprites[sprite].hide()
     }
   },
-  show : function(){
-    for(var sprite in this.sprites){
+  show: function(){
+    for (var sprite in this.sprites) {
       this.sprites[sprite].show()
     }
   }

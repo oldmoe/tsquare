@@ -51,13 +51,14 @@ var Game = Class.create({
     }
     var effectsImages = ['hydrate.png', 'hit1.png','good_blue.png','bad_red.png']
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
-    'amn_markazy_tear_gas_walk.png','amn_markazy_tear_gas_shadow.png','ambulance.png','twitter_guy.png',
+    'amn_markazy_tear_gas_walk.png', 'ambulance.png','twitter_guy.png',
     'amn_kalabsh_back.png','amn_kalabsh_blur.png','amn_kalabsh_front.png','amn_kalabsh_run.png',
-    'amn_kalabsh_walk.png']
+    'amn_kalabsh_walk.png', 'box_car.png', 'tear_gas_bomb.png']
     
     var countDownImages = ["1.png", "2.png", "3.png", "go.png"];
     
-    var shadowImages = ["crowd_shadow.png", "box_car_shadow.png", "amn_markazy_shadow.png", "ambulance_shadow.png", "twitter_shadow.png"];
+    var shadowImages = ["crowd_shadow.png", "box_car_shadow.png", "amn_markazy_shadow.png", 
+    "ambulance_shadow.png", "twitter_shadow.png", "amn_markazy_tear_gas_shadow.png"];
        
   	var self = this
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
@@ -71,18 +72,28 @@ var Game = Class.create({
     	var format = ['mp3'];
     	for(var i=0; i < format.length; i++){ //number of tempos
     		var beats = []
-    		for(var j=0; j < 5; j++){
+    		for(var j=0; j < 6; j++){
     			beats.push(j+'.'+format[i])
     		}
     		var hetaf = []
     		for(var j=0; j < 11; j++){
     			hetaf.push((j+1)+'.'+format[i])
     		} 
+
+        var reward = []
+        for(var j=2; j <= 18; j++){
+          reward.push((j)+'.'+format[i])
+        } 
+
     		var tempo = 130+(i*10)
     		toLoad.push({sounds: beats, path: 'sounds/'+format[i]+'/'+tempo+'/beats/', store: 'beats.'+tempo})
        	toLoad.push({sounds: hetaf, path: 'sounds/'+format[i]+'/'+tempo+'/hetaf/', store: 'hetaf.'+tempo})
+       	toLoad.push({sounds: reward, path: 'sounds/'+format[i]+'/'+tempo+'/reward/', store: 'reward.'+tempo})
        	
-       	var sfx = ["ambient", "Ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", "Gun-shot", "Hit-police-car", "Morning-air-birds", "Night-sound", "Police", "Police-march", "Punch", "Tank-move", "Tear-gas"];
+       	var sfx = ["hoh", "hm", "ha", "hii", "background_ascending", "background_music", "ambient", "ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", 
+        "Gun-shot", "Hit-police-car", "Morning-air-birds", "Night-sound", "Police", "Police-march", "Punch", "Tank-move",
+         "Tear-gas", "clash_preparing", "clash_scenario"];
+
         for(var j=0; j < sfx.length; j++){
           sfx[j] = sfx[j]+'.'+format[i];
         } 

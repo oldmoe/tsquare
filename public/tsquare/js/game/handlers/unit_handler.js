@@ -14,6 +14,7 @@ var UnitHandler = Class.create({
    },
    
    tick: function(){
+       if(this.ended) return
        this.checkObjectsState();
        var self = this;
        this.objects.each(function(laneObjects){self.scene.tickObjects(laneObjects)})
@@ -39,17 +40,24 @@ var UnitHandler = Class.create({
    },
    
   checkObjectsState : function(){
+    this.checkExistingObjects()
+    this.checkIncomingObjects()
+    this.checkEnd()
+  },
+  checkExistingObjects: function(){
     for (var i = 0; i < this.objects.length; i++) {
       for (var j = 0; this.objects[i] && j < this.objects[i].length; j++) {
-         if(this.objects[i][j].coords.x +  this.objects[i][j].getWidth()< 0){
-           this.objects[i][j].destroy()
-           this.objects[i].splice(j, 1)
-           j--
-         }  
+        if (this.objects[i][j].coords.x + this.objects[i][j].getWidth() < 0) {
+          this.objects[i][j].destroy()
+          this.objects[i].splice(j, 1)
+          j--
+        }
       }
     }
-    for(var i=0;i<this.incoming.length;i++){
-      for(var j=0; this.incoming[i] && j<this.incoming[i].length;j++){
+  },
+  checkIncomingObjects: function(){
+    for (var i = 0; i < this.incoming.length; i++) {
+      for (var j = 0; this.incoming[i] && j < this.incoming[i].length; j++) {
         if (this.incoming[i][j].x < this.scene.view.xPos + this.scene.view.width) {
           this.objects[i].push(this.addObject(this.incoming[i][j]))
           this.incoming[i].splice(0, 1)
@@ -60,6 +68,8 @@ var UnitHandler = Class.create({
         }
       }
     }
+  },
+  checkEnd : function(){  
     var done = true
     for(var i=0;i<this.objects.length;i++){
       if (this.objects[i].length > 0) {
@@ -70,6 +80,7 @@ var UnitHandler = Class.create({
     for (var i = 0; i < this.incoming.length; i++) {
       if(this.incoming[i].length > 0){
         done = false
+        break
       } 
     }
     if(done) this.end()
@@ -122,7 +133,6 @@ var UnitHandler = Class.create({
           return true;
       }
       return false;
-   }
-      
+   }      
     
 });

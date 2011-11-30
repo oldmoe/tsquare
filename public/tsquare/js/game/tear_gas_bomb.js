@@ -2,7 +2,7 @@ var TearGasBomb = Class.create({
     //Attributes for throwing mechanics
     ground: 0,
     t_0: 0,
-    t_scale: 400,
+    t_scale: 500,
     ax: 0,
     ay: 0.004,
     vx: 0,
@@ -71,19 +71,21 @@ var TearGasBomb = Class.create({
         
         // rotations and settling
         if (this.mode >= 100) {
-            if (Math.sin(this.theta) < 0.01 && Math.sin(this.theta) > -0.01) { // settling
-            }
-            else { // continue rotations till horizontal
-                this.theta += Math.cos(this.theta) * 0.2 * this.omega;
-            }
-            // keep going down till we touch the ground
-            this.coords.y = Math.min(this.ground - this.imgHeight / 2, this.coords.y);
-            return;
-        }
-        else {
-            this.theta += 3 * this.omega;
-            if (this.theta > 2 * Math.PI) 
-                this.theta -= 2 * Math.PI;
+          var a = this.theta;
+          if (a > Math.PI) a -= Math.PI;
+          if (Math.abs(Math.sin(a)) < 0.1) { // settling
+            this.theta = a > Math.PI / 2? Math.PI : 0; 
+          } else {  // continue rotations till horizontal
+            if (a < Math.PI / 2) this.theta += 0.5 * this.omega;
+            else this.theta -= 0.5 * this.omega;
+          }
+          // keep going down till we touch the ground
+          this.coords.y = Math.min(this.ground - this.imgHeight / 2, this.coords.y);
+          return;
+        } else {
+          this.theta += 3 * this.omega;
+          if (this.theta < 0) this.theta += 2 * Math.PI;
+          else if (this.theta > 2 * Math.PI) this.theta -= 2 * Math.PI;
         }
         
         // contact points with the ground level
@@ -120,6 +122,7 @@ var TearGasBomb = Class.create({
                 this.omega = -0.2;
                 this.mode = 100;
                 this.rested = true;
+                this.scene.applySpeedFactor(0.2)
             }
         }  
     },
@@ -138,7 +141,7 @@ var TearGasBomb = Class.create({
         this.scene.pushToRenderLoop('characters', bombSmokeDisplay);
         this.scene.push(bombSmoke);
       }else{
-        this.empty = true
+        this.empty = true;
       }
 //      this.smokes.push(bombSmoke)
     }

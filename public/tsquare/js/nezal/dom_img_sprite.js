@@ -115,9 +115,10 @@ var DomImgSprite = Class.create(DomSprite, {
 				zIndex: (this.owner.coords.y + this.minAreaZIndex)
 			})
     } else {
+      var scale = this.owner.scale || 1
       var styles = {
         marginLeft: (-this.currentAnimation.imgWidth * this.owner.angle + "px"),
-        marginTop: (-this.currentAnimationFrame * this.currentAnimation.imgHeight + "px")
+        marginTop: (-this.currentAnimationFrame * this.currentAnimation.imgHeight * scale + "px")
       }
       var changes = this.changedStyles(styles, 'img');
       if (changes) {

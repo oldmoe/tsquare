@@ -7,9 +7,9 @@ var missionData = {
       "category": 'enemy',
       "index": 0,
       "lane": 1,
-      "x": 1,
+      "x": 2,
       "order": 1,
-      "type" : "1_1"      
+      "type" : "2_2"      
   },
    {
       "name": "box_car",

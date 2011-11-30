@@ -28,7 +28,7 @@ var BlockDisplay = Class.create(EnemyDisplay, {
   },
   
   destroyAudio: function(){
-    this.owner.scene.audioManager.mute(Loader.sounds['sfx']['Police-march.mp3']);
+    this.owner.scene.audioManager.mute(Loader.sounds['sfx']['Police-march.mp3'], false);
   },
   
   destroy : function($super, shallow){

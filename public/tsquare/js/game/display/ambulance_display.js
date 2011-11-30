@@ -23,7 +23,7 @@ var AmbulanceDisplay = Class.create(Display,{
   },
   
   destroyAudio: function(){
-    this.owner.scene.audioManager.mute(Loader.sounds['sfx']['ambulance.mp3']);
+    this.owner.scene.audioManager.mute(Loader.sounds['sfx']['ambulance.mp3'], true);
   },
   
   createSprites : function(){

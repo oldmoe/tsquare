@@ -5,10 +5,16 @@ var TearGasBombDisplay = Class.create(Display,{
     this.imgHeight = this.img.height
     $super(owner)
   },
+  
   createSprites : function(){
-    this.sprites.bomb = new DomImgSprite(this.owner, {img : this.img, noOfFrames :1})
+    this.sprites.bomb = new DomImgSprite(this.owner, {img : this.img, noOfFrames :1}, {shiftZ : -20})
   },
+  
   render : function($super){
+    if(this.owner.finished){
+      this.owner.removed = true
+      this.destroy()
+    }
     $super()
   }
   

@@ -3,11 +3,11 @@ var missionData = {
   "data":[[
   ],[
      {
-      "name": "box_car",
-      "category": 'clash_enemy',
+      "name": "tear_gas_gunner_cs",
+      "category": 'enemy',
       "index": 0,
       "lane": 1,
-      "x": 3,
+      "x": 1,
       "order": 1,
       "type" : "1_1"      
   },

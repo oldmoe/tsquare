@@ -6,6 +6,11 @@ var EditorData = [
   {src:'images/objects/am9.png', name:'wood_stick_cs', category:'enemy', type: "3_3"},
   {src:'images/objects/am18.png', name:'wood_stick_cs', category:'enemy', type: "6_3"},
   {src:'images/objects/am27.png', name:'wood_stick_cs', category:'enemy', type: "9_3"},
+  
+  {src:'images/objects/tg1.png', name:'tear_gas_gunner_cs', category:'enemy', type: "1_1"},
+  {src:'images/objects/tg2.png', name:'tear_gas_gunner_cs', category:'enemy', type: "1_2"},
+  {src:'images/objects/tg4.png', name:'tear_gas_gunner_cs', category:'enemy', type: "2_2"},
+  
   {src:'images/objects/amn_markazy_car.png', name:'amn_markazy_car', category:'enemy'}, 
   
   {src:'images/objects/box_car.png', name:'box_car', category:'clash_enemy'},

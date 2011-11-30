@@ -65,7 +65,8 @@ var Block = Class.create(Enemy,{
           this.setTarget(null)
           var options = this.options
           options.type = "3_1";
-          options.obj = null
+          options.mappingName = options.mappingName || options.obj
+          options.obj = null;
           var blocks = [] 
           for(var i=0;i<this.elements.length;i++){
             var b = new Block(this.scene,this.elements[i][0].coords.x ,this.scene.activeLane, options)

@@ -6,6 +6,7 @@ var DomImgSprite = Class.create(DomSprite, {
   lastCoords : null,
   initialize : function($super, owner, imgAssets, properties){
     this.animations = {}
+    properties = properties || {}
     this.createAnimation({
         name : 'normal',
         img : $(imgAssets.img),
@@ -14,7 +15,7 @@ var DomImgSprite = Class.create(DomSprite, {
     this.currentAnimation = this.animations['normal']
     $super(owner, imgAssets, properties);
     //console.log( imgAssets )
-    if(properties && properties.flipped){
+    if(properties.flipped){
       this.div.addClassName('flippedSprite');
       Util.flip(this.div)
     }
@@ -28,6 +29,9 @@ var DomImgSprite = Class.create(DomSprite, {
   	this.noOfAnimationFrames = this.currentAnimation.noOfFrames
   	this.noOfDirections = 8
   	this.img.setStyle({height:"auto"});
+    if(properties.imgScale){
+      this.setImgWidth(this.img.width* properties.imgScale)
+    }
     this.render()
   },
   scaleDiv : function(){

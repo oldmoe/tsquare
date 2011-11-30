@@ -19,7 +19,7 @@ var TearGasGunnerCs = Class.create(Enemy,{
       this.fire("hit");
     }        
   },
-  
+ 
 //  hit : function(){
 //      if(this.hp <=0)return
 //      var self = this
@@ -30,10 +30,11 @@ var TearGasGunnerCs = Class.create(Enemy,{
 //  },
   
   createTearGasBomb : function(){
-     this.bomb = new TearGasBomb(this.scene, this, {x:this.coords.x, y:this.coords.y, angle: 0},
-      1.2, Math.PI /4, Math.PI* 5/4)
-     this.scene.objects.push(this.bomb)
-     var bombDisplay = new TearGasBombDisplay(this.bomb)
+     var v0 = 1+ Math.random()* 0.3 - 0.15
+     var bomb = new TearGasBomb(this.scene, this, {x:this.coords.x, y:this.coords.y, angle: 0},
+      v0 , Math.PI /4, Math.PI* 5/4)
+     this.scene.objects.push(bomb)
+     var bombDisplay = new TearGasBombDisplay(bomb)
      this.scene.pushToRenderLoop('characters', bombDisplay)
   }
   

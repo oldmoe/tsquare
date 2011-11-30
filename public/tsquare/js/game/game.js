@@ -90,9 +90,10 @@ var Game = Class.create({
        	toLoad.push({sounds: hetaf, path: 'sounds/'+format[i]+'/'+tempo+'/hetaf/', store: 'hetaf.'+tempo})
        	toLoad.push({sounds: reward, path: 'sounds/'+format[i]+'/'+tempo+'/reward/', store: 'reward.'+tempo})
        	
-       	var sfx = ["ambient", "Ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", 
+       	var sfx = ["hoh", "hm", "ha", "hii", "background_ascending", "background_music", "ambient", "ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", 
         "Gun-shot", "Hit-police-car", "Morning-air-birds", "Night-sound", "Police", "Police-march", "Punch", "Tank-move",
          "Tear-gas", "clash_preparing", "clash_scenario"];
+
         for(var j=0; j < sfx.length; j++){
           sfx[j] = sfx[j]+'.'+format[i];
         } 

@@ -48,9 +48,8 @@ var TsquareScene = Class.create(Scene,{
         
         //Effect.Queues.create('global', this.reactor)
         
-        this.audioManager = new AudioManager(this.reactor);
+        this.audioManager = new AudioManager(this);
         this.flashingHandler = new FlashingHandler(this);
-        // this.movementManager = new MovementManager(this);
         
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
@@ -131,9 +130,6 @@ var TsquareScene = Class.create(Scene,{
     },
 
     correctMove: function(){
-     if (this.movementManager.currentMode == this.movementManager.modes.normal) {
-      this.increaseEnergy();
-     }
     },
     
     wrongCommand: function(){
@@ -142,7 +138,9 @@ var TsquareScene = Class.create(Scene,{
     },
     
     correctCommand: function(){
+     if (this.movementManager.currentMode == this.movementManager.modes.normal) {
       this.increaseEnergy();
+     }
     },
     
     

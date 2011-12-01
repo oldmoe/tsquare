@@ -34,7 +34,7 @@ var ClashEnemyDisplay = Class.create(EnemyDisplay,{
       shiftX : -(this.walkImg.width - this.blurImg.width),
       shiftY : 30,
       flipped : true,
-      hidden : true,
+      hidden : true
     })
     this.sprites.character = new DomImgSprite(this.owner,{img:this.walkImg, noOfFrames : 8},{
       shiftY : 20,

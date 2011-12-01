@@ -51,6 +51,7 @@ var TearGasGunnerCsDisplay = Class.create(EnemyDisplay,{
     if (sprite.currentAnimation.name == "hit" &&
        sprite.currentAnimationFrame == sprite.noOfAnimationFrames - 1) {
       this.normal()
+      this.owner.shotComplete = true
       sprite.currentAnimationFrame = 0
     }
     sprite.currentAnimationFrame = (sprite.currentAnimationFrame+1) % sprite.noOfAnimationFrames

@@ -24,7 +24,7 @@ var TsquareScene = Class.create(Scene,{
     targetSpeedIndex: 0,
     targetEnergy: 0,
     flashingHandler: null,
-    
+    speedFactor : 1,
     initialize: function($super){
         $super();
         this.collision = false;
@@ -45,7 +45,7 @@ var TsquareScene = Class.create(Scene,{
         this.initCounter = 3
         this.energy =  {current:0, rate: 10, max:100}
         this.comboMistakes = {current : 0, max : 2}
-        
+        this.speedFactors = []
         //Effect.Queues.create('global', this.reactor)
         
         this.audioManager = new AudioManager(this);
@@ -84,6 +84,16 @@ var TsquareScene = Class.create(Scene,{
        }
 
        this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
+    },
+    
+    applySpeedFactor : function(factor){
+       this.currentSpeed*=factor
+       this.speedFactor*= factor
+    },
+    
+    cancelSpeedFactor : function(factor){
+      this.currentSpeed/=factor
+      this.speedFactor/= factor
     },
     
     doInit : function(){

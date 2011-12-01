@@ -88,7 +88,7 @@ var ClashDirectionsGenerator = Class.create({
   createFrame : function(){
     var frameOwner = {coords: {
       x: this.scene.view.width / 2,
-      y: 0,
+      y: 0
     }, angle:0, imgWidth : 60, imgHeight:60}
     this.sprites.frame = new DomImgSprite(frameOwner,{img:Loader.images.gameElements['square.png']},{
       width : 60,

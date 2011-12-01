@@ -1,5 +1,4 @@
 var TsquareScene = Class.create(Scene,{
-    
     handlers: null,
     skyline: null,
     currentSpeed : 0,
@@ -15,7 +14,7 @@ var TsquareScene = Class.create(Scene,{
     direction : 1,
     holdPowerDepression: 0.2,
     energy : null,
-    view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25, length:0},
+    view: {width: 950, height: 460, xPos: 0, tileWidth: 400, laneMiddle : 25, length:0},
     activeLane: 1,
     win : false,
     comboMistakes : {current : 0, max : 2},
@@ -46,7 +45,8 @@ var TsquareScene = Class.create(Scene,{
         this.energy =  {current:0, rate: 10, max:100}
         this.comboMistakes = {current : 0, max : 2}
         this.speedFactors = []
-        //Effect.Queues.create('global', this.reactor)
+        
+        Effect.Queues.create('global', this.reactor)
         
         this.audioManager = new AudioManager(this);
         this.flashingHandler = new FlashingHandler(this);
@@ -154,15 +154,15 @@ var TsquareScene = Class.create(Scene,{
     
     
     
-    tick: function($super){
-        $super()
-        this.detectCollisions();
-        this.view.xPos += this.currentSpeed* this.direction
-        for(var handler in this.handlers){
-            this.handlers[handler].tick();
-        }
-        if(this.view.xPos > this.view.length) this.end();
-    },
+  tick: function($super){
+    $super()
+    this.detectCollisions();
+    this.view.xPos += this.currentSpeed* this.direction
+    for(var handler in this.handlers){
+        this.handlers[handler].tick();
+    }
+    if(this.view.xPos > this.view.length) this.end();
+  },
     
   end : function(win){
     var self = this;

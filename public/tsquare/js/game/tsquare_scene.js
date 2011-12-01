@@ -132,7 +132,6 @@ var TsquareScene = Class.create(Scene,{
     },
     
     wrongCommand: function(){
-      
 //      console.log("scene wrong command");
     },
     

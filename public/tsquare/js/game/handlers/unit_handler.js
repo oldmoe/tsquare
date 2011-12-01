@@ -58,7 +58,7 @@ var UnitHandler = Class.create({
   checkIncomingObjects: function(){
     for (var i = 0; i < this.incoming.length; i++) {
       for (var j = 0; this.incoming[i] && j < this.incoming[i].length; j++) {
-        if (this.incoming[i][j].x < this.scene.view.xPos + this.scene.view.width) {
+        if (this.incoming[i][j].x < this.scene.view.xPos + (this.scene.view.width * 1.5)) {
           this.objects[i].push(this.addObject(this.incoming[i][j]))
           this.incoming[i].splice(0, 1)
           j--;

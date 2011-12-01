@@ -6,6 +6,7 @@ var DomImgSprite = Class.create(DomSprite, {
   lastCoords : null,
   initialize : function($super, owner, imgAssets, properties){
     this.animations = {}
+    properties = properties || {}
     this.createAnimation({
         name : 'normal',
         img : $(imgAssets.img),
@@ -14,7 +15,7 @@ var DomImgSprite = Class.create(DomSprite, {
     this.currentAnimation = this.animations['normal']
     $super(owner, imgAssets, properties);
     //console.log( imgAssets )
-    if(properties && properties.flipped){
+    if(properties.flipped){
       this.div.addClassName('flippedSprite');
       Util.flip(this.div)
     }
@@ -28,6 +29,9 @@ var DomImgSprite = Class.create(DomSprite, {
   	this.noOfAnimationFrames = this.currentAnimation.noOfFrames
   	this.noOfDirections = 8
   	this.img.setStyle({height:"auto"});
+    if(properties.imgScale){
+      this.setImgWidth(this.img.width* properties.imgScale)
+    }
     this.render()
   },
   scaleDiv : function(){
@@ -111,9 +115,10 @@ var DomImgSprite = Class.create(DomSprite, {
 				zIndex: (this.owner.coords.y + this.minAreaZIndex)
 			})
     } else {
+      var scale = this.owner.scale || 1
       var styles = {
         marginLeft: (-this.currentAnimation.imgWidth * this.owner.angle + "px"),
-        marginTop: (-this.currentAnimationFrame * this.currentAnimation.imgHeight + "px")
+        marginTop: (-this.currentAnimationFrame * this.currentAnimation.imgHeight * scale + "px")
       }
       var changes = this.changedStyles(styles, 'img');
       if (changes) {

@@ -32,7 +32,6 @@ var CrowdMember = Class.create(Unit,{
     var self = this
     this.hp = this.maxHp = specs.hp
     this.water = this.maxWater =  specs.water
-    this.water = this.maxWater = 100
     this.attack = specs.attack || 0
     this.defense = specs.defense || 0 
     var crowdCommandFilters = [
@@ -114,13 +113,19 @@ var CrowdMember = Class.create(Unit,{
       if(this.endMoveCallback) this.endMoveCallback();
       return;
     }
-    if(this.fixedPlace && (!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y!=this.originalPosition.y) > 1))){
-        this.fire('walk')
-        var self= this
-        this.moveToTarget(this.originalPosition, function(){
-          self.fire('normal')
-        })
-    } 
+    
+    if((!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y!=this.originalPosition.y) > 1))){
+      if(this.fixedPlace){
+          var self= this
+          this.moveToTarget(this.originalPosition)
+      }else{
+          this.fire('walk')
+          var self= this
+          this.moveToTarget(this.originalPosition, function(){
+            self.fire('normal')
+          })
+      } 
+    }
      
     this.stateChanged = true
     

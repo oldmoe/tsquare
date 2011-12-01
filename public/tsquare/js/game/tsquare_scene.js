@@ -18,23 +18,22 @@ var TsquareScene = Class.create(Scene,{
     view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25, length:0},
     activeLane: 1,
     win : false,
-    comboMistakes : {current : 0, max : 2},
+    comboMistakes : null,
     scoreCalculator: null,
     collision: false,
     targetSpeedIndex: 0,
     targetEnergy: 0,
     flashingHandler: null,
-    
+    speedFactor : 1,
     initialize: function($super){
         $super();
-        this.collision = false;
         this.scoreCalculator = new ScoreCalculator(this);
         this.createRenderLoop('skyline',1);
         this.createRenderLoop('characters',2);
         this.createRenderLoop('meters',3);
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
-            // "rescue" : new RescueUnitHandler(this),
+            "rescue" : new RescueUnitHandler(this),
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
             "enemy" : new EnemyHandler(this),  
@@ -45,7 +44,7 @@ var TsquareScene = Class.create(Scene,{
         this.initCounter = 3
         this.energy =  {current:0, rate: 10, max:100}
         this.comboMistakes = {current : 0, max : 2}
-        
+        this.speedFactors = []
         //Effect.Queues.create('global', this.reactor)
         
         this.audioManager = new AudioManager(this);
@@ -57,11 +56,22 @@ var TsquareScene = Class.create(Scene,{
         // this.data[1][0].x = 200;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
-            this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)
+            this.view.length = Math.max(this.view.length, this.data[i].last().x * this.view.tileWidth + this.view.width)
           }
         }
         var mapping = {'crowd':'npc', 'protection':'protection_unit',
          'enemy':'enemy', 'rescue':'rescue', 'clash_enemy':'clash_enemy'}
+        /*************************************/
+        /************ TEST DATA **************/
+        /*************************************/
+        this.data[1][0] = { "name": "journalist_rescue",
+                            "category": 'rescue',
+                            "type": '3_3',
+                            "index": 0,
+                            "lane": 1,
+                            "x": 1,
+                            "order": 1
+                          }
 
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
@@ -86,6 +96,16 @@ var TsquareScene = Class.create(Scene,{
        this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
     },
     
+    applySpeedFactor : function(factor){
+       this.currentSpeed*=factor
+       this.speedFactor*= factor
+    },
+    
+    cancelSpeedFactor : function(factor){
+      this.currentSpeed/=factor
+      this.speedFactor/= factor
+    },
+    
     doInit : function(){
       // take action
       $('initCounter').show()
@@ -100,7 +120,6 @@ var TsquareScene = Class.create(Scene,{
           $('initCounter').appendChild(Loader.images.countDown["go.png"]);
           Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
 
-          this.audioManager = new AudioManager(this.reactor);
           this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
           this.push(this.clashDirectionsGenerator)
           this.movementManager = new MovementManager(this);
@@ -152,6 +171,7 @@ var TsquareScene = Class.create(Scene,{
         for(var handler in this.handlers){
             this.handlers[handler].tick();
         }
+        if(this.view.xPos > this.view.length) this.end();
     },
     
   end : function(win){

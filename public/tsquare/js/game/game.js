@@ -39,7 +39,7 @@ var Game = Class.create({
     
     var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png',
     'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png',
-    'square.png','line.png']
+    'square.png','line.png', 'smoke1.png', 'smoke2.png', 'smoke3.png', 'smoke4.png']
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
     'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man', 'follower1','follower2','follower3']
     var characterImages = ['follower.png']

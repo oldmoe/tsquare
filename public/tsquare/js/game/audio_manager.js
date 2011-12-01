@@ -32,6 +32,7 @@ var AudioManager = Class.create({
 			150 : 1600,
 			160 : 1500
 	},
+	reactor: null,
 	
 	initialize : function(scene){
 		this.reactor = scene.reactor
@@ -61,13 +62,13 @@ var AudioManager = Class.create({
     ];
 
     this.levels = [
-      {tempo: 130, beats : [{beat : 0, volume : 5}]},
+      {tempo: 130, beats : [{beat : 0, volume : 20}]},
 
-      {tempo: 130, beats : [{beat : 0, volume : 20}, {beat : 1, volume : 20}]},
-      {tempo: 130, beats : [{beat : 0, volume : 20}, {beat : 1, volume : 20}]},
+      {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 20}]},
+      {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 20}]},
       
-      {tempo: 130, beats : [{beat : 0, volume : 20}, {beat : 1, volume : 20}, {beat : 2, volume : 20}]},
-      {tempo: 130, beats : [{beat : 0, volume : 20}, {beat : 1, volume : 20}, {beat : 2, volume : 20}]}
+      {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 20}, {beat : 2, volume : 30}]},
+      {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 20}, {beat : 2, volume : 30}]}
 /*      
       {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
       {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
@@ -332,18 +333,28 @@ var AudioManager = Class.create({
 			sound.playersCount += 1;
 		}else{
       sound.playersCount = 1;
+      var volume = options.volume;
+      options.volume = 0;
+      sound.setVolume(0);
       sound.play(options);
+      Audio.Fade(sound, volume, sound.duration, this.reactor)
 		}
 	},
 	
-	mute: function(sound){
+	mute: function(sound, fade){
 	  if(sound.playersCount == null){
-	    sound.stop();
+	    if(fade)
+	       Audio.Fade(sound, 0, sound.duration, this.reactor, function(s){s.stop()})
+	    else
+	      sound.stop();
 	  }else if(sound.playersCount > 1){
 	    sound.playersCount -= 1;
     }else{
       sound.playersCount = 0;
-      sound.stop();
+      if(fade)
+        Audio.Fade(sound, 0, sound.duration, this.reactor, function(s){s.stop()})
+      else
+        sound.stop();  
     }
 	}
 	

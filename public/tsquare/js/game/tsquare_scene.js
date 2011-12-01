@@ -24,7 +24,7 @@ var TsquareScene = Class.create(Scene,{
     targetSpeedIndex: 0,
     targetEnergy: 0,
     flashingHandler: null,
-    
+    speedFactor : 1,
     initialize: function($super){
         $super();
         this.scoreCalculator = new ScoreCalculator(this);
@@ -44,16 +44,16 @@ var TsquareScene = Class.create(Scene,{
         this.initCounter = 3
         this.energy =  {current:0, rate: 10, max:100}
         this.comboMistakes = {current : 0, max : 2}
+        this.speedFactors = []
+        //Effect.Queues.create('global', this.reactor)
         
-        // Effect.Queues.create('global', this.reactor)
-        
-        this.audioManager = new AudioManager(this.reactor);
+        this.audioManager = new AudioManager(this);
         this.flashingHandler = new FlashingHandler(this);
-        // this.movementManager = new MovementManager(this);
         
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         this.view.length = this.view.width;
+        // this.data[1][0].x = 200;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
             this.view.length = Math.max(this.view.length, this.data[i].last().x * this.view.tileWidth + this.view.width)
@@ -96,6 +96,16 @@ var TsquareScene = Class.create(Scene,{
        this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
     },
     
+    applySpeedFactor : function(factor){
+       this.currentSpeed*=factor
+       this.speedFactor*= factor
+    },
+    
+    cancelSpeedFactor : function(factor){
+      this.currentSpeed/=factor
+      this.speedFactor/= factor
+    },
+    
     doInit : function(){
       // take action
       $('initCounter').show()
@@ -110,7 +120,6 @@ var TsquareScene = Class.create(Scene,{
           $('initCounter').appendChild(Loader.images.countDown["go.png"]);
           Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
 
-          this.audioManager = new AudioManager(this.reactor);
           this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
           this.push(this.clashDirectionsGenerator)
           this.movementManager = new MovementManager(this);
@@ -134,21 +143,26 @@ var TsquareScene = Class.create(Scene,{
     },
 
     wrongMove: function(){
-      this.decreaseEnergy();
-      // console.log("scene wrong move");
+     if (this.movementManager.currentMode == this.movementManager.modes.normal) {
+       this.decreaseEnergy();
+     }
     },
 
     correctMove: function(){
-      this.increaseEnergy();
-//      console.log("scene correct moved");
     },
     
     wrongCommand: function(){
+      
 //      console.log("scene wrong command");
     },
-
+    
     correctCommand: function(){
+     if (this.movementManager.currentMode == this.movementManager.modes.normal) {
+      this.increaseEnergy();
+     }
     },
+    
+    
     
     tick: function($super){
         $super()
@@ -157,6 +171,7 @@ var TsquareScene = Class.create(Scene,{
         for(var handler in this.handlers){
             this.handlers[handler].tick();
         }
+        if(this.view.xPos > this.view.length) this.end();
     },
     
   end : function(win){
@@ -234,7 +249,7 @@ var TsquareScene = Class.create(Scene,{
   },
     
   increaseEnergy : function(){
-    if (!this.movementManager.currentMode == this.movementManager.modes.normal) {
+    if (this.movementManager.currentMode != this.movementManager.modes.normal) {
       this.direction = 0
     } 
     if(this.speedIndex != 0)
@@ -255,13 +270,12 @@ var TsquareScene = Class.create(Scene,{
    },
    
   decreaseEnergy : function(){
-    if(!this.movementManager.currentMode == this.movementManager.modes.normal){
+    if(this.movementManager.currentMode != this.movementManager.modes.normal){
       this.direction = 0
     }
     if(this.speedIndex != 0)
       this.lastSpeedIndex = this.speedIndex;
     if(this.stopped) return;
-     
      if (++this.comboMistakes.current == this.comboMistakes.max) {
         this.comboMistakes.current = 0
         this.audioManager.levelDown()

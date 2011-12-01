@@ -13,6 +13,7 @@ var Unit = Class.create(Observer,{
   dead : false,
   movingToTarget : false,
   movingSpeed : 8,
+  defaultMovingSpeed : 8,
   noDisplay : false,
   target: null,
   handler: null,
@@ -60,7 +61,6 @@ var Unit = Class.create(Observer,{
       else {
         this.movingToTarget = false
         if(this.moveToTargetCallback)this.moveToTargetCallback()
-        this.moveToTargetCallback = null
       }
     }  
   },
@@ -102,10 +102,11 @@ var Unit = Class.create(Observer,{
     }
   },
  
-  moveToTarget : function(targetPoint, callback){
+  moveToTarget : function(targetPoint, callback, movingSpeed){
+   this.movingSpeed = movingSpeed || this.defaultMovingSpeed
    this.movingToTarget = true
    this.targetPoint = targetPoint
-   if(callback)this.moveToTargetCallback = callback
+   this.moveToTargetCallback = callback
   },
   
   pickTarget : function(targets){
@@ -128,9 +129,7 @@ var Unit = Class.create(Observer,{
   },
   
   setTarget: function(target){
-//      if (!this.target && target) {
-          this.target = target;
-//      }
+       this.target = target;
   },
 
   getSize : function(){

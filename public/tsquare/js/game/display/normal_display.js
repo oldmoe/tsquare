@@ -1,5 +1,6 @@
 var NormalDisplay = Class.create(CrowdMemberDisplay,{
   extraScale : 0.85,
+  noOfFrames : 8,
   initialize: function($super, owner){
     $super(owner);
   },
@@ -15,4 +16,5 @@ var NormalDisplay = Class.create(CrowdMemberDisplay,{
     this.holdImg = Loader.images.characters[name+'_hold.png']
     this.blurImg = Loader.images.characters[name+'_blur.png']
   }
+  
 })

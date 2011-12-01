@@ -2,25 +2,36 @@ var ClashEnemy = Class.create(Unit,{
   running : false,
   runningSpeed : 18,
   pushSpeed : 20,
+  boxCar : null,
+  target : null,
+  distanceFromLeft : 180,
   initialize : function($super,scene,x,y,options){
      $super(scene,x,y,options)
      this.hp = 30;
      this.maxHp = 30;
      this.power = 10;
-     var self = this
      this.createObservers()
-     this.moveToTarget({x:this.scene.view.width - 180,y:this.coords.y}, function(){
-       self.scene.fire('clashUnit')
-       self.scene.clashDirectionsGenerator.setEnemy(self)
+  },
+  start : function(boxCar){
+    this.boxCar = boxCar
+    var self = this
+    this.moveToTarget({x:this.scene.view.width - this.distanceFromLeft,y:this.coords.y}, function(){
+      self.scene.clashDirectionsGenerator.setEnemy(self)
      })
   },
   createObservers : function(){
     var self = this
-    this.scene.observe('clashLose', function(){
-        self.handler.removeObject(self,self.lane)
-    })
+    // event clash win means crowds won, so function lose is called for the enemy
     this.scene.observe('clashWin', function(){
-        self.handler.removeObject(self,self.lane)
+        self.running = false
+        if(self.boxCar) self.boxCar.lose()
+        else self.handler.removeObject(self,self.lane)
+    })
+    // event clash lose means crowds lost, so function win is called for the enemy
+    this.scene.observe('clashLose', function(){
+        self.running = false
+        if(self.boxCar)self.boxCar.win()
+        else self.handler.removeObject(self,self.lane)
     })
   },
   tick : function($super){

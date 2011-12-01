@@ -1,4 +1,4 @@
-var TearGasEnemyDisplay = Class.create(EnemyDisplay,{
+var TearGasGunnerCsDisplay = Class.create(EnemyDisplay,{
   imgWidth:80,
   imgHeight:80,
   noOfFrames : 8,
@@ -9,15 +9,11 @@ var TearGasEnemyDisplay = Class.create(EnemyDisplay,{
     this.hitImage = Loader.images.enemies['amn_markazy_tear_gas_shooting.png']
     this.imgWidth = this.walkingImg.width
     this.imgHeight = this.walkingImg.height/this.noOfFrames
-    this.createHoveringIcon();
     $super(owner)
     this.registerEvents()
+    this.createShadow()
   },
-
-  createHoveringIcon: function(){
-    this.setHoveringIcon(this.hoveringIcons.march);
-  },
-  
+ 
   registerEvents : function(){
     var self = this
     this.states.each(function(state){
@@ -40,15 +36,26 @@ var TearGasEnemyDisplay = Class.create(EnemyDisplay,{
     this.sprites.walking.createAnimation({name:'hit',img:this.hitImage, noOfFrames:16})
   },
   
+  createShadow: function(){
+    this.shadowImg = Loader.images.effects['amn_markazy_tear_gas_shadow.png'];
+    this.sprites.shadow = new DomImgSprite(this.owner, {img : this.shadowImg,noOfFrames : 1}, {
+      width: this.shadowImg.width,
+      height: this.shadowImg.height,
+      shiftX : -(this.shadowImg.width-this.walkingImg.width)-10,
+      shiftY : -10
+    })    
+  },
+    
   render : function($super){
-      var sprite = this.sprites.walking
-          sprite.currentAnimationFrame = sprite.currentAnimationFrame + 1
-          if (sprite.currentAnimationFrame.name == "hit" &&
-          sprite.currentAnimationFrame == sprite.noOfAnimationFrames -1) {
-                this.normal()
-                sprite.currentAnimationFrame = 0
-          }
-      $super()
+    var sprite = this.sprites.walking
+    if (sprite.currentAnimation.name == "hit" &&
+       sprite.currentAnimationFrame == sprite.noOfAnimationFrames - 1) {
+      this.normal()
+      this.owner.shotComplete = true
+      sprite.currentAnimationFrame = 0
+    }
+    sprite.currentAnimationFrame = (sprite.currentAnimationFrame+1) % sprite.noOfAnimationFrames
+    $super()
   }
 
 }) 

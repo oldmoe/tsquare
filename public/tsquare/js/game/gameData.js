@@ -7,7 +7,7 @@ var missionData = {
       "category": 'clash_enemy',
       "index": 0,
       "lane": 1,
-      "x": 2,
+      "x": 200,
       "order": 1
   },
 /*  {

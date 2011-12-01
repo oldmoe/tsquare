@@ -24,7 +24,7 @@ var TsquareScene = Class.create(Scene,{
     targetSpeedIndex: 0,
     targetEnergy: 0,
     flashingHandler: null,
-    
+
     initialize: function($super){
         $super();
         this.collision = false;
@@ -46,7 +46,7 @@ var TsquareScene = Class.create(Scene,{
         this.energy =  {current:0, rate: 10, max:100}
         this.comboMistakes = {current : 0, max : 2}
         
-        // Effect.Queues.create('global', this.reactor)
+        Effect.Queues.create('global', this.reactor)
         
         this.audioManager = new AudioManager(this.reactor);
         this.flashingHandler = new FlashingHandler(this);
@@ -71,19 +71,20 @@ var TsquareScene = Class.create(Scene,{
             }
         }
         var self = this;
-        this.observe('wrongMove',function(){self.wrongMove()})
-        this.observe('correctMove',function(){self.correctMove()})
-        this.observe('wrongCommand',function(){self.wrongCommand()})
-        this.observe('correctCommand',function(){self.correctCommand()})
+        this.observe('wrongMove', function(){self.wrongMove()})
+        this.observe('correctMove', function(){self.correctMove()})
+        this.observe('wrongCommand', function(){self.wrongCommand()})
+        this.observe('correctCommand', function(){self.correctCommand()})
+        this.observe('togglePause', function(){self.togglePause()});
     },
     
     init: function(){
-       this.skyLine = new SkyLine(this)
-       for(var handler in this.handlers){
-          this.handlers[handler].start()
-       }
+		this.skyLine = new SkyLine(this)
+		for(var handler in this.handlers){
+			this.handlers[handler].start()
+		}
 
-       this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
+		this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
     },
     
     doInit : function(){
@@ -122,19 +123,24 @@ var TsquareScene = Class.create(Scene,{
     fire: function(event, params){
         this.reactor.fire(event, params);
     },
+    
+    togglePause: function() {
+    	if (this.reactor.isRunning()) {
+    		this.reactor.pause();
+    	} else {
+    		this.reactor.resume();
+    	}
+    },
 
     wrongMove: function(){
       this.decreaseEnergy();
-      // console.log("scene wrong move");
     },
 
     correctMove: function(){
       this.increaseEnergy();
-//      console.log("scene correct moved");
     },
     
     wrongCommand: function(){
-//      console.log("scene wrong command");
     },
 
     correctCommand: function(){
@@ -143,7 +149,7 @@ var TsquareScene = Class.create(Scene,{
     tick: function($super){
         $super()
         this.detectCollisions();
-        this.view.xPos += this.currentSpeed* this.direction
+        this.view.xPos += this.currentSpeed * this.direction;
         for(var handler in this.handlers){
             this.handlers[handler].tick();
         }
@@ -270,8 +276,6 @@ var TsquareScene = Class.create(Scene,{
    },
 
    updateSpeed: function(){
-      // console.log(this.energy.current, this.targetEnergy)
-      
       if(this.targetEnergy - this.energy.current > 1){
         this.energy.current += 2;
       }else if (this.targetEnergy - this.energy.current < -1){

@@ -33,10 +33,6 @@ var Game = Class.create({
   },
   
   initializeGame : function(){
-    $('gameCanvas').observe('mouseover',function(e){
-     //   console.log(e.pointerX(),e.pointerY())
-    })
-    
     var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png',
     'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png',
     'square.png','line.png']

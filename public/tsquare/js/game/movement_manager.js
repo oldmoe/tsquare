@@ -22,32 +22,19 @@ var MovementManager = Class.create({
   
   initialize : function(scene){
     this.scene = scene
-    this.registerListeners()
     this.time = new Date().getTime()
     this.move = []
     this.sound = this.scene.audioManager.nowPlaying[0]
-  },
-
-
-  reset : function(){
-    this.move = []; 
-    this.time = new Date().getTime()
-    this.beatMoving = false;
-    this.comboStart = false;
-    this.currentCombos = 0
-    this.beatAccelaration = 0
-    this.checkDelay(this.counter, this.beatTime)
-    this.scene.fire('wrongMove');
-  },
-    
-  registerListeners  : function(){
     var self = this
-    document.stopObserving('keydown')
-    document.observe('keydown', function(e){
-      var k = e.keyCode
-      if (k >=37 && k<= 40 && e.preventDefault) {
-            e.preventDefault();
+    this.keydownHandler = function(e){
+      if (e.keyCode == 27) {
+      	self.scene.fire('togglePause');
+      	return;
       }
+      if (e.keyCode < 37 || e.keyCode > 40)
+        return;
+      if (e.preventDefault)
+        e.preventDefault();
       self.sound = self.scene.audioManager.nowPlaying[0]
       if(self.beatMoving){
         self.reset()
@@ -74,10 +61,26 @@ var MovementManager = Class.create({
       else {
         self.scene.clashDirectionsGenerator.processDirection(click)
       }
-		})
+	};
+    this.registerListeners()
+  },
+  reset : function(){
+    this.move = []; 
+    this.time = new Date().getTime()
+    this.beatMoving = false;
+    this.comboStart = false;
+    this.currentCombos = 0
+    this.beatAccelaration = 0
+    this.checkDelay(this.counter, this.beatTime)
+    this.scene.fire('wrongMove');
+  },
+  registerListeners : function(){
+    var self = this
+    document.stopObserving('keydown', this.keydownHandler)
+    document.observe('keydown', this.keydownHandler)
     /* When play ends : stop observing movement */
     this.scene.observe('end', function(params){
-      document.stopObserving('keydown')
+      document.stopObserving('keydown', self.keydownHandler)
     });
     this.scene.observe('clashUnit',function(){
       self.currentMode = self.modes.clash
@@ -161,8 +164,7 @@ var MovementManager = Class.create({
    },
   checkDelay : function(counter,delay){
       var self = this
-      console.log("tick: " + counter);
-      setTimeout(function(){self.doCheckDelay(counter)}, delay)
+      this.scene.reactor.setTimeout(function(){self.doCheckDelay(counter)}, delay)
    },
   doCheckDelay : function(counter){
       if (this.counter == counter) {

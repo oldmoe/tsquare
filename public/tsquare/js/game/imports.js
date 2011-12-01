@@ -53,16 +53,15 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/tear_gas_gunner_cs_block.js",
                  "js/game/bubble.js",
                  "js/game/scenario.js",
-                 "js/game/protection_unit.js",
-                 "js/game/rescue_unit.js"],
+                 "js/game/protection_unit.js"],
                  
                  ["js/game/handlers/unit_handler.js",
                  "js/game/handlers/crowd_handler.js",
                  "js/game/handlers/enemy_handler.js",
                  "js/game/handlers/protection_unit_handler.js",
                  "js/game/handlers/npc_handler.js",
-                 "js/game/handlers/rescue_unit_handler.js",
                  "js/game/handlers/clash_enemy_handler.js",
+                 
                  "js/game/physics/physics_handler.js",
                  
                  "js/game/display/enemy_display.js",
@@ -81,7 +80,6 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/display/bubble_display.js"],
                  
                  ["js/game/characters/journalist.js",
-                 "js/game/characters/journalist_rescue.js",
                  "js/game/characters/libralymic.js",
                  "js/game/characters/healer.js",
                  "js/game/characters/normal.js",
@@ -99,7 +97,6 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/characters/npc.js"],
                  
                  ["js/game/display/journalist_display.js",
-                 "js/game/display/journalist_rescue_display.js",
                  "js/game/display/libralymic_display.js",
                  "js/game/display/healer_display.js",
                  "js/game/display/normal_display.js",
@@ -220,4 +217,3 @@ soundManager.flashVersion = 9;
 soundManager.url = 'flash';
 loadCssFiles();
 loadJsFiles(0);
-

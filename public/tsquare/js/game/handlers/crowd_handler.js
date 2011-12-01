@@ -32,7 +32,8 @@ var CrowdHandler = Class.create(UnitHandler, {
            }          
           }); 
        });
-    },      
+    },
+          
     tick : function($super){
       if (this.pushing) {
         this.pushMove()
@@ -56,6 +57,7 @@ var CrowdHandler = Class.create(UnitHandler, {
            }
        } 
     },
+    
     start : function(){
       this.getUserCrowds();  
     },
@@ -170,22 +172,22 @@ var CrowdHandler = Class.create(UnitHandler, {
      this.pushMove()
    },
    
-   retreat: function(){
-     this.scene.direction = -1
-     this.scene.fire("correctCommand");
-     this.executeCommand("retreat");
-     this.scene.currentCommand = 4;
-   },
+  retreat: function(){
+    this.scene.direction = -1
+    this.scene.fire("correctCommand");
+    this.executeCommand("retreat");
+    this.scene.currentCommand = 4;
+  },
 
-   circle: function(){
-     if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
-       this.scene.fire("worngCommand");
-       return
-     } 
-     this.scene.fire("correctCommand");
-     this.executeCommand("circle");
-     this.scene.currentCommand = 2;
-   },
+  circle: function(){
+    if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
+      this.scene.fire("worngCommand");
+      return
+    } 
+    this.scene.fire("correctCommand");
+    this.executeCommand("circle");
+    this.scene.currentCommand = 2;
+  },
 
 	playHetafLoop : function(){
 	 this.playHetaf()
@@ -197,25 +199,25 @@ var CrowdHandler = Class.create(UnitHandler, {
     if(id <= 11)Loader.sounds['hetaf.130'][id+'.mp3'].play({volume : 0})
   },
    
-   increaseFollowers: function(num){
+  increaseFollowers: function(num){
    	var increased = false;
    	for(var i=0;i<this.objects[this.scene.activeLane].length;i++){
    		if(this.objects[this.scene.activeLane][i]) 
    			if(this.objects[this.scene.activeLane][i].increaseFollowers(num)) {increased = true; break;}
    	} 
 	   if(increased && this.hetafVolume < 30) this.hetafVolume += 5;    
-   },
+  },
 
-   decreaseFollowers: function(num){
+  decreaseFollowers: function(num){
    	var decreased = false;
    	for(var i=0;i<this.objects[this.scene.activeLane].length;i++){
    		if(this.objects[this.scene.activeLane][i]) 
    			if(this.objects[this.scene.activeLane][i].decreaseFollowers(num)) {decreased = true; break;}
    	} 
    	if(decreased && this.hetafVolume > 10) this.hetafVolume -= 5;
-   },
+  },
    
-   pushMove : function(){
+  pushMove : function(){
     if(!this.target || this.target.chargeTolerance <= 0){
       this.target = null
       this.pushing = false
@@ -244,93 +246,125 @@ var CrowdHandler = Class.create(UnitHandler, {
         this.objects[this.target.lane][j].reversePushDirection()
       }
     }  
-   },
+  },
    
-   executeCommand : function(event, options){
+  executeCommand : function(event, options){
      for(var i=0;i<this.objects.length;i++){
        for(var j=0;j<this.objects[i].length;j++){
            this.objects[i][j][event](options);
        }
      }          
-   },
+  },
  
-   end : function(){
+  end : function(){
      this.ended = true
      this.scene.end(false)
-   },
+  },
        
-    marchOut : function(callback){
-      var self = this;
-      this.finishedCrowds = 0;
-      var noOfCrowds = 0;
-      for(var i=0;i<this.objects.length;i++){
-        noOfCrowds += this.objects[i].length;
-        for(var j=0;this.objects[i] && j<this.objects[i].length;j++){
-          if(this.objects[i][j]){
-            this.objects[i][j].endMove(function(){
-              self.finishedCrowds++;
-              if(self.finishedCrowds == noOfCrowds && callback) callback();
-            });
-          }
+  marchOut : function(callback){
+    var self = this;
+    this.finishedCrowds = 0;
+    var noOfCrowds = 0;
+    for(var i=0;i<this.objects.length;i++){
+      noOfCrowds += this.objects[i].length;
+      for(var j=0;this.objects[i] && j<this.objects[i].length;j++){
+        if(this.objects[i][j]){
+          this.objects[i][j].endMove(function(){
+            self.finishedCrowds++;
+            if(self.finishedCrowds == noOfCrowds && callback) callback();
+          });
         }
       }
-    },
+    }
+  },
 
-   detectCollisions : function($super,others){
-     var res = $super(others); 
-     if(res){
+  detectCollisions : function($super,others){
+    var res = $super(others); 
+    if(res){
        this.scene.direction = 0
-     }
-     return res;
-   }, 
+    }
+    return res;
+  }, 
    
-   getCrowdsCount: function(){
-     var count = 0;
-     for(var i=0;i<this.objects.length;i++){
-       for(var j=0;j<this.objects[i].length;j++){
-         if(this.objects[i][j])count++;
-       }
-     }
-     return count;
+  getCrowdsCount: function(){
+    var count = 0;
+    for(var i=0;i<this.objects.length;i++){
+      for(var j=0;j<this.objects[i].length;j++){
+        if(this.objects[i][j])count++;
+      }
+    }
+    return count;
+  },
+  
+  crowdStepAhead : function(){
+    var moveSpeed= 4
+    var self = this
+    var crowd = this.objects[this.scene.activeLane][0] 
+    var y = this.scene.view.laneMiddle*2*crowd.lane+this.scene.view.laneMiddle;
+    var x = 150
+    crowd.fire('walk')
+    crowd.fixedPlace = false
+    crowd.moveToTarget({x:x - 32,y: y + 18}, function(){
+      self.scene.clashDirectionsGenerator.setCrowd(self.objects[self.scene.activeLane][0])
+    },moveSpeed)
+    this.moveCrowdsBack(1,moveSpeed);
+  },
+  
+  moveCrowdsBack : function(startIndex,speed){
+    var crowd = this.objects[this.scene.activeLane][startIndex]
+    crowd.fixedPlace = false
+    crowd.fire('walk')
+    var self = this
+    crowd.moveToTarget({x:-crowd.getWidth(), y:crowd.coords.y},function(){
+      self.objects[this.scene.activeLane][startIndex].fire('normal')
+      self.scene.fire('clashCrowdsBack')
+    }, speed)
+    for(var i = startIndex+1;i<this.objects[this.scene.activeLane].length;i++){
+      var crowd = this.objects[this.scene.activeLane][i]
+      crowd.fixedPlace = false
+      crowd.fire('walk')
+      this.setCrowdAfterMove(crowd,-crowd.getWidth(),crowd.coords.y,'normal', speed)
+    }
+  },
+  
+  setCrowdAfterMove : function(crowd,x,y,state, speed){
+    crowd.moveToTarget({x:x,y:y}, function(){
+      crowd.fire(state)
+    }, speed)
+  },
+  
+  crowdStepBack : function(){
+    for (var i = 1; i < this.objects[this.scene.activeLane].length; i++) {
+      this.objects[this.scene.activeLane][i].fixedPlace = true
+    }
+    var crowd = this.objects[this.scene.activeLane][0]
+    crowd.fire('reverseWalk')
+    crowd.stopClash()
+    var self = this
+    crowd.moveToTarget(crowd.originalPosition, function(){
+      self.scene.fire('clashEnd')
+      crowd.fire('normal')
+      crowd.fixedPlace = true
+    })
+  },
+  
+  ArrestCrowd : function(){
+    for (var i = 1; i < this.objects[this.scene.activeLane].length; i++) {
+      this.objects[this.scene.activeLane][i].fixedPlace = true
+    }
+    this.scene.fire('clashEnd')
    },
-   crowdStepAhead : function(){
-     var self = this
-     var crowd = this.objects[this.scene.activeLane][0] 
-     var y = this.scene.view.laneMiddle*2*crowd.lane+this.scene.view.laneMiddle;
-     var x = 150
-     crowd.fire('walk')
-     crowd.fixedPlace = false
-     crowd.moveToTarget({x:x - 32,y: y + 18}, function(){
-       self.scene.clashDirectionsGenerator.setCrowd(self.objects[self.scene.activeLane][0])
-     })
-     for(var i = 1;i<this.objects[this.scene.activeLane].length;i++){
-       var crowd = this.objects[this.scene.activeLane][i]
-       crowd.fixedPlace = false
-       crowd.fire('reverseWalk')
-       this.setCrowdAfterMove(crowd,0,crowd.coords.y,'normal')
-     }
-   },
-   crowdStepBack : function(){
-     for (var i = 1; i < this.objects[this.scene.activeLane].length; i++) {
-       this.objects[this.scene.activeLane][i].fixedPlace = true
-     }
-     var crowd = this.objects[this.scene.activeLane][0]
-     crowd.fire('reverseWalk')
-     crowd.stopClash()
-     var self = this
-     crowd.moveToTarget(crowd.originalPosition, function(){
-       self.scene.fire('clashEnd')
-       crowd.fire('normal')
-       crowd.fixedPlace = true
-     })
-   },
-   setCrowdAfterMove : function(crowd,x,y,state){
-     crowd.moveToTarget({x:x,y:y}, function(){
-       crowd.fire(state)
-     })
-   },
-   ArrestCrowd : function(){
-      this.removeObject(this.objects[this.scene.activeLane][0],this.scene.activeLane)
-      this.scene.fire('clashEnd')
-   }
+   
+  gatherTriangle : function(x){
+    for (var i = 0; i < this.objects[this.scene.activeLane].length; i++) {
+      this.objects[this.scene.activeLane][i].fixedPlace = false
+    }
+    new CrowdAction(this.scene).gatherTriangle(this.objects[this.scene.activeLane],x,-1)
+  },
+  
+  takeHit : function(power){
+    for (var i = 1; i < this.objects[this.scene.activeLane].length; i++) {
+      this.objects[this.scene.activeLane][i].takeHit(power)
+    }
+  }
 });

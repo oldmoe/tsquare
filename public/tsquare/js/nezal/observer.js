@@ -5,7 +5,10 @@ var Observer = Class.create({
   initialize: function(){
       this.observers = {};
   },
-    
+  
+  /* Scope : is an optional target object to fire the event on, if not supplied, it will be fired on "this"
+   * If the callback "func" returned false the observer will be removed
+   */
   observe : function(event, func, scope){
     if(!this.observers[event]) this.observers[event] = []
     var observer = [func, scope]

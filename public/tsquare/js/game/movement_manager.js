@@ -14,9 +14,9 @@ var MovementManager = Class.create({
   comboStart: false,
   currentCombos: 0,
   counter:0,
-  tolerance :250,
+  tolerance :350,
   beatTime : 0,  
-  beatsPerAudio : 8,
+  beatsPerAudio : 4,
   modes : {"normal" : 0, "clash": 1},
   currentMode : 0,
   
@@ -43,14 +43,18 @@ var MovementManager = Class.create({
       var click = -1
       if (e.keyCode == 39) {
         click = self.RIGHT
+        self.scene.fire("keySound", [0])
       }else if (e.keyCode == 37) {
           click = self.LEFT
+          self.scene.fire("keySound", [1])
       }else if (e.keyCode == 32) {
           click = 4
       }else if(e.keyCode == 38){
           click = self.UP
+          self.scene.fire("keySound", [3])
       }else if (e.keyCode == 40){
           click = self.DOWN
+          self.scene.fire("keySound", [4])
       }else{
         self.scene.fire("keypressed", [click, self.move.length])
         self.reset();
@@ -82,7 +86,7 @@ var MovementManager = Class.create({
     this.scene.observe('end', function(params){
       document.stopObserving('keydown', self.keydownHandler)
     });
-    this.scene.observe('clashUnit',function(){
+    this.scene.observe('clashCrowdsBack',function(){
       self.currentMode = self.modes.clash
     })
     this.scene.observe('clashEnd',function(){
@@ -97,11 +101,11 @@ var MovementManager = Class.create({
       if(!this.sound)return
       var beatTime  = this.sound.duration/this.beatsPerAudio
       var index = Math.round(this.sound.position / beatTime);
-      if(index >= 4 && index <=7){//pressed on the low beats, or wrong timing
-          this.scene.fire("keypressed", [0, 1, 2])
-          this.reset();
-          return;
-      }
+      // if(index >= 4 && index <=7){//pressed on the low beats, or wrong timing
+          // this.scene.fire("keypressed", [0, 1, 2])
+          // this.reset();
+          // return;
+      // }
       var position = this.sound.position % beatTime
       this.beatTime = beatTime
       var found = false
@@ -155,12 +159,12 @@ var MovementManager = Class.create({
   },
   
   stopAction : function(delay){
-      var self = this
-      setTimeout(function(){
-        self.beatMoving = false;
-        self.moveEnd()
-        self.checkDelay(self.counter,self.beatTime + self.tolerance)
-      }, delay)
+    var self = this
+    setTimeout(function(){
+      self.beatMoving = false;
+      self.moveEnd()
+      self.checkDelay(self.counter,self.beatTime + self.tolerance)
+    }, delay)
    },
   checkDelay : function(counter,delay){
       var self = this
@@ -225,30 +229,28 @@ var MovementManager = Class.create({
     var collision = this.scene.detectCollisions()
     this.scene.fire("beatMoving");
     if(commandIndex == this.moves.march.index){
-        if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
         this.scene.fire('march')
         this.beatMoving = true    
     }else if(commandIndex == this.moves.retreat.index){
-        if(this.scene.currentSpeed == 0)this.scene.increaseEnergy()
         this.scene.fire('retreat')
         this.beatMoving = true    
     }else if(commandIndex == this.moves.circle.index){
-        this.scene.fire('circle')
-        this.beatMoving = true
+      this.scene.fire('circle')
+      this.beatMoving = true
     }else if(commandIndex == this.moves.hold.index){
-        this.scene.fire('hold')
-        this.beatMoving = true
+      this.scene.fire('hold')
+      this.beatMoving = true
     }
   },
 
   moveEnd : function(){
-      if(this.comboStart){
-        this.comboStart= false
-        this.combos++
-        this.currentCombos++
-        this.scene.fire('correctMove')
-      }
-      this.beatMoving = false
+    if(this.comboStart){
+      this.comboStart= false
+      this.combos++
+      this.currentCombos++
+      this.scene.fire('correctMove')
+    }
+    this.beatMoving = false
   }
   
 });

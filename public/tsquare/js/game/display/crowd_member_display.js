@@ -1,7 +1,7 @@
 var CrowdMemberDisplay = Class.create(Display,{
   
   noOfFrames : 7,  
-  
+    
   states : ["normal", "hold", "walk","reverseWalk", "front", "back", "run", "reverseRun", "jog", "sprint"],
   
   initialize : function($super,owner,properties){
@@ -51,7 +51,7 @@ var CrowdMemberDisplay = Class.create(Display,{
       hidden : true
     })
    
-    this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : 7})
+    this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : this.noOfFrames})
     this.sprites.character.createAnimation({name:'hold',img:this.holdImg,noOfFrames:1})
     this.sprites.character.createAnimation({name:'walk',img:this.walkImg,noOfFrames:8})
     this.sprites.character.createAnimation({name:'jog',img:this.walkImg,noOfFrames:8})
@@ -83,14 +83,15 @@ var CrowdMemberDisplay = Class.create(Display,{
   
   render : function($super){
     if(this.owner.stateChanged){
-      if (this.owner.scene.moveBack) {
-        this.sprites.character.currentAnimationFrame = (this.sprites.character.currentAnimationFrame - 1)
-        if (this.sprites.character.currentAnimationFrame == -1) {
-          this.sprites.character.currentAnimationFrame = this.sprites.character.currentAnimation.noOfFrames - 1 
+      var character = this.sprites.character;
+      if(this.owner.scene.moveBack) {
+        character.currentAnimationFrame = (character.currentAnimationFrame - 1)
+        if (character.currentAnimationFrame == -1) {
+          character.currentAnimationFrame = character.currentAnimation.noOfFrames - 1 
         }
-      }else{
-        this.sprites.character.currentAnimationFrame = (this.sprites.character.currentAnimationFrame+1) % this.sprites.character.currentAnimation.noOfFrames
-      } 
+      } else {
+        character.currentAnimationFrame = (character.currentAnimationFrame+1) % character.currentAnimation.noOfFrames
+      }
       $super()
     }
   }

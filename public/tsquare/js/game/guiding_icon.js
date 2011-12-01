@@ -164,6 +164,7 @@ var GuidingIcon = Class.create(Observer,{
       this.currentCommandIndex = command;
       this.displayCommand(this.currentCommandIndex)
     }
+
     
     if(this.correctCommands > 2 && !this.arrowsHidden){
       $$('.movesIndicator')[0].hide();

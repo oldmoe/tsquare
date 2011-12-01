@@ -13,7 +13,11 @@ var EnemyHandler = Class.create(UnitHandler, {
           var rows = parseInt(dims[0])
           var cols =  parseInt(dims[1])
           obj.options.obj = obj.name
-          obj.name =  "block"
+          //TO be removed and solved
+          if(obj.name == "tear_gas_gunner_cs")
+          obj.name =  "tear_gas_gunner_cs_block"
+          else obj.name = "block"
+          //end
           obj.options.type = obj.type
           obj.options.rows = rows
           obj.options.columns = cols

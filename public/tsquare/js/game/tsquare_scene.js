@@ -17,7 +17,7 @@ var TsquareScene = Class.create(Scene,{
     view: {width: 950, height: 460, xPos: 0, tileWidth: 400, laneMiddle : 25, length:0},
     activeLane: 1,
     win : false,
-    comboMistakes : {current : 0, max : 2},
+    comboMistakes : null,
     scoreCalculator: null,
     collision: false,
     targetSpeedIndex: 0,
@@ -26,14 +26,13 @@ var TsquareScene = Class.create(Scene,{
     speedFactor : 1,
     initialize: function($super){
         $super();
-        this.collision = false;
         this.scoreCalculator = new ScoreCalculator(this);
         this.createRenderLoop('skyline',1);
         this.createRenderLoop('characters',2);
         this.createRenderLoop('meters',3);
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
-            // "rescue" : new RescueUnitHandler(this),
+            "rescue" : new RescueUnitHandler(this),
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
             "enemy" : new EnemyHandler(this),  
@@ -57,11 +56,22 @@ var TsquareScene = Class.create(Scene,{
         // this.data[1][0].x = 200;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
-            this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)
+            this.view.length = Math.max(this.view.length, this.data[i].last().x * this.view.tileWidth + this.view.width)
           }
         }
         var mapping = {'crowd':'npc', 'protection':'protection_unit',
          'enemy':'enemy', 'rescue':'rescue', 'clash_enemy':'clash_enemy'}
+        /*************************************/
+        /************ TEST DATA **************/
+        /*************************************/
+        this.data[1][0] = { "name": "journalist_rescue",
+                            "category": 'rescue',
+                            "type": '3_3',
+                            "index": 0,
+                            "lane": 1,
+                            "x": 1,
+                            "order": 1
+                          }
 
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){

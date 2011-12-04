@@ -119,11 +119,11 @@ var CrowdMember = Class.create(Unit,{
           var self= this
           this.moveToTarget(this.originalPosition)
       }else{
-          this.fire('walk')
-          var self= this
-          this.moveToTarget(this.originalPosition, function(){
-            self.fire('normal')
-          })
+//          this.fire('walk')
+//          var self= this
+//          this.moveToTarget(this.originalPosition, function(){
+//            self.fire('normal')
+//          })
       } 
     }
      

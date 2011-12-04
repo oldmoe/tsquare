@@ -11,6 +11,7 @@ var ClashDirectionsGenerator = Class.create({
   startCounter : 3,
   directionsArrived : 0,
   firstCorrect : false,
+  distanceToGenerateDirection : 150,
   initialize : function(scene){
     this.sprites = {}                         
     this.directions = []
@@ -26,13 +27,16 @@ var ClashDirectionsGenerator = Class.create({
   createObservers : function(){
     var self = this
     this.scene.observe('clashCrowdsBack',function(){
-      self.run()
+      self.run();
     })
     this.scene.observe('clashWin', function(){
-      self.stop()
+      self.stop();
     })
     this.scene.observe('clashLose', function(){
-      self.stop()
+      self.stop();
+    })
+     this.scene.observe('enemyClashed', function(){
+      Effect.Shake('gameContainer', {duration : 0.2, distance : 5 });
     })
   },
   generateDirection : function(){
@@ -43,7 +47,7 @@ var ClashDirectionsGenerator = Class.create({
   tick : function(){
     if(!this.running)return
     if(!this.crowd || !this.enemy) return
-    if(!this.directions[0] || this.directions[this.directions.length-1].owner.moved > 150){
+    if(!this.directions[0] || this.directions[this.directions.length-1].owner.moved > this.distanceToGenerateDirection){
       this.generateDirection()
     }
     for(var i=this.startingDirection; i<this.directions.length;i++){

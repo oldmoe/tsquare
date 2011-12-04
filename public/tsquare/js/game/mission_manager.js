@@ -16,7 +16,9 @@ var MissionManager = Class.create({
                         {images : ["close_button.png"], 
                           path: 'images/game_elements/', store: 'game_elements' },
                         {images : ["friendsScore.png", "friend_box.png"], 
-                          path: 'images/friends/', store: 'friends' }
+                          path: 'images/friends/', store: 'friends' }, 
+                        {images : ["paused_screen.png"], 
+                          path: 'images/game_elements/', store: 'game_elements' },
                       ],
                       {
                         onFinish: function(){
@@ -36,6 +38,19 @@ var MissionManager = Class.create({
     scene.observe('animationEnd', function(){
       self.endAnimationDone = true;
       self.displayEndScreen(self.score);
+    });
+    self.pauseScreenOn = false;
+    $('pause').hide();
+  	$('pause').innerHTML = this.templateManager.load('pause', {});
+    Game.addLoadedImagesToDiv('pause');
+    scene.observe('togglePause', function(){
+    	if (self.pauseScreenOn) {
+    		self.hidePauseScreen();
+    		self.pauseScreenOn = false;
+    	} else {
+    		self.displayPauseScreen();
+    		self.pauseScreenOn = true;
+    	}
     });
   },
 
@@ -91,8 +106,7 @@ var MissionManager = Class.create({
   },
   
   displayEndScreen : function(score){
-    if(this.donePosting && this.endAnimationDone)
-    {
+    if(this.donePosting && this.endAnimationDone){
       this.sortFriends();
       var screenName = (this.score.win == true) ? 'win' : 'lose';
       var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] ? true : false;
@@ -104,6 +118,14 @@ var MissionManager = Class.create({
     }else if(this.endAnimationDone){
       this.displayStaticEndScreen();
     }
+  },
+  
+  displayPauseScreen : function(){
+    $('pause').show();
+  },
+  
+  hidePauseScreen : function(){
+    $('pause').hide();
   },
 
   load : function(id, gameCallback){

@@ -9,6 +9,10 @@ var Reactor = Class.create(Observer, {
 		this.running = false
 	},
 	
+	isRunning : function(){
+		return this.running;
+	},
+	
 	currentTime : function(){
 		return this.ticks * this.delay
 	},
@@ -120,6 +124,10 @@ var Reactor = Class.create(Observer, {
 	
 	everySeconds : function(seconds){
 		return Math.round(seconds * 1000 / this.delay);
-	}
+	},
 	
+	setTimeout : function(f, delay){
+		var self = this;
+		setTimeout(function(){if (self.isRunning()) f();}, delay);
+	}
 })

@@ -297,7 +297,7 @@ var CrowdHandler = Class.create(UnitHandler, {
   },
   
   crowdStepAhead : function(){
-    var moveSpeed= 4
+    var moveSpeed = 4
     var self = this
     var crowd = this.objects[this.scene.activeLane][0] 
     var y = this.scene.view.laneMiddle*2*crowd.lane+this.scene.view.laneMiddle;

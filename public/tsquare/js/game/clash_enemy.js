@@ -36,8 +36,13 @@ var ClashEnemy = Class.create(Unit,{
   },
   tick : function($super){
     $super()
-    if(this.running && this.coords.x > this.target.coords.x + this.target.getWidth() - 35){
-      this.move(-this.runningSpeed,0)
+    if (this.running) {
+      if (this.coords.x > this.target.coords.x + this.target.getWidth() - 35) {
+        this.move(-this.runningSpeed, 0);
+      }else{
+        this.running = false;
+        this.scene.fire('enemyClashed')
+      }
     }
   },
   clashPush : function(){

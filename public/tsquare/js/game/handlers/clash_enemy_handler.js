@@ -11,10 +11,18 @@ var ClashEnemyHandler = Class.create(UnitHandler, {
         self.scene.audioManager.playClash()
      })
   },
+  
+  tick : function($super){
+    if(this.objects[this.scene.activeLane].length > 0)
+    this.scene.direction = 0;
+    $super();
+  },
+  
   end: function(){
     this.ended = true
     this.scene.end(true)
   },
+  
   createClashEnemy: function(){
     var data = {
       category: "clash_enemy",

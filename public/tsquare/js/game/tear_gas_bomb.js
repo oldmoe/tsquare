@@ -3,7 +3,6 @@ var TearGasBomb = Class.create({
     ground: 0,
     t_0: 0,
     t_scale: 500,
-    ax: 0,
     ay: 0.004,
     vx: 0,
     vy: 0,
@@ -20,12 +19,15 @@ var TearGasBomb = Class.create({
     tickCounter : 0,
     smokeTypes : 4,
     rested : false,
+    ticksAfterCount : 0,
+    maxTicksAfterCount : 50,
     empty : false,
     smokesCount : 0,
     smokesMaxCount : 20,
     bombSmokesIds : [1, 2, 3, 4],
     hitRate : 5,
     power : 1,
+    finished : false,
     initialize: function(scene, enemy, coords, velocity, theta, angle_0){
         this.scene = scene;
         this.coords = coords;
@@ -40,7 +42,7 @@ var TearGasBomb = Class.create({
     
     tick: function(){
         this.tickCounter++;
-        if(!this.rested)this.moveBomb();
+        if (!this.rested) this.moveBomb();
         this.updatePosition();
         if (!this.empty) {
           if (this.tickCounter % this.smokeRate == 0) {
@@ -49,6 +51,9 @@ var TearGasBomb = Class.create({
           if(this.tickCounter % this.hitRate == 0){
            this.scene.handlers.crowd.takeHit(this.power) 
           }  
+        }else {
+          this.ticksAfterCount++;
+          if(this.ticksAfterCount == this.maxTicksAfterCount)this.finished = true;
         }
         if(this.coords.x < 0) this.finished = true;
     },
@@ -64,9 +69,8 @@ var TearGasBomb = Class.create({
           this.ry = this.imgHeight / 2;
         }
         if(this.t_0 == 0) this.t_0 = this.scene.reactor.currentTime();  
-        // projectile x & y
+        // projectile y
         var dt = (t - this.t_0) / 1000 * this.t_scale;
-        this.coords.x = this.x_0 + this.vx * dt + 0.5 * this.ax * dt * dt;
         this.coords.y = this.y_0 + this.vy * dt + 0.5 * this.ay * dt * dt;
         
         // rotations and settling
@@ -74,7 +78,8 @@ var TearGasBomb = Class.create({
           var a = this.theta;
           if (a > Math.PI) a -= Math.PI;
           if (Math.abs(Math.sin(a)) < 0.1) { // settling
-            this.theta = a > Math.PI / 2? Math.PI : 0; 
+//            this.theta = this.theta > Math.PI / 2? Math.PI : 0; 
+            this.rested = true;
           } else {  // continue rotations till horizontal
             if (a < Math.PI / 2) this.theta += 0.5 * this.omega;
             else this.theta -= 0.5 * this.omega;
@@ -83,6 +88,7 @@ var TearGasBomb = Class.create({
           this.coords.y = Math.min(this.ground - this.imgHeight / 2, this.coords.y);
           return;
         } else {
+          this.coords.x = this.x_0 + this.vx * dt;
           this.theta += 3 * this.omega;
           if (this.theta < 0) this.theta += 2 * Math.PI;
           else if (this.theta > 2 * Math.PI) this.theta -= 2 * Math.PI;
@@ -121,8 +127,7 @@ var TearGasBomb = Class.create({
                 this.vx = 0;
                 this.omega = -0.2;
                 this.mode = 100;
-                this.rested = true;
-                this.scene.applySpeedFactor(0.2)
+                this.scene.applySpeedFactor(0.5)
             }
         }  
     },
@@ -136,7 +141,7 @@ var TearGasBomb = Class.create({
         if(this.bombSmokesIds.length == 0){
           this.bombSmokesIds = [1,2,3,4]
         }
-        var bombSmoke = new BombSmoke(this.scene, this.coords.x, this.coords.y, id);
+        var bombSmoke = new BombSmoke(this.scene, this.coords.x, this.coords.y + 30, id);
         var bombSmokeDisplay = new BombSmokeDisplay(bombSmoke);
         this.scene.pushToRenderLoop('characters', bombSmokeDisplay);
         this.scene.push(bombSmoke);

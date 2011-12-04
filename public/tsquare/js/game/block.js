@@ -28,6 +28,7 @@ var Block = Class.create(Enemy,{
             var x = this.coords.x + this.elementWidth * i - this.distaceBetweenUnits*j + this.scene.view.xPos;
             options.y = this.coords.y + this.elementHeight * (j-1);
             this.elements[i][j] = this.scene.addObject({name: options.obj, x: x, lane:this.lane, options:options});
+            this.elements[i][j].block = this;
         }
       }
     },

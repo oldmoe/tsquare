@@ -45,19 +45,21 @@ var Background = Class.create({
 	},
 	
 	render: function(forceRender){
-     if((this.scene.currentSpeed <=0 || this.speed() == 0) && !forceRender)return;
+     if(!this.alwaysMove && (this.scene.currentSpeed <=1|| this.speed() == 0) && !forceRender)return;
 	   if(this.container.children[0])this.container.children[0].setStyle({marginLeft:this.offsetX+"px"})
 	},
 	
 	tick : function(){
-    if(this.scene.currentSpeed <=1 || this.speed() == 0)return;
-    if(this.scene.direction==1){
+    if(!this.alwaysMove && (this.scene.currentSpeed <=1 || this.speed() == 0))return;
+    var direction = this.scene.direction
+    if(this.alwaysMove)direction = direction || 1
+    if(direction==1){
   		this.offsetX -= this.speed()
   		var firstImg = this.container.children[0]
   		if((firstImg.getWidth()+this.offsetX) <= 0){
   			if(!this.noRepeat) this.reset();
   		}
-    }else if(this.scene.direction == -1){
+    }else if(direction == -1){
       if (this.offsetX > 0) {
         this.offsetX = 0
       }if(this.offsetX == 0){

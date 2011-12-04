@@ -1,5 +1,5 @@
 var NormalDisplay = Class.create(CrowdMemberDisplay,{
-  extraScale : 0.85,
+  extraScale : 0.9,
   noOfFrames : 8,
   initialize: function($super, owner){
     $super(owner);

@@ -120,8 +120,7 @@ var Game = Class.create({
     this.mission = mission;
     missionData = mission;
     this.misssionLoaded = false;
-	  var backgroundImages = ['background.png']
-    backgroundImages.push('followers_crowd.png')
+	  var backgroundImages = ['background.png', 'clowds.png', 'followers_crowd.png']
 
     var self = this;
     this.mission.backgrounds.layer1.each(function(elem){

@@ -14,7 +14,7 @@ var MovementManager = Class.create({
   comboStart: false,
   currentCombos: 0,
   counter:0,
-  tolerance :350,
+  tolerance :200,
   beatTime : 0,  
   beatsPerAudio : 4,
   modes : {"normal" : 0, "clash": 1},

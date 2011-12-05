@@ -60,6 +60,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/handlers/enemy_handler.js",
                  "js/game/handlers/protection_unit_handler.js",
                  "js/game/handlers/npc_handler.js",
+                 "js/game/handlers/messages_handler.js",
                  "js/game/handlers/clash_enemy_handler.js",
                  
                  "js/game/physics/physics_handler.js",

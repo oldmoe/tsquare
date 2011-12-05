@@ -57,6 +57,7 @@ var GuidingIcon = Class.create(Observer,{
       this.increaseWrongCommandsCount();
       this.pressEarly();
       this.moveIndex = 1;
+      this.scene.fire("showGuidBubble", [this.currentCommandIndex]);
       return ;
     }
 
@@ -64,6 +65,7 @@ var GuidingIcon = Class.create(Observer,{
       this.increaseWrongCommandsCount();
       this.wrongKey(1);
       this.moveIndex = 1;
+      this.scene.fire("showGuidBubble", [this.currentCommandIndex]);
       return ;
     }
     
@@ -73,14 +75,17 @@ var GuidingIcon = Class.create(Observer,{
       this.moveIndex = 1;
     
     if(key == -1){//not arrow key
+      this.scene.fire("showGuidBubble", [this.currentCommandIndex]);
       this.increaseWrongCommandsCount();
       this.wrongKey(moveIndex+1);
     }else {
       if(key == this.moves[this.currentCommandIndex].code[this.moveIndex-1]){
         this.correctPress(this.moveIndex);
+        this.scene.fire("removeGuidBubble");
       }else{//arrow key but not the right key
         this.increaseWrongCommandsCount();
         this.wrongKey(this.moveIndex);
+        this.scene.fire("showGuidBubble", [this.currentCommandIndex]);
       }
     }
   },

@@ -45,6 +45,11 @@ body{
   top: 9px;
   width: 950px;
 }
+.bubbleText{
+  font-weight:normal;
+  display: block;
+  width: 100px;
+}
 .DomSprite{
   position : absolute;
 	overflow : hidden;

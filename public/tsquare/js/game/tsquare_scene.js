@@ -32,6 +32,7 @@ var TsquareScene = Class.create(Scene,{
         this.createRenderLoop('skyline',1);
         this.createRenderLoop('characters',2);
         this.createRenderLoop('meters',3);
+        
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
             // "rescue" : new RescueUnitHandler(this),
@@ -46,6 +47,7 @@ var TsquareScene = Class.create(Scene,{
         this.energy =  {current:0, rate: 10, max:100}
         this.comboMistakes = {current : 0, max : 2}
         this.speedFactors = []
+        
         //Effect.Queues.create('global', this.reactor)
         
         this.audioManager = new AudioManager(this);
@@ -112,6 +114,7 @@ var TsquareScene = Class.create(Scene,{
 
           this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
           this.push(this.clashDirectionsGenerator)
+          this.messagesHandler = new MessagesHandler(this);
           this.movementManager = new MovementManager(this);
           this.audioManager.run()
           this.flashingHandler.run();

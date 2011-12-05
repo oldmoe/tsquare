@@ -42,7 +42,7 @@ var AudioManager = Class.create({
 		this.levelChanged = true
 
 		this.levelBeats = {
-			130 : [0, 1, 2, 3, 4, 5] 
+			130 : [0, 1, 2, 3, 4] 
 		} 
 		
     this.rewardSounds = {
@@ -62,7 +62,7 @@ var AudioManager = Class.create({
     ];
 
     this.levels = [
-      {tempo: 130, beats : [{beat : 0, volume : 20}]},
+      {tempo: 130, beats : [{beat : 0, volume : 40}]},
 
       {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 20}]},
       {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 20}]},

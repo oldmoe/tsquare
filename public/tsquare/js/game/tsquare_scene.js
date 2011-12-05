@@ -112,7 +112,6 @@ var TsquareScene = Class.create(Scene,{
           $('initCounter').appendChild(Loader.images.countDown["go.png"]);
           Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
 
-          this.audioManager = new AudioManager(this.reactor);
           this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
           this.push(this.clashDirectionsGenerator)
           this.messagesHandler = new MessagesHandler(this);

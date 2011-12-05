@@ -31,8 +31,9 @@ var MovementManager = Class.create({
       	self.scene.fire('togglePause');
       	return;
       }
-      if (e.keyCode < 37 || e.keyCode > 40)
-        return;
+      if (e.keyCode < 37 || e.keyCode > 40){
+        // return;
+      }
       if (e.preventDefault)
         e.preventDefault();
       self.sound = self.scene.audioManager.nowPlaying[0]
@@ -100,12 +101,14 @@ var MovementManager = Class.create({
       }
       if(!this.sound)return
       var beatTime  = this.sound.duration/this.beatsPerAudio
+      /*
       var index = Math.round(this.sound.position / beatTime);
-      // if(index >= 4 && index <=7){//pressed on the low beats, or wrong timing
-          // this.scene.fire("keypressed", [0, 1, 2])
-          // this.reset();
-          // return;
-      // }
+      if(index >= 4 && index <=7){//pressed on the low beats, or wrong timing
+          this.scene.fire("keypressed", [0, 1, 2])
+          this.reset();
+          return;
+      }
+      */
       var position = this.sound.position % beatTime
       this.beatTime = beatTime
       var found = false

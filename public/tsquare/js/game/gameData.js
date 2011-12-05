@@ -2,21 +2,12 @@ var missionData = {
   
   "data":[[
   ],[
-     {
-      "name": "tear_gas_gunner_cs",
-      "category": 'enemy',
-      "index": 0,
-      "lane": 1,
-      "x": 2,
-      "order": 1,
-      "type" : "2_2"      
-  },
    {
       "name": "box_car",
       "category": 'clash_enemy',
       "index": 0,
       "lane": 1,
-      "x": 100,
+      "x": 10,
       "order": 1
   },
 /*  {
@@ -51,7 +42,7 @@ var missionData = {
     "backgrounds":{
       "layer1":[{"name":"secondary_skyline.png"}],
       "layer2":[{"name":"main_skyline.png"}],
-      "landmarks":[{"name":"landmark_1.png"},{"name":"landmark_2.png"}],
+      "landmarks":[],
       "fence":[{"name":"fence.png"}],
       "lamp":[{"name":"3amod.png"}],
       "land":[{"name":"land.png"}]

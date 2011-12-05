@@ -218,4 +218,3 @@ soundManager.flashVersion = 9;
 soundManager.url = 'flash';
 loadCssFiles();
 loadJsFiles(0);
-

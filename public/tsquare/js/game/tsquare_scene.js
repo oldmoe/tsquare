@@ -1,5 +1,4 @@
 var TsquareScene = Class.create(Scene,{
-    
     handlers: null,
     skyline: null,
     currentSpeed : 0,
@@ -15,7 +14,7 @@ var TsquareScene = Class.create(Scene,{
     direction : 1,
     holdPowerDepression: 0.2,
     energy : null,
-    view: {width: 950, height: 460, xPos: 0, tileWidth: 500, laneMiddle : 25, length:0},
+    view: {width: 950, height: 460, xPos: 0, tileWidth: 400, laneMiddle : 25, length:0},
     activeLane: 1,
     win : false,
     comboMistakes : {current : 0, max : 2},
@@ -73,19 +72,20 @@ var TsquareScene = Class.create(Scene,{
             }
         }
         var self = this;
-        this.observe('wrongMove',function(){self.wrongMove()})
-        this.observe('correctMove',function(){self.correctMove()})
-        this.observe('wrongCommand',function(){self.wrongCommand()})
-        this.observe('correctCommand',function(){self.correctCommand()})
+        this.observe('wrongMove', function(){self.wrongMove()})
+        this.observe('correctMove', function(){self.correctMove()})
+        this.observe('wrongCommand', function(){self.wrongCommand()})
+        this.observe('correctCommand', function(){self.correctCommand()})
+        this.observe('togglePause', function(){self.togglePause()});
     },
     
     init: function(){
-       this.skyLine = new SkyLine(this)
-       for(var handler in this.handlers){
-          this.handlers[handler].start()
-       }
+		this.skyLine = new SkyLine(this)
+		for(var handler in this.handlers){
+			this.handlers[handler].start()
+		}
 
-       this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
+		this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
     },
     
     applySpeedFactor : function(factor){
@@ -112,6 +112,7 @@ var TsquareScene = Class.create(Scene,{
           $('initCounter').appendChild(Loader.images.countDown["go.png"]);
           Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
 
+          this.audioManager = new AudioManager(this.reactor);
           this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
           this.push(this.clashDirectionsGenerator)
           this.messagesHandler = new MessagesHandler(this);
@@ -134,11 +135,17 @@ var TsquareScene = Class.create(Scene,{
     fire: function(event, params){
         this.reactor.fire(event, params);
     },
+    
+    togglePause: function() {
+    	if (this.reactor.isRunning()) {
+    		this.reactor.pause();
+    	} else {
+    		this.reactor.resume();
+    	}
+    },
 
     wrongMove: function(){
-     if (this.movementManager.currentMode == this.movementManager.modes.normal) {
        this.decreaseEnergy();
-     }
     },
 
     correctMove: function(){
@@ -149,101 +156,96 @@ var TsquareScene = Class.create(Scene,{
     },
     
     correctCommand: function(){
-     if (this.movementManager.currentMode == this.movementManager.modes.normal) {
       this.increaseEnergy();
-     }
     },
-    
-    
     
     tick: function($super){
-        $super()
-        this.detectCollisions();
-        this.view.xPos += this.currentSpeed* this.direction
-        for(var handler in this.handlers){
-            this.handlers[handler].tick();
+      $super()
+      this.detectCollisions();
+      this.view.xPos += this.currentSpeed* this.direction
+      for(var handler in this.handlers){
+          this.handlers[handler].tick();
+      }
+      if(this.view.xPos > this.view.length) this.end();
+    },
+
+    end : function(win){
+      var self = this;
+      var afterMarchCallback = function(){
+        self.fire('animationEnd');
+        self.reactor.stop();
+        self.audioManager.stop();
+      }
+      if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
+       && this.view.xPos > this.view.length && this.handlers.clash_enemy.ended)) {
+        if(!this.stopped)
+        {
+          this.stopped = true;
+          this.win = win;
+          this.finish(afterMarchCallback);
+          self.fire('end', [{
+            score: self.scoreCalculator.score,
+            objectives: self.scoreCalculator.getObjectivesRatio(),
+            combos: self.scoreCalculator.getCombos(),
+            win: self.win
+          }]);
         }
-        if(this.view.xPos > this.view.length) this.end();
+      }
+      //send to the server
     },
     
-  end : function(win){
-    var self = this;
-    var afterMarchCallback = function(){
-      self.fire('animationEnd');
-      self.reactor.stop();
-      self.audioManager.stop();
-    }
-    if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
-     && this.view.xPos > this.view.length && this.handlers.clash_enemy.ended)) {
-      if(!this.stopped)
-      {
-        this.stopped = true;
-        this.win = win;
-        this.finish(afterMarchCallback);
-        self.fire('end', [{
-          score: self.scoreCalculator.score,
-          objectives: self.scoreCalculator.getObjectivesRatio(),
-          combos: self.scoreCalculator.getCombos(),
-          win: self.win
-        }]);
-      }
-    }
-    //send to the server
-  },
-  finish : function(callback){
-    this.fire(this.speeds[this.lastSpeedIndex].state)
-    this.handlers.crowd.marchOut(callback);
-  },
-  addObject : function(objHash){
-     var klassName = objHash.name.formClassName()
-     var klass = eval(klassName)
-     var obj = new klass(this,objHash.x - this.view.xPos,objHash.lane,objHash.options)
-     var displayKlass = eval(klassName + "Display")
-     var objDisplay = new displayKlass(obj)
-     if (!obj.noDisplay) {
-       this.pushToRenderLoop('characters', objDisplay)
-     }
-     return obj
-  },
-  
-  tickObjects : function(objects){
-        var remainingObjects = []
-        var self = this
-        objects.each(function(object){
-            if(!object.finished){
-                object.tick()
-                remainingObjects.push(object)
-            }
-        })
-        objects = remainingObjects
-        return this
-  },
-  
-  detectCollisions : function(){
-    this.collision = false;
-     var pairs = [['left','right'],['left','middle'],['middle','right']]  
-     for(var h1 in this.handlers){
-       for (var h2 in this.handlers) {
-           var handler1 = this.handlers[h1]; 
-           var handler2 = this.handlers[h2]; 
-          for(var i=0;i<pairs.length;i++){
-           if(handler1.type==pairs[i][0] && handler2.type==pairs[i][1]){
-             var res = handler1.detectCollisions(handler2.objects);
-             this.collision = this.collision || res;
-           }
-         } 
+    finish : function(callback){
+      this.fire(this.speeds[this.lastSpeedIndex].state)
+      this.handlers.crowd.marchOut(callback);
+    },
+    
+    addObject : function(objHash){
+       var klassName = objHash.name.formClassName()
+       var klass = eval(klassName)
+       var obj = new klass(this,objHash.x - this.view.xPos,objHash.lane,objHash.options)
+       var displayKlass = eval(klassName + "Display")
+       var objDisplay = new displayKlass(obj)
+       if (!obj.noDisplay) {
+         this.pushToRenderLoop('characters', objDisplay)
        }
-     } 
-  },
+       return obj
+    },
   
-  handleCollision : function(collision){
-      this.direction = 0;
-  },
+    tickObjects : function(objects){
+      var remainingObjects = []
+      var self = this
+      objects.each(function(object){
+          if(!object.finished){
+              object.tick()
+              remainingObjects.push(object)
+          }
+      })
+      objects = remainingObjects
+      return this
+    },
+  
+    detectCollisions : function(){
+      this.collision = false;
+       var pairs = [['left','right'],['left','middle'],['middle','right']]  
+       for(var h1 in this.handlers){
+         for (var h2 in this.handlers) {
+             var handler1 = this.handlers[h1]; 
+             var handler2 = this.handlers[h2]; 
+            for(var i=0;i<pairs.length;i++){
+             if(handler1.type==pairs[i][0] && handler2.type==pairs[i][1]){
+               var res = handler1.detectCollisions(handler2.objects);
+               this.collision = this.collision || res;
+             }
+           } 
+         }
+       } 
+    },
+  
+    handleCollision : function(collision){
+        this.direction = 0;
+    },
     
   increaseEnergy : function(){
-    if (this.movementManager.currentMode != this.movementManager.modes.normal) {
-      this.direction = 0
-    } 
     if(this.speedIndex != 0)
       this.lastSpeedIndex = this.speedIndex;
     if(this.stopped) return;
@@ -262,9 +264,6 @@ var TsquareScene = Class.create(Scene,{
    },
    
   decreaseEnergy : function(){
-    if(this.movementManager.currentMode != this.movementManager.modes.normal){
-      this.direction = 0
-    }
     if(this.speedIndex != 0)
       this.lastSpeedIndex = this.speedIndex;
     if(this.stopped) return;
@@ -286,8 +285,6 @@ var TsquareScene = Class.create(Scene,{
    },
 
    updateSpeed: function(){
-      // console.log(this.energy.current, this.targetEnergy)
-      
       if(this.targetEnergy - this.energy.current > 1){
         this.energy.current += 2;
       }else if (this.targetEnergy - this.energy.current < -1){

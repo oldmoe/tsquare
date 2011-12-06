@@ -1,6 +1,6 @@
 var MovementManager = Class.create({
   
-  RIGHT : 0, LEFT : 1,UP : 2, DOWN : 3,
+  RIGHT : 0, LEFT : 1,UP : 2, DOWN : 3, SPACE : 4, ENTER: 5,
   move : [],
   movements : [],
   direction : 0,
@@ -8,7 +8,7 @@ var MovementManager = Class.create({
   totalMoveTicks : 0,
   lastMoveClicked : false,
   beatDelay : 15,
-  moves : {march:{code:[0,0,0,0],index:0},retreat:{code:[1,1,1,1],index:1},circle:{code:[0,1,0,1],index:2}, hold:{code:[2],index:3}},  
+  moves : null,  
   beatMoving: false,
   comboStart: false,
   currentCombos: 0,
@@ -21,17 +21,28 @@ var MovementManager = Class.create({
   
   initialize : function(scene){
     this.scene = scene
+    this.moves = {
+      march:{code:[0,1,0,0],index:0},
+      retreat:{code:[1,0,1,1],index:1},
+      circle:{code:[1,0,2,3],index:2}, 
+      hold:{code:[2],index:3}
+    }
+  },
+  
+  run: function(){
+
     this.time = new Date().getTime()
     this.move = []
     this.sound = this.scene.audioManager.nowPlaying[0]
     var self = this
     this.keydownHandler = function(e){
       if (e.keyCode == 27) {
-      	self.scene.fire('togglePause');
-      	return;
-      }
-      if (e.keyCode < 37 || e.keyCode > 40)
+        self.scene.fire('togglePause');
         return;
+      }
+      if (e.keyCode < 37 || e.keyCode > 40){
+        // return;
+      }
       if (e.preventDefault)
         e.preventDefault();
       self.sound = self.scene.audioManager.nowPlaying[0]
@@ -42,31 +53,30 @@ var MovementManager = Class.create({
       var click = -1
       if (e.keyCode == 39) {
         click = self.RIGHT
-        self.scene.fire("keySound", [0])
       }else if (e.keyCode == 37) {
           click = self.LEFT
-          self.scene.fire("keySound", [1])
       }else if (e.keyCode == 32) {
-          click = 4
+          click = self.SPACE
       }else if(e.keyCode == 38){
           click = self.UP
-          self.scene.fire("keySound", [3])
       }else if (e.keyCode == 40){
           click = self.DOWN
-          self.scene.fire("keySound", [4])
       }else{
         self.scene.fire("keypressed", [click, self.move.length])
         self.reset();
         return
       }
+      self.scene.fire("keySound", [click])
       if (self.currentMode == self.modes.normal) 
         self.process(click)
       else {
         self.scene.clashDirectionsGenerator.processDirection(click)
       }
-	};
+    };
     this.registerListeners()
+    
   },
+  
   reset : function(){
     this.move = []; 
     this.time = new Date().getTime()
@@ -104,12 +114,14 @@ var MovementManager = Class.create({
       }
       if(!this.sound)return
       var beatTime  = this.sound.duration/this.beatsPerAudio
+      /*
       var index = Math.round(this.sound.position / beatTime);
-      // if(index >= 4 && index <=7){//pressed on the low beats, or wrong timing
-          // this.scene.fire("keypressed", [0, 1, 2])
-          // this.reset();
-          // return;
-      // }
+      if(index >= 4 && index <=7){//pressed on the low beats, or wrong timing
+          this.scene.fire("keypressed", [0, 1, 2])
+          this.reset();
+          return;
+      }
+      */
       var position = this.sound.position % beatTime
       this.beatTime = beatTime
       var found = false

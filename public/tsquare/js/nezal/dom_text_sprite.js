@@ -29,7 +29,7 @@ var DomTextSprite = Class.create(DomSprite, {
         return this.destroy();
       }
       this.span.innerHTML = this.owner[this.textAssets]();
-      this.div.setStyle({height : 40+"px"});
+      this.div.setStyle({height : 100+"px"});
       this.span.setStyle({                  
                          marginLeft :(-this.owner.imgWidth*this.owner.angle  + "px"),
                          marginTop : (-this.currentAnimationFrame * this.owner.imgHeight + "px")})

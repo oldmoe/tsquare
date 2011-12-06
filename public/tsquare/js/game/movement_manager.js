@@ -6,7 +6,6 @@ var MovementManager = Class.create({
   direction : 0,
   ticksPassed : 0,
   totalMoveTicks : 0,
-  beatAccelaration : 0,
   lastMoveClicked : false,
   beatDelay : 15,
   moves : {march:{code:[0,0,0,0],index:0},retreat:{code:[1,1,1,1],index:1},circle:{code:[0,1,0,1],index:2}, hold:{code:[2],index:3}},  
@@ -74,7 +73,6 @@ var MovementManager = Class.create({
     this.beatMoving = false;
     this.comboStart = false;
     this.currentCombos = 0
-    this.beatAccelaration = 0
     this.checkDelay(this.counter, this.beatTime)
     this.scene.fire('wrongMove');
   },
@@ -87,6 +85,12 @@ var MovementManager = Class.create({
       document.stopObserving('keydown', self.keydownHandler)
     });
     this.scene.observe('clashCrowdsBack',function(){
+      self.currentMode = self.modes.clash
+    })
+     this.scene.observe('clashCrowdsBack',function(){
+      self.currentMode = self.modes.clash
+    })
+    this.scene.observe('rescueMissionStart',function(){
       self.currentMode = self.modes.clash
     })
     this.scene.observe('clashEnd',function(){
@@ -177,14 +181,11 @@ var MovementManager = Class.create({
         this.reset()
       }
   },  
-  getNextMoveIndex : function(){
-    return 0
-  },
   
   checkMove : function(){
   	var index = 0
     var found = false
-    var moveIndex = this.getNextMoveIndex()
+    var moveIndex = 0;
     var self = this
     var found  = false
     var command = null
@@ -226,14 +227,13 @@ var MovementManager = Class.create({
   },
   
   startMove : function(commandIndex){
-    var collision = this.scene.detectCollisions()
     this.scene.fire("beatMoving");
     if(commandIndex == this.moves.march.index){
-        this.scene.fire('march')
-        this.beatMoving = true    
+      this.scene.fire('march')
+      this.beatMoving = true    
     }else if(commandIndex == this.moves.retreat.index){
-        this.scene.fire('retreat')
-        this.beatMoving = true    
+      this.scene.fire('retreat')
+      this.beatMoving = true    
     }else if(commandIndex == this.moves.circle.index){
       this.scene.fire('circle')
       this.beatMoving = true

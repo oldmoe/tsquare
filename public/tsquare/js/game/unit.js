@@ -124,7 +124,7 @@ var Unit = Class.create(Observer,{
     }  
   },
   
-  getCoods : function(){
+  getCoords : function(){
     return {x: this.coords.x+this.scene.x}
   },
   

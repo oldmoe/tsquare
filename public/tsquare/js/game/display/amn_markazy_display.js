@@ -6,14 +6,18 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
   states : ["hit","normal"],
   
   initialize : function($super,owner){
-    this.blockImg = Loader.images.enemies['amn_markazy_stick_walk.png']
-    this.hitImage = Loader.images.enemies['amn_markazy_stick_hit.png']
-    this.hitEffect = Loader.images.effects['hit1.png']
+  	this.loadImages();
     this.imgWidth = this.blockImg.width
     this.imgHeight = this.blockImg.height/this.noOfFrames
     $super(owner)
     this.registerEvents()
     this.createShadow();
+  },
+  
+  loadImages : function(){
+    this.blockImg = Loader.images.enemies['amn_markazy_stick_walk.png']
+    this.hitImage = Loader.images.enemies['amn_markazy_stick_hit.png']
+    this.hitEffect = Loader.images.effects['hit1.png']
   },
 
   registerEvents : function(){

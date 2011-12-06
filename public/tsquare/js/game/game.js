@@ -94,8 +94,9 @@ var Game = Class.create({
           sfx[j] = sfx[j]+'.'+format[i];
         } 
        	toLoad.push({sounds: sfx, path: 'sounds/'+format[i]+"/sfx/", store: 'sfx'});
-    		
-    	}					
+    	}
+    	var sfx = ["ha.wav", "hii.wav"];					
+    toLoad.push({sounds: sfx, path: 'sounds/wav/sfx/', store: 'sfx'});
     						
   	new Loader().load(toLoad, {
   								  onProgress : function(progress){

@@ -120,7 +120,7 @@ var AudioManager = Class.create({
 		this.playingRewards = []
 		this.tempoChanged = true;
 		
-		// scene.observe('keySound',function(keyIndex){self.playKeySound(keyIndex)});
+		scene.observe('keySound',function(keyIndex){self.playKeySound(keyIndex)});
 		
 		this.cc = false;
 	},
@@ -147,17 +147,13 @@ var AudioManager = Class.create({
 	
 	playKeySound: function(keyIndex){
 	  if(keyIndex == 0){
-	    if(this.cc)
-        Loader.sounds['sfx']['hoh.mp3'].play({volume:80});
-      else
-        Loader.sounds['sfx']['hm.mp3'].play({volume:80});
-      this.cc = !this.cc;	    
+	    Loader.sounds['sfx']['ha.mp3'].play({volume:80});
 	  }else if(keyIndex == 1){
-      Loader.sounds['sfx']['hm.mp3'].play({volume:80});
+      Loader.sounds['sfx']['hii.mp3'].play({volume:80});
     }else if(keyIndex == 2){
-      
+      Loader.sounds['sfx']['ha.mp3'].play({volume:80});
     }else if(keyIndex == 3){
-      
+      Loader.sounds['sfx']['hii.mp3'].play({volume:80});
     }
 	},
 	

@@ -48,10 +48,7 @@ var TsquareScene = Class.create(Scene,{
         this.speedFactors = []
         
         //Effect.Queues.create('global', this.reactor)
-        
-        this.audioManager = new AudioManager(this);
-        this.flashingHandler = new FlashingHandler(this);
-        
+
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         this.view.length = this.view.width;
@@ -80,12 +77,17 @@ var TsquareScene = Class.create(Scene,{
     },
     
     init: function(){
-		this.skyLine = new SkyLine(this)
-		for(var handler in this.handlers){
-			this.handlers[handler].start()
-		}
+  		this.skyLine = new SkyLine(this)
+  		for(var handler in this.handlers){
+  			this.handlers[handler].start()
+  		}
 
-		this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
+      this.audioManager = new AudioManager(this);
+      this.flashingHandler = new FlashingHandler(this);
+      this.messagesHandler = new MessagesHandler(this);
+      this.movementManager = new MovementManager(this);
+
+  		this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
     },
     
     applySpeedFactor : function(factor){
@@ -114,9 +116,8 @@ var TsquareScene = Class.create(Scene,{
 
           this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
           this.push(this.clashDirectionsGenerator)
-          this.messagesHandler = new MessagesHandler(this);
-          this.movementManager = new MovementManager(this);
-          this.audioManager.run()
+          this.audioManager.run();
+          this.movementManager.run();
           this.flashingHandler.run();
           this.handlers.crowd.playHetafLoop();
           var self = this;

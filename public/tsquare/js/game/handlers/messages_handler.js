@@ -11,13 +11,13 @@ var MessagesHandler = Class.create({
   
   showGuidBubble: function(command){
     var message = "Listen to the rhythm and click the keys; ";
-    if(command == 0) //forward
+    if(command == "march") //forward
       message += "right, right, right, right";
-    else if(command == 1)//retreat
+    else if(command == "retreat")//retreat
       message += "left, left, left, left";
-    else if(command == 2)//circle
+    else if(command == "circle")//circle
       message += "right, left, right, left";
-    else if(command == 3)//hold
+    else if(command == "hold")//hold
       message += "";
     
     var crowds = this.scene.handlers.crowd.objects;
@@ -27,7 +27,7 @@ var MessagesHandler = Class.create({
     var bubbleDisplay = new BubbleDisplay(this.guidBubble);
     this.scene.pushToRenderLoop('characters', bubbleDisplay);
     
-    // this.scene.reactor.push(1000, this.removeGuidBubble, this);
+    this.scene.reactor.push(100, this.removeGuidBubble, this);
   },
   
   

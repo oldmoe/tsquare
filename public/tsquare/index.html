@@ -121,8 +121,9 @@
 		<script type=text/javascript>
 			soundManager.flashVersion = 9;
 			soundManager.url = 'flash';
-			document.observe("dom:loaded", function() {
-				soundManager.onready(function() {
+			document.observe("dom:loaded", function(){
+				soundManager.onready(function(){
+				  // soundManager.mute();
 					game = new Game();
 					game.play(missionData)
 				})

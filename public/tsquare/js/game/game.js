@@ -69,7 +69,7 @@ var Game = Class.create({
     	var format = ['mp3'];
     	for(var i=0; i < format.length; i++){ //number of tempos
     		var beats = []
-    		for(var j=0; j < 6; j++){
+    		for(var j=0; j < 5; j++){
     			beats.push(j+'.'+format[i])
     		}
     		var hetaf = []
@@ -95,8 +95,9 @@ var Game = Class.create({
           sfx[j] = sfx[j]+'.'+format[i];
         } 
        	toLoad.push({sounds: sfx, path: 'sounds/'+format[i]+"/sfx/", store: 'sfx'});
-    		
-    	}					
+    	}
+    	var sfx = ["ha.wav", "hii.wav"];					
+    toLoad.push({sounds: sfx, path: 'sounds/wav/sfx/', store: 'sfx'});
     						
   	new Loader().load(toLoad, {
   								  onProgress : function(progress){

@@ -52,7 +52,7 @@ var TsquareScene = Class.create(Scene,{
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         this.view.length = this.view.width;
-        // this.data[1][0].x = 200;
+        this.data[1][0].x = 200;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
             this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)

@@ -49,7 +49,8 @@ var Game = Class.create({
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
     'amn_markazy_tear_gas_walk.png', 'ambulance.png','twitter_guy.png',
     'amn_kalabsh_back.png','amn_kalabsh_blur.png','amn_kalabsh_front.png','amn_kalabsh_run.png',
-    'amn_kalabsh_walk.png', 'box_car.png', 'tear_gas_bomb.png']
+    'amn_kalabsh_walk.png', 'box_car.png', 'tear_gas_bomb.png',
+    'amn_2sticks_walk.png', 'amn_2sticks_hit.png']
     
     var countDownImages = ["1.png", "2.png", "3.png", "go.png"];
     
@@ -68,7 +69,7 @@ var Game = Class.create({
     	var format = ['mp3'];
     	for(var i=0; i < format.length; i++){ //number of tempos
     		var beats = []
-    		for(var j=0; j < 6; j++){
+    		for(var j=0; j < 5; j++){
     			beats.push(j+'.'+format[i])
     		}
     		var hetaf = []
@@ -94,8 +95,9 @@ var Game = Class.create({
           sfx[j] = sfx[j]+'.'+format[i];
         } 
        	toLoad.push({sounds: sfx, path: 'sounds/'+format[i]+"/sfx/", store: 'sfx'});
-    		
-    	}					
+    	}
+    	var sfx = ["ha.wav", "hii.wav"];					
+    toLoad.push({sounds: sfx, path: 'sounds/wav/sfx/', store: 'sfx'});
     						
   	new Loader().load(toLoad, {
   								  onProgress : function(progress){

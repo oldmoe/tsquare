@@ -5,6 +5,7 @@ var EnemyHandler = Class.create(UnitHandler, {
    initialize: function($super,scene){
      $super(scene)  
      this.unitsClassMappings['wood_stick_cs'] = 'amn_markazy'
+     this.unitsClassMappings['iron_stick_cs'] = 'amn_ektesah'
    },
    
    addObject : function($super,obj){

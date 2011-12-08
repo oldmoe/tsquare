@@ -82,14 +82,13 @@ class UserGameProfile < DataStore::Model
       @data['power_ups'] ||= {}  
       @data['energy'] ||= 50
       @data['version'] = CURRENT_VERSION
-    end
-=begin    # This puts all the missions to the user .. should be removed once testing is done
-    Mission::MODES.each do |mode|
-      game.data['missions'][mode].keys.each do |key|
-        @data['missions'][mode][key] ||= { 'score' => 0, 'stars'=>0}
-      end
-    end 
-=end    # End of part to be removed
+  end
+   # This puts all the missions to the user .. should be removed once testing is done
+  Mission::MODES.each do |mode|
+        @data['current_mission'][mode] = game.data['missions'][mode].keys.max { |i| i.to_i }
+        @data['missions'][mode] = game.data['missions'][mode].keys
+  end
+   # End of part to be removed 
     energy_gain
     save
   end

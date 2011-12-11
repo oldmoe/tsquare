@@ -1,23 +1,24 @@
 var missionData = {
   
   "data":[[
-  ],[
    {
-      "name": "box_car",
-      "category": 'clash_enemy',
+      "name": "ultras_red",
+      "category": 'message',
       "index": 0,
-      "lane": 1,
-      "x": 10,
+      "lane": 0,
+      "x": 1,
       "order": 1
-  },
-/*  {
+  }  
+  ],[
+  {
       "name": "twitter_guy",
       "category": 'protection',
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 4,
-  {
+      "x": 2
+  }
+/*  ,{
       "name": "wood_stick_cs",
       "category": 'enemy',
       "type": '1_1',
@@ -25,8 +26,8 @@ var missionData = {
       "lane": 1,
       "x": 2,
       "order": 1
-  },*/
-/*  ,{
+  },
+  ,{
       "name": "journalist_rescue",
       "category": 'rescue',
       "type": '3_3',

@@ -8,13 +8,12 @@ var BubbleDisplay = Class.create(Display,{
   },
   
   createSprites : function(){
-    this.sprites.baloon = new DomImgSprite(this.owner, {img : this.baloonImg},{shiftY:-100,shiftX:25, effect:true})
+    this.sprites.baloon = new DomImgSprite(this.owner, {img : this.baloonImg},{shiftY:-100,shiftX:25})
     this.sprites.text = new DomTextSprite(this.owner,'textInfo', {
         centered: true,
         shiftY: -80,
         shiftX: 51,
-        styleClass: 'bubbleText',
-        effect: true
+        styleClass: 'bubbleText'
     });
   }
 })

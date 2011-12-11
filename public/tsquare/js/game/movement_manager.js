@@ -23,9 +23,9 @@ var MovementManager = Class.create({
   initialize : function(scene){
     this.scene = scene
     this.moves = {
-      march:{code:[0,1,0,0],index:0},
-      retreat:{code:[1,0,1,1],index:1},
-      circle:{code:[1,0,2,3],index:2}, 
+      march:{code:[0,0,1,0],index:0},
+      retreat:{code:[1,1,0,1],index:1},
+      circle:{code:[2,3,2,3],index:2}, 
       hold:{code:[2],index:3}
     }
   },

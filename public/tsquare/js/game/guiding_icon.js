@@ -99,6 +99,7 @@ var GuidingIcon = Class.create(Observer,{
   },
   
   reset: function(moveIndex){
+    console.log("command" + this.moves[this.currentCommand].code)
     var moveLength = this.moves[this.currentCommand].code.length;
     for(var i=1; i<=moveIndex; i++){
       $$('.movesIndicator')[0].children[moveLength-i].removeClassName("right");

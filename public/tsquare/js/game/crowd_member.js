@@ -129,12 +129,12 @@ var CrowdMember = Class.create(Unit,{
      
     this.stateChanged = true
     
-    if(this.scene.reactor.ticks % this.secondTicks == 0)this.updateState();
+    if(this.scene.reactor.ticks % this.secondTicks == 0)this.updateWaterState();
     
     if(this.followers)this.checkFollowersState();
   },
  
-  updateState: function(){
+  updateWaterState: function(){
     this.water-=this.waterDecreaseRate
     if(this.water <= 0) this.dead = true;   
   },

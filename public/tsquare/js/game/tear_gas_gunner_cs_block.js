@@ -7,6 +7,7 @@ var TearGasGunnerCsBlock = Class.create(Block,{
       if (this.moved < this.maxMove && this.chargeTolerance > 0) {
         if (this.coords.x > 0.9 * this.scene.view.width) {
           this.elements[0][0].shotComplete = false;
+          return;
         }
         this.move(this.backSpeed, 0);
         this.moved += this.backSpeed

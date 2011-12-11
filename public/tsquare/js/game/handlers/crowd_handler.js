@@ -6,10 +6,11 @@ var CrowdHandler = Class.create(UnitHandler, {
    marchingStates: ["normal", "walk", "jog", "run", "sprint"],//display
    commands: ["circle", "hold", "march", "retreat"],
    currentId : 0,
-   
+   arrestedCrowds : null,
    initialize: function($super,scene){
        this.initialPositions = [{x:250,y:30},{x:250,y:110},{x:250,y:200}]
        $super(scene)
+       this.arrestedCrowds = []
        this.addCommandObservers();
        this.addMarchingStates();
        var self = this;
@@ -162,7 +163,7 @@ var CrowdHandler = Class.create(UnitHandler, {
 
    march: function(){
      this.scene.direction = 1
-     if(this.target && this.target.chargeTolerance <= 0) this.target = null
+     if(this.target && this.target.chargeTolerance <= 0) this.target = null;
      this.scene.fire("correctCommand");
      this.scene.currentCommand = 1;
      if (!this.target) {
@@ -357,9 +358,9 @@ var CrowdHandler = Class.create(UnitHandler, {
    
   gatherTriangle : function(x){
     for (var i = 0; i < this.objects[this.scene.activeLane].length; i++) {
-      this.objects[this.scene.activeLane][i].fixedPlace = false
+      this.objects[this.scene.activeLane][i].fixedPlace = false;
     }
-    new CrowdAction(this.scene).gatherTriangle(this.objects[this.scene.activeLane],x,-1)
+    new CrowdAction(this.scene).gatherTriangle(this.objects[this.scene.activeLane], x, -1)
   },
   
   takeHit : function(power){

@@ -127,7 +127,7 @@ var TearGasBomb = Class.create({
                 this.vx = 0;
                 this.omega = -0.2;
                 this.mode = 100;
-                this.scene.applySpeedFactor(0.5)
+                this.scene.applySpeedFactor(0.7)
             }
         }  
     },

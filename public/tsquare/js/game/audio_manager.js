@@ -127,16 +127,16 @@ var AudioManager = Class.create({
 
   playAmbient : function(){
     var self = this;
-    var sound_ambient = Loader.sounds['sfx']['ambient.mp3'];
-    sound_ambient.loop = true;
-    sound_ambient.play({volume:60, loops:10000});
+    this.sound_ambient = Loader.sounds['sfx']['ambient.mp3'];
+    this.sound_ambient.loop = true;
+    this.sound_ambient.play({volume:60, loops:10000});
 
-    var sound_background_music = Loader.sounds['sfx']['background_music.mp3'];
-    sound_background_music.loop = true;
-    sound_background_music.play({volume:80, loops:10000});
+    this.sound_background_music = Loader.sounds['sfx']['background_music.mp3'];
+    this.sound_background_music.loop = true;
+    this.sound_background_music.play({volume:80, loops:10000});
 
-    var sound_background_ascending = Loader.sounds['sfx']['background_ascending.mp3'];
-    sound_background_ascending.loop = true;
+    this.sound_background_ascending = Loader.sounds['sfx']['background_ascending.mp3'];
+    this.sound_background_ascending.loop = true;
     // sound_background_ascending.play({volume:60, loops:10000});
 
     
@@ -199,9 +199,12 @@ var AudioManager = Class.create({
   },
 	stop : function(){
 		for(var i=0; i < this.nowPlaying.length; i++){
-			this.nowPlaying[i].stop()
+			this.nowPlaying[i].stop();
 		 }
-     this.background_audio.stop()
+     this.background_audio.stop();
+     this.sound_ambient.stop();
+     this.sound_background_music.stop();
+     this.sound_background_ascending.stop();
 	},
 
   changeTempo : function(){

@@ -3,6 +3,7 @@ var CrowdAction = Class.create({
    elementHeight : 30,
    elementWidth : 50,
    distaceBetweenUnits : 10,
+   
    initialize : function(scene,options){
      options = options || {}
      this.scene = scene
@@ -11,6 +12,7 @@ var CrowdAction = Class.create({
      this.elementWidth = options.elementWidth || this.elementWidth
      this.distanceBetweenUnits = options.distanceBetweenUnits || this.distanceBetweenUnits
    },
+   
    gatherRectangle : function(objects,x,direction){
      direction = 1 || direction
      var x = x;
@@ -24,6 +26,7 @@ var CrowdAction = Class.create({
         sign*=-1     
       }
    },
+   
    gatherTriangle : function(objects,x,direction){
      direction = direction || 1
      var x = x;
@@ -45,7 +48,7 @@ var CrowdAction = Class.create({
         }
         var y = y+sign*this.elementHeight * (count) +(Math.random()*20 - 10)
         var obj_x=x-sign*count*this.distaceBetweenUnits + (Math.random()*20 - 10)
-        objects[i].moveToTarget({x:obj_x,y:y})
+        objects[i].moveToTarget({x:obj_x,y:y}, null)
         sign*=-1
         count++     
       }

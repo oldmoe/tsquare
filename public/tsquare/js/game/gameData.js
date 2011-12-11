@@ -7,7 +7,7 @@ var missionData = {
       "category": 'clash_enemy',
       "index": 0,
       "lane": 1,
-      "x": 3,
+      "x": 5,
       "order": 1
   },
   {
@@ -24,7 +24,7 @@ var missionData = {
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 2,
+      "x": 5,
       "order": 1
   },
 /*  ,{
@@ -41,8 +41,8 @@ var missionData = {
   ]],
     
     "backgrounds":{
-      "layer1":[{"name":"secondary_skyline.png"}],
-      "layer2":[{"name":"main_skyline.png"}],
+      "layer2":[{"name":"secondary_skyline.png"}],
+      "layer1":[{"name":"main_skyline.png"}],
       "landmarks":[],
       "fence":[{"name":"fence.png"}],
       "lamp":[{"name":"3amod.png"}],

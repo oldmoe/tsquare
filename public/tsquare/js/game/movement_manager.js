@@ -30,7 +30,6 @@ var MovementManager = Class.create({
   },
   
   run: function(){
-
     this.time = new Date().getTime()
     this.move = []
     this.sound = this.scene.audioManager.nowPlaying[0]
@@ -41,7 +40,7 @@ var MovementManager = Class.create({
         return;
       }
       if (e.keyCode < 37 || e.keyCode > 40){
-        // return;
+        return;
       }
       if (e.preventDefault)
         e.preventDefault();

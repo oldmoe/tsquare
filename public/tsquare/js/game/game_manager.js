@@ -34,6 +34,7 @@ var GameManager = Class.create({
       )
     });
 	this.reactor = new Reactor();
+    soundManager.mute()
     Effect.Queues.create('global', this.reactor)
     this.reactor.run();
   },

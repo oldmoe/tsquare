@@ -5,6 +5,7 @@ var UnitHandler = Class.create({
    scene: null,
    unitsClassMappings : null,
    target : null,
+   
    initialize: function(scene){
        this.unitsClassMappings = {}
        this.incoming = [[],[],[]];
@@ -25,18 +26,18 @@ var UnitHandler = Class.create({
    },
    
    add: function(elem){
-       if(this.incoming[elem.lane] == null){
-         this.incoming[elem.lane] = [];
-         this.objects[elem.lane] = [];  
-       }
-       elem.options = {}
-       if (this.unitsClassMappings[elem.name]) {
-           elem.options.mappingName =  elem.name
-           elem.name = this.unitsClassMappings[elem.name]
-       }
-       elem.options.handler = this
-       elem.x = elem.x * this.scene.view.tileWidth
-      this.incoming[elem.lane].push(elem)
+     if(this.incoming[elem.lane] == null){
+       this.incoming[elem.lane] = [];
+       this.objects[elem.lane] = [];  
+     }
+     elem.options = {}
+     if (this.unitsClassMappings[elem.name]) {
+         elem.options.mappingName =  elem.name;
+         elem.name = this.unitsClassMappings[elem.name];
+     }
+     elem.options.handler = this;
+     elem.x = elem.x * this.scene.view.tileWidth;
+     this.incoming[elem.lane].push(elem);
    },
    
   checkObjectsState : function(){
@@ -58,7 +59,7 @@ var UnitHandler = Class.create({
   checkIncomingObjects: function(){
     for (var i = 0; i < this.incoming.length; i++) {
       for (var j = 0; this.incoming[i] && j < this.incoming[i].length; j++) {
-        if (this.incoming[i][j].x < this.scene.view.xPos + (this.scene.view.width * 1.5)) {
+        if (this.incoming[i][j].x < this.scene.view.xPos + (this.scene.view.width)) {
           this.objects[i].push(this.addObject(this.incoming[i][j]))
           this.incoming[i].splice(0, 1)
           j--;

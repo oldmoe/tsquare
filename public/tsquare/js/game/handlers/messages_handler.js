@@ -10,13 +10,13 @@ var MessagesHandler = Class.create(UnitHandler, {
   },
   
   showGuidBubble: function(command){
-    var message = "Listen to the rhythm and click the keys; ";
+    var message = "Click the keys; ";
     if(command == "march") //forward
-      message += "right, left, right, right";
+      message += "right, right, left, right";
     else if(command == "retreat")//retreat
-      message += "left, right, left, left";
+      message += "left, left, right left";
     else if(command == "circle")//circle
-      message += "right, left, up, down";
+      message += "up, down, up, down";
     else if(command == "hold")//hold
       message += "";
     

@@ -48,22 +48,12 @@ var TsquareScene = Class.create(Scene,{
         this.comboMistakes = {current : 0, max : 2}
         this.speedFactors = []
         
-        Effect.Queues.create('global', this.reactor)
+        // Effect.Queues.create('global', this.reactor)
 
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         this.view.length = this.view.width;
         // this.data[1][0].x = 200;
-        // this.data[0].push(
-          // {
-            // "name": "ultras_red",
-            // "category": 'message',
-            // "index": 0,
-            // "lane": 0,
-            // "x": 2,
-            // "order": 1
-          // }
-        // )
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
             this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)

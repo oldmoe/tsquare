@@ -1,14 +1,14 @@
 var missionData = {
   
   "data":[[
-/*   {
+   {
       "name": "ultras_red",
       "category": 'message',
       "index": 0,
       "lane": 0,
       "x": 1,
       "order": 1
-  }*/  
+  }  
   ],[
 /*   {
       "name": "box_car",
@@ -39,7 +39,7 @@ var missionData = {
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 2,
+      "x": 200,
       "order": 1
   }
 /*  ,{

@@ -41,10 +41,10 @@ var AdvisorDisplay = Class.create(Display,{
     this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:8, flipped : true})
     this.sprites.character.createAnimation({name:'reverseRun'  ,img:this.runImg, noOfFrames:6, flipped : true})
 
-    this.showText(this.owner.text);
+    this.showText();
   },
   
-  showText: function(text){
+  showText: function(){
     this.sprites.baloon = new DomImgSprite(this.owner, {img : this.baloonImg},{
       width: this.baloonImg.width,
       height: this.baloonImg.height,
@@ -52,7 +52,7 @@ var AdvisorDisplay = Class.create(Display,{
       shiftX:-10
     })
     
-    this.sprites.text = new DomTextSprite(this.owner,function(){return text;}, {
+    this.sprites.text = new DomTextSprite(this.owner,"textInfo", {
         width: this.baloonImg.width,
         height: this.baloonImg.height,
         centered: true,

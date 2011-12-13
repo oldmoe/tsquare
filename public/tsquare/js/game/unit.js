@@ -18,6 +18,7 @@ var Unit = Class.create(Observer,{
   target: null,
   handler: null,
   movingToTarget : false,
+  targetPoint: null,
   type: null,
   neglected : false,
   scalable: true, // for specifying which object can be scalable
@@ -67,10 +68,11 @@ var Unit = Class.create(Observer,{
   
   //Return true if unit dies
   takeHit : function(attack){
+  	if (attack <= 0) return;
     this.hp -= attack;
     if(this.hp <=0){
         this.die()
-        this.handler.removeObject(this, this.lane);
+        // this.handler.removeObject(this, this.lane);
         return true;
     }
     return false;   
@@ -143,8 +145,12 @@ var Unit = Class.create(Observer,{
       return false;  
   },
   
+  fire : function($super, event){
+  	if (this.dead) return;
+  	$super(event);
+  },
+  
   die : function(){
-    
   }
   
 })

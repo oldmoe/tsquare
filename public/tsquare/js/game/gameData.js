@@ -21,7 +21,7 @@ var missionData = {
   {
       "name": "iron_stick_cs",
       "category": 'enemy',
-      "type": '1_2',
+      "type": '1_1',
       "index": 0,
       "lane": 1,
       "x": 2,

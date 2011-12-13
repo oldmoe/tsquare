@@ -8,6 +8,7 @@ var HealerDisplay = Class.create(CrowdMemberDisplay,{
     this.frontImg = Loader.images.characters['medic_front.png']
     this.holdImg = Loader.images.characters['medic_hold.png']
     this.blurImg = Loader.images.characters['medic_blur.png']
+    this.deadImg = Loader.images.characters['medic_dead.png']
   },
   
   createSprites : function(){
@@ -46,6 +47,7 @@ var HealerDisplay = Class.create(CrowdMemberDisplay,{
     this.sprites.character.createAnimation({name:'sprint'  ,img:this.runImg,noOfFrames:7})
     this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:8, flipped : true})
     this.sprites.character.createAnimation({name:'reverseRun'  ,img:this.runImg, noOfFrames:7, flipped : true})
+    this.sprites.character.createAnimation({name:'dead',img:this.deadImg,noOfFrames:1})
     this.sprites.health = new ImgMeterSprite(this.owner,
     {empty:Loader.images.gameElements['health_meter_empty.png'] ,full:Loader.images.gameElements['health_meter.png']},
      {

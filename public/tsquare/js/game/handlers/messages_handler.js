@@ -1,22 +1,22 @@
-var MessagesHandler = Class.create({
+var MessagesHandler = Class.create(UnitHandler, {
   
   guidBubble: null,
   
-  initialize: function(scene){
-    this.scene  = scene;
+  initialize: function($super, scene){
+    $super(scene);
     var self = this;
     this.scene.observe("showGuidBubble", function(command){if(self.guidBubble==null)self.showGuidBubble(command)});
     this.scene.observe("removeGuidBubble", function(){self.removeGuidBubble()});
   },
   
   showGuidBubble: function(command){
-    var message = "Listen to the rhythm and click the keys; ";
+    var message = "Click the keys; ";
     if(command == "march") //forward
-      message += "right, right, right, right";
+      message += "right, right, left, right";
     else if(command == "retreat")//retreat
-      message += "left, left, left, left";
+      message += "left, left, right left";
     else if(command == "circle")//circle
-      message += "right, left, right, left";
+      message += "up, down, up, down";
     else if(command == "hold")//hold
       message += "";
     
@@ -36,8 +36,13 @@ var MessagesHandler = Class.create({
       this.guidBubble.destroy();
       this.guidBubble = null;
     };
-  }
+  },
   
+   addObject: function($super, obj){
+    obj.options.type = obj.name
+    obj.name = "advisor"
+    return $super(obj)
+   }
   
   
 });

@@ -1,21 +1,36 @@
 var missionData = {
   
   "data":[[
+   {
+      "name": "ultras_red",
+      "category": 'message',
+      "index": 0,
+      "lane": 0,
+      "x": 1,
+      "order": 1
+  }  
   ],[
 /*   {
       "name": "box_car",
       "category": 'clash_enemy',
       "index": 0,
       "lane": 1,
-      "x": 10,
+      "x": 3,
       "order": 1
   },
+>>>>>>> caaf86e1d57160dd43d1a3693216ac1086146fa9
   {
       "name": "twitter_guy",
       "category": 'protection',
       "type": '1_2',
       "index": 0,
       "lane": 1,
+<<<<<<< HEAD
+      "x": 2
+  }
+/*  ,{
+      "name": "wood_stick_cs",
+=======
       "x": 4,
     },*/
   {
@@ -24,10 +39,11 @@ var missionData = {
       "type": '1_1',
       "index": 0,
       "lane": 1,
-      "x": 2,
+      "x": 200,
       "order": 1
-  },
+  }
 /*  ,{
+>>>>>>> caaf86e1d57160dd43d1a3693216ac1086146fa9
       "name": "journalist_rescue",
       "category": 'rescue',
       "type": '3_3',

@@ -91,7 +91,7 @@ var UnitHandler = Class.create({
   },
   
   addObject : function(obj){
-    return this.scene.addObject(obj)  
+    return this.scene.addObject(obj);  
   },
   
   detectCollisions : function(others){

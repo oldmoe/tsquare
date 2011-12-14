@@ -5,6 +5,7 @@ var DataLoader = Class.create({
 	CAT_PROTECTION_REBUILD: 'protection',
 	CAT_OBJECTS: 'objects',
 	CAT_POWERUPS: 'powerup',
+	CAT_ADVISOR: 'advisor',
 	CAT_BACKGROUND: 'background',
 	CLASH_ENEMY: 'clash_enemy',
 	data : null,
@@ -40,6 +41,9 @@ var DataLoader = Class.create({
 				case self.CAT_POWERUPS:
 				  $('powerupsContainer').appendChild(new Element('img', {"class":'draggablesImg', src: obj.src, name:obj.name, category:obj.category, type:obj.type, title:title}));
 				  break;
+        case self.CAT_ADVISOR:
+          $('advisorsContainer').appendChild(new Element('img', {"class":'draggablesImg', src: obj.src, name:obj.name, category:obj.category, title:title}));
+          break;
         case self.CLASH_ENEMY:
           $('clashEnemyContainer').appendChild(new Element('img', {"class":'draggablesImg', src: obj.src, name:obj.name, category:obj.category, title:title}));
           break;

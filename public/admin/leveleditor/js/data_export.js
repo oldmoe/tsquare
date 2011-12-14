@@ -26,6 +26,7 @@ var DataExporter = Class.create({
 		
 		var lanesData = this.levelEditor.grid.lanes;
 		
+		//adjusting objects positions and ordering
 		for(var i=0; i<lanesData.length; i++){
 			for(var j=0; j<lanesData[i].tiles.length; j++){
 				for (var k=0; k < lanesData[i].tiles[j].objects.length; k++) {
@@ -41,29 +42,19 @@ var DataExporter = Class.create({
 		for(var i=0; i<lanesData.length; i++){
 			if(data[l] == null) data[l] = [];
 			for(var j=0; j<lanesData[i].tiles.length; j++){
+			  var advisor = null;
 				for (var k=0; k < lanesData[i].tiles[j].objects.length; k++) {
 				  var obj = Object.clone(lanesData[i].tiles[j].objects[k]);
 				  if(obj.category == "enemy")
 				    obj.type = obj.type.cols + "_" + obj.type.rows;
+				  if(obj.category == "advisor")
+				    advisor = obj;  
 				  delete obj.image;
-				  
 					data[l][x++] = obj
 				}
-				if(lanesData[i].tiles[j].messages.length > 0){
-					var obj = {};
-					obj.x = j;
-					obj.name = "scenario";
-					obj.scenario = [];
-					
-					lanesData[i].tiles[j].messages.each(function(elem){
-						var message = {};
-						message.order = lanesData[elem.tile.parent.getPosition()].tiles[elem.tile.getPosition()].objects[elem.object.index].order;
-						message.msg = elem.message;
-						message.type = elem.type;
-						message.lane = elem.lane;
-						obj.scenario.push(message);
-					});
-					data[l][x++] = obj;
+				
+				if(advisor){
+				  advisor.messages = lanesData[i].tiles[j].messages.messages;
 				}
 			}
 			x=0;

@@ -53,7 +53,6 @@ var TsquareScene = Class.create(Scene,{
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         this.view.length = this.view.width;
-        // this.data[1][0].x = 200;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
             this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)
@@ -66,7 +65,7 @@ var TsquareScene = Class.create(Scene,{
          'enemy':'enemy', 
          'rescue':'rescue', 
          'clash_enemy':'clash_enemy',
-         'message' : 'message'
+         'advisor' : 'message'
        }
 
         for(var i =0;i<this.data.length;i++){
@@ -170,7 +169,7 @@ var TsquareScene = Class.create(Scene,{
     tick: function($super){
       $super()
       this.detectCollisions();
-      this.view.xPos += this.currentSpeed* this.direction
+      this.view.xPos += this.currentSpeed * this.direction
       for(var handler in this.handlers){
           this.handlers[handler].tick();
       }
@@ -320,6 +319,6 @@ var TsquareScene = Class.create(Scene,{
           // if(this.energy.max > this.energy.current)this.energy.current += 2;
         // }
       }
-   }
+   } 
   
 });

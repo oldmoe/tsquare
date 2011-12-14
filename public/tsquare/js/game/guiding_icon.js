@@ -165,7 +165,7 @@ var GuidingIcon = Class.create(Observer,{
 
     
     if(this.correctCommands > 2 && !this.arrowsHidden){
-      $$('.movesIndicator')[0].hide();
+      // $$('.movesIndicator')[0].hide();
       this.arrowsHidden = true;
     }
     

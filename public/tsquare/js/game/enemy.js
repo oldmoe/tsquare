@@ -53,6 +53,7 @@ var Enemy = Class.create(Unit, {
     var minDistance = 100000
     var minIndex = -1
     for(var i=0;i<targets.length;i++){
+    	if (targets.dead) continue
         var tmpDistance = Util.distance(this.coords.x,this.coords.y,targets[i].coords.x,targets[i].coords.y)
         if(tmpDistance < minDistance){
             minDistance = tmpDistance

@@ -8,7 +8,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    currentId : 0,
    
    initialize: function($super,scene){
-       this.initialPositions = [{x:250,y:30},{x:250,y:110},{x:250,y:200}]
+       this.initialPositions = [{x:250,y:30},{x:250,y:80},{x:250,y:200}]
        $super(scene)
        this.addCommandObservers();
        this.addMarchingStates();
@@ -65,7 +65,12 @@ var CrowdHandler = Class.create(UnitHandler, {
    addCrowdMember : function(name, specs){
      var klassName = name.formClassName()
      var klass = eval(klassName)
-     var obj = new klass(specs,{handler : this, scene:this.scene, id : this.currentId++})
+     var obj = new klass(specs,{
+     	handler : this,
+     	scene : this.scene,
+     	id : this.currentId++,
+     	laneIndex : this.objects[this.scene.activeLane].length
+     	})
      var displayKlass = eval(klassName + "Display")
      var objDisplay = new displayKlass(obj)
      this.objects[this.scene.activeLane].push(obj)
@@ -73,7 +78,30 @@ var CrowdHandler = Class.create(UnitHandler, {
        this.scene.pushToRenderLoop('characters', objDisplay)
      }
      return obj
-   },  
+   },
+   
+   calcPosition : function(lane, index){
+     var i = Math.floor(index / 3);
+     var j = index % 3;
+     var pos = {x: 0, y: 0};
+     pos.x = this.initialPositions[lane].x - 75 * i - 15 * j;
+     pos.y = this.initialPositions[lane].y + 20 * j;
+     return pos;
+   },
+   
+   updateObjectsAfterDeath : function(crowdMember) {
+   	 var lane = crowdMember.lane;
+   	 var index = crowdMember.laneIndex;
+  	 this.objects[lane].remove(crowdMember);
+  	 this.scene.push(crowdMember);
+     var subLane = index % 3;
+     for (var i = index; i < this.objects[lane].length; i++) {
+     	if (this.objects[lane][i].laneIndex % 3 == subLane) {
+     		this.objects[lane][i].laneIndex -= 3;
+     		this.objects[lane][i].posChanged = true;
+     	}
+     }
+   },
 
    addFollower : function(name, x, y, lane, crowd){
      var klassName = name.formClassName()

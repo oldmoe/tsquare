@@ -11,7 +11,7 @@ var AmnEktesah = Class.create(Enemy, {
 		this.type = "amn_ektesah";
 		this.hp = 50;
 		this.maxHp = 50;
-		this.power = 20;
+		this.power = 40;
 		this.hittingTicks = this.scene.reactor.everySeconds(1)
 	},
 	handleCollision : function() {

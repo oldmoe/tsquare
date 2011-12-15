@@ -100,6 +100,7 @@ var GuidingIcon = Class.create(Observer,{
   
   reset: function(moveIndex){
     var moveLength = this.moves[this.currentCommand].code.length;
+    if (moveIndex > moveLength) moveIndex = moveLength;
     for(var i=1; i<=moveIndex; i++){
       $$('.movesIndicator')[0].children[moveLength-i].removeClassName("right");
       $$('.movesIndicator')[0].children[moveLength-i].removeClassName("wrong");
@@ -165,7 +166,7 @@ var GuidingIcon = Class.create(Observer,{
 
     
     if(this.correctCommands > 2 && !this.arrowsHidden){
-      $$('.movesIndicator')[0].hide();
+      // $$('.movesIndicator')[0].hide();
       this.arrowsHidden = true;
     }
     

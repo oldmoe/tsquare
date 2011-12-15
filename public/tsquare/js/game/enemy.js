@@ -3,6 +3,7 @@ var Enemy = Class.create(Unit, {
   target : null,
   charging : false, 
   chargingSpeed : 3,
+  text: "",
   hp : 25, attack : 10 , defense : 25, chargeTolerance : 2, circleSize : 1,
   
   initialize : function($super,scene,x,lane,options){
@@ -14,6 +15,10 @@ var Enemy = Class.create(Unit, {
          this[spec.dasherize().camelize()] = specs[spec] 
      }
      this.maxHp = this.hp
+  },
+  
+  textInfo: function(){
+    return this.text;
   },
   
   rotationComplete : function(attack){
@@ -48,6 +53,7 @@ var Enemy = Class.create(Unit, {
     var minDistance = 100000
     var minIndex = -1
     for(var i=0;i<targets.length;i++){
+    	if (targets.dead) continue
         var tmpDistance = Util.distance(this.coords.x,this.coords.y,targets[i].coords.x,targets[i].coords.y)
         if(tmpDistance < minDistance){
             minDistance = tmpDistance

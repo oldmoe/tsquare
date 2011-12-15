@@ -39,7 +39,7 @@ var Game = Class.create({
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
     'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man', 'follower1','follower2','follower3']
     var characterImages = ['follower.png']
-    var imageNames = ['walk','run','front','back','idle','hold','blur']
+    var imageNames = ['walk','run','front','back','idle','hold','blur','dead']
     for(var i=0;i<characterNames.length;i++){
         for(var j=0;j<imageNames.length;j++){
             characterImages.push(characterNames[i]+"_"+imageNames[j]+".png")
@@ -96,8 +96,6 @@ var Game = Class.create({
         } 
        	toLoad.push({sounds: sfx, path: 'sounds/'+format[i]+"/sfx/", store: 'sfx'});
     	}
-    	var sfx = ["ha.wav", "hii.wav"];					
-    toLoad.push({sounds: sfx, path: 'sounds/wav/sfx/', store: 'sfx'});
     						
   	new Loader().load(toLoad, {
   								  onProgress : function(progress){
@@ -107,7 +105,6 @@ var Game = Class.create({
   								  onFinish:function(){
   					   				self.imagesLoaded = true;
   						  			self.start();
-                      // self.play(missionData);
   								  },
                     onError:function(){
   					   				self.imagesLoaded = true;

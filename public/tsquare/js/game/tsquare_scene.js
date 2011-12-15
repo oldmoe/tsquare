@@ -39,7 +39,8 @@ var TsquareScene = Class.create(Scene,{
             "protection_unit" : new ProtectionUnitHandler(this),  
             "enemy" : new EnemyHandler(this),  
             "npc" : new NPCHandler(this),
-            "clash_enemy" : new ClashEnemyHandler(this)
+            "clash_enemy" : new ClashEnemyHandler(this),
+            "message" : new MessagesHandler(this)
         };  
         this.view.xPos = 0
         this.initCounter = 3
@@ -47,19 +48,25 @@ var TsquareScene = Class.create(Scene,{
         this.comboMistakes = {current : 0, max : 2}
         this.speedFactors = []
         
-        //Effect.Queues.create('global', this.reactor)
+        // Effect.Queues.create('global', this.reactor)
 
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         this.view.length = this.view.width;
-        // this.data[1][0].x = 200;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
             this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)
           }
         }
-        var mapping = {'crowd':'npc', 'protection':'protection_unit',
-         'enemy':'enemy', 'rescue':'rescue', 'clash_enemy':'clash_enemy'}
+        
+        var mapping = {
+          'crowd':'npc', 
+          'protection':'protection_unit',
+         'enemy':'enemy', 
+         'rescue':'rescue', 
+         'clash_enemy':'clash_enemy',
+         'advisor' : 'message'
+       }
 
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
@@ -68,6 +75,7 @@ var TsquareScene = Class.create(Scene,{
                     this.handlers[mapping[elem.category]].add(elem);
             }
         }
+        
         var self = this;
         this.observe('wrongMove', function(){self.wrongMove()})
         this.observe('correctMove', function(){self.correctMove()})
@@ -84,7 +92,6 @@ var TsquareScene = Class.create(Scene,{
 
       this.audioManager = new AudioManager(this);
       this.flashingHandler = new FlashingHandler(this);
-      this.messagesHandler = new MessagesHandler(this);
       this.movementManager = new MovementManager(this);
 
   		this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
@@ -162,7 +169,7 @@ var TsquareScene = Class.create(Scene,{
     tick: function($super){
       $super()
       this.detectCollisions();
-      this.view.xPos += this.currentSpeed* this.direction
+      this.view.xPos += this.currentSpeed * this.direction
       for(var handler in this.handlers){
           this.handlers[handler].tick();
       }
@@ -312,6 +319,6 @@ var TsquareScene = Class.create(Scene,{
           // if(this.energy.max > this.energy.current)this.energy.current += 2;
         // }
       }
-   }
+   } 
   
 });

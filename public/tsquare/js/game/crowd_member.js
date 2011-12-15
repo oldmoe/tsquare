@@ -3,8 +3,6 @@ var CrowdMember = Class.create(Unit,{
   xShift : 100,
   water : 7000,
   maxWater : 700,
-  randomDx : 0,
-  randomDy : 0,
   waterDecreaseRate : 1,
   commandFilters: [],
   rotationPoints : null,
@@ -22,6 +20,8 @@ var CrowdMember = Class.create(Unit,{
   name : null,
   clashing : false,
   clash : {runningSpeed : 15, pushSpeed : 12, target : null},
+  laneIndex: 0,
+  posChanged: false,
   initialize : function($super,specs,options){
     $super(options.scene, 0, options.scene.activeLane, options)
     this.type = "crowd_member";
@@ -43,20 +43,14 @@ var CrowdMember = Class.create(Unit,{
   },
   
   init: function(options){
-    this.originalPosition = {x:0,y:0}
-    this.originalPosition.y = this.handler.initialPositions[this.lane].y - this.handler.crowdMembersPerColumn * 10
-    this.originalPosition.x = this.handler.initialPositions[this.lane].x + 30*this.handler.crowdMembersPerColumn
+  	this.laneIndex = options.laneIndex || 0
+    this.originalPosition = this.handler.calcPosition(this.lane, this.laneIndex)
+    var randomDx = Math.round(Math.random()*20)
+    var randomDy = Math.round(Math.random()*20)
+    this.originalPosition.x += randomDx
+    this.originalPosition.y += randomDy
     this.coords.x = this.originalPosition.x
     this.coords.y = this.originalPosition.y
-    this.handler.crowdMembersPerColumn-- 
-    if(this.handler.crowdMembersPerColumn == -1){
-      this.handler.crowdMembersPerColumn = 2
-      this.handler.initialPositions[this.lane].x-=100
-    }
-    this.randomDx = Math.round(Math.random()*50)
-    this.coords.x +=this.randomDx
-    this.randomDy = Math.round(Math.random()*30)
-    this.coords.y+= this.randomDy
     if(options && options.level) 
       this.level = options.level
     else 
@@ -99,6 +93,15 @@ var CrowdMember = Class.create(Unit,{
   },
   
   tick : function($super){
+    if(this.dead){
+      this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);
+      if(this.coords.x < 0) {
+        this.scene.objects.remove(this);
+        this.destroy();
+        this.removed = true;
+      }
+      return;
+    }
     $super()
     if(this.ending && this.coords.x >= this.endPosition)
     {
@@ -114,9 +117,8 @@ var CrowdMember = Class.create(Unit,{
       return;
     }
     
-    if((!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y!=this.originalPosition.y) > 1))){
+    if(!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y - this.originalPosition.y) > 1)){
       if(this.fixedPlace){
-          var self= this
           this.moveToTarget(this.originalPosition)
       }else{
 //          this.fire('walk')
@@ -129,9 +131,14 @@ var CrowdMember = Class.create(Unit,{
      
     this.stateChanged = true
     
-    if(this.scene.reactor.ticks % this.secondTicks == 0)this.updateState();
+    if(this.scene.reactor.ticks % this.secondTicks == 0) this.updateState();
     
     if(this.followers)this.checkFollowersState();
+    
+    if (this.posChanged) {
+      this.posChanged = false;
+      this.originalPosition = this.handler.calcPosition(this.lane, this.laneIndex);
+    }
   },
  
   updateState: function(){
@@ -154,7 +161,7 @@ var CrowdMember = Class.create(Unit,{
       this.followers[0].takeHit(hitPower)
     }
     else{
-      if(this.defense) hitPower-=this.defense
+      //if(this.defense) hitPower-=this.defense
       $super(hitPower)
     } 
   },
@@ -178,12 +185,19 @@ var CrowdMember = Class.create(Unit,{
   },
   
   march : function(){
-      this.currentAction = "march"
+      this.currentAction = "march";
   },
   
   hold : function(options){
-      this.currentAction = "hold"
+      this.currentAction = "hold";
       this.holdingLevel = options.holdingLevel;
+  },
+  
+  die : function(){
+  	  this.currentAction = "dead";
+  	  this.fire("dead");
+  	  this.dead = true;
+  	  this.handler.updateObjectsAfterDeath(this);
   },
   
   addRotationPoints : function(target){

@@ -9,7 +9,7 @@ var Advisor = Class.create(Unit,{
     initialize : function($super,scene,x,lane, options){
       $super(scene,x,lane, options)
       
-      this.coords.x+=Math.round(Math.randomSign()*Math.random()*this.scene.view.tileWidth/4)
+      this.coords.x+=Math.round(Math.random()*this.scene.view.tileWidth/4)
       // this.coords.y+=Math.random()*30
     },
     
@@ -33,7 +33,7 @@ var Advisor = Class.create(Unit,{
     continueConversation: function(){
       if(this.messageSequence < this.messages.length){
         this.text = this.messages[this.messageSequence].message;
-        if(this.messages[this.messageSequence].person == 'advisor'){
+        if(this.messages[this.messageSequence].person == 'ultras_red'){
           this.scene.fire("removeGuidBubble");
           this.showText();
         }else if(this.messages[this.messageSequence].person == 'crowds'){

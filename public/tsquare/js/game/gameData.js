@@ -1,43 +1,60 @@
 var missionData = {
   
   "data":[[
+   {
+      "name": "ultras_red",
+      "category": 'advisor',
+      "index": 0,
+      "lane": 0,
+      "x": 5,
+      "order": 1,
+      "messages" : [
+        {"person":"advisor", "message":"enta meen yad"},
+        {"person":"crowds" , "message": "ana kazaz"},
+        {"person":"advisor" , "message": "amerikey ya3ni.."},
+        {"person":"crowds" , "message": "laaaaa....laaaa, ana masry ya3am"},
+        {"person":"advisor" , "message": "we 3awez eih isa.."},
+        {"person":"crowds" , "message": "eih elly 3awez eih, enta mesh advisor ya3am.."},
+        {"person":"advisor" , "message": "ah sa7i7, tab emshy we ehgem 3ala el amn dool..."}
+      ]
+  },  
+  {
+      "name": "ultras_red",
+      "category": 'message',
+      "index": 0,
+      "lane": 0,
+      "x": 40,
+      "order": 1,
+      "messages" : [
+        {"type":"advisor", "message":"enta tani"},
+        {"type":"crowd" , "message": "yup, dih mozaharah ya3am"},
+        {"type":"advisor" , "message": "tab mawet el 3asaker doool"},
+        {"type":"crowd" , "message": "ezzzzzay ya fakik enta"},
+        {"type":"advisor" , "message": "tab dooos attack ya ....."}
+      ]
+      
+  }  
+
   ],[
-/*   {
-      "name": "box_car",
-      "category": 'clash_enemy',
-      "index": 0,
-      "lane": 1,
-      "x": 3,
-      "order": 1
-  },
   {
-      "name": "twitter_guy",
-      "category": 'protection',
-      "type": '1_2',
-      "index": 0,
-      "lane": 1,
-      "x": 4,
-    },*/
-  {
-      "name": "iron_stick_cs",
+      "name": "wood_stick_cs",
       "category": 'enemy',
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 2,
+      "x": 5,
       "order": 1
   },
-/*  ,{
-      "name": "journalist_rescue",
-      "category": 'rescue',
-      "type": '3_3',
+  {
+      "name": "wood_stick_cs",
+      "category": 'enemy',
+      "type": '1_1',
       "index": 0,
       "lane": 1,
-      "x": 4,
+      "x": 40,
       "order": 1
   }
-*/
-  
+
   ]],
     
     "backgrounds":{

@@ -7,5 +7,6 @@ var UltrasWhiteDisplay = Class.create(CrowdMemberDisplay,{
     this.frontImg = Loader.images.characters['ultras_white_front.png']
     this.holdImg = Loader.images.characters['ultras_white_hold.png']
     this.blurImg = Loader.images.characters['ultras_white_blur.png']
+    this.deadImg = Loader.images.characters['ultras_white_dead.png']
   }
 })

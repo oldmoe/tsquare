@@ -10,7 +10,9 @@ var Tile = Class.create({
 		this.parent = parent;
 		
 		this.objects = [];
-		this.messages = [];
+		this.messages = {
+		  messages: []
+		};
 		
 		if(prevObj){
 			this.domObject = $(prevObj).insert({after:this.createHTMLElement()}).next();
@@ -112,6 +114,7 @@ var Tile = Class.create({
   loadObject: function(obj){
     this.loadType(obj, obj.type);
     this.createObject(obj, true);
+    if(obj.messages)this.messages.messages = obj.messages;
   },
 	
 	createObject: function(obj, multiple){

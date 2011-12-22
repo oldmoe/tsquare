@@ -95,7 +95,7 @@ var CrowdHandler = Class.create(UnitHandler, {
   	 this.objects[lane].remove(crowdMember);
   	 this.scene.push(crowdMember);
      var subLane = index % 3;
-     for (var i = index; i < this.objects[lane].length; i++) {
+     for (var i = 0; i < this.objects[lane].length; i++) {
      	if (this.objects[lane][i].laneIndex % 3 == subLane) {
      		this.objects[lane][i].laneIndex -= 3;
      		this.objects[lane][i].posChanged = true;

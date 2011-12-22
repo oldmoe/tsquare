@@ -59,7 +59,7 @@
 .newStuffItem { position:relative; z-index:12; height:97px; width:131px; float:left; margin:40px 0 0 16px; }
 
 
-.walkingCrowdMemeber { position:absolute; top:128px; }
+.walkingCrowdMemeber { position:absolute; top:128px; width:900px; height: 55px; border: solid red 3px}
 
 .timelineMissions .rightControls { display:inline-block; float:none; position:relative; top:20px; vertical-align:top; z-index:2; right:0px; overflow:hidden; height:72px; margin:0px 0px 0px -2%;}
 .timelineMissions .leftControls { display:inline-block; float:none; position:relative; top:20px; vertical-align:top; z-index:2; left:50px; overflow:hidden; height:72px;}

@@ -12,6 +12,8 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
     $super(owner)
     this.registerEvents()
     this.createShadow();
+    
+    
   },
   
   loadImages : function(){
@@ -62,6 +64,32 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
       shiftZ : 100
     })
     this.sprites.hitEffect.hide()
+  },
+
+  showText: function(){
+    this.baloonImg = Loader.images.gameElements['bubble.png']
+    this.sprites.baloon = new DomImgSprite(this.owner, {img : this.baloonImg},{
+      width: this.baloonImg.width,
+      height: this.baloonImg.height,
+      shiftY:0,
+      shiftX:0
+    })
+    
+    this.sprites.text = new DomTextSprite(this.owner,"textInfo", {
+        width: 100,
+        height: 100,
+        centered: true,
+        shiftY: 0,
+        shiftX: 0,
+        styleClass: 'bubbleText'
+    });
+  },
+
+  hideText: function(){
+    if(this.sprites.baloon){
+      this.sprites.baloon.destroy();
+      this.sprites.text.destroy();
+    }  
   },
   
   render : function($super){

@@ -23,7 +23,8 @@ var EnemyHandler = Class.create(UnitHandler, {
         obj.options.rows = rows
         obj.options.columns = cols
       }
-      return $super(obj);    
+      var enemy = $super(obj);
+      return enemy;    
    },
    
    end : function(){
@@ -31,12 +32,12 @@ var EnemyHandler = Class.create(UnitHandler, {
      this.scene.end(true)
    },
    
-   createOneManUnit : function(){
+   createEnemyBlock : function(coords){
       var properties = {
         category: "enemy",
-        type : "1_1",
+        type : "1_2",
         name : "amn_markazy",
-        options : {handler:this, mappingName:"wood_stick_cs"},
+        options : {handler:this, mappingName:"wood_stick_cs", coords: coords},
         lane : this.scene.activeLane
       }
       return this.addObject(properties)  

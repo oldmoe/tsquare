@@ -28,10 +28,14 @@ body{
 #container{
   height: 600px;
   left: 9px;
-  overflow: hidden;
+  overflow: auto;
   position: absolute;
   top: 9px;
   width: 950px;
+}
+
+#homeContainer{
+  
 }
 
 .skyline{

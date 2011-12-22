@@ -33,11 +33,19 @@ var Unit = Class.create(Observer,{
     this.scene = scene
     this.lane = lane
     if(options && options.type)this.type = options.type
-    var y = 0;
-    if(options && options.y) y = options.y;
-    else y = this.scene.view.laneMiddle*2*this.lane+this.scene.view.laneMiddle;
-    this.coords ={x:x, y:y}
+    if(options && options.coords){
+      this.coords = options.coords;
+    }else{
+      var y = 0;
+      if(options && options.y) 
+        y = options.y;
+      else 
+        y = this.scene.view.laneMiddle*2*this.lane+this.scene.view.laneMiddle;
+      this.coords ={x:x, y:y}  
+    }
+    
     if(options)this.handler = options.handler
+    
   },
   
   processCommand: function(){

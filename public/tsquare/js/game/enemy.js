@@ -3,7 +3,6 @@ var Enemy = Class.create(Unit, {
   target : null,
   charging : false, 
   chargingSpeed : 3,
-  text: "",
   hp : 25, attack : 10 , defense : 25, chargeTolerance : 2, circleSize : 1,
   
   initialize : function($super,scene,x,lane,options){
@@ -15,10 +14,6 @@ var Enemy = Class.create(Unit, {
          this[spec.dasherize().camelize()] = specs[spec] 
      }
      this.maxHp = this.hp
-  },
-  
-  textInfo: function(){
-    return this.text;
   },
   
   rotationComplete : function(attack){

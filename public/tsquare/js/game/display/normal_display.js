@@ -16,6 +16,12 @@ var NormalDisplay = Class.create(CrowdMemberDisplay,{
     this.holdImg = Loader.images.characters[name+'_hold.png']
     this.blurImg = Loader.images.characters[name+'_blur.png']
     this.deadImg = Loader.images.characters[name+'_dead.png']
+    this.hitImg = Loader.images.characters[name+'_hit.png']
+  },
+  
+  configureAnimations: function($super){
+  	$super()
+  	this.noOfFramesPerAnimation['hit'] = 9;
   }
   
 })

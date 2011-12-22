@@ -8,5 +8,6 @@ GirlDisplay = Class.create(CrowdMemberDisplay,{
     this.holdImg = Loader.images.characters['girl_hold.png']
     this.blurImg = Loader.images.characters['girl_blur.png']
     this.deadImg = Loader.images.characters['girl_dead.png']
+    this.hitImg = Loader.images.characters['girl_hit.png']
   }
 })

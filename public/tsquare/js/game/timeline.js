@@ -49,6 +49,7 @@ var Timeline = Class.create({
   },  
   
   hide : function(){
+    $('homeContainer').hide();
     $('home').hide();
     $('timeline').hide();
   },
@@ -274,17 +275,13 @@ var Timeline = Class.create({
       element.observe('mouseover', function(event) {
         element.addClassName('selected');
         //move character
-        var count = event.element().parentNode.parentNode.parentNode.children.length;
         var elem = event.element().parentNode.parentNode;
         var elemIndex = elem.previousSiblings().length;
-        if(count > 7){
-          elemIndex = elemIndex - (count-7);
-          count = 7;
-        }
-         
+        elemIndex = elemIndex - gameManager.timelineManager.carousel.currIndex;
         var gap = 10;
         var wgap = 40;
-        var pos = wgap + gap * elemIndex + elem.getWidth()*elemIndex + elem.getWidth()/2; 
+        var pos = wgap + gap * elemIndex + elem.getWidth()*elemIndex + elem.getWidth()/2;
+        if(pos < 0 || pos > 1000)return; 
         self.walkingMan.moveTo(pos-25);
       });
       element.observe('mouseout', function(event) {

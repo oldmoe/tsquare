@@ -65,7 +65,7 @@ var WalkingManDisplay = Class.create(Display,{
   },
   
   moveTo: function(x){
-    if(x > 960 || x < 0) console.log(x)
+    if(Math.abs(this.targetX - x) < 3) return;
     this.targetX = x;
     var animation = "normal";
     if(this.owner.coords.x>this.targetX)

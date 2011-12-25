@@ -195,7 +195,6 @@ var AudioManager = Class.create({
      this.background_audio.stop();
      this.sound_ambient.stop();
      this.sound_background_music.stop();
-     this.sound_background_ascending.stop();
 	},
 
   changeTempo : function(){

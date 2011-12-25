@@ -20,8 +20,10 @@ var CrowdMember = Class.create(Unit,{
   name : null,
   clashing : false,
   clash : {runningSpeed : 15, pushSpeed : 12, target : null},
+  hitting : false,
   laneIndex: 0,
   posChanged: false,
+  hitCounter: 0,
   initialize : function($super,specs,options){
     $super(options.scene, 0, options.scene.activeLane, options)
     this.type = "crowd_member";
@@ -36,6 +38,7 @@ var CrowdMember = Class.create(Unit,{
     this.defense = specs.defense || 0 
     var crowdCommandFilters = [
         {command: function(){return self.clashing}, callback: function(){self.clashMove()}},
+        {command: function(){return self.hitting}, callback: function(){self.hitMove()}},
         {command: function(){return self.rotating}, callback: function(){self.circleMove()}}
     ]
     this.commandFilters = crowdCommandFilters.concat(this.commandFilters)      
@@ -166,6 +169,15 @@ var CrowdMember = Class.create(Unit,{
     } 
   },
   
+  march : function(){
+      this.currentAction = "march";
+  },
+  
+  hold : function(options){
+      this.currentAction = "hold";
+      this.holdingLevel = options.holdingLevel;
+  },
+  
   circle : function(){
       if(this.target){
           this.currentAction = "circle";
@@ -176,21 +188,23 @@ var CrowdMember = Class.create(Unit,{
             if(!this.followers[i].back)
               this.followers[i].circle();
           }          
-      }else{
+      }
+  },
+  
+  hit : function(){
+      if(this.target){
+          this.currentAction = "hit";
+          this.hitting = true;
+          this.animationLock = 0;
+          for(var i=0; this.followers && i<this.followers.length; i++){
+            if(!this.followers[i].back)
+              this.followers[i].hit();
+          }          
       }
   },
   
   retreat : function(){
       this.currentAction = "retreat";
-  },
-  
-  march : function(){
-      this.currentAction = "march";
-  },
-  
-  hold : function(options){
-      this.currentAction = "hold";
-      this.holdingLevel = options.holdingLevel;
   },
   
   die : function(){
@@ -299,6 +313,33 @@ var CrowdMember = Class.create(Unit,{
         if (this.rotationPoints.length > 0) {
           this.fire(this.rotationPoints[0].state)
         }
+    }
+  },
+  
+  hitMove : function(){
+    if (!this.target|| this.target.hp <= 0 || this.target.dead || this.target.doneProtection) {
+      this.fire('idle')
+      this.hitting = false;
+      return;
+    }
+    var span = 6 * 9 + 1;
+    this.hitCounter ++;
+    if (this.hitCounter < span) {
+      if (this.animationLock < 1) {
+      	this.fire('hit');
+      	this.animationLock++;
+      }
+      this.target.rotationComplete(this.attack/50)
+    } else {
+      if (this.animationLock < 2) {
+      	this.fire('idle');
+      	this.animationLock++;
+      }
+    }
+    if (this.hitCounter == 2 * span) {
+      this.hitCounter = 0;
+      this.animationLock = 0;
+      this.hitting = false;
     }
   },
   

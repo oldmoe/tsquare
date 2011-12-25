@@ -10,6 +10,10 @@ var FollowerDisplay = Class.create(Display,{
     this.sprites.character.currentAnimationFrame = Math.round((Math.random()* this.noOfFrames-1))
   },
   
+  configureAnimations: function($super){
+  	$super()
+  },
+  
   createSprites : function(){
     this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg, noOfFrames:9})
   },

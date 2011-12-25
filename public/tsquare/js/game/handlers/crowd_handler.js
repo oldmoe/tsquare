@@ -4,7 +4,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    initialPositions : null,
    crowdMembersPerColumn : 2,
    marchingStates: ["normal", "walk", "jog", "run", "sprint"],//display
-   commands: ["circle", "hold", "march", "retreat"],
+   commands: ["circle", "hold", "march", "retreat", "hit"],
    currentId : 0,
    
    initialize: function($super,scene){
@@ -95,8 +95,8 @@ var CrowdHandler = Class.create(UnitHandler, {
   	 this.objects[lane].remove(crowdMember);
   	 this.scene.push(crowdMember);
      var subLane = index % 3;
-     for (var i = index; i < this.objects[lane].length; i++) {
-     	if (this.objects[lane][i].laneIndex % 3 == subLane) {
+     for (var i = 0; i < this.objects[lane].length; i++) {
+     	if (this.objects[lane][i] && this.objects[lane][i].laneIndex % 3 == subLane) {
      		this.objects[lane][i].laneIndex -= 3;
      		this.objects[lane][i].posChanged = true;
      	}
@@ -138,6 +138,29 @@ var CrowdHandler = Class.create(UnitHandler, {
    //2 : circle
    //3 : hold
    //4 : retreat
+   //5 : hit
+
+   march: function(){
+     this.scene.direction = 1
+     if(this.target && this.target.chargeTolerance <= 0) this.target = null
+     this.scene.fire("correctCommand");
+     this.scene.currentCommand = 1;
+     if (!this.target) {
+       return this.executeCommand("march");
+     }
+     this.pushing = true
+     this.pushMove()
+   },
+
+  circle: function(){
+    if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
+      this.scene.fire("worngCommand");
+      return
+    } 
+    this.scene.fire("correctCommand");
+    this.executeCommand("circle");
+    this.scene.currentCommand = 2;
+  },
    
    hold: function(){
      var enemy = this.scene.handlers.enemy.objects[this.scene.activeLane][0]; 
@@ -187,18 +210,6 @@ var CrowdHandler = Class.create(UnitHandler, {
      }
      
    },
-
-   march: function(){
-     this.scene.direction = 1
-     if(this.target && this.target.chargeTolerance <= 0) this.target = null
-     this.scene.fire("correctCommand");
-     this.scene.currentCommand = 1;
-     if (!this.target) {
-       return this.executeCommand("march");
-     }
-     this.pushing = true
-     this.pushMove()
-   },
    
   retreat: function(){
     this.scene.direction = -1
@@ -207,14 +218,14 @@ var CrowdHandler = Class.create(UnitHandler, {
     this.scene.currentCommand = 4;
   },
 
-  circle: function(){
+  hit: function(){
     if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
       this.scene.fire("worngCommand");
       return
     } 
     this.scene.fire("correctCommand");
-    this.executeCommand("circle");
-    this.scene.currentCommand = 2;
+    this.executeCommand("hit");
+    this.scene.currentCommand = 5;
   },
 
 	playHetafLoop : function(){

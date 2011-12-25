@@ -10,7 +10,6 @@ var Advisor = Class.create(Unit,{
       $super(scene,x,lane, options)
       
       this.coords.x+=Math.round(Math.random()*this.scene.view.tileWidth/4)
-      // this.coords.y+=Math.random()*30
     },
     
     tick : function($super){

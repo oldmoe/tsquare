@@ -1,7 +1,7 @@
 var missionData = {
   
   "data":[[
-   {
+/*   {
       "name": "ultras_red",
       "category": 'advisor',
       "index": 0,
@@ -34,24 +34,25 @@ var missionData = {
       ]
       
   }  
-
+*/
   ],[
-  {
-      "name": "wood_stick_cs",
+/*  {
+      "name": "tear_gas_gunner_cs",
       "category": 'enemy',
       "type": '1_2',
       "index": 0,
       "lane": 1,
       "x": 5,
       "order": 1
-  },
+  },*/
+{"name":"twitter_guy","category":"protection","index":0,"lane":1,"x":3,"order":1},
   {
       "name": "wood_stick_cs",
       "category": 'enemy',
-      "type": '1_1',
+      "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 40,
+      "x": 50,
       "order": 1
   }
 

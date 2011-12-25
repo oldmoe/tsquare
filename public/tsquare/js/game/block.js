@@ -4,8 +4,9 @@ var Block = Class.create(Enemy,{
     elements: null,
     elementWidth : 70,
     elementHeight : 15,
-    noDisplay : true,
+    noDisplay : false,
     distaceBetweenUnits : 10,
+    text: "",
         
     initialize : function($super,scene,x,lane,options){
       this.type = "block";
@@ -16,6 +17,12 @@ var Block = Class.create(Enemy,{
           this.addElementsToBlock(options)
       }
       this.options = options
+      
+      this.text = this.scene.handlers.message.messages.enemy[Math.round(Math.random()*(this.scene.handlers.message.messages.enemy.length-1))];
+    },
+    
+    textInfo: function(){
+      return this.text;
     },
     
     addElementsToBlock : function(options){

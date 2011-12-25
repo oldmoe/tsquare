@@ -7,5 +7,12 @@ HalaManDisplay = Class.create(CrowdMemberDisplay,{
     this.frontImg = Loader.images.characters['hala_man_front.png']
     this.holdImg = Loader.images.characters['hala_man_hold.png']
     this.blurImg = Loader.images.characters['hala_man_blur.png']
+    this.deadImg = Loader.images.characters['hala_man_dead.png']
+    this.hitImg = Loader.images.characters['hala_man_hit.png']
+  },
+  
+  configureAnimations: function($super){
+  	$super()
+  	this.noOfFramesPerAnimation['hit'] = 9;
   }
  })

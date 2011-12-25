@@ -50,7 +50,7 @@ var AudioManager = Class.create({
     };
     
     this.rewardLevels = [
-      {tempo: 130, rewards : [{sound : 2, volume : 100}, {sound : 3, volume : 100}]}/*,
+      {tempo: 130, rewards : [{sound : 2, volume : 60}, {sound : 3, volume : 60}]}/*,
       {tempo: 130, rewards : [{sound : 4, volume : 80}, {sound : 5, volume : 80}]},
       {tempo: 130, rewards : [{sound : 6, volume : 80}, {sound : 7, volume : 80}]},
       {tempo: 130, rewards : [{sound : 17, volume : 80}, {sound : 18, volume : 80}]},
@@ -62,7 +62,7 @@ var AudioManager = Class.create({
     ];
 
     this.levels = [
-      {tempo: 130, beats : [{beat : 0, volume : 50}]},//50
+      {tempo: 130, beats : [{beat : 0, volume : 60}]},//50
 
       {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 20}]},
       {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 20}]},
@@ -136,15 +136,18 @@ var AudioManager = Class.create({
   },
 	
 	playKeySound: function(keyIndex){
-	  Loader.sounds['sfx']['ha.mp3'].setPosition(0);
+	  var sound = Loader.sounds['sfx']['ha.mp3'];
+	  if(sound.playState){
+	    sound.stop();
+	  }
 	  if(keyIndex == 0){
-	    Loader.sounds['sfx']['ha.mp3'].play({volume:80, position:77});
+	    sound.play({volume:80, position:77});
 	  }else if(keyIndex == 1){
-      Loader.sounds['sfx']['ha.mp3'].play({volume:80, position:77});
+      sound.play({volume:80, position:77});
     }else if(keyIndex == 2){
-      Loader.sounds['sfx']['ha.mp3'].play({volume:80, position:77});
+      sound.play({volume:80, position:77});
     }else if(keyIndex == 3){
-      Loader.sounds['sfx']['ha.mp3'].play({volume:80, position:77});
+      sound.play({volume:80, position:77});
     }
 	},
 	

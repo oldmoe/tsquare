@@ -4,11 +4,11 @@ var CrowdHandler = Class.create(UnitHandler, {
    initialPositions : null,
    crowdMembersPerColumn : 2,
    marchingStates: ["normal", "walk", "jog", "run", "sprint"],//display
-   commands: ["circle", "hold", "march", "retreat"],
+   commands: ["circle", "hold", "march", "retreat", "hit"],
    currentId : 0,
    arrestedCrowds : null,
    initialize: function($super,scene){
-       this.initialPositions = [{x:250,y:30},{x:250,y:110},{x:250,y:200}]
+       this.initialPositions = [{x:250,y:30},{x:250,y:80},{x:250,y:200}]
        $super(scene)
        this.arrestedCrowds = []
        this.addCommandObservers();
@@ -66,7 +66,12 @@ var CrowdHandler = Class.create(UnitHandler, {
    addCrowdMember : function(name, specs){
      var klassName = name.formClassName()
      var klass = eval(klassName)
-     var obj = new klass(specs,{handler : this, scene:this.scene, id : this.currentId++})
+     var obj = new klass(specs,{
+     	handler : this,
+     	scene : this.scene,
+     	id : this.currentId++,
+     	laneIndex : this.objects[this.scene.activeLane].length
+     	})
      var displayKlass = eval(klassName + "Display")
      var objDisplay = new displayKlass(obj)
      this.objects[this.scene.activeLane].push(obj)
@@ -74,7 +79,30 @@ var CrowdHandler = Class.create(UnitHandler, {
        this.scene.pushToRenderLoop('characters', objDisplay)
      }
      return obj
-   },  
+   },
+   
+   calcPosition : function(lane, index){
+     var i = Math.floor(index / 3);
+     var j = index % 3;
+     var pos = {x: 0, y: 0};
+     pos.x = this.initialPositions[lane].x - 75 * i - 15 * j;
+     pos.y = this.initialPositions[lane].y + 20 * j;
+     return pos;
+   },
+   
+   updateObjectsAfterDeath : function(crowdMember) {
+   	 var lane = crowdMember.lane;
+   	 var index = crowdMember.laneIndex;
+  	 this.objects[lane].remove(crowdMember);
+  	 this.scene.push(crowdMember);
+     var subLane = index % 3;
+     for (var i = 0; i < this.objects[lane].length; i++) {
+     	if (this.objects[lane][i] && this.objects[lane][i].laneIndex % 3 == subLane) {
+     		this.objects[lane][i].laneIndex -= 3;
+     		this.objects[lane][i].posChanged = true;
+     	}
+     }
+   },
 
    addFollower : function(name, x, y, lane, crowd){
      var klassName = name.formClassName()
@@ -111,6 +139,29 @@ var CrowdHandler = Class.create(UnitHandler, {
    //2 : circle
    //3 : hold
    //4 : retreat
+   //5 : hit
+
+   march: function(){
+     this.scene.direction = 1
+     if(this.target && this.target.chargeTolerance <= 0) this.target = null
+     this.scene.fire("correctCommand");
+     this.scene.currentCommand = 1;
+     if (!this.target) {
+       return this.executeCommand("march");
+     }
+     this.pushing = true
+     this.pushMove()
+   },
+
+  circle: function(){
+    if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
+      this.scene.fire("worngCommand");
+      return
+    } 
+    this.scene.fire("correctCommand");
+    this.executeCommand("circle");
+    this.scene.currentCommand = 2;
+  },
    
    hold: function(){
      var enemy = this.scene.handlers.enemy.objects[this.scene.activeLane][0]; 
@@ -160,18 +211,6 @@ var CrowdHandler = Class.create(UnitHandler, {
      }
      
    },
-
-   march: function(){
-     this.scene.direction = 1
-     if(this.target && this.target.chargeTolerance <= 0) this.target = null;
-     this.scene.fire("correctCommand");
-     this.scene.currentCommand = 1;
-     if (!this.target) {
-       return this.executeCommand("march");
-     }
-     this.pushing = true
-     this.pushMove()
-   },
    
   retreat: function(){
     this.scene.direction = -1
@@ -180,14 +219,14 @@ var CrowdHandler = Class.create(UnitHandler, {
     this.scene.currentCommand = 4;
   },
 
-  circle: function(){
+  hit: function(){
     if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
       this.scene.fire("worngCommand");
       return
     } 
     this.scene.fire("correctCommand");
-    this.executeCommand("circle");
-    this.scene.currentCommand = 2;
+    this.executeCommand("hit");
+    this.scene.currentCommand = 5;
   },
 
 	playHetafLoop : function(){

@@ -3,8 +3,6 @@ var CrowdMember = Class.create(Unit,{
   xShift : 100,
   water : 7000,
   maxWater : 700,
-  randomDx : 0,
-  randomDy : 0,
   waterDecreaseRate : 1,
   commandFilters: [],
   rotationPoints : null,
@@ -22,6 +20,10 @@ var CrowdMember = Class.create(Unit,{
   name : null,
   clashing : false,
   clash : {runningSpeed : 15, pushSpeed : 12, target : null},
+  hitting : false,
+  laneIndex: 0,
+  posChanged: false,
+  hitCounter: 0,
   initialize : function($super,specs,options){
     $super(options.scene, 0, options.scene.activeLane, options)
     this.type = "crowd_member";
@@ -36,6 +38,7 @@ var CrowdMember = Class.create(Unit,{
     this.defense = specs.defense || 0 
     var crowdCommandFilters = [
         {command: function(){return self.clashing}, callback: function(){self.clashMove()}},
+        {command: function(){return self.hitting}, callback: function(){self.hitMove()}},
         {command: function(){return self.rotating}, callback: function(){self.circleMove()}}
     ]
     this.commandFilters = crowdCommandFilters.concat(this.commandFilters)      
@@ -43,20 +46,14 @@ var CrowdMember = Class.create(Unit,{
   },
   
   init: function(options){
-    this.originalPosition = {x:0,y:0}
-    this.originalPosition.y = this.handler.initialPositions[this.lane].y - this.handler.crowdMembersPerColumn * 10
-    this.originalPosition.x = this.handler.initialPositions[this.lane].x + 30*this.handler.crowdMembersPerColumn
+  	this.laneIndex = options.laneIndex || 0
+    this.originalPosition = this.handler.calcPosition(this.lane, this.laneIndex)
+    var randomDx = Math.round(Math.random()*20)
+    var randomDy = Math.round(Math.random()*20)
+    this.originalPosition.x += randomDx
+    this.originalPosition.y += randomDy
     this.coords.x = this.originalPosition.x
     this.coords.y = this.originalPosition.y
-    this.handler.crowdMembersPerColumn-- 
-    if(this.handler.crowdMembersPerColumn == -1){
-      this.handler.crowdMembersPerColumn = 2
-      this.handler.initialPositions[this.lane].x-=100
-    }
-    this.randomDx = Math.round(Math.random()*50)
-    this.coords.x +=this.randomDx
-    this.randomDy = Math.round(Math.random()*30)
-    this.coords.y+= this.randomDy
     if(options && options.level) 
       this.level = options.level
     else 
@@ -99,6 +96,15 @@ var CrowdMember = Class.create(Unit,{
   },
   
   tick : function($super){
+    if(this.dead){
+      this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);
+      if(this.coords.x < 0) {
+        this.scene.objects.remove(this);
+        this.destroy();
+        this.removed = true;
+      }
+      return;
+    }
     $super()
     if(this.ending && this.coords.x >= this.endPosition)
     {
@@ -114,9 +120,8 @@ var CrowdMember = Class.create(Unit,{
       return;
     }
     
-    if((!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y!=this.originalPosition.y) > 1))){
+    if(!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y - this.originalPosition.y) > 1)){
       if(this.fixedPlace){
-          var self= this
           this.moveToTarget(this.originalPosition)
       }else{
 //          this.fire('walk')
@@ -129,12 +134,16 @@ var CrowdMember = Class.create(Unit,{
      
     this.stateChanged = true
     
-    if(this.scene.reactor.ticks % this.secondTicks == 0)this.updateWaterState();
-    
+    if(this.scene.reactor.ticks % this.secondTicks == 0) this.updateState();
     if(this.followers)this.checkFollowersState();
+    
+    if (this.posChanged) {
+      this.posChanged = false;
+      this.originalPosition = this.handler.calcPosition(this.lane, this.laneIndex);
+    }
   },
  
-  updateWaterState: function(){
+  updateState: function(){
     this.water-=this.waterDecreaseRate
     if(this.water <= 0) this.dead = true;   
   },
@@ -154,9 +163,18 @@ var CrowdMember = Class.create(Unit,{
       this.followers[0].takeHit(hitPower)
     }
     else{
-      if(this.defense) hitPower-=this.defense
+      //if(this.defense) hitPower-=this.defense
       $super(hitPower)
     } 
+  },
+  
+  march : function(){
+      this.currentAction = "march";
+  },
+  
+  hold : function(options){
+      this.currentAction = "hold";
+      this.holdingLevel = options.holdingLevel;
   },
   
   circle : function(){
@@ -169,7 +187,18 @@ var CrowdMember = Class.create(Unit,{
             if(!this.followers[i].back)
               this.followers[i].circle();
           }          
-      }else{
+      }
+  },
+  
+  hit : function(){
+      if(this.target){
+          this.currentAction = "hit";
+          this.hitting = true;
+          this.animationLock = 0;
+          for(var i=0; this.followers && i<this.followers.length; i++){
+            if(!this.followers[i].back)
+              this.followers[i].hit();
+          }          
       }
   },
   
@@ -177,13 +206,11 @@ var CrowdMember = Class.create(Unit,{
       this.currentAction = "retreat";
   },
   
-  march : function(){
-      this.currentAction = "march"
-  },
-  
-  hold : function(options){
-      this.currentAction = "hold"
-      this.holdingLevel = options.holdingLevel;
+  die : function(){
+  	  this.currentAction = "dead";
+  	  this.fire("dead");
+  	  this.dead = true;
+  	  this.handler.updateObjectsAfterDeath(this);
   },
   
   addRotationPoints : function(target){
@@ -285,6 +312,33 @@ var CrowdMember = Class.create(Unit,{
         if (this.rotationPoints.length > 0) {
           this.fire(this.rotationPoints[0].state)
         }
+    }
+  },
+  
+  hitMove : function(){
+    if (!this.target|| this.target.hp <= 0 || this.target.dead || this.target.doneProtection) {
+      this.fire('idle')
+      this.hitting = false;
+      return;
+    }
+    var span = 6 * 9 + 1;
+    this.hitCounter ++;
+    if (this.hitCounter < span) {
+      if (this.animationLock < 1) {
+      	this.fire('hit');
+      	this.animationLock++;
+      }
+      this.target.rotationComplete(this.attack/50)
+    } else {
+      if (this.animationLock < 2) {
+      	this.fire('idle');
+      	this.animationLock++;
+      }
+    }
+    if (this.hitCounter == 2 * span) {
+      this.hitCounter = 0;
+      this.animationLock = 0;
+      this.hitting = false;
     }
   },
   

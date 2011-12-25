@@ -16,7 +16,7 @@ var MovementManager = Class.create({
   tolerance :200,
   beatTime : 0,  
   beatsPerAudio : 4,
-  modes : {"normal" : 0, "clash": 1},
+  modes : {"normal" : 0, "clash": 1, "conversation" : 2},
   currentMode : 0,
   
   initialize : function(scene){
@@ -25,7 +25,8 @@ var MovementManager = Class.create({
       march:{code:[0,0,1,0],index:0},
       retreat:{code:[1,1,0,1],index:1},
       circle:{code:[2,3,2,3],index:2}, 
-      hold:{code:[2],index:3}
+      hold:{code:[2],index:3},
+      hit:{code:[0,0,0,0],index:5}
     }
   },
   
@@ -39,12 +40,12 @@ var MovementManager = Class.create({
         self.scene.fire('togglePause');
         return;
       }
-      if (e.keyCode < 37 || e.keyCode > 40){
-        return;
-      }
-      if (e.preventDefault)
-        e.preventDefault();
+      // if (e.keyCode < 37 || e.keyCode > 40){
+        // // return;
+      // }
+      if (e.preventDefault)e.preventDefault();
       self.sound = self.scene.audioManager.nowPlaying[0]
+      
       if(self.beatMoving){
         self.reset()
         return
@@ -60,17 +61,25 @@ var MovementManager = Class.create({
           click = self.UP
       }else if (e.keyCode == 40){
           click = self.DOWN
-      }else{
-        self.scene.fire("keypressed", [click, self.move.length])
-        self.reset();
-        return
       }
-      self.scene.fire("keySound", [click])
-      if (self.currentMode == self.modes.normal) 
+      
+      if (self.currentMode == self.modes.normal){
+        if(click == -1){
+          //fire wrong key
+          self.scene.fire("keypressed", [click, self.move.length])
+          self.reset();
+          return
+        }
+        self.scene.fire("keySound", [click])
         self.process(click)
-      else {
+      } else if (self.currentMode == self.modes.clash){
         self.scene.clashDirectionsGenerator.processDirection(click)
+      } else if (self.currentMode == self.modes.conversation){
+        if(click == self.SPACE){
+          self.scene.fire("continueConversation");
+        }  
       }
+
     };
     this.registerListeners()
     
@@ -113,14 +122,7 @@ var MovementManager = Class.create({
       }
       if(!this.sound)return
       var beatTime  = this.sound.duration/this.beatsPerAudio
-      /*
-      var index = Math.round(this.sound.position / beatTime);
-      if(index >= 4 && index <=7){//pressed on the low beats, or wrong timing
-          this.scene.fire("keypressed", [0, 1, 2])
-          this.reset();
-          return;
-      }
-      */
+      
       var position = this.sound.position % beatTime
       this.beatTime = beatTime
       var found = false
@@ -250,6 +252,9 @@ var MovementManager = Class.create({
       this.beatMoving = true
     }else if(commandIndex == this.moves.hold.index){
       this.scene.fire('hold')
+      this.beatMoving = true
+    }else if(commandIndex == this.moves.hit.index){
+      this.scene.fire('hit')
       this.beatMoving = true
     }
   },

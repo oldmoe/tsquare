@@ -8,7 +8,8 @@ var Healer = Class.create(CrowdMember,{
   },
   tick : function($super){
     $super()
-    if(this.scene.reactor.ticks % this.rate!=0)return 
+    if(this.dead)return
+    if(this.scene.reactor.ticks % this.rate!=0)return
     var minHp = 1000000
     var minLane = -1
     var minIndex = -1

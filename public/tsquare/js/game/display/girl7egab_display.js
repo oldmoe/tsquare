@@ -7,5 +7,7 @@ var Girl7egabDisplay = Class.create(CrowdMemberDisplay,{
     this.frontImg = Loader.images.characters['girl7egab_front.png']
     this.holdImg = Loader.images.characters['girl7egab_hold.png']
     this.blurImg = Loader.images.characters['girl7egab_blur.png']
+    this.deadImg = Loader.images.characters['girl7egab_dead.png']
+    this.hitImg = Loader.images.characters['girl7egab_hit.png']
   }
 })

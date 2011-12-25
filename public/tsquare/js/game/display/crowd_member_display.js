@@ -1,8 +1,7 @@
 var CrowdMemberDisplay = Class.create(Display,{
   
-  noOfFrames : 7,  
-    
-  states : ["normal", "hold", "walk","reverseWalk", "front", "back", "run", "reverseRun", "jog", "sprint"],
+  noOfFrames : 7,
+  states : ["normal", "hold", "walk","reverseWalk", "front", "back", "run", "reverseRun", "jog", "sprint", "dead", "hit"],
   
   initialize : function($super,owner,properties){
     this.initImages()
@@ -28,6 +27,21 @@ var CrowdMemberDisplay = Class.create(Display,{
     this.characterImg = Loader.images.characters['crowd_member.png'];
   },
   
+  configureAnimations: function(){
+    this.noOfFramesPerAnimation = {};
+  	this.noOfFramesPerAnimation['hold'] = 1;
+  	this.noOfFramesPerAnimation['walk'] = 8;
+  	this.noOfFramesPerAnimation['jog'] = 8;
+  	this.noOfFramesPerAnimation['front'] = 4;
+  	this.noOfFramesPerAnimation['back'] = 4;
+  	this.noOfFramesPerAnimation['run'] = 6;
+  	this.noOfFramesPerAnimation['sprint'] = 6;
+  	this.noOfFramesPerAnimation['reverseWalk'] = 8;
+  	this.noOfFramesPerAnimation['reverseRun'] = 8;
+  	this.noOfFramesPerAnimation['dead'] = 1;
+  	this.noOfFramesPerAnimation['hit'] = 6;
+  },
+  
   createShadow: function(){
     this.shadowImg = Loader.images.effects['crowd_shadow.png'];
     this.sprites.shadow = new DomImgSprite(this.owner, {img : this.shadowImg,noOfFrames : 1}, {
@@ -39,6 +53,7 @@ var CrowdMemberDisplay = Class.create(Display,{
   },
   
   createSprites : function(){
+  	this.configureAnimations();
     this.createShadow();
      this.sprites.runEffectForward = new DomImgSprite(this.owner,
     {
@@ -52,15 +67,18 @@ var CrowdMemberDisplay = Class.create(Display,{
     })
    
     this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : this.noOfFrames})
-    this.sprites.character.createAnimation({name:'hold',img:this.holdImg,noOfFrames:1})
-    this.sprites.character.createAnimation({name:'walk',img:this.walkImg,noOfFrames:8})
-    this.sprites.character.createAnimation({name:'jog',img:this.walkImg,noOfFrames:8})
-    this.sprites.character.createAnimation({name:'front',img:this.frontImg,noOfFrames:4})
-    this.sprites.character.createAnimation({name:'back' ,img:this.backImg,noOfFrames:4})
-    this.sprites.character.createAnimation({name:'run'  ,img:this.runImg,noOfFrames:6})
-    this.sprites.character.createAnimation({name:'sprint'  ,img:this.runImg,noOfFrames:6})
-    this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:8, flipped : true})
-    this.sprites.character.createAnimation({name:'reverseRun'  ,img:this.runImg, noOfFrames:6, flipped : true})
+    this.sprites.character.createAnimation({name:'hold',img:this.holdImg,noOfFrames:this.noOfFramesPerAnimation['hold']})
+    this.sprites.character.createAnimation({name:'walk',img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['walk']})
+    this.sprites.character.createAnimation({name:'jog',img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['jog']})
+    this.sprites.character.createAnimation({name:'front',img:this.frontImg,noOfFrames:this.noOfFramesPerAnimation['front']})
+    this.sprites.character.createAnimation({name:'back' ,img:this.backImg,noOfFrames:this.noOfFramesPerAnimation['back']})
+    this.sprites.character.createAnimation({name:'run'  ,img:this.runImg,noOfFrames:this.noOfFramesPerAnimation['run']})
+    this.sprites.character.createAnimation({name:'sprint'  ,img:this.runImg,noOfFrames:this.noOfFramesPerAnimation['sprint']})
+    this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['reverseWalk'], flipped : true})
+    this.sprites.character.createAnimation({name:'reverseRun'  ,img:this.runImg, noOfFrames:this.noOfFramesPerAnimation['reverseRun'], flipped : true})
+    this.sprites.character.createAnimation({name:'dead',img:this.deadImg,noOfFrames:this.noOfFramesPerAnimation['dead']})
+    this.sprites.character.createAnimation({name:'hit',img:this.hitImg,noOfFrames:this.noOfFramesPerAnimation['hit']})
+
     this.sprites.health = new ImgMeterSprite(this.owner,
     {empty:Loader.images.gameElements['health_meter_empty.png'] ,full:Loader.images.gameElements['health_meter.png']},
      {

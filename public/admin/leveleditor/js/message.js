@@ -37,31 +37,29 @@ var Message = Class.create({
 	add: function(){
 		
 		var select = $(this.containerId).select('select[id=gameElementsList]')[0];
-		
 		var option = select.options[select.selectedIndex];
 		
 		var obj = {};
-		obj.message = $(this.containerId).select('textarea[class=messageText]')[0].value.strip();
-		if(obj.message == "" || obj.message == null){
+		var message = $(this.containerId).select('textarea[class=messageText]')[0].value.strip();
+		if(message == "" || message == null){
 		  alert("Can't add empty message");
 		  return;
 		}
-		if($(this.containerId).select('input[name=sceneMsg]')[0].checked)
-		  obj.type = "scene";
-		else
-		  obj.type = "ingame";
-		obj.tile = this.levelEditor.grid.lanes[option.getAttribute('lane')].tiles[option.getAttribute('x')];
-		//this is the order of the object inside the tile
-		obj.object = obj.tile.objects[option.getAttribute('index')];
+		obj.message = message;
+		obj.person = option.text;
 		
-		this.tile.messages.push(obj);
+		// obj.tile = this.levelEditor.grid.lanes[option.getAttribute('lane')].tiles[option.getAttribute('x')];
+		//this is the order of the object inside the tile
+		// obj.object = obj.tile.objects[option.getAttribute('index')];
+		
+		this.tile.messages.messages.push(obj);
 		
 		$(this.containerId).select('textarea[class=messageText]')[0].value = '';
 		this.updateMessagesList();
 	},
 
 	reset: function(){
-		this.tile.messages = [];
+		this.tile.messages.messages = [];
 		this.updateMessagesList();
 	},
 	
@@ -73,25 +71,20 @@ var Message = Class.create({
 			
   	var select  = Element('select', {id:'gameElementsList'})
 		$('discussionMessage').insert({'before':select});
-		
-		var lanes = this.levelEditor.grid.lanes;
-		for(var i=0; i<lanes.length; i++){
-			for(var j=0; j<lanes[i].tiles.length; j++){
-				var tile = lanes[i].tiles[j];
 
-        // var a = new Element('option', {value:""});
-        // select.appendChild(a);
+    for(var k=0; k<this.tile.objects.length;k++){
+      var obj = this.tile.objects[k];
+      var x = this.tile.getPosition();
+      var lane = this.tile.parent.getPosition();
+      var a = new Element('option', {value:obj.name, x:x, lane:lane, index:k});
+      // a.update(obj.name+'('+Number(lane+1)+','+Number(x+1)+','+Number(k+1)+')');
+      a.update(obj.name);
+      select.appendChild(a);
+    }
 
-				for(var k=0; k<tile.objects.length;k++){
-					var obj = tile.objects[k];
-					var x = tile.getPosition();
-					var lane = lanes[i].getPosition();
-			    var a = new Element('option', {value:obj.name, x:x, lane:lane, index:k});
-			  	a.update(obj.name+'('+Number(lane+1)+','+Number(x+1)+','+Number(k+1)+')');
-			  	select.appendChild(a);
-				}
-			}
-		}
+    var a = new Element('option', {value:""});
+    a.update("crowds");
+    select.appendChild(a);
 		
 		//update existing list
 		this.updateMessagesList();
@@ -100,11 +93,11 @@ var Message = Class.create({
 	updateMessagesList: function(){
 		var messagesList = $(this.containerId).select('ol[id=messagesList]')[0];
 		messagesList.update("");
-		for(var i=0; i<this.tile.messages.length; i++){
-			var obj = this.tile.messages[i];
+		for(var i=0; i<this.tile.messages.messages.length; i++){
+			var obj = this.tile.messages.messages[i];
 			var a = new Element('li');
 			messagesList.appendChild(a);
-			a.update(obj.tile.objects[obj.object.index].name + "(" + Number(obj.tile.parent.getPosition()+1) + "," + Number(obj.tile.getPosition()+1) +"," +Number(obj.object.index+1)+ "): " + obj.message);
+			a.update(obj.person + ": " + obj.message);
 		}
 		
 		if(this.tile.messages.length){

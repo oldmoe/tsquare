@@ -7,5 +7,12 @@ var UltrasRedDisplay = Class.create(CrowdMemberDisplay,{
     this.frontImg = Loader.images.characters['ultras_red_front.png']
     this.holdImg = Loader.images.characters['ultras_red_hold.png']
     this.blurImg = Loader.images.characters['ultras_red_blur.png']
+    this.deadImg = Loader.images.characters['ultras_red_dead.png']
+    this.hitImg = Loader.images.characters['ultras_red_hit.png']
+  },
+  
+  configureAnimations: function($super){
+  	$super()
+  	this.noOfFramesPerAnimation['hit'] = 9;
   }
 })

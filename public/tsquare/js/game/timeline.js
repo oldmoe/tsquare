@@ -32,7 +32,9 @@ var Timeline = Class.create({
     this.gameManager.inbox.challenges(function(challenges){
       self.challenges = challenges
       self.challengesLoaded = true;
-      self.walkingMan = new WalkingManDisplay(this.gameManager.reactor);
+      if (!self.walkingMan) {
+        self.walkingMan = new WalkingManDisplay(this.gameManager.reactor);
+      }
       self.display();
     });
   },
@@ -63,6 +65,7 @@ var Timeline = Class.create({
       Effects.fade(timelineDiv, function(){Effects.appear(homeDiv)});
     else
       Effects.appear(homeDiv);
+    $('homeContainer').show()
   },
 
   displayCalender : function(){

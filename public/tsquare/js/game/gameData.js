@@ -59,8 +59,8 @@ var missionData = {
   ]],
     
     "backgrounds":{
-      "layer1":[{"name":"secondary_skyline.png"}],
-      "layer2":[{"name":"main_skyline.png"}],
+      "layer2":[{"name":"secondary_skyline.png"}],
+      "layer1":[{"name":"main_skyline.png"}],
       "landmarks":[],
       "fence":[{"name":"fence.png"}],
       "lamp":[{"name":"3amod.png"}],

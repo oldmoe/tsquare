@@ -17,10 +17,8 @@ class UserMissions
 
     def data user_profile, mission_id
       data = {}
-      mission_id = mission_id
       mode = Mission.mode mission_id
-      if (user_profile.current_mission[mode]==mission_id || user_profile.missions[mode][mission_id]) && 
-              user_profile.energy >= MISSION_NEEDED_ENERGY
+      if (user_profile.current_mission[mode]==mission_id.to_i || user_profile.missions[mode][mission_id.to_i]) && user_profile.energy >= MISSION_NEEDED_ENERGY
         data = Mission.get(mission_id)
 =begin : Disable energy part for now
         user_profile.energy-= 5
@@ -33,12 +31,12 @@ class UserMissions
     def update user_profile, mission_id, score
       mission_id = mission_id
       mode = Mission.mode mission_id
-      if user_profile.missions[mode][mission_id] && user_profile.missions[mode][mission_id][score]
-        if user_profile.missions[mode][mission_id][score] < score['score']
+      if user_profile.missions[mode][mission_id.to_i] && user_profile.missions[mode][mission_id.to_i]['score']
+        if user_profile.missions[mode][mission_id.to_i]['score'].to_i < score['score'].to_i
           user_profile.missions[mode][mission_id] = {'score' => score['score'], 'stars' => score['stars']}      
         end
       else
-        user_profile.missions[mode][mission_id] = {'score' => score['score'], 'stars' => score['stars']}
+        user_profile.missions[mode][mission_id.to_i] = {'score' => score['score'], 'stars' => score['stars']}
       end
       if score['win'] && user_profile.current_mission[mode] == mission_id
         user_profile.current_mission[mode] = Mission.get(mission_id)['next']

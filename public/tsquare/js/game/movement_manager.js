@@ -31,7 +31,6 @@ var MovementManager = Class.create({
   },
   
   run: function(){
-
     this.time = new Date().getTime()
     this.move = []
     this.sound = this.scene.audioManager.nowPlaying[0]
@@ -45,7 +44,6 @@ var MovementManager = Class.create({
         // // return;
       // }
       if (e.preventDefault)e.preventDefault();
-      
       self.sound = self.scene.audioManager.nowPlaying[0]
       
       if(self.beatMoving){

@@ -99,7 +99,7 @@ var CrowdMember = Class.create(Unit,{
     if(this.dead){
       this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);
       if(this.coords.x < 0) {
-        this.scene.objects.remove(this);
+        this.scene.remove(this);
         this.destroy();
         this.removed = true;
       }
@@ -135,7 +135,6 @@ var CrowdMember = Class.create(Unit,{
     this.stateChanged = true
     
     if(this.scene.reactor.ticks % this.secondTicks == 0) this.updateState();
-    
     if(this.followers)this.checkFollowersState();
     
     if (this.posChanged) {

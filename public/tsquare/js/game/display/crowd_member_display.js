@@ -76,7 +76,7 @@ var CrowdMemberDisplay = Class.create(Display,{
     this.sprites.character.createAnimation({name:'sprint'  ,img:this.runImg,noOfFrames:this.noOfFramesPerAnimation['sprint']})
     this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['reverseWalk'], flipped : true})
     this.sprites.character.createAnimation({name:'reverseRun'  ,img:this.runImg, noOfFrames:this.noOfFramesPerAnimation['reverseRun'], flipped : true})
-    this.sprites.character.createAnimation({name:'dead',img:this.deadImg,noOfFrames:this.noOfFramesPerAnimation['dead']})
+    this.sprites.character.createAnimation({name:'dead',img:this.deadImg,noOfFrames:this.noOfFramesPerAnimation['dead']}, {shiftY:200})
     this.sprites.character.createAnimation({name:'hit',img:this.hitImg,noOfFrames:this.noOfFramesPerAnimation['hit']})
 
     this.sprites.health = new ImgMeterSprite(this.owner,

@@ -5,6 +5,7 @@ var UnitHandler = Class.create({
    scene: null,
    unitsClassMappings : null,
    target : null,
+   
    initialize: function(scene){
        this.unitsClassMappings = {}
        this.incoming = [[],[],[]];
@@ -25,18 +26,18 @@ var UnitHandler = Class.create({
    },
    
    add: function(elem){
-       if(this.incoming[elem.lane] == null){
-         this.incoming[elem.lane] = [];
-         this.objects[elem.lane] = [];  
-       }
-       elem.options = {}
-       if (this.unitsClassMappings[elem.name]) {
-           elem.options.mappingName =  elem.name
-           elem.name = this.unitsClassMappings[elem.name]
-       }
-       elem.options.handler = this
-       elem.x = elem.x * this.scene.view.tileWidth
-      this.incoming[elem.lane].push(elem)
+     if(this.incoming[elem.lane] == null){
+       this.incoming[elem.lane] = [];
+       this.objects[elem.lane] = [];  
+     }
+     elem.options = {}
+     if (this.unitsClassMappings[elem.name]) {
+         elem.options.mappingName =  elem.name;
+         elem.name = this.unitsClassMappings[elem.name];
+     }
+     elem.options.handler = this;
+     elem.x = elem.x * this.scene.view.tileWidth;
+     this.incoming[elem.lane].push(elem);
    },
    
   checkObjectsState : function(){
@@ -58,7 +59,7 @@ var UnitHandler = Class.create({
   checkIncomingObjects: function(){
     for (var i = 0; i < this.incoming.length; i++) {
       for (var j = 0; this.incoming[i] && j < this.incoming[i].length; j++) {
-        if (this.incoming[i][j].x < this.scene.view.xPos + (this.scene.view.width * 1.5)) {
+        if (this.incoming[i][j].x < this.scene.view.xPos + (this.scene.view.width)) {
           this.objects[i].push(this.addObject(this.incoming[i][j]))
           this.incoming[i].splice(0, 1)
           j--;
@@ -96,29 +97,29 @@ var UnitHandler = Class.create({
   
   detectCollisions : function(others){
     var collision = [];
-    for(var i=0;i<this.objects.length;i++){
-        if(this.objects[i] && this.objects[i][0]){
-          var collided = false
-          for(var j=0;j<this.objects[i].length;j++){             
-            if(others[i] && others[i][0] ){
-                if(!others[i][0].neglected && this.objects[i][j].collidesWith(others[i][0])){
-                    others[i][0].pickTarget(this.objects[i]);
-                    collision.push({obj1:this.objects[i][j], obj2:others[i][0], lane:i})            
-                    collided = true;
-                    break; 
-                }                
-             }
-           }
-           if(others[i] && others[i][0] && !collided){
-               others[i][0].setTarget(null);                  
-           }
-           for(var j=0;j<this.objects[i].length;j++){                      
-                if(collided){
-                    this.objects[i][j].setTarget(others[i][0]);     
-                    this.target = others[i][0]  
-                }
-           }
-       }
+    var lane = this.scene.activeLane
+    var collided = false
+    var target = null
+    for(var j=0;j<this.objects[lane].length;j++){             
+      for(var k=0;k<others[lane].length;k++){
+        if(!others[lane][k].neglected && this.objects[lane][j].collidesWith(others[lane][k])){
+          others[lane][k].pickTarget(this.objects[lane]);
+          collision.push({obj1:this.objects[lane][j], obj2:others[lane][k], lane:lane})            
+          collided = true;
+          break; 
+        }                
+      }
+    }
+    if(others[lane][0] && !collided){
+      for(var k=0;k<others[lane].length;k++){
+        others[lane][k].setTarget(null);                  
+      }
+    }
+    if(collided){
+      for(var j=0;j<this.objects[lane].length;j++){                      
+        this.objects[lane][j].setTarget(collision[0].obj2);     
+        this.target = collision[0].obj2 
+      }
     }
     if(collision.length > 0){
       return true;

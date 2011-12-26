@@ -1,7 +1,7 @@
 class UserGameProfile < DataStore::Model
 
   SEP = '-'.freeze
-  CURRENT_VERSION = 19
+  CURRENT_VERSION = 21
 
   index :timeline_score, :method => :timeline_index
   index :racing_score, :method => :racing_index
@@ -84,11 +84,16 @@ class UserGameProfile < DataStore::Model
       @data['version'] = CURRENT_VERSION
   end
    # This puts all the missions to the user .. should be removed once testing is done
-  Mission::MODES.each do |mode|
-        @data['current_mission'][mode] = game.data['missions'][mode].keys.max { |i| i.to_i }
-        @data['missions'][mode] = game.data['missions'][mode].keys
-  end
-   # End of part to be removed 
+ # Mission::MODES.each do |mode|
+ #       @data['current_mission'][mode] = game.data['missions'][mode].keys.max { |i| i.to_i }
+ #       @data['missions'][mode] = game.data['missions'][mode].keys
+ # end
+   # End of part to be removed
+    Mission::MODES.each do |mode|
+      game.data['missions'][mode].keys.each do |key|
+        @data['missions'][mode][key] ||= { 'score' => 0, 'stars'=>0}
+      end
+    end 
     energy_gain
     save
   end

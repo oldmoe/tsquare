@@ -1,9 +1,7 @@
 var BombSmoke = Class.create({
   coords : null,
   scale : 0.4,
-  opacity : 1,
-  maxScale : 6,
-  minOpacity : 0.1,
+  maxScale : 7,
   finished : false,
   initialize : function(scene,x,y, id){
     this.scene = scene
@@ -12,10 +10,9 @@ var BombSmoke = Class.create({
   },
   tick : function(){
     this.scale+=0.02
-    this.opacity-=0.015
-    this.move(4, -3)
+    this.move(4, -4)
     this.move(-this.scene.currentSpeed * this.scene.direction, 0)
-    if (this.scale > this.maxScale || this.opacity < this.minOpacity) {
+    if (this.scale > this.maxScale) {
       this.finished = true
     }
   },

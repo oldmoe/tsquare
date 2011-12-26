@@ -52,7 +52,7 @@ var MessagesHandler = Class.create(UnitHandler, {
   showGuidBubble: function(command){
     var message = "Click the keys; ";
     if(command == "march") //forward
-      message += "right, right, left, right";
+      message += "right ➜, right, left, right";
     else if(command == "retreat")//retreat
       message += "left, left, right left";
     else if(command == "circle")//circle

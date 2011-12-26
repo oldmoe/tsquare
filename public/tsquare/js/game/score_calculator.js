@@ -48,33 +48,33 @@ var ScoreCalculator = Class.create({
   },
 
   wrongMove: function(){
-    this.updateScore(-2);
     this.wrongMovesCount++;
   },
 
   correctMove: function(){
-    this.updateScore(10);
+    this.updateScore(25);
     this.correctMovesCount++;
   },
 
   correctObjective: function(){
-    this.updateScore(20);
+    this.updateScore(50);
     this.correctObjectiveCount++;
   },
   
   wrongCommand: function(){
-    this.updateScore(-5);
+    this.updateScore(-25);
     this.wrongCommandsCount++;
   },
 
   correctCommand: function(){
-    this.updateScore(20);
+    this.updateScore(30);
     this.correctCommandsCount++;
   },
   
   updateScore: function(score){
     if(score < 0 && this.score == 0) return;
     this.score += score
+    console.log("score updated: "+this.score);
   },
   
   getCombos: function(){

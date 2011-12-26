@@ -67,12 +67,14 @@ var Loader = Class.create({
       })
     })
   },
+  
   addResources : function(resources){
     var self = this
     resources.each(function(resource){
       self.resources.push(resource)
     })
   },
+  
   loadResource : function(){
     var self = this
     var resource = this.resources[0]
@@ -86,6 +88,7 @@ var Loader = Class.create({
         }
       })
   },
+  
   loadResources : function(path,store,names,type){
     var self = this
     if(!Loader[type][store])Loader[type][store] = {}
@@ -184,9 +187,11 @@ var Loader = Class.create({
 	  }
     return sound
   },
+  
   load_animations :function(src,options){
     return this.load_images(src,options)
   },
+  
   load_htmls : function(src, options){
     var self = this;
     var content = {html : ''};

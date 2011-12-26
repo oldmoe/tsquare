@@ -65,7 +65,7 @@ var BlockDisplay = Class.create(EnemyDisplay, {
   },
 
   render : function($super){
-      $super()
+    $super()
   },
   
   destroy : function($super, shallow){

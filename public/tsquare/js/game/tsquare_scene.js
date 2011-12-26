@@ -11,6 +11,7 @@ var TsquareScene = Class.create(Scene,{
     ],
     currentCommand: 0,
     speedIndex : 0,
+    lastSpeedIndex : 0,
     direction : 1,
     holdPowerDepression: 0.2,
     energy : null,

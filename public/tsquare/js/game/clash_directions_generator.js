@@ -24,6 +24,7 @@ var ClashDirectionsGenerator = Class.create({
     this.hide()
     this.startingDirection = 0;
   },
+  
   createObservers : function(){
     var self = this
     this.scene.observe('clashCrowdsBack',function(){
@@ -39,11 +40,13 @@ var ClashDirectionsGenerator = Class.create({
       Effect.Shake('gameContainer', {duration : 0.2, distance : 5 });
     })
   },
+  
   generateDirection : function(){
     if(!this.running)return
     var direction = Math.round(Math.random()*3)
     this.addDirection(direction)
   },
+  
   tick : function(){
     if(!this.running)return
     if(!this.crowd || !this.enemy) return
@@ -73,6 +76,7 @@ var ClashDirectionsGenerator = Class.create({
       }})  
     }
   },
+  
   checkEnd : function(){
     if(this.crowd.coords.x > this.scene.view.width - 180){
       this.scene.fire('clashWin')
@@ -80,15 +84,18 @@ var ClashDirectionsGenerator = Class.create({
       this.scene.fire('clashLose')
     }
   },
+  
   updateSpeed : function(){
     this.speed = this.minSpeed + (this.crowd.coords.x - this.scene.view.width/2)/100
   },
+  
   removeFirstDirection : function(){
     this.directions[0].obj.destroy()
     this.directions[0].obj.removed = true
     this.directions.shift()
     this.startingDirection = 0
   },
+  
   createFrame : function(){
     var frameOwner = {coords: {
       x: this.scene.view.width / 2,
@@ -114,6 +121,7 @@ var ClashDirectionsGenerator = Class.create({
     this.sprites.leftLine.render()
     this.sprites.rightLine.render()
   },
+  
   processDirection : function(direction){
     if(this.directions[0]){
       if(direction == this.directions[0].direction){
@@ -131,6 +139,7 @@ var ClashDirectionsGenerator = Class.create({
        }
     }
   },
+  
   addDirection : function(direction){
     var owner = {
       coords: {
@@ -143,6 +152,7 @@ var ClashDirectionsGenerator = Class.create({
     this.scene.pushToRenderLoop('skyline', display)
     this.directions.push({owner : owner,obj: display, direction:direction})
   },
+  
   stop : function(){
     this.hide()
     this.running = false
@@ -155,15 +165,19 @@ var ClashDirectionsGenerator = Class.create({
       this.removeFirstDirection()
     }
   },
+  
   run : function(){
     this.show()
   },
+  
   start : function(){
      this.scene.reactor.pushEvery(0,this.scene.reactor.everySeconds(1),this.doStart,this)
   },
+  
   doStart: function(){
     $('initCounter').show()
     $('initCounter').update("");
+    console.log(this.startCounter)
     $('initCounter').appendChild(Loader.images.countDown[this.startCounter + ".png"]);
     Effect.Puff('initCounter')
     this.startCounter--
@@ -172,6 +186,7 @@ var ClashDirectionsGenerator = Class.create({
         $('initCounter').show()
         $('initCounter').update("");
         $('initCounter').appendChild(Loader.images.countDown["go.png"]);
+        this.startCounter = 3;
         Effect.Puff('initCounter', {
           transition: Effect.Transitions.sinoidal
         })
@@ -181,23 +196,27 @@ var ClashDirectionsGenerator = Class.create({
       return false
     }
   },
+  
   setCrowd: function(crowd){
     console.log('setting crowd')
     this.crowd = crowd
     if (this.enemy) 
       this.start()
   },
+  
   setEnemy: function(enemy){
     console.log('setting enemy')
     this.enemy = enemy
     if (this.crowd) 
       this.start()
   },
+  
   hide: function(){
     for (var sprite in this.sprites) {
       this.sprites[sprite].hide()
     }
   },
+  
   show: function(){
     for (var sprite in this.sprites) {
       this.sprites[sprite].show()

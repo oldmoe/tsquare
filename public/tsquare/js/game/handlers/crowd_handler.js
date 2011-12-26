@@ -403,7 +403,7 @@ var CrowdHandler = Class.create(UnitHandler, {
   },
   
   takeHit : function(power){
-    for (var i = 1; i < this.objects[this.scene.activeLane].length; i++) {
+    for (var i = 0; i < this.objects[this.scene.activeLane].length; i++) {
       this.objects[this.scene.activeLane][i].takeHit(power)
     }
   }

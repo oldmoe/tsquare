@@ -97,29 +97,29 @@ var UnitHandler = Class.create({
   
   detectCollisions : function(others){
     var collision = [];
-    for(var i=0;i<this.objects.length;i++){
-        if(this.objects[i] && this.objects[i][0]){
-          var collided = false
-          for(var j=0;j<this.objects[i].length;j++){             
-            if(others[i] && others[i][0] ){
-                if(!others[i][0].neglected && this.objects[i][j].collidesWith(others[i][0])){
-                    others[i][0].pickTarget(this.objects[i]);
-                    collision.push({obj1:this.objects[i][j], obj2:others[i][0], lane:i})            
-                    collided = true;
-                    break; 
-                }                
-             }
-           }
-           if(others[i] && others[i][0] && !collided){
-               others[i][0].setTarget(null);                  
-           }
-           for(var j=0;j<this.objects[i].length;j++){                      
-                if(collided){
-                    this.objects[i][j].setTarget(others[i][0]);     
-                    this.target = others[i][0]  
-                }
-           }
-       }
+    var lane = this.scene.activeLane
+    var collided = false
+    var target = null
+    for(var j=0;j<this.objects[lane].length;j++){             
+      for(var k=0;k<others[lane].length;k++){
+        if(!others[lane][k].neglected && this.objects[lane][j].collidesWith(others[lane][k])){
+          others[lane][k].pickTarget(this.objects[lane]);
+          collision.push({obj1:this.objects[lane][j], obj2:others[lane][k], lane:lane})            
+          collided = true;
+          break; 
+        }                
+      }
+    }
+    if(others[lane][0] && !collided){
+      for(var k=0;k<others[lane].length;k++){
+        others[lane][k].setTarget(null);                  
+      }
+    }
+    if(collided){
+      for(var j=0;j<this.objects[lane].length;j++){                      
+        this.objects[lane][j].setTarget(collision[0].obj2);     
+        this.target = collision[0].obj2 
+      }
     }
     if(collision.length > 0){
       return true;

@@ -4,7 +4,7 @@ var ProtectionUnit = Class.create(Unit,{
   enemies : null,
   rotationTolerance : 10,
   text: "",
-  
+  type : "protection",
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)
     this.hp = this.maxHp = 1000

@@ -40,9 +40,9 @@ var MovementManager = Class.create({
         self.scene.fire('togglePause');
         return;
       }
-      // if (e.keyCode < 37 || e.keyCode > 40){
-        // // return;
-      // }
+       if (e.keyCode < 37 || e.keyCode > 40){
+          return;
+       }
       if (e.preventDefault)e.preventDefault();
       self.sound = self.scene.audioManager.nowPlaying[0]
       

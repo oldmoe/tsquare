@@ -65,7 +65,6 @@ var BlockDisplay = Class.create(EnemyDisplay, {
   },
 
   render : function($super){
-    console.log(this.owner.coords)
       $super()
   },
   

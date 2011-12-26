@@ -2,7 +2,7 @@ var TSquareNetwork = Class.create(Network, {
 
   gameData : function(callback){
     this.genericGetRequest( 'data', {},
-                          function(response) { 
+                          function(response) {
                             var data = JSON.parse(response.responseText);
                             if(callback) callback(data);
                           });

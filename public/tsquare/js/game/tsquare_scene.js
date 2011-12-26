@@ -173,7 +173,7 @@ var TsquareScene = Class.create(Scene,{
       for(var handler in this.handlers){
           this.handlers[handler].tick();
       }
-      if(this.view.xPos > this.view.length) this.end();
+      if(this.view.xPos > this.view.length) this.end(true);
     },
 
     end : function(win){
@@ -190,6 +190,7 @@ var TsquareScene = Class.create(Scene,{
           this.stopped = true;
           this.win = win;
           this.finish(afterMarchCallback);
+          console.log("score end: "+self.scoreCalculator.score);
           self.fire('end', [{
             score: self.scoreCalculator.score,
             objectives: self.scoreCalculator.getObjectivesRatio(),

@@ -18,7 +18,7 @@ class UserMissions
     def data user_profile, mission_id
       data = {}
       mode = Mission.mode mission_id
-      if (user_profile.current_mission[mode]==mission_id.to_i || user_profile.missions[mode][mission_id.to_i]) && user_profile.energy >= MISSION_NEEDED_ENERGY
+      if (user_profile.current_mission[mode]==mission_id || user_profile.missions[mode][mission_id.to_i]) && user_profile.energy >= MISSION_NEEDED_ENERGY
         data = Mission.get(mission_id)
 =begin : Disable energy part for now
         user_profile.energy-= 5

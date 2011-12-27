@@ -174,10 +174,10 @@ var TsquareScene = Class.create(Scene,{
       for(var handler in this.handlers){
           this.handlers[handler].tick();
       }
-      if(this.view.xPos > this.view.length) this.end(true);
+      if(this.view.xPos > this.view.length) this.end();
     },
 
-    end : function(win){
+    end : function(){
       var self = this;
       var afterMarchCallback = function(){
         self.fire('animationEnd');
@@ -189,15 +189,16 @@ var TsquareScene = Class.create(Scene,{
         if(!this.stopped)
         {
           this.stopped = true;
-          this.win = win;
           this.finish(afterMarchCallback);
-          console.log("score end: "+self.scoreCalculator.score);
-          self.fire('end', [{
+           
+          var scoreData = {
             score: self.scoreCalculator.score,
             objectives: self.scoreCalculator.getObjectivesRatio(),
             combos: self.scoreCalculator.getCombos(),
-            win: self.win
-          }]);
+            win: true
+          };
+          if(scoreData.objectives < 0.3) scoreData.win = false;          
+          self.fire('end', [scoreData]);
         }
       }
       //send to the server

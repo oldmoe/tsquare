@@ -4,6 +4,6 @@ var Poorguy = Class.create(ProtectionUnit,{
     this.hp = this.maxHp = 1000
   },
   escape : function(){
-    this.handler.removeObject(this, this.lane);
+    this.die();
   }
 })

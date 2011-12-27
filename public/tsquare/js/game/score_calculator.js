@@ -19,6 +19,9 @@ var ScoreCalculator = Class.create({
   totalObjectives: 1,
   correctObjectiveCount: 0,
   
+  comboLevel: 1,
+  comboCount: 0,
+  
   gameTime: 0,
   
   initialize: function(scene){
@@ -49,11 +52,21 @@ var ScoreCalculator = Class.create({
 
   wrongMove: function(){
     this.wrongMovesCount++;
+    this.comboCount = 0;
   },
 
   correctMove: function(){
-    this.updateScore(25);
+    this.updateScore(25 * this.comboLevel);
     this.correctMovesCount++;
+    
+    this.comboCount++;
+    
+    if(this.comboCount > 5)
+      this.comboLevel = 1;
+    else if(this.comboCount > 10)
+      this.comboLevel = 2;
+    else if(this.comboCount > 20)
+      this.comboLevel = 3;
   },
 
   correctObjective: function(){
@@ -74,7 +87,6 @@ var ScoreCalculator = Class.create({
   updateScore: function(score){
     if(score < 0 && this.score == 0) return;
     this.score += score
-    console.log("score updated: "+this.score);
   },
   
   getCombos: function(){

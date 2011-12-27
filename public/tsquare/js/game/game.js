@@ -105,6 +105,7 @@ var Game = Class.create({
   								  onFinish:function(){
   					   				self.imagesLoaded = true;
   						  			self.start();
+  						  			
   								  },
                     onError:function(){
   					   				self.imagesLoaded = true;

@@ -92,7 +92,7 @@ var TsquareScene = Class.create(Scene,{
   		}
 
       this.audioManager = new AudioManager(this);
-      this.flashingHandler = new FlashingHandler(this);
+      //this.flashingHandler = new FlashingHandler(this);
       this.movementManager = new MovementManager(this);
 
   		this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
@@ -126,7 +126,7 @@ var TsquareScene = Class.create(Scene,{
           this.push(this.clashDirectionsGenerator)
           this.audioManager.run();
           this.movementManager.run();
-          this.flashingHandler.run();
+          //this.flashingHandler.run();
           this.handlers.crowd.playHetafLoop();
           var self = this;
           this.reactor.pushEvery(0,10, function(){return self.updateSpeed()})

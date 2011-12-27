@@ -81,7 +81,6 @@ var DomSprite = Class.create(Sprite, {
     for( var style in styles ){
       var styleValue = styles[style];
       if( !this.lastStyleVlaues[element] || !this.lastStyleVlaues[element][style] || this.lastStyleVlaues[element][style] != styleValue ){
-        //console.log(style, this.lastStyleVlaues[style], styleValue);
         stylesChanged[style] = styleValue;
         if(!this.lastStyleVlaues[element]){
           this.lastStyleVlaues[element] = {};

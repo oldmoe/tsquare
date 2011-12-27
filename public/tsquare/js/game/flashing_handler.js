@@ -3,11 +3,10 @@ var FlashingHandler = Class.create({
   counter : 0,
   delay: 0,
   lastDelay: 0,
-  
-  
+  noOfBeats : 8,
   initialize : function(scene){
     this.scene = scene
-    
+        
     // this.delay = 3600/8;
     // this.lastDelay = 3600/8+72;
   
@@ -24,10 +23,21 @@ var FlashingHandler = Class.create({
   },
   
   run: function(){
+    this.sound = this.scene.audioManager.nowPlaying[0]
     this.flash();
   },
   
   flash : function(){
+    if(this.counter*this.sound.duration/this.noOfBeats > this.sound.position){
+      this.counter = (this.counter+1) % this.noOfBeats
+      this.fadeIn()
+      this.fadeOut()
+    }    
+    var self = this
+    this.scene.reactor.push(1,function(){self.flash()})  
+  },
+  
+  flash2 : function(){
 
     this.fadeIn();
     this.fadeOut();

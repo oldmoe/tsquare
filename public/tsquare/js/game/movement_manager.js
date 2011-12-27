@@ -40,9 +40,9 @@ var MovementManager = Class.create({
         self.scene.fire('togglePause');
         return;
       }
-      // if (e.keyCode < 37 || e.keyCode > 40){
-        // // return;
-      // }
+//      if (e.keyCode < 37 || e.keyCode > 40){
+//        return;
+//      }
       if (e.preventDefault)e.preventDefault();
       self.sound = self.scene.audioManager.nowPlaying[0]
       
@@ -94,6 +94,7 @@ var MovementManager = Class.create({
     this.checkDelay(this.counter, this.beatTime)
     this.scene.fire('wrongMove');
   },
+  
   registerListeners : function(){
     var self = this
     document.stopObserving('keydown', this.keydownHandler)
@@ -115,6 +116,7 @@ var MovementManager = Class.create({
       self.currentMode = self.modes.normal
     })
   },
+  
   process : function(click){
       var self = this
       if(self.scene.currentSpeed > 0){

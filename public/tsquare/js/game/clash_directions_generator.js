@@ -177,7 +177,6 @@ var ClashDirectionsGenerator = Class.create({
   doStart: function(){
     $('initCounter').show()
     $('initCounter').update("");
-    console.log(this.startCounter)
     $('initCounter').appendChild(Loader.images.countDown[this.startCounter + ".png"]);
     Effect.Puff('initCounter')
     this.startCounter--
@@ -198,14 +197,12 @@ var ClashDirectionsGenerator = Class.create({
   },
   
   setCrowd: function(crowd){
-    console.log('setting crowd')
     this.crowd = crowd
     if (this.enemy) 
       this.start()
   },
   
   setEnemy: function(enemy){
-    console.log('setting enemy')
     this.enemy = enemy
     if (this.crowd) 
       this.start()

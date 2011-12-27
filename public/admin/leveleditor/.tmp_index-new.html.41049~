@@ -137,10 +137,10 @@
 		
 		<div id="discussionDialog" class="discussionDialog" style="display:none;">
 		    <div class="discussionDialogContents">
-				  <textarea id="discussionMessage" rows="2" cols="20" class="messageText"></textarea>
-				  <br/>
-				  <input type="button" value="Add" class="add" />
-				  <input type="button" value="Reset" class="reset"/>
+				<textarea id="discussionMessage" rows="2" cols="20" class="messageText"></textarea>
+				<br/>
+				<input type="button" value="Add" class="add" />
+				<input type="button" value="Reset" class="reset"/>
 				<ol id="messagesList">
 				</ol>
 		      </div>

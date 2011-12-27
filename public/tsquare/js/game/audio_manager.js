@@ -248,7 +248,6 @@ var AudioManager = Class.create({
     var delay = position;
     
     //if(delay == 0)delay = this.nowPlaying[0].position - (this.nowPlaying[0].duration-28);
-    //console.log(this.nowPlaying[0].position , delay)
       this.currentReward.rewards[this.currentRewardIndex].sound.play({volume:this.currentReward.rewards[this.currentRewardIndex].volume, position:delay});
       if(this.currentRewardIndex){
         this.currentRewardIndex = 0;

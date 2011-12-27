@@ -6,16 +6,16 @@
 .gameFunctions { float:right; width:172px; height:181px; position:relative; z-index:5; }
 .gameFunctionsBackground { position:absolute; }
 
-.crowdMenuItem { position:absolute; top:21px; left:2px; z-index:2; width:61px; height:47px; overflow:hidden; }
+.crowdMenuItem { position:absolute; top:21px; left:2px; z-index:3; width:61px; height:47px; overflow:hidden; }
 .crowdMenuItem:hover img { position:absolute; top:-47px; }
 
-.marketplaceMenuItem { position:absolute; top:9px; left:69px; z-index:2; width:61px; height:47px; overflow:hidden; }
+.marketplaceMenuItem { position:absolute; top:9px; left:69px; z-index:3; width:61px; height:47px; overflow:hidden; }
 .marketplaceMenuItem:hover img { position:absolute; top:-47px; }
 
-.rankMenuItem { position:absolute; top:64px; left:109px; z-index:2; width:61px; height:47px; overflow:hidden; }
+.rankMenuItem { position:absolute; top:64px; left:109px; z-index:3; width:61px; height:47px; overflow:hidden; }
 .rankMenuItem:hover img { position:absolute; top:-47px; }
 
-.voteMenuItem { position:absolute; top:125px; left:82px; z-index:2; width:61px; height:47px; overflow:hidden; }
+.voteMenuItem { position:absolute; top:125px; left:82px; z-index:3; width:61px; height:47px; overflow:hidden; }
 .voteMenuItem:hover img { position:absolute; top:-47px; }
 
 .homeMenuItem { position:absolute; top:59px; left:40px; z-index:2; width:70px; height:71px; overflow:hidden; }

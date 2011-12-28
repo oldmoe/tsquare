@@ -70,7 +70,8 @@ var CrowdHandler = Class.create(UnitHandler, {
      	handler : this,
      	scene : this.scene,
      	id : this.currentId++,
-     	laneIndex : this.objects[this.scene.activeLane].length
+     	laneIndex : this.objects[this.scene.activeLane].length,
+     	name : name
      	})
      var displayKlass = eval(klassName + "Display")
      var objDisplay = new displayKlass(obj)
@@ -291,7 +292,7 @@ var CrowdHandler = Class.create(UnitHandler, {
   executeCommand : function(event, options){
      for(var i=0;i<this.objects.length;i++){
        for(var j=0;j<this.objects[i].length;j++){
-           this.objects[i][j][event](options);
+          this.objects[i][j][event](options);
        }
      }          
   },

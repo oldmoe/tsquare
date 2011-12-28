@@ -56,8 +56,8 @@ var ProtectionUnit = Class.create(Unit,{
     this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);  
   },
   rotationComplete : function(attack){
-    if(this.rotationTolerance == 0 ) return
-    this.rotationTolerance-=1        
+    if(this.rotationTolerance == 0 ) return;
+    this.rotationTolerance -= 1;
     if (this.rotationTolerance == 0) {
       this.doneProtection = true
       for(var i=0;i<this.enemies.length;i++){

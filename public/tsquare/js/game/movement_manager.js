@@ -8,7 +8,7 @@ var MovementManager = Class.create({
   totalMoveTicks : 0,
   lastMoveClicked : false,
   beatDelay : 15,
-  moves : null,  
+  moves : null,
   beatMoving: false,
   comboStart: false,
   currentCombos: 0,

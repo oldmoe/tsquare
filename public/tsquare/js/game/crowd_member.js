@@ -96,6 +96,11 @@ var CrowdMember = Class.create(Unit,{
   },
   
   tick : function($super){
+    if(this.rescued){
+      this.decreaseFollowers( this.followers.length );
+      this.move( (-1 * this.scene.currentSpeed * this.scene.direction)/3, 0);
+      return;
+    }
     if(this.dead){
       this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);
       if(this.coords.x < 0) {
@@ -369,9 +374,13 @@ var CrowdMember = Class.create(Unit,{
   },
 
   resetRotation : function(){
-    this.rotationPoints = []
-    this.fire(this.scene.speeds[this.scene.speedIndex].state)
-    this.rotating = false
+    this.rotationPoints = [];
+    if( this.scene.rescuing && this.scene.rescuing.mission == "retrieve" ){
+      this.fire( "retreat" );
+    } else {
+      this.fire( this.getMovingState() );
+    }
+    this.rotating = false;
   },
   
   getMovingState : function(){

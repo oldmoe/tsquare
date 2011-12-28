@@ -126,10 +126,11 @@ var GuidingIcon = Class.create(Observer,{
   tick: function(){
     var command = "march";
     
-    var enemy = null, protectionUnit = null;
-    var target = this.scene.handlers.crowd.target
+    var enemy = null;
+    var protectionUnit = null;
+    var target = this.scene.handlers.crowd.target;
     if (target) {
-      if (target.type == "protection") 
+      if (target.type == "protection" || target.type == "rescue") 
         protectionUnit = target
       else 
         enemy = target
@@ -156,6 +157,11 @@ var GuidingIcon = Class.create(Observer,{
         this.commandLock = false;
         command = "circle";
       }
+    }
+    
+    if( this.scene.rescuing && !this.scene.rescuing.rescued && this.scene.rescuing.mission == "retrieve" ){
+      this.commandLock = false;
+      command = "retreat";
     }
     
     if(this.currentCommand != command && !this.commandLock){

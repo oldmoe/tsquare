@@ -80,7 +80,7 @@ var Block = Class.create(Enemy,{
 		        var displayKlass = eval("BlockDisplay")
 		        var objDisplay = new displayKlass(b)
     		     if (!b.noDisplay) {
-    		       this.pushToRenderLoop('characters', objDisplay)
+    		       this.scene.pushToRenderLoop('characters', objDisplay)
     		     }
             b.coords.y = this.coords.y
             b.moveToTarget({x:this.coords.x + (100+150*i),y:this.coords.y})

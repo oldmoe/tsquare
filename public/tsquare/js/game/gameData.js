@@ -1,6 +1,7 @@
 var missionData = {
   
   "data":[[
+  /*
    {
       "name": "ultras_red",
       "category": 'advisor',
@@ -19,26 +20,7 @@ var missionData = {
         {"person":"ultras_red" , "message": "ah sa7i7, tab emshy we ehgem 3ala el amn dool..."}
       ]
   }
-,
-   {
-      "name": "ultras_red",
-      "category": 'advisor',
-      "index": 0,
-      "lane": 0,
-      "x": 5,
-      "order": 1,
-      "messages" : [
-        {"person":"ultras_red", "message":"enta meen yad"},
-        {"person":"crowds" , "message": "ana kazaz"},
-        {"person":"ultras_red" , "message": "amerikey ya3ni.."},
-        {"person":"crowds" , "message": "laaaaa....laaaa, ana masry ya3am"},
-        {"person":"ultras_red" , "message": "we 3awez eih isa.."},
-        {"person":"crowds" , "message": "eih elly 3awez eih, enta mesh advisor ya3am.."},
-        {"person":"ultras_red" , "message": "we 3awez eih isa.."},
-        {"person":"ultras_red" , "message": "ah sa7i7, tab emshy we ehgem 3ala el amn dool..."}
-      ]
-  }
-
+*/  
 /*  ,  
   {
       "name": "ultras_red",
@@ -76,7 +58,7 @@ var missionData = {
       "x": 3,
       "order": 1
   },
-  {"name":"twitter_guy","category":"protection","index":0,"lane":1,"x":5,"order":1},
+  {"name":"twitter_guy","category":"protection","index":0,"lane":1,"x":4,"order":1},
   {
       "name": "wood_stick_cs",
       "category": 'enemy',

@@ -269,7 +269,7 @@ var TsquareScene = Class.create(Scene,{
   
     detectCollisions : function(){
       this.collision = false;
-       var pairs = [['left','right'],['left','middle'],['middle','right']]  
+       var pairs = [['left','right'],['left','middle'],['middle1','right1']]  
        for(var h1 in this.handlers){
          for (var h2 in this.handlers) {
              var handler1 = this.handlers[h1]; 

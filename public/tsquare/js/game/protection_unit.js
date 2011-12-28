@@ -61,7 +61,7 @@ var ProtectionUnit = Class.create(Unit,{
     if (this.rotationTolerance == 0) {
       this.doneProtection = true
       for(var i=0;i<this.enemies.length;i++){
-        this.enemies[i].destroy()
+        this.enemies[i].die()
       }
       this.scene.fire("targetCircleComplete");
       this.scene.collision = false;

@@ -105,8 +105,7 @@ var CrowdMember = Class.create(Unit,{
       this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);
       if(this.coords.x < 0) {
         this.scene.remove(this);
-        this.destroy();
-        this.removed = true;
+        this.die();
       }
       return;
     }
@@ -156,7 +155,7 @@ var CrowdMember = Class.create(Unit,{
   checkFollowersState : function(move){
      for(var i=0;i<this.followers.length;i++){
         if(this.followers[i].hp <= 0){
-          this.followers[i].destroy()
+          this.followers[i].die()
           this.followers.splice(i,1)
         }
       }
@@ -168,7 +167,7 @@ var CrowdMember = Class.create(Unit,{
       this.followers[0].takeHit(hitPower)
     }
     else{
-      //if(this.defense) hitPower-=this.defense
+      if(this.defense) hitPower-=this.defense
       $super(hitPower)
     } 
   },

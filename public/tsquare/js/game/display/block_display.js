@@ -9,8 +9,7 @@ var BlockDisplay = Class.create(EnemyDisplay, {
     $super(owner);
     var self = this;
     
-    this.showText();
-    // if(Math.random() <= 0.5)this.showText();
+    if(Math.random() <= 0.5)this.showText();
   },
   
   getWidth : function(){

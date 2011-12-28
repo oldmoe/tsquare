@@ -67,6 +67,9 @@ var LevelLoader = Class.create({
   
   loadImagePath: function(obj){
     for (var i=0; i < EditorData.length; i++) {
+      if( obj.category == "objectives" ){
+        obj.name = obj.name.split("_")[0];
+      }
       if(obj.name == EditorData[i].name && obj.category == EditorData[i].category){
         if(obj.type){
           if(obj.type == EditorData[i].type){

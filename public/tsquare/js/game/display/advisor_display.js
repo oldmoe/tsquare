@@ -55,6 +55,7 @@ var AdvisorDisplay = Class.create(Display,{
   },
   
   showText: function(){
+    this.hideText();
     this.sprites.baloon = new DomImgSprite(this.owner, {img : this.baloonImg},{
       width: this.baloonImg.width,
       height: this.baloonImg.height,
@@ -68,7 +69,8 @@ var AdvisorDisplay = Class.create(Display,{
         centered: true,
         shiftY: -83,
         shiftX: 25,
-        styleClass: 'bubbleText'
+        styleClass: '',
+        divClass: 'messages'
     });
   },
 

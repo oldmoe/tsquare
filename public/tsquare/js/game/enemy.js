@@ -3,7 +3,6 @@ var Enemy = Class.create(Unit, {
   target : null,
   charging : false, 
   chargingSpeed : 3,
-  text: "",
   hp : 25, attack : 10 , defense : 25, chargeTolerance : 2, circleSize : 1,
   
   initialize : function($super,scene,x,lane,options){
@@ -17,15 +16,9 @@ var Enemy = Class.create(Unit, {
      this.maxHp = this.hp
   },
   
-  textInfo: function(){
-    return this.text;
-  },
-  
   rotationComplete : function(attack){
     if(this.takeHit(attack)) 
-      this.scene.fire("updateScore", [25]);
-    else
-      this.scene.fire("updateScore", [10]);
+      this.scene.fire("updateScore", [75]); //when enemy die
   },
   
   tick : function($super){
@@ -64,6 +57,7 @@ var Enemy = Class.create(Unit, {
     if(minIndex!=-1 && minDistance <= this.getWidth()*3/2){
         if(this.target == null){
           this.target = targets[minIndex]
+          console.log("hitting");
           this.fire("hit")
           targetChange = true
         }
@@ -75,6 +69,7 @@ var Enemy = Class.create(Unit, {
     }else{
         if (this.target) {
             this.target = null
+            console.log("normal");
             this.fire("normal")
             targetChange = true
         }

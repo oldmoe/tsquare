@@ -12,6 +12,7 @@ var ClashEnemy = Class.create(Unit,{
      this.power = 10;
      this.createObservers()
   },
+  
   start : function(boxCar){
     this.boxCar = boxCar
     var self = this
@@ -19,21 +20,23 @@ var ClashEnemy = Class.create(Unit,{
       self.scene.clashDirectionsGenerator.setEnemy(self)
      })
   },
+  
   createObservers : function(){
     var self = this
     // event clash win means crowds won, so function lose is called for the enemy
     this.scene.observe('clashWin', function(){
         self.running = false
         if(self.boxCar) self.boxCar.lose()
-        else self.handler.removeObject(self,self.lane)
+        else self.die();
     })
     // event clash lose means crowds lost, so function win is called for the enemy
     this.scene.observe('clashLose', function(){
         self.running = false
         if(self.boxCar)self.boxCar.win()
-        else self.handler.removeObject(self,self.lane)
+        else self.die();
     })
   },
+  
   tick : function($super){
     $super()
     if (this.running) {
@@ -45,13 +48,21 @@ var ClashEnemy = Class.create(Unit,{
       }
     }
   },
+  
   clashPush : function(){
       this.move(-this.pushSpeed,0)
       this.target.move(-this.pushSpeed,0)
   },
+  
   startClash : function(target){
     this.running = true
     this.target = target
     this.fire('run')
-  }
+  },
+   
+  startClash : function(target){
+    this.running = true
+    this.target = target
+    this.fire('run')
+  } 
 })

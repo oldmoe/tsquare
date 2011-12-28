@@ -13,10 +13,12 @@ var TearGasGunnerCs = Class.create(Enemy,{
   
   tick : function($super){
     $super();
-    this.counter++;
-    if(this.counter % this.rate == 0){
-      this.createTearGasBomb();
-    }        
+    if (this.coords.x < this.scene.view.width) {
+      if (this.counter % this.rate == 0) {
+        this.createTearGasBomb();
+      }
+      this.counter++;
+    }
   },
   
   updatePosition : function(){
@@ -47,5 +49,4 @@ var TearGasGunnerCs = Class.create(Enemy,{
       this.fire("hit");
     }
   }
-  
 })

@@ -4,8 +4,9 @@ var Block = Class.create(Enemy,{
     elements: null,
     elementWidth : 70,
     elementHeight : 15,
-    noDisplay : true,
+    noDisplay : false,
     distaceBetweenUnits : 10,
+    text: "",
         
     initialize : function($super,scene,x,lane,options){
       this.type = "block";
@@ -16,6 +17,12 @@ var Block = Class.create(Enemy,{
           this.addElementsToBlock(options)
       }
       this.options = options
+      
+      this.text = this.scene.handlers.message.messages.enemy[Math.round(Math.random()*(this.scene.handlers.message.messages.enemy.length-1))];
+    },
+    
+    textInfo: function(){
+      return this.text;
     },
     
     addElementsToBlock : function(options){
@@ -61,7 +68,6 @@ var Block = Class.create(Enemy,{
     
     split : function(){
       if(this.elements.length == 1)return
-      this.scene.fire("updateScore", [10]);
        if(this.elements.length == 3 || this.elements.length == 2){
           this.setTarget(null)
           var options = this.options
@@ -121,7 +127,6 @@ var Block = Class.create(Enemy,{
         this.moveElements(dx,dy)
     },    
     takePush : function(){
-      this.scene.fire("updateScore", [10]);
        this.chargeTolerance--;
        if(this.chargeTolerance == 0) this.split();
     },
@@ -141,6 +146,10 @@ var Block = Class.create(Enemy,{
           this.elements[i][j].coords = Nezal.clone_obj(coords) 
         }
       }
+    },
+    
+    die: function($super){
+      $super();
     }
     
 })

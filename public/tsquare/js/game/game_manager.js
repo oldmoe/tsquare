@@ -24,7 +24,7 @@ var GameManager = Class.create({
                               Loader.sounds.intro['intro.mp3'].stop();
                               $('inProgress').hide();
                               $('uiContainer').show();
-                            }}, time);
+                            }}, 100);
               Loader.sounds.intro['intro.mp3'].loop = true;
               Loader.sounds.intro['intro.mp3'].play({loop:true,loops:1000});
               $('inProgress').show();
@@ -33,7 +33,7 @@ var GameManager = Class.create({
           }
       )
     });
-	this.reactor = new Reactor();
+	  this.reactor = new Reactor();
     Effect.Queues.create('global', this.reactor)
     this.reactor.run();
   },

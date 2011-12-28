@@ -17,11 +17,12 @@ var Timeline = Class.create({
     this.loader = gameManager.loader;
     var self = this;
     this.loader.load([ {images : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png", "coming_soon_missions.png",
-                                  "home_background.gif", "mission_details.png", "timeline_screen.png", "mission_current.png",
+                                  "home_background.gif", "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
+                                  "mission_current.png", "mySquare_screen.png",
                                   "mission_locked.png", "mission_finished.png", "crowd_member_small.png", "challenge_box.png",
-                                  "mission_icon_selected.png", "play_button.png", "timeline.png"], path: 'images/timeline/', store: 'timeline'},
-                        {images : ["facebook_image_large.png"],  
-                          path: 'images/dummy/', store: 'dummy' }],
+                                  "mission_icon_selected.png", "play_button.png"], path: 'images/timeline/', store: 'timeline'},
+                        {images: ["ultras_red_idle.png", "ultras_red_walk.png", "ultras_red_run.png"], path: 'images/characters/', store: 'characters'},          
+                        {images : ["facebook_image_large.png"],  path: 'images/dummy/', store: 'dummy' }],
                       {
                         onFinish: function(){ 
                           self.imagesLoaded = true;
@@ -31,11 +32,15 @@ var Timeline = Class.create({
     this.gameManager.inbox.challenges(function(challenges){
       self.challenges = challenges
       self.challengesLoaded = true;
+      if (!self.walkingMan) {
+        self.walkingMan = new WalkingManDisplay(this.gameManager.reactor);
+      }
       self.display();
     });
   },
 
   display : function(){
+    
     if(this.imagesLoaded && this.challengesLoaded)
     {
       $('home').innerHTML = this.templateManager.load('home', {'missions' : this.gameManager.missions});
@@ -46,11 +51,13 @@ var Timeline = Class.create({
   },  
   
   hide : function(){
+    $('homeContainer').hide();
     $('home').hide();
     $('timeline').hide();
   },
 
   displayHome : function() {
+    this.walkingMan.moveTo(100);
     var homeDiv = $('home');
     var timelineDiv = $('timeline');
     homeDiv.hide();
@@ -58,9 +65,11 @@ var Timeline = Class.create({
       Effects.fade(timelineDiv, function(){Effects.appear(homeDiv)});
     else
       Effects.appear(homeDiv);
+    $('homeContainer').show()
   },
 
   displayCalender : function(){
+    this.walkingMan.moveTo(240);
     var self = this;
     var homeDiv = $('home');
     var timelineDiv = $('timeline');
@@ -88,6 +97,7 @@ var Timeline = Class.create({
   },
 
   adjustMissionsData : function(challenge){
+    this.walkingMan.moveTo(80);
     var self = this;
     var currentMission =  (challenge) ? challenge.data.mission : this.gameManager.userData.current_mission[this.mode];
     this.currentMissionIndex = 0;
@@ -233,6 +243,14 @@ var Timeline = Class.create({
       element.observe('click', function(event){
         self.displayCalender();
       });
+      element.observe('mouseover', function(event){
+        var count = event.element().parentNode.parentNode.parentNode.children.length;
+        var elem = event.element().parentNode.parentNode;
+        var elemIndex = elem.previousSiblings().length;
+        var gap = (960 - elem.getWidth() * count) / (count+1);
+        var pos = gap * (elemIndex+1) + elem.getWidth()*elemIndex + elem.getWidth()/2; 
+        self.walkingMan.moveTo(pos-30);
+      });
     });
   },
 
@@ -242,6 +260,15 @@ var Timeline = Class.create({
       element.observe('click', function(event){
         self.displayMissions();
       });
+      element.observe('mouseover', function(event){
+        var count = event.element().parentNode.parentNode.parentNode.children.length;
+        var elem = event.element().parentNode.parentNode;
+        var elemIndex = elem.previousSiblings().length;
+        var gap = 20;
+        var wgap = (960 - elem.getWidth() * count - gap * (count-1)) / 2;
+        var pos = wgap + gap * elemIndex + elem.getWidth()*elemIndex + elem.getWidth()/2; 
+        self.walkingMan.moveTo(pos-30);
+      });
     });
   },
 
@@ -250,6 +277,15 @@ var Timeline = Class.create({
     $$('#timeline .timelineMissions li').each(function(element){
       element.observe('mouseover', function(event) {
         element.addClassName('selected');
+        //move character
+        var elem = event.element().parentNode.parentNode;
+        var elemIndex = elem.previousSiblings().length;
+        elemIndex = elemIndex - gameManager.timelineManager.carousel.currIndex;
+        var gap = 10;
+        var wgap = 40;
+        var pos = wgap + gap * elemIndex + elem.getWidth()*elemIndex + elem.getWidth()/2;
+        if(pos < 0 || pos > 1000)return; 
+        self.walkingMan.moveTo(pos-25);
       });
       element.observe('mouseout', function(event) {
         element.removeClassName('selected');

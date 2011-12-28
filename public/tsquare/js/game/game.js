@@ -76,9 +76,8 @@ var Game = Class.create({
     		for(var j=0; j < 11; j++){
     			hetaf.push((j+1)+'.'+format[i])
     		} 
-
         var reward = []
-        for(var j=2; j <= 18; j++){
+        for(var j=1; j <= 9; j++){
           reward.push((j)+'.'+format[i])
         } 
 
@@ -87,7 +86,7 @@ var Game = Class.create({
        	toLoad.push({sounds: hetaf, path: 'sounds/'+format[i]+'/'+tempo+'/hetaf/', store: 'hetaf.'+tempo})
        	toLoad.push({sounds: reward, path: 'sounds/'+format[i]+'/'+tempo+'/reward/', store: 'reward.'+tempo})
        	
-       	var sfx = ["hoh", "hm", "ha", "hii", "background_ascending", "background_music", "ambient", "ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", 
+       	var sfx = ["ho", "hey", "ha", "hii", "background_ascending", "background_music", "ambient", "ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", 
         "Gun-shot", "Hit-police-car", "Morning-air-birds", "Night-sound", "Police", "Police-march", "Punch", "Tank-move",
          "Tear-gas", "clash_preparing", "clash_scenario"];
 
@@ -105,6 +104,7 @@ var Game = Class.create({
   								  onFinish:function(){
   					   				self.imagesLoaded = true;
   						  			self.start();
+  						  			
   								  },
                     onError:function(){
   					   				self.imagesLoaded = true;

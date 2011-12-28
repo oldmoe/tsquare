@@ -47,6 +47,15 @@ var EditorData = [
   {src:'images/objects/ambulance.png', name:'ambulance', category:'protection'},
   {src:'images/objects/twitter.png', name:'twitter_guy', category:'protection'},
   
+  //Objectives
+  {src:'images/objects/journalist.png', name:'journalist', category:'objectives'},
+  {src:'images/objects/girl.png', name:'girl', category:'objectives'},
+  {src:'images/objects/girl_7egab.png', name:'girl_7egab', category:'objectives'},
+  {src:'images/objects/doctor.png', name:'doctor', category:'objectives'},
+  {src:'images/objects/bottleguy.png', name:'bottleguy', category:'objectives'},
+  {src:'images/objects/salafi.png', name:'salafy', category:'objectives'}, 
+  {src:'images/objects/ultras.png', name:'ultras', category:'objectives'},
+  
 
   //backgrounds
   {src:'images/backgrounds/3amod.png', name:'3amod.png', category:'background'},

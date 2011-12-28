@@ -17,6 +17,7 @@ var DomTextSprite = Class.create(DomSprite, {
     {
       this.styleClass = 'DomTxtSprite';
     }
+    if(properties.divClass)this.div.addClassName(this.divClass);
     this.span.addClassName(this.styleClass);
 //    this.span.addClassName('smallBlackOutline');
     this.render()

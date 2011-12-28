@@ -78,7 +78,16 @@ GameData = {
                       'kalabshat_arrestor_pc' : { 'cars' : 1, 'hp' : 150, 'defense' : 70, 'charge_tolerance' : 2,
                                                    'circle_size' : 2, 'kalabshat_arrestor_cs' : ['1_1', '1_2', '1_3'] }, 
                       'troop_carrier' : { 'cars' : 1, 'hp' : 200, 'defense' : 90, 'charge_tolerance' : 3,
-                                                    'circle_size' : 2, 'wood_stick_cs' : ['1_1', '1_2', '1_3', '2_3', '3_3'] }, 
+                                                    'circle_size' : 2, 'wood_stick_cs' : ['1_1', '1_2', '1_3', '2_3', '3_3'] },
+                      'iron_stick_cs' :  {
+                                        '1_1' : {'hp' : 25, 'attack' : 10 , 'defense' : 25, 'charge_tolerance' : 1, 'circle_size' : 1 },
+                                        '1_2' : {'hp' : 50, 'attack' : 20 , 'defense' : 35, 'charge_tolerance' : 1, 'circle_size' : 1 },  
+                                        '1_3' : {'hp' : 100, 'attack' : 40 , 'defense' : 50, 'charge_tolerance' : 2, 'circle_size' : 1 },  
+                                        '2_3' : {'hp' : 200, 'attack' : 80 , 'defense' : 70, 'charge_tolerance' : 3, 'circle_size' : 2 },  
+                                        '3_3' : {'hp' : 300, 'attack' : 100 , 'defense' : 90, 'charge_tolerance' : 3, 'circle_size' : 3 },  
+                                        '6_3' : {'hp' : 600, 'attack' : 150 , 'defense' : 100, 'charge_tolerance' : 4, 'circle_size' : 4 },
+                                        '9_3' : {'hp' : 900, 'attack' : 200 , 'defense' : 120, 'charge_tolerance' : 4, 'circle_size' : 5 }    
+                                     }                               
   
         }
 }

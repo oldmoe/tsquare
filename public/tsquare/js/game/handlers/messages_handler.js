@@ -3,13 +3,30 @@ var MessagesHandler = Class.create(UnitHandler, {
   crowdBubble: null,
   currentGameMode: null,
   
+  messages : null,
+  
+  enemyMessage: null,
+  
   initialize: function($super, scene){
     $super(scene);
+    
+    this.messages = {
+      "protectionUnit" : [
+        "Please help me, help me !!", "Hi there, protect me please"
+      ],
+      
+      "enemy" : [
+        "Attack!", "Attack them!"
+      ]
+    }
+    
     var self = this;
     this.scene.observe("showGuidBubble", function(command){self.showGuidBubble(command)});
-    this.scene.observe("removeGuidBubble", function(command){self.removeCrowdBubble()});
+
+    this.scene.observe("removeCrowdBubble", function(command){self.removeCrowdBubble()});
+    this.scene.observe("showCrowdBubble", function(message, delay){self.showCrowdBubble(message, delay)});
     
-    this.scene.observe("showCrowdBubble", function(message, stoping, delay){self.showCrowdBubble(message, stoping, delay)});
+    this.scene.observe("showBubble", function(type, coords){self.showBubble(type, coords)});
     
     this.scene.observe('startConversation', function(){self.startConversation()});
     this.scene.observe('endConversation', function(){self.endConversation()});
@@ -17,9 +34,11 @@ var MessagesHandler = Class.create(UnitHandler, {
   },
 
    startConversation: function(){
-     this.scene.currentSpeed = 3;
-     this.scene.energy.current = 10;
-     this.scene.targetEnergy = 10;
+     if(this.scene.currentSpeed > 0){
+       this.scene.currentSpeed = 3;
+       this.scene.energy.current = 10;
+       this.scene.targetEnergy = 10;
+     }
      this.currentGameMode = this.scene.movementManager.currentMode; 
      this.scene.movementManager.currentMode = this.scene.movementManager.modes.conversation;
    },
@@ -43,10 +62,10 @@ var MessagesHandler = Class.create(UnitHandler, {
     else if(command == "hold")//hold
       message += "";
     
-    this.showCrowdBubble(message, false, 100);
+    this.showCrowdBubble(message, 70);
   },
   
-  showCrowdBubble: function(message, stoping, delay){
+  showCrowdBubble: function(message, delay){
     var crowds = this.scene.handlers.crowd.objects;
     var position = {x: crowds[1][0].coords.x, y: crowds[1][0].coords.y};
     
@@ -57,6 +76,17 @@ var MessagesHandler = Class.create(UnitHandler, {
     this.scene.pushToRenderLoop('characters', bubbleDisplay);
     
     if(delay)this.scene.reactor.push(delay, this.removeCrowdBubble, this);
+  },
+
+  showBubble: function(type, coords){
+    var message = this.messages[type][Math.round(Math.random()*(this.messages[type].length-1))];
+    var bubble = new Bubble(this.scene, coords.x, coords.y, message);
+    var bubbleDisplay = new BubbleDisplay(bubble);
+    this.scene.pushToRenderLoop('characters', bubbleDisplay);
+    
+    this.scene.reactor.push(100, function(){
+      bubble.destroy();
+    });
   },
   
   removeCrowdBubble: function(){

@@ -61,14 +61,16 @@ var MissionManager = Class.create({
     {
       this.eneded = false;
       this.mode = this.gameManager.timelineManager.mode;
-      score['stars'] = this.calculateStars(score);
+      this.score['stars'] = this.calculateStars(score);
+      if(this.score.stars > 0)
+        this.score.score = this.score.score * this.score.stars;
       var self = this;
       this.network.postMissionScore( this.currentMission.id, score, function(data){
         self.donePosting = true;
         if(self.gameManager.scoreManager.currentUser)
         {
-          self.gameManager.scoreManager.currentUser.missions[self.mode][self.currentMission['id']] = score;
-          self.displayEndScreen(score);
+          self.gameManager.scoreManager.currentUser.missions[self.mode][self.currentMission['id']] = self.score;
+          self.displayEndScreen(self.score);
           self.gameManager.initializeData(data);
         }
       });
@@ -76,11 +78,11 @@ var MissionManager = Class.create({
   },
   
   hide : function(){
-    Effects.fade($('winLose'));
+    $('winLose').hide()
   },
 
   show:function(){
-    Effects.appear($('winLose'));
+    $('winLose').show();
   },
 
   calculateStars : function(score) {

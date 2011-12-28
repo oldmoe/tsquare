@@ -294,3 +294,7 @@
 	width: 16px;
 	height: 16px;		
 }
+
+.dropbox input {
+  width: 55px;
+}

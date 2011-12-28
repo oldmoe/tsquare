@@ -9,6 +9,7 @@ var DomSprite = Class.create(Sprite, {
   initialize : function(owner, assets, properties){
   	properties = properties || {};
     this.lastStyleVlaues = {};
+    if(properties.parent)this.parent = properties.parent;
     this.createDiv();
     this.div.addClassName('DomSprite');
 		if ( properties.divClass ) this.div.addClassName(properties.divClass);
@@ -56,7 +57,6 @@ var DomSprite = Class.create(Sprite, {
     try{
       if (this.visible) {
         var position = this.position();
-        
         var styles = {
           left : position.x + this.shiftX + "px",
           top : position.y  + this.shiftY + "px",
@@ -81,7 +81,6 @@ var DomSprite = Class.create(Sprite, {
     for( var style in styles ){
       var styleValue = styles[style];
       if( !this.lastStyleVlaues[element] || !this.lastStyleVlaues[element][style] || this.lastStyleVlaues[element][style] != styleValue ){
-        //console.log(style, this.lastStyleVlaues[style], styleValue);
         stylesChanged[style] = styleValue;
         if(!this.lastStyleVlaues[element]){
           this.lastStyleVlaues[element] = {};
@@ -124,7 +123,12 @@ var DomSprite = Class.create(Sprite, {
 
   createDiv : function() {
     this.div = $(document.createElement('DIV'));
-    $('gameCanvas').appendChild(this.div);
+    if(this.parent){
+      this.parent.appendChild(this.div)
+    }else{
+      $('gameCanvas').appendChild(this.div);
+    }  
+      
   }
 	
 })

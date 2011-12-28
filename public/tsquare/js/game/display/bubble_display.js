@@ -13,7 +13,8 @@ var BubbleDisplay = Class.create(Display,{
         centered: true,
         shiftY: -60,
         shiftX: 51,
-        styleClass: 'bubbleText'
+        styleClass: '',
+        divClass: 'messages'
     });
   }
 })

@@ -126,11 +126,15 @@ var GuidingIcon = Class.create(Observer,{
   tick: function(){
     var command = "march";
     
-    var enemy = null, protectionUnit = null;
-    if(this.scene.handlers.enemy.objects[1] && this.scene.handlers.enemy.objects[1][0])
-      enemy = this.scene.handlers.enemy.objects[1][0];
-    if(this.scene.handlers.protection_unit.objects[1] && this.scene.handlers.protection_unit.objects[1][0])
-      protectionUnit = this.scene.handlers.protection_unit.objects[1][0];  
+    var enemy = null;
+    var protectionUnit = null;
+    var target = this.scene.handlers.crowd.target;
+    if (target) {
+      if (target.type == "protection" || target.type == "rescue") 
+        protectionUnit = target
+      else 
+        enemy = target
+    }  
     
     var choice = -1; // 0: enemy, 1:protectionUnit
     
@@ -153,6 +157,11 @@ var GuidingIcon = Class.create(Observer,{
         this.commandLock = false;
         command = "circle";
       }
+    }
+    
+    if( this.scene.rescuing && !this.scene.rescuing.rescued && this.scene.rescuing.mission == "retrieve" ){
+      this.commandLock = false;
+      command = "retreat";
     }
     
     if(this.currentCommand != command && !this.commandLock){

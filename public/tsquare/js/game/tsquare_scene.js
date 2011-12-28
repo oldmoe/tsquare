@@ -115,8 +115,7 @@ var TsquareScene = Class.create(Scene,{
     
     countDown: function(callback) {
       this.initCounter = 3;
-      var self = this;
-      setTimeout(function(){self._doCountDown(callback);}, 1000);
+      this._doCountDown(callback);
     },
     
     togglePause: function() {

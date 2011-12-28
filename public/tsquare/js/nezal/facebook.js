@@ -141,10 +141,10 @@ var FBConnect = {
 
     registerStatusChangeHandlers : function(){
         FB.Event.subscribe('auth.statusChange', function(response) {
-            console.log(response);
+//            console.log(response);
         });
         FB.Event.subscribe('auth.logout', function(response) {
-            console.log(response);
+//            console.log(response);
         });
     },
     
@@ -319,11 +319,11 @@ var FBConnect = {
     buyItem : function(itemId){
       var callback = function(data) {
         if (data['order_id']) {
-          console.log(true);
+//          console.log(true);
         } else {
           
           //handle errors here
-          console.log(false, data);
+//          console.log(false, data);
         }
       };
       var obj = {

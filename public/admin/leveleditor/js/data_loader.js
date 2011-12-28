@@ -8,6 +8,7 @@ var DataLoader = Class.create({
 	CAT_ADVISOR: 'advisor',
 	CAT_BACKGROUND: 'background',
 	CLASH_ENEMY: 'clash_enemy',
+	OBJECTIVES : 'objectives',
 	data : null,
 	
 	initialize: function(){
@@ -50,6 +51,9 @@ var DataLoader = Class.create({
 				case self.CAT_BACKGROUND:
 					$('backgroundContainer').appendChild(new Element('img', {"class":'draggablesImg', src: obj.src, name:obj.name, category:obj.category, title:title}));
 				  break;
+				case self.OBJECTIVES:
+          $('objectivesContainer').appendChild(new Element('img', {"class":'draggablesImg', src: obj.src, name:obj.name, category:obj.category, title:title}));
+          break;
 			}			
 		});
 	},

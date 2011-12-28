@@ -6,10 +6,11 @@ var CrowdHandler = Class.create(UnitHandler, {
    marchingStates: ["normal", "walk", "jog", "run", "sprint"],//display
    commands: ["circle", "hold", "march", "retreat", "hit"],
    currentId : 0,
-   
+   arrestedCrowds : null,
    initialize: function($super,scene){
        this.initialPositions = [{x:250,y:30},{x:250,y:80},{x:250,y:200}]
        $super(scene)
+       this.arrestedCrowds = []
        this.addCommandObservers();
        this.addMarchingStates();
        var self = this;
@@ -69,7 +70,8 @@ var CrowdHandler = Class.create(UnitHandler, {
      	handler : this,
      	scene : this.scene,
      	id : this.currentId++,
-     	laneIndex : this.objects[this.scene.activeLane].length
+     	laneIndex : this.objects[this.scene.activeLane].length,
+     	name : name
      	})
      var displayKlass = eval(klassName + "Display")
      var objDisplay = new displayKlass(obj)
@@ -290,7 +292,7 @@ var CrowdHandler = Class.create(UnitHandler, {
   executeCommand : function(event, options){
      for(var i=0;i<this.objects.length;i++){
        for(var j=0;j<this.objects[i].length;j++){
-           this.objects[i][j][event](options);
+          this.objects[i][j][event](options);
        }
      }          
   },
@@ -396,13 +398,13 @@ var CrowdHandler = Class.create(UnitHandler, {
    
   gatherTriangle : function(x){
     for (var i = 0; i < this.objects[this.scene.activeLane].length; i++) {
-      this.objects[this.scene.activeLane][i].fixedPlace = false
+      this.objects[this.scene.activeLane][i].fixedPlace = false;
     }
-    new CrowdAction(this.scene).gatherTriangle(this.objects[this.scene.activeLane],x,-1)
+    new CrowdAction(this.scene).gatherTriangle(this.objects[this.scene.activeLane], x, -1)
   },
   
   takeHit : function(power){
-    for (var i = 1; i < this.objects[this.scene.activeLane].length; i++) {
+    for (var i = 0; i < this.objects[this.scene.activeLane].length; i++) {
       this.objects[this.scene.activeLane][i].takeHit(power)
     }
   }

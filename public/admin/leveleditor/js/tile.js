@@ -155,7 +155,16 @@ var Tile = Class.create({
 	},
 	
 	createDraggedItem : function (obj){
-		return '<img src="'+obj.image+'" name="'+obj.name+'" category="'+obj.category+'" style="width:64px;float:left"/>';
+	  var targetTileInput = "";
+	  if( obj.category == "objectives"){
+	    var value = "";
+	    if( obj.targetTile )
+	     value = obj.targetTile;
+	    
+	    targetTileInput = "<input value =' " + value + "' />"
+	  }
+	  
+		return '<img src="'+obj.image+'" name="'+obj.name+'" category="'+obj.category+'" style="width:64px;float:left"/>' + targetTileInput;
 	},
 	
 	openContent: function(){

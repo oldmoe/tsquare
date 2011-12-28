@@ -28,7 +28,7 @@ body{
 #container{
   height: 600px;
   left: 9px;
-  overflow: auto;
+  overflow: hidden;
   position: absolute;
   top: 9px;
   width: 950px;

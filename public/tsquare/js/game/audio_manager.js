@@ -141,11 +141,11 @@ var AudioManager = Class.create({
   playAmbient : function(){
     this.sound_ambient = Loader.sounds['sfx']['ambient.mp3'];
     this.sound_ambient.loop = true;
-    this.sound_ambient.play({volume:70, loops:10000});
+    this.sound_ambient.play({volume:70, loops:10000});//70
 
     this.sound_background_music = Loader.sounds['sfx']['background_music.mp3'];
     this.sound_background_music.loop = true;
-    this.sound_background_music.play({volume:80, loops:10000});
+    this.sound_background_music.play({volume:80, loops:10000});//80
   },
 	
 	playKeySound: function(keyIndex){
@@ -157,25 +157,25 @@ var AudioManager = Class.create({
       if(sound.playState){
         sound.stop();
       }
-	    sound.play({volume:60, position:50});
+	    sound.play({volume:30, position:50});
 	  }else if(keyIndex == 1){//left
       sound = Loader.sounds['sfx']['hii.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:60, position:70});
+      sound.play({volume:30, position:70});
     }else if(keyIndex == 2){//up
       sound = Loader.sounds['sfx']['ha.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:60, position:50});
+      sound.play({volume:30, position:50});
     }else if(keyIndex == 3){//down
       sound = Loader.sounds['sfx']['hey.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:60, position:70});
+      sound.play({volume:30, position:70});
     }
 	},
 	

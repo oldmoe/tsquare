@@ -70,7 +70,7 @@ var ProtectionUnit = Class.create(Unit,{
   
   die : function($super){
     for(var i=0;i<this.enemies.length;i++){
-        this.enemies[i].destroy()
+        this.enemies[i].die()
     }
     $super();
     this.scene.fire("targetCircleComplete");

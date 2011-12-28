@@ -36,7 +36,7 @@ var TsquareScene = Class.create(Scene,{
         
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
-            "rescue" : new RescueUnitHandler(this),
+            // "rescue" : new RescueUnitHandler(this),
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
             "enemy" : new EnemyHandler(this),  
@@ -50,7 +50,7 @@ var TsquareScene = Class.create(Scene,{
         this.comboMistakes = {current : 0, max : 2}
         this.speedFactors = []
         
-        // Effect.Queues.create('global', this.reactor)
+        Effect.Queues.create('global', this.reactor)
 
         this.data = missionData.data;
         this.noOfLanes = this.data.length;

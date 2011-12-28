@@ -57,6 +57,7 @@ var Enemy = Class.create(Unit, {
     if(minIndex!=-1 && minDistance <= this.getWidth()*3/2){
         if(this.target == null){
           this.target = targets[minIndex]
+          console.log("hitting");
           this.fire("hit")
           targetChange = true
         }
@@ -68,6 +69,7 @@ var Enemy = Class.create(Unit, {
     }else{
         if (this.target) {
             this.target = null
+            console.log("normal");
             this.fire("normal")
             targetChange = true
         }

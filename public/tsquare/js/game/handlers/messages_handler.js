@@ -22,9 +22,9 @@ var MessagesHandler = Class.create(UnitHandler, {
     
     var self = this;
     this.scene.observe("showGuidBubble", function(command){self.showGuidBubble(command)});
-    this.scene.observe("removeGuidBubble", function(command){self.removeCrowdBubble()});
-    
-    this.scene.observe("showCrowdBubble", function(message, stoping, delay){self.showCrowdBubble(message, stoping, delay)});
+
+    this.scene.observe("removeCrowdBubble", function(command){self.removeCrowdBubble()});
+    this.scene.observe("showCrowdBubble", function(message, delay){self.showCrowdBubble(message, delay)});
     
     this.scene.observe("showBubble", function(type, coords){self.showBubble(type, coords)});
     
@@ -34,9 +34,11 @@ var MessagesHandler = Class.create(UnitHandler, {
   },
 
    startConversation: function(){
-     this.scene.currentSpeed = 3;
-     this.scene.energy.current = 10;
-     this.scene.targetEnergy = 10;
+     if(this.scene.currentSpeed > 0){
+       this.scene.currentSpeed = 3;
+       this.scene.energy.current = 10;
+       this.scene.targetEnergy = 10;
+     }
      this.currentGameMode = this.scene.movementManager.currentMode; 
      this.scene.movementManager.currentMode = this.scene.movementManager.modes.conversation;
    },
@@ -52,7 +54,7 @@ var MessagesHandler = Class.create(UnitHandler, {
   showGuidBubble: function(command){
     var message = "Click the keys; ";
     if(command == "march") //forward
-      message += "right ➜, right, left, right";
+      message += "right, right, left, right";
     else if(command == "retreat")//retreat
       message += "left, left, right left";
     else if(command == "circle")//circle
@@ -60,10 +62,10 @@ var MessagesHandler = Class.create(UnitHandler, {
     else if(command == "hold")//hold
       message += "";
     
-    this.showCrowdBubble(message, false, 100);
+    this.showCrowdBubble(message, 100);
   },
   
-  showCrowdBubble: function(message, stoping, delay){
+  showCrowdBubble: function(message, delay){
     var crowds = this.scene.handlers.crowd.objects;
     var position = {x: crowds[1][0].coords.x, y: crowds[1][0].coords.y};
     

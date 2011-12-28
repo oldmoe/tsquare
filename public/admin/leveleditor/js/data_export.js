@@ -45,6 +45,18 @@ var DataExporter = Class.create({
 			  var advisor = null;
 				for (var k=0; k < lanesData[i].tiles[j].objects.length; k++) {
 				  var obj = Object.clone(lanesData[i].tiles[j].objects[k]);
+				  
+				  if(obj.category == "objectives"){
+				    obj.name = obj.name + "_rescue";
+				    obj.targetTile = Number( lanesData[i].tiles[j].domObject.select('input')[0].value );
+				    if( obj.targetTile > obj.x ){
+				      obj.mission = "escort";
+				    } else {
+				      obj.mission = "retrieve";
+				    }
+				  }
+				  
+				  console.log( obj );
 				  if(obj.category == "enemy")
 				    obj.type = obj.type.cols + "_" + obj.type.rows;
 				  if(obj.category == "advisor")

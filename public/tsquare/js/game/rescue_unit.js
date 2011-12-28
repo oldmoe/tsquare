@@ -54,7 +54,7 @@ var RescueUnit = Class.create(Unit,{
       this.scene.fire("targetCircleComplete");
       var rescue_unit_name = this.scene.handlers.crowd.target.name.split("_")[0];
       this.scene.rescuing = this.scene.handlers.crowd.addCrowdMember( rescue_unit_name, {} );
-      this.scene.rescuing.tile = this.tile;
+      this.scene.rescuing.targetTile = this.targetTile;
       this.scene.rescuing.mission = this.mission;
       this.destroy();
       this.neglected = true;

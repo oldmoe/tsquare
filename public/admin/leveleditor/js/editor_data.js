@@ -47,6 +47,20 @@ var EditorData = [
   {src:'images/objects/ambulance.png', name:'ambulance', category:'protection'},
   {src:'images/objects/twitter.png', name:'twitter_guy', category:'protection'},
   
+  //Objectives
+  {src:'images/objects/normal_man.png', name:'normal_man', category:'objectives'},
+  {src:'images/objects/micman.png', name:'micman', category:'objectives'},
+  {src:'images/objects/journalist.png', name:'journalist', category:'objectives'},
+  {src:'images/objects/girl.png', name:'girl', category:'objectives'},
+  {src:'images/objects/girl_7egab.png', name:'girl_7egab', category:'objectives'},
+  {src:'images/objects/doctor.png', name:'doctor', category:'objectives'},
+  {src:'images/objects/bottleguy.png', name:'bottleguy', category:'objectives'},
+  {src:'images/objects/7alaman.png', name:'7alaman', category:'objectives'},
+  {src:'images/objects/dehydrator.png', name:'dehydrator', category:'objectives'},
+  {src:'images/objects/healer.png', name:'healer', category:'objectives'},
+  {src:'images/objects/salafi.png', name:'salafy', category:'objectives'}, 
+  {src:'images/objects/ultras.png', name:'ultras', category:'objectives'},
+  
 
   //backgrounds
   {src:'images/backgrounds/3amod.png', name:'3amod.png', category:'background'},

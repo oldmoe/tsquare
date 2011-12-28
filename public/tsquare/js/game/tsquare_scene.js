@@ -67,18 +67,20 @@ var TsquareScene = Class.create(Scene,{
          'enemy':'enemy', 
          'rescue':'rescue', 
          'clash_enemy':'clash_enemy',
-         'advisor' : 'message'
+         'advisor' : 'message',
+         'objectives' : 'rescue'
        }
+       
        // console.log( this.data );
        // this.data[1][0] = { "name": "journalist_rescue",
-                            // "category": 'rescue',
+                            // "category": 'objectives',
                             // "type": 'rescue',
                             // "index": 0,
                             // "lane": 1,
                             // "x": 3,
                             // "order": 1,
-                            // "mission": "retrieve",
-                            // "tile": 2
+                            // "mission": "escort",
+                            // "targetTile": 5
                           // }
 
         for(var i =0;i<this.data.length;i++){
@@ -233,7 +235,7 @@ var TsquareScene = Class.create(Scene,{
        var obj = new klass(this,objHash.x - this.view.xPos,objHash.lane,objHash.options);
        //The following name and tile are used for escorting/retrieving a crowd member
        obj.name = objHash.name;
-       obj.tile = objHash.tile;
+       obj.targetTile = objHash.targetTile;
        obj.mission = objHash.mission;
        var displayKlass = eval(klassName + "Display")
        var objDisplay = new displayKlass(obj)
@@ -347,7 +349,7 @@ var TsquareScene = Class.create(Scene,{
    },
    
    tileChanged : function(){
-     if( this.rescuing && this.rescuing.tile == this.currentTile){
+     if( this.rescuing && this.rescuing.targetTile == this.currentTile){
        this.rescuing.rescued = true;
        if( this.rescuing.mission == "retrieve" ){
          this.fire("normal");

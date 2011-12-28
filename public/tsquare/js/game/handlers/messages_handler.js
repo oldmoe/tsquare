@@ -62,7 +62,7 @@ var MessagesHandler = Class.create(UnitHandler, {
     else if(command == "hold")//hold
       message += "";
     
-    this.showCrowdBubble(message, 100);
+    this.showCrowdBubble(message, 70);
   },
   
   showCrowdBubble: function(message, delay){

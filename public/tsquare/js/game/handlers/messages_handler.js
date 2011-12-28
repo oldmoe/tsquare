@@ -52,7 +52,7 @@ var MessagesHandler = Class.create(UnitHandler, {
   showGuidBubble: function(command){
     var message = "Click the keys; ";
     if(command == "march") //forward
-      message += "right, right, left, right";
+      message += "right ➜, right, left, right";
     else if(command == "retreat")//retreat
       message += "left, left, right left";
     else if(command == "circle")//circle
@@ -78,7 +78,6 @@ var MessagesHandler = Class.create(UnitHandler, {
 
   showBubble: function(type, coords){
     var message = this.messages[type][Math.round(Math.random()*(this.messages[type].length-1))];
-    console.log("message: " + message, "coords: " + coords)
     var bubble = new Bubble(this.scene, coords.x, coords.y, message);
     var bubbleDisplay = new BubbleDisplay(bubble);
     this.scene.pushToRenderLoop('characters', bubbleDisplay);

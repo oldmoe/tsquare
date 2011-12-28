@@ -25,8 +25,8 @@ var TearGasBomb = Class.create({
     smokesCount : 0,
     smokesMaxCount : 20,
     bombSmokesIds : [1, 2, 3, 4],
-    hitRate : 5,
-    power : 1,
+    hitRate : 10,
+    power : 0.5,
     finished : false,
     initialize: function(scene, enemy, coords, velocity, theta, angle_0){
         this.scene = scene;
@@ -48,7 +48,7 @@ var TearGasBomb = Class.create({
           if (this.tickCounter % this.smokeRate == 0) {
             this.createSmoke();
           }
-          if(this.tickCounter % this.hitRate == 0){
+          if(this.rested && this.tickCounter % this.hitRate == 0){
            this.scene.handlers.crowd.takeHit(this.power) 
           }  
         }else {
@@ -127,7 +127,7 @@ var TearGasBomb = Class.create({
                 this.vx = 0;
                 this.omega = -0.2;
                 this.mode = 100;
-                this.scene.applySpeedFactor(0.5)
+                this.scene.applySpeedFactor(0.7)
             }
         }  
     },

@@ -97,7 +97,11 @@ var Message = Class.create({
 			var obj = this.tile.messages.messages[i];
 			var a = new Element('li');
 			messagesList.appendChild(a);
-			a.update(obj.person + ": " + obj.message);
+			a.update(obj.person + ": " + obj.message + " ");
+      var link = new Element('a')
+      link.innerHTML = 'x'
+      a.appendChild(link)
+      this.addLinkObserver(link,i)
 		}
 		
 		if(this.tile.messages.length){
@@ -105,6 +109,15 @@ var Message = Class.create({
 		}else{
 			this.tile.unmark();
 		}
-	}
-
+	},
+  
+  addLinkObserver : function(link, index){
+    var self = this
+    link.style.cursor = "pointer"
+    link.style.color = "blue"
+    link.observe('click', function(){
+      self.tile.messages.messages.splice(index,1)
+      self.updateMessagesList()
+    })
+  }
 });

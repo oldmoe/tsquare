@@ -18,7 +18,7 @@ var BoxCar = Class.create(Unit,{
       this.addClashEnemy()
     }
     if(this.coords.x > this.scene.view.width + this.getWidth()){
-      this.handler.removeObject(this, this.lane)
+      this.die();
     }
   },
   updatePosition: function(){
@@ -44,7 +44,7 @@ var BoxCar = Class.create(Unit,{
       self.boxUnit.fire('back')
       self.boxUnit.moveToTarget({x:self.boxUnit.coords.x,y:self.coords.y},
       function(){
-        self.boxUnit.handler.removeObject(self.boxUnit,self.boxUnit.lane)
+        self.boxUnit.die();
         self.clashDone = true
         self.scene.audioManager.stopClash();
       })
@@ -65,7 +65,7 @@ var BoxCar = Class.create(Unit,{
           x: self.coords.x + self.unitHorizontalShift,
           y: self.coords.y
         }, function(){
-          self.boxUnit.handler.removeObject(self.boxUnit, self.boxUnit.lane)
+          self.boxUnit.die();
           self.clashDone = true
           self.scene.audioManager.stopClash()
         })
@@ -79,7 +79,7 @@ var BoxCar = Class.create(Unit,{
           x: self.coords.x + self.unitHorizontalShift,
           y: self.coords.y
         }, function(){
-          self.boxUnit.target.handler.removeObject(self.boxUnit.target, self.boxUnit.lane)
+          self.boxUnit.target.die();
         })
       })
     })

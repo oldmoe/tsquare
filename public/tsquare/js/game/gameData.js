@@ -45,22 +45,31 @@ var missionData = {
       "x": 5,
       "order": 1
   },*/
-{"name":"twitter_guy","category":"protection","index":0,"lane":1,"x":3,"order":1},
-  {
+  // {"name":"twitter_guy","category":"protection","index":0,"lane":1,"x":2,"order":1},
+/*  {
       "name": "wood_stick_cs",
       "category": 'enemy',
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 50,
+      "x": 4,
+      "order": 1
+  },*/
+
+  {
+      "name": "box_car",
+      "category": 'clash_enemy',
+      "index": 0,
+      "lane": 1,
+      "x": 4,
       "order": 1
   }
 
   ]],
     
     "backgrounds":{
-      "layer1":[{"name":"secondary_skyline.png"}],
-      "layer2":[{"name":"main_skyline.png"}],
+      "layer2":[{"name":"secondary_skyline.png"}],
+      "layer1":[{"name":"main_skyline.png"}],
       "landmarks":[],
       "fence":[{"name":"fence.png"}],
       "lamp":[{"name":"3amod.png"}],

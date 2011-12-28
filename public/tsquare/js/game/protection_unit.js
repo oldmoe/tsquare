@@ -4,7 +4,7 @@ var ProtectionUnit = Class.create(Unit,{
   enemies : null,
   rotationTolerance : 10,
   text: "",
-  
+  type : "protection",
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)
     this.hp = this.maxHp = 1000
@@ -56,8 +56,8 @@ var ProtectionUnit = Class.create(Unit,{
     this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);  
   },
   rotationComplete : function(attack){
-    if(this.rotationTolerance == 0 ) return
-    this.rotationTolerance-=1        
+    if(this.rotationTolerance == 0 ) return;
+    this.rotationTolerance -= 1;
     if (this.rotationTolerance == 0) {
       this.doneProtection = true
       for(var i=0;i<this.enemies.length;i++){
@@ -67,10 +67,12 @@ var ProtectionUnit = Class.create(Unit,{
       this.scene.collision = false;
     }
   },
-  die : function(){
+  
+  die : function($super){
     for(var i=0;i<this.enemies.length;i++){
         this.enemies[i].destroy()
     }
+    $super();
     this.scene.fire("targetCircleComplete");
   }
   

@@ -18,9 +18,7 @@ var Enemy = Class.create(Unit, {
   
   rotationComplete : function(attack){
     if(this.takeHit(attack)) 
-      this.scene.fire("updateScore", [25]);
-    else
-      this.scene.fire("updateScore", [10]);
+      this.scene.fire("updateScore", [75]); //when enemy die
   },
   
   tick : function($super){

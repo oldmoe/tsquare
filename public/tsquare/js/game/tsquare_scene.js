@@ -10,7 +10,9 @@ var TsquareScene = Class.create(Scene,{
       {state :'sprint' ,  value : 50 ,energy : 100, followers: 1}
     ],
     currentCommand: 0,
+    currentTile: 1,
     speedIndex : 0,
+    lastSpeedIndex : 0,
     direction : 1,
     holdPowerDepression: 0.2,
     energy : null,
@@ -34,7 +36,7 @@ var TsquareScene = Class.create(Scene,{
         
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
-            // "rescue" : new RescueUnitHandler(this),
+            "rescue" : new RescueUnitHandler(this),
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
             "enemy" : new EnemyHandler(this),  
@@ -65,8 +67,21 @@ var TsquareScene = Class.create(Scene,{
          'enemy':'enemy', 
          'rescue':'rescue', 
          'clash_enemy':'clash_enemy',
-         'advisor' : 'message'
+         'advisor' : 'message',
+         'objectives' : 'rescue'
        }
+       
+       // console.log( this.data );
+       // this.data[1][0] = { "name": "journalist_rescue",
+                            // "category": 'objectives',
+                            // "type": 'rescue',
+                            // "index": 0,
+                            // "lane": 1,
+                            // "x": 3,
+                            // "order": 1,
+                            // "mission": "escort",
+                            // "targetTile": 5
+                          // }
 
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
@@ -82,6 +97,7 @@ var TsquareScene = Class.create(Scene,{
         this.observe('wrongCommand', function(){self.wrongCommand()})
         this.observe('correctCommand', function(){self.correctCommand()})
         this.observe('togglePause', function(){self.togglePause()});
+        this.observe('tileChanged', function(){self.tileChanged()});
     },
     
     init: function(){
@@ -91,7 +107,7 @@ var TsquareScene = Class.create(Scene,{
   		}
 
       this.audioManager = new AudioManager(this);
-      this.flashingHandler = new FlashingHandler(this);
+      //this.flashingHandler = new FlashingHandler(this);
       this.movementManager = new MovementManager(this);
 
   		this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
@@ -125,7 +141,7 @@ var TsquareScene = Class.create(Scene,{
           this.push(this.clashDirectionsGenerator)
           this.audioManager.run();
           this.movementManager.run();
-          this.flashingHandler.run();
+          //this.flashingHandler.run();
           this.handlers.crowd.playHetafLoop();
           var self = this;
           this.reactor.pushEvery(0,10, function(){return self.updateSpeed()})
@@ -170,13 +186,18 @@ var TsquareScene = Class.create(Scene,{
       $super()
       this.detectCollisions();
       this.view.xPos += this.currentSpeed * this.direction
+      var tile = Math.ceil( (this.view.xPos + this.view.tileWidth/4) / this.view.tileWidth );
+      if( tile != this.currentTile ){
+        this.currentTile = tile;
+        this.fire("tileChanged");
+      }
       for(var handler in this.handlers){
           this.handlers[handler].tick();
       }
       if(this.view.xPos > this.view.length) this.end();
     },
 
-    end : function(win){
+    end : function(){
       var self = this;
       var afterMarchCallback = function(){
         self.fire('animationEnd');
@@ -188,14 +209,16 @@ var TsquareScene = Class.create(Scene,{
         if(!this.stopped)
         {
           this.stopped = true;
-          this.win = win;
           this.finish(afterMarchCallback);
-          self.fire('end', [{
+           
+          var scoreData = {
             score: self.scoreCalculator.score,
             objectives: self.scoreCalculator.getObjectivesRatio(),
             combos: self.scoreCalculator.getCombos(),
-            win: self.win
-          }]);
+            win: true
+          };
+          if(scoreData.objectives < 0.3) scoreData.win = false;          
+          self.fire('end', [scoreData]);
         }
       }
       //send to the server
@@ -209,7 +232,11 @@ var TsquareScene = Class.create(Scene,{
     addObject : function(objHash){
        var klassName = objHash.name.formClassName()
        var klass = eval(klassName)
-       var obj = new klass(this,objHash.x - this.view.xPos,objHash.lane,objHash.options)
+       var obj = new klass(this,objHash.x - this.view.xPos,objHash.lane,objHash.options);
+       //The following name and tile are used for escorting/retrieving a crowd member
+       obj.name = objHash.name;
+       obj.targetTile = objHash.targetTile;
+       obj.mission = objHash.mission;
        var displayKlass = eval(klassName + "Display")
        var objDisplay = new displayKlass(obj)
        if (!obj.noDisplay) {
@@ -319,6 +346,16 @@ var TsquareScene = Class.create(Scene,{
           // if(this.energy.max > this.energy.current)this.energy.current += 2;
         // }
       }
-   } 
+   },
+   
+   tileChanged : function(){
+     if( this.rescuing && this.rescuing.targetTile == this.currentTile){
+       this.rescuing.rescued = true;
+       if( this.rescuing.mission == "retrieve" ){
+         this.fire("normal");
+       }
+       this.handlers.crowd.objects.remove( this.rescuing );
+     }
+   }
   
 });

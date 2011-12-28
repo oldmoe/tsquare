@@ -68,7 +68,6 @@ var Block = Class.create(Enemy,{
     
     split : function(){
       if(this.elements.length == 1)return
-      this.scene.fire("updateScore", [10]);
        if(this.elements.length == 3 || this.elements.length == 2){
           this.setTarget(null)
           var options = this.options
@@ -128,7 +127,6 @@ var Block = Class.create(Enemy,{
         this.moveElements(dx,dy)
     },    
     takePush : function(){
-      this.scene.fire("updateScore", [10]);
        this.chargeTolerance--;
        if(this.chargeTolerance == 0) this.split();
     },

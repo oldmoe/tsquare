@@ -52,6 +52,15 @@ var MissionManager = Class.create({
     		self.pauseScreenOn = true;
     	}
     });
+    $$('#pause .controls .playBtn')[0].observe('click', function(event){
+      scene.fire('togglePause');
+    });
+    $$('#pause .controls .exitBtn')[0].observe('click', function(event){
+      scene.reactor.resume();
+      self.gameManager.openMainPage();
+	  $('pause').hide();
+	  self.pauseScreenOn = false;
+    });
   },
 
   end : function(score){

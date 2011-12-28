@@ -54,7 +54,7 @@ var WalkingManDisplay = Class.create(Display,{
     $super()
     
     var self = this;
-    this.reactor.push(0, function(){self.render()});
+    this.reactor.push(1, function(){self.render()});
   },
   
   switchAnimation: function(animation){

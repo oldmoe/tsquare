@@ -43,7 +43,6 @@ var TsquareScene = Class.create(Scene,{
             "message" : new MessagesHandler(this)
         };  
         this.view.xPos = 0
-        this.initCounter = 3
         this.energy =  {current:0, rate: 10, max:100}
         this.comboMistakes = {current : 0, max : 2}
         this.speedFactors = []
@@ -84,17 +83,64 @@ var TsquareScene = Class.create(Scene,{
         this.observe('togglePause', function(){self.togglePause()});
     },
     
-    init: function(){
-  		this.skyLine = new SkyLine(this)
-  		for(var handler in this.handlers){
-  			this.handlers[handler].start()
-  		}
+    init: function() {
+  	  this.skyLine = new SkyLine(this)
+  	  for(var handler in this.handlers){
+  	    this.handlers[handler].start()
+  	  }
 
       this.audioManager = new AudioManager(this);
       this.flashingHandler = new FlashingHandler(this);
       this.movementManager = new MovementManager(this);
-
-  		this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
+      
+      var self = this;
+      this.countDown(function(){self._doInit();});
+    },
+    
+    countDown: function(callback) {
+      this.initCounter = 3;
+      var self = this;
+      setTimeout(function(){self._doCountDown(callback);}, 1000);
+    },
+    
+    togglePause: function() {
+    	if (this.reactor.isRunning()) {
+    		this.reactor.pause();
+    	} else {
+    		var self = this;
+    		this.countDown(function(){self.reactor.resume();});
+    	}
+    },
+    
+    _doCountDown: function(callback) {
+      $('initCounter').show();
+      $('initCounter').update("");
+      $('initCounter').appendChild(Loader.images.countDown[this.initCounter+".png"]);
+      Effect.Puff('initCounter');
+      this.initCounter--;
+      var self = this;
+      if (this.initCounter == 0) {
+        setTimeout(function(){
+          $('initCounter').show();
+          $('initCounter').update("");
+          $('initCounter').appendChild(Loader.images.countDown["go.png"]);
+          Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal});
+          if (callback) callback();
+        }, 1000);
+      } else {
+        setTimeout(function(){self._doCountDown(callback);}, 1000);
+      }
+    },
+    
+    _doInit : function() {
+      this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
+      this.push(this.clashDirectionsGenerator)
+      this.audioManager.run();
+      this.movementManager.run();
+      this.flashingHandler.run();
+      this.handlers.crowd.playHetafLoop();
+      var self = this;
+      this.reactor.pushEvery(0,10, function(){return self.updateSpeed()})
     },
     
     applySpeedFactor : function(factor){
@@ -106,34 +152,6 @@ var TsquareScene = Class.create(Scene,{
       this.currentSpeed/=factor
       this.speedFactor/= factor
     },
-    
-    doInit : function(){
-      // take action
-      $('initCounter').show()
-      $('initCounter').update("");
-      $('initCounter').appendChild(Loader.images.countDown[this.initCounter+".png"]);
-      Effect.Puff('initCounter')
-      this.initCounter--
-      if (this.initCounter == 0) {
-        this.reactor.push(this.reactor.everySeconds(1), function(){
-          $('initCounter').show()
-          $('initCounter').update("");
-          $('initCounter').appendChild(Loader.images.countDown["go.png"]);
-          Effect.Puff('initCounter', {transition: Effect.Transitions.sinoidal})
-
-          this.clashDirectionsGenerator = new ClashDirectionsGenerator(this)
-          this.push(this.clashDirectionsGenerator)
-          this.audioManager.run();
-          this.movementManager.run();
-          this.flashingHandler.run();
-          this.handlers.crowd.playHetafLoop();
-          var self = this;
-          this.reactor.pushEvery(0,10, function(){return self.updateSpeed()})
-                    
-        }, this)
-        return false
-      }
-    },
         
     observe: function(event, callback, scope){
         this.reactor.observe(event, callback, scope);
@@ -141,14 +159,6 @@ var TsquareScene = Class.create(Scene,{
     
     fire: function(event, params){
         this.reactor.fire(event, params);
-    },
-    
-    togglePause: function() {
-    	if (this.reactor.isRunning()) {
-    		this.reactor.pause();
-    	} else {
-    		this.reactor.resume();
-    	}
     },
 
     wrongMove: function(){

@@ -9,6 +9,10 @@ var RescueUnit = Class.create(Unit,{
   mainCharacter : "",
   name : "",
   
+  nameMapping : {'doctor' : 'healer',
+                 'girl_7egab' : 'girl7egab',
+                 'ultras' : 'ultras_green'},
+  
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)
     this.name = options.name;
@@ -53,7 +57,9 @@ var RescueUnit = Class.create(Unit,{
       this.doneProtection = true;
       this.scene.fire("targetCircleComplete");
       var rescue_unit_name = this.scene.handlers.crowd.target.name.split("_")[0];
-      this.scene.rescuing = this.scene.handlers.crowd.addCrowdMember( rescue_unit_name, {} );
+      var mapName = this.nameMapping[rescue_unit_name];
+      if( !mapName ) mapName = rescue_unit_name;
+      this.scene.rescuing = this.scene.handlers.crowd.addCrowdMember( mapName, {} );
       this.scene.rescuing.targetTile = this.targetTile;
       this.scene.rescuing.mission = this.mission;
       this.destroy();
@@ -62,3 +68,32 @@ var RescueUnit = Class.create(Unit,{
   }
 
 })
+
+
+var JournalistRescue = Class.create(RescueUnit,{
+  
+})
+
+var SalafyRescue = Class.create(RescueUnit,{
+  
+})
+
+var GirlRescue = Class.create(RescueUnit,{
+  
+})
+
+var DoctorRescue = Class.create(RescueUnit,{
+  
+})
+
+var BottleguyRescue = Class.create(RescueUnit,{
+  
+})
+
+var Girl7egabRescue = Class.create(RescueUnit,{
+  
+});
+
+var Ultras = Class.create(RescueUnit,{
+  
+});

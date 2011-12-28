@@ -37,7 +37,7 @@
 .missionContent ul { list-style:square;  font-size:1.2em; margin:5px 0 0 0; }
 .missionContent ul li { margin:0 0 5px 20px; }
 
-.playButton { float:right; width:142px; height:60px; overflow:hidden; position:absolute; top:206px; right:5px; }
+.playButton { float:right; width:142px; height:60px; overflow:hidden; position:absolute; top:248px; right:5px; }
 .playButton:hover img { position:relative; top:-60px;  }
 
 .timelineBar { position:relative; top:205px; z-index:5; }

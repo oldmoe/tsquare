@@ -79,9 +79,8 @@ var Unit = Class.create(Observer,{
   	if (attack <= 0) return;
     this.hp -= attack;
     if(this.hp <=0){
-        this.die()
-        // this.handler.removeObject(this, this.lane);
-        return true;
+      this.die()
+      return true;
     }
     return false;   
   },
@@ -159,6 +158,9 @@ var Unit = Class.create(Observer,{
   },
   
   die : function(){
+    this.destroy();
+    if(this.handler)
+      this.handler.removeObject(this, this.lane);
   }
   
 })

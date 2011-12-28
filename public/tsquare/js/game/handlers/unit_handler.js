@@ -96,8 +96,9 @@ var UnitHandler = Class.create({
   },
   
   detectCollisions : function(others){
-    var collision = [];
     var lane = this.scene.activeLane
+    if(this.objects[lane].length == 0) return
+    var collision = [];
     var collided = false
     var target = null
     for(var j=0;j<this.objects[lane].length;j++){             
@@ -130,7 +131,6 @@ var UnitHandler = Class.create({
    removeObject: function(object, lane){
       if(this.objects[lane].indexOf(object)!=-1){
           this.objects[lane].remove(object);
-          object.destroy();
           return true;
       }
       return false;

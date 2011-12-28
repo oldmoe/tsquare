@@ -27,13 +27,13 @@ var ClashEnemy = Class.create(Unit,{
     this.scene.observe('clashWin', function(){
         self.running = false
         if(self.boxCar) self.boxCar.lose()
-        else self.handler.removeObject(self,self.lane)
+        else self.die();
     })
     // event clash lose means crowds lost, so function win is called for the enemy
     this.scene.observe('clashLose', function(){
         self.running = false
         if(self.boxCar)self.boxCar.win()
-        else self.handler.removeObject(self,self.lane)
+        else self.die();
     })
   },
   

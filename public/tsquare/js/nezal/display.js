@@ -35,7 +35,7 @@ var Display = Class.create({
   
 	destroy : function(){
 	  this.destroyAudio();
-    this.removed = true
+    this.owner.removed = true
 		for(var sprite in this.sprites){
 			this.sprites[sprite].destroy();
 	  }

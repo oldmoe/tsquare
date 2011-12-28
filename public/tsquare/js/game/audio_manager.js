@@ -50,7 +50,20 @@ var AudioManager = Class.create({
     };
     
     this.rewardLevels = [
-      {tempo: 130, rewards : [{sound : 2, volume : 60}, {sound : 3, volume : 60}]}/*,
+      {tempo: 130, rewards : [{sound : 1, volume : 60}, {sound : 2, volume : 60}]},
+      {tempo: 130, rewards : [{sound : 1, volume : 60}, {sound : 2, volume : 60}]},
+      
+      {tempo: 130, rewards : [{sound : 3, volume : 60}, {sound : 4, volume : 60}]},
+      {tempo: 130, rewards : [{sound : 3, volume : 60}, {sound : 4, volume : 60}]},
+      
+      {tempo: 130, rewards : [{sound : 5, volume : 60}, {sound : 6, volume : 60}]},
+      {tempo: 130, rewards : [{sound : 5, volume : 60}, {sound : 6, volume : 60}]},
+      
+      {tempo: 130, rewards : [{sound : 7, volume : 60}, {sound : 8, volume : 60}]},
+      {tempo: 130, rewards : [{sound : 7, volume : 60}, {sound : 8, volume : 60}]},
+      
+      {tempo: 130, rewards : [{sound : 9, volume : 60}, {sound : 9, volume : 60}]}
+      /*,
       {tempo: 130, rewards : [{sound : 4, volume : 80}, {sound : 5, volume : 80}]},
       {tempo: 130, rewards : [{sound : 6, volume : 80}, {sound : 7, volume : 80}]},
       {tempo: 130, rewards : [{sound : 17, volume : 80}, {sound : 18, volume : 80}]},
@@ -128,7 +141,7 @@ var AudioManager = Class.create({
   playAmbient : function(){
     this.sound_ambient = Loader.sounds['sfx']['ambient.mp3'];
     this.sound_ambient.loop = true;
-    this.sound_ambient.play({volume:60, loops:10000});
+    this.sound_ambient.play({volume:70, loops:10000});
 
     this.sound_background_music = Loader.sounds['sfx']['background_music.mp3'];
     this.sound_background_music.loop = true;
@@ -136,18 +149,33 @@ var AudioManager = Class.create({
   },
 	
 	playKeySound: function(keyIndex){
-	  var sound = Loader.sounds['sfx']['ha.mp3'];
-	  if(sound.playState){
-	    sound.stop();
-	  }
-	  if(keyIndex == 0){
-	    sound.play({volume:80, position:77});
-	  }else if(keyIndex == 1){
-      sound.play({volume:80, position:77});
-    }else if(keyIndex == 2){
-      sound.play({volume:80, position:77});
-    }else if(keyIndex == 3){
-      sound.play({volume:80, position:77});
+	  
+	  var sound;
+	  
+	  if(keyIndex == 0){ //right
+      sound = Loader.sounds['sfx']['ho.mp3'];
+      if(sound.playState){
+        sound.stop();
+      }
+	    sound.play({volume:60, position:50});
+	  }else if(keyIndex == 1){//left
+      sound = Loader.sounds['sfx']['hii.mp3'];
+      if(sound.playState){
+        sound.stop();
+      }
+      sound.play({volume:60, position:70});
+    }else if(keyIndex == 2){//up
+      sound = Loader.sounds['sfx']['ha.mp3'];
+      if(sound.playState){
+        sound.stop();
+      }
+      sound.play({volume:60, position:50});
+    }else if(keyIndex == 3){//down
+      sound = Loader.sounds['sfx']['hey.mp3'];
+      if(sound.playState){
+        sound.stop();
+      }
+      sound.play({volume:60, position:70});
     }
 	},
 	
@@ -248,7 +276,6 @@ var AudioManager = Class.create({
     var delay = position;
     
     //if(delay == 0)delay = this.nowPlaying[0].position - (this.nowPlaying[0].duration-28);
-    //console.log(this.nowPlaying[0].position , delay)
       this.currentReward.rewards[this.currentRewardIndex].sound.play({volume:this.currentReward.rewards[this.currentRewardIndex].volume, position:delay});
       if(this.currentRewardIndex){
         this.currentRewardIndex = 0;

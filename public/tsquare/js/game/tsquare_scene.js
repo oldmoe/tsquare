@@ -105,7 +105,7 @@ var TsquareScene = Class.create(Scene,{
   		}
 
       this.audioManager = new AudioManager(this);
-      this.flashingHandler = new FlashingHandler(this);
+      //this.flashingHandler = new FlashingHandler(this);
       this.movementManager = new MovementManager(this);
 
   		this.reactor.pushEvery(0,this.reactor.everySeconds(1),this.doInit,this)
@@ -139,7 +139,7 @@ var TsquareScene = Class.create(Scene,{
           this.push(this.clashDirectionsGenerator)
           this.audioManager.run();
           this.movementManager.run();
-          this.flashingHandler.run();
+          //this.flashingHandler.run();
           this.handlers.crowd.playHetafLoop();
           var self = this;
           this.reactor.pushEvery(0,10, function(){return self.updateSpeed()})
@@ -192,10 +192,10 @@ var TsquareScene = Class.create(Scene,{
       for(var handler in this.handlers){
           this.handlers[handler].tick();
       }
-      if(this.view.xPos > this.view.length) this.end(true);
+      if(this.view.xPos > this.view.length) this.end();
     },
 
-    end : function(win){
+    end : function(){
       var self = this;
       var afterMarchCallback = function(){
         self.fire('animationEnd');
@@ -207,15 +207,16 @@ var TsquareScene = Class.create(Scene,{
         if(!this.stopped)
         {
           this.stopped = true;
-          this.win = win;
           this.finish(afterMarchCallback);
-          console.log("score end: "+self.scoreCalculator.score);
-          self.fire('end', [{
+           
+          var scoreData = {
             score: self.scoreCalculator.score,
             objectives: self.scoreCalculator.getObjectivesRatio(),
             combos: self.scoreCalculator.getCombos(),
-            win: self.win
-          }]);
+            win: true
+          };
+          if(scoreData.objectives < 0.3) scoreData.win = false;          
+          self.fire('end', [scoreData]);
         }
       }
       //send to the server

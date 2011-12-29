@@ -16,6 +16,10 @@ var ProtectionUnit = Class.create(Unit,{
    textInfo: function(){
      return this.text;
    },
+   
+  hpRatio: function() {
+  	return this.hp / this.maxHp;
+  },
   
   createEnemies : function(){
      var enemiesCoords = [{x:this.coords.x+this.getWidth()+10, y:this.coords.y}]

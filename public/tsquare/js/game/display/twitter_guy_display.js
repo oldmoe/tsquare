@@ -23,6 +23,16 @@ var TwitterGuyDisplay = Class.create(Display,{
   createSprites : function(){
     this.createShadow();
     this.sprites.twitterguy = new DomImgSprite(this.owner,{img:this.img, noOfFrames:this.noOfFrames}, {shiftY:10})
+    this.sprites.health = new ImgMeterSprite(this.owner,
+    {empty:Loader.images.gameElements['health_meter_empty.png'] ,full:Loader.images.gameElements['health_meter.png']},
+     {
+      meterFunc: function(){
+        return this.owner.hpRatio()
+      },
+      orientation : 'vertical',
+      shiftX : 25,
+      shiftY: -10
+    });
   },
 
   showText: function(){

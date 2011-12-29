@@ -58,6 +58,7 @@ var CrowdMember = Class.create(Unit,{
       this.level = options.level
     else 
       this.level = 4
+    this.hp = this.maxHp = 100000
   },
   
   increaseFollowers : function(noOfFollowers){

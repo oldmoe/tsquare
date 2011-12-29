@@ -16,6 +16,7 @@ var BubbleDisplay = Class.create(Display,{
     this.sprites.baloon = new DomImgSprite(this.owner, {img : this.baloonImg},{shiftY:-100,shiftX:25})
     this.sprites.text = new DomTextSprite(this.owner,'textInfo', {
         centered: true,
+        width : 173,
         shiftY: -56,
         shiftX: 51,
         styleClass: '',

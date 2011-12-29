@@ -129,11 +129,12 @@ var UnitHandler = Class.create({
   },
   
    removeObject: function(object, lane){
-      if(this.objects[lane].indexOf(object)!=-1){
-          this.objects[lane].remove(object);
-          return true;
-      }
-      return false;
+     var self = this
+     this.scene.reactor.push(0, function(){
+       if (self.objects[lane].indexOf(object) != -1) {
+         self.objects[lane].remove(object);
+       }
+     })
    }      
     
 });

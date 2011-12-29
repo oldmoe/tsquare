@@ -38,7 +38,7 @@ var AmbulanceDisplay = Class.create(Display,{
     })
     
     this.sprites.text = new DomTextSprite(this.owner,"textInfo", {
-        width: 100,
+        width: 173,
         height: 100,
         centered: true,
         shiftY: -83,

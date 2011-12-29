@@ -1,7 +1,7 @@
 var TwitterGuy = Class.create(ProtectionUnit,{
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)
-    this.hp = this.maxHp = 500;
+    this.hp = this.maxHp = 750;
   },
   
   escape : function(){

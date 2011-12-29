@@ -141,10 +141,12 @@ var AudioManager = Class.create({
   playAmbient : function(){
     this.sound_ambient = Loader.sounds['sfx']['ambient.mp3'];
     this.sound_ambient.loop = true;
+    this.sound_ambient.setVolume(5)
     this.sound_ambient.play({volume:10, loops:10000});//70
 
     this.sound_background_music = Loader.sounds['sfx']['background_music.mp3'];
     this.sound_background_music.loop = true;
+    this.sound_ambient.setVolume(5)
     this.sound_background_music.play({volume:10, loops:10000});//80
   },
 	

@@ -37,7 +37,7 @@ var CrowdMemberDisplay = Class.create(Display,{
   	this.noOfFramesPerAnimation['run'] = 6;
   	this.noOfFramesPerAnimation['sprint'] = 6;
   	this.noOfFramesPerAnimation['reverseWalk'] = 8;
-  	this.noOfFramesPerAnimation['reverseRun'] = 8;
+  	this.noOfFramesPerAnimation['reverseRun'] = 6;
   	this.noOfFramesPerAnimation['dead'] = 1;
   	this.noOfFramesPerAnimation['hit'] = 6;
   },

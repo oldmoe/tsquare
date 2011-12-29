@@ -77,8 +77,7 @@ var Block = Class.create(Enemy,{
           var blocks = [] 
           for(var i=0;i<this.elements.length;i++){
             var b = new Block(this.scene,this.elements[i][0].coords.x ,this.scene.activeLane, options)
-		        var displayKlass = eval("BlockDisplay")
-		        var objDisplay = new displayKlass(b)
+		        var objDisplay = new BlockDisplay(b)
     		     if (!b.noDisplay) {
     		       this.scene.pushToRenderLoop('characters', objDisplay)
     		     }
@@ -91,6 +90,7 @@ var Block = Class.create(Enemy,{
             this.handler.objects[this.lane].pushFirst(blocks[i])
           }
         }
+        this.handler.removeObject(this, this.lane)
         this.destroy(true);
     },
     

@@ -8,7 +8,6 @@ var GuidingIcon = Class.create(Observer,{
   wrongCommands : 0,
   arrowsHidden: false,
   moves: null,
-  
   initialize: function(game){
     this.scene = game.scene;
     this.moves = game.scene.movementManager.moves;
@@ -125,7 +124,6 @@ var GuidingIcon = Class.create(Observer,{
   
   tick: function(){
     var command = "march";
-    
     var enemy = null;
     var protectionUnit = null;
     var target = this.scene.handlers.crowd.target;

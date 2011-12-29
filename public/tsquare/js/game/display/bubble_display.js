@@ -17,7 +17,7 @@ var BubbleDisplay = Class.create(Display,{
     this.sprites.text = new DomTextSprite(this.owner,'textInfo', {
         centered: true,
         width : 173,
-        shiftY: -56,
+        shiftY: -65,
         shiftX: 51,
         styleClass: '',
         divClass: 'messages'

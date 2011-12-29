@@ -67,7 +67,7 @@ var AdvisorDisplay = Class.create(Display,{
         width: 173,
         height: 100,
         centered: true,
-        shiftY: -83,
+        shiftY: -86,
         shiftX: 25,
         styleClass: '',
         divClass: 'messages'

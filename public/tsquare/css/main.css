@@ -28,8 +28,8 @@ img { border:none; outline:none;}
 .container { width:760px; height:685px; margin:0 auto; }
 
 .message { position:absolute; top:-100px; left:300px; z-index:30; }
-.message span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.1em; width:210px; margin:25px 10px 0 10px; line-height:1.2em; height:54px; display:block; }
+.message span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.1em; width:210px; margin:25px 10px 0 10px; line-height:1.2em; height:54px; display:block; width:173px; }
 
 
 .messages { position:absolute; top:-100px; left:550px; z-index:30; }
-.messages span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.1em; line-height:1.2em; height:54px; display:block; }
+.messages span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.1em; line-height:1.2em; height:54px; display:block;  width:173px; }

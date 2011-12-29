@@ -43,7 +43,7 @@
 .timelineBar { position:relative; top:205px; z-index:5; }
 .timelineBarImage { top:96px; z-index:4;  }
 .timelineMissions { height:200px; overflow:hidden; position:relative; }
-.timelineBar .missionsContainer { position:relative; height:200px; width:85%; margin:0 auto; overflow:hidden; display:inline-block; margin:0px 0px 0px 5%;}
+.timelineBar .missionsContainer { position:relative; height:200px; width:88%; margin:0 auto; overflow:hidden; display:inline-block; margin:0px 0px 0px 3%;}
 .timelineMissions ul { float:left; width:5000px; position:absolute; top:24px !important; z-index:5;  }
 .timelineMissions li { float:left; width:auto; margin:0 33.5px;  }
 .timelineMissions li a.hover { display:none; }

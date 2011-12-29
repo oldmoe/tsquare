@@ -67,7 +67,7 @@ var MessagesHandler = Class.create(UnitHandler, {
   
   showCrowdBubble: function(message, delay, oneMessage){
     var crowds = this.scene.handlers.crowd.objects;
-    var position = {x: crowds[1][0].coords.x, y: crowds[1][0].coords.y};
+    var position = {x: crowds[1][0].coords.x-100, y: crowds[1][0].coords.y};
     
     if(this.crowdBubble)this.removeCrowdBubble();
     

@@ -15,8 +15,11 @@ var WalkingManDisplay = Class.create(Display,{
     this.walkImg = Loader.images.characters[this.owner.type+'_walk.png']
     this.runImg = Loader.images.characters[this.owner.type+'_run.png']
     
-    this.imgWidth = this.characterImg.width
-    this.imgHeight = this.characterImg.height / this.noOfFrames
+    // this.imgWidth = this.characterImg.width
+    // this.imgHeight = this.characterImg.height / this.noOfFrames
+
+    this.imgWidth = 96;
+    this.imgHeight = 96;
     
     $super(this.owner);
     

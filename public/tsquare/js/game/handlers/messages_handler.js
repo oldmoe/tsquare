@@ -58,6 +58,8 @@ var MessagesHandler = Class.create(UnitHandler, {
     else if(command == "retreat")//retreat
       message += "left, left, right left";
     else if(command == "circle")//circle
+      message += "right, left, right, left";
+    else if(command == "hit")//circle
       message += "up, down, up, down";
     else if(command == "hold")//hold
       message += "";

@@ -43,7 +43,8 @@ var AmbulanceDisplay = Class.create(Display,{
         centered: true,
         shiftY: -83,
         shiftX: 25,
-        styleClass: 'bubbleText'
+        styleClass: '',
+        divClass: 'messages'
     });
   },
 

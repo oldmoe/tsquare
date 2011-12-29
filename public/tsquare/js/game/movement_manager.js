@@ -205,7 +205,7 @@ var MovementManager = Class.create({
     var found  = false
     var command = null
     for(var move in this.moves){
-      var found = true
+      found = true
       var code = this.moves[move].code
       command = move
       for (var i = 0; i < self.move.length; i++) {

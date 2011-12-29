@@ -12,7 +12,7 @@ var AdvisorDisplay = Class.create(Display,{
     this.frontImg = Loader.images.characters[owner.type+'_front.png']
     this.blurImg = Loader.images.characters[owner.type+'_blur.png']
 
-    this.baloonImg = Loader.images.gameElements['bubble.png']
+    this.baloonImg = Loader.images.gameElements['bubble_conv.png']
     
     this.imgWidth = this.characterImg.width
     this.imgHeight = this.characterImg.height / this.noOfFrames
@@ -44,7 +44,7 @@ var AdvisorDisplay = Class.create(Display,{
   
   createSprites : function(){
     this.createShadow();
-    this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : this.noOfFrames})
+    this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : this.noOfFrames, flipped : true})
 
     this.sprites.character.createAnimation({name:'walk',img:this.walkImg,noOfFrames:8})
     this.sprites.character.createAnimation({name:'front',img:this.frontImg,noOfFrames:4})
@@ -67,7 +67,7 @@ var AdvisorDisplay = Class.create(Display,{
         width: 173,
         height: 100,
         centered: true,
-        shiftY: -83,
+        shiftY: -86,
         shiftX: 25,
         styleClass: '',
         divClass: 'messages'

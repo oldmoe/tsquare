@@ -9,13 +9,13 @@ var Advisor = Class.create(Unit,{
     initialize : function($super,scene,x,lane, options){
       $super(scene,x,lane, options)
       
-      this.coords.x+=Math.round(Math.random()*this.scene.view.tileWidth/4)
+      // this.coords.x+=Math.round(Math.random()*this.scene.view.tileWidth/5)
     },
     
     tick : function($super){
       this.move(this.scene.currentSpeed * this.scene.direction * -1,0);
       
-      if (!this.conversationOn && this.coords.x < this.scene.view.width-this.getWidth() ) {
+      if (!this.conversationOn && this.coords.x < this.scene.view.width-this.getWidth()*1.5 ) {
         this.fire("back");
         this.scene.fire("startConversation");
         this.continueConversation();

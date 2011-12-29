@@ -7,8 +7,7 @@ var TwitterGuyDisplay = Class.create(Display,{
     this.imgHeight = this.img.height / this.noOfFrames
     this.imgWidth = this.img.width
     $super(owner)
-    this.showText();
-    // if(Math.random() <= 0.5)this.showText();
+    if(Math.random() <= 0.5)this.showText();
   },
 
   createShadow: function(){

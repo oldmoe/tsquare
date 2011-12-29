@@ -5,6 +5,8 @@ var ProtectionUnit = Class.create(Unit,{
   rotationTolerance : 10,
   text: "",
   type : "protection",
+  messageAppear: false,
+  
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)
     this.hp = this.maxHp = 1000
@@ -44,6 +46,15 @@ var ProtectionUnit = Class.create(Unit,{
     this.enemies[0].tick()
     this.checkTarget()
     this.checkHp()
+    
+    // if(!this.messageAppear && this.text){
+      // if( this.coords.x < this.scene.view.width-this.getWidth()*1.5 ){
+        // this.messageAppear = true;
+        // if(Math.random() <= 0.5)this.showText();
+        // var self = this;
+        // this.reactor.push(200, function(){self.hideText()});
+      // }
+    // }
     
   },
   checkHp : function(){

@@ -94,6 +94,8 @@ class UserGameProfile < DataStore::Model
         @data['missions'][mode][key] ||= { 'score' => 0, 'stars'=>0}
       end
     end 
+   
+# End of part to be removed 
     energy_gain
     save
   end

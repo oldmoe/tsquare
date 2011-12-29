@@ -24,9 +24,9 @@ var MovementManager = Class.create({
     this.moves = {
       march:{code:[0,0,1,0],index:0},
       retreat:{code:[1,1,0,1],index:1},
-      circle:{code:[2,3,2,3],index:2}, 
+      circle:{code:[0,1,0,1],index:2}, 
       hold:{code:[2],index:3},
-      hit:{code:[0,0,0,0],index:5}
+      hit:{code:[2,3,2,3],index:5}
     }
   },
   
@@ -205,7 +205,7 @@ var MovementManager = Class.create({
     var found  = false
     var command = null
     for(var move in this.moves){
-      var found = true
+      found = true
       var code = this.moves[move].code
       command = move
       for (var i = 0; i < self.move.length; i++) {

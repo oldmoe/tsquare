@@ -12,7 +12,7 @@ var GuidingIcon = Class.create(Observer,{
     this.scene = game.scene;
     this.moves = game.scene.movementManager.moves;
     this.moveIndex = 1;
-    var images = ["circle_move.png", "hit_move.png", "move_indicator.png", "right_arrow.png", 'up_arrow.png','down_arrow.png', "left_arrow.png", "move_background.png", "moves_arrows.png"];
+    var images = ["walk_move.png", "hit_move.png", "circle_move.png", "retreat_move.png", "move_indicator.png", "right_arrow.png", 'up_arrow.png','down_arrow.png', "left_arrow.png", "move_background.png", "moves_arrows.png"];
     var self = this;
     new Loader().load([{images: images, path: 'images/game_elements/', store: 'game_elements'}],
                       {onFinish:function(){self.display();}})    
@@ -117,11 +117,6 @@ var GuidingIcon = Class.create(Observer,{
     this.scene.reactor.push(5, function(){self.reset(self.moveIndex+1);});
   },
   
-  circleEnd: function(){
-    this.commandLock = false;
-  },
-  
-  
   tick: function(){
     var command = "march";
     var enemy = null;
@@ -133,9 +128,9 @@ var GuidingIcon = Class.create(Observer,{
       else 
         enemy = target
     }  
-    
+
     var choice = -1; // 0: enemy, 1:protectionUnit
-    
+
     if(enemy && !protectionUnit) choice = 0;
     else if(!enemy && protectionUnit) choice = 1;
     else if(enemy && protectionUnit){
@@ -144,7 +139,7 @@ var GuidingIcon = Class.create(Observer,{
       else 
         choice = 1;
     } 
-    
+
     if(choice == 0){
       if(!enemy.chargeTolerance && this.scene.collision) {
         this.commandLock = false;
@@ -156,18 +151,17 @@ var GuidingIcon = Class.create(Observer,{
         command = "circle";
       }
     }
-    
+
     if( this.scene.rescuing && !this.scene.rescuing.rescued && this.scene.rescuing.mission == "retrieve" ){
       this.commandLock = false;
       command = "retreat";
     }
-    
-    if(this.currentCommand != command && !this.commandLock){
-      this.commandLock = true;
-      this.currentCommand = command;
-      this.displayCommand(this.currentCommand)
-    }
 
+    if(this.currentCommand != command && !this.commandLock){
+      this.currentCommand = command;
+      this.displayCommand(this.currentCommand);
+    }
+    this.commandLock = this.currentCommand != "march";
     
     if(this.correctCommands > 2 && !this.arrowsHidden){
       // $$('.movesIndicator')[0].hide();

@@ -16,8 +16,8 @@ var ScoreCalculator = Class.create({
   
   crowdsCount: 0,
   
-  totalObjectives: 1,
-  correctObjectiveCount: 0,
+  totalObjectives: 100,
+  correctObjectiveCount: 80,
   
   comboLevel: 1,
   comboCount: 0,

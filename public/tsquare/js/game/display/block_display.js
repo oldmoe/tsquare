@@ -9,8 +9,7 @@ var BlockDisplay = Class.create(EnemyDisplay, {
     $super(owner);
     var self = this;
     
-    this.showText();
-    // if(Math.random() <= 0.5)this.showText();
+    if(Math.random() <= 0.5)this.showText();
   },
   
   getWidth : function(){
@@ -71,7 +70,6 @@ var BlockDisplay = Class.create(EnemyDisplay, {
   
   destroy : function($super, shallow){
     $super();
-    this.owner.handler.objects[this.owner.lane].remove(this.owner)
     if(!shallow){
       for (var i = 0; i < this.owner.elements.length; i++) {
         for (var j = 0; j < this.owner.elements[i].length; j++) {
@@ -79,7 +77,6 @@ var BlockDisplay = Class.create(EnemyDisplay, {
         }
       }
     }
-    this.owner.dead = true;     
   }
       
 })

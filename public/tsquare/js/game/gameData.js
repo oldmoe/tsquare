@@ -1,23 +1,27 @@
 var missionData = {
   
   "data":[[
-/*   {
+  /*
+   {
       "name": "ultras_red",
       "category": 'advisor',
       "index": 0,
       "lane": 0,
-      "x": 5,
+      "x": 1,
       "order": 1,
       "messages" : [
-        {"person":"advisor", "message":"enta meen yad"},
+        {"person":"ultras_red", "message":"enta meen yad"},
         {"person":"crowds" , "message": "ana kazaz"},
-        {"person":"advisor" , "message": "amerikey ya3ni.."},
+        {"person":"ultras_red" , "message": "amerikey ya3ni.."},
         {"person":"crowds" , "message": "laaaaa....laaaa, ana masry ya3am"},
-        {"person":"advisor" , "message": "we 3awez eih isa.."},
+        {"person":"ultras_red" , "message": "we 3awez eih isa.."},
         {"person":"crowds" , "message": "eih elly 3awez eih, enta mesh advisor ya3am.."},
-        {"person":"advisor" , "message": "ah sa7i7, tab emshy we ehgem 3ala el amn dool..."}
+        {"person":"ultras_red" , "message": "we 3awez eih isa.."},
+        {"person":"ultras_red" , "message": "ah sa7i7, tab emshy we ehgem 3ala el amn dool..."}
       ]
-  },  
+  }
+*/  
+/*  ,  
   {
       "name": "ultras_red",
       "category": 'message',
@@ -45,17 +49,36 @@ var missionData = {
       "x": 5,
       "order": 1
   },*/
-  // {"name":"twitter_guy","category":"protection","index":0,"lane":1,"x":2,"order":1},
+  {
+      "name": "wood_stick_cs",
+      "category": 'enemy',
+      "type": '1_2',
+      "index": 0,
+      "lane": 1,
+      "x": 3,
+      "order": 1
+  },
+  {"name":"twitter_guy","category":"protection","index":0,"lane":1,"x":4,"order":1},
+  {
+      "name": "wood_stick_cs",
+      "category": 'enemy',
+      "type": '1_2',
+      "index": 0,
+      "lane": 1,
+      "x": 7,
+      "order": 1
+  }
 /*  {
       "name": "wood_stick_cs",
       "category": 'enemy',
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 4,
+      "x": 5,
       "order": 1
-  },*/
-
+  }*/
+ 
+/*
   {
       "name": "box_car",
       "category": 'clash_enemy',
@@ -64,7 +87,7 @@ var missionData = {
       "x": 4,
       "order": 1
   }
-
+*/
   ]],
     
     "backgrounds":{

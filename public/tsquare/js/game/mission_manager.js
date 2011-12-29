@@ -45,12 +45,21 @@ var MissionManager = Class.create({
     Game.addLoadedImagesToDiv('pause');
     scene.observe('togglePause', function(){
     	if (self.pauseScreenOn) {
-    		self.hidePauseScreen();
+    		$('pause').hide();
     		self.pauseScreenOn = false;
     	} else {
-    		self.displayPauseScreen();
+    		$('pause').show();
     		self.pauseScreenOn = true;
     	}
+    });
+    $$('#pause .controls .playBtn')[0].observe('click', function(event){
+      scene.fire('togglePause');
+    });
+    $$('#pause .controls .exitBtn')[0].observe('click', function(event){
+      scene.reactor.resume();
+      self.gameManager.openMainPage();
+	  $('pause').hide();
+	  self.pauseScreenOn = false;
     });
   },
 
@@ -120,14 +129,6 @@ var MissionManager = Class.create({
     }else if(this.endAnimationDone){
       this.displayStaticEndScreen();
     }
-  },
-  
-  displayPauseScreen : function(){
-    $('pause').show();
-  },
-  
-  hidePauseScreen : function(){
-    $('pause').hide();
   },
 
   load : function(id, gameCallback){

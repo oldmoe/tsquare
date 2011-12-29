@@ -33,15 +33,15 @@ var Advisor = Class.create(Unit,{
       if(this.messageSequence < this.messages.length){
         this.text = this.messages[this.messageSequence].message;
         if(this.messages[this.messageSequence].person == 'ultras_red'){
-          this.scene.fire("removeGuidBubble");
+          this.scene.fire("removeCrowdBubble");
           this.showText();
         }else if(this.messages[this.messageSequence].person == 'crowds'){
           this.hideText();
-          this.scene.fire("showCrowdBubble", [this.text, true])
+          this.scene.fire("showCrowdBubble", [this.text]);
         }
         this.messageSequence++;
-      }else {
-        this.scene.fire("removeGuidBubble");
+      }else{
+        this.scene.fire("removeCrowdBubble");
         this.hideText();
         this.scene.fire("endConversation");
         this.ended = true;

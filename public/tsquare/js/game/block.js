@@ -58,7 +58,7 @@ var Block = Class.create(Enemy,{
       if(maxHp<= 0){
         this.scene.collision = false;
         this.scene.fire("targetCircleComplete");
-        this.destroy();
+        this.die();
       }
     },
     
@@ -80,7 +80,7 @@ var Block = Class.create(Enemy,{
 		        var displayKlass = eval("BlockDisplay")
 		        var objDisplay = new displayKlass(b)
     		     if (!b.noDisplay) {
-    		       this.pushToRenderLoop('characters', objDisplay)
+    		       this.scene.pushToRenderLoop('characters', objDisplay)
     		     }
             b.coords.y = this.coords.y
             b.moveToTarget({x:this.coords.x + (100+150*i),y:this.coords.y})
@@ -146,6 +146,10 @@ var Block = Class.create(Enemy,{
           this.elements[i][j].coords = Nezal.clone_obj(coords) 
         }
       }
+    },
+    
+    die: function($super){
+      $super();
     }
     
 })

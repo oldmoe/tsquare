@@ -68,6 +68,7 @@ var Enemy = Class.create(Unit, {
     }else{
         if (this.target) {
             this.target = null
+            console.log("normal");
             this.fire("normal")
             targetChange = true
         }

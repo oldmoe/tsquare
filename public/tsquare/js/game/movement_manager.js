@@ -179,7 +179,7 @@ var MovementManager = Class.create({
   
   stopAction : function(delay){
     var self = this
-    setTimeout(function(){
+    this.scene.reactor.setTimeout(function(){
       self.beatMoving = false;
       self.moveEnd()
       self.checkDelay(self.counter,self.beatTime + self.tolerance)

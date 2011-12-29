@@ -20,7 +20,7 @@ var Timeline = Class.create({
                                   "home_background.gif", "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
                                   "mission_current.png", "mySquare_screen.png",
                                   "mission_locked.png", "mission_finished.png", "crowd_member_small.png", "challenge_box.png",
-                                  "mission_icon_selected.png", "play_button.png", "timeline.png"], path: 'images/timeline/', store: 'timeline'},
+                                  "mission_icon_selected.png", "play_button.png"], path: 'images/timeline/', store: 'timeline'},
                         {images: ["ultras_red_idle.png", "ultras_red_walk.png", "ultras_red_run.png"], path: 'images/characters/', store: 'characters'},          
                         {images : ["facebook_image_large.png"],  path: 'images/dummy/', store: 'dummy' }],
                       {

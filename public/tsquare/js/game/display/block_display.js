@@ -53,7 +53,8 @@ var BlockDisplay = Class.create(EnemyDisplay, {
         centered: true,
         shiftY: -150,
         shiftX: 10,
-        styleClass: 'bubbleText'
+        styleClass: '',
+        divClass: 'messages'
     });
   },
 

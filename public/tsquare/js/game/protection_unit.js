@@ -78,6 +78,7 @@ var ProtectionUnit = Class.create(Unit,{
     }
     $super();
     this.scene.fire("targetCircleComplete");
+    this.scene.collision = false;
   }
   
 })

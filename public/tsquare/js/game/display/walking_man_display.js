@@ -3,7 +3,7 @@ var WalkingManDisplay = Class.create(Display,{
   noOfFrames : 7,//idle =7
   states : ["normal","walk", "run", "reverseWalk", "reverseRun"],
   targetX:100,
-   
+  counter : 0,   
   initialize : function($super, reactor){
     
     this.container = $$(".walkingCrowdMemeber")[0];
@@ -49,8 +49,8 @@ var WalkingManDisplay = Class.create(Display,{
       else if(this.owner.coords.x>this.targetX)
         this.owner.coords.x -= 20;
     }   
-    
-    this.sprites.character.currentAnimationFrame = (this.sprites.character.currentAnimationFrame+1) % this.sprites.character.currentAnimation.noOfFrames
+    this.counter++
+    if(this.counter%2==0) this.sprites.character.currentAnimationFrame = (this.sprites.character.currentAnimationFrame+1) % this.sprites.character.currentAnimation.noOfFrames
     $super()
     
     var self = this;

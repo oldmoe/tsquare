@@ -48,12 +48,13 @@ var BlockDisplay = Class.create(EnemyDisplay, {
     })
     
     this.sprites.text = new DomTextSprite(this.owner,"textInfo", {
-        width: 150,
+        width: 173,
         height: 100,
         centered: true,
         shiftY: -150,
         shiftX: 10,
-        styleClass: 'bubbleText'
+        styleClass: '',
+        divClass: 'messages'
     });
   },
 

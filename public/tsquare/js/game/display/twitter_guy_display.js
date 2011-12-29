@@ -7,7 +7,6 @@ var TwitterGuyDisplay = Class.create(Display,{
     this.imgHeight = this.img.height / this.noOfFrames
     this.imgWidth = this.img.width
     $super(owner)
-    
     if(Math.random() <= 0.5)this.showText();
   },
 
@@ -36,12 +35,13 @@ var TwitterGuyDisplay = Class.create(Display,{
     })
     
     this.sprites.text = new DomTextSprite(this.owner,"textInfo", {
-        width: 100,
+        width: 173,
         height: 100,
         centered: true,
         shiftY: -83,
         shiftX: 25,
-        styleClass: 'bubbleText'
+        styleClass: '',
+        divClass: 'messages'
     });
   },
 

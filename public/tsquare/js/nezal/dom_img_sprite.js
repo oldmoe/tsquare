@@ -81,7 +81,7 @@ var DomImgSprite = Class.create(DomSprite, {
       imgWidth = img.width
       imgHeight = img.height / noOfFrames
     }
-    var flipped = options.flipped || false 
+    var flipped = options.flipped || false
     var animation = {img:img.clone(), noOfFrames : noOfFrames, imgWidth : imgWidth, imgHeight : imgHeight,
     startY:startY, direction:direction,flipped: flipped, name: options.name}
     this.animations[options.name] = animation

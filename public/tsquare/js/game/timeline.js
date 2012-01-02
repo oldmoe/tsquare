@@ -246,7 +246,7 @@ var Timeline = Class.create({
       element.observe('mouseover', function(event){
         var count = event.element().parentNode.parentNode.parentNode.children.length;
         var elem = event.element().parentNode.parentNode;
-        var elemIndex = elem.previousSiblings().length;
+        var elemIndex = $(elem).previousSiblings().length;
         var gap = (960 - elem.getWidth() * count) / (count+1);
         var pos = gap * (elemIndex+1) + elem.getWidth()*elemIndex + elem.getWidth()/2; 
         self.walkingMan.moveTo(pos-30);

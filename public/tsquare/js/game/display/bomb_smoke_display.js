@@ -17,7 +17,7 @@ var BombSmokeDisplay = Class.create(Display,{
       width: this.owner.scale * this.imgWidth,
       height: this.owner.scale * this.imgWidth,
       imgScale: this.owner.scale,
-      zIndex : this.owner.coords.y - 50,
+      zIndex : this.owner.coords.y - 50
     })
   },
   

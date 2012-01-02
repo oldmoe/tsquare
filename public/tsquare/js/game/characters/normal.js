@@ -21,6 +21,7 @@ var Normal = Class.create(CrowdMember,{
       this.move(-15,0);
       if(this.coords.x < -150) {
         this.hp = -1;
+        this.remove()
       }
     }
   },
@@ -33,7 +34,11 @@ var Normal = Class.create(CrowdMember,{
   die: function(){
     this.back = true;
     this.fire("reverseWalk");
-  }
+  },
   
+  remove : function(){
+    this.scene.remove(this);
+    this.destroy();    
+  }
   
 })

@@ -27,6 +27,8 @@ var WalkingManDisplay = Class.create(Display,{
     $super(this.owner);
     
     this.render();
+    
+    this.switchAnimation("walk");
   },
   
   createSprites : function(){
@@ -36,7 +38,8 @@ var WalkingManDisplay = Class.create(Display,{
       height: 96,
       parent: this.container,
       shiftY:-350,
-      shiftX:0
+      shiftX:0,
+      zIndex: 6
     })
     this.sprites.character.createAnimation({name:'flippedNormal'  ,img:this.characterImg,noOfFrames:this.noOfFrames, flipped : true})
     this.sprites.character.createAnimation({name:'walk'  ,img:this.walkImg,noOfFrames:8})
@@ -50,24 +53,24 @@ var WalkingManDisplay = Class.create(Display,{
       width: this.shadowImg.width,
       height: this.shadowImg.height,
       parent: this.container,
-      shiftX : -(this.shadowImg.width-this.characterImg.width)+10,
-      shiftY : -360,
-      zIndex: 5
+      shiftX : -(this.shadowImg.width-this.characterImg.width)-20,
+      shiftY : -350,
+      zIndex: 4
     })    
   },
   
   render : function($super){
     
-    if(Math.abs(this.owner.coords.x-this.targetX) < 10){
+    if(Math.abs(this.owner.coords.x-this.targetX) < 7){
       if(this.sprites.character.currentAnimation.name == "walk")
         this.switchAnimation("normal")
       else if(this.sprites.character.currentAnimation.name == "reverseWalk")
         this.switchAnimation("flippedNormal")
     }else{
       if(this.owner.coords.x<this.targetX)
-        this.owner.coords.x += 10;
+        this.owner.coords.x += 7;
       else if(this.owner.coords.x>this.targetX)
-        this.owner.coords.x -= 10;
+        this.owner.coords.x -= 7;
     }   
     this.counter++
     if(this.counter%2==0) this.sprites.character.currentAnimationFrame = (this.sprites.character.currentAnimationFrame+1) % this.sprites.character.currentAnimation.noOfFrames

@@ -51,7 +51,7 @@ var WalkingManDisplay = Class.create(Display,{
       height: this.shadowImg.height,
       parent: this.container,
       shiftX : -(this.shadowImg.width-this.characterImg.width)+10,
-      shiftY : -350,
+      shiftY : -360,
       zIndex: 5
     })    
   },

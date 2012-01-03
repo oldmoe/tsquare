@@ -27,6 +27,9 @@ img { border:none; outline:none;}
 .overlay { float:left; width:100%; background:#000; height:620px; background:url(../images/common/overylay_background.png); }
 .container { width:760px; height:685px; margin:0 auto; }
 
-.message { position:absolute; top:-300px; left:300px; z-index:30; }
-.message span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.3em; width:210px; margin:55px 15px 0 15px; line-height:1.2em; height:80px; display:block; width:375px; }
+.message { position:absolute; top:-285px; left:300px; z-index:30; }
+.message span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.3em; width:210px; margin:45px 15px 0 15px; line-height:1.2em; height:70px; display:block; width:300px; }
+
+.topScope { position:absolute; top:-440px; left:0; background:#000; height:150px; width:970px; z-index:100; }
+.bottomScope { position:absolute; bottom:0; left:0; background:#000; height:150px; width:970px; z-index:100; }
 

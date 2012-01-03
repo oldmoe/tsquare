@@ -12,8 +12,6 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
     $super(owner)
     this.registerEvents()
     this.createShadow();
-    
-    
   },
   
   loadImages : function(){

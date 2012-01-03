@@ -36,7 +36,7 @@ var TsquareScene = Class.create(Scene,{
         
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
-            // "rescue" : new RescueUnitHandler(this),
+            "rescue" : new RescueUnitHandler(this),
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
             "enemy" : new EnemyHandler(this),  
@@ -242,7 +242,7 @@ var TsquareScene = Class.create(Scene,{
        var klassName = objHash.name.formClassName()
        var klass = eval(klassName)
        var obj = new klass(this,objHash.x - this.view.xPos,objHash.lane,objHash.options);
-       //The following name and tile are used for escorting/retrieving a crowd member
+       //The following name, tile and mission are used for escorting/retrieving a crowd member
        obj.name = objHash.name;
        obj.targetTile = objHash.targetTile;
        obj.mission = objHash.mission;
@@ -358,12 +358,14 @@ var TsquareScene = Class.create(Scene,{
    },
    
    tileChanged : function(){
+     var self = this;
      if( this.rescuing && this.rescuing.targetTile == this.currentTile){
        this.rescuing.rescued = true;
        if( this.rescuing.mission == "retrieve" ){
-         this.fire("normal");
+         this.rescuing.fire("back");
        }
-       this.handlers.crowd.objects.remove( this.rescuing );
+       this.handlers.crowd.removeObject( this.rescuing, this.rescuing.lane );
+       this.push( this.rescuing );
      }
    }
   

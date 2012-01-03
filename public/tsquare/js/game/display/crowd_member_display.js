@@ -55,7 +55,7 @@ var CrowdMemberDisplay = Class.create(Display,{
   createSprites : function(){
   	this.configureAnimations();
     this.createShadow();
-     this.sprites.runEffectForward = new DomImgSprite(this.owner,
+    this.sprites.runEffectForward = new DomImgSprite(this.owner,
     {
       img: this.blurImg,
       noOfFrames: 1

@@ -76,7 +76,7 @@ var Unit = Class.create(Observer,{
   
   //Return true if unit dies
   takeHit : function(attack){
-  	if (attack <= 0) return;
+  	if (attack <= 0 || this.dead) return;
     this.hp -= attack;
     if(this.hp <=0){
       this.die()

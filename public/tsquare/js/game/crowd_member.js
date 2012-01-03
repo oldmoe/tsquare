@@ -58,7 +58,6 @@ var CrowdMember = Class.create(Unit,{
       this.level = options.level
     else 
       this.level = 4
-    this.hp = this.maxHp = 100000
   },
   
   increaseFollowers : function(noOfFollowers){
@@ -106,7 +105,7 @@ var CrowdMember = Class.create(Unit,{
       this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);
       if(this.coords.x < 0) {
         this.scene.remove(this);
-        this.die();
+        this.destroy();
       }
       return;
     }
@@ -168,7 +167,7 @@ var CrowdMember = Class.create(Unit,{
       this.followers[0].takeHit(hitPower)
     }
     else{
-      if(this.defense) hitPower-=this.defense
+      //if(this.defense) hitPower-=this.defense
       $super(hitPower)
     } 
   },

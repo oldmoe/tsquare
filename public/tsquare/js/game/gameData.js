@@ -55,7 +55,7 @@ var missionData = {
       "type": '3_2',
       "index": 0,
       "lane": 1,
-      "x": 3,
+      "x": 1,
       "order": 1
   },
   {"name":"twitter_guy","category":"protection","index":0,"lane":1,"x":7,"order":1},

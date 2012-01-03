@@ -88,7 +88,7 @@ var Game = Class.create({
        	
        	var sfx = ["ho", "hey", "ha", "hii", "background_ascending", "background_music", "ambient", "ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", 
         "Gun-shot", "Hit-police-car", "Morning-air-birds", "Night-sound", "Police", "Police-march", "Punch", "Tank-move",
-         "Tear-gas", "clash_preparing", "clash_scenario"];
+         "Tear-gas", "clash_preparing", "clash_scenario", "win_lose"];
 
         for(var j=0; j < sfx.length; j++){
           sfx[j] = sfx[j]+'.'+format[i];

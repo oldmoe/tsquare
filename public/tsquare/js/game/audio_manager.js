@@ -134,7 +134,7 @@ var AudioManager = Class.create({
 		this.tempoChanged = true;
 		
 		scene.observe('keySound',function(keyIndex){self.playKeySound(keyIndex)});
-		
+		scene.observe('end', function(){self.playWinLose()})
 		this.cc = false;
 	},
 
@@ -184,7 +184,12 @@ var AudioManager = Class.create({
   
 	playClash : function(){
     this.stop()
-    Loader.sounds['sfx']['clash_scenario.mp3'].play({loops : 1000})
+    Loader.sounds['sfx']['clash_scenario.mp3'].play({loops : 1000, volume : 30})
+  },
+  
+  playWinLose : function(){
+    this.stop()
+    Loader.sounds['sfx']['win_lose.mp3'].play()
   },
   
   pause : function(){
@@ -196,11 +201,15 @@ var AudioManager = Class.create({
   
   stopClash : function(){
     Loader.sounds['sfx']['clash_scenario.mp3'].stop()
+    this.playBeats()
+  },
+  
+  
+  playBeats : function(){
     for(var i=0; i < this.nowPlaying.length; i++){
       this.nowPlaying[i].play({loops : 1000})
     }
     this.background_audio.play({loops : 1000})
-
   },
   
 	run : function(){

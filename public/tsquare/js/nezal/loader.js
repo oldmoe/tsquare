@@ -126,6 +126,7 @@ var Loader = Class.create({
   },
 
   onerror: function(resource, options){
+    return
     var self = this;
     this.loadedResources++;
     resource.src = '';

@@ -75,13 +75,13 @@ var AudioManager = Class.create({
     ];
 
     this.levels = [
-      {tempo: 130, beats : [{beat : 0, volume : 60}]},//50
+      {tempo: 130, beats : [{beat : 0, volume : 95}]},//90
 
-      {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 20}]},
-      {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 20}]},
+      {tempo: 130, beats : [{beat : 0, volume : 95}, {beat : 1, volume : 20}]},
+      {tempo: 130, beats : [{beat : 0, volume : 95}, {beat : 1, volume : 20}]},
       
-      {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 30}, {beat : 2, volume : 10}]},
-      {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 30}, {beat : 2, volume : 10}]}
+      {tempo: 130, beats : [{beat : 0, volume : 95}, {beat : 1, volume : 30}, {beat : 2, volume : 10}]},
+      {tempo: 130, beats : [{beat : 0, volume : 95}, {beat : 1, volume : 30}, {beat : 2, volume : 10}]}
 /*      
       {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
       {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},

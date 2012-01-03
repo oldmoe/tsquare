@@ -28,7 +28,7 @@ var BlockDisplay = Class.create(EnemyDisplay, {
 
   playAudio : function(repeat){
     var self = this;
-    var volume = (this.owner.options.columns * this.owner.options.rows) / 27 * 150;
+    var volume = (this.owner.options.columns * this.owner.options.rows) / 27 * 80;
     this.owner.scene.audioManager.play(Loader.sounds['sfx']['Police-march.mp3'], {volume : volume, onfinish: function(){
       self.playAudio(true);
     }}, repeat);

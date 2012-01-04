@@ -33,7 +33,7 @@ var Game = Class.create({
   },
   
   initializeGame : function(){
-    var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png', 'bubble_conv.png',
+    var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png', 'bubble_inverted.png',
     'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png',
     'square.png','line.png', 'smoke1.png', 'smoke2.png', 'smoke3.png', 'smoke4.png']
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
@@ -88,7 +88,7 @@ var Game = Class.create({
        	
        	var sfx = ["ho", "hey", "ha", "hii", "background_ascending", "background_music", "ambient", "ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", 
         "Gun-shot", "Hit-police-car", "Morning-air-birds", "Night-sound", "Police", "Police-march", "Punch", "Tank-move",
-         "Tear-gas", "clash_preparing", "clash_scenario"];
+         "Tear-gas", "clash_preparing", "clash_scenario", "win_lose"];
 
         for(var j=0; j < sfx.length; j++){
           sfx[j] = sfx[j]+'.'+format[i];
@@ -119,7 +119,7 @@ var Game = Class.create({
     this.mission = mission;
     missionData = mission;
     this.misssionLoaded = false;
-	  var backgroundImages = ['background.png', 'clowds.png', 'followers_crowd.png']
+	  var backgroundImages = ['background.png', 'clowds.png', 'followers_crowd.png', 'followers_crowd_car.png']
 
     var self = this;
     this.mission.backgrounds.layer1.each(function(elem){

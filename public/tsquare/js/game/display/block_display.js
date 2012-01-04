@@ -5,11 +5,13 @@ var BlockDisplay = Class.create(EnemyDisplay, {
     this.imgWidth = 0;
     this.imgHeight = 0;
     
-    
     $super(owner);
     var self = this;
     
-    if(Math.random() <= 0.5)this.showText();
+    if(!owner.noMessage){
+      if(Math.random() <= 0.5)this.showText();
+    }
+    
   },
   
   getWidth : function(){
@@ -39,22 +41,22 @@ var BlockDisplay = Class.create(EnemyDisplay, {
   },
   
   showText: function(){
-    this.baloonImg = Loader.images.gameElements['bubble.png']
+    this.baloonImg = Loader.images.gameElements['bubble_inverted.png']
     this.sprites.baloon = new DomImgSprite(this.owner, {img : this.baloonImg},{
       width: this.baloonImg.width,
       height: this.baloonImg.height,
       shiftY:-180,
-      shiftX:0
+      shiftX:-100
     })
     
     this.sprites.text = new DomTextSprite(this.owner,"textInfo", {
-        width: 173,
-        height: 100,
+        width: 255,
+        height: 70,
         centered: true,
-        shiftY: -150,
-        shiftX: 10,
+        shiftY: -175,
+        shiftX: -90,
         styleClass: '',
-        divClass: 'messages'
+        divClass: 'message'
     });
   },
 

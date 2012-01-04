@@ -37,11 +37,14 @@ var Background = Class.create({
     else
       this.offsetX = -Math.round(Math.random()*maxWidth)
 
-		this.container.setStyle({width:(maxWidth*this.imagesCount)+"px", top:this.y+"px"})
+		
 		for(var i=0;i<this.imagesCount;i++){
 			this.container.appendChild(this.images.random().clone())
 		}
-        this.render(true)
+		
+		this.container.setStyle({width:(maxWidth*this.imagesCount)+"px", top:this.y+"px"})
+		
+    this.render(true)
 	},
 	
 	render: function(forceRender){

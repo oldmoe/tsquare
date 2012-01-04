@@ -7,6 +7,8 @@ var MessagesHandler = Class.create(UnitHandler, {
   
   enemyMessage: null,
   
+  scopeHeight : 80,
+  
   initialize: function($super, scene){
     $super(scene);
     
@@ -41,6 +43,10 @@ var MessagesHandler = Class.create(UnitHandler, {
      }
      this.currentGameMode = this.scene.movementManager.currentMode; 
      this.scene.movementManager.currentMode = this.scene.movementManager.modes.conversation;
+     console.log('start')
+     new Effect.Fade('guidingBar', {duration : 2})
+     new Effect.Move('topScope', {y:this.scopeHeight})
+     new Effect.Move('bottomScope', {y:-this.scopeHeight})
    },
   
   continueConversation: function(){
@@ -48,7 +54,11 @@ var MessagesHandler = Class.create(UnitHandler, {
   },
   
   endConversation: function(){
-    this.scene.movementManager.currentMode = this.currentGameMode; 
+    console.log('end')
+    this.scene.movementManager.currentMode = this.currentGameMode;
+    new Effect.Appear('guidingBar') 
+    new Effect.Move('topScope', {y:-this.scopeHeight})
+    new Effect.Move('bottomScope', {y:this.scopeHeight})
   },
   
   showGuidBubble: function(command){
@@ -64,16 +74,16 @@ var MessagesHandler = Class.create(UnitHandler, {
     else if(command == "hold")//hold
       message += "";
     
-    this.showCrowdBubble(message, 70, true);
+    this.showCrowdBubble(message, 70);
   },
   
-  showCrowdBubble: function(message, delay, oneMessage){
+  showCrowdBubble: function(message, delay){
     var crowds = this.scene.handlers.crowd.objects;
     var position = {x: crowds[1][0].coords.x-100, y: crowds[1][0].coords.y};
     
     if(this.crowdBubble)this.removeCrowdBubble();
     
-    this.crowdBubble = new Bubble(this.scene, position.x, position.y, message, oneMessage);
+    this.crowdBubble = new Bubble(this.scene, position.x, position.y, message);
     var bubbleDisplay = new BubbleDisplay(this.crowdBubble);
     this.scene.pushToRenderLoop('characters', bubbleDisplay);
     

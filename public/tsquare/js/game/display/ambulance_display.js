@@ -4,28 +4,34 @@ var AmbulanceDisplay = Class.create(Display,{
   
   initialize : function($super,owner){
     this.img = Loader.images.enemies['ambulance.png']
-    this.baloonImg = Loader.images.gameElements['bubble.png']
+    this.baloonImg = Loader.images.gameElements['bubble_inverted.png']
     this.shadowImg = Loader.images.effects['ambulance_shadow.png'];
 
     this.imgHeight = this.img.height / this.noOfFrames
     this.imgWidth = this.img.width
     $super(owner)
+    
     if(Math.random() <= 0.5)this.showText();
   },
   
   initAudio : function(){
-    this.playAudio();
+    var reactor = this.owner.scene.reactor
+    var self = this
+    reactor.pushEvery(reactor.everySeconds(Math.round(Math.random()*5)), reactor.everySeconds(8), function(){
+      return self.playAudio()
+    })
   },
 
-  playAudio : function(repeat){
-    var self = this;
-    this.owner.scene.audioManager.play(Loader.sounds['sfx']['ambulance.mp3'], {volume : 20, onfinish: function(){
-      self.playAudio(true);
-    }}, repeat);
+  playAudio : function(){
+    if (this.audioDestroyed) {
+      return false
+    }
+    Loader.sounds['sfx']['ambulance.mp3'].play({volume:10})   
+    //this.owner.scene.audioManager.play(Loader.sounds['sfx']['ambulance.mp3'], {volume : 10}, true)
   },
   
   destroyAudio: function(){
-    this.owner.scene.audioManager.mute(Loader.sounds['sfx']['ambulance.mp3'], true);
+    this.audioDestroyed = true
   },
 
   showText: function(){
@@ -38,13 +44,13 @@ var AmbulanceDisplay = Class.create(Display,{
     })
     
     this.sprites.text = new DomTextSprite(this.owner,"textInfo", {
-        width: 173,
-        height: 100,
+        width: 255,
+        height: 70,
         centered: true,
-        shiftY: -83,
-        shiftX: 25,
+        shiftY: -105,
+        shiftX: 5,
         styleClass: '',
-        divClass: 'messages'
+        divClass: 'message'
     });
   },
 

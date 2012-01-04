@@ -44,8 +44,9 @@ var Unit = Class.create(Observer,{
       this.coords ={x:x, y:y}  
     }
     
-    if(options)this.handler = options.handler
+    if(options && options.handler)this.handler = options.handler
     
+    if(options && options.noMessage)this.noMessage = options.noMessage
   },
   
   processCommand: function(){
@@ -76,7 +77,7 @@ var Unit = Class.create(Observer,{
   
   //Return true if unit dies
   takeHit : function(attack){
-  	if (attack <= 0) return;
+  	if (attack <= 0 || this.dead) return;
     this.hp -= attack;
     if(this.hp <=0){
       this.die()

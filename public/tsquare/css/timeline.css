@@ -74,3 +74,13 @@
 .friendScore h3, .friendScore h5 { color:#362c00; text-shadow:1px 1px 0 #e2c231; position:relative; z-index:9; float:left; width: 114px; margin:5px 0 0 3px; padding:0; }
 
 .calendarWrapper .walkingCrowdMemeber { top:330px; }
+
+.choseLanguage {  }
+
+.choseLanguage { position:relative;  top:155px;  }
+.choseLanguage ul { width:20%; margin:0px auto; padding:0px; position:relative;}
+.choseLanguage ul li { float:left; width:218px; margin:10px 10px 0 0; padding:0px; height:64px; }
+.choseLanguage ul li a { float:left; width:218px; height:64px; overflow:hidden; position:relative; }
+.choseLanguage ul li a:hover { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; -webkit-box-shadow: 0px 0px 24px #F00; -moz-box-shadow: 0px 0px 24px #F00; box-shadow: 0px 0px 20px #F00; }
+.choseLanguage ul li a:hover img { position:relative; top:-64px;  }
+.choseLanguage ul li a.active:hover { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; -webkit-box-shadow: 0px 0px 24px #f85d00; -moz-box-shadow: 0px 0px 24px #f85d00; box-shadow: 0px 0px 20px #f85d00; }

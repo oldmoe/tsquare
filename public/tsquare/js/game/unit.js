@@ -44,8 +44,9 @@ var Unit = Class.create(Observer,{
       this.coords ={x:x, y:y}  
     }
     
-    if(options)this.handler = options.handler
+    if(options && options.handler)this.handler = options.handler
     
+    if(options && options.noMessage)this.noMessage = options.noMessage
   },
   
   processCommand: function(){

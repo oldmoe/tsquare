@@ -5,6 +5,7 @@ var Advisor = Class.create(Unit,{
     messageSequence : 0,
     ended: false,
     messages: null,
+    scalable: false,
     
     initialize : function($super,scene,x,lane, options){
       $super(scene,x,lane, options)

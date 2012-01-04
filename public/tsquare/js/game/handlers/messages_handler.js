@@ -43,10 +43,11 @@ var MessagesHandler = Class.create(UnitHandler, {
      }
      this.currentGameMode = this.scene.movementManager.currentMode; 
      this.scene.movementManager.currentMode = this.scene.movementManager.modes.conversation;
-     console.log('start')
-     new Effect.Fade('guidingBar', {duration : 2})
-     new Effect.Move('topScope', {y:this.scopeHeight})
-     new Effect.Move('bottomScope', {y:-this.scopeHeight})
+     new Effect.Fade('guidingBar', {duration : 2});
+     new Effect.Move('topScope', {y:this.scopeHeight});
+     new Effect.Move('bottomScope', {y:-this.scopeHeight});
+     $$('.contuineReading').first().show();
+     
    },
   
   continueConversation: function(){
@@ -54,11 +55,11 @@ var MessagesHandler = Class.create(UnitHandler, {
   },
   
   endConversation: function(){
-    console.log('end')
     this.scene.movementManager.currentMode = this.currentGameMode;
-    new Effect.Appear('guidingBar') 
-    new Effect.Move('topScope', {y:-this.scopeHeight})
-    new Effect.Move('bottomScope', {y:this.scopeHeight})
+    new Effect.Appear('guidingBar');
+    new Effect.Move('topScope', {y:-this.scopeHeight});
+    new Effect.Move('bottomScope', {y:this.scopeHeight});
+    $$('.contuineReading').first().hide();
   },
   
   showGuidBubble: function(command){

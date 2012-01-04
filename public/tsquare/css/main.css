@@ -30,7 +30,7 @@ img { border:none; outline:none;}
 .message { position:absolute; top:-285px; left:300px; z-index:30; }
 .message span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.3em; width:210px; margin:15px; line-height:1.2em; height:70px; display:block; width:238px; }
 
-.topScope { position:absolute; top:-70px; left:0; background:#000; height:70px; width:970px; z-index:100; }
-.bottomScope { position:absolute; bottom:-70px; left:0; background:#000; height:70px; width:970px; z-index:100; }
+.topScope { position:absolute; top:-80px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
+.bottomScope { position:absolute; bottom:-80px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
 
 .contuineReading { position:absolute; top:200px; left:240px; z-index:101; }

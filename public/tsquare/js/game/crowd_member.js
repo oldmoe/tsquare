@@ -195,15 +195,16 @@ var CrowdMember = Class.create(Unit,{
   },
   
   hit : function(){
-      if(this.target){
-          this.currentAction = "hit";
-          this.hitting = true;
-          this.animationLock = 0;
-          for(var i=0; this.followers && i<this.followers.length; i++){
-            if(!this.followers[i].back)
-              this.followers[i].hit();
-          }          
-      }
+    if(this.target){
+        this.currentAction = "hit";
+        this.hitting = true;
+        this.hitCounter = 0;
+        this.fire('hit')
+        for(var i=0; this.followers && i<this.followers.length; i++){
+          if(!this.followers[i].back)
+            this.followers[i].hit();
+        }          
+    }
   },
   
   retreat : function(){
@@ -321,28 +322,17 @@ var CrowdMember = Class.create(Unit,{
   
   hitMove : function(){
     if (!this.target|| this.target.hp <= 0 || this.target.dead || this.target.doneProtection) {
-      this.fire('idle')
+      this.fire('idle');
       this.hitting = false;
       return;
     }
-    var span = 6 * 9 + 1;
+    var span = 18 * 2 + 1;
     this.hitCounter ++;
-    if (this.hitCounter < span) {
-      if (this.animationLock < 1) {
-      	this.fire('hit');
-      	this.animationLock++;
-      }
-      this.target.rotationComplete(this.attack/50)
-    } else {
-      if (this.animationLock < 2) {
-      	this.fire('idle');
-      	this.animationLock++;
-      }
-    }
-    if (this.hitCounter == 2 * span) {
+    if(this.hitCounter == span){
       this.hitCounter = 0;
-      this.animationLock = 0;
       this.hitting = false;
+      this.fire('idle');
+      this.target.rotationComplete(this.attack)
     }
   },
   

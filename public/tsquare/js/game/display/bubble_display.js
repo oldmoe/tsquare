@@ -5,7 +5,7 @@ var BubbleDisplay = Class.create(Display,{
     if(owner.oneMessage)
       this.baloonImg = Loader.images.gameElements['bubble.png']
     else  
-      this.baloonImg = Loader.images.gameElements['bubble_conv.png']
+      this.baloonImg = Loader.images.gameElements['bubble.png']
       
     this.imgWidth = this.baloonImg.width/this.noOfFrames
     this.imgHeight = this.baloonImg.height

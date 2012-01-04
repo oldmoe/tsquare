@@ -12,7 +12,7 @@ var AdvisorDisplay = Class.create(Display,{
     this.frontImg = Loader.images.characters[owner.type+'_front.png']
     this.blurImg = Loader.images.characters[owner.type+'_blur.png']
 
-    this.baloonImg = Loader.images.gameElements['bubble_conv.png']
+    this.baloonImg = Loader.images.gameElements['bubble.png']
     
     this.imgWidth = this.characterImg.width
     this.imgHeight = this.characterImg.height / this.noOfFrames

@@ -10,5 +10,10 @@ BottleguyDisplay = Class.create(CrowdMemberDisplay,{
     this.deadImg = Loader.images.characters['bottleguy_dead.png']
     this.hitImg = Loader.images.characters['bottleguy_hit.png']
     this.hydrateImg = Loader.images.effects['hydrate.png']
+  },
+  
+  configureAnimations: function($super){
+    $super()
+    this.noOfFramesPerAnimation['hit'] = 9;
   }
 })

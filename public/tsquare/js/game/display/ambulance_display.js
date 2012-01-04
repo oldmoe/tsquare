@@ -14,18 +14,23 @@ var AmbulanceDisplay = Class.create(Display,{
   },
   
   initAudio : function(){
-    this.playAudio();
+    var reactor = this.owner.scene.reactor
+    var self = this
+    reactor.pushEvery(reactor.everySeconds(Math.round(Math.random()*5)), reactor.everySeconds(8), function(){
+      return self.playAudio()
+    })
   },
 
-  playAudio : function(repeat){
-    var self = this;
-    this.owner.scene.audioManager.play(Loader.sounds['sfx']['ambulance.mp3'], {volume : 20, onfinish: function(){
-      self.playAudio(true);
-    }}, repeat);
+  playAudio : function(){
+    if (this.audioDestroyed) {
+      return false
+    }
+    Loader.sounds['sfx']['ambulance.mp3'].play({volume:10})   
+    //this.owner.scene.audioManager.play(Loader.sounds['sfx']['ambulance.mp3'], {volume : 10}, true)
   },
   
   destroyAudio: function(){
-    this.owner.scene.audioManager.mute(Loader.sounds['sfx']['ambulance.mp3'], true);
+    this.audioDestroyed = true
   },
 
   showText: function(){

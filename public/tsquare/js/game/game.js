@@ -33,7 +33,7 @@ var Game = Class.create({
   },
   
   initializeGame : function(){
-    var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png', 'bubble_conv.png',
+    var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png',
     'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png',
     'square.png','line.png', 'smoke1.png', 'smoke2.png', 'smoke3.png', 'smoke4.png']
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',

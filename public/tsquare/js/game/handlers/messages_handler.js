@@ -64,16 +64,16 @@ var MessagesHandler = Class.create(UnitHandler, {
     else if(command == "hold")//hold
       message += "";
     
-    this.showCrowdBubble(message, 70, true);
+    this.showCrowdBubble(message, 70);
   },
   
-  showCrowdBubble: function(message, delay, oneMessage){
+  showCrowdBubble: function(message, delay){
     var crowds = this.scene.handlers.crowd.objects;
     var position = {x: crowds[1][0].coords.x-100, y: crowds[1][0].coords.y};
     
     if(this.crowdBubble)this.removeCrowdBubble();
     
-    this.crowdBubble = new Bubble(this.scene, position.x, position.y, message, oneMessage);
+    this.crowdBubble = new Bubble(this.scene, position.x, position.y, message);
     var bubbleDisplay = new BubbleDisplay(this.crowdBubble);
     this.scene.pushToRenderLoop('characters', bubbleDisplay);
     

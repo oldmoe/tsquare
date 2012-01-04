@@ -119,6 +119,7 @@ var GuidingIcon = Class.create(Observer,{
   },
   
   tick: function(){
+    if(this.scene.movementManager.move.length > 0)return;
     var command = "march";
     var enemy = null;
     var protectionUnit = null;

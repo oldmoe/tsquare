@@ -4,12 +4,13 @@ var AmbulanceDisplay = Class.create(Display,{
   
   initialize : function($super,owner){
     this.img = Loader.images.enemies['ambulance.png']
-    this.baloonImg = Loader.images.gameElements['bubble.png']
+    this.baloonImg = Loader.images.gameElements['bubble_inverted.png']
     this.shadowImg = Loader.images.effects['ambulance_shadow.png'];
 
     this.imgHeight = this.img.height / this.noOfFrames
     this.imgWidth = this.img.width
     $super(owner)
+    
     if(Math.random() <= 0.5)this.showText();
   },
   
@@ -38,13 +39,13 @@ var AmbulanceDisplay = Class.create(Display,{
     })
     
     this.sprites.text = new DomTextSprite(this.owner,"textInfo", {
-        width: 173,
-        height: 100,
+        width: 255,
+        height: 70,
         centered: true,
-        shiftY: -83,
-        shiftX: 25,
+        shiftY: -105,
+        shiftX: 5,
         styleClass: '',
-        divClass: 'messages'
+        divClass: 'message'
     });
   },
 

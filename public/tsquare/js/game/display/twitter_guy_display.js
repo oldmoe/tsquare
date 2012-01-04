@@ -2,11 +2,12 @@ var TwitterGuyDisplay = Class.create(Display,{
   noOfFrames : 7,
   initialize : function($super,owner){
     this.img = Loader.images.enemies['twitter_guy.png']
-    this.baloonImg = Loader.images.gameElements['bubble.png']
+    this.baloonImg = Loader.images.gameElements['bubble_inverted.png']
     
     this.imgHeight = this.img.height / this.noOfFrames
     this.imgWidth = this.img.width
     $super(owner)
+    
     if(Math.random() <= 0.5)this.showText();
   },
 
@@ -45,13 +46,13 @@ var TwitterGuyDisplay = Class.create(Display,{
     })
     
     this.sprites.text = new DomTextSprite(this.owner,"textInfo", {
-        width: 173,
-        height: 100,
+        width: 255,
+        height: 70,
         centered: true,
-        shiftY: -83,
-        shiftX: 25,
+        shiftY: -103,
+        shiftX: 8,
         styleClass: '',
-        divClass: 'messages'
+        divClass: 'message'
     });
   },
 

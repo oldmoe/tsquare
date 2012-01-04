@@ -33,7 +33,7 @@ var Game = Class.create({
   },
   
   initializeGame : function(){
-    var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png', 'bubble_conv.png',
+    var gameElementsImages = ['arrow_up.png','arrow_down.png', 'bubble.png', 'bubble_inverted.png',
     'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png',
     'square.png','line.png', 'smoke1.png', 'smoke2.png', 'smoke3.png', 'smoke4.png']
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
@@ -119,7 +119,7 @@ var Game = Class.create({
     this.mission = mission;
     missionData = mission;
     this.misssionLoaded = false;
-	  var backgroundImages = ['background.png', 'clowds.png', 'followers_crowd.png']
+	  var backgroundImages = ['background.png', 'clowds.png', 'followers_crowd.png', 'followers_crowd_car.png']
 
     var self = this;
     this.mission.backgrounds.layer1.each(function(elem){

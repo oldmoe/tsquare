@@ -12,7 +12,7 @@ var AdvisorDisplay = Class.create(Display,{
     this.frontImg = Loader.images.characters[owner.type+'_front.png']
     this.blurImg = Loader.images.characters[owner.type+'_blur.png']
 
-    this.baloonImg = Loader.images.gameElements['bubble_conv.png']
+    this.baloonImg = Loader.images.gameElements['bubble_inverted.png']
     
     this.imgWidth = this.characterImg.width
     this.imgHeight = this.characterImg.height / this.noOfFrames
@@ -59,18 +59,18 @@ var AdvisorDisplay = Class.create(Display,{
     this.sprites.baloon = new DomImgSprite(this.owner, {img : this.baloonImg},{
       width: this.baloonImg.width,
       height: this.baloonImg.height,
-      shiftY:-120,
-      shiftX:0
+      shiftY:-160,
+      shiftX:-200
     })
     
     this.sprites.text = new DomTextSprite(this.owner,"textInfo", {
-        width: 173,
-        height: 100,
+        width: 255,
+        height: 70,
         centered: true,
-        shiftY: -86,
-        shiftX: 25,
+        shiftY: -156,
+        shiftX: -190,
         styleClass: '',
-        divClass: 'messages'
+        divClass: 'message'
     });
   },
 

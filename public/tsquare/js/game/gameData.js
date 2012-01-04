@@ -7,7 +7,7 @@ var missionData = {
       "category": 'advisor',
       "index": 0,
       "lane": 0,
-      "x": 5,
+      "x": 1,
       "order": 1,
       "messages" : [
         {"person":"ultras_red", "message":"enta meen yad"},
@@ -55,17 +55,17 @@ var missionData = {
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 3,
+      "x": 1,
       "order": 1
   },
-  {"name":"twitter_guy","category":"protection","index":0,"lane":1,"x":7,"order":1},
+  {"name":"ambulance","category":"protection","index":0,"lane":1,"x":2,"order":1},
   {
       "name": "wood_stick_cs",
       "category": 'enemy',
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 70,
+      "x": 50,
       "order": 1
   }
 /*  {

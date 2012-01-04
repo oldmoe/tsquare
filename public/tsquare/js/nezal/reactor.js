@@ -108,14 +108,15 @@ var Reactor = Class.create(Observer, {
 	},
 	
 	pushEvery : function(ticks, everyTicks, func, scope){
+    var self = this
 		var wrapper = function(){
-			scope = scope || this
+			scope = scope || self
 			var	result = func.apply(scope)
 			if(!(result === false)){
-				this.push(everyTicks, wrapper, this)
+				self.push(everyTicks, wrapper, scope)
 			}
 		}
-		this.push(ticks, wrapper, this)
+		this.push(ticks, wrapper, scope)
 	},
 		
 	timeToTicks : function(time){

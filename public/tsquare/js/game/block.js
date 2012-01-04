@@ -55,6 +55,7 @@ var Block = Class.create(Enemy,{
           }
         }
       }
+      this.hp = maxHp
       if(maxHp<= 0){
         this.scene.collision = false;
         this.scene.fire("targetCircleComplete");

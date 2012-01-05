@@ -104,14 +104,12 @@ var Game = Class.create({
   								  onFinish:function(){
   					   				self.imagesLoaded = true;
   						  			self.start();
-  						  			
   								  },
                     onError:function(){
   					   				self.imagesLoaded = true;
   						  			self.start();
                     }
     });
-    Game.addLoadedImagesToDiv("uiContainer");
   },
 
   play : function(mission){
@@ -185,6 +183,7 @@ var Game = Class.create({
 });
 
 Game.addLoadedImagesToDiv = function(divId){
+  console.log(divId)
   $$('#' + divId + ' .loadedImg').each(function(imgSpan){
     var classes = null
     if (imgSpan.getAttribute('imgClasses')) {

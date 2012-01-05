@@ -25,19 +25,23 @@ var BlockDisplay = Class.create(EnemyDisplay, {
   },
   
   initAudio : function(){
-    this.playAudio();
+    var reactor = this.owner.scene.reactor
+    var self = this
+    reactor.pushEvery(reactor.everySeconds(Math.round(Math.random()*5)), reactor.everySeconds(8), function(){
+      return self.playAudio();
+    })
   },
 
   playAudio : function(repeat){
-    var self = this;
+    if (this.audioDestroyed) {
+      return false;
+    }
     var volume = (this.owner.options.columns * this.owner.options.rows) / 27 * 80;
-    this.owner.scene.audioManager.play(Loader.sounds['sfx']['Police-march.mp3'], {volume : volume, onfinish: function(){
-      self.playAudio(true);
-    }}, repeat);
+    Loader.sounds['sfx']['Police-march.mp3'].play({volume: volume});
   },
   
   destroyAudio: function(){
-    this.owner.scene.audioManager.mute(Loader.sounds['sfx']['Police-march.mp3'], false);
+     this.audioDestroyed = true;
   },
   
   showText: function(){

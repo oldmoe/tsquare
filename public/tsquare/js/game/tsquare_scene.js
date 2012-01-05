@@ -49,7 +49,7 @@ var TsquareScene = Class.create(Scene,{
         this.comboMistakes = {current : 0, max : 2}
         this.speedFactors = []
         
-        //Effect.Queues.create('global', this.reactor)
+        // Effect.Queues.create('global', this.reactor)
 
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
@@ -218,16 +218,29 @@ var TsquareScene = Class.create(Scene,{
         if(!this.stopped)
         {
           this.stopped = true;
-          this.finish(afterMarchCallback);
-           
-          var scoreData = {
-            score: self.scoreCalculator.score,
-            objectives: self.scoreCalculator.getObjectivesRatio(),
-            combos: self.scoreCalculator.getCombos(),
-            win: true
-          };
-          if(scoreData.objectives < 0.3) scoreData.win = false;          
-          self.fire('end', [scoreData]);
+          if (!self.handlers.crowd.ended) {
+            var scoreData = {
+              score: self.scoreCalculator.score,
+              objectives: self.scoreCalculator.getObjectivesRatio(),
+              combos: self.scoreCalculator.getCombos(),
+              win: true
+            };
+            
+            if (scoreData.objectives < 0.3)
+              scoreData.win = false;
+            self.fire('end', [scoreData]);
+            //self.direction = 0
+            self.finish(afterMarchCallback);
+          }else{
+            var scoreData = {
+              score: 0,
+              objectives: 0,
+              combos: 0,
+              win: false
+            };
+            self.fire('end', [scoreData]);
+            afterMarchCallback();
+          }
         }
       }
       //send to the server
@@ -328,10 +341,11 @@ var TsquareScene = Class.create(Scene,{
    },
 
    updateSpeed: function(){
+      var speedDelta = Math.round(20 / this.handlers.crowd.objects[this.activeLane].length)
       if(this.targetEnergy - this.energy.current > 1){
-        this.energy.current += 2;
+        this.energy.current += speedDelta;
       }else if (this.targetEnergy - this.energy.current < -1){
-        if(this.energy.current > 0)this.energy.current -= 2;        
+        if(this.energy.current > 0)this.energy.current -= speedDelta;        
       }
       
      if(this.speedIndex == this.targetSpeedIndex) return;

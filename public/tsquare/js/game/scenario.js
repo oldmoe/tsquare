@@ -1,3 +1,6 @@
+// OBSOLETE
+// NO LONGER IN USE
+// PLEASE REMOVE ASAP
 var Scenario = Class.create({
   initialize : function(scene,conversation){
       this.scene = scene

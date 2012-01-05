@@ -103,7 +103,8 @@ var DomSprite = Class.create(Sprite, {
     position.x = Math.round(this.owner.coords.x);
     position.y = Math.round(this.owner.coords.y-this.owner.imgHeight/2) + this.defaultShiftY;
     if (this.zIndex) {
-      position.zIndex = Math.round(this.zIndex + Math.random() * 3)
+      // position.zIndex = Math.round(this.zIndex + Math.random() * 3)
+      position.zIndex = this.zIndex
     }
     else 
       position.zIndex = Math.max(1, Math.round(this.owner.coords.y + this.owner.zdim + this.shiftZ));

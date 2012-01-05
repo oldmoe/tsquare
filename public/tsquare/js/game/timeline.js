@@ -21,20 +21,19 @@ var Timeline = Class.create({
                                   "mission_current.png", "mySquare_screen.png",
                                   "mission_locked.png", "mission_finished.png", "crowd_member_small.png", "challenge_box.png",
                                   "mission_icon_selected.png", "play_button.png"], path: 'images/timeline/', store: 'timeline'},
-                        {images: ["ultras_red_idle.png", "ultras_red_walk.png", "ultras_red_run.png"], path: 'images/characters/', store: 'characters'},          
+                        {images: ["ultras_red_idle.png", "ultras_red_walk.png", "ultras_red_run.png"], path: 'images/characters/', store: 'characters'},
+                        {images: ['crowd_shadow.png'], path: 'images/effects/', store: 'effects'},          
                         {images : ["facebook_image_large.png"],  path: 'images/dummy/', store: 'dummy' }],
                       {
                         onFinish: function(){ 
                           self.imagesLoaded = true;
                           self.display();
+                          Game.addLoadedImagesToDiv("uiContainer");
                         }
                       });
     this.gameManager.inbox.challenges(function(challenges){
       self.challenges = challenges
       self.challengesLoaded = true;
-      if (!self.walkingMan) {
-        self.walkingMan = new WalkingManDisplay(this.gameManager.reactor);
-      }
       self.display();
     });
   },
@@ -46,6 +45,9 @@ var Timeline = Class.create({
       $('home').innerHTML = this.templateManager.load('home', {'missions' : this.gameManager.missions});
       Game.addLoadedImagesToDiv('home');
       this.attachHomeListener();
+      if (!this.walkingMan) {
+        this.walkingMan = new WalkingManDisplay(this.gameManager.reactor);
+      }
       this.displayHome();
     }
   },  
@@ -246,7 +248,7 @@ var Timeline = Class.create({
       element.observe('mouseover', function(event){
         var count = event.element().parentNode.parentNode.parentNode.children.length;
         var elem = event.element().parentNode.parentNode;
-        var elemIndex = elem.previousSiblings().length;
+        var elemIndex = $(elem).previousSiblings().length;
         var gap = (960 - elem.getWidth() * count) / (count+1);
         var pos = gap * (elemIndex+1) + elem.getWidth()*elemIndex + elem.getWidth()/2; 
         self.walkingMan.moveTo(pos-30);

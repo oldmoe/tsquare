@@ -5,11 +5,13 @@ var BlockDisplay = Class.create(EnemyDisplay, {
     this.imgWidth = 0;
     this.imgHeight = 0;
     
-    
     $super(owner);
     var self = this;
     
-    if(Math.random() <= 0.5)this.showText();
+    if(!owner.noMessage){
+      if(Math.random() <= 0.5)this.showText();
+    }
+    
   },
   
   getWidth : function(){
@@ -23,38 +25,42 @@ var BlockDisplay = Class.create(EnemyDisplay, {
   },
   
   initAudio : function(){
-    this.playAudio();
+    var reactor = this.owner.scene.reactor
+    var self = this
+    reactor.pushEvery(reactor.everySeconds(Math.round(Math.random()*5)), reactor.everySeconds(8), function(){
+      return self.playAudio();
+    })
   },
 
   playAudio : function(repeat){
-    var self = this;
-    var volume = (this.owner.options.columns * this.owner.options.rows) / 27 * 150;
-    this.owner.scene.audioManager.play(Loader.sounds['sfx']['Police-march.mp3'], {volume : volume, onfinish: function(){
-      self.playAudio(true);
-    }}, repeat);
+    if (this.audioDestroyed) {
+      return false;
+    }
+    var volume = (this.owner.options.columns * this.owner.options.rows) / 27 * 80;
+    Loader.sounds['sfx']['Police-march.mp3'].play({volume: volume});
   },
   
   destroyAudio: function(){
-    this.owner.scene.audioManager.mute(Loader.sounds['sfx']['Police-march.mp3'], false);
+     this.audioDestroyed = true;
   },
   
   showText: function(){
-    this.baloonImg = Loader.images.gameElements['bubble.png']
+    this.baloonImg = Loader.images.gameElements['bubble_inverted.png']
     this.sprites.baloon = new DomImgSprite(this.owner, {img : this.baloonImg},{
       width: this.baloonImg.width,
       height: this.baloonImg.height,
       shiftY:-180,
-      shiftX:0
+      shiftX:-100
     })
     
     this.sprites.text = new DomTextSprite(this.owner,"textInfo", {
-        width: 173,
-        height: 100,
+        width: 255,
+        height: 70,
         centered: true,
-        shiftY: -150,
-        shiftX: 10,
+        shiftY: -175,
+        shiftX: -90,
         styleClass: '',
-        divClass: 'messages'
+        divClass: 'message'
     });
   },
 

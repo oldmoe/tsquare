@@ -8,6 +8,7 @@ var GuidingIcon = Class.create(Observer,{
   wrongCommands : 0,
   arrowsHidden: false,
   moves: null,
+  
   initialize: function(game){
     this.scene = game.scene;
     this.moves = game.scene.movementManager.moves;
@@ -118,6 +119,7 @@ var GuidingIcon = Class.create(Observer,{
   },
   
   tick: function(){
+    if(this.scene.movementManager.move.length > 0)return;
     var command = "march";
     var enemy = null;
     var protectionUnit = null;
@@ -159,6 +161,7 @@ var GuidingIcon = Class.create(Observer,{
 
     if(this.currentCommand != command && !this.commandLock){
       this.currentCommand = command;
+      this.scene.movementManager.currentCommand = this.currentCommand;
       this.displayCommand(this.currentCommand);
     }
     this.commandLock = this.currentCommand != "march";

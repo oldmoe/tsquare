@@ -3,7 +3,7 @@
 var Loader = Class.create({
   initialize: function (){
     this.loadedResources =0
-    this.chunk = 1
+    this.chunk = 25
     this.currentLength = 0
     this.resources = []
     this.options = [];

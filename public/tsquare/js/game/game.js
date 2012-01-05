@@ -183,7 +183,6 @@ var Game = Class.create({
 });
 
 Game.addLoadedImagesToDiv = function(divId){
-  console.log(divId)
   $$('#' + divId + ' .loadedImg').each(function(imgSpan){
     var classes = null
     if (imgSpan.getAttribute('imgClasses')) {

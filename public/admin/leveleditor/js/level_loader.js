@@ -5,8 +5,8 @@ var LevelLoader = Class.create({
   
   initialize: function(){
     this.mission = Mission.currMission;
-    // this.missionData = this.mission.data;
-    this.missionData = this.mission;
+    this.missionData = this.mission.data;
+    // this.missionData = this.mission;
     this.load();
   },
   

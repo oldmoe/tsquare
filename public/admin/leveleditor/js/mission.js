@@ -40,8 +40,6 @@ var Mission = {
       Mission.currMission = {};
       
     Mission.currMission.data = data;
-    Mission.currMission.images = data.missionImages;
-    delete data.missionImages;
     new Ajax.Request( '/' + this.adminUrl + "/" + this.game + '/missions/' + this.id + '.json' , {
                       method : 'put',
                       parameters : { "data" : JSON.stringify(Mission.currMission) },

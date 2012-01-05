@@ -52,7 +52,7 @@ var SettingsHandler = new Class.create({
 		$("missionDetails").observe("keyup", function(event){
 		  self.settings.missionDetails = event.target.value;
 		})
-
+    
     $(this.missionContainerId).select('input[name=missionImageInput]')[0].observe('change', function(e){
       self.uploadMissionImage(e.currentTarget.files[0]);
     });
@@ -101,8 +101,8 @@ var SettingsHandler = new Class.create({
 	  else if(settings.environment == "day_night")$(this.containerId).select('input[name=environment]')[2].checked = "checked";
 	  
 	  if(settings.missionImages){
-	    $("missionImage").src = self.settings.missionImages.missionImage;
-	    $("stuffImage").src = self.settings.missionImages.stuffImage;
+	    $("missionImage").src = settings.missionImages.missionImage;
+	    $("stuffImage").src = settings.missionImages.stuffImage;
 	  }
 	  
 	  this.settings = settings;

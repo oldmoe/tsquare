@@ -5,7 +5,7 @@ var LevelLoader = Class.create({
   
   initialize: function(){
     this.mission = Mission.currMission;
-    this.missionData = this.mission.data;
+    this.missionData = this.mission.data; // this is the actual
     // this.missionData = this.mission;
     this.load();
   },
@@ -27,6 +27,7 @@ var LevelLoader = Class.create({
     settings.gameModes = missionData.gameModes;
     settings.environment = missionData.environment;
     settings.missionDetails = missionData.missionDetails;
+    settings.missionImages = missionData.missionImages;
     levelEditor.settingsHandler.loadData(settings);
   },
   

@@ -3,7 +3,7 @@ var MessagesHandler = Class.create(UnitHandler, {
   crowdBubble: null,
   currentGameMode: null,
   
-  messages : null,
+  messages : {},
   
   enemyMessage: null,
   
@@ -12,13 +12,26 @@ var MessagesHandler = Class.create(UnitHandler, {
   initialize: function($super, scene){
     $super(scene);
     
-    this.messages = {
+    this.messages.en = {
       "protectionUnit" : [
-        "Please help me, help me !!", "Hi there, protect me please"
+        "Please help me, help me !!",
+        "Hi there, protect me please"
       ],
       
       "enemy" : [
-        "Attack!", "Attack them!"
+        "Attack!",
+        "Attack them!"
+      ]
+    }
+    this.messages.ar = {
+      "protectionUnit" : [
+        "النجدة!!",
+        "الحقوني!!"
+      ],
+      
+      "enemy" : [
+        "الهجوم!",
+        "خلص عليهم!"
       ]
     }
     
@@ -54,26 +67,14 @@ var MessagesHandler = Class.create(UnitHandler, {
   },
   
   endConversation: function(){
-    console.log('end')
     this.scene.movementManager.currentMode = this.currentGameMode;
     new Effect.Appear('guidingBar') 
     new Effect.Move('topScope', {y:-this.scopeHeight})
     new Effect.Move('bottomScope', {y:this.scopeHeight})
   },
   
-  showGuidBubble: function(command){
-    var message = "Click the keys; ";
-    if(command == "march") //forward
-      message += "right, right, left, right";
-    else if(command == "retreat")//retreat
-      message += "left, left, right left";
-    else if(command == "circle")//circle
-      message += "right, left, right, left";
-    else if(command == "hit")//circle
-      message += "up, down, up, down";
-    else if(command == "hold")//hold
-      message += "";
-    
+  showGuidBubble: function(command) {
+    var message = game.scene.movementManager.commandText(command);
     this.showCrowdBubble(message, 70);
   },
   
@@ -89,9 +90,14 @@ var MessagesHandler = Class.create(UnitHandler, {
     
     if(delay)this.scene.reactor.push(delay, this.removeCrowdBubble, this);
   },
+  
+  randomMessage: function(type) {
+  	var allMessages = this.messages[game.properties.lang][type];
+    return allMessages[Math.round(Math.random()*(allMessages.length-1))];
+  },
 
-  showBubble: function(type, coords){
-    var message = this.messages[type][Math.round(Math.random()*(this.messages[type].length-1))];
+  showBubble: function(type, coords) {
+    var message = this.randomMessage(type);
     var bubble = new Bubble(this.scene, coords.x, coords.y, message);
     var bubbleDisplay = new BubbleDisplay(bubble);
     this.scene.pushToRenderLoop('characters', bubbleDisplay);

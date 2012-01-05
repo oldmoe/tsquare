@@ -1,5 +1,6 @@
 var Game = Class.create({
   
+  properties: {}, // key-value store
   inGameMeterBar : null,
 
   initialize: function(gameManager){
@@ -56,7 +57,10 @@ var Game = Class.create({
     
     var shadowImages = ["crowd_shadow.png", "box_car_shadow.png", "amn_markazy_shadow.png", 
     "ambulance_shadow.png", "twitter_shadow.png", "amn_markazy_tear_gas_shadow.png"];
-       
+    
+    //TODO: test with arabic data + switch CSS
+    this.properties.lang = 'en';
+
   	var self = this
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
   	        {images: countDownImages, path: 'images/game_elements/', store: 'countDown'},

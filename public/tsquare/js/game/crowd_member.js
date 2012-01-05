@@ -6,7 +6,7 @@ var CrowdMember = Class.create(Unit,{
   waterDecreaseRate : 1,
   commandFilters: [],
   rotationPoints : null,
-  rotationSpeed : 25,
+  rotationSpeed : 35,
   rotating : false,
   pushing : false,
   holdingLevel: 0,

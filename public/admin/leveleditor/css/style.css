@@ -142,7 +142,7 @@
   left: 280px;
   position: absolute;
   top: 200px;
-  width: 400px;
+  width: 440px;
   z-index: 1000;
 }
 
@@ -188,9 +188,9 @@
   border-radius: 20px 20px 20px 20px;
   left: 180px;
   position: absolute;
-  top: 60px;
+  top: 10px;
   width: 600px;
-  height: 400px;
+  height: 600px;
   z-index: 1000;
 }
 

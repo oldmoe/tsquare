@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<title>TSqaure Level Editor</title>
@@ -32,7 +33,6 @@
       var levelEditor = null;  
 			document.observe("dom:loaded", function() {
 				levelEditor = new LevelEditor();
-				// var levelLoader = new LevelLoader();
 				Mission.initialize();
 			});
 			
@@ -136,15 +136,31 @@
 		</div>
 		
 		<div id="discussionDialog" class="discussionDialog" style="display:none;">
-		    <div class="discussionDialogContents">
-				  <textarea id="discussionMessage" rows="2" cols="20" class="messageText"></textarea>
-				  <br/>
-				  <input type="button" value="Add" class="add" />
-				  <input type="button" value="Reset" class="reset"/>
-				<ol id="messagesList">
-				</ol>
-		      </div>
-		      <div class="dialogCloseButton"></div>
+			<div class="discussionDialogContents" style="height:250px;overflow:scroll;">
+				<table>
+					<tr>
+						<td>Speaker</td>
+						<td><select id="gameElementsList"></select></td>
+					</tr>
+					<tr>
+						<td>English message</td>
+						<td><textarea id="discussionMessage" rows="2" cols="20" class="messageText"></textarea></td>
+					</tr>
+					<tr>
+						<td>Arabic message</td>
+						<td><textarea id="discussionMessage_ar" rows="2" cols="20" class="messageText"></textarea></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="Add" class="add" /></td>
+						<td><input type="button" value="Reset" class="reset"/></td>
+					</tr>
+					<tr>
+						<td><ol id="messagesList"></ol></td>
+						<td><ol id="messagesList_ar"></ol></td>
+					</tr>
+				</table>
+			</div>
+			<div class="dialogCloseButton"></div>
 		</div>
 		
 		<div id="settingsDialog" class="settingsDialog" style="display: none">
@@ -171,6 +187,10 @@
 					<input type="button" value="Add" class="add" ><br/>
 					<input type="button" value="Delete" class="delete" />
 					<ol id="energyMessagesList"></ol>
+				</div>
+				<div id="missionImageSettingsContainer">
+				  Mission Image: <input type="file" name="missionImageInput" /> <img id="missionImage" width="100" height="100" /> <br/>
+				  Stuff Image: <input type="file" name="stuffImageInput" /> <img id="stuffImage" width="100" height="100"/> <br/>
 				</div>
 			</div>
 			<div class="dialogCloseButton"> </div>

@@ -7,7 +7,14 @@ var Mission = {
   id : null,
 
   initialize : function(){
+
+    var gameData = {"data":[[],[{"name":"twitter_guy","category":"protection","index":0,"lane":1,"x":4,"order":0},{"name":"wood_stick_cs","category":"enemy","type":"1_1","index":0,"lane":1,"x":9,"order":1}],[]],"backgrounds":{"layer1":[{"name":"main_skyline.png"}],"layer2":[{"name":"secondary_skyline.png"}],"landmarks":[{"name":"landmark_2.png"}],"fence":[{"name":"fence.png"}],"lamp":[{"name":"3amod2.png"}],"land":[{"name":"land.png"}]}}
     
+    Mission.currMission = gameData;
+    // $('missionName').value = Mission.currMission.name;
+    var levelLoader = new LevelLoader();
+    return;
+        
     this.id = parseInt(window.location.toString().split('?')[1].split('&')[0].split('=')[1]);
     this.game = window.location.toString().split('?')[1].split('&')[1].split('=')[1];
     $$('#controls .saveButton')[0].stopObserving('click');

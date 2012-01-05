@@ -4,12 +4,14 @@ var SettingsHandler = new Class.create({
 	settings: {},
 	containerId: 'settingsDialog',
 	energyContainerId: 'energySettingsContainer',
+	missionContainerId: 'missionImageSettingsContainer',
 		
 	initialize: function(levelEditor){
 		this.levelEditor = levelEditor;
 		this.settings.introMsg = "";
 		this.settings.environment = "day";
 		this.settings.gameModes = ['normal'];
+		this.settings.missionImages = {};
 		
 		this.init();
 		
@@ -50,8 +52,38 @@ var SettingsHandler = new Class.create({
 		$("missionDetails").observe("keyup", function(event){
 		  self.settings.missionDetails = event.target.value;
 		})
+
+    $(this.missionContainerId).select('input[name=missionImageInput]')[0].observe('change', function(e){
+      self.uploadMissionImage(e.currentTarget.files[0]);
+    });
+
+    $(this.missionContainerId).select('input[name=stuffImageInput]')[0].observe('change', function(e){
+      self.uploadStuffImage(e.currentTarget.files[0]);
+    });
 		
 	},
+	
+	uploadMissionImage: function(file){
+    var oFReader = new FileReader()
+    oFReader.readAsDataURL(file);
+    var self = this;
+    oFReader.onloadend = function(e){
+      if(!self.settings.missionImages)self.settings.missionImages = {};
+      self.settings.missionImages.missionImage = oFReader.result; 
+      $("missionImage").src = self.settings.missionImages.missionImage; 
+    }
+	},
+
+  uploadStuffImage: function(file){
+    var oFReader = new FileReader()
+    oFReader.readAsDataURL(file);
+    var self = this;
+    oFReader.onloadend = function(e){
+      if(!self.settings.missionImages)self.settings.missionImages = {};
+      self.settings.missionImages.stuffImage = oFReader.result; 
+      $("stuffImage").src = self.settings.missionImages.stuffImage; 
+    }
+  },
 	
 	init: function(){
 	  $("missionDetails").setValue("");
@@ -60,7 +92,6 @@ var SettingsHandler = new Class.create({
 	loadData: function(settings){
 	  if(settings.missionDetails)$("missionDetails").setValue(settings.missionDetails);
 	  if(settings.gameModes){
-	    
 	    if(settings.gameModes.indexOf("normal") > -1)$(this.containerId).select('input[name=gameModes]')[0].checked = "checked";
 	    if(settings.gameModes.indexOf("sneak") > -1)$(this.containerId).select('input[name=gameModes]')[1].checked = "checked";
 	    if(settings.gameModes.indexOf("charging") > -1)$(this.containerId).select('input[name=gameModes]')[2].checked = "checked";
@@ -68,6 +99,11 @@ var SettingsHandler = new Class.create({
 	  if(settings.environment == "day")$(this.containerId).select('input[name=environment]')[0].checked = "checked";
 	  else if(settings.environment == "night")$(this.containerId).select('input[name=environment]')[1].checked = "checked";
 	  else if(settings.environment == "day_night")$(this.containerId).select('input[name=environment]')[2].checked = "checked";
+	  
+	  if(settings.missionImages){
+	    $("missionImage").src = self.settings.missionImages.missionImage;
+	    $("stuffImage").src = self.settings.missionImages.stuffImage;
+	  }
 	  
 	  this.settings = settings;
 	},

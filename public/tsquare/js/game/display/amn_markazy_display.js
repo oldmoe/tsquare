@@ -11,7 +11,6 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
     this.imgHeight = this.blockImg.height/this.noOfFrames
     $super(owner)
     this.registerEvents()
-    this.createShadow();
   },
   
   loadImages : function(){
@@ -29,12 +28,12 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
     })
   },
 
-  createShadow: function(){
+  createShadows: function(){
     this.shadowImg = Loader.images.effects['amn_markazy_shadow.png'];
     this.sprites.shadow = new DomImgSprite(this.owner, {img : this.shadowImg,noOfFrames : 1}, {
       width: this.shadowImg.width,
       height: this.shadowImg.height,
-      shiftX : -(this.shadowImg.width-this.blockImg.width)-10,
+      shiftX : -(this.shadowImg.width-this.imgWidth)-10,
       shiftY : -10
     })    
   },

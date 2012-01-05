@@ -60,16 +60,18 @@ var AmbulanceDisplay = Class.create(Display,{
       this.sprites.text.destroy();
     }  
   },
-  
-  createSprites : function(){
+
+  createShadows : function(){
     this.sprites.shadow = new DomImgSprite(this.owner, {img : this.shadowImg,noOfFrames : 1}, {
       width: this.shadowImg.width,
       height: this.shadowImg.height,
-      shiftX : -(this.shadowImg.width-this.img.width),
+      shiftX : -(this.shadowImg.width-this.imgWidth),
       shiftY : -10
     })    
+  },
+    
+  createSprites : function(){
     this.sprites.ambulance = new DomImgSprite(this.owner,{img:this.img, noOfFrames:7})
-
   },
   
   render : function($super){

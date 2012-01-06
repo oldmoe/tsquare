@@ -28,6 +28,7 @@ var Timeline = Class.create({
                         onFinish: function(){ 
                           self.imagesLoaded = true;
                           self.display();
+                          Game.addLoadedImagesToDiv("uiContainer");
                         }
                       });
     this.gameManager.inbox.challenges(function(challenges){

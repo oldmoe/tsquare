@@ -9,5 +9,13 @@ var HealerDisplay = Class.create(CrowdMemberDisplay,{
     this.blurImg = Loader.images.characters['medic_blur.png']
     this.deadImg = Loader.images.characters['medic_dead.png']
     this.hitImg = Loader.images.characters['medic_hit.png']
+  },
+  
+  configureAnimations: function($super){
+    $super()
+    this.noOfFramesPerAnimation['run'] = 7;
+    this.noOfFramesPerAnimation['reverseRun'] = 7;
+    this.noOfFramesPerAnimation['sprint'] = 7;
   }
+  
 })

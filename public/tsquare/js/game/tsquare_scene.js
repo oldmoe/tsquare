@@ -206,18 +206,29 @@ var TsquareScene = Class.create(Scene,{
         if(!this.stopped)
         {
           this.stopped = true;
-           
-          var scoreData = {
-            score: self.scoreCalculator.score,
-            objectives: self.scoreCalculator.getObjectivesRatio(),
-            combos: self.scoreCalculator.getCombos(),
-            win: true
-          };
-          if(scoreData.objectives < 0.3) scoreData.win = false;          
-          self.fire('end', [scoreData]);
-          
-          if(this.handlers.crowd.ended)afterMarchCallback()
-          else this.finish(afterMarchCallback);
+          if (!self.handlers.crowd.ended) {
+            var scoreData = {
+              score: self.scoreCalculator.score,
+              objectives: self.scoreCalculator.getObjectivesRatio(),
+              combos: self.scoreCalculator.getCombos(),
+              win: true
+            };
+            
+            if (scoreData.objectives < 0.3)
+              scoreData.win = false;
+            self.fire('end', [scoreData]);
+            //self.direction = 0
+            self.finish(afterMarchCallback);
+          }else{
+            var scoreData = {
+              score: 0,
+              objectives: 0,
+              combos: 0,
+              win: false
+            };
+            self.fire('end', [scoreData]);
+            afterMarchCallback();
+          }
         }
       }
       //send to the server

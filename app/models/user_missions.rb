@@ -9,7 +9,7 @@ class UserMissions
       Mission::MODES.each do |mode|
         missions[mode] = {}
         Mission.all[mode].each do |key, mission|
-          missions[mode][key] = { :name => mission['name'], :id => mission['id'], :details => mission['data']['missionDetails'] }
+          missions[mode][key] = { :name => mission['name'], :id => mission['id'], :details => mission['data']['missionDetails'], :images => mission['data']['missionImages'] }
         end
       end
       missions

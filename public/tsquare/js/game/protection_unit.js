@@ -11,8 +11,7 @@ var ProtectionUnit = Class.create(Unit,{
     $super(scene,x,y,options)
     this.hp = this.maxHp = 1000
     this.neglected = false
-    
-    this.text = this.scene.handlers.message.messages.protectionUnit[Math.round(Math.random()*(this.scene.handlers.message.messages.protectionUnit.length-1))];
+    this.text = this.scene.handlers.message.randomMessage('protectionUnit')
    },
    
    textInfo: function(){

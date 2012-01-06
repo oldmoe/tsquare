@@ -29,6 +29,9 @@ var MovementManager = Class.create({
       hold:{code:[7],index:3},
       hit:{code:[2,3,2,3],index:5}
     }
+    this.keyText = {}
+    this.keyText.en = ['right', 'left', 'up', 'down']
+    this.keyText.ar = ['يمين', 'شمال', 'فوق', 'تحت']
   },
   
   run: function(){
@@ -244,6 +247,14 @@ var MovementManager = Class.create({
       this.scene.fire('hit')
       this.beatMoving = true
     }
+  },
+  
+  //TODO: cache results
+  commandText: function(command) {
+  	var dict = this.keyText[game.properties.lang];
+  	var textCodes = [];
+  	this.moves[command].code.each(function(keyCode){textCodes.push(dict[keyCode]);});
+  	return textCodes.join(' - ');
   },
 
   moveEnd : function(){

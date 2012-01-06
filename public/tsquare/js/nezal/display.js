@@ -11,14 +11,17 @@ var Display = Class.create({
 		Object.extend(this,properties)
     Object.extend(owner,this)
     owner.initDisplay()
-    
-    owner.scene.observe('end', function(){
-      owner.destroyAudio()
-    })
+    if (owner.scene) {
+      owner.scene.observe('end', function(){
+        owner.destroyAudio()
+      })
+    }
 	},
 	
   initDisplay : function(){
+    this.createShadows();
     this.createSprites()
+    
     this.initAudio();    
   },
   
@@ -27,6 +30,10 @@ var Display = Class.create({
 	},
 	
 	destroyAudio: function(){
+	  
+	},
+	
+	createShadows: function(){
 	  
 	},
 	

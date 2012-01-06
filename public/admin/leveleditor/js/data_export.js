@@ -91,6 +91,7 @@ var DataExporter = Class.create({
 		gameData.environment = settings.environment;
 		gameData.gameModes = settings.gameModes;
 		gameData.missionDetails = settings.missionDetails;
+		gameData.missionImages = settings.missionImages;
 		return gameData;
 	},
 

@@ -42,19 +42,18 @@ var CrowdMemberDisplay = Class.create(Display,{
   	this.noOfFramesPerAnimation['hit'] = 6;
   },
   
-  createShadow: function(){
+  createShadows: function(){
     this.shadowImg = Loader.images.effects['crowd_shadow.png'];
     this.sprites.shadow = new DomImgSprite(this.owner, {img : this.shadowImg,noOfFrames : 1}, {
       width: this.shadowImg.width,
       height: this.shadowImg.height,
-      shiftX : -(this.shadowImg.width-this.characterImg.width)-10,
+      shiftX : -(this.shadowImg.width-this.imgWidth)-10,
       shiftY : -10
     })    
   },
   
   createSprites : function(){
   	this.configureAnimations();
-    this.createShadow();
     this.sprites.runEffectForward = new DomImgSprite(this.owner,
     {
       img: this.blurImg,

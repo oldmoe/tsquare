@@ -4,6 +4,8 @@ var DomImgSprite = Class.create(DomSprite, {
 	minAreaZIndex : 10000000,
   animations : null,
   lastCoords : null,
+  originalShiftX : 0,
+  originalShiftY : 0,
   initialize : function($super, owner, imgAssets, properties){
     this.animations = {}
     properties = properties || {}
@@ -12,6 +14,8 @@ var DomImgSprite = Class.create(DomSprite, {
         img : $(imgAssets.img),
         noOfFrames : imgAssets.noOfFrames || 1
      })
+    this.originalShiftX = properties.shiftX || 0
+    this.originalShiftY = properties.shiftY || 0
     this.currentAnimation = this.animations['normal']
     $super(owner, imgAssets, properties);
     //console.log( imgAssets )
@@ -54,6 +58,8 @@ var DomImgSprite = Class.create(DomSprite, {
     this.replaceImg(this.currentAnimation.img)
     this.div.style.width = this.currentAnimation.imgWidth + "px"
     this.div.style.height = this.currentAnimation.imgHeight + "px"
+    this.shiftX = this.currentAnimation.shiftX || this.originalShiftX
+    this.shiftY = this.currentAnimation.shiftY || this.originalShiftY
     Util.removeTransform(this.div)
     if (this.currentAnimation.flipped) {
       this.flipped = true;
@@ -81,9 +87,19 @@ var DomImgSprite = Class.create(DomSprite, {
       imgWidth = img.width
       imgHeight = img.height / noOfFrames
     }
-    var flipped = options.flipped || false 
-    var animation = {img:img.clone(), noOfFrames : noOfFrames, imgWidth : imgWidth, imgHeight : imgHeight,
-    startY:startY, direction:direction,flipped: flipped, name: options.name}
+    var flipped = options.flipped || false
+    var animation = {
+      img: img.clone(),
+      noOfFrames: noOfFrames,
+      imgWidth: imgWidth,
+      imgHeight: imgHeight,
+      startY: startY,
+      direction: direction,
+      flipped: flipped,
+      name: options.name,
+      shiftX: options.shiftX,
+      shiftY: options.shiftY
+    }
     this.animations[options.name] = animation
     return animation
   },

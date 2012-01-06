@@ -13,11 +13,12 @@ var MovementManager = Class.create({
   comboStart: false,
   currentCombos: 0,
   counter:0,
-  tolerance :200,
+  tolerance :250,
   beatTime : 0,  
   beatsPerAudio : 4,
   modes : {"normal" : 0, "clash": 1, "conversation" : 2},
   currentMode : 0,
+  currentCommand: "",
   
   initialize : function(scene){
     this.scene = scene
@@ -28,6 +29,9 @@ var MovementManager = Class.create({
       hold:{code:[7],index:3},
       hit:{code:[2,3,2,3],index:5}
     }
+    this.keyText = {}
+    this.keyText.en = ['right', 'left', 'up', 'down']
+    this.keyText.ar = ['يمين', 'شمال', 'فوق', 'تحت']
   },
   
   run: function(){
@@ -147,19 +151,17 @@ var MovementManager = Class.create({
               }
             }
            }
-           if(found){ 
+           if(found){//button clicked at the right time 
               this.move.push(click)
-              this.scene.fire("keypressed", [click, this.move.length])
               this.counter++
               this.checkDelay(this.counter, beatTime + this.tolerance+ timeDiff)
               this.time = now + timeDiff
-            }else{
+            }else{//but not clicked on the right time
               this.scene.fire("keypressed", [click, self.move.length, 1])
             }
       }else{
         if(now > this.time + beatTime - this.tolerance){
           this.move.push(click)
-          this.scene.fire("keypressed", [click, this.move.length])
           this.counter++
           var delayDiff = this.time + beatTime - now
           if(this.move.length != 4){
@@ -202,41 +204,27 @@ var MovementManager = Class.create({
     var found = false
     var moveIndex = 0;
     var self = this
-    var found  = false
-    var command = null
-    for(var move in this.moves){
-      found = true
-      var code = this.moves[move].code
-      command = move
-      for (var i = 0; i < self.move.length; i++) {
-       if (self.move[i] != code[i]) {
-         found = false
-         break
-       }
-     }
-     if(found){
+    var found  = true
+    var command = this.moves[this.currentCommand];
+
+    for (var i = 0; i < self.move.length; i++) {
+     if (self.move[i] != command.code[i]) {
+       found = false
        break
      }
-   }
+    }
+    
    if(!found){
-     if(this.move[this.move.length-1] == this.RIGHT){
-        this.scene.fire('rightWrong')
-     }else{
-       this.scene.fire('leftWrong')
-     }   
      self.scene.fire("keypressed", [-1, self.move.length-1])
      self.reset()
      return
-   }
-   var code = this.moves[command].code
-   if(this.move[this.move.length-1] == this.RIGHT){
-      this.scene.fire('rightCorrect')
    }else{
-     this.scene.fire('leftCorrect')
-   }   
-   if(code.length==self.move.length){
+     this.scene.fire("keypressed", [this.move[this.move.length-1], this.move.length])
+   }
+   
+   if(command.code.length==self.move.length){
      this.move=[]
-     this.startMove(this.moves[command].index)
+     this.startMove(command.index)
      return true
    }
   },
@@ -259,6 +247,14 @@ var MovementManager = Class.create({
       this.scene.fire('hit')
       this.beatMoving = true
     }
+  },
+  
+  //TODO: cache results
+  commandText: function(command) {
+  	var dict = this.keyText[game.properties.lang];
+  	var textCodes = [];
+  	this.moves[command].code.each(function(keyCode){textCodes.push(dict[keyCode]);});
+  	return textCodes.join(' - ');
   },
 
   moveEnd : function(){

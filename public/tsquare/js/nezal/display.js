@@ -5,20 +5,35 @@ var Display = Class.create({
 	sprites : null,
 	
 	initialize : function(owner,properties){
-		Object.extend(this,properties)
-		this.sprites = {}
-		this.owner = owner
+    this.owner = owner
+    this.sprites = {}
     this.removed = false
-    Object.extend(this.owner,this)
-    this.createSprites()
-    this.initAudio();
+		Object.extend(this,properties)
+    Object.extend(owner,this)
+    owner.initDisplay()
+    if (owner.scene) {
+      owner.scene.observe('end', function(){
+        owner.destroyAudio()
+      })
+    }
 	},
 	
+  initDisplay : function(){
+    this.createShadows();
+    this.createSprites()
+    
+    this.initAudio();    
+  },
+  
 	initAudio: function(){
 	  
 	},
 	
 	destroyAudio: function(){
+	  
+	},
+	
+	createShadows: function(){
 	  
 	},
 	

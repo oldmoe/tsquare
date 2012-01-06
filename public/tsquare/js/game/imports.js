@@ -173,6 +173,7 @@ loadCssFiles = function() {
   }
 }
 
+
 function loadJsFiles(index){
   if( orderedJS.length == index ){
     GameInitializer();

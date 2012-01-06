@@ -11,114 +11,119 @@
 
 
 <div id="uiContainer" class="uiContainer" >
-  <div id="scores">
-  	<div class="message">
-    	<span>This is the text of the message, this is the text of the message.</span>
-    	<img class="positioned" src="images/game_elements/bubble.png" alt="Message" />
+  <div class="topScope">
+  </div>
+  <div class="loading">
+  	<img src="images/game_elements/loading.gif" alt="loading"/>
+  </div>
+  <div class="message">
+    <span>This is the text of the message, this is the text of the message.</span>
+    <img class="positioned" src="images/game_elements/bubble.png" alt="Message" />
+  </div>
+  <div class="friendsBar">
+    <!--Game funcations-->
+    <div class="gameFunctions">
+      <!--Crowd menu button-->
+      <a class="crowdMenuItem" href="#"><img src="images/friends/icon_crowds.png" alt="Menu Item" /></a>
+      <!--Marketplace button-->
+      <a class="marketplaceMenuItem" href="#"><img src="images/friends/icon_call.png" alt="Menu Item" /></a>
+      <!--Rank button-->
+      <a class="rankMenuItem" href="#"><img src="images/friends/icon_ranking.png" alt="Menu Item" /></a>
+      <!--Vote button-->
+      <a class="voteMenuItem" href="#"><img src="images/friends/icon_vote.png" alt="Menu Item" /></a>
+      <a class="homeMenuItem" href="#"><img src="images/friends/home_icon.png" alt="Menu Item" /></a>
+      <img class="positioned" src="images/friends/functions_background.png" alt="Functions" />
     </div>
-  	<div class="messages">
-    	<span>This is the text of the message, this is the text of the message.</span>
-    	<img class="positioned" src="images/game_elements/bubbleMessage.png" alt="Message" />
-    </div>
-    <div class="friendsBar">
-    	<!--Game funcations-->
-    	<div class="gameFunctions">
-      	<!--Crowd menu button-->
-      	<a class="crowdMenuItem" href="#"><img src="images/friends/icon_crowds.png" alt="Menu Item" /></a>
-        <!--Marketplace button-->
-        <a class="marketplaceMenuItem" href="#"><img src="images/friends/icon_call.png" alt="Menu Item" /></a>
-        <!--Rank button-->
-        <a class="rankMenuItem" href="#"><img src="images/friends/icon_ranking.png" alt="Menu Item" /></a>
-        <!--Vote button-->
-        <a class="voteMenuItem" href="#"><img src="images/friends/icon_vote.png" alt="Menu Item" /></a>
-        <a class="homeMenuItem" href="#"><img src="images/friends/home_icon.png" alt="Menu Item" /></a>
-      	<img class="positioned" src="images/friends/functions_background.png" alt="Functions" />
+    
+    <!--Friends-->
+    <div class="friendsWrapper">
+      <!--Friend-->
+      <div class="friend">
+        <a href="#">
+          <img class="rankSign" src="images/friends/1.png" alt="rank" />
+          <!--New changes start here-->
+          <span class="friendsScore">
+            <span>12223</span>
+            <img class="positioned" src="images/friends/friendsScore.png" alt="Friends score" />
+          </span>
+          <!--New changes end here-->
+          <img class="friendAvatar" src="images/dummy/crowd_member_small.png" alt="Firend avatar" />
+          <span class="friendName">Friend</span>
+          <img src="images/friends/friend_box.png" alt="friend" />
+        </a>
       </div>
-      
-      <!--Friends-->
-      <div class="friendsWrapper">
-      	<!--Friend-->
-      	<div class="friend">
-        	<a href="#">
-          	<img class="rankSign" src="images/friends/1.png" alt="rank" />
-            <!--New changes start here-->
-            <span class="friendsScore">
-            	<span>12223</span>
-            	<img class="positioned" src="images/friends/friendsScore.png" alt="Friends score" />
-            </span>
-            <!--New changes end here-->
-            <img class="friendAvatar" src="images/dummy/crowd_member_small.png" alt="Firend avatar" />
-            <span class="friendName">Friend</span>
+
+      <div id="friends">
+        <div class="leftControls">
+          <div class="left">
+            <img src="images/game_elements/previous_button.png" alt="Previous" />       
+          </div>    
+          <div class="first">      
+            <img src="images/game_elements/first_button.png" alt="First" />      	
+          </div>
+        </div>
+        <!--Friend-->
+        <div class="friend">
+          <a href="javascript:void(0);" onclick="socialEngine.inviteFriends();">
+            <div class="inviteFriend friendAvatar">
+              <img src="images/friends/inviteFriends.png" alt="Invite Friend" class="friendAvatar" />
+            </div>
+            <span class="friendName">Invite</span>
             <img src="images/friends/friend_box.png" alt="friend" />
           </a>
         </div>
-
-        <div id="friends">
-          <div class="leftControls">
-            <div class="left">
-              <img src="images/game_elements/previous_button.png" alt="Previous" />       
-            </div>    
-            <div class="first">      
-              <img src="images/game_elements/first_button.png" alt="First" />      	
-            </div>
-          </div>
-          <!--Friend-->
-          <div class="friend">
-            <a href="javascript:void(0);" onclick="socialEngine.inviteFriends();">
-              <div class="inviteFriend friendAvatar">
-                <img src="images/friends/inviteFriends.png" alt="Invite Friend" class="friendAvatar" />
+        <!--Floating friends-->
+        <div id="friends-container" class="floatingFriends">
+          <ul id="friends-ul">
+            <li>
+              <!--Friend-->
+              <div class="friend">
+                <a href="#">
+                  <!--New changes start here-->
+                  <span class="friendsScore">
+                    <span>12223</span>
+                    <img class="positioned" src="images/friends/friendsScore.png" alt="Friends score" />
+                  </span>
+                  <!--New changes end here-->
+                  <img class="friendAvatar" src="images/dummy/crowd_member_small.png" alt="Firend avatar" />
+                  <span class="friendName">Friend</span>
+                  <img src="images/friends/friend_box.png" alt="friend" />
+                </a>
               </div>
-              <span class="friendName">Invite</span>
-              <img src="images/friends/friend_box.png" alt="friend" />
-            </a>
+            </li>
+          </ul>
+        </div>
+        <!--Right controls-->
+        <div class="rightControls">
+          <div class="right">
+            <img src="images/game_elements/next_button.png" alt="Next" />
           </div>
-          <!--Floating friends-->
-          <div id="friends-container" class="floatingFriends">
-          	<ul id="friends-ul">
-            	<li>
-                <!--Friend-->
-                <div class="friend">
-                  <a href="#">
-                    <!--New changes start here-->
-                    <span class="friendsScore">
-                      <span>12223</span>
-                      <img class="positioned" src="images/friends/friendsScore.png" alt="Friends score" />
-                    </span>
-                    <!--New changes end here-->
-                    <img class="friendAvatar" src="images/dummy/crowd_member_small.png" alt="Firend avatar" />
-                    <span class="friendName">Friend</span>
-                    <img src="images/friends/friend_box.png" alt="friend" />
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <!--Right controls-->
-          <div class="rightControls">
-            <div class="right">
-              <img src="images/game_elements/next_button.png" alt="Next" />
-            </div>
-            <div class="last">
-              <img src="images/game_elements/last_button.png" alt="Last" />
-            </div>
+          <div class="last">
+            <img src="images/game_elements/last_button.png" alt="Last" />
           </div>
         </div>
-      	<img src="images/friends/friends_bar.png" alt="friends background" class="positioned"/>
       </div>
-      
-      <!--New changes star here-->
-      
-      <!--Switching tabs-->
-      <div class="swithcingTabs">
-      	<ul>
-        	<li class="selected"><a href="#"><img src="images/friends/worldRank.png" alt="World Rank" /></a></li>
-          <li><a href="#"><img src="images/friends/friendsRank.png" alt="Friends Rank" /></a></li>
-        </ul>
-      </div>
-      
-      <!--New changes end here-->
+      <img src="images/friends/friends_bar.png" alt="friends background" class="positioned"/>
     </div>
-  </div> <!--Friends Bar-->
+    
+    <!--New changes star here-->
+    
+    <!--Switching tabs-->
+    <div class="swithcingTabs">
+      <ul>
+        <li class="selected"><a href="#"><img src="images/friends/worldRank.png" alt="World Rank" /></a></li>
+        <li><a href="#"><img src="images/friends/friendsRank.png" alt="Friends Rank" /></a></li>
+      </ul>
+    </div>
+    
+    <!--New changes end here-->
+  </div>
+  <div class="contuineReading">
+    <img src="images/game_elements/pstc.png" alt="Message" />
+  </div>
+  <div class="bottomScope">
+  </div>
+	<!--Friends Bar-->
 	<img class="background" src="images/timeline/home_background.gif" alt="background"></span>
 </div>  	
 

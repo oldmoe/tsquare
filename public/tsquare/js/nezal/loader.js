@@ -126,6 +126,7 @@ var Loader = Class.create({
   },
 
   onerror: function(resource, options){
+    return
     var self = this;
     this.loadedResources++;
     resource.src = '';
@@ -162,7 +163,7 @@ var Loader = Class.create({
     var self = this
     image.onload = function(){self.onload(options);}
     image.onerror = function(){self.onerror(this, options);}
-    image.src = this._convertToCachedSRC( src, "images", ".png" );
+    image.src = this._convertToCachedSRC( src, "images", src.substring(src.indexOf(".")+1) );
     return $(image)
   },
   

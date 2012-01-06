@@ -148,17 +148,27 @@
   </div>
   <div class="missionWrapper">
   	<div class="missionImages">
-    	<span class="loadedImg" imgSrc="images/missions/${mission.id}.png" alt="Mission Image"></span>
+  	  {if mission.images && mission.images.missionImage}
+        <img src="${mission.images.missionImage}" />
+      {/if}
     </div>
     <div class="missionContent">
     	<h3>Mission Story</h3>
       <p>${mission['details']}</p>
+    </div>
+    <div class="missionSide"> 
+      <div class="newStuff">
+        {if mission.images && mission.images.stuffImage}
+          <img class="newStuffItem" src="${mission.images.stuffImage}" alt="Water" />
+          <img class="positioned" src="images/timeline/newStuff.png" alt="New Stuff" />
+        {/if}
+      </div>
       {if mission['playable'] == true } 
         <a href="javascript:void(0)" class="playButton" id="${mission.id}">
           <span class="loadedImg"  imgId="${mission.id}" imgSrc="images/timeline/play_button.png" alt="Play" >  </span>
         </a>
       {/if}
-    </div>
+    </div>    
   </div>
   <span class="loadedImg" imgSrc="images/timeline/mission_details.png" alt="Mission Details" imgClasses="positioned">  </span>
 </textarea>

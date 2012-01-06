@@ -75,13 +75,13 @@ var AudioManager = Class.create({
     ];
 
     this.levels = [
-      {tempo: 130, beats : [{beat : 0, volume : 60}]},//50
+      {tempo: 130, beats : [{beat : 0, volume : 95}]},//90
 
-      {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 20}]},
-      {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 20}]},
+      {tempo: 130, beats : [{beat : 0, volume : 95}, {beat : 1, volume : 20}]},
+      {tempo: 130, beats : [{beat : 0, volume : 95}, {beat : 1, volume : 20}]},
       
-      {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 30}, {beat : 2, volume : 10}]},
-      {tempo: 130, beats : [{beat : 0, volume : 90}, {beat : 1, volume : 30}, {beat : 2, volume : 10}]}
+      {tempo: 130, beats : [{beat : 0, volume : 95}, {beat : 1, volume : 30}, {beat : 2, volume : 10}]},
+      {tempo: 130, beats : [{beat : 0, volume : 95}, {beat : 1, volume : 30}, {beat : 2, volume : 10}]}
 /*      
       {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
       {tempo: 130, beats : [{beat : 0, volume : 30}, {beat : 1, volume : 50}]},
@@ -134,7 +134,7 @@ var AudioManager = Class.create({
 		this.tempoChanged = true;
 		
 		scene.observe('keySound',function(keyIndex){self.playKeySound(keyIndex)});
-		
+		scene.observe('end', function(){self.playWinLose()})
 		this.cc = false;
 	},
 
@@ -159,32 +159,37 @@ var AudioManager = Class.create({
       if(sound.playState){
         sound.stop();
       }
-	    sound.play({volume:30, position:50});
+	    sound.play({volume:15, position:50});
 	  }else if(keyIndex == 1){//left
       sound = Loader.sounds['sfx']['hii.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:30, position:70});
+      sound.play({volume:15, position:70});
     }else if(keyIndex == 2){//up
       sound = Loader.sounds['sfx']['ha.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:30, position:50});
+      sound.play({volume:15, position:50});
     }else if(keyIndex == 3){//down
       sound = Loader.sounds['sfx']['hey.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:30, position:70});
+      sound.play({volume:15, position:70});
     }
 	},
 	
   
 	playClash : function(){
     this.stop()
-    Loader.sounds['sfx']['clash_scenario.mp3'].play({loops : 1000})
+    Loader.sounds['sfx']['clash_scenario.mp3'].play({loops : 1000, volume : 30})
+  },
+  
+  playWinLose : function(){
+    this.stop()
+    Loader.sounds['sfx']['win_lose.mp3'].play()
   },
   
   pause : function(){
@@ -196,11 +201,15 @@ var AudioManager = Class.create({
   
   stopClash : function(){
     Loader.sounds['sfx']['clash_scenario.mp3'].stop()
+    this.playBeats()
+  },
+  
+  
+  playBeats : function(){
     for(var i=0; i < this.nowPlaying.length; i++){
       this.nowPlaying[i].play({loops : 1000})
     }
     this.background_audio.play({loops : 1000})
-
   },
   
 	run : function(){

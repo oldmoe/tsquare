@@ -37,7 +37,7 @@ var EnemyHandler = Class.create(UnitHandler, {
         category: "enemy",
         type : "1_2",
         name : "amn_markazy",
-        options : {handler:this, mappingName:"wood_stick_cs", coords: coords},
+        options : {handler:this, mappingName:"wood_stick_cs", coords: coords, noMessage: true},
         lane : this.scene.activeLane
       }
       return this.addObject(properties)  

@@ -1,7 +1,7 @@
 var missionData = {
   
   "data":[[
-  
+/*  
    {
       "name": "ultras_red",
       "category": 'advisor',
@@ -20,7 +20,7 @@ var missionData = {
         {"person":"ultras_red" , "message": "ah sa7i7, tab emshy we ehgem 3ala el amn dool..."}
       ]
   }
-  
+*/  
 /*  ,  
   {
       "name": "ultras_red",
@@ -49,15 +49,16 @@ var missionData = {
       "x": 5,
       "order": 1
   },*/
-  // {
-      // "name": "wood_stick_cs",
-      // "category": 'enemy',
-      // "type": '3_2',
-      // "index": 0,
-      // "lane": 1,
-      // "x": 3,
-      // "order": 1
-  // },
+/*  {
+      "name": "wood_stick_cs",
+      "category": 'enemy',
+      "type": '1_2',
+      "index": 0,
+      "lane": 1,
+      "x": 1,
+      "order": 1
+  },*/
+  {"name":"ambulance","category":"protection","index":0,"lane":1,"x":1,"order":1},
   {"name":"twitter_guy","category":"protection","index":0,"lane":1,"x":2,"order":1},
   {
       "name": "wood_stick_cs",
@@ -65,7 +66,7 @@ var missionData = {
       "type": '1_2',
       "index": 0,
       "lane": 1,
-      "x": 7,
+      "x": 3,
       "order": 1
   }
 /*  {
@@ -217,7 +218,7 @@ var gameData = {
                                         '3_3' : {'hp' : 300, 'attack' : 100 , 'defense' : 90, 'charge_tolerance' : 3, 'circle_size' : 3 },  
                                         '6_3' : {'hp' : 600, 'attack' : 150 , 'defense' : 100, 'charge_tolerance' : 4, 'circle_size' : 4 },
                                         '9_3' : {'hp' : 900, 'attack' : 200 , 'defense' : 120, 'charge_tolerance' : 4, 'circle_size' : 5 }    
-                                     },
+                                     }
         }
 }
 

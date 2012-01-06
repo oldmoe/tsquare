@@ -70,18 +70,6 @@ var TsquareScene = Class.create(Scene,{
          'objectives' : 'rescue'
        }
        
-       // console.log( this.data );
-       // this.data[1][0] = { "name": "journalist_rescue",
-                            // "category": 'objectives',
-                            // "type": 'rescue',
-                            // "index": 0,
-                            // "lane": 1,
-                            // "x": 3,
-                            // "order": 1,
-                            // "mission": "escort",
-                            // "targetTile": 5
-                          // }
-
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
                 var elem = this.data[i][j]

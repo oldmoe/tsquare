@@ -8,13 +8,14 @@ var GameManager = Class.create({
     this.loader = new Loader();
     var loadingImages =['loading_background.png','loadingbar_left.png','loadingbar_right.png',
     'loadingbar_middle.png','bar_background.png','background.png'];
-  	var format = 'mp3'
+  	var format = 'mp3';
     this.templateManager = new TemplatesManager(function(){
       new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}, 
                         {sounds: ['intro.mp3'], path: 'sounds/'+format+'/intro/', store: 'intro'}]
           ,{
             onFinish: function(){
               $('inProgress').innerHTML = self.templateManager.load('loadingScreen');
+              self.setupLangScreen();
               $('uiContainer').hide();
               var time = Loader.sounds.intro['intro.mp3'].duration;
               window.setTimeout(function(){
@@ -23,7 +24,7 @@ var GameManager = Class.create({
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
                               $('inProgress').hide();
-                              $('uiContainer').show();
+                              $('optionsMenu').show();
                             }}, 100);
               Loader.sounds.intro['intro.mp3'].loop = true;
               Loader.sounds.intro['intro.mp3'].play({loop:true,loops:1000});
@@ -33,7 +34,7 @@ var GameManager = Class.create({
           }
       )
     });
-	  this.reactor = new Reactor();
+	this.reactor = new Reactor();
     Effect.Queues.create('global', this.reactor)
     this.reactor.run();
   },
@@ -55,10 +56,10 @@ var GameManager = Class.create({
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
                               $('inProgress').hide();
-                              $('uiContainer').show();
+                              $('optionsMenu').show();
                             }
                           }
-                        })
+                       });
     self.meterBar = new MeterBar(this);
     self.scoreManager = new ScoreManager(this);
     self.inbox = new Inbox(this);
@@ -68,6 +69,25 @@ var GameManager = Class.create({
     game = new Game(this);
 //    soundManager.mute()
     self.game = game;
+  },
+  
+  setupLangScreen: function() {
+  	var self = this;
+  	$('optionsMenu').innerHTML = self.templateManager.load('langScreen');
+  	$$('.choseLanguage a').each(function(option) {
+  	  option.observe('click', function() {
+  	  	self.selectLanguage(option.children[0].alt);
+  	  });
+  	});
+  },
+  
+  selectLanguage: function(lang) {
+  	console.log(lang);
+  	game.properties.lang = lang == 'English'? 'en' : 'ar';
+  	$('optionsMenu').hide();
+  	$('optionsMenu').innerHTML = "";
+    $('uiContainer').show();
+  	this.timelineManager.display();
   },
 
   start : function(){

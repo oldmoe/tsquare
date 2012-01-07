@@ -27,32 +27,32 @@ var Timeline = Class.create({
                       {
                         onFinish: function(){ 
                           self.imagesLoaded = true;
-                          self.display();
+                          // self.display();
                           Game.addLoadedImagesToDiv("uiContainer");
                         }
                       });
     this.gameManager.inbox.challenges(function(challenges){
       self.challenges = challenges
       self.challengesLoaded = true;
-      self.display();
+      //TODO: Is this necessary? 
+      // self.display();
     });
   },
 
-  display : function(){
-    
+  display : function() {
     if(this.imagesLoaded && this.challengesLoaded)
     {
       $('home').innerHTML = this.templateManager.load('home', {'missions' : this.gameManager.missions});
       Game.addLoadedImagesToDiv('home');
-      this.attachHomeListener();
       if (!this.walkingMan) {
         this.walkingMan = new WalkingManDisplay(this.gameManager.reactor);
       }
+      this.attachHomeListener();
       this.displayHome();
     }
   },  
   
-  hide : function(){
+  hide : function() {
     $('homeContainer').hide();
     $('home').hide();
     $('timeline').hide();

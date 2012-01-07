@@ -82,7 +82,6 @@ var GameManager = Class.create({
   },
   
   selectLanguage: function(lang) {
-  	console.log(lang);
   	game.properties.lang = lang == 'English'? 'en' : 'ar';
   	$('optionsMenu').hide();
   	$('optionsMenu').innerHTML = "";

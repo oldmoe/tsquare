@@ -121,7 +121,7 @@ var Game = Class.create({
     this.mission = mission;
     missionData = mission;
     this.misssionLoaded = false;
-	  var backgroundImages = ['background.png', 'clowds.png', 'followers_crowd.png', 'followers_crowd_car.png']
+	var backgroundImages = ['background.png', 'clowds.png', 'followers_crowd.png', 'followers_crowd_car.png']
 
     var self = this;
     this.mission.backgrounds.layer1.each(function(elem){
@@ -143,15 +143,15 @@ var Game = Class.create({
       backgroundImages.push(elem.name);
     });
     
-	  this.loader.load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
-          {onProgress : function(progress){
-                      if($$('#gameInProgress #loadingBarFill')[0])
-                      $$('#gameInProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
-             }, onFinish:function(){        
-                  self.missionLoaded = true;
-                  self.start();
-          }
-        })
+	this.loader.load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
+        {onProgress : function(progress){
+                    if($$('#gameInProgress #loadingBarFill')[0])
+                    $$('#gameInProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
+           }, onFinish:function(){        
+                self.missionLoaded = true;
+                self.start();
+        }
+      })
   },
 
   start : function(){

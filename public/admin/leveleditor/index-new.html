@@ -171,16 +171,22 @@
 					<input type="radio" name="environment" value="night" />Night<br>
 					<input type="radio" name="environment" value="day_night" />Day and Night
 				</div>
+				<hr/>
 				<div id="gameModes">
 					Game Modes:&nbsp;<br>
 					<input type="checkbox" name="gameModes" value="normal" />Normal
 					<input type="checkbox" name="gameModes" value="sneak" />Sneak
 					<input type="checkbox" name="gameModes" value="charging" />Charging
 				</div>
+				<hr/>
 				<div id="introductionTextContainer">
 				  Mission Details <br/>
-				  <textarea id="missionDetails"></textarea>
+				  <label>English:</label>
+				  <textarea id="missionDetails"></textarea><br />
+				  <label>Arabic:</label>
+				  <textarea id="missionDetails_ar"></textarea>
 				</div>
+				<hr/>
 				<div id="energySettingsContainer">
 					Energy:&nbsp;&nbsp; <input type="text" id="energyValue" size="10"/> 
 					Message: <textarea id="energyMessage"></textarea>
@@ -188,6 +194,7 @@
 					<input type="button" value="Delete" class="delete" />
 					<ol id="energyMessagesList"></ol>
 				</div>
+				<hr/>
 				<div id="missionImageSettingsContainer">
 				  Mission Image: <input type="file" name="missionImageInput" /> <img id="missionImage" width="100" height="100" /> <br/>
 				  Stuff Image: <input type="file" name="stuffImageInput" /> <img id="stuffImage" width="100" height="100"/> <br/>

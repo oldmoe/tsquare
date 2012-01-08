@@ -24,10 +24,9 @@ var LevelLoader = Class.create({
   
   loadSettings: function(missionData){
     var settings = {};
-    settings.gameModes = missionData.gameModes;
-    settings.environment = missionData.environment;
-    settings.missionDetails = missionData.missionDetails;
-    settings.missionImages = missionData.missionImages;
+    for (var key in missionData)
+      settings[key] = missionData[key];
+    delete settings.data;
     levelEditor.settingsHandler.loadData(settings);
   },
   

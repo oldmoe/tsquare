@@ -173,8 +173,13 @@
       {/if}
     </div>
     <div class="missionContent">
+      {if game.properties.lang == 'en'}
     	<h3>Mission Story</h3>
-      <p>${mission['details']}</p>
+        <p>${mission['details']}</p>
+      {else}
+    	<h3>تفاصيل المهمة</h3>
+        <p>${mission['details_ar'] || '<عربي>'}</p>
+      {/if}
     </div>
     <div class="missionSide"> 
       <div class="newStuff">

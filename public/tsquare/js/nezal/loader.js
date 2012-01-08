@@ -162,7 +162,7 @@ var Loader = Class.create({
     var self = this
     image.onload = function(){self.onload(options);}
     image.onerror = function(){self.onerror(this, options);}
-    image.src = this._convertToCachedSRC( src, "images", src.substring(src.indexOf(".")+1) );
+    image.src = this._convertToCachedSRC( src, "images", src.substring(src.indexOf(".")) );
     return $(image)
   },
   

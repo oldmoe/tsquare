@@ -523,7 +523,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 
 
-
-
+.ar .calendarWrapper ul li { float:right; }
+.ar .homeWrapper ul li { float:right; }
 
 

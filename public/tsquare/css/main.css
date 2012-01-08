@@ -31,7 +31,7 @@ img { border:none; outline:none;}
 .message span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.3em; width:210px; margin:15px; line-height:1.2em; height:70px; display:block; width:238px; }
 
 .topScope { position:absolute; top:-80px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
-.bottomScope { position:absolute; top:-700px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
+.bottomScope { position:absolute; top:700px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
 
 .contuineReading { position:absolute; top:140px; left:240px; z-index:101; }
 
@@ -77,7 +77,7 @@ img { border:none; outline:none;}
 .missionContent ul { list-style:square;  font-size:1.2em; margin:5px 0 0 0; }
 .missionContent ul li { margin:0 0 5px 20px; }
 
-.playButton { float:right; width:142px; height:60px; overflow:hidden; position:absolute; top:248px; right:5px; }
+.playButton { float:right; width:142px; height:60px; overflow:hidden; position:absolute; top:205px; right:5px;}
 .playButton:hover img { position:relative; top:-60px;  }
 
 .timelineBar { position:relative; top:205px; z-index:5; }
@@ -520,5 +520,10 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 #send_requests { height: 40px; position: absolute; top: 685px; width: 780px; padding: 20px; background-color: lightBlue; }
 
 #inbox { height: 300px; position: absolute; top: 730px; width: 780px; padding: 20px; background-color: lightBlue; }
+
+
+
+
+
 
 

@@ -5,7 +5,7 @@ ul { list-style:none; margin:0px; padding:0px; }
 a { outline:none; }
 img { border:none; outline:none;}
 
-.uiContainer { width:970px; height:620px; position:relative; top:0px; margin:0 auto; }
+.uiContainer { width:970px; height:620px; position:relative; top:0px; margin:0 auto; overflow:hidden; }
 .uiContainer .background { height:620px; position:absolute; left:0; top:0; width:970px; }
 .positioned { position:absolute; top:0px; left:0px; z-index:1; }
 
@@ -31,7 +31,7 @@ img { border:none; outline:none;}
 .message span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.3em; width:210px; margin:15px; line-height:1.2em; height:70px; display:block; width:238px; }
 
 .topScope { position:absolute; top:-80px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
-.bottomScope { position:absolute; top:700px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
+.bottomScope { position:absolute; top:615px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
 
 .contuineReading { position:absolute; top:140px; left:240px; z-index:101; }
 

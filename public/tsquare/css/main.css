@@ -167,7 +167,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 #loadingBarEmpty #loadingBarLeft{ background:url("../images/loading/loadingbar_left.png"); height:34px; margin-left:5px; width:16px; }
 
-#inProgress, #gameInProgress{ width : 760px; height:410px; }
+#inProgress, #gameInProgress{ width : 760px; height:410px; top:-55px; }
 
 #intro { position : absolute; top : 50px; left : 40px; }
 #beatFlash{ background-color: #FFFFFF; height: 599px; position: absolute; width: 949px; border: solid 10px black; }

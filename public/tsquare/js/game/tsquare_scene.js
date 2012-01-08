@@ -36,7 +36,7 @@ var TsquareScene = Class.create(Scene,{
         
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
-            // "rescue" : new RescueUnitHandler(this),
+            "rescue" : new RescueUnitHandler(this),
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
             "enemy" : new EnemyHandler(this),  
@@ -56,7 +56,8 @@ var TsquareScene = Class.create(Scene,{
         this.view.length = this.view.width;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
-            this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)
+          	var xi = this.data[i][this.data[i].length - 1].x;
+            this.view.length = Math.max(this.view.length, xi * this.view.tileWidth + this.view.width)
           }
         }
         
@@ -70,18 +71,6 @@ var TsquareScene = Class.create(Scene,{
          'objectives' : 'rescue'
        }
        
-       // console.log( this.data );
-       // this.data[1][0] = { "name": "journalist_rescue",
-                            // "category": 'objectives',
-                            // "type": 'rescue',
-                            // "index": 0,
-                            // "lane": 1,
-                            // "x": 3,
-                            // "order": 1,
-                            // "mission": "escort",
-                            // "targetTile": 5
-                          // }
-
         for(var i =0;i<this.data.length;i++){
             for(var j=0;j<this.data[i].length;j++){
                 var elem = this.data[i][j]
@@ -255,7 +244,7 @@ var TsquareScene = Class.create(Scene,{
        var klassName = objHash.name.formClassName()
        var klass = eval(klassName)
        var obj = new klass(this,objHash.x - this.view.xPos,objHash.lane,objHash.options);
-       //The following name and tile are used for escorting/retrieving a crowd member
+       //The following name, tile and mission are used for escorting/retrieving a crowd member
        obj.name = objHash.name;
        obj.targetTile = objHash.targetTile;
        obj.mission = objHash.mission;
@@ -372,12 +361,14 @@ var TsquareScene = Class.create(Scene,{
    },
    
    tileChanged : function(){
+     var self = this;
      if( this.rescuing && this.rescuing.targetTile == this.currentTile){
        this.rescuing.rescued = true;
        if( this.rescuing.mission == "retrieve" ){
-         this.fire("normal");
+         this.rescuing.fire("back");
        }
-       this.handlers.crowd.objects.remove( this.rescuing );
+       this.handlers.crowd.removeObject( this.rescuing, this.rescuing.lane );
+       this.push( this.rescuing );
      }
    }
   

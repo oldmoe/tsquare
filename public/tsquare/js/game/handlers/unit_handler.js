@@ -25,7 +25,10 @@ var UnitHandler = Class.create({
        
    },
    
-   add: function(elem){
+   add: function(read_only_elem){
+   	 var elem = {};
+   	 for (var member in read_only_elem)
+   	   elem[member] = read_only_elem[member];
      if(this.incoming[elem.lane] == null){
        this.incoming[elem.lane] = [];
        this.objects[elem.lane] = [];  

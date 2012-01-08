@@ -3,7 +3,7 @@
 var Loader = Class.create({
   initialize: function (){
     this.loadedResources =0
-    this.chunk = 25
+    this.chunk = 1
     this.currentLength = 0
     this.resources = []
     this.options = [];
@@ -163,7 +163,7 @@ var Loader = Class.create({
     var self = this
     image.onload = function(){self.onload(options);}
     image.onerror = function(){self.onerror(this, options);}
-    image.src = this._convertToCachedSRC( src, "images", src.substring(src.indexOf(".")+1) );
+    image.src = this._convertToCachedSRC( src, "images", src.substring(src.indexOf(".")) );
     return $(image)
   },
   

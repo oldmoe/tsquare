@@ -158,6 +158,11 @@ var GuidingIcon = Class.create(Observer,{
       this.commandLock = false;
       command = "retreat";
     }
+    
+    if( this.scene.rescuing && this.scene.rescuing.rescued && this.scene.rescuing.mission == "retrieve" ){
+      this.commandLock = false;
+      command = "march";
+    }
 
     if(this.currentCommand != command && !this.commandLock){
       this.currentCommand = command;

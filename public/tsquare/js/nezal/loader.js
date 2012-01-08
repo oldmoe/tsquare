@@ -126,10 +126,9 @@ var Loader = Class.create({
   },
 
   onerror: function(resource, options){
-    return
     var self = this;
     this.loadedResources++;
-    resource.src = '';
+//    resource.src = '';
     if(self.loadedResources == self.currentLength){
       self.loadedResources = 0
       self.currentLength = 0

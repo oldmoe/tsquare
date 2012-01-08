@@ -82,7 +82,12 @@ var GameManager = Class.create({
   },
   
   selectLanguage: function(lang) {
-  	game.properties.lang = lang == 'English'? 'en' : 'ar';
+  	if (lang == 'عربي') {
+  	  game.properties.lang = 'ar';
+  	  document.body.classList.add('ar');
+  	} else {
+  	  game.properties.lang = 'en';
+  	}
   	$('optionsMenu').hide();
   	$('optionsMenu').innerHTML = "";
     $('uiContainer').show();

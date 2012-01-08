@@ -8,13 +8,13 @@ var WalkingManDisplay = Class.create(Display,{
   imgWidth: 96,
   imgHeight: 96,
      
-  initialize : function($super, reactor){
+  initialize : function($super, reactor, x0){
     
     $$(".walkingCrowdMemeber")[0].update("");
     this.container = $$(".walkingCrowdMemeber")[0];
     this.reactor = reactor;
     
-    this.owner = {coords:{x:0, y:0}, scalable:true, type: "ultras_red"}
+    this.owner = {coords:{x:this.getRandomX(), y:0}, scalable:true, type: "ultras_red"}
     
     this.characterImg = Loader.images.characters[this.owner.type+'_idle.png']
     this.walkImg = Loader.images.characters[this.owner.type+'_walk.png']
@@ -87,7 +87,12 @@ var WalkingManDisplay = Class.create(Display,{
     }  
   },
   
+  getRandomX: function() {
+  	return 300 + (0.5 - Math.random()) * 50;
+  },
+  
   moveTo: function(x){
+  	x = x || this.getRandomX();
     if(Math.abs(this.targetX - x) < 3) return;
     this.targetX = x;
     var animation = "normal";

@@ -27,39 +27,39 @@ var Timeline = Class.create({
                       {
                         onFinish: function(){ 
                           self.imagesLoaded = true;
-                          self.display();
+                          // self.display();
                           Game.addLoadedImagesToDiv("uiContainer");
                         }
                       });
     this.gameManager.inbox.challenges(function(challenges){
       self.challenges = challenges
       self.challengesLoaded = true;
-      self.display();
+      //TODO: Is this necessary? 
+      // self.display();
     });
   },
 
-  display : function(){
-    
+  display : function() {
     if(this.imagesLoaded && this.challengesLoaded)
     {
       $('home').innerHTML = this.templateManager.load('home', {'missions' : this.gameManager.missions});
       Game.addLoadedImagesToDiv('home');
-      this.attachHomeListener();
       if (!this.walkingMan) {
         this.walkingMan = new WalkingManDisplay(this.gameManager.reactor);
       }
+      this.attachHomeListener();
       this.displayHome();
     }
   },  
   
-  hide : function(){
+  hide : function() {
     $('homeContainer').hide();
     $('home').hide();
     $('timeline').hide();
   },
 
   displayHome : function() {
-    this.walkingMan.moveTo(100);
+    this.walkingMan.moveTo();
     var homeDiv = $('home');
     var timelineDiv = $('timeline');
     homeDiv.hide();
@@ -71,7 +71,7 @@ var Timeline = Class.create({
   },
 
   displayCalender : function(){
-    this.walkingMan.moveTo(240);
+    this.walkingMan.moveTo();
     var self = this;
     var homeDiv = $('home');
     var timelineDiv = $('timeline');
@@ -99,7 +99,7 @@ var Timeline = Class.create({
   },
 
   adjustMissionsData : function(challenge){
-    this.walkingMan.moveTo(80);
+    this.walkingMan.moveTo();
     var self = this;
     var currentMission =  (challenge) ? challenge.data.mission : this.gameManager.userData.current_mission[this.mode];
     this.currentMissionIndex = 0;
@@ -246,11 +246,7 @@ var Timeline = Class.create({
         self.displayCalender();
       });
       element.observe('mouseover', function(event){
-        var count = event.element().parentNode.parentNode.parentNode.children.length;
-        var elem = event.element().parentNode.parentNode;
-        var elemIndex = $(elem).previousSiblings().length;
-        var gap = (960 - elem.getWidth() * count) / (count+1);
-        var pos = gap * (elemIndex+1) + elem.getWidth()*elemIndex + elem.getWidth()/2; 
+        var pos = element.getLayout().element.offsetLeft + element.getWidth()/2;  
         self.walkingMan.moveTo(pos-30);
       });
     });
@@ -264,11 +260,9 @@ var Timeline = Class.create({
       });
       element.observe('mouseover', function(event){
         var count = event.element().parentNode.parentNode.parentNode.children.length;
-        var elem = event.element().parentNode.parentNode;
-        var elemIndex = elem.previousSiblings().length;
         var gap = 20;
-        var wgap = (960 - elem.getWidth() * count - gap * (count-1)) / 2;
-        var pos = wgap + gap * elemIndex + elem.getWidth()*elemIndex + elem.getWidth()/2; 
+        var wgap = (960 - element.getWidth() * count - gap * (count-1)) / 2;
+        var pos = wgap + element.getLayout().element.offsetLeft + element.getWidth()/2; 
         self.walkingMan.moveTo(pos-30);
       });
     });

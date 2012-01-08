@@ -56,7 +56,8 @@ var TsquareScene = Class.create(Scene,{
         this.view.length = this.view.width;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
-            this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)
+          	var xi = this.data[i][this.data[i].length - 1].x;
+            this.view.length = Math.max(this.view.length, xi * this.view.tileWidth + this.view.width)
           }
         }
         

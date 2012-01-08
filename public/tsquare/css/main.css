@@ -25,7 +25,7 @@ img { border:none; outline:none;}
 .cancelButton:hover img { position:absolute; top:-31px; }
 
 .overlay { float:left; width:100%; background:#000; height:620px; background:url(../images/common/overylay_background.png); }
-.container { width:760px; height:685px; margin:0 auto; }
+.container { width:950px; height:685px; margin:0 auto; position:relative; }
 
 .message { position:absolute; top:-285px; left:300px; z-index:30; }
 .message span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.3em; width:210px; margin:15px; line-height:1.2em; height:70px; display:block; width:238px; }
@@ -167,7 +167,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 #loadingBarEmpty #loadingBarLeft{ background:url("../images/loading/loadingbar_left.png"); height:34px; margin-left:5px; width:16px; }
 
-#inProgress, #gameInProgress{ width : 760px; height:410px; top:-55px; }
+#inProgress, #gameInProgress{ width : 760px; height:550px; top:-55px; }
 
 #intro { position : absolute; top : 50px; left : 40px; }
 #beatFlash{ background-color: #FFFFFF; height: 599px; position: absolute; width: 949px; border: solid 10px black; }
@@ -250,7 +250,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 /*-------Widnow-------*/
 .window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:46px 27px 0 19px; position:relative; height:401px; z-index:10; }
-.windowTitle { float:left; width:254px; height:44px; position:relative; top:-43px; left:267px; }
+.windowTitle { float:left; width:254px; height:44px; position:relative; top:-43px; left:215px; }
 .close { float:left; width:39px; height:39px; position:relative; left:436px; top:-15px; overflow:hidden; z-index:3; }
 .close a { display:block; width:39px; height:39px; }
 .close a:hover img { position:absolute; top:-39px; }
@@ -437,7 +437,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 /*-------Widnow-------*/
 .window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:35px 27px 0 45px; position:relative; height:401px; }
-.windowTitle { float:left; width:254px; height:44px; position:relative; top:-43px; left:267px; }
+.windowTitle { float:left; width:254px; height:44px; position:relative; top:-43px; left:215px; }
 .close { float:left; width:39px; height:39px; position:relative; left:436px; top:-15px; overflow:hidden; z-index:3; }
 .close a { display:block; width:39px; height:39px; }
 .close a:hover img { position:absolute; top:-39px; }
@@ -521,7 +521,8 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 #inbox { height: 300px; position: absolute; top: 730px; width: 780px; padding: 20px; background-color: lightBlue; }
 
-
+.bandageMessage { position:absolute; top:155px; left:160px; z-index:18; }
+.bandageMessage span { position:absolute; top:100px; left:190px; font-size:3.5em; color:#000; z-index:19; font-weight:bold; color:#ff7800; text-shadow:1px 1px 0 #fff7e2; }
 
 .ar .calendarWrapper ul li { float:right; }
 .ar .homeWrapper ul li { float:right; }

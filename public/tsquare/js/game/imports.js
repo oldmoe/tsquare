@@ -173,10 +173,12 @@ loadCssFiles = function() {
   }
 }
 
-
+var gameLoaded = false;
 function loadJsFiles(index){
+  if(gameLoaded) return
   if( orderedJS.length == index ){
     GameInitializer();
+    gameLoaded = true 
     return;
   }
   var head = document.getElementsByTagName('head')[0];

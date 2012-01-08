@@ -166,6 +166,8 @@ var Util = {
     div.style.MozTransform = "scaleX(-1)"
     div.style.OTransform = "scaleX(-1)"
     div.style.WebkitTransform = "scaleX(-1)"
+    div.style.Transform = "scaleX(-1)"
+    div.style['-ms-transform'] = "scaleX(-1)"
     div.style.filter = "filpH"
     div.style.MsFilter = "flipH"
   },
@@ -173,6 +175,7 @@ var Util = {
     div.style.MozTransform = ""
     div.style.OTransform = ""
     div.style.WebkitTransform = ""
+    div.style['-ms-transform'] = ""
     div.style.filter = ""
     div.style.MsFilter = ""
   }

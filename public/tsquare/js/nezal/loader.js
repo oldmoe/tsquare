@@ -3,7 +3,7 @@
 var Loader = Class.create({
   initialize: function (){
     this.loadedResources =0
-    this.chunk = 1
+    this.chunk = 25
     this.currentLength = 0
     this.resources = []
     this.options = [];
@@ -113,9 +113,9 @@ var Loader = Class.create({
     if(self.loadedResources == self.currentLength){
       self.loadedResources = 0
       self.currentLength = 0
-      options.each(function(option){
-        if(option.onFinish){
-          option.onFinish()
+      options.each(function(options){
+        if(options.onFinish){
+          options.onFinish()
         }
       });
       self.options = [];
@@ -126,18 +126,19 @@ var Loader = Class.create({
   },
 
   onerror: function(resource, options){
+    return
     var self = this;
     this.loadedResources++;
     resource.src = '';
     if(self.loadedResources == self.currentLength){
       self.loadedResources = 0
       self.currentLength = 0
-      options.each(function(option){
-        if(option.onError){
-          option.onError()
+      options.each(function(options){
+        if(options.onError){
+          options.onError()
         }
-        else if(option.onFinish){
-          option.onFinish()
+        else if(options.onFinish){
+          options.onFinish()
         }
       });
       self.options = [];
@@ -162,7 +163,7 @@ var Loader = Class.create({
     var self = this
     image.onload = function(){self.onload(options);}
     image.onerror = function(){self.onerror(this, options);}
-    image.src = this._convertToCachedSRC( src, "images", src.substring(src.indexOf(".")) );
+    image.src = this._convertToCachedSRC( src, "images", src.substring(src.indexOf(".")+1) );
     return $(image)
   },
   

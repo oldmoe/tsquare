@@ -56,7 +56,7 @@ var GameManager = Class.create({
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
                               $('inProgress').hide();
-                              $('optionsMenu').show();
+                              if ($('optionsMenu')) $('optionsMenu').show();
                             }
                           }
                        });
@@ -88,8 +88,7 @@ var GameManager = Class.create({
   	} else {
   	  game.properties.lang = 'en';
   	}
-  	$('optionsMenu').hide();
-  	$('optionsMenu').innerHTML = "";
+  	$('optionsMenu').parentNode.removeChild($('optionsMenu'));
     $('uiContainer').show();
   	this.timelineManager.display();
   },

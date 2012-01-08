@@ -113,9 +113,9 @@ var Loader = Class.create({
     if(self.loadedResources == self.currentLength){
       self.loadedResources = 0
       self.currentLength = 0
-      options.each(function(options){
-        if(options.onFinish){
-          options.onFinish()
+      options.each(function(option){
+        if(option.onFinish){
+          option.onFinish()
         }
       });
       self.options = [];
@@ -126,19 +126,18 @@ var Loader = Class.create({
   },
 
   onerror: function(resource, options){
-    return
     var self = this;
     this.loadedResources++;
     resource.src = '';
     if(self.loadedResources == self.currentLength){
       self.loadedResources = 0
       self.currentLength = 0
-      options.each(function(options){
-        if(options.onError){
-          options.onError()
+      options.each(function(option){
+        if(option.onError){
+          option.onError()
         }
-        else if(options.onFinish){
-          options.onFinish()
+        else if(option.onFinish){
+          option.onFinish()
         }
       });
       self.options = [];

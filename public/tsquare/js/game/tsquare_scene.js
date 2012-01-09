@@ -225,7 +225,7 @@ var TsquareScene = Class.create(Scene,{
 
         }else{
           var superTime = false;
-          if(this.scoreCalculator.gameTime <= this.scoreCalculator.superTime) superTime = true;
+          if(this.scoreCalculator.gameTime > this.scoreCalculator.superTime) superTime = true;
           
           scoreData = {
             score: this.scoreCalculator.score,

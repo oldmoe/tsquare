@@ -58,6 +58,8 @@ var Marketplace = Class.create({
                                'item_background.png', 'item_title_background.png', 'item_details.png', 'link_button.png', 
                                 'Linked_background.png' ],
                                      path: 'images/marketplace/', store: 'marketplace'},
+                       {images_ar : ["my_stuff_title.png"],
+                                     path: 'images/ar/marketplace/', store: 'marketplace'},
                         {images : membersImages,
                                      path: 'images/marketplace/members/', store: 'marketplace'},
                         {images : ["close_button.png", "first_button.png", "last_button.png", 'next_button.png', 'previous_button.png'], 

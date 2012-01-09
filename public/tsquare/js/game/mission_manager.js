@@ -17,7 +17,7 @@ var MissionManager = Class.create({
                           path: 'images/game_elements/', store: 'game_elements' },
                         {images : ["friendsScore.png", "friend_box.png"], 
                           path: 'images/friends/', store: 'friends' }, 
-                        {images : ["paused_screen.png"], 
+                        {images : ["paused_screen.png", "play_btn.png", "exit_btn.png", "controls_area.png"], 
                           path: 'images/game_elements/', store: 'game_elements' },
                       ],
                       {
@@ -41,7 +41,7 @@ var MissionManager = Class.create({
     });
     self.pauseScreenOn = false;
     $('pause').hide();
-  	$('pause').innerHTML = this.templateManager.load('pause', {});
+  	$('pause').innerHTML = this.templateManager.load('pause');
     Game.addLoadedImagesToDiv('pause');
     scene.observe('togglePause', function(){
     	if (self.pauseScreenOn) {

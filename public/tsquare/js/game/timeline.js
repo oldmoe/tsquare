@@ -221,12 +221,11 @@ var Timeline = Class.create({
     var id = parseInt(id);
     var self = this;
     var callback =  function(){
-        Effects.fade($$('.missionDetails')[0], function(){
-          $$('#timeline .missionDetails')[0].innerHTML = self.templateManager.load('missionDetails', {'mission' : self.gameManager.missions[self.mode][id]});
-          Game.addLoadedImagesToDiv('timeline');
-          self.attachMissionDetailsListeners();
-          Effects.appear($$('.missionDetails')[0]);
-        });
+      $$('.missionDetails')[0].hide();
+      $$('#timeline .missionDetails')[0].innerHTML = self.templateManager.load('missionDetails', {'mission' : self.gameManager.missions[self.mode][id]});
+      Game.addLoadedImagesToDiv('timeline');
+      self.attachMissionDetailsListeners();
+      $$('.missionDetails')[0].show();
     }
     new Loader().load([ {images : [id + ".png"], path: 'images/missions/', store: 'missions'}],
                       {

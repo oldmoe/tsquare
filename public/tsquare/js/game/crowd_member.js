@@ -3,6 +3,7 @@ var CrowdMember = Class.create(Unit,{
   xShift : 100,
   water : 7000,
   maxWater : 700,
+  specs : null,
   waterDecreaseRate : 1,
   commandFilters: [],
   rotationPoints : null,
@@ -26,6 +27,7 @@ var CrowdMember = Class.create(Unit,{
   hitCounter: 0,
   initialize : function($super,specs,options){
     $super(options.scene, 0, options.scene.activeLane, options)
+    this.specs = specs;
     this.type = "crowd_member";
     this.rotationPoints = []
     this.followers = []
@@ -52,8 +54,13 @@ var CrowdMember = Class.create(Unit,{
     var randomDy = Math.round(Math.random()*20)
     this.originalPosition.x += randomDx
     this.originalPosition.y += randomDy
-    this.coords.x = this.originalPosition.x
-    this.coords.y = this.originalPosition.y
+    if( this.specs.x && this.specs.y ){
+      this.coords.x = this.specs.x;
+      this.coords.y = this.specs.y;
+    } else {
+      this.coords.x = this.originalPosition.x
+      this.coords.y = this.originalPosition.y
+    }
     if(options && options.level) 
       this.level = options.level
     else 
@@ -98,7 +105,12 @@ var CrowdMember = Class.create(Unit,{
   tick : function($super){
     if(this.rescued){
       this.decreaseFollowers( this.followers.length );
-      this.move( (-1 * this.scene.currentSpeed * this.scene.direction)/3, 0);
+      this.move( (-1 * this.scene.currentSpeed * this.scene.direction), -2);
+      if( this.coords.y <= 0 ){
+        this.destroy();
+        this.scene.remove( this );
+      }
+      $super();
       return;
     }
     if(this.dead){

@@ -173,8 +173,12 @@
       {/if}
     </div>
     <div class="missionContent">
-    	<h3>Mission Story</h3>
-      <p>${mission['details']}</p>
+      <h3>${t('missionDetailsHeader')}</h3>
+      {if game.properties.lang == 'en'}
+        <p>${mission['details']}</p>
+      {else}
+        <p>${mission['details_ar'] || '<عربي>'}</p>
+      {/if}
     </div>
     <div class="missionSide"> 
       <div class="newStuff">
@@ -364,7 +368,7 @@
             <div class="inviteFriend friendAvatar">
               <span class="loadedImg" imgSrc="images/friends/inviteFriends.png" alt="Invite Friend" imgClasses="friendAvatar" > </span>
             </div>
-            <span class="friendName">Invite</span>
+            <span class="friendName">${t('inviteFriend')}</span>
             <span class="loadedImg" imgSrc="images/friends/friend_box.png" alt="friend" > </span>
           </a>
         </div>
@@ -416,6 +420,34 @@
   </div>
 </textarea>
 
+<textarea id='sendChallengePrompt'>
+  <div class="sendChallengePrompt">
+    <div class="message">
+      ${t('surpassFriendScore', [friend.name, friend.scores[scoreManager.gameMode])}
+      <br>
+      ${t('challengeFriend')}
+    </div>
+    <div class="sendChallengOk button" id="${friend.service_id}">
+      ${t('approve')}
+    </div>
+    <div class="sendChallengCancel button">    
+      ${t('dismiss')}
+    </div>
+  </div>
+</textarea>
+<textarea  id='scorePassedAlert'>
+  <div class="scorePassedAlert">
+    <div class="message">
+      ${t('friendSurpassedPlayerScore', [friend.name, friend.scores[scoreManager.gameMode])}
+    </div>
+    <div class="scorePassedCancel button">    
+      ${t('ok')}
+    </div>
+  </div>
+</textarea>
+
+
+
 <textarea id='scoreTabs'>
   <div id="scoringModes">
   {for mode in scoreManager.modes}
@@ -429,31 +461,6 @@
   {/for}
   </div>
 </textarea>
-
-<textarea id='sendChallengePrompt'>
-  <div class="sendChallengePrompt">
-    <div class="message">
-      You have passed ${friend.name} score of ${friend.scores[scoreManager.gameMode]} !! <br> Send him a challenge
-    </div>
-    <div class="sendChallengOk button" id="${friend.service_id}">
-      OK
-    </div>
-    <div class="sendChallengCancel button">    
-      SKIP
-    </div>
-  </div>
-</textarea>
-<textarea  id='scorePassedAlert'>
-  <div class="scorePassedAlert">
-    <div class="message">
-      With ${friend.scores[scoreManager.gameMode]}, ${friend.name} passed your score!!
-    </div>
-    <div class="scorePassedCancel button">    
-      OK
-    </div>
-  </div>
-</textarea>
-
 
 <textarea style="display:none;" id='topScorersddd'>
   <div id="gameModes">
@@ -472,35 +479,35 @@
 
 
 <textarea id="send_requests">
-  <button id="request_help_button"> Send Help Request </button>
-  <button id="request_gift_button"> Send Gift </button>
-  <button id="request_challenge_button"> Send Challenge </button>
+  <button id="request_help_button">${t('request_help_button')}</button>
+  <button id="request_gift_button">${t('request_gift_button')}</button>
+  <button id="request_challenge_button">${t('request_challenge_button')}</button>
 </textarea>
 
 <textarea id="inbox">
   <br/>
-  <h3> Requests </h3>
+  <h3>${t('inbox_header')}</h3>
   <div id="help">
-    <b>Help Requests</b><br>
+    <b>${t('help_requests')}</b><br>
     {for request in inbox.requests.help}
-      <span> ${request.message} from ${request.from.name} </span>
-      <button> Accept </button><br>
+      <span>${t('inbox_message', request.from.name, request.message)}</span>
+      <button>${t('approve')}</button><br>
     {/for}
     <br>
   </div>
   <div id="gift">
-    <b>Gift Requests</b><br>
+    <b>${t('gift_requests')}</b><br>
     {for request in inbox.requests.gift}
-      <span> ${request.message} from ${request.from.name} </span>
-      <button> Accept </button><br>
+      <span>${t('inbox_message', request.from.name, request.message)}</span>
+      <button>${t('approve')}</button><br>
     {/for}
     <br>
   </div>
   <div id="challenge"><br>
-    <b>Challenge Requests</b><br>
+    <b>${t('challenge_requests')}</b><br>
     {for request in inbox.requests.challenge}
-      <span> ${request.message} from ${request.from.name} </span>
-      <button> Accept </button><br>
+      <span>${t('inbox_message', request.from.name, request.message)}</span>
+      <button>${t('approve')}</button><br>
     {/for}
     <br>
   </div>

@@ -52,6 +52,7 @@ var SettingsHandler = new Class.create({
 		$("missionDetails").observe("keyup", function(event){
 		  self.settings.missionDetails = event.target.value;
 		})
+<<<<<<< HEAD
 
     $("missionTime").observe("keyup", function(event){
       self.settings.missionTime = event.target.value;
@@ -60,6 +61,12 @@ var SettingsHandler = new Class.create({
     $("superTime").observe("keyup", function(event){
       self.settings.superTime = event.target.value;
     })
+=======
+		
+		$("missionDetails_ar").observe("keyup", function(event){
+		  self.settings.missionDetails_ar = event.target.value;
+		})
+>>>>>>> 6f1bd7fcea84bd12e17e8f3054ed3afa90b2c0e6
     
     $(this.missionContainerId).select('input[name=missionImageInput]')[0].observe('change', function(e){
       self.uploadMissionImage(e.currentTarget.files[0]);
@@ -95,6 +102,7 @@ var SettingsHandler = new Class.create({
 	
 	init: function(){
 	  $("missionDetails").setValue("");
+	  $("missionDetails_ar").setValue("");
 	},
 	
 	loadData: function(settings){
@@ -113,6 +121,9 @@ var SettingsHandler = new Class.create({
 	    $("superTime").setValue(settings.superTime);
 	  }  
 	  
+	  if(settings.missionDetails)$("missionDetails").setValue(settings.missionDetails);
+	  if(settings.missionDetails_ar)$("missionDetails_ar").setValue(settings.missionDetails_ar);
+
 	  if(settings.gameModes){
 	    this.settings.gameModes = settings.gameModes;
 	    if(settings.gameModes.indexOf("normal") > -1)$(this.containerId).select('input[name=gameModes]')[0].checked = "checked";

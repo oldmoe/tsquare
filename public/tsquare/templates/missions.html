@@ -7,12 +7,12 @@
     </div>  
   	<!--Win/Lose Title-->
   	<div class="winLoseTitle">
-    	<h2>Congratulation!</h2>
-   		<h4>You've passed this mission.</h4>
+    	<h2>${t('congrats')}</h2>
+   		<h4>${t('youPassedThisMission')}</h4>
     </div>
     <!--Score-->
     <div class="winLoseScore">
-    	<h5>Your Score</h5>
+    	<h5>${t('yourScore')}</h5>
       <span>${score['score']}</span>
       <span class="loadedImg" imgSrc="images/win_lose/score_background.png" alt="Score" imgClasses="positioned"></span>
     </div>
@@ -32,7 +32,7 @@
     <!--Changes 28 Sept.-->
     <!--Objective-->
     <div class="objectives">
-    	<strong>${score['objectives']*100}<small>%</small></strong>from your objectives
+    	<strong>${score['objectives']*100}<small>%</small></strong>${t('percentageOfObjectives')}
     </div>
     <!--Changes 25 Sept.-->
     <!--Challenge friends-->
@@ -57,7 +57,7 @@
         </a>
         <!--Challenge button-->
         <a class="cancelButton" href="javascript:void(0)" id="${friend.service_id}">
-          <span>Challenge</span>
+          <span>${t('challenge')}</span>
           <span class="loadedImg" imgSrc="images/win_lose/button_cancel.png" alt="confirm" > </span>
         </a>
       </div>
@@ -93,12 +93,12 @@
     </div>  
   	<!--Win/Lose Title-->
   	<div class="winLoseTitle">
-    	<h2>Bad luck!</h2>
-   		<h4>You didn't pass this mission.</h4>
+    	<h2>${t('badLuck')}</h2>
+   		<h4>${t('youFailedThisMission')}</h4>
     </div>
     <!--Score-->
     <div class="winLoseScore">
-    	<h5 class="losing">Your Score</h5>
+    	<h5 class="losing">${t('yourScore')}</h5>
       <span>${score['score']}</span>
       <span class="loadedImg" imgSrc="images/win_lose/lose_score_background.png" alt="Score" imgClasses="positioned"></span>
     </div>
@@ -118,7 +118,7 @@
     <!--Changes 28 Sept.-->
     <!--Objective-->
     <div class="objectives">
-    	<strong>${score['objectives']*100}<small>%</small></strong>from your objectives
+    	<strong>${score['objectives']*100}<small>%</small></strong>${t('percentageOfObjectives')}
     </div>
     <!--Changes 25 Sept.-->
     <!--Challenge friends-->
@@ -143,7 +143,7 @@
         </a>
         <!--Challenge button-->
         <a class="cancelButton" href="javascript:void(0)" id="${friend.service_id}">
-          <span>Challenge</span>
+          <span>${t('challenge')}</span>
           <span class="loadedImg" imgSrc="images/win_lose/button_cancel.png" alt="confirm" > </span>
         </a>
       </div>

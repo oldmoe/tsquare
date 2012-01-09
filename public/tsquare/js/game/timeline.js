@@ -1,4 +1,4 @@
-var Timeline = Class.create({
+var Timeline = Class.create(UIManager, {
   
   images : {
               'left' : 'images/game_elements/previous_button.png',
@@ -43,7 +43,7 @@ var Timeline = Class.create({
   },
 
   display : function() {
-    if(this.imagesLoaded && this.challengesLoaded)
+    if(this.resetRequest || (this.imagesLoaded && this.challengesLoaded))
     {
       $('home').innerHTML = this.templateManager.load('home', {'missions' : this.gameManager.missions});
       Game.addLoadedImagesToDiv('home');

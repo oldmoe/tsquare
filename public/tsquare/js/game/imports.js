@@ -26,6 +26,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/nezal/templates_manager.js"],
                  
                  ["js/game/social_engine.js",
+                 "js/game/ui_manager.js",
                  "js/game/game_manager.js",
                  "js/game/mission_manager.js",
                  "js/game/meter_bar.js",

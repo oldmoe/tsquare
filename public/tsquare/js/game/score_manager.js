@@ -1,4 +1,4 @@
-var ScoreManager = Class.create({
+var ScoreManager = Class.create(UIManager, {
 
   images : {
               'left' : 'images/game_elements/previous_button.png',
@@ -112,11 +112,11 @@ var ScoreManager = Class.create({
     else
       this.loadGlobalTab(this.gameMode);
   },
-
+  
   display : function(){
     var self = this;
     var dataLoaded = (this.mode == 'friends') ? this.friendsLoaded : this.globalLoaded;
-    if(this.imagesLoaded && dataLoaded) 
+    if(this.resetRequest || (this.imagesLoaded && dataLoaded)) 
     {
       // Set green_notification field to true to users whom current user passed
       // Set red_notification field to true to users who passed current user

@@ -79,5 +79,15 @@ var AmbulanceDisplay = Class.create(Display,{
       this.sprites.ambulance.currentAnimationFrame = (this.sprites.ambulance.currentAnimationFrame + 1) % this.noOfFrames
     }
     $super()
+  }, 
+  
+  destroy : function($super, done){
+    if(done){
+      return $super()
+    }
+    this.owner.removed = true      // to remove the display object from render loop
+    var self = this
+    this.sprites.shadow.hide()
+    Effects.pulsateFadeUp(this.sprites.walking.div, function(){self.destroy(true)})
   }  
 })

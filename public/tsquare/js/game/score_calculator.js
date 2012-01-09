@@ -31,7 +31,6 @@ var ScoreCalculator = Class.create({
     this.scene = scene;
     this.missionTime = missionData.missionTime;
     this.superTime = missionData.superTime;
-    alert(missionData.superTime);
     this.gameTime = this.missionTime;
     this.remainingTime = this.missionTime-this.superTime;
     

@@ -23,10 +23,17 @@ var ScoreCalculator = Class.create({
   comboCount: 0,
   
   gameTime: 0,
+  remainingTime: 0,
+  superTime: 0,
+  missionTime: 0,
   
   initialize: function(scene){
     this.scene = scene;
-    this.gameTime = 0;
+    this.missionTime = missionData.missionTime;
+    this.superTime = missionData.superTime;
+    alert(missionData.superTime);
+    this.gameTime = this.missionTime;
+    this.remainingTime = this.missionTime-this.superTime;
     
     var self = this;
     this.scene.observe("start", function(){self.start();})
@@ -100,7 +107,7 @@ var ScoreCalculator = Class.create({
   },
   
   updateTime: function(){
-    this.gameTime +=1;
+    this.gameTime -=1;
   },
   
   getTimeDetails: function(){

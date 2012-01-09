@@ -138,12 +138,13 @@ var Marketplace = Class.create({
     $$('#floatingItems li div.crowedItem div.crowedItemImage img').each(function(img){
       var id = img.id;
       img.observe('mouseover', function(event){ 
-        var offsetLeft = $(id + "_container").offsetLeft + 136;
+        var offsetLeft = $(id + "_container").offsetLeft;
         var offsetTop = $(id + "_container").offsetTop;
-        if( offsetTop > 0 ) offsetTop = 110;
-        if( offsetLeft > 408 ){
-          offsetLeft -= 215+136;
-        }
+        if( offsetTop > 0 ) offsetTop = -20;
+        
+        if(offsetLeft > 404)offsetLeft = -200
+        else offsetLeft = 136
+        
         $(id + '_details').setStyle({left : offsetLeft + 'px', top : offsetTop + 'px'});
         $(id + '_details').show(); 
       });

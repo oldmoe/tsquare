@@ -28,6 +28,8 @@ var LevelLoader = Class.create({
     settings.environment = missionData.environment;
     settings.missionDetails = missionData.missionDetails;
     settings.missionImages = missionData.missionImages;
+    settings.missionTime = missionData.missionTime;
+    settings.superTime = missionData.superTime;
     levelEditor.settingsHandler.loadData(settings);
   },
   

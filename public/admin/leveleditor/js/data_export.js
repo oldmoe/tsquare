@@ -56,7 +56,6 @@ var DataExporter = Class.create({
 				    }
 				  }
 				  
-				  console.log( obj );
 				  if(obj.category == "enemy")
 				    obj.type = obj.type.cols + "_" + obj.type.rows;
 				  if(obj.category == "advisor")
@@ -91,6 +90,8 @@ var DataExporter = Class.create({
 		gameData.environment = settings.environment;
 		gameData.gameModes = settings.gameModes;
 		gameData.missionDetails = settings.missionDetails;
+		gameData.missionTime = settings.missionTime;
+		gameData.superTime = settings.superTime;
 		gameData.missionImages = settings.missionImages;
 		return gameData;
 	},

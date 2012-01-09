@@ -39,7 +39,7 @@ var WalkingManDisplay = Class.create(Display,{
       parent: this.container,
       shiftY:-350,
       shiftX:0,
-      zIndex: 6
+      zIndex: 3
     })
     this.sprites.character.createAnimation({name:'flippedNormal'  ,img:this.characterImg,noOfFrames:this.noOfFrames, flipped : true})
     this.sprites.character.createAnimation({name:'walk'  ,img:this.walkImg,noOfFrames:8})
@@ -55,7 +55,7 @@ var WalkingManDisplay = Class.create(Display,{
       parent: this.container,
       shiftX : -(this.shadowImg.width-this.characterImg.width)-20,
       shiftY : -350,
-      zIndex: 4
+      zIndex: 2
     })    
   },
   

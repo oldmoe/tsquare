@@ -56,7 +56,6 @@ var DataExporter = Class.create({
 				    }
 				  }
 				  
-				  console.log( obj );
 				  if(obj.category == "enemy")
 				    obj.type = obj.type.cols + "_" + obj.type.rows;
 				  if(obj.category == "advisor")
@@ -76,7 +75,11 @@ var DataExporter = Class.create({
 		
 		var gameData = {};
 		gameData.data = data;
-		
+		var settings = this.levelEditor.settingsHandler.getData();
+		for (var key in settings)
+			gameData[key] = settings[key];
+			
+		delete gameData.backgrounds;
 		gameData.backgrounds = {
 		  layer1:this.levelEditor.backgroundHandler.getLayer1Data(), 
 		  layer2: this.levelEditor.backgroundHandler.getLayer2Data(), 
@@ -91,6 +94,8 @@ var DataExporter = Class.create({
 		gameData.environment = settings.environment;
 		gameData.gameModes = settings.gameModes;
 		gameData.missionDetails = settings.missionDetails;
+		gameData.missionTime = settings.missionTime;
+		gameData.superTime = settings.superTime;
 		gameData.missionImages = settings.missionImages;
 		return gameData;
 	},

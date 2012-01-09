@@ -52,6 +52,21 @@ var SettingsHandler = new Class.create({
 		$("missionDetails").observe("keyup", function(event){
 		  self.settings.missionDetails = event.target.value;
 		})
+<<<<<<< HEAD
+
+    $("missionTime").observe("keyup", function(event){
+      self.settings.missionTime = event.target.value;
+    })
+
+    $("superTime").observe("keyup", function(event){
+      self.settings.superTime = event.target.value;
+    })
+=======
+		
+		$("missionDetails_ar").observe("keyup", function(event){
+		  self.settings.missionDetails_ar = event.target.value;
+		})
+>>>>>>> 6f1bd7fcea84bd12e17e8f3054ed3afa90b2c0e6
     
     $(this.missionContainerId).select('input[name=missionImageInput]')[0].observe('change', function(e){
       self.uploadMissionImage(e.currentTarget.files[0]);
@@ -87,11 +102,30 @@ var SettingsHandler = new Class.create({
 	
 	init: function(){
 	  $("missionDetails").setValue("");
+	  $("missionDetails_ar").setValue("");
 	},
 	
 	loadData: function(settings){
+	  if(settings.missionDetails){
+	    this.settings.missionDetails = settings.missionDetails;
+	    $("missionDetails").setValue(settings.missionDetails);
+	  }
+	  
+	  if(settings.missionTime){
+	    this.settings.missionTime = settings.missionTime;
+	    $("missionTime").setValue(settings.missionTime);
+	  }
+	    
+	  if(settings.superTime){
+	    this.settings.superTime = settings.superTime;
+	    $("superTime").setValue(settings.superTime);
+	  }  
+	  
 	  if(settings.missionDetails)$("missionDetails").setValue(settings.missionDetails);
+	  if(settings.missionDetails_ar)$("missionDetails_ar").setValue(settings.missionDetails_ar);
+
 	  if(settings.gameModes){
+	    this.settings.gameModes = settings.gameModes;
 	    if(settings.gameModes.indexOf("normal") > -1)$(this.containerId).select('input[name=gameModes]')[0].checked = "checked";
 	    if(settings.gameModes.indexOf("sneak") > -1)$(this.containerId).select('input[name=gameModes]')[1].checked = "checked";
 	    if(settings.gameModes.indexOf("charging") > -1)$(this.containerId).select('input[name=gameModes]')[2].checked = "checked";
@@ -100,12 +134,13 @@ var SettingsHandler = new Class.create({
 	  else if(settings.environment == "night")$(this.containerId).select('input[name=environment]')[1].checked = "checked";
 	  else if(settings.environment == "day_night")$(this.containerId).select('input[name=environment]')[2].checked = "checked";
 	  
+	  if(settings.environment)this.settings.environment=settings.environment;
+	  
 	  if(settings.missionImages){
+	    this.settings.missionImages = settings.missionImages;
 	    $("missionImage").src = settings.missionImages.missionImage;
 	    $("stuffImage").src = settings.missionImages.stuffImage;
 	  }
-	  
-	  this.settings = settings;
 	},
 	
 	addEnergyMessage: function(){

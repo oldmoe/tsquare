@@ -183,12 +183,6 @@ var AudioManager = Class.create({
     }
 	},
 	
-  
-	playClash : function(){
-    this.stop()
-    Loader.sounds['sfx']['clash_scenario.mp3'].play({loops : 1000, volume : 30})
-  },
-  
   playWinLose : function(){
     this.stop()
     Loader.sounds['sfx']['win_lose.mp3'].play()
@@ -222,8 +216,17 @@ var AudioManager = Class.create({
   },
   
   stopClash : function(){
-    Loader.sounds['sfx']['clash_scenario.mp3'].stop()
+    var sound = Loader.sounds['sfx']['clash_scenario.mp3']
+    Audio.Fade(sound, 0, sound.duration / 5 , this.reactor, function(s){s.stop()})
     this.playBeats()
+  },
+  
+  playClash : function(){
+    this.stop()
+    var sound = Loader.sounds['sfx']['clash_scenario.mp3']
+    sound.setVolume(0)
+    sound.play({loops: 1000})
+    Audio.Fade(sound, 30 , sound.duration / 3, this.reactor)
   },
   
   

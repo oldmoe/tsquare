@@ -16,11 +16,12 @@ var Timeline = Class.create(UIManager, {
     this.mode = 'timeline';
     this.loader = gameManager.loader;
     var self = this;
+    alert(2)
     this.loader.load([ {images : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png", "coming_soon_missions.png",
                                   "home_background.gif", "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
                                   "mission_current.png", "mySquare_screen.png",
                                   "mission_locked.png", "mission_finished.png", "crowd_member_small.png", "challenge_box.png",
-                                  "mission_icon_selected.png", "play_button.png"], path: 'images/timeline/', store: 'timeline'},
+                                  "mission_icon_selected.png", "play_button.png", "map_background.gif"], path: 'images/timeline/', store: 'timeline'},
                        {images_ar : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png",
                                   "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
                                   "mySquare_screen.png", "play_button.png"], path: 'images/ar/timeline/', store: 'timeline'},
@@ -28,9 +29,10 @@ var Timeline = Class.create(UIManager, {
                        {images: ['crowd_shadow.png'], path: 'images/effects/', store: 'effects'},          
                        {images : ["facebook_image_large.png"],  path: 'images/dummy/', store: 'dummy' }],
                       {
-                        onFinish: function(){ 
+                        onFinish: function(){
+                          alert(1) 
                           self.imagesLoaded = true;
-                          // self.display();
+                          self.display();
                           Game.addLoadedImagesToDiv("uiContainer");
                         }
                       });
@@ -138,12 +140,13 @@ var Timeline = Class.create(UIManager, {
     var callback = function() {
       $('timeline').innerHTML = self.templateManager.load('missions', {'missions' : self.gameManager.missions[self.mode],
                'currentMission' : self.gameManager.userData.current_mission[self.mode], 'challenge' : challenge});
+               
       self.attachMissionsListener();
       Game.addLoadedImagesToDiv('timeline');
       self.displayChallenges();
       $('timeline').show();
-      self.carousel = new Carousel("missions", self.images, 7, 2);
-      if(challenge)
+      // self.carousel = new Carousel("missions", self.images, 7, 2);
+/*      if(challenge)
       {
         self.carousel.observeScrolling(function(){
           var containerOffset = $$('.missionsContainer').last().cumulativeOffset();
@@ -168,10 +171,10 @@ var Timeline = Class.create(UIManager, {
             }
           }
         });
-      }
-      self.carousel.center(self.currentMissionIndex);
-      self.carousel.checkButtons();
-      $('timeline').hide();
+      }*/
+      // self.carousel.center(self.currentMissionIndex);
+      // self.carousel.checkButtons();
+      // $('timeline').hide();
     }
     var homeDiv = $('home');
     var timelineDiv = $('timeline');
@@ -275,15 +278,16 @@ var Timeline = Class.create(UIManager, {
     $$('#timeline .timelineMissions li').each(function(element){
       element.observe('mouseover', function(event) {
         element.addClassName('selected');
+        
         //move character
-        var elem = event.element().parentNode.parentNode;
-        var elemIndex = elem.previousSiblings().length;
-        elemIndex = elemIndex - gameManager.timelineManager.carousel.currIndex;
-        var gap = 10;
-        var wgap = 40;
-        var pos = wgap + gap * elemIndex + elem.getWidth()*elemIndex + elem.getWidth()/2;
-        if(pos < 0 || pos > 1000)return; 
-        self.walkingMan.moveTo(pos-25);
+        // var elem = event.element().parentNode.parentNode;
+        // var elemIndex = elem.previousSiblings().length;
+        // elemIndex = elemIndex - gameManager.timelineManager.carousel.currIndex;
+        // var gap = 10;
+        // var wgap = 40;
+        // var pos = wgap + gap * elemIndex + elem.getWidth()*elemIndex + elem.getWidth()/2;
+        // if(pos < 0 || pos > 1000)return; 
+        // self.walkingMan.moveTo(pos-25);
       });
       element.observe('mouseout', function(event) {
         element.removeClassName('selected');

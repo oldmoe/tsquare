@@ -7,7 +7,7 @@ img { border:none; outline:none;}
 .hideText{text-indent:-10000px; line-height:0px; text-decoration:none; font-size:0px; overflow:hidden; display:block; color:#ffffff;}
 
 .uiContainer { width:970px; height:620px; position:relative; top:0px; margin:0 auto; overflow:hidden; }
-.uiContainer .background { height:620px; position:absolute; left:0; top:0; width:970px; }
+.uiContainer .background { height:620px; position:absolute; left:0; top:0; width:970px; z-index: -1}
 .positioned { position:absolute; top:0px; left:0px; z-index:1; }
 
 #gameContainer { position:absolute; top:0px; z-index:10; width:970px; height:620px; margin:0 auto; }

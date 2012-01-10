@@ -11,7 +11,7 @@ var GameManager = Class.create({
   	var format = 'mp3';
     this.templateManager = new TemplatesManager(function(){
       new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}, 
-                        {sounds: ['intro.mp3'], path: 'sounds/'+format+'/intro/', store: 'intro'}]
+                        {sounds: ['intro.mp3', 'menus_background.mp3'], path: 'sounds/'+format+'/intro/', store: 'intro'}]
           ,{
             onFinish: function(){
               $('inProgress').innerHTML = self.templateManager.load('loadingScreen');
@@ -22,6 +22,8 @@ var GameManager = Class.create({
                             if(self.imagesLoaded && self.soundPlayed)
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
+                              Loader.sounds.intro['menus_background.mp3'].loop = true;
++                             Loader.sounds.intro['menus_background.mp3'].play();
                               $('inProgress').hide();
                               self.selectLanguage("en");
                             }}, 100);
@@ -54,6 +56,8 @@ var GameManager = Class.create({
                             if(self.imagesLoaded && self.soundPlayed)
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
+                              Loader.sounds.intro['menus_background.mp3'].loop = true;
++                             Loader.sounds.intro['menus_background.mp3'].play();
                               $('inProgress').hide();
                               self.selectLanguage("en");
                             }

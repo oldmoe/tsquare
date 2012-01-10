@@ -25,6 +25,7 @@ var GameManager = Class.create({
                               Loader.sounds.intro['intro.mp3'].stop();
                               $('inProgress').hide();
                               $('optionsMenu').show();
+                              self.selectLanguage("en");
                             }}, 100);
               Loader.sounds.intro['intro.mp3'].loop = true;
               Loader.sounds.intro['intro.mp3'].play({loop:true,loops:1000});
@@ -57,6 +58,7 @@ var GameManager = Class.create({
                               Loader.sounds.intro['intro.mp3'].stop();
                               $('inProgress').hide();
                               if ($('optionsMenu')) $('optionsMenu').show();
+                              self.selectLanguage("en");
                             }
                           }
                        });

@@ -35,7 +35,6 @@ var Marketplace = Class.create({
       var specs = this.gatherSpecs(item);
       var specIds = specs.specIds;
       var memberSpecs = specs.memberSpecs;
-      
       this.adjustedMembers.push(
                         {displayName : this.members['category'][item].name,
                          codeName : item,

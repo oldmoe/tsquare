@@ -366,10 +366,11 @@ var TsquareScene = Class.create(Scene,{
 
    updateSpeed: function(){
       var speedDelta = Math.round(20 / this.handlers.crowd.objects[this.activeLane].length)
-      if(this.targetEnergy - this.energy.current > 1){
+      if(this.targetEnergy - this.energy.current > 0){
         this.energy.current += speedDelta;
-      }else if (this.targetEnergy - this.energy.current < -1){
-        if(this.energy.current > 0)this.energy.current -= speedDelta;        
+      }else if (this.targetEnergy - this.energy.current < 0){
+        if(this.energy.current > 0)this.energy.current -= speedDelta;
+        if(this.energy.current < 0)this.energy.current = 0;        
       }
       
      if(this.speedIndex == this.targetSpeedIndex) return;

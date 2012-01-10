@@ -50,7 +50,6 @@ var Timeline = Class.create(UIManager, {
       if (!this.walkingMan) {
         this.walkingMan = new WalkingManDisplay(this.gameManager.reactor);
       }
-      this.gameManager.setupLangScreen();
       this.attachHomeListener();
       this.displayHome();
     }

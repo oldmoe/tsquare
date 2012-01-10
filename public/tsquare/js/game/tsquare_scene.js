@@ -71,13 +71,28 @@ var TsquareScene = Class.create(Scene,{
          'objectives' : 'rescue'
        }
        
-        for(var i =0;i<this.data.length;i++){
-            for(var j=0;j<this.data[i].length;j++){
-                var elem = this.data[i][j]
-                if(this.handlers[mapping[elem.category]])
-                    this.handlers[mapping[elem.category]].add(elem);
-            }
-        }
+       //This loop is for inserting the rescue ambulances before looping on the main loop
+       for(var j=0;j<this.data[1].length;j++){
+         var elem = this.data[1][j];
+         if( elem.targetTile ){
+            this.data[0].push({
+                category : "protection",
+                lane : 0,
+                name : "ambulance",
+                x : elem.targetTile,
+                noenemy : true
+              });
+         }
+       }
+       for(var i =0;i<this.data.length;i++){
+         for(var j=0;j<this.data[i].length;j++){
+             var elem = this.data[i][j]
+             if(this.handlers[mapping[elem.category]]){
+               console.log( elem );
+               this.handlers[mapping[elem.category]].add(elem);
+             }
+         }
+       }
         
         var self = this;
         this.observe('wrongMove', function(){self.wrongMove()})
@@ -385,6 +400,7 @@ var TsquareScene = Class.create(Scene,{
      var self = this;
      if( this.rescuing && this.rescuing.targetTile == this.currentTile){
        this.rescuing.rescued = true;
+       this.rescuing.messageBubble.destroy();
        if( this.rescuing.mission == "retrieve" ){
          this.rescuing.fire("back");
        }

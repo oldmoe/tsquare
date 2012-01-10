@@ -11,11 +11,10 @@ var GameManager = Class.create({
   	var format = 'mp3';
     this.templateManager = new TemplatesManager(function(){
       new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}, 
-                        {sounds: ['intro.mp3'], path: 'sounds/'+format+'/intro/', store: 'intro'}]
+                        {sounds: ['intro.mp3', 'menus_background.mp3'], path: 'sounds/'+format+'/intro/', store: 'intro'}]
           ,{
             onFinish: function(){
               $('inProgress').innerHTML = self.templateManager.load('loadingScreen');
-              self.setupLangScreen();
               $('uiContainer').hide();
               var time = Loader.sounds.intro['intro.mp3'].duration;
               window.setTimeout(function(){
@@ -23,8 +22,9 @@ var GameManager = Class.create({
                             if(self.imagesLoaded && self.soundPlayed)
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
+                              Loader.sounds.intro['menus_background.mp3'].loop = true;
++                             Loader.sounds.intro['menus_background.mp3'].play();
                               $('inProgress').hide();
-                              $('optionsMenu').show();
                               self.selectLanguage("en");
                             }}, 100);
               Loader.sounds.intro['intro.mp3'].loop = true;
@@ -56,8 +56,9 @@ var GameManager = Class.create({
                             if(self.imagesLoaded && self.soundPlayed)
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
+                              Loader.sounds.intro['menus_background.mp3'].loop = true;
++                             Loader.sounds.intro['menus_background.mp3'].play();
                               $('inProgress').hide();
-                              if ($('optionsMenu')) $('optionsMenu').show();
                               self.selectLanguage("en");
                             }
                           }
@@ -75,8 +76,7 @@ var GameManager = Class.create({
   
   setupLangScreen: function() {
   	var self = this;
-  	$('optionsMenu').innerHTML = self.templateManager.load('langScreen');
-  	$$('.choseLanguage a').each(function(option) {
+  	$$('.langBtn').each(function(option) {
   	  option.observe('click', function() {
   	  	self.selectLanguage(option.children[0].alt);
   	  });
@@ -89,12 +89,13 @@ var GameManager = Class.create({
   	  document.body.classList.add('ar');
   	} else {
   	  game.properties.lang = 'en';
+      document.body.classList.remove('ar');
   	}
-  	$('optionsMenu').parentNode.removeChild($('optionsMenu'));
     $('uiContainer').show();
     // TODO: implement proper re-rendering mechanism
     this.scoreManager.reset();
   	this.timelineManager.display();
+    this.meterBar.display()
   },
 
   start : function(){

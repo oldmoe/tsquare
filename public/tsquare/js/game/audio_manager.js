@@ -134,7 +134,9 @@ var AudioManager = Class.create({
 		this.tempoChanged = true;
 		
 		scene.observe('keySound',function(keyIndex){self.playKeySound(keyIndex)});
-		scene.observe('end', function(){self.playWinLose()})
+		scene.observe('end', function(){self.playWinLose()});
+    scene.observe('combo', function(combos){self.playComboSound(combos)});
+    scene.observe('firstWrongMove', function(){self.playWrongMoveSound()});
 		this.cc = false;
 	},
 
@@ -190,6 +192,26 @@ var AudioManager = Class.create({
   playWinLose : function(){
     this.stop()
     Loader.sounds['sfx']['win_lose.mp3'].play()
+  },
+  
+  playComboSound : function(combos){
+    switch(combos){
+      case 2:
+        Loader.sounds['sfx']['combo1.mp3'].play()
+        break;
+      case 3:
+        Loader.sounds['sfx']['combo2.mp3'].play()
+        break;
+      case 4:
+        Loader.sounds['sfx']['combo3.mp3'].play()
+        break;
+      default:
+        break;
+    }
+  },
+  
+  playWrongMoveSound : function(){
+    Loader.sounds['sfx']['wrong_move.mp3'].play()
   },
   
   pause : function(){

@@ -47,22 +47,22 @@
     <ul>
       <li>
         <a class="timelineButton" href="javascript:void(0)">
-          <span class="loadedImg" imgSrc="images/timeline/timeline_screen.png" alt="Timeline" >  </span>        
+          <span class="loadedImg lang" imgSrc="timeline/timeline_screen.png" alt="Timeline"></span>        
         </a>
       </li>
       <li>
         <a class="timelineButton" href="javascript:void(0)">
-          <span class="loadedImg" imgSrc="images/timeline/rescue_screen.png" alt="Timeline" >  </span>        
+          <span class="loadedImg lang" imgSrc="timeline/rescue_screen.png" alt="Timeline"></span>        
         </a>
       </li>
       <li>
         <a class="timelineButton" href="javascript:void(0)">
-          <span class="loadedImg" imgSrc="images/timeline/challenge_screen.png" alt="Timeline" >  </span>        
+          <span class="loadedImg lang" imgSrc="timeline/challenge_screen.png" alt="Timeline"></span>        
         </a>
       </li>
       <li>
         <a class="timelineButton" href="javascript:void(0)">
-          <span class="loadedImg" imgSrc="images/timeline/mySquare_screen.png" alt="Timeline" >  </span>        
+          <span class="loadedImg lang" imgSrc="timeline/mySquare_screen.png" alt="Timeline"></span>        
         </a>
       </li>
     </ul>
@@ -76,17 +76,17 @@
   	<ul>
     	<li>
       	<a href="javascript:void(0)" class="calendar">
-          <span class="loadedImg" imgSrc="images/timeline/calendar_25_jan.png" alt="25 Jan">  </span>        
+          <span class="loadedImg lang" imgSrc="timeline/calendar_25_jan.png" alt="25 Jan"></span>        
       	</a>
       </li>
     	<li>
       	<a href="javascript:void(0)" class="calendar">
-          <span class="loadedImg" imgSrc="images/timeline/calendar_26_jan.png" alt="25 Jan" >  </span>        
+          <span class="loadedImg lang" imgSrc="timeline/calendar_26_jan.png" alt="26 Jan"></span>        
       	</a>
       </li>
     	<li>
       	<a href="javascript:void(0)" class="calendar">
-					<span class="loadedImg" imgSrc="images/timeline/calendar_27_jan.png" alt="25 Jan" >  </span>   
+          <span class="loadedImg lang" imgSrc="timeline/calendar_27_jan.png" alt="27 Jan"></span>   
       	</a>
       </li>
     </ul>
@@ -104,22 +104,22 @@
           {if challenge}
             <div class="friendScore" mission="${challenge.data.mission}">
             	<div class="smallImageWrapper">
-              	<span class="loadedImg" imgSrc="images/dummy/facebook_image_large.png" alt="Facebook Image"
+              	<span class="loadedImg" imgSrc="dummy/facebook_image_large.png" alt="Facebook Image"
                   imgId="${challenge.from.id}" imgStyle="width:33px;"></span>
               </div>
               <h3>${challenge.from.name}</h3>
               <h5>${challenge.data.score}</h5>
-              <span class="loadedImg" imgSrc="images/timeline/challenge_box.png" alt="Friend score" imgClasses="positioned"></span>
+              <span class="loadedImg" imgSrc="timeline/challenge_box.png" alt="Friend score" imgClasses="positioned"></span>
             </div>
           {/if}
           <!--Changes 28 Sept.-->
           <!--Left controls-->
           <div class="leftControls">
             <div class="left">
-              <span class="loadedImg" imgSrc="images/game_elements/previous_button.png" alt="Previous">  </span>       
+              <span class="loadedImg" imgSrc="game_elements/previous_button.png" alt="Previous"></span>       
             </div>    
             <div class="first">      
-              <span class="loadedImg" imgSrc="images/game_elements/first_button.png" alt="First">  </span>      	
+              <span class="loadedImg" imgSrc="game_elements/first_button.png" alt="First"></span>      	
             </div>      	
           </div>
           <div id="missions-container" class="missionsContainer" >
@@ -127,17 +127,17 @@
             {for mission in missions}
             	<li id="mission_${mission['id']}" {if challenge && challenge.data.mission == mission.id} class="glowing" {/if}>
                 {if mission['id'] == currentMission}
-                  <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_current.png" alt="mission"> </span></a>
+                  <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="timeline/mission_current.png" alt="mission"></span></a>
                 {else}
                   {if mission['playable'] == true}
-                    <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_finished.png" alt="mission">  </span></a>
+                    <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="timeline/mission_finished.png" alt="mission"></span></a>
                   {else}
-                    <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="images/timeline/mission_locked.png" alt="mission" >  </span></a>
+                    <a href="javascript:void(0)" class="normal"><span class="loadedImg" imgSrc="timeline/mission_locked.png" alt="mission"></span></a>
                   {/if}
                 {/if}
               	<a href="javascript:void(0)" class="hover">
                 	<span>${mission.name}</span>
-                	<span class="loadedImg" imgSrc="images/timeline/mission_icon_selected.png" alt="mission" >  </span>
+                	<span class="loadedImg" imgSrc="timeline/mission_icon_selected.png" alt="mission"></span>
                 </a>
               </li>
             {/for}
@@ -146,10 +146,10 @@
           <!--Right controls-->
           <div class="rightControls">
             <div class="right">
-              <span class="loadedImg" imgSrc="images/game_elements/next_button.png" alt="Next" >  </span>
+              <span class="loadedImg" imgSrc="game_elements/next_button.png" alt="Next"></span>
             </div>
             <div class="last">
-              <span class="loadedImg" imgSrc="images/game_elements/last_button.png" alt="Last" >  </span>
+              <span class="loadedImg" imgSrc="game_elements/last_button.png" alt="Last"></span>
             </div>
           </div>
           <!--Changes 28 Sept.-->
@@ -164,7 +164,7 @@
 <textarea style="display:none;" id='missionDetails'>
   <!--Close-->
   <div class="close">
-    <a href="javascript:void(0);"><span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close"></span></a>
+    <a href="javascript:void(0);"><span class="loadedImg" imgSrc="game_elements/close_button.png" alt="close"></span></a>
   </div>
   <div class="missionWrapper">
   	<div class="missionImages">
@@ -173,11 +173,10 @@
       {/if}
     </div>
     <div class="missionContent">
+      <h3>${t('missionDetailsHeader')}</h3>
       {if game.properties.lang == 'en'}
-    	<h3>Mission Story</h3>
         <p>${mission['details']}</p>
       {else}
-    	<h3>تفاصيل المهمة</h3>
         <p>${mission['details_ar'] || '<عربي>'}</p>
       {/if}
     </div>
@@ -190,19 +189,19 @@
       </div>
       {if mission['playable'] == true } 
         <a href="javascript:void(0)" class="playButton" id="${mission.id}">
-          <span class="loadedImg"  imgId="${mission.id}" imgSrc="images/timeline/play_button.png" alt="Play" >  </span>
+          <span class="loadedImg lang" imgId="${mission.id}" imgSrc="timeline/play_button.png" alt="Play"></span>
         </a>
       {/if}
     </div>    
   </div>
-  <span class="loadedImg" imgSrc="images/timeline/mission_details.png" alt="Mission Details" imgClasses="positioned">  </span>
+  <span class="loadedImg lang" imgSrc="timeline/mission_details.png" alt="Mission Details" imgClasses="positioned"></span>
 </textarea>
 
 <textarea style="display:none;" id='meterBar'>
 	<!--Game Currency Bar-->
 	<div class="gameCurrencyBar">
   	<span>${coins}</span>
-  	<span class="loadedImg" imgSrc="images/game_elements/game_currency_bar.png" alt="Game currency bar" imgClasses="positioned"></span>
+  	<span class="loadedImg" imgSrc="game_elements/game_currency_bar.png" alt="Game currency bar" imgClasses="positioned"></span>
   </div>
   <!--Experience Bar-->
   <div class="experienceBar">
@@ -211,16 +210,16 @@
     	<!--Value to be changed-->
       <table cellpadding="0" cellspacing="0" width="90%">
         <tr>
-          <td style="width:9px;"><span class="loadedImg" imgSrc="images/game_elements/experience_bar_left.png" alt="Experience bar" >  </span></td>
+          <td style="width:9px;"><span class="loadedImg" imgSrc="game_elements/experience_bar_left.png" alt="Experience bar"></span></td>
           <td style="width:90%;">
-            <span class="loadedImg" imgSrc="images/game_elements/experience_bar_center.png" alt="Experience bar"
+            <span class="loadedImg" imgSrc="game_elements/experience_bar_center.png" alt="Experience bar"
                                   imgStyle="width:100%; height:19px;"></span>
           </td>
-          <td style="width:9px;"><span class="loadedImg" imgSrc="images/game_elements/experience_bar_right.png" alt="Experience bar" >  </span></td>
+          <td style="width:9px;"><span class="loadedImg" imgSrc="game_elements/experience_bar_right.png" alt="Experience bar"></span></td>
         </tr>
       </table>
     </div>
-  	<span class="loadedImg" imgSrc="images/game_elements/experience_bar.png" alt="Experience bar" imgClasses="positioned"></span>
+  	<span class="loadedImg" imgSrc="game_elements/experience_bar.png" alt="Experience bar" imgClasses="positioned"></span>
   </div>
     
   <!--Energy Bar-->
@@ -230,16 +229,16 @@
     	<!--Value to be changed-->
       <table cellpadding="0" cellspacing="0" width="90%">
         <tr>
-          <td style="width:9px;"><span class="loadedImg" imgSrc="images/game_elements/energy_bar_left.png" alt="Energy bar" >  </span></td>
+          <td style="width:9px;"><span class="loadedImg" imgSrc="game_elements/energy_bar_left.png" alt="Energy bar"></span></td>
           <td style="width:90%;">
-            <span class="loadedImg" imgSrc="images/game_elements/energy_bar_center.png" alt="Energy bar"
+            <span class="loadedImg" imgSrc="game_elements/energy_bar_center.png" alt="Energy bar"
                                   imgStyle="width:100%; height:19px;"></span>
           </td>
-          <td style="width:9px;"><span class="loadedImg" imgSrc="images/game_elements/energy_bar_right.png" alt="Energy bar" > </span></td>
+          <td style="width:9px;"><span class="loadedImg" imgSrc="game_elements/energy_bar_right.png" alt="Energy bar"></span></td>
         </tr>
       </table>
     </div>
-  	<span class="loadedImg" imgSrc="images/game_elements/energy_bar.png" alt="Energy bar" imgClasses="positioned"></span>
+  	<span class="loadedImg" imgSrc="game_elements/energy_bar.png" alt="Energy bar" imgClasses="positioned"></span>
   </div>
 </textarea>
 
@@ -249,11 +248,11 @@
     <div class="levelMeter">
       <div class="levelMeterHighlight" style="width:8%;">
         <span class="levelMeterCrowd">
-          <span class="loadedImg" imgSrc="images/game_elements/level_meter_crowd.png" alt=" crowd" imgClasses="positioned"></span>
+          <span class="loadedImg" imgSrc="game_elements/level_meter_crowd.png" alt=" crowd" imgClasses="positioned"></span>
         </span>
-        <span class="loadedImg" imgSrc="images/game_elements/level_meter_highlighted.png" alt="Level Meter Highlighted" imgClasses="positioned"></span>
+        <span class="loadedImg" imgSrc="game_elements/level_meter_highlighted.png" alt="Level Meter Highlighted" imgClasses="positioned"></span>
       </div>
-      <span class="loadedImg" imgSrc="images/game_elements/level_meter.png" alt="Level Meter" imgClasses="positioned"></span>
+      <span class="loadedImg" imgSrc="game_elements/level_meter.png" alt="Level Meter" imgClasses="positioned"></span>
     </div>
     
     <!--Timer Bar-->
@@ -261,7 +260,7 @@
       <div class="timerBarNumbers">
         <span id="timerTxt">00:00:00</span>
       </div>
-      <span class="loadedImg" imgSrc="images/game_elements/timer.png" alt="Tmer Bar" imgClasses="positioned"></span>
+      <span class="loadedImg" imgSrc="game_elements/timer.png" alt="Tmer Bar" imgClasses="positioned"></span>
     </div>
 
     <div class="powerbar">
@@ -272,28 +271,28 @@
       <!--Power Level 01-->
       <div class="powerLevel01">
         <div style="width:0%">
-          <span class="loadedImg" imgSrc="images/game_elements/power_level01.png" alt="level 01" imgClasses="positioned"></span>
+          <span class="loadedImg" imgSrc="game_elements/power_level01.png" alt="level 01" imgClasses="positioned"></span>
         </div>
       </div>
       <!--Power Level 02-->
       <div class="powerLevel02">
         <div style="width:0%">
-          <span class="loadedImg" imgSrc="images/game_elements/power_level02.png" alt="level 02" imgClasses="positioned"></span>
+          <span class="loadedImg" imgSrc="game_elements/power_level02.png" alt="level 02" imgClasses="positioned"></span>
         </div>
       </div>
       <!--Power Level 03-->
       <div class="powerLevel03">
         <div style="width:0%">
-          <span class="loadedImg" imgSrc="images/game_elements/power_level03.png" alt="level 03" imgClasses="positioned"></span>
+          <span class="loadedImg" imgSrc="game_elements/power_level03.png" alt="level 03" imgClasses="positioned"></span>
         </div>
       </div>
       <!--Power Level 04-->
       <div class="powerLevel04">
         <div style="width:0%">
-          <span class="loadedImg" imgSrc="images/game_elements/power_level04.png" alt="level 04" imgClasses="positioned"></span>
+          <span class="loadedImg" imgSrc="game_elements/power_level04.png" alt="level 04" imgClasses="positioned"></span>
         </div>
       </div>
-      <span class="loadedImg" imgSrc="images/game_elements/power_bar.png" alt="power bar" imgClasses="positioned"></span>
+      <span class="loadedImg" imgSrc="game_elements/power_bar.png" alt="power bar" imgClasses="positioned"></span>
     </div>
   </div>
 </textarea>
@@ -304,10 +303,10 @@
         <img class="positioned" src="images/game_elements/walk_move.png" alt="Move" />
     </div>
     <div class="movesIndicator">
-      <span ><span class="loadedImg" imgSrc="images/game_elements/right_arrow.png" alt="Right" imgClasses="positioned"></span></span>
-      <span ><span class="loadedImg" imgSrc="images/game_elements/left_arrow.png" alt="Left" imgClasses="positioned"></span></span>
-      <span><span class="loadedImg" imgSrc="images/game_elements/right_arrow.png" alt="Right" imgClasses="positioned"></span></span>
-      <span><span class="loadedImg" imgSrc="images/game_elements/left_arrow.png" alt="Left" imgClasses="positioned"></span></span>
+      <span ><span class="loadedImg" imgSrc="game_elements/right_arrow.png" alt="Right" imgClasses="positioned"></span></span>
+      <span ><span class="loadedImg" imgSrc="game_elements/left_arrow.png" alt="Left" imgClasses="positioned"></span></span>
+      <span><span class="loadedImg" imgSrc="game_elements/right_arrow.png" alt="Right" imgClasses="positioned"></span></span>
+      <span><span class="loadedImg" imgSrc="game_elements/left_arrow.png" alt="Left" imgClasses="positioned"></span></span>
     </div>
   </div>
 </textarea>
@@ -319,20 +318,20 @@
   	<div class="gameFunctions">
     	<!--Crowd menu button-->
     	<a class="crowdMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace(false);">
-        <span class="loadedImg" imgSrc="images/friends/icon_call.png" alt="Menu Item" > </span>
+        <span class="loadedImg lang" imgSrc="friends/icon_call.png" alt="Menu Item"></span>
       </a>
       <!--Marketplace button-->
       <a class="marketplaceMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace(true);">
-        <span class="loadedImg" imgSrc="images/friends/icon_crowds.png" alt="Menu Item" > </span>
+        <span class="loadedImg lang" imgSrc="friends/icon_crowds.png" alt="Menu Item"></span>
       </a>
       <!--Rank button-->
-      <a class="rankMenuItem" href="javascript:void(0);"><span class="loadedImg" imgSrc="images/friends/icon_ranking.png" alt="Menu Item" >  </span></a>
+      <a class="rankMenuItem" href="javascript:void(0);"><span class="loadedImg lang" imgSrc="friends/icon_ranking.png" alt="Menu Item"></span></a>
       <!--Vote button-->
-      <a class="voteMenuItem" href="javascript:void(0);"><span class="loadedImg" imgSrc="images/friends/icon_vote.png" alt="Menu Item" >  </span></a>
+      <a class="voteMenuItem" href="javascript:void(0);"><span class="loadedImg lang" imgSrc="friends/icon_vote.png" alt="Menu Item"></span></a>
       <a class="homeMenuItem" href="javascript:void(0);" onclick="gameManager.openMainPage();">
-        <span class="loadedImg" imgSrc="images/friends/home_icon.png" alt="Menu Item" > </span>
+        <span class="loadedImg" imgSrc="friends/home_icon.png" alt="Menu Item"></span>
       </a>
-    	<span class="loadedImg" imgSrc="images/friends/functions_background.png" alt="Functions" imgClasses="positioned" > </span>
+    	<span class="loadedImg" imgSrc="friends/functions_background.png" alt="Functions" imgClasses="positioned"></span>
     </div>
       
     <!--Friends-->
@@ -341,14 +340,14 @@
       {for friend in topThree}
     	<div class="friend">
         <a href="${friend['url']}">
-        	<span class="loadedImg" imgSrc="images/friends/${parseInt(friend_index)+1}.png" alt="rank" imgClasses="rankSign"></span>
+        	<span class="loadedImg" imgSrc="friends/${parseInt(friend_index)+1}.png" alt="rank" imgClasses="rankSign"></span>
           <span class="friendsScore">
           	<span>${friend['scores'][scoreManager.gameMode]}</span>
-          	<span class="loadedImg" imgSrc="images/friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>
+          	<span class="loadedImg" imgSrc="friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>
           </span>
           <img class="friendAvatar" src="${friend['picture']}" alt="Firend avatar" />
           <span class="friendName">${friend['first_name']}</span>
-        	<span class="loadedImg" imgSrc="images/friends/friend_box.png" alt="friend"> </span>
+        	<span class="loadedImg" imgSrc="friends/friend_box.png" alt="friend"></span>
         </a>
       </div>
       {/for}
@@ -357,20 +356,20 @@
       <div id="friends">
         <div class="leftControls">
           <div class="left">
-            <span class="loadedImg" imgSrc="images/game_elements/previous_button.png" alt="Previous" > </span>       
+            <span class="loadedImg" imgSrc="game_elements/previous_button.png" alt="Previous"></span>       
           </div>    
           <div class="first">      
-            <span class="loadedImg" imgSrc="images/game_elements/first_button.png" alt="First" > </span>      	
+            <span class="loadedImg" imgSrc="game_elements/first_button.png" alt="First"></span>      	
           </div>
         </div>
         <!--Friend-->
         <div class="friend">
           <a href="javascript:void(0);" onclick="socialEngine.inviteFriends();">
             <div class="inviteFriend friendAvatar">
-              <span class="loadedImg" imgSrc="images/friends/inviteFriends.png" alt="Invite Friend" imgClasses="friendAvatar" > </span>
+              <span class="loadedImg" imgSrc="friends/inviteFriends.png" alt="Invite Friend" imgClasses="friendAvatar"></span>
             </div>
-            <span class="friendName">Invite</span>
-            <span class="loadedImg" imgSrc="images/friends/friend_box.png" alt="friend" > </span>
+            <span class="friendName">${t('inviteFriend')}</span>
+            <span class="loadedImg" imgSrc="friends/friend_box.png" alt="friend"></span>
           </a>
         </div>
         <div id="friends-container" class="floatingFriends">
@@ -382,11 +381,11 @@
                 <a href="${friend['url']}" target="_blank">
                   <span class="friendsScore">
                   	<span>${friend['scores'][scoreManager.gameMode]}</span>
-                  	<span class="loadedImg" imgSrc="images/friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>
+                  	<span class="loadedImg" imgSrc="friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>
                   </span>
                   <img class="friendAvatar" src="${friend['picture']}" alt="Firend avatar" />
                   <span class="friendName">${friend['first_name']}</span>
-                  <span class="loadedImg" imgSrc="images/friends/friend_box.png" alt="friend" > </span>
+                  <span class="loadedImg" imgSrc="friends/friend_box.png" alt="friend"></span>
                 </a>
               </div>
             </li>
@@ -396,30 +395,58 @@
         <!--Right controls-->
         <div class="rightControls">
           <div class="right">
-            <span class="loadedImg" imgSrc="images/game_elements/next_button.png" alt="Next" > </span>
+            <span class="loadedImg" imgSrc="game_elements/next_button.png" alt="Next"></span>
           </div>
           <div class="last">
-            <span class="loadedImg" imgSrc="images/game_elements/last_button.png" alt="Last" > </span>
+            <span class="loadedImg" imgSrc="game_elements/last_button.png" alt="Last"></span>
           </div>
         </div>
       </div>
-    	<span class="loadedImg" imgSrc="images/friends/friends_bar.png" alt="friends background" imgClasses="positioned"> </span>
+    	<span class="loadedImg" imgSrc="friends/friends_bar.png" alt="friends background" imgClasses="positioned"></span>
     </div>
 
     <!--Switching tabs-->
     <div class="swithcingTabs">
       <ul>
       	<li {if scoreManager.mode=="global"} class="selected" {/if}>
-          <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/friends/worldRank.png" alt="World Rank"> </span></a>
+          <a href="javascript:void(0)"><span class="loadedImg" imgSrc="friends/worldRank.png" alt="World Rank"></span></a>
         </li>
         <li {if scoreManager.mode=="friends"} class="selected" {/if}>
-          <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/friends/friendsRank.png" alt="Friends Rank" > </span></a>
+          <a href="javascript:void(0)"><span class="loadedImg" imgSrc="friends/friendsRank.png" alt="Friends Rank"></span></a>
         </li>
       </ul>
     </div>
 
   </div>
 </textarea>
+
+<textarea id='sendChallengePrompt'>
+  <div class="sendChallengePrompt">
+    <div class="message">
+      ${t('surpassFriendScore', [friend.name, friend.scores[scoreManager.gameMode])}
+      <br>
+      ${t('challengeFriend')}
+    </div>
+    <div class="sendChallengOk button" id="${friend.service_id}">
+      ${t('approve')}
+    </div>
+    <div class="sendChallengCancel button">    
+      ${t('dismiss')}
+    </div>
+  </div>
+</textarea>
+<textarea  id='scorePassedAlert'>
+  <div class="scorePassedAlert">
+    <div class="message">
+      ${t('friendSurpassedPlayerScore', [friend.name, friend.scores[scoreManager.gameMode])}
+    </div>
+    <div class="scorePassedCancel button">    
+      ${t('ok')}
+    </div>
+  </div>
+</textarea>
+
+
 
 <textarea id='scoreTabs'>
   <div id="scoringModes">
@@ -434,31 +461,6 @@
   {/for}
   </div>
 </textarea>
-
-<textarea id='sendChallengePrompt'>
-  <div class="sendChallengePrompt">
-    <div class="message">
-      You have passed ${friend.name} score of ${friend.scores[scoreManager.gameMode]} !! <br> Send him a challenge
-    </div>
-    <div class="sendChallengOk button" id="${friend.service_id}">
-      OK
-    </div>
-    <div class="sendChallengCancel button">    
-      SKIP
-    </div>
-  </div>
-</textarea>
-<textarea  id='scorePassedAlert'>
-  <div class="scorePassedAlert">
-    <div class="message">
-      With ${friend.scores[scoreManager.gameMode]}, ${friend.name} passed your score!!
-    </div>
-    <div class="scorePassedCancel button">    
-      OK
-    </div>
-  </div>
-</textarea>
-
 
 <textarea style="display:none;" id='topScorersddd'>
   <div id="gameModes">
@@ -477,35 +479,35 @@
 
 
 <textarea id="send_requests">
-  <button id="request_help_button"> Send Help Request </button>
-  <button id="request_gift_button"> Send Gift </button>
-  <button id="request_challenge_button"> Send Challenge </button>
+  <button id="request_help_button">${t('request_help_button')}</button>
+  <button id="request_gift_button">${t('request_gift_button')}</button>
+  <button id="request_challenge_button">${t('request_challenge_button')}</button>
 </textarea>
 
 <textarea id="inbox">
   <br/>
-  <h3> Requests </h3>
+  <h3>${t('inbox_header')}</h3>
   <div id="help">
-    <b>Help Requests</b><br>
+    <b>${t('help_requests')}</b><br>
     {for request in inbox.requests.help}
-      <span> ${request.message} from ${request.from.name} </span>
-      <button> Accept </button><br>
+      <span>${t('inbox_message', request.from.name, request.message)}</span>
+      <button>${t('approve')}</button><br>
     {/for}
     <br>
   </div>
   <div id="gift">
-    <b>Gift Requests</b><br>
+    <b>${t('gift_requests')}</b><br>
     {for request in inbox.requests.gift}
-      <span> ${request.message} from ${request.from.name} </span>
-      <button> Accept </button><br>
+      <span>${t('inbox_message', request.from.name, request.message)}</span>
+      <button>${t('approve')}</button><br>
     {/for}
     <br>
   </div>
   <div id="challenge"><br>
-    <b>Challenge Requests</b><br>
+    <b>${t('challenge_requests')}</b><br>
     {for request in inbox.requests.challenge}
-      <span> ${request.message} from ${request.from.name} </span>
-      <button> Accept </button><br>
+      <span>${t('inbox_message', request.from.name, request.message)}</span>
+      <button>${t('approve')}</button><br>
     {/for}
     <br>
   </div>

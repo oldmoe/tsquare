@@ -90,6 +90,8 @@ var GameManager = Class.create({
   	}
   	$('optionsMenu').parentNode.removeChild($('optionsMenu'));
     $('uiContainer').show();
+    // TODO: implement proper re-rendering mechanism
+    this.scoreManager.reset();
   	this.timelineManager.display();
   },
 

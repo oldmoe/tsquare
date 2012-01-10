@@ -11,7 +11,7 @@ var AmbulanceDisplay = Class.create(Display,{
     this.imgWidth = this.img.width
     $super(owner)
     
-    if(Math.random() <= 0.5)this.showText();
+    if(Math.random() <= 0.5 && !this.owner.noenemy)this.showText();
   },
   
   initAudio : function(){
@@ -26,7 +26,7 @@ var AmbulanceDisplay = Class.create(Display,{
     if (this.audioDestroyed) {
       return false
     }
-    Loader.sounds['sfx']['ambulance.mp3'].play({volume:10})   
+    if(!this.mute) Loader.sounds['sfx']['ambulance.mp3'].play({volume:10})   
     //this.owner.scene.audioManager.play(Loader.sounds['sfx']['ambulance.mp3'], {volume : 10}, true)
   },
   

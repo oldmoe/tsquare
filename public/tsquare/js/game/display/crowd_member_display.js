@@ -99,6 +99,10 @@ var CrowdMemberDisplay = Class.create(Display,{
   },
   
   render : function($super){
+    if( this.owner.rescued && !this.owner.messageDisplayed ){
+      this.owner.messageBubble = this.owner.scene.handlers.message.showRescueBubble( this.owner.leaveMessage, this.owner);
+      this.owner.messageDisplayed = true;
+    }
     if(this.owner.stateChanged){
       var character = this.sprites.character;
       if(this.owner.scene.moveBack) {
@@ -114,8 +118,11 @@ var CrowdMemberDisplay = Class.create(Display,{
   },
   
   destroy : function($super, done){
-    if(done){
+    if( done ){
       return $super()
+    }
+    if( this.owner.messageBubble ){
+      this.owner.messageBubble.destroy();
     }
     this.owner.removed = true      // to remove the display object from render loop
     var self = this

@@ -58,6 +58,7 @@ var RescueUnit = Class.create(Unit,{
     if (this.rotationTolerance == 0) {
       self.doneProtection = true;
       self.scene.fire("targetCircleComplete");
+      
       var rescue_unit_name = self.scene.handlers.crowd.target.name.split("_")[0];
       var mapName = self.nameMapping[rescue_unit_name];
       if( !mapName ) mapName = rescue_unit_name;
@@ -68,6 +69,10 @@ var RescueUnit = Class.create(Unit,{
       self.scene.rescuing.leaveMessage = self.leaveMessage;
       self.scene.rescuing.mission = self.mission;
       self.destroy();
+      
+      self.scene.rescuing.messageBubble = self.scene.handlers.message.showRescueBubble( self.scene.rescuing.companyMessage, self.scene.rescuing );
+      
+      
       self.neglected = true;
       var position = this.scene.handlers.crowd.calcPosition( this.lane, this.scene.handlers.crowd.objects[this.lane].length );
       self.scene.rescuing.fire("reverseWalk");

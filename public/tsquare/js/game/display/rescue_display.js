@@ -22,8 +22,9 @@ var RescueDisplay = Class.create(Display,{
   
   render : function($super){
     if( this.owner.helpMessage && !this.owner.messageDisplayed){
-      this.owner.scene.handlers.message.showRescueBubble( this.owner.helpMessage, this.owner );
+      this.owner.messageBubble = this.owner.scene.handlers.message.showRescueBubble( this.owner.helpMessage, this.owner );
       this.owner.messageDisplayed = true;
+      
     }
     if (this.owner.scene.moveBack) {
       this.sprites.character.currentAnimationFrame = (this.sprites.character.currentAnimationFrame - 1)
@@ -34,6 +35,14 @@ var RescueDisplay = Class.create(Display,{
       this.sprites.character.currentAnimationFrame = (this.sprites.character.currentAnimationFrame+1) % this.sprites.character.currentAnimation.noOfFrames
     } 
     $super()
+  },
+  
+  destroy : function($super){
+    if( this.owner.messageDisplayed ){
+      this.owner.scene.handlers.message.rescueBubble.destroy();
+      this.owner.scene.handlers.message.rescueBubble = null;
+    }
+    $super();
   }
   
 

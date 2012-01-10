@@ -247,6 +247,9 @@ var TsquareScene = Class.create(Scene,{
        //The following name, tile and mission are used for escorting/retrieving a crowd member
        obj.name = objHash.name;
        obj.targetTile = objHash.targetTile;
+       obj.helpMessage = objHash.helpMessage;
+       obj.companyMessage = objHash.companyMessage;
+       obj.leaveMessage = objHash.leaveMessage;
        obj.mission = objHash.mission;
        var displayKlass = eval(klassName + "Display")
        var objDisplay = new displayKlass(obj)

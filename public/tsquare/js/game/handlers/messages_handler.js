@@ -109,6 +109,12 @@ var MessagesHandler = Class.create(UnitHandler, {
     });
   },
   
+  showRescueBubble: function(message, rescueUnit){
+    var bubble = new MovingBubble(this.scene, rescueUnit);
+    var bubbleDisplay = new BubbleDisplay( bubble.following );
+    this.scene.pushToRenderLoop('characters', bubbleDisplay);
+  },
+  
   removeCrowdBubble: function(){
     if(this.crowdBubble){
       this.crowdBubble.destroy();

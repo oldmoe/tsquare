@@ -144,7 +144,7 @@ var Tile = Class.create({
 	
 	createHTMLElement: function (){
 		return '<td class="dropbox" valign="top">' +
-		'<div id="content" style="width:75px;height:92px;overflow:auto"></div>'+ 
+		'<div id="content" style="overflow:auto"></div>'+ 
 			'<div id="options" style="display:block;width:64px">'+
 				'<img id="addButton" src="images/add_icon.png" class="tileIcon" title="Add new tile"/>'+
 				'<img id="deleteButton" src="images/delete_icon.png" class="tileIcon" title="Delete tile"/>'+
@@ -155,16 +155,40 @@ var Tile = Class.create({
 	},
 	
 	createDraggedItem : function (obj){
-	  var targetTileInput = "";
+	  var input = "";
 	  if( obj.category == "objectives"){
-	    var value = "";
-	    if( obj.targetTile )
-	     value = obj.targetTile;
+	    var targetTile = "";
+	    var helpMessage = "";
+	    var companyMessage = "";
+	    var leaveMessage = "";
 	    
-	    targetTileInput = "<input value =' " + value + "' />"
+	    if( obj.targetTile )
+	      targetTile = obj.targetTile;
+      if( obj.helpMessage )
+        helpMessage = obj.helpMessage;
+      if( obj.companyMessage )
+        companyMessage = obj.companyMessage;
+      if( obj.leaveMessage )
+        leaveMessage = obj.leaveMessage;
+	    
+	    input = "<div style='float:left'>" +
+                "<label style='font-size:14px'>Target tile </label>" +
+                "<input value =' " + targetTile + "' />" +
+              "</div>" +
+              "<div>" +
+                "<label style='font-size:14px'>Help msg</label>" +
+                "<textarea id='helpMessage' style='width:125px'>" + helpMessage + "</textarea>" +
+              "</div>" +
+              "<div>" +
+                "<label style='font-size:14px'>Company msg</label>" +
+                "<textarea id='companyMessage' style='width:125px'>" + companyMessage + "</textarea>" +
+              "<div>" +
+                "<label style='font-size:14px'>Leave msg</label>" +
+                "<textarea id='leaveMessage' style='width:125px'>" + leaveMessage + "</textarea>" +
+              "</div>";
 	  }
 	  
-		return '<img src="'+obj.image+'" name="'+obj.name+'" category="'+obj.category+'" style="width:64px;float:left"/>' + targetTileInput;
+		return input + '<img src="'+obj.image+'" name="'+obj.name+'" category="'+obj.category+'" style="width:64px;float:left"/>';
 	},
 	
 	openContent: function(){

@@ -48,6 +48,9 @@ var DataExporter = Class.create({
 				  
 				  if(obj.category == "objectives"){
 				    obj.name = obj.name + "_rescue";
+				    obj.helpMessage = lanesData[i].tiles[j].domObject.select('#helpMessage')[0].value
+				    obj.companyMessage = lanesData[i].tiles[j].domObject.select('#companyMessage')[0].value
+				    obj.leaveMessage = lanesData[i].tiles[j].domObject.select('#leaveMessage')[0].value
 				    obj.targetTile = Number( lanesData[i].tiles[j].domObject.select('input')[0].value );
 				    if( obj.targetTile > obj.x ){
 				      obj.mission = "escort";

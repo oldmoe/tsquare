@@ -223,11 +223,12 @@ var CrowdMember = Class.create(Unit,{
       this.currentAction = "retreat";
   },
   
-  die : function(){
-  	  this.currentAction = "dead";
-  	  this.fire("dead");
-  	  this.dead = true;
-  	  this.handler.updateObjectsAfterDeath(this);
+  die : function($super){
+    $super()
+	  this.currentAction = "dead";
+	  this.fire("normal");
+	  this.dead = true;
+	  this.handler.updateObjectsAfterDeath(this);
   },
   
   addRotationPoints : function(target){

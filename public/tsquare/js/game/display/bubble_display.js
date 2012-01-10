@@ -19,4 +19,5 @@ var BubbleDisplay = Class.create(Display,{
         divClass: 'message'
     });
   }
+  
 })

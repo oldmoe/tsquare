@@ -63,6 +63,9 @@ var RescueUnit = Class.create(Unit,{
       if( !mapName ) mapName = rescue_unit_name;
       self.scene.rescuing = self.scene.handlers.crowd.addCrowdMember( mapName, {x: self.coords.x, y: self.coords.y} );
       self.scene.rescuing.targetTile = self.targetTile;
+      self.scene.rescuing.helpMessage = self.helpMessage;
+      self.scene.rescuing.companyMessage = self.companyMessage;
+      self.scene.rescuing.leaveMessage = self.leaveMessage;
       self.scene.rescuing.mission = self.mission;
       self.destroy();
       self.neglected = true;
@@ -72,6 +75,10 @@ var RescueUnit = Class.create(Unit,{
         self.scene.rescuing.fire(self.scene.speeds[self.scene.speedIndex].state);
       } );
     }
+  },
+  
+  textInfo : function(){
+    return this.helpMessage;
   }
 
 })

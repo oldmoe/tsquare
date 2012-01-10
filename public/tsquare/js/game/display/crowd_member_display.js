@@ -16,7 +16,7 @@ var CrowdMemberDisplay = Class.create(Display,{
     var self = this
     this.states.each(function(state){
       self.owner.observe(state,function(){
-        if(["sprint", "run"].indexOf(state) != -1)self.sprites.runEffectForward.show(); else self.sprites.runEffectForward.hide();
+        if(["sprint"].indexOf(state) != -1)self.sprites.runEffectForward.show(); else self.sprites.runEffectForward.hide();
         self.sprites.character.switchAnimation(state)
         self.sprites.character.currentAnimationFrame = Math.round((Math.random()* self.sprites.character.currentAnimation.noOfFrames-1)) 
       })
@@ -111,6 +111,16 @@ var CrowdMemberDisplay = Class.create(Display,{
       }
       $super()
     }
+  },
+  
+  destroy : function($super, done){
+    if(done){
+      return $super()
+    }
+    this.owner.removed = true      // to remove the display object from render loop
+    var self = this
+    this.sprites.shadow.hide()
+    Effects.pulsateFadeUp(this.sprites.character.div, function(){self.destroy(true)})
   }
   
 })

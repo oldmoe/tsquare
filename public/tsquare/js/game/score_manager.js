@@ -1,4 +1,4 @@
-var ScoreManager = Class.create({
+var ScoreManager = Class.create(UIManager, {
 
   images : {
               'left' : 'images/game_elements/previous_button.png',
@@ -42,7 +42,9 @@ var ScoreManager = Class.create({
                                   "friend_box.png", "friends_bar.png", "friendsRank.png", "friendsScore.png", "functions_background.png",
                                   "home_icon.png", "menu_icon.png", "worldRank.png", "inviteFriends.png", "icon_crowds.png", "icon_call.png",
                                   "icon_ranking.png", "icon_vote.png"],
-                          path: 'images/friends/', store: 'friends' }, 
+                          path: 'images/friends/', store: 'friends' },
+                        {images_ar : ["icon_crowds.png", "icon_call.png", "icon_ranking.png", "icon_vote.png"],
+                          path: 'images/ar/friends/', store: 'friends' }, 
                         {images : ["first_button.png", "last_button.png", 'next_button.png', 'previous_button.png'], 
                           path: 'images/game_elements/', store: 'game_elements' }
                       ],
@@ -110,11 +112,11 @@ var ScoreManager = Class.create({
     else
       this.loadGlobalTab(this.gameMode);
   },
-
+  
   display : function(){
     var self = this;
     var dataLoaded = (this.mode == 'friends') ? this.friendsLoaded : this.globalLoaded;
-    if(this.imagesLoaded && dataLoaded) 
+    if(this.resetRequest || (this.imagesLoaded && dataLoaded)) 
     {
       // Set green_notification field to true to users whom current user passed
       // Set red_notification field to true to users who passed current user

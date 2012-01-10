@@ -92,7 +92,7 @@ var Game = Class.create({
        	
        	var sfx = ["ho", "hey", "ha", "hii", "background_ascending", "background_music", "ambient", "ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", 
         "Gun-shot", "Hit-police-car", "Morning-air-birds", "Night-sound", "Police", "Police-march", "Punch", "Tank-move",
-         "Tear-gas", "clash_preparing", "clash_scenario", "win_lose"];
+         "Tear-gas", "clash_preparing", "clash_scenario", "win_lose", "wrong_move", "combo1", "combo2", "combo3"];
 
         for(var j=0; j < sfx.length; j++){
           sfx[j] = sfx[j]+'.'+format[i];
@@ -121,8 +121,8 @@ var Game = Class.create({
     this.mission = mission;
     missionData = mission;
     this.misssionLoaded = false;
-	var backgroundImages = ['background.png', 'clowds.png', 'followers_crowd.png', 'followers_crowd_car.png']
-
+	  var backgroundImages = ['background.png', 'clowds.png', 'followers_crowd.png', 'followers_crowd_car.png']
+    Loader.sounds.intro['menus_background.mp3'].stop();
     var self = this;
     this.mission.backgrounds.layer1.each(function(elem){
       backgroundImages.push(elem.name);
@@ -169,10 +169,6 @@ var Game = Class.create({
     }
   },
 
-  end : function(){
-  	this.scene.end();
-  },
-
   hide : function() {
   },
 
@@ -188,12 +184,15 @@ var Game = Class.create({
 
 Game.addLoadedImagesToDiv = function(divId){
   $$('#' + divId + ' .loadedImg').each(function(imgSpan){
+  	var langSensitive = imgSpan.classList.contains('lang');
     var classes = null
     if (imgSpan.getAttribute('imgClasses')) {
       var classes = imgSpan.getAttribute('imgClasses').split('-')
     }
     var imgPath = imgSpan.getAttribute('imgSrc').split('/')
-    var imgPart = Loader
+    var imgPart = Loader['images']
+    if (langSensitive && game.properties.lang != 'en')
+      imgPart = Loader['images_' + game.properties.lang];
     for (var i = 0; i < imgPath.length; i++) {
       imgPart = imgPart[imgPath[i]]
     }

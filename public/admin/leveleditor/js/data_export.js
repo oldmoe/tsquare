@@ -48,6 +48,9 @@ var DataExporter = Class.create({
 				  
 				  if(obj.category == "objectives"){
 				    obj.name = obj.name + "_rescue";
+				    obj.helpMessage = lanesData[i].tiles[j].domObject.select('#helpMessage')[0].value
+				    obj.companyMessage = lanesData[i].tiles[j].domObject.select('#companyMessage')[0].value
+				    obj.leaveMessage = lanesData[i].tiles[j].domObject.select('#leaveMessage')[0].value
 				    obj.targetTile = Number( lanesData[i].tiles[j].domObject.select('input')[0].value );
 				    if( obj.targetTile > obj.x ){
 				      obj.mission = "escort";
@@ -56,7 +59,6 @@ var DataExporter = Class.create({
 				    }
 				  }
 				  
-				  console.log( obj );
 				  if(obj.category == "enemy")
 				    obj.type = obj.type.cols + "_" + obj.type.rows;
 				  if(obj.category == "advisor")
@@ -90,6 +92,14 @@ var DataExporter = Class.create({
 		  land: this.levelEditor.backgroundHandler.getLandData()
 	  };
 		  
+		var settings = this.levelEditor.settingsHandler.getData();
+		gameData.energy = settings.energy;
+		gameData.environment = settings.environment;
+		gameData.gameModes = settings.gameModes;
+		gameData.missionDetails = settings.missionDetails;
+		gameData.missionTime = settings.missionTime;
+		gameData.superTime = settings.superTime;
+		gameData.missionImages = settings.missionImages;
 		return gameData;
 	},
 

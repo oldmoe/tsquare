@@ -231,22 +231,14 @@ var MovementManager = Class.create({
   
   startMove : function(commandIndex){
     this.scene.fire("beatMoving");
-    if(commandIndex == this.moves.march.index){
-      this.scene.fire('march')
-      this.beatMoving = true    
-    }else if(commandIndex == this.moves.retreat.index){
-      this.scene.fire('retreat')
-      this.beatMoving = true    
-    }else if(commandIndex == this.moves.circle.index){
-      this.scene.fire('circle')
-      this.beatMoving = true
-    }else if(commandIndex == this.moves.hold.index){
-      this.scene.fire('hold')
-      this.beatMoving = true
-    }else if(commandIndex == this.moves.hit.index){
-      this.scene.fire('hit')
-      this.beatMoving = true
-    }
+    this.scene.fire(this.currentCommand);
+    this.beatMoving = true;
+    if(this.comboStart){
+      this.comboStart = false
+      this.combos++
+      this.currentCombos++
+      this.scene.fire('combo', [this.currentCombos])
+    }    
   },
   
   //TODO: cache results
@@ -258,12 +250,6 @@ var MovementManager = Class.create({
   },
 
   moveEnd : function(){
-    if(this.comboStart){
-      this.comboStart= false
-      this.combos++
-      this.currentCombos++
-      this.scene.fire('correctMove')
-    }
     this.beatMoving = false
   }
   

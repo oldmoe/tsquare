@@ -15,7 +15,6 @@ var GameManager = Class.create({
           ,{
             onFinish: function(){
               $('inProgress').innerHTML = self.templateManager.load('loadingScreen');
-              self.setupLangScreen();
               $('uiContainer').hide();
               var time = Loader.sounds.intro['intro.mp3'].duration;
               window.setTimeout(function(){
@@ -24,7 +23,6 @@ var GameManager = Class.create({
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
                               $('inProgress').hide();
-                              $('optionsMenu').show();
                               self.selectLanguage("en");
                             }}, 100);
               Loader.sounds.intro['intro.mp3'].loop = true;
@@ -57,7 +55,6 @@ var GameManager = Class.create({
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
                               $('inProgress').hide();
-                              if ($('optionsMenu')) $('optionsMenu').show();
                               self.selectLanguage("en");
                             }
                           }
@@ -75,8 +72,7 @@ var GameManager = Class.create({
   
   setupLangScreen: function() {
   	var self = this;
-  	$('optionsMenu').innerHTML = self.templateManager.load('langScreen');
-  	$$('.choseLanguage a').each(function(option) {
+  	$$('.langBtn').each(function(option) {
   	  option.observe('click', function() {
   	  	self.selectLanguage(option.children[0].alt);
   	  });
@@ -89,12 +85,13 @@ var GameManager = Class.create({
   	  document.body.classList.add('ar');
   	} else {
   	  game.properties.lang = 'en';
+      document.body.classList.remove('ar');
   	}
-  	$('optionsMenu').parentNode.removeChild($('optionsMenu'));
     $('uiContainer').show();
     // TODO: implement proper re-rendering mechanism
     this.scoreManager.reset();
   	this.timelineManager.display();
+    this.meterBar.display()
   },
 
   start : function(){

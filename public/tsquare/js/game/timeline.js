@@ -16,7 +16,6 @@ var Timeline = Class.create(UIManager, {
     this.mode = 'timeline';
     this.loader = gameManager.loader;
     var self = this;
-    alert(2)
     this.loader.load([ {images : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png", "coming_soon_missions.png",
                                   "home_background.gif", "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
                                   "mission_current.png", "mySquare_screen.png",
@@ -30,7 +29,6 @@ var Timeline = Class.create(UIManager, {
                        {images : ["facebook_image_large.png"],  path: 'images/dummy/', store: 'dummy' }],
                       {
                         onFinish: function(){
-                          alert(1) 
                           self.imagesLoaded = true;
                           self.display();
                           Game.addLoadedImagesToDiv("uiContainer");
@@ -52,6 +50,7 @@ var Timeline = Class.create(UIManager, {
       if (!this.walkingMan) {
         this.walkingMan = new WalkingManDisplay(this.gameManager.reactor);
       }
+      this.gameManager.setupLangScreen();
       this.attachHomeListener();
       this.displayHome();
     }

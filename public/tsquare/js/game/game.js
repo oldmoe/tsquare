@@ -122,7 +122,7 @@ var Game = Class.create({
     missionData = mission;
     this.misssionLoaded = false;
 	  var backgroundImages = ['background.png', 'clowds.png', 'followers_crowd.png', 'followers_crowd_car.png']
-    Loader.sounds.intro['menus_background.mp3'].stop();
+    if(Loader.sounds.intro)Loader.sounds.intro['menus_background.mp3'].stop();
     var self = this;
     this.mission.backgrounds.layer1.each(function(elem){
       backgroundImages.push(elem.name);

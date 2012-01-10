@@ -52,7 +52,6 @@ var SettingsHandler = new Class.create({
 		$("missionDetails").observe("keyup", function(event){
 		  self.settings.missionDetails = event.target.value;
 		})
-<<<<<<< HEAD
 
     $("missionTime").observe("keyup", function(event){
       self.settings.missionTime = event.target.value;
@@ -61,12 +60,10 @@ var SettingsHandler = new Class.create({
     $("superTime").observe("keyup", function(event){
       self.settings.superTime = event.target.value;
     })
-=======
 		
 		$("missionDetails_ar").observe("keyup", function(event){
 		  self.settings.missionDetails_ar = event.target.value;
 		})
->>>>>>> 6f1bd7fcea84bd12e17e8f3054ed3afa90b2c0e6
     
     $(this.missionContainerId).select('input[name=missionImageInput]')[0].observe('change', function(e){
       self.uploadMissionImage(e.currentTarget.files[0]);

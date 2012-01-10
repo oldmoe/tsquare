@@ -16,7 +16,6 @@ var Timeline = Class.create(UIManager, {
     this.mode = 'timeline';
     this.loader = gameManager.loader;
     var self = this;
-    alert(2)
     this.loader.load([ {images : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png", "coming_soon_missions.png",
                                   "home_background.gif", "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
                                   "mission_current.png", "mySquare_screen.png",
@@ -30,7 +29,6 @@ var Timeline = Class.create(UIManager, {
                        {images : ["facebook_image_large.png"],  path: 'images/dummy/', store: 'dummy' }],
                       {
                         onFinish: function(){
-                          alert(1) 
                           self.imagesLoaded = true;
                           self.display();
                           Game.addLoadedImagesToDiv("uiContainer");
@@ -68,6 +66,12 @@ var Timeline = Class.create(UIManager, {
     var homeDiv = $('home');
     var timelineDiv = $('timeline');
     homeDiv.hide();
+// 
+    // var newImg = Loader.images['timeline']['home_background.gif'].clone();
+    // $(newImg).addClassName("background");
+    // $$('#uiContainer .background')[0].insert({after:newImg});
+    // $$('.background')[0].remove();
+    
     if(timelineDiv.getStyle('display') != 'none')
       Effects.fade(timelineDiv, function(){Effects.appear(homeDiv)});
     else
@@ -145,6 +149,12 @@ var Timeline = Class.create(UIManager, {
       Game.addLoadedImagesToDiv('timeline');
       self.displayChallenges();
       $('timeline').show();
+      
+      var newImg = Loader.images['timeline']['map_background.gif'].clone();
+      $(newImg).addClassName("background");
+      $$('.background')[0].insert({after:newImg});
+      $$('.background')[0].remove();
+      
       // self.carousel = new Carousel("missions", self.images, 7, 2);
 /*      if(challenge)
       {
@@ -225,15 +235,18 @@ var Timeline = Class.create(UIManager, {
 
   displayMissionDetails : function(id){
     var id = parseInt(id);
+    var idString = id+"";
+    if(id < 10) idString = "0" + idString;  
+
     var self = this;
     var callback =  function(){
       $$('.missionDetails')[0].hide();
-      $$('#timeline .missionDetails')[0].innerHTML = self.templateManager.load('missionDetails', {'mission' : self.gameManager.missions[self.mode][id]});
+      $$('#timeline .missionDetails')[0].innerHTML = self.templateManager.load('missionDetails', {'mission' : self.gameManager.missions[self.mode][id], 'id': idString});
       Game.addLoadedImagesToDiv('timeline');
       self.attachMissionDetailsListeners();
       $$('.missionDetails')[0].show();
     }
-    new Loader().load([ {images : [id + ".png"], path: 'images/missions/', store: 'missions'}],
+    new Loader().load([ {images : ["mission_"+ idString + ".jpg"], path: 'images/missions_images/', store: 'missions'}],
                       {
                         onFinish: callback,
                         onError : callback

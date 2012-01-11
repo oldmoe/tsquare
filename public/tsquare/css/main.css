@@ -378,7 +378,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .experienceBar .positioned { top:-2px; }
 .experienceBar strong { position:absolute; width:37px; height:20px; z-index:5; right:0; font-weight:bold; font-size:1.2em; color:#052138; text-shadow:1px 1px 0 #73a2c7; text-align:center; top:7px; }
 
-.energyBar {position:absolute; width:169px; height:32px; top:5px; right:10px;}
+.energyBar {position:absolute; width:169px; height:32px; top:5px; right:60px;}
 .energyBar .bar { position:absolute; width:140px; height:20px; z-index:4; left:3px; top:21px; }
 .energyBar span {position:absolute; width:140px; height:20px; z-index:5; left:3px; top:21px; font-weight:bold; font-size:1.2em; color:#512d09; text-shadow:1px 1px 0 #fffce0; text-align:center; }
 
@@ -566,5 +566,5 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .ar .homeWrapper ul li { float:right; }
 
 
-.langBtn { position:absolute; top:20px; right:20px; width:39px; height:40px; z-index:12; overflow:hidden; cursor:pointer; }
+.langBtn { position:absolute; top:15px; right:10px; width:39px; height:40px; z-index:12; overflow:hidden; cursor:pointer; }
 .langBtn:hover img { position:absolute; top:-40px; } 

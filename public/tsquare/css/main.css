@@ -571,3 +571,9 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 .langBtn { position:absolute; top:15px; right:10px; width:39px; height:40px; z-index:12; overflow:hidden; cursor:pointer; }
 .langBtn:hover img { position:absolute; top:-40px; } 
+
+
+
+.healthStatus { position:absolute; top:50px; left:15px; z-index:15; width:16px; height:46px; }
+.healthStatus span { position:absolute; z-index:17; display:block; height:46px; width:16px; overflow:hidden; top:0; }
+

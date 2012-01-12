@@ -7,7 +7,7 @@ img { border:none; outline:none;}
 .hideText{text-indent:-10000px; line-height:0px; text-decoration:none; font-size:0px; overflow:hidden; display:block; color:#ffffff;}
 
 .uiContainer { width:970px; height:620px; position:relative; top:0px; margin:0 auto; overflow:hidden; }
-.uiContainer .background { height:620px; position:absolute; left:0; top:0; width:970px; z-index: -1}
+.uiContainer .background { height:620px; position:absolute; left:0; top:0; width:970px; z-index: 1}
 .positioned { position:absolute; top:0px; left:0px; z-index:1; }
 
 #gameContainer { position:absolute; top:0px; z-index:10; width:970px; height:620px; margin:0 auto; }
@@ -28,7 +28,7 @@ img { border:none; outline:none;}
 .overlay { float:left; width:100%; background:#000; height:620px; background:url(../images/common/overylay_background.png); }
 .container { width:950px; height:685px; margin:0 auto; position:relative; }
 
-.message { position:absolute; top:-285px; left:300px; z-index:30; }
+.message { position:absolute; top:285px; left:300px; z-index:30; }
 .message span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.3em; width:210px; margin:15px; line-height:1.2em; height:70px; display:block; width:238px; }
 
 .topScope { position:absolute; top:-80px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
@@ -62,7 +62,7 @@ img { border:none; outline:none;}
 .calendarWrapper ul li a.active:hover { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; -webkit-box-shadow: 0px 0px 24px #f85d00; -moz-box-shadow: 0px 0px 24px #f85d00; box-shadow: 0px 0px 20px #f85d00; }
 
 /*--------Timeline Screen-----------*/
-.missionDetails { position:relative; top:-210px; left:122px; float:left; width:730px; height:316px; z-index:6; }
+.missionDetails { position:relative; top:10px; left:122px; float:left; width:730px; height:316px; z-index:6; }
 .missionDetails .close { left:704px; top:21px; z-index:8; }
 
 .missionWrapper { float:left; width:690px; margin:-19px 20px 20px 20px; height:200px; position:relative; z-index:7; }
@@ -80,36 +80,36 @@ img { border:none; outline:none;}
 
 .timelineMissions ul { float:left; width:960px; position:relative; z-index:5;  }
 .timelineMissions li { position:absolute;  }
-.timelineMissions li#mission01 {  top:47px; left:100px; }
-.timelineMissions li#mission02 {  top:97px; left:104px; }
-.timelineMissions li#mission03 {  top:147px; left:108px; }
-.timelineMissions li#mission04 {  top:197px; left:112px; }
-.timelineMissions li#mission05 {  top:247px; left:124px; }
-.timelineMissions li#mission06 {  top:297px; left:144px; }
-.timelineMissions li#mission07 {  top:290px; left:194px; }
-.timelineMissions li#mission08 {  top:280px; left:244px; }
-.timelineMissions li#mission09 {  top:275px; left:294px; }
-.timelineMissions li#mission10 {  top:270px; left:344px; }
-.timelineMissions li#mission11 {  top:263px; left:394px; }
-.timelineMissions li#mission12 {  top:257px; left:444px; }
-.timelineMissions li#mission13 {  top:252px; left:494px; }
-.timelineMissions li#mission14 {  top:247px; left:544px; }
-.timelineMissions li#mission15 {  top:240px; left:594px; }
-.timelineMissions li#mission16 {  top:232px; left:644px; }
-.timelineMissions li#mission17 {  top:223px; left:694px; }
-.timelineMissions li#mission18 {  top:185px; left:732px; }
-.timelineMissions li#mission19 {  top:129px; left:753px; }
-.timelineMissions li#mission20 {  top:77px; left:752px; }
-.timelineMissions li#mission21 {  top:26px; left:756px; }
-.timelineMissions li#mission22 {  top:71px; left:776px; }
-.timelineMissions li#mission23 {  top:114px; left:806px; }
-.timelineMissions li#mission24 {  top:141px; left:852px; }
-.timelineMissions li#mission25 {  top:166px; left:902px; }
-.timelineMissions li#mission26 {  top:213px; left:926px; }
-.timelineMissions li#mission27 {  top:267px; left:908px; }
-.timelineMissions li#mission28 {  top:303px; left:866px; }
-.timelineMissions li#mission29 {  top:303px; left:866px; }
-.timelineMissions li#mission30 {  top:299px; left:807px; }
+.timelineMissions li#mission01 {  top:17px; left:100px; }
+.timelineMissions li#mission02 {  top:67px; left:104px; }
+.timelineMissions li#mission03 {  top:117px; left:108px; }
+.timelineMissions li#mission04 {  top:167px; left:112px; }
+.timelineMissions li#mission05 {  top:217px; left:124px; }
+.timelineMissions li#mission06 {  top:267px; left:144px; }
+.timelineMissions li#mission07 {  top:260px; left:194px; }
+.timelineMissions li#mission08 {  top:250px; left:244px; }
+.timelineMissions li#mission09 {  top:245px; left:294px; }
+.timelineMissions li#mission10 {  top:240px; left:344px; }
+.timelineMissions li#mission11 {  top:233px; left:394px; }
+.timelineMissions li#mission12 {  top:227px; left:444px; }
+.timelineMissions li#mission13 {  top:222px; left:494px; }
+.timelineMissions li#mission14 {  top:217px; left:544px; }
+.timelineMissions li#mission15 {  top:210px; left:594px; }
+.timelineMissions li#mission16 {  top:202px; left:644px; }
+.timelineMissions li#mission17 {  top:193px; left:694px; }
+.timelineMissions li#mission18 {  top:155px; left:732px; }
+.timelineMissions li#mission19 {  top:99px; left:753px; }
+.timelineMissions li#mission20 {  top:47px; left:752px; }
+.timelineMissions li#mission21 {  top:6px; left:756px; }
+.timelineMissions li#mission22 {  top:41px; left:776px; }
+.timelineMissions li#mission23 {  top:84px; left:806px; }
+.timelineMissions li#mission24 {  top:111px; left:852px; }
+.timelineMissions li#mission25 {  top:136px; left:902px; }
+.timelineMissions li#mission26 {  top:183px; left:926px; }
+.timelineMissions li#mission27 {  top:237px; left:908px; }
+.timelineMissions li#mission28 {  top:273px; left:866px; }
+.timelineMissions li#mission29 {  top:273px; left:866px; }
+.timelineMissions li#mission30 {  top:269px; left:807px; }
 
 .missionTitle { position:absolute; z-index:100; top:130px; left:623px; }
 .missionTitle h3 { position:relative; z-index:101; width:143px; margin:15px 10px 5px 10px; text-align:center; text-shadow:1px 1px 0 #fb4e53; }
@@ -571,3 +571,18 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 .langBtn { position:absolute; top:15px; right:10px; width:39px; height:40px; z-index:12; overflow:hidden; cursor:pointer; }
 .langBtn:hover img { position:absolute; top:-40px; } 
+
+
+
+.healthStatus { position:absolute; top:50px; left:15px; z-index:15; width:16px; height:46px; }
+.healthStatus span { position:absolute; z-index:17; display:block; height:46px; width:16px; overflow:hidden; top:0; }
+
+
+.cantJoin { position:absolute; z-index:20; padding:10px; width:113px; margin:-13px 0 0 -6px; -webkit-border-radius:10px; -moz-border-radius:10px; border-radius:10px; -webkit-box-shadow:0px 0px 10px #000000; -moz-box-shadow:0px 0px 10px #000000; box-shadow:0px 0px 10px #000000; background:#000000; opacity: 0.6; height:144px; text-align:center;  }
+
+.cantJoin img { float:left; margin:60px 0 0 10px; }
+.cantJoin span { float:left; color:#efa900; font-weight:bold; font-size:1.5em; margin:61px 0 0 0; }
+.cantJoin strong { float:left; color:#efa900; clear:both; margin:0 0 0 5px; }
+
+.recoveryTimer { position:absolute; z-index:20; top:22px; left:11px; width:22px; height:25px; overflow:hidden; }
+.recoveryTimer img { position:absolute; top:-75px; }

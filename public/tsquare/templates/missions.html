@@ -3,36 +3,36 @@
   <div class="winLose" style="position : absolute; top : 100px; left : 164px;">
     <!--Close-->
     <div class="close">
-      <a href="#"><span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close"></span></a>
+      <a href="#"><span class="loadedImg" imgSrc="game_elements/close_button.png" alt="close"></span></a>
     </div>  
   	<!--Win/Lose Title-->
   	<div class="winLoseTitle">
-    	<h2>Congratulation!</h2>
-   		<h4>You've passed this mission.</h4>
+    	<h2>${t('congrats')}</h2>
+   		<h4>${t('youPassedThisMission')}</h4>
     </div>
     <!--Score-->
     <div class="winLoseScore">
-    	<h5>Your Score</h5>
+    	<h5>${t('yourScore')}</h5>
       <span>${score['score']}</span>
-      <span class="loadedImg" imgSrc="images/win_lose/score_background.png" alt="Score" imgClasses="positioned"></span>
+      <span class="loadedImg" imgSrc="win_lose/score_background.png" alt="Score" imgClasses="positioned"></span>
     </div>
     <!--Stars-->
     <div class="starsWrapper">
     	<span {if score.stars > 0} class="star selected" {else} class="star" {/if} >
-      	<span class="loadedImg" imgSrc="images/win_lose/star_icon.png" alt="Star"></span>
+      	<span class="loadedImg" imgSrc="win_lose/star_icon.png" alt="Star"></span>
       </span>
     	<span {if score.stars > 1} class="star selected" {else} class="star" {/if} >
-      	<span class="loadedImg" imgSrc="images/win_lose/star_icon.png" alt="Star"></span>
+      	<span class="loadedImg" imgSrc="win_lose/star_icon.png" alt="Star"></span>
       </span>
     	<span {if score.stars > 2} class="star selected" {else} class="star" {/if} >
-      	<span class="loadedImg" imgSrc="images/win_lose/star_icon.png" alt="Star"></span>
+      	<span class="loadedImg" imgSrc="win_lose/star_icon.png" alt="Star"></span>
       </span>
-    	<span class="loadedImg" imgSrc="images/win_lose/stars_background.png" alt="Stars" imgClasses="positioned"></span>
+    	<span class="loadedImg" imgSrc="win_lose/stars_background.png" alt="Stars" imgClasses="positioned"></span>
     </div>
     <!--Changes 28 Sept.-->
     <!--Objective-->
     <div class="objectives">
-    	<strong>${score['objectives']*100}<small>%</small></strong>from your objectives
+    	<strong>${score['objectives']*100}<small>%</small></strong>${t('percentageOfObjectives')}
     </div>
     <!--Changes 25 Sept.-->
     <!--Challenge friends-->
@@ -48,17 +48,17 @@
                      0 
                   {/if}
             </span>
-          	<span class="loadedImg" imgSrc="images/friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>
+          	<span class="loadedImg" imgSrc="friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>
           </span>
           <!--New changes end here-->
           <img  class="friendAvatar" src="${friend['picture']}" alt="Firend avatar" />
           <span class="friendName">${friend.first_name}</span>
-          <span class="loadedImg" imgSrc="images/friends/friend_box.png" alt="friend"></span>
+          <span class="loadedImg" imgSrc="friends/friend_box.png" alt="friend"></span>
         </a>
         <!--Challenge button-->
         <a class="cancelButton" href="javascript:void(0)" id="${friend.service_id}">
-          <span>Challenge</span>
-          <span class="loadedImg" imgSrc="images/win_lose/button_cancel.png" alt="confirm" > </span>
+          <span>${t('challenge')}</span>
+          <span class="loadedImg" imgSrc="win_lose/button_cancel.png" alt="confirm"></span>
         </a>
       </div>
       {/for}
@@ -67,20 +67,20 @@
     <div class="missionIcons">
     	<!--Replay-->
       <a class="replayButton" href="javascript:void(0)">
-        <span class="loadedImg" imgSrc="images/win_lose/replay_button.png" alt="Replay" > </span>
+        <span class="loadedImg" imgSrc="win_lose/replay_button.png" alt="Replay"></span>
       </a>
     	<!--Home-->
       <a class="homeButton" href="javascript:void(0)">
-        <span class="loadedImg" imgSrc="images/win_lose/home_button.png" alt="Replay" > </span>
+        <span class="loadedImg" imgSrc="win_lose/home_button.png" alt="Replay"></span>
       </a>
     	<!--Next mission-->
       {if next == true}
       <a class="nextMissionButton" href="javascript:void(0)">
-        <span class="loadedImg" imgSrc="images/win_lose/next_mission_button.png" alt="Next Mission" > </span>
+        <span class="loadedImg" imgSrc="win_lose/next_mission_button.png" alt="Next Mission"></span>
       </a>
       {/if}
     </div>
-    <span class="loadedImg" imgSrc="images/win_lose/win_lose_window.png" alt="Score" imgClasses="positioned"></span>
+    <span class="loadedImg" imgSrc="win_lose/win_lose_window.png" alt="Score" imgClasses="positioned"></span>
   </div>
 </textarea>
 
@@ -89,36 +89,36 @@
   <div class="winLose" style="position : absolute; top : 100px; left : 164px;">
     <!--Close-->
     <div class="close">
-      <a href="#"><span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close"></span></a>
+      <a href="#"><span class="loadedImg" imgSrc="game_elements/close_button.png" alt="close"></span></a>
     </div>  
   	<!--Win/Lose Title-->
   	<div class="winLoseTitle">
-    	<h2>Bad luck!</h2>
-   		<h4>You didn't pass this mission.</h4>
+    	<h2>${t('badLuck')}</h2>
+   		<h4>${t('youFailedThisMission')}</h4>
     </div>
     <!--Score-->
     <div class="winLoseScore">
-    	<h5 class="losing">Your Score</h5>
+    	<h5 class="losing">${t('yourScore')}</h5>
       <span>${score['score']}</span>
-      <span class="loadedImg" imgSrc="images/win_lose/lose_score_background.png" alt="Score" imgClasses="positioned"></span>
+      <span class="loadedImg" imgSrc="win_lose/lose_score_background.png" alt="Score" imgClasses="positioned"></span>
     </div>
     <!--Stars-->
     <div class="starsWrapper">
     	<span {if score.stars > 0} class="star selected" {else} class="star" {/if} >
-      	<span class="loadedImg" imgSrc="images/win_lose/lose_star_icon.png" alt="Star"></span>
+      	<span class="loadedImg" imgSrc="win_lose/lose_star_icon.png" alt="Star"></span>
       </span>
     	<span {if score.stars > 1} class="star selected" {else} class="star" {/if} >
-      	<span class="loadedImg" imgSrc="images/win_lose/lose_star_icon.png" alt="Star"></span>
+      	<span class="loadedImg" imgSrc="win_lose/lose_star_icon.png" alt="Star"></span>
       </span>
     	<span {if score.stars > 2} class="star selected" {else} class="star" {/if} >
-      	<span class="loadedImg" imgSrc="images/win_lose/lose_star_icon.png" alt="Star"></span>
+      	<span class="loadedImg" imgSrc="win_lose/lose_star_icon.png" alt="Star"></span>
       </span>
-    	<span class="loadedImg" imgSrc="images/win_lose/lose_stars_background.png" alt="Stars" imgClasses="positioned"></span>
+    	<span class="loadedImg" imgSrc="win_lose/lose_stars_background.png" alt="Stars" imgClasses="positioned"></span>
     </div>
     <!--Changes 28 Sept.-->
     <!--Objective-->
     <div class="objectives">
-    	<strong>${score['objectives']*100}<small>%</small></strong>from your objectives
+    	<strong>${score['objectives']*100}<small>%</small></strong>${t('percentageOfObjectives')}
     </div>
     <!--Changes 25 Sept.-->
     <!--Challenge friends-->
@@ -134,17 +134,17 @@
                      0 
                   {/if}
             </span>
-          	<span class="loadedImg" imgSrc="images/friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>
+          	<span class="loadedImg" imgSrc="friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>
           </span>
           <!--New changes end here-->
           <img  class="friendAvatar" src="${friend['picture']}" alt="Firend avatar" />
           <span class="friendName">${friend.first_name}</span>
-          <span class="loadedImg" imgSrc="images/friends/friend_box.png" alt="friend"></span>
+          <span class="loadedImg" imgSrc="friends/friend_box.png" alt="friend"></span>
         </a>
         <!--Challenge button-->
         <a class="cancelButton" href="javascript:void(0)" id="${friend.service_id}">
-          <span>Challenge</span>
-          <span class="loadedImg" imgSrc="images/win_lose/button_cancel.png" alt="confirm" > </span>
+          <span>${t('challenge')}</span>
+          <span class="loadedImg" imgSrc="win_lose/button_cancel.png" alt="confirm"></span>
         </a>
       </div>
       {/for}
@@ -153,24 +153,24 @@
     <div class="missionIcons losing">
     	<!--Replay-->
       <a class="replayButton" href="javascript:void(0)">
-        <span class="loadedImg" imgSrc="images/win_lose/lose_replay_button.png" alt="Replay" > </span>
+        <span class="loadedImg" imgSrc="win_lose/lose_replay_button.png" alt="Replay"></span>
       </a>
     	<!--Home-->
       <a class="homeButton" href="javascript:void(0)">
-        <span class="loadedImg" imgSrc="images/win_lose/lose_home_button.png" alt="Replay" > </span>
+        <span class="loadedImg" imgSrc="win_lose/lose_home_button.png" alt="Replay"></span>
       </a>
     </div>
-    <span class="loadedImg" imgSrc="images/win_lose/lose_window.png" alt="Score" imgClasses="positioned"></span>
+    <span class="loadedImg" imgSrc="win_lose/lose_window.png" alt="Score" imgClasses="positioned"></span>
   </div>
 </textarea>
 
 <textarea id="pause">
   <div class="pauseScreen">
-    <img src="images/game_elements/paused_screen.png" alt="Pasue" />
+    <span class="loadedImg" imgSrc="game_elements/paused_screen.png" alt="Pause"></span>
   </div>
   <div class="controls">
-    <a class="playBtn" href="#"><img src="images/game_elements/play_btn.png" alt="Play" /></a>
-    <a class="exitBtn" href="#"><img src="images/game_elements/exit_btn.png" alt="Exit" /></a>
-    <img src="images/game_elements/controls_area.png" alt="Controls" />
+    <a class="playBtn" href="#"><span class="loadedImg" imgSrc="game_elements/play_btn.png" alt="Play"></span></a>
+    <a class="exitBtn" href="#"><span class="loadedImg" imgSrc="game_elements/exit_btn.png" alt="Exit"></span></a>
+    <span class="loadedImg" imgSrc="game_elements/controls_area.png" alt="Controls"></span>
   </div>
 </textarea>

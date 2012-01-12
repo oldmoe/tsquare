@@ -2,6 +2,7 @@ var MessagesHandler = Class.create(UnitHandler, {
   
   crowdBubble: null,
   currentGameMode: null,
+  rescueBubble: null,
   
   messages : {},
   
@@ -107,6 +108,13 @@ var MessagesHandler = Class.create(UnitHandler, {
     this.scene.reactor.push(100, function(){
       bubble.destroy();
     });
+  },
+  
+  showRescueBubble: function(message, rescueUnit){
+    var rescueBubble = new MovingBubble(this.scene, rescueUnit, message);
+    this.rescueBubble = new BubbleDisplay( rescueBubble.following );
+    this.scene.pushToRenderLoop('characters', this.rescueBubble);
+    return this.rescueBubble;
   },
   
   removeCrowdBubble: function(){

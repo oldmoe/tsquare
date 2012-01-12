@@ -28,6 +28,11 @@ var LevelLoader = Class.create({
     settings.environment = missionData.environment;
     settings.missionDetails = missionData.missionDetails;
     settings.missionImages = missionData.missionImages;
+    settings.missionTime = missionData.missionTime;
+    settings.superTime = missionData.superTime;
+    for (var key in missionData)
+      settings[key] = missionData[key];
+    delete settings.data;
     levelEditor.settingsHandler.loadData(settings);
   },
   

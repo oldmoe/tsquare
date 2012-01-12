@@ -3,7 +3,7 @@
 var Loader = Class.create({
   initialize: function (){
     this.loadedResources =0
-    this.chunk = 1
+    this.chunk = 25
     this.currentLength = 0
     this.resources = []
     this.options = [];
@@ -126,10 +126,9 @@ var Loader = Class.create({
   },
 
   onerror: function(resource, options){
-    return
     var self = this;
     this.loadedResources++;
-    resource.src = '';
+//    resource.src = '';
     if(self.loadedResources == self.currentLength){
       self.loadedResources = 0
       self.currentLength = 0
@@ -164,6 +163,16 @@ var Loader = Class.create({
     image.onload = function(){self.onload(options);}
     image.onerror = function(){self.onerror(this, options);}
     image.src = this._convertToCachedSRC( src, "images", src.substring(src.indexOf(".")) );
+    return $(image)
+  },
+  
+  //TODO: Fix image.src for caching a la _convertToCachedSRC
+  load_images_ar : function(src, options){
+    var image = new Image();
+    var self = this
+    image.onload = function(){self.onload(options);}
+    image.onerror = function(){self.onerror(this, options);}
+    image.src = src
     return $(image)
   },
   
@@ -213,5 +222,6 @@ Loader.images ={}
 Loader.sounds = {}
 Loader.animations = {}
 Loader.htmls = {} 
-Loader.resourceTypes = ['images', 'sounds','animations', 'htmls']
+Loader.images_ar = {}
+Loader.resourceTypes = ['images', 'images_ar', 'sounds', 'animations', 'htmls']
 

@@ -35,7 +35,6 @@ var Marketplace = Class.create({
       var specs = this.gatherSpecs(item);
       var specIds = specs.specIds;
       var memberSpecs = specs.memberSpecs;
-      
       this.adjustedMembers.push(
                         {displayName : this.members['category'][item].name,
                          codeName : item,
@@ -58,6 +57,8 @@ var Marketplace = Class.create({
                                'item_background.png', 'item_title_background.png', 'item_details.png', 'link_button.png', 
                                 'Linked_background.png' ],
                                      path: 'images/marketplace/', store: 'marketplace'},
+                       {images_ar : ["my_stuff_title.png"],
+                                     path: 'images/ar/marketplace/', store: 'marketplace'},
                         {images : membersImages,
                                      path: 'images/marketplace/members/', store: 'marketplace'},
                         {images : ["close_button.png", "first_button.png", "last_button.png", 'next_button.png', 'previous_button.png'], 
@@ -136,12 +137,13 @@ var Marketplace = Class.create({
     $$('#floatingItems li div.crowedItem div.crowedItemImage img').each(function(img){
       var id = img.id;
       img.observe('mouseover', function(event){ 
-        var offsetLeft = $(id + "_container").offsetLeft + 136;
+        var offsetLeft = $(id + "_container").offsetLeft;
         var offsetTop = $(id + "_container").offsetTop;
-        if( offsetTop > 0 ) offsetTop = 110;
-        if( offsetLeft > 408 ){
-          offsetLeft -= 215+136;
-        }
+        if( offsetTop > 0 ) offsetTop = -20;
+        
+        if(offsetLeft > 404)offsetLeft = -200
+        else offsetLeft = 136
+        
         $(id + '_details').setStyle({left : offsetLeft + 'px', top : offsetTop + 'px'});
         $(id + '_details').show(); 
       });

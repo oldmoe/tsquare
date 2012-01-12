@@ -10,8 +10,9 @@ var MeterBar = Class.create({
     var self = this;
     this.loader.load([ {images : ['energy_bar.png', 'experience_bar.png', 'game_currency_bar.png',
                                   'experience_bar_left.png', 'experience_bar_right.png', 'experience_bar_center.png',
-                                  'energy_bar_left.png', 'energy_bar_right.png', 'energy_bar_center.png'],
-                         path: 'images/game_elements/', store: 'game_elements'}],
+                                  'energy_bar_left.png', 'energy_bar_right.png', 'energy_bar_center.png', 'langButton.png'],
+                         path: 'images/game_elements/', store: 'game_elements'},
+                         {images_ar : ['langButton.png'], path: 'images/ar/game_elements/', store: 'game_elements'} ],
                       {
                         onFinish: function(){
                           gameManager.reactor.pushPeriodical(0, 1, gameManager.reactor.everySeconds(1), function(){self.updateBars()});
@@ -29,9 +30,12 @@ var MeterBar = Class.create({
   },
 
   display : function(){
+    var lang = 'english'
+    if(game.properties.lang == 'en')lang = "عربي"
     $('meterBar').innerHTML = this.templateManager.load('meterBar', {score: this.gameManager.userData.scores.global,
-                                energy : this.gameManager.userData.energy, coins : this.gameManager.userData.coins});
+                                energy : this.gameManager.userData.energy, coins : this.gameManager.userData.coins, lang : lang});
     Game.addLoadedImagesToDiv('meterBar');
+    this.gameManager.setupLangScreen();
     this.updateBars();
   },
 

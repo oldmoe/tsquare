@@ -26,6 +26,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/nezal/templates_manager.js"],
                  
                  ["js/game/social_engine.js",
+                 "js/game/ui_manager.js",
                  "js/game/game_manager.js",
                  "js/game/mission_manager.js",
                  "js/game/meter_bar.js",
@@ -53,6 +54,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/block.js",
                  "js/game/tear_gas_gunner_cs_block.js",
                  "js/game/bubble.js",
+                 "js/game/moving_bubble.js",
                  "js/game/scenario.js",
                  "js/game/protection_unit.js",
                  "js/game/rescue_unit.js"],
@@ -129,6 +131,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/sky_line.js",
                  "js/game/score_calculator.js",
                  "js/game/tsquare_scene.js",
+                 "js/game/tsquare_strings.js",
                  "js/game/audio_manager.js",
                  "js/game/movement_manager.js",
                  "js/game/flashing_handler.js",
@@ -147,14 +150,7 @@ function flatten( array ) {
 };
 orderedJS = flatten( orderedJS );
                  
-styleSheets = ["css/style.css",
-               "css/main.css",
-               "css/timeline.css",
-               "css/mission.css",
-               "css/meter_bar.css",
-               "css/scores.css",
-               "css/notifications.css",
-               "css/marketplace.css"];
+styleSheets = ["css/main.css"];
 
 loadCssFiles = function() {
   for( var i in styleSheets ){

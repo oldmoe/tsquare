@@ -8,7 +8,6 @@ var ClashEnemyHandler = Class.create(UnitHandler, {
         self.objects[self.incomingObject.lane].push(self.addObject(self.incomingObject))
         self.incoming[self.incomingObject.lane].splice(0, 1)
         self.incomingObject = null
-        self.scene.audioManager.playClash()
      })
   },
   
@@ -20,7 +19,6 @@ var ClashEnemyHandler = Class.create(UnitHandler, {
   
   end: function(){
     this.ended = true
-    this.scene.end(true)
   },
   
   createClashEnemy: function(){
@@ -43,6 +41,7 @@ var ClashEnemyHandler = Class.create(UnitHandler, {
     for (var i = 0; i < this.incoming.length; i++) {
       for (var j = 0; this.incoming[i] && j < this.incoming[i].length; j++) {
         if (this.incoming[i][j].x < this.scene.view.xPos + this.scene.view.width) {
+          this.scene.audioManager.playClash()
           this.scene.fire('clashUnit')
           this.incomingObject = this.incoming[i][j]
         }

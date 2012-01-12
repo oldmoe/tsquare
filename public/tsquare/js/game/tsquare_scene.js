@@ -50,7 +50,7 @@ var TsquareScene = Class.create(Scene,{
         this.speedFactors = []
         
         // Effect.Queues.create('global', this.reactor)
-
+      
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         this.view.length = this.view.width;
@@ -71,13 +71,28 @@ var TsquareScene = Class.create(Scene,{
          'objectives' : 'rescue'
        }
        
-        for(var i =0;i<this.data.length;i++){
-            for(var j=0;j<this.data[i].length;j++){
-                var elem = this.data[i][j]
-                if(this.handlers[mapping[elem.category]])
-                    this.handlers[mapping[elem.category]].add(elem);
-            }
-        }
+       //This loop is for inserting the rescue ambulances before looping on the main loop
+       for(var j=0;j<this.data[1].length;j++){
+         var elem = this.data[1][j];
+         if( elem.targetTile ){
+            this.data[0].push({
+                category : "protection",
+                lane : 0,
+                name : "ambulance",
+                x : elem.targetTile,
+                noenemy : true
+              });
+         }
+       }
+       for(var i =0;i<this.data.length;i++){
+         for(var j=0;j<this.data[i].length;j++){
+             var elem = this.data[i][j]
+             if(this.handlers[mapping[elem.category]]){
+               console.log( elem );
+               this.handlers[mapping[elem.category]].add(elem);
+             }
+         }
+       }
         
         var self = this;
         this.observe('wrongMove', function(){self.wrongMove()})
@@ -192,7 +207,8 @@ var TsquareScene = Class.create(Scene,{
       for(var handler in this.handlers){
           this.handlers[handler].tick();
       }
-      if(this.view.xPos > this.view.length) this.end();
+      
+      if(!this.stopped)this.end();
     },
 
     end : function(){
@@ -202,37 +218,53 @@ var TsquareScene = Class.create(Scene,{
         self.reactor.stop();
         self.audioManager.stop();
       }
-      if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
-       && this.view.xPos > this.view.length && this.handlers.clash_enemy.ended)) {
-        if(!this.stopped)
-        {
-          this.stopped = true;
-          if (!self.handlers.crowd.ended) {
-            var scoreData = {
-              score: self.scoreCalculator.score,
-              objectives: self.scoreCalculator.getObjectivesRatio(),
-              combos: self.scoreCalculator.getCombos(),
-              win: true
-            };
+      
+      if (this.handlers.crowd.ended 
+          || this.scoreCalculator.gameTime < 0
+          || (this.handlers.enemy.ended && this.handlers.protection_unit.ended && this.handlers.clash_enemy.ended && this.view.xPos > this.view.length)) {
             
-            if (scoreData.objectives < 0.3)
-              scoreData.win = false;
-            self.fire('end', [scoreData]);
-            //self.direction = 0
-            self.finish(afterMarchCallback);
-          }else{
-            var scoreData = {
-              score: 0,
-              objectives: 0,
-              combos: 0,
-              win: false
-            };
-            self.fire('end', [scoreData]);
-            afterMarchCallback();
-          }
+        this.stopped = true;
+        
+        var scoreData = {};
+        
+        if(this.handlers.crowd.ended || this.scoreCalculator.gameTime < 0 || this.scoreCalculator.getObjectivesRatio() < 0.3){
+          
+          scoreData = {
+            score: 0,
+            objectives: 0,
+            combos: 0,
+            win: false,
+            superTime: 0,
+            stars: 0
+          };
+
+        }else{
+          var superTime = false;
+          if(this.scoreCalculator.gameTime > this.scoreCalculator.superTime) superTime = true;
+          
+          scoreData = {
+            score: this.scoreCalculator.score,
+            objectives: this.scoreCalculator.getObjectivesRatio(),
+            combos: this.scoreCalculator.getCombos(),
+            win: true,
+            superTime: superTime,
+            stars: 0
+          };
+          
+          if (scoreData.win) scoreData.stars += 1;
+          if (scoreData.objectives == 1)scoreData.stars += 1;
+          if (scoreData.superTime) scoreData.stars += 1;
         }
+        
+        this.fire('end', [scoreData]);
+        
+        if (this.handlers.crowd.ended) {
+          afterMarchCallback();
+        }else{
+          this.finish(afterMarchCallback);
+        }
+        
       }
-      //send to the server
     },
     
     finish : function(callback){
@@ -247,6 +279,9 @@ var TsquareScene = Class.create(Scene,{
        //The following name, tile and mission are used for escorting/retrieving a crowd member
        obj.name = objHash.name;
        obj.targetTile = objHash.targetTile;
+       obj.helpMessage = objHash.helpMessage;
+       obj.companyMessage = objHash.companyMessage;
+       obj.leaveMessage = objHash.leaveMessage;
        obj.mission = objHash.mission;
        var displayKlass = eval(klassName + "Display")
        var objDisplay = new displayKlass(obj)
@@ -331,10 +366,11 @@ var TsquareScene = Class.create(Scene,{
 
    updateSpeed: function(){
       var speedDelta = Math.round(20 / this.handlers.crowd.objects[this.activeLane].length)
-      if(this.targetEnergy - this.energy.current > 1){
+      if(this.targetEnergy - this.energy.current > 0){
         this.energy.current += speedDelta;
-      }else if (this.targetEnergy - this.energy.current < -1){
-        if(this.energy.current > 0)this.energy.current -= speedDelta;        
+      }else if (this.targetEnergy - this.energy.current < 0){
+        if(this.energy.current > 0)this.energy.current -= speedDelta;
+        if(this.energy.current < 0)this.energy.current = 0;        
       }
       
      if(this.speedIndex == this.targetSpeedIndex) return;
@@ -364,6 +400,7 @@ var TsquareScene = Class.create(Scene,{
      var self = this;
      if( this.rescuing && this.rescuing.targetTile == this.currentTile){
        this.rescuing.rescued = true;
+       this.rescuing.messageBubble.destroy();
        if( this.rescuing.mission == "retrieve" ){
          this.rescuing.fire("back");
        }

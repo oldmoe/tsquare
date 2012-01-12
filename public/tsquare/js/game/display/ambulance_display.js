@@ -11,7 +11,7 @@ var AmbulanceDisplay = Class.create(Display,{
     this.imgWidth = this.img.width
     $super(owner)
     
-    if(Math.random() <= 0.5)this.showText();
+    if(Math.random() <= 0.5 && !this.owner.noenemy)this.showText();
   },
   
   initAudio : function(){
@@ -26,7 +26,7 @@ var AmbulanceDisplay = Class.create(Display,{
     if (this.audioDestroyed) {
       return false
     }
-    Loader.sounds['sfx']['ambulance.mp3'].play({volume:10})   
+    if(!this.mute) Loader.sounds['sfx']['ambulance.mp3'].play({volume:10})   
     //this.owner.scene.audioManager.play(Loader.sounds['sfx']['ambulance.mp3'], {volume : 10}, true)
   },
   
@@ -79,5 +79,15 @@ var AmbulanceDisplay = Class.create(Display,{
       this.sprites.ambulance.currentAnimationFrame = (this.sprites.ambulance.currentAnimationFrame + 1) % this.noOfFrames
     }
     $super()
+  }, 
+  
+  destroy : function($super, done){
+    if(done){
+      return $super()
+    }
+    this.owner.removed = true      // to remove the display object from render loop
+    var self = this
+    this.sprites.shadow.hide()
+    Effects.pulsateFadeUp(this.sprites.ambulance.div, function(){self.destroy(true)})
   }  
 })

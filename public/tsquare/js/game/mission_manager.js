@@ -17,7 +17,7 @@ var MissionManager = Class.create({
                           path: 'images/game_elements/', store: 'game_elements' },
                         {images : ["friendsScore.png", "friend_box.png"], 
                           path: 'images/friends/', store: 'friends' }, 
-                        {images : ["paused_screen.png"], 
+                        {images : ["paused_screen.png", "play_btn.png", "exit_btn.png", "controls_area.png"], 
                           path: 'images/game_elements/', store: 'game_elements' },
                       ],
                       {
@@ -41,7 +41,7 @@ var MissionManager = Class.create({
     });
     self.pauseScreenOn = false;
     $('pause').hide();
-  	$('pause').innerHTML = this.templateManager.load('pause', {});
+  	$('pause').innerHTML = this.templateManager.load('pause');
     Game.addLoadedImagesToDiv('pause');
     scene.observe('togglePause', function(){
     	if (self.pauseScreenOn) {
@@ -70,9 +70,6 @@ var MissionManager = Class.create({
     {
       this.eneded = false;
       this.mode = this.gameManager.timelineManager.mode;
-      this.score['stars'] = this.calculateStars(score);
-      if(this.score.stars > 0)
-        this.score.score = this.score.score * this.score.stars;
       var self = this;
       this.network.postMissionScore( this.currentMission.id, score, function(data){
         self.donePosting = true;
@@ -92,17 +89,6 @@ var MissionManager = Class.create({
 
   show:function(){
     $('winLose').show();
-  },
-
-  calculateStars : function(score) {
-    var stars = 0;
-    if (score['objectives'] == 1)
-      stars = 2;
-    else if(score['objectives'] >= 0.5)
-      stars = 1;
-    if(score['combos'] >= 0.8)
-      stars+=1;
-    return stars;
   },
 
   displayStaticEndScreen : function(){

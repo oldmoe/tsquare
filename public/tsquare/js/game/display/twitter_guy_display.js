@@ -65,5 +65,15 @@ var TwitterGuyDisplay = Class.create(Display,{
   render : function($super){
       this.sprites.twitterguy.currentAnimationFrame = (this.sprites.twitterguy.currentAnimationFrame + 1) % this.noOfFrames
       $super()
+  },
+  
+  destroy : function($super, done){
+    if(done){
+      return $super()
+    }
+    this.owner.removed = true      // to remove the display object from render loop
+    var self = this
+    this.sprites.shadow.hide()
+    Effects.pulsateFadeUp(this.sprites.twitterguy.div, function(){self.destroy(true)})
   }
 })

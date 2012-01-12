@@ -2,6 +2,7 @@ var InGameMeterBar = Class.create({
 
   xPos: 0,
   currentEnergy: 0,
+  showRemainingTime: false,
   
 
   initialize : function(game){
@@ -55,6 +56,11 @@ var InGameMeterBar = Class.create({
       this.xPos = this.game.scene.view.xPos;
       
       $$('.inGameMeterBar .levelMeterHighlight')[0].style.width = (8+91*(this.xPos/this.game.scene.view.length))+"%";
+    }
+    
+    if(!this.showRemainingTime && this.scoreCalculator.gameTime <= this.scoreCalculator.remainingTime){
+      this.showRemainingTime = true;
+      
     }
     
   },

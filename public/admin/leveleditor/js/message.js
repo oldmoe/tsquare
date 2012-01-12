@@ -27,11 +27,11 @@ var Message = Class.create({
 	open: function(tile){
 		this.tile = tile;
 		this.updateDialogData();
-		$('discussionDialog').style.display = 'block';
+		$(this.containerId).style.display = 'block';
 	},
 
 	close: function(){
-		$('discussionDialog').style.display = 'none';
+		$(this.containerId).style.display = 'none';
 	},
 	
 	add: function(){

@@ -310,9 +310,13 @@
         <span class="loadedImg lang" imgSrc="friends/icon_crowds.png" alt="Menu Item"></span>
       </a>
       <!--Rank button-->
-      <a class="rankMenuItem" href="javascript:void(0);"><span class="loadedImg lang" imgSrc="friends/icon_ranking.png" alt="Menu Item"></span></a>
+      <a class="rankMenuItem" href="javascript:void(0);">
+        <span class="loadedImg lang" imgSrc="friends/icon_ranking.png" alt="Menu Item"></span>
+      </a>
       <!--Vote button-->
-      <a class="voteMenuItem" href="javascript:void(0);"><span class="loadedImg lang" imgSrc="friends/icon_vote.png" alt="Menu Item"></span></a>
+      <a class="voteMenuItem" href="javascript:void(0);" onclick="socialEngine.requestFromNoneAppUsers({title: 'Join my crowd', message: 'Join my crowd'})">
+        <span class="loadedImg lang" imgSrc="friends/icon_vote.png" alt="Menu Item"></span>
+      </a>
       <a class="homeMenuItem" href="javascript:void(0);" onclick="gameManager.openMainPage();">
         <span class="loadedImg" imgSrc="friends/home_icon.png" alt="Menu Item"></span>
       </a>

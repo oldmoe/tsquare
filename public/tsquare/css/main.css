@@ -28,7 +28,7 @@ img { border:none; outline:none;}
 .overlay { float:left; width:100%; background:#000; height:620px; background:url(../images/common/overylay_background.png); }
 .container { width:950px; height:685px; margin:0 auto; position:relative; }
 
-.message { position:absolute; top:-285px; left:300px; z-index:30; }
+.message { position:absolute; top:285px; left:300px; z-index:30; }
 .message span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.3em; width:210px; margin:15px; line-height:1.2em; height:70px; display:block; width:238px; }
 
 .topScope { position:absolute; top:-80px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
@@ -577,3 +577,12 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .healthStatus { position:absolute; top:50px; left:15px; z-index:15; width:16px; height:46px; }
 .healthStatus span { position:absolute; z-index:17; display:block; height:46px; width:16px; overflow:hidden; top:0; }
 
+
+.cantJoin { position:absolute; z-index:20; padding:10px; width:113px; margin:-13px 0 0 -6px; -webkit-border-radius:10px; -moz-border-radius:10px; border-radius:10px; -webkit-box-shadow:0px 0px 10px #000000; -moz-box-shadow:0px 0px 10px #000000; box-shadow:0px 0px 10px #000000; background:#000000; opacity: 0.6; height:144px; text-align:center;  }
+
+.cantJoin img { float:left; margin:60px 0 0 10px; }
+.cantJoin span { float:left; color:#efa900; font-weight:bold; font-size:1.5em; margin:61px 0 0 0; }
+.cantJoin strong { float:left; color:#efa900; clear:both; margin:0 0 0 5px; }
+
+.recoveryTimer { position:absolute; z-index:20; top:22px; left:11px; width:22px; height:25px; overflow:hidden; }
+.recoveryTimer img { position:absolute; top:-75px; }

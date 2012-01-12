@@ -139,11 +139,9 @@ var Timeline = Class.create(UIManager, {
 
   displayMissions : function(challenge){
     var self = this;
-    if(this.carousel) 
-    {
-      this.carousel.destroy();
-    }
+    
     this.adjustMissionsData();
+    
     var callback = function() {
       var ids = new Array();
       var missions = self.gameManager.missions[self.mode];
@@ -154,15 +152,24 @@ var Timeline = Class.create(UIManager, {
         return a - b;
       }
       ids = ids.sort(sortNumberAscending);
-      console.log(missions)
       $$(".walkingCrowdMemeber")[0].hide();
       
       $('timeline').innerHTML = self.templateManager.load('missions', {'missions' : self.gameManager.missions[self.mode],
                'currentMission' : self.gameManager.userData.current_mission[self.mode], 'challenge' : challenge});
-
+      
       var missionsDivs = $$(".missionMarker");
-      for (var i=0; i < missionsDivs.length && i < ids.length; i++) {
-        missionsDivs[i].setAttribute("missionId", ids[i]); 
+      for (var i=0; i < missionsDivs.length; i++) {
+        if(i < ids.length){
+          missionsDivs[i].setAttribute("missionid", ids[i]);
+          if(self.gameManager.missions[self.mode][ids[i]].playable == false)
+             missionsDivs[i].firstChild.addClassName("disabled");
+
+          if(ids[i] == Number(self.gameManager.userData.current_mission[self.mode]))
+            missionsDivs[i].firstChild.addClassName("current");
+
+        }else{
+          missionsDivs[i].firstChild.addClassName("disabled");
+        } 
       };
                
       self.attachMissionsListener();
@@ -313,14 +320,26 @@ var Timeline = Class.create(UIManager, {
     $$('#timeline .timelineMissions li').each(function(element){
       element.observe('mouseover', function(event) {
         element.addClassName('selected');
+        var mission  = self.gameManager.missions[self.mode][element.getAttribute("missionid")];
+        if(mission){
+          var missionTitle = self.templateManager.load('missionTitle', {'title':mission.name, 'stars':mission.score.stars});
+          var container = $$(".timelineMissions")[0];
+          container.insert({bottom:missionTitle}); 
+          missionTitle = container.children[container.children.length-1]; 
+          $(missionTitle).setStyle({top: ($(element).positionedOffset().top-45)+"px", left: ($(element).positionedOffset().left-70)+"px"});
+        }
       });
       
       element.observe('mouseout', function(event) {
         element.removeClassName('selected');
+        var elem = $$(".timelineMissions")[0].children;
+        if(elem.length > 1)
+          elem[elem.length-1].remove();
       });
       
       element.observe('click', function(event) {
-        self.displayMissionDetails(parseInt(element.getAttribute("missionid")));
+        if(self.gameManager.missions[self.mode][parseInt(element.getAttribute("missionid"))])
+          self.displayMissionDetails(parseInt(element.getAttribute("missionid")));
       });
     });
   },

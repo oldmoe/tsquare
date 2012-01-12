@@ -62,16 +62,19 @@ var Timeline = Class.create(UIManager, {
   },
 
   displayHome : function() {
+    $$(".walkingCrowdMemeber")[0].show();
+
+    if($$('.background')[0]){
+      var newImg = Loader.images['timeline']['home_background.gif'].clone();
+      $(newImg).addClassName("background");
+      $$('.background')[0].insert({after:newImg});
+      $$('.background')[0].remove();
+    }
+    
     this.walkingMan.moveTo();
     var homeDiv = $('home');
     var timelineDiv = $('timeline');
     homeDiv.hide();
-// 
-    // var newImg = Loader.images['timeline']['home_background.gif'].clone();
-    // $(newImg).addClassName("background");
-    // $$('#uiContainer .background')[0].insert({after:newImg});
-    // $$('.background')[0].remove();
-    
     if(timelineDiv.getStyle('display') != 'none')
       Effects.fade(timelineDiv, function(){Effects.appear(homeDiv)});
     else
@@ -142,8 +145,25 @@ var Timeline = Class.create(UIManager, {
     }
     this.adjustMissionsData();
     var callback = function() {
+      var ids = new Array();
+      var missions = self.gameManager.missions[self.mode];
+      for(var key in missions){
+        ids.push(Number(missions[key].id));
+      }
+      function sortNumberAscending(a,b){
+        return a - b;
+      }
+      ids = ids.sort(sortNumberAscending);
+      console.log(missions)
+      $$(".walkingCrowdMemeber")[0].hide();
+      
       $('timeline').innerHTML = self.templateManager.load('missions', {'missions' : self.gameManager.missions[self.mode],
                'currentMission' : self.gameManager.userData.current_mission[self.mode], 'challenge' : challenge});
+
+      var missionsDivs = $$(".missionMarker");
+      for (var i=0; i < missionsDivs.length && i < ids.length; i++) {
+        missionsDivs[i].setAttribute("missionId", ids[i]); 
+      };
                
       self.attachMissionsListener();
       Game.addLoadedImagesToDiv('timeline');
@@ -241,8 +261,10 @@ var Timeline = Class.create(UIManager, {
     var self = this;
     var callback =  function(){
       $$('.missionDetails')[0].hide();
+      
       $$('#timeline .missionDetails')[0].innerHTML = self.templateManager.load('missionDetails', {'mission' : self.gameManager.missions[self.mode][id], 'id': idString});
       Game.addLoadedImagesToDiv('timeline');
+      
       self.attachMissionDetailsListeners();
       $$('.missionDetails')[0].show();
     }
@@ -291,22 +313,14 @@ var Timeline = Class.create(UIManager, {
     $$('#timeline .timelineMissions li').each(function(element){
       element.observe('mouseover', function(event) {
         element.addClassName('selected');
-        
-        //move character
-        // var elem = event.element().parentNode.parentNode;
-        // var elemIndex = elem.previousSiblings().length;
-        // elemIndex = elemIndex - gameManager.timelineManager.carousel.currIndex;
-        // var gap = 10;
-        // var wgap = 40;
-        // var pos = wgap + gap * elemIndex + elem.getWidth()*elemIndex + elem.getWidth()/2;
-        // if(pos < 0 || pos > 1000)return; 
-        // self.walkingMan.moveTo(pos-25);
       });
+      
       element.observe('mouseout', function(event) {
         element.removeClassName('selected');
       });
+      
       element.observe('click', function(event) {
-        self.displayMissionDetails(parseInt(element.id.split('_')[1]));
+        self.displayMissionDetails(parseInt(element.getAttribute("missionid")));
       });
     });
   },

@@ -88,7 +88,6 @@ var TsquareScene = Class.create(Scene,{
          for(var j=0;j<this.data[i].length;j++){
              var elem = this.data[i][j]
              if(this.handlers[mapping[elem.category]]){
-               console.log( elem );
                this.handlers[mapping[elem.category]].add(elem);
              }
          }
@@ -188,7 +187,6 @@ var TsquareScene = Class.create(Scene,{
     },
     
     wrongCommand: function(){
-//      console.log("scene wrong command");
     },
     
     correctCommand: function(){

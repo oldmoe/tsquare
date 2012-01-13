@@ -153,7 +153,7 @@ orderedJS = flatten( orderedJS );
 styleSheets = ["css/main.css"];
 
 loadCssFiles = function() {
-  for( var i in styleSheets ){
+  for( var i = 0; i < styleSheets.length; i++ ){
     var fileName = styleSheets[i];
     //Dynamic adding of CSS files in IE
     if( document.createStyleSheet ){

@@ -9,7 +9,7 @@ class UserMissions
       Mission::MODES.each do |mode|
         missions[mode] = {}
         Mission.all[mode].each do |key, mission|
-          missions[mode][key] = { :name => mission['name'], :id => mission['id'], :details => mission['data']['missionDetails'], :details_ar => mission['data']['missionDetails_ar'], :images => mission['data']['missionImages'] }
+          missions[mode][key] = { :name => mission['name'], :id => mission['id'], :details => mission['data']['missionDetails'], :details_ar => mission['data']['missionDetails_ar'], :score => user_profile.missions[mode][mission['id']] }
         end
       end
       missions
@@ -20,7 +20,6 @@ class UserMissions
       mode = Mission.mode mission_id
       if (user_profile.current_mission[mode]==mission_id || user_profile.missions[mode][mission_id] || user_profile.missions[mode][mission_id.to_i]) && user_profile.energy >= MISSION_NEEDED_ENERGY
         data = Mission.get(mission_id)
-        puts ""
 =begin : Disable energy part for now
         user_profile.energy-= 5
 =end

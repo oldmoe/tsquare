@@ -75,13 +75,14 @@ var TsquareScene = Class.create(Scene,{
        for(var j=0;j<this.data[1].length;j++){
          var elem = this.data[1][j];
          if( elem.targetTile ){
-            this.data[0].push({
-                category : "protection",
-                lane : 0,
-                name : "ambulance",
-                x : elem.targetTile,
-                noenemy : true
-              });
+           this.fire('incrementObjectivesCount');
+           this.data[0].push({
+               category : "protection",
+               lane : 0,
+               name : "ambulance",
+               x : elem.targetTile,
+               noenemy : true
+             });
          }
        }
        for(var i =0;i<this.data.length;i++){
@@ -229,8 +230,8 @@ var TsquareScene = Class.create(Scene,{
           
           scoreData = {
             score: 0,
-            objectives: 0,
-            combos: 0,
+            objectives: this.scoreCalculator.getObjectivesRatio().toFixed(2),
+            combos: this.scoreCalculator.getCombos(),
             win: false,
             superTime: 0,
             stars: 0
@@ -240,9 +241,11 @@ var TsquareScene = Class.create(Scene,{
           var superTime = false;
           if(this.scoreCalculator.gameTime > this.scoreCalculator.superTime) superTime = true;
           
+          this.fire('correctObjective'); //Ending the mission alive is a correct objective
+          
           scoreData = {
             score: this.scoreCalculator.score,
-            objectives: this.scoreCalculator.getObjectivesRatio(),
+            objectives: this.scoreCalculator.getObjectivesRatio().toFixed(2),
             combos: this.scoreCalculator.getCombos(),
             win: true,
             superTime: superTime,
@@ -396,8 +399,9 @@ var TsquareScene = Class.create(Scene,{
    
    tileChanged : function(){
      var self = this;
-     if( this.rescuing && this.rescuing.targetTile == this.currentTile){
+     if( this.rescuing && !this.rescuing.rescued && this.rescuing.targetTile == this.currentTile){
        this.rescuing.rescued = true;
+       this.fire("correctObjective");
        this.rescuing.messageBubble.destroy();
        if( this.rescuing.mission == "retrieve" ){
          this.rescuing.fire("back");

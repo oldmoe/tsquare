@@ -74,14 +74,13 @@ var DataExporter = Class.create({
 			x=0;
 			l++;
 		}
-	
-		
+
 		var gameData = {};
 		gameData.data = data;
 		var settings = this.levelEditor.settingsHandler.getData();
 		for (var key in settings)
 			gameData[key] = settings[key];
-			
+
 		delete gameData.backgrounds;
 		gameData.backgrounds = {
 		  layer1:this.levelEditor.backgroundHandler.getLayer1Data(), 
@@ -90,16 +89,8 @@ var DataExporter = Class.create({
 		  fence: this.levelEditor.backgroundHandler.getFenceData(),
 		  lamp: this.levelEditor.backgroundHandler.getLampData(),
 		  land: this.levelEditor.backgroundHandler.getLandData()
-	  };
-		  
-		var settings = this.levelEditor.settingsHandler.getData();
-		gameData.energy = settings.energy;
-		gameData.environment = settings.environment;
-		gameData.gameModes = settings.gameModes;
-		gameData.missionDetails = settings.missionDetails;
-		gameData.missionTime = settings.missionTime;
-		gameData.superTime = settings.superTime;
-		gameData.missionImages = settings.missionImages;
+	    };
+
 		return gameData;
 	},
 

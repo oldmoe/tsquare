@@ -53,49 +53,48 @@ var SettingsHandler = new Class.create({
 		  self.settings.missionDetails = event.target.value;
 		})
 
-    $("missionTime").observe("keyup", function(event){
-      self.settings.missionTime = event.target.value;
-    })
+        $("missionTime").observe("keyup", function(event){
+          self.settings.missionTime = event.target.value;
+        })
 
-    $("superTime").observe("keyup", function(event){
-      self.settings.superTime = event.target.value;
-    })
+        $("superTime").observe("keyup", function(event){
+          self.settings.superTime = event.target.value;
+        })
 		
-		$("missionDetails_ar").observe("keyup", function(event){
-		  self.settings.missionDetails_ar = event.target.value;
-		})
+        $("missionDetails_ar").observe("keyup", function(event){
+	      self.settings.missionDetails_ar = event.target.value;
+        })
     
-    $(this.missionContainerId).select('input[name=missionImageInput]')[0].observe('change', function(e){
-      self.uploadMissionImage(e.currentTarget.files[0]);
-    });
+        $(this.missionContainerId).select('input[name=missionImageInput]')[0].observe('change', function(e){
+          self.uploadMissionImage(e.currentTarget.files[0]);
+        });
 
-    $(this.missionContainerId).select('input[name=stuffImageInput]')[0].observe('change', function(e){
-      self.uploadStuffImage(e.currentTarget.files[0]);
-    });
-		
+        $(this.missionContainerId).select('input[name=stuffImageInput]')[0].observe('change', function(e){
+          self.uploadStuffImage(e.currentTarget.files[0]);
+        });
 	},
 	
 	uploadMissionImage: function(file){
-    var oFReader = new FileReader()
-    oFReader.readAsDataURL(file);
-    var self = this;
-    oFReader.onloadend = function(e){
-      if(!self.settings.missionImages)self.settings.missionImages = {};
-      self.settings.missionImages.missionImage = oFReader.result; 
-      $("missionImage").src = self.settings.missionImages.missionImage; 
-    }
+      var oFReader = new FileReader()
+      oFReader.readAsDataURL(file);
+      var self = this;
+      oFReader.onloadend = function(e){
+        if(!self.settings.missionImages)self.settings.missionImages = {};
+        self.settings.missionImages.missionImage = oFReader.result; 
+        $("missionImage").src = self.settings.missionImages.missionImage; 
+      }
 	},
 
-  uploadStuffImage: function(file){
-    var oFReader = new FileReader()
-    oFReader.readAsDataURL(file);
-    var self = this;
-    oFReader.onloadend = function(e){
-      if(!self.settings.missionImages)self.settings.missionImages = {};
-      self.settings.missionImages.stuffImage = oFReader.result; 
-      $("stuffImage").src = self.settings.missionImages.stuffImage; 
-    }
-  },
+    uploadStuffImage: function(file){
+      var oFReader = new FileReader()
+      oFReader.readAsDataURL(file);
+      var self = this;
+      oFReader.onloadend = function(e){
+        if(!self.settings.missionImages)self.settings.missionImages = {};
+        self.settings.missionImages.stuffImage = oFReader.result; 
+        $("stuffImage").src = self.settings.missionImages.stuffImage; 
+      }
+    },
 	
 	init: function(){
 	  $("missionDetails").setValue("");

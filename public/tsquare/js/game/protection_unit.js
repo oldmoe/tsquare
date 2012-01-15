@@ -14,7 +14,7 @@ var ProtectionUnit = Class.create(Unit,{
     this.text = this.scene.handlers.message.randomStartMessage('protectionUnit');
     
     var self = this;
-    this.scene.observe("targetCircleComplete", function(){self.circleEnd()});
+    this.scene.observe("targetComplete", function(){self.circleEnd()});
    },
    
    textInfo: function(){

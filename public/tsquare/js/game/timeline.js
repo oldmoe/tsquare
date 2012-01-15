@@ -63,7 +63,6 @@ var Timeline = Class.create(UIManager, {
 
   displayHome : function() {
     $$(".walkingCrowdMemeber")[0].show();
-
     if($$('.background')[0]){
       var newImg = Loader.images['timeline']['home_background.gif'].clone();
       $(newImg).addClassName("background");

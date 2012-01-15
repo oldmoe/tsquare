@@ -70,7 +70,6 @@ var GameManager = Class.create({
     self.timelineManager = new Timeline(this);
     self.missionManager = new MissionManager(this);
     game = new Game(this);
-//    soundManager.mute()
     self.game = game;
   },
   

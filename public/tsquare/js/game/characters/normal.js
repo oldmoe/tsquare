@@ -39,6 +39,20 @@ var Normal = Class.create(CrowdMember,{
   remove : function(){
     this.scene.remove(this);
     this.destroy();    
-  }
+  },
   
+  pushPrepare : function(){
+    if (this.moved == 0) {
+      this.fire('walk')
+      this.moveBack = true
+    }
+    displacement = -1 *(this.pushPrepareSpeed + (this.maxPushDisplacement-this.moved)*0.1)
+    console.log(displacement, "follower", this.coords.x)
+    this.moved+= Math.abs(displacement)
+    this.move(displacement,0)
+    if (this.moved > this.maxPushDisplacement) {
+        this.moveBack = false
+        return true
+    }
+  },
 })

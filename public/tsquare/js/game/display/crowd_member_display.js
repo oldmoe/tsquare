@@ -105,7 +105,7 @@ var CrowdMemberDisplay = Class.create(Display,{
     }
     if(this.owner.stateChanged){
       var character = this.sprites.character;
-      if(this.owner.scene.moveBack) {
+      if(this.owner.moveBack) {
         character.currentAnimationFrame = (character.currentAnimationFrame - 1)
         if (character.currentAnimationFrame == -1) {
           character.currentAnimationFrame = character.currentAnimation.noOfFrames - 1 

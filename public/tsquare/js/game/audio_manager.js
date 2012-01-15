@@ -50,19 +50,19 @@ var AudioManager = Class.create({
     };
     
     this.rewardLevels = [
-      {tempo: 130, rewards : [{sound : 1, volume : 60}, {sound : 2, volume : 60}]},
-      {tempo: 130, rewards : [{sound : 1, volume : 60}, {sound : 2, volume : 60}]},
+      {tempo: 130, rewards : [{sound : 1, volume : 100}, {sound : 2, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 1, volume : 100}, {sound : 2, volume : 100}]},
       
-      {tempo: 130, rewards : [{sound : 3, volume : 60}, {sound : 4, volume : 60}]},
-      {tempo: 130, rewards : [{sound : 3, volume : 60}, {sound : 4, volume : 60}]},
+      {tempo: 130, rewards : [{sound : 3, volume : 100}, {sound : 4, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 3, volume : 100}, {sound : 4, volume : 100}]},
       
-      {tempo: 130, rewards : [{sound : 5, volume : 60}, {sound : 6, volume : 60}]},
-      {tempo: 130, rewards : [{sound : 5, volume : 60}, {sound : 6, volume : 60}]},
+      {tempo: 130, rewards : [{sound : 5, volume : 100}, {sound : 6, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 5, volume : 100}, {sound : 6, volume : 100}]},
       
-      {tempo: 130, rewards : [{sound : 7, volume : 60}, {sound : 8, volume : 60}]},
-      {tempo: 130, rewards : [{sound : 7, volume : 60}, {sound : 8, volume : 60}]},
+      {tempo: 130, rewards : [{sound : 7, volume : 100}, {sound : 8, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 7, volume : 100}, {sound : 8, volume : 100}]},
       
-      {tempo: 130, rewards : [{sound : 9, volume : 60}, {sound : 9, volume : 60}]}
+      {tempo: 130, rewards : [{sound : 9, volume : 100}, {sound : 9, volume : 100}]}
       /*,
       {tempo: 130, rewards : [{sound : 4, volume : 80}, {sound : 5, volume : 80}]},
       {tempo: 130, rewards : [{sound : 6, volume : 80}, {sound : 7, volume : 80}]},
@@ -137,6 +137,7 @@ var AudioManager = Class.create({
 		scene.observe('end', function(){self.playWinLose()});
     scene.observe('combo', function(combos){self.playComboSound(combos)});
     scene.observe('firstWrongMove', function(){self.playWrongMoveSound()});
+    this.scene = scene;
 		this.cc = false;
 	},
 
@@ -161,25 +162,25 @@ var AudioManager = Class.create({
       if(sound.playState){
         sound.stop();
       }
-	    sound.play({volume:15, position:50});
+	    sound.play({volume:10, position:50});
 	  }else if(keyIndex == 1){//left
       sound = Loader.sounds['sfx']['hii.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:15, position:70});
+      sound.play({volume:10, position:70});
     }else if(keyIndex == 2){//up
       sound = Loader.sounds['sfx']['ha.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:15, position:50});
+      sound.play({volume:10, position:50});
     }else if(keyIndex == 3){//down
       sound = Loader.sounds['sfx']['hey.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:15, position:70});
+      sound.play({volume:10, position:70});
     }
 	},
 	
@@ -205,7 +206,7 @@ var AudioManager = Class.create({
   },
   
   playWrongMoveSound : function(){
-    Loader.sounds['sfx']['wrong_move.mp3'].play()
+    Loader.sounds['sfx']['wrong_move.mp3'].play({volume:20})
   },
   
   pause : function(){
@@ -308,11 +309,16 @@ var AudioManager = Class.create({
     }
   },
   
+  
   playHetaf: function(position){
     var delay = position;
     
     //if(delay == 0)delay = this.nowPlaying[0].position - (this.nowPlaying[0].duration-28);
-      this.currentReward.rewards[this.currentRewardIndex].sound.play({volume:this.currentReward.rewards[this.currentRewardIndex].volume, position:delay});
+      var crowds = Math.ceil(this.scene.energy.current / (this.scene.energy.max / 4.0))
+      this.currentReward.rewards[this.currentRewardIndex].sound.play({
+        volume: crowds * (this.currentReward.rewards[this.currentRewardIndex].volume / 4),
+        position: delay
+      });          
       if(this.currentRewardIndex){
         this.currentRewardIndex = 0;
       }

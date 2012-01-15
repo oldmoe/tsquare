@@ -86,7 +86,7 @@ var ProtectionUnit = Class.create(Unit,{
       for(var i=0;i<this.enemies.length;i++){
         this.enemies[i].die()
       }
-      this.scene.fire("targetCircleComplete");
+      this.scene.fire("targetComplete");
       this.scene.collision = false;
     }
   },
@@ -97,7 +97,7 @@ var ProtectionUnit = Class.create(Unit,{
         this.enemies[i].die()
     }
     $super();
-    this.scene.fire("targetCircleComplete");
+    this.scene.fire("targetComplete");
     this.scene.collision = false;
   }
   

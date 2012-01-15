@@ -57,7 +57,7 @@ var RescueUnit = Class.create(Unit,{
     this.rotationTolerance -= 1;        
     if (this.rotationTolerance == 0) {
       self.doneProtection = true;
-      self.scene.fire("targetCircleComplete");
+      self.scene.fire("targetComplete");
       
       var rescue_unit_name = self.scene.handlers.crowd.target.name.split("_")[0];
       var mapName = self.nameMapping[rescue_unit_name];

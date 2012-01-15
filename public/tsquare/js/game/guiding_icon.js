@@ -13,7 +13,7 @@ var GuidingIcon = Class.create(Observer,{
     this.scene = game.scene;
     this.moves = game.scene.movementManager.moves;
     this.moveIndex = 1;
-    var images = ["walk_move.png", "hit_move.png", "circle_move.png", "retreat_move.png", "move_indicator.png", "right_arrow.png", 'up_arrow.png','down_arrow.png', "left_arrow.png", "move_background.png", "moves_arrows.png"];
+    var images = ["walk_move.png", "hit_move.png", "circle_move.png", "push_move.png", "retreat_move.png", "move_indicator.png", "right_arrow.png", 'up_arrow.png','down_arrow.png', "left_arrow.png", "move_background.png", "moves_arrows.png"];
     var self = this;
     new Loader().load([{images: images, path: 'images/game_elements/', store: 'game_elements'}],
                       {onFinish:function(){self.display();}})    
@@ -28,7 +28,7 @@ var GuidingIcon = Class.create(Observer,{
     this.scene.observe('correctCommand',function(){self.increaseCorrectCommandsCount()})
     this.scene.observe("pressLate", function(){self.pressLate()});
     this.scene.observe("beatMoving", function(){self.beatMoving()});
-    this.scene.observe("targetCircleComplete", function(){self.targetCircleComplete()});
+    this.scene.observe("targetComplete", function(){self.targetComplete()});
     this.scene.push(this);
     
     this.scene.pushToRenderLoop('meters', this);
@@ -146,6 +146,9 @@ var GuidingIcon = Class.create(Observer,{
       if(!enemy.chargeTolerance && this.scene.collision) {
         this.commandLock = false;
         command = "hit";
+      }else if(enemy.chargeTolerance && this.scene.collision){
+        this.commandLock = false;
+        command = "push";
       }
     }else if(choice == 1){
       if(!protectionUnit.doneProtection && this.scene.collision) {
@@ -193,7 +196,7 @@ var GuidingIcon = Class.create(Observer,{
     this.wrongCommands = 0;
   },
   
-  targetCircleComplete: function(){
+  targetComplete: function(){
     this.commandLock = false;
   },
   
@@ -207,7 +210,8 @@ var GuidingIcon = Class.create(Observer,{
       $$('.nextMove img')[0].src = "images/game_elements/circle_move.png";
     else if(command == 'hit') //hit
       $$('.nextMove img')[0].src = "images/game_elements/hit_move.png";
-
+    else if(command == 'push') //hit
+      $$('.nextMove img')[0].src = "images/game_elements/push_move.png";
     //empty current command
     for(var i=0; i<4; i++){
       $$('.movesIndicator')[0].children[i].firstChild.src = "";

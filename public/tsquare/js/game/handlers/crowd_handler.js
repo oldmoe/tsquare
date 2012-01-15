@@ -4,7 +4,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    initialPositions : null,
    crowdMembersPerColumn : 2,
    marchingStates: ["normal", "walk", "jog", "run", "sprint"],//display
-   commands: ["circle", "hold", "march", "retreat", "hit"],
+   commands: ["circle", "hold", "march", "retreat", "hit", "push"],
    currentId : 0,
    arrestedCrowds : null,
    initialize: function($super,scene){
@@ -37,8 +37,8 @@ var CrowdHandler = Class.create(UnitHandler, {
           
     tick : function($super){
       if (this.pushing) {
-        this.pushMove()
         this.scene.direction = 0
+        this.pushMove();
       }
       else 
         $super()
@@ -56,6 +56,7 @@ var CrowdHandler = Class.create(UnitHandler, {
                var specs = gameData.crowd_members.specs[category][level]
                this.addCrowdMember(crowdType,specs)
            }
+           break;
        } 
     },
     
@@ -141,7 +142,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    //3 : hold
    //4 : retreat
    //5 : hit
-
+   //6 : push
    march: function(){
      this.scene.direction = 1
      if(this.target && this.target.chargeTolerance <= 0) this.target = null
@@ -150,10 +151,13 @@ var CrowdHandler = Class.create(UnitHandler, {
      if (!this.target) {
        return this.executeCommand("march");
      }
+   },
+  
+   push : function(){
      this.pushing = true
      this.pushMove()
    },
-
+   
   circle: function(){
     if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
       this.scene.fire("worngCommand");
@@ -261,7 +265,6 @@ var CrowdHandler = Class.create(UnitHandler, {
   pushMove : function(){
     if(!this.target || this.target.chargeTolerance <= 0){
       this.target = null
-      this.pushing = false
       return
     }
     var closestIndex = -1;
@@ -275,18 +278,19 @@ var CrowdHandler = Class.create(UnitHandler, {
     var reverseDirection = false
     for (var j = 0; j < this.objects[this.target.lane].length; j++) {
       var ret = this.objects[this.target.lane][j].pushMove(this.target)
-      if(j == closestIndex && ret == true && 
-      true//this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.forward
-      ){
+      if(j == closestIndex && ret == true){
         reverseDirection = true
+        if(this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.backward){
+           this.target.takePush()
+           this.pushing = false;
+        }
       }
     }
     if (reverseDirection) {
-      this.target.takePush()
       for (var j = 0; j < this.objects[this.target.lane].length; j++) {
-        this.objects[this.target.lane][j].reversePushDirection()
+        this.objects[this.target.lane][j].nextPushState();
       }
-    }  
+    }
   },
    
   executeCommand : function(event, options){

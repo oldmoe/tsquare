@@ -23,7 +23,7 @@ var GameManager = Class.create({
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
                               Loader.sounds.intro['menus_background.mp3'].loop = true;
-+                             Loader.sounds.intro['menus_background.mp3'].play();
+                              Loader.sounds.intro['menus_background.mp3'].play();
                               $('inProgress').hide();
                               self.selectLanguage("en");
                             }}, 100);
@@ -70,7 +70,6 @@ var GameManager = Class.create({
     self.timelineManager = new Timeline(this);
     self.missionManager = new MissionManager(this);
     game = new Game(this);
-//    soundManager.mute()
     self.game = game;
   },
   

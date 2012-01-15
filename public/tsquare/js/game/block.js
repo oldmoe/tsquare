@@ -58,7 +58,7 @@ var Block = Class.create(Enemy,{
       this.hp = maxHp
       if(maxHp<= 0){
         this.scene.collision = false;
-        this.scene.fire("targetCircleComplete");
+        this.scene.fire("targetComplete");
         this.die();
       }
     },
@@ -129,7 +129,10 @@ var Block = Class.create(Enemy,{
     },    
     takePush : function(){
        this.chargeTolerance--;
-       if(this.chargeTolerance == 0) this.split();
+       if(this.chargeTolerance == 0){
+         this.scene.fire("targetComplete");
+          this.split();
+         }
     },
     
     moveElements : function(dx,dy){

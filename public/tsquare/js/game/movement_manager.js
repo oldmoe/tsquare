@@ -27,7 +27,8 @@ var MovementManager = Class.create({
       retreat:{code:[1,1,0,1],index:1},
       circle:{code:[0,1,0,1],index:2}, 
       hold:{code:[7],index:3},
-      hit:{code:[2,3,2,3],index:5}
+      hit:{code:[2,3,2,3],index:5},
+      push:{code:[2,2,0,0],index:6}
     }
     this.keyText = {}
     this.keyText.en = ['right', 'left', 'up', 'down']

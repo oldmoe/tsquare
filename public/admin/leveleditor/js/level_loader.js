@@ -30,6 +30,7 @@ var LevelLoader = Class.create({
     settings.missionImages = missionData.missionImages;
     settings.missionTime = missionData.missionTime;
     settings.superTime = missionData.superTime;
+    settings.locked = missionData.locked;
     for (var key in missionData)
       settings[key] = missionData[key];
     delete settings.data;

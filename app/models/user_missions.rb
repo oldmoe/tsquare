@@ -12,6 +12,7 @@ class UserMissions
           missions[mode][key] = {
             :id => mission['id'],
             :name => mission['name'],
+            :locked => mission['data']['locked'],
             :details => mission['data']['missionDetails'],
             :details_ar => mission['data']['missionDetails_ar'],
             :missionTime => mission['data']['missionTime'],

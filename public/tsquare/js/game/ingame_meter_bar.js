@@ -60,7 +60,7 @@ var InGameMeterBar = Class.create({
     
     if(!this.showRemainingTime && this.scoreCalculator.gameTime <= this.scoreCalculator.remainingTime){
       this.showRemainingTime = true;
-      
+      $$('.timerBar')[0].addClassName("remaining");
     }
     
   },

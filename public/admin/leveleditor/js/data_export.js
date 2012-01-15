@@ -99,7 +99,6 @@ var DataExporter = Class.create({
 		gameData.missionDetails = settings.missionDetails;
 		gameData.missionTime = settings.missionTime;
 		gameData.superTime = settings.superTime;
-		gameData.missionImages = settings.missionImages;
 		return gameData;
 	},
 

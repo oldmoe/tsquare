@@ -139,7 +139,6 @@ var Timeline = Class.create(UIManager, {
 
   displayMissions : function(challenge){
     var self = this;
-    
     this.adjustMissionsData();
     
     var callback = function() {
@@ -182,36 +181,18 @@ var Timeline = Class.create(UIManager, {
       $$('.background')[0].insert({after:newImg});
       $$('.background')[0].remove();
       
-      // self.carousel = new Carousel("missions", self.images, 7, 2);
-/*      if(challenge)
+      if(challenge)
       {
-        self.carousel.observeScrolling(function(){
-          var containerOffset = $$('.missionsContainer').last().cumulativeOffset();
-          var challengedMissionOffset = $$('.missionsContainer #mission_' + challenge.data.mission).last().cumulativeOffset();
-          var challengeDiv = $$('.timelineMissions .friendScore')[0];
-          if(challengeDiv)
-          {
-            challengeDiv.show();
-            challengeDiv.style['left'] = challengedMissionOffset.left + 6 - containerOffset.left;
-            challengeDiv.style['top'] = 0;
-            challengeDiv.setStyle({'zIndex':11});
-            var challengeLeft = challengeDiv.cumulativeOffset().left;
-            if($$('.missionsContainer li')[gameManager.timelineManager.carousel.currIndex])
-            {
-              var left = $$('.missionsContainer li')[gameManager.timelineManager.carousel.currIndex].cumulativeOffset().left;
-              if(challengeLeft + 60 < left ) challengeDiv.hide();   
-            }
-            if($$('.missionsContainer li')[self.carousel.currIndex + self.carousel.displayCount - 1])
-            {
-              var left = $$('.missionsContainer li')[self.carousel.currIndex + self.carousel.displayCount - 1].cumulativeOffset().left;
-              if(challengeLeft + 60 > left ) challengeDiv.hide();   
-            }
-          }
-        });
-      }*/
-      // self.carousel.center(self.currentMissionIndex);
-      // self.carousel.checkButtons();
-      // $('timeline').hide();
+        var challengeDiv = $$('.timelineMissions .friendScore')[0];
+        if(challengeDiv)
+        {
+          challengeDiv.show();
+          var element = $$('.timelineMissions')[0].select('[missionid='+challenge.data.mission+']')[0];
+          $(challengeDiv).setStyle({top: ($(element).positionedOffset().top-17)+"px", left: ($(element).positionedOffset().left-78)+"px"});
+          console.log($(challengeDiv).positionedOffset());
+          challengeDiv.setStyle({'zIndex':11});
+        }
+      }
     }
     var homeDiv = $('home');
     var timelineDiv = $('timeline');

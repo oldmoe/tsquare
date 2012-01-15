@@ -16,8 +16,8 @@ var ScoreCalculator = Class.create({
   
   crowdsCount: 0,
   
-  totalObjectives: 100,
-  correctObjectiveCount: 80,
+  totalObjectives: 1, //This is set for one, because there is a mandatory objective to be alive and not lose the mission
+  correctObjectiveCount: 0,
   
   comboLevel: 1,
   comboCount: 0,
@@ -29,14 +29,14 @@ var ScoreCalculator = Class.create({
   
   initialize: function(scene){
     this.scene = scene;
-    this.missionTime = missionData.missionTime;
-    this.superTime = missionData.superTime;
+    this.missionTime = missionData.missionTime || 120;
+    this.superTime = missionData.superTime || this.missionTime;
     this.gameTime = this.missionTime;
     this.remainingTime = this.missionTime-this.superTime;
     
     var self = this;
     this.scene.observe("start", function(){self.start();})
-    this.scene.observe("setObjectivesCount", function(objectives){self.totalObjectives = objectives;})
+    this.scene.observe("incrementObjectivesCount", function(){self.totalObjectives += 1;})
     this.scene.observe('wrongMove',function(){self.wrongMove()})
     this.scene.observe('correctMove',function(){self.correctMove()})
     this.scene.observe('correctObjective',function(){self.correctObjective()})
@@ -102,7 +102,7 @@ var ScoreCalculator = Class.create({
   },
   
   getObjectivesRatio: function(){
-    return Number(this.correctObjectiveCount/this.totalObjectives).toFixed(2);
+    return Number(this.correctObjectiveCount/this.totalObjectives);
   },
   
   updateTime: function(){

@@ -64,38 +64,8 @@ var SettingsHandler = new Class.create({
 		$("missionDetails_ar").observe("keyup", function(event){
 		  self.settings.missionDetails_ar = event.target.value;
 		})
-    
-    $(this.missionContainerId).select('input[name=missionImageInput]')[0].observe('change', function(e){
-      self.uploadMissionImage(e.currentTarget.files[0]);
-    });
-
-    $(this.missionContainerId).select('input[name=stuffImageInput]')[0].observe('change', function(e){
-      self.uploadStuffImage(e.currentTarget.files[0]);
-    });
 		
 	},
-	
-	uploadMissionImage: function(file){
-    var oFReader = new FileReader()
-    oFReader.readAsDataURL(file);
-    var self = this;
-    oFReader.onloadend = function(e){
-      if(!self.settings.missionImages)self.settings.missionImages = {};
-      self.settings.missionImages.missionImage = oFReader.result; 
-      $("missionImage").src = self.settings.missionImages.missionImage; 
-    }
-	},
-
-  uploadStuffImage: function(file){
-    var oFReader = new FileReader()
-    oFReader.readAsDataURL(file);
-    var self = this;
-    oFReader.onloadend = function(e){
-      if(!self.settings.missionImages)self.settings.missionImages = {};
-      self.settings.missionImages.stuffImage = oFReader.result; 
-      $("stuffImage").src = self.settings.missionImages.stuffImage; 
-    }
-  },
 	
 	init: function(){
 	  $("missionDetails").setValue("");
@@ -133,11 +103,6 @@ var SettingsHandler = new Class.create({
 	  
 	  if(settings.environment)this.settings.environment=settings.environment;
 	  
-	  if(settings.missionImages){
-	    this.settings.missionImages = settings.missionImages;
-	    $("missionImage").src = settings.missionImages.missionImage;
-	    $("stuffImage").src = settings.missionImages.stuffImage;
-	  }
 	},
 	
 	addEnergyMessage: function(){

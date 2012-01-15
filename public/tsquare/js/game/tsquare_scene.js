@@ -75,13 +75,14 @@ var TsquareScene = Class.create(Scene,{
        for(var j=0;j<this.data[1].length;j++){
          var elem = this.data[1][j];
          if( elem.targetTile ){
-            this.data[0].push({
-                category : "protection",
-                lane : 0,
-                name : "ambulance",
-                x : elem.targetTile,
-                noenemy : true
-              });
+           this.fire('incrementObjectivesCount');
+           this.data[0].push({
+               category : "protection",
+               lane : 0,
+               name : "ambulance",
+               x : elem.targetTile,
+               noenemy : true
+             });
          }
        }
        for(var i =0;i<this.data.length;i++){
@@ -187,7 +188,6 @@ var TsquareScene = Class.create(Scene,{
     },
     
     wrongCommand: function(){
-//      console.log("scene wrong command");
     },
     
     correctCommand: function(){
@@ -225,33 +225,38 @@ var TsquareScene = Class.create(Scene,{
         this.stopped = true;
         
         var scoreData = {};
-        
-        if(this.handlers.crowd.ended || this.scoreCalculator.gameTime < 0 || this.scoreCalculator.getObjectivesRatio() < 0.3){
-          
-          scoreData = {
+        var failingScoreData = {
             score: 0,
-            objectives: 0,
-            combos: 0,
+            objectives: this.scoreCalculator.getObjectivesRatio().toFixed(2),
+            combos: this.scoreCalculator.getCombos(),
             win: false,
             superTime: 0,
             stars: 0
           };
-
+        
+        if(this.handlers.crowd.ended || this.scoreCalculator.gameTime < 0 ){
+          scoreData = failingScoreData;
         }else{
           var superTime = false;
           if(this.scoreCalculator.gameTime > this.scoreCalculator.superTime) superTime = true;
           
-          scoreData = {
-            score: this.scoreCalculator.score,
-            objectives: this.scoreCalculator.getObjectivesRatio(),
-            combos: this.scoreCalculator.getCombos(),
-            win: true,
-            superTime: superTime,
-            stars: 0
-          };
+          this.fire('correctObjective'); //Ending the mission alive is a correct objective
+          
+          if( this.scoreCalculator.getObjectivesRatio() < 0.3 ){
+            scoreData = failingScoreData;
+          } else {
+            scoreData = {
+              score: this.scoreCalculator.score,
+              objectives: this.scoreCalculator.getObjectivesRatio().toFixed(2),
+              combos: this.scoreCalculator.getCombos(),
+              win: true,
+              superTime: superTime,
+              stars: 0
+            };
+          }
           
           if (scoreData.win) scoreData.stars += 1;
-          if (scoreData.objectives == 1)scoreData.stars += 1;
+          if (this.scoreCalculator.getObjectivesRatio() == 1)scoreData.stars += 1;
           if (scoreData.superTime) scoreData.stars += 1;
         }
         
@@ -397,8 +402,9 @@ var TsquareScene = Class.create(Scene,{
    
    tileChanged : function(){
      var self = this;
-     if( this.rescuing && this.rescuing.targetTile == this.currentTile){
+     if( this.rescuing && !this.rescuing.rescued && this.rescuing.targetTile == this.currentTile){
        this.rescuing.rescued = true;
+       this.fire("correctObjective");
        this.rescuing.messageBubble.destroy();
        if( this.rescuing.mission == "retrieve" ){
          this.rescuing.fire("back");

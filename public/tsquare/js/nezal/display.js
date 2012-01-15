@@ -62,6 +62,18 @@ var Display = Class.create({
   
   getHeight: function(){
     return this.imgHeight
+  },
+  
+  show : function(){
+    for(var sprite in this.sprites){
+      this.sprites[sprite].show()
+    }
+  },
+  
+  hide : function(){
+    for(var sprite in this.sprites){
+      this.sprites[sprite].hide()
+    }
   }
   
 });

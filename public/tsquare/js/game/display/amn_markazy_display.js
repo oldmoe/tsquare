@@ -116,7 +116,7 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
     this.owner.removed = true      // to remove the display object from render loop
     var self = this
     this.sprites.shadow.hide()
-    Effects.pulsateFadeUp(this.sprites.block.div, function(){self.destroy(true)})
+    Effects.pulsateFadeDown(this.sprites.block.div, function(){self.destroy(true)})
   }
   
 })

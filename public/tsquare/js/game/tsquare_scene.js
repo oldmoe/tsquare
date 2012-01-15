@@ -158,6 +158,8 @@ var TsquareScene = Class.create(Scene,{
       this.movementManager.run();
       // this.flashingHandler.run();
       this.handlers.crowd.playHetafLoop();
+      this.comboDisplay = new ComboDisplay(this);
+      this.pushToRenderLoop('characters', this.comboDisplay)
       var self = this;
       this.reactor.pushEvery(0,10, function(){return self.updateSpeed()})
     },

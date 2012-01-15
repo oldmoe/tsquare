@@ -65,7 +65,7 @@ var TearGasGunnerCsDisplay = Class.create(EnemyDisplay,{
     this.owner.removed = true      // to remove the display object from render loop
     var self = this
     this.sprites.shadow.hide()
-    Effects.pulsateFadeUp(this.sprites.walking.div, function(){self.destroy(true)})
+    Effects.pulsateFadeDown(this.sprites.walking.div, function(){self.destroy(true)})
   }
 
 

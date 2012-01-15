@@ -63,7 +63,6 @@ var Timeline = Class.create(UIManager, {
 
   displayHome : function() {
     $$(".walkingCrowdMemeber")[0].show();
-
     if($$('.background')[0]){
       var newImg = Loader.images['timeline']['home_background.gif'].clone();
       $(newImg).addClassName("background");
@@ -117,8 +116,9 @@ var Timeline = Class.create(UIManager, {
     this.currentMissionIndex = 0;
     for(var i in this.gameManager.missions[this.mode])
     {
-      this.gameManager.missions[this.mode][i].challenge = null; 
-      if(this.gameManager.userData.missions[this.mode][i] || this.gameManager.userData.current_mission[this.mode] == i)
+      this.gameManager.missions[this.mode][i].challenge = null;
+      
+      if(!this.gameManager.missions[this.mode][i].locked && (this.gameManager.userData.missions[this.mode][i] || this.gameManager.userData.current_mission[this.mode] == i))
         this.gameManager.missions[this.mode][i]['playable'] = true;
       else
         this.gameManager.missions[this.mode][i]['playable'] = false;

@@ -14,26 +14,45 @@ var MessagesHandler = Class.create(UnitHandler, {
     $super(scene);
     
     this.messages.en = {
-      "protectionUnit" : [
-        "Please help me, help me !!",
-        "Hi there, protect me please"
-      ],
+      "protectionUnit" : {
+        "start" : [
+          "Please help me, help me !!",
+          "Hi there, protect me please"
+        ],
+        "end" : [
+          "Thank you",
+          "Thanks"
+        ]
+      },
       
-      "enemy" : [
-        "Attack!",
-        "Attack them!"
-      ]
+      "enemy" : {
+       "start" : [
+          "Attack!",
+          "Attack them!"
+        ],
+        "end" : [
+        ] 
+      }
     }
     this.messages.ar = {
-      "protectionUnit" : [
-        "النجدة!!",
-        "الحقوني!!"
-      ],
+      "protectionUnit" : {
+        "start" : [
+          "النجدة!!",
+         "الحقوني!!"
+        ],
+        "end" : [
+          "شكراً!!"
+        ]  
+      },
       
-      "enemy" : [
-        "الهجوم!",
-        "خلص عليهم!"
-      ]
+      "enemy" : {
+       "start" : [
+          "الهجوم!",
+         "خلص عليهم!"
+        ], 
+        "end" : [
+        ] 
+      }
     }
     
     var self = this;
@@ -57,7 +76,7 @@ var MessagesHandler = Class.create(UnitHandler, {
      }
      this.currentGameMode = this.scene.movementManager.currentMode; 
      this.scene.movementManager.currentMode = this.scene.movementManager.modes.conversation;
-     new Effect.Fade('guidingBar', {duration : 2});
+     $('guidingBar').hide();
      new Effect.Move('topScope', {y:this.scopeHeight});
      new Effect.Move('bottomScope', {y:-this.scopeHeight});
      $$('.contuineReading').first().show();
@@ -70,7 +89,7 @@ var MessagesHandler = Class.create(UnitHandler, {
   
   endConversation: function(){
     this.scene.movementManager.currentMode = this.currentGameMode;
-    new Effect.Appear('guidingBar');
+    $('guidingBar').show();
     new Effect.Move('topScope', {y:-this.scopeHeight});
     new Effect.Move('bottomScope', {y:this.scopeHeight});
     $$('.contuineReading').first().hide();
@@ -94,13 +113,18 @@ var MessagesHandler = Class.create(UnitHandler, {
     if(delay)this.scene.reactor.push(delay, this.removeCrowdBubble, this);
   },
   
-  randomMessage: function(type) {
-  	var allMessages = this.messages[game.properties.lang][type];
+  randomStartMessage: function(type) {
+  	var allMessages = this.messages[game.properties.lang][type]['start'];
+    return allMessages[Math.round(Math.random()*(allMessages.length-1))];
+  },
+
+  randomEndMessage: function(type) {
+    var allMessages = this.messages[game.properties.lang][type]['end'];
     return allMessages[Math.round(Math.random()*(allMessages.length-1))];
   },
 
   showBubble: function(type, coords) {
-    var message = this.randomMessage(type);
+    var message = this.randomStartMessage(type);
     var bubble = new Bubble(this.scene, coords.x, coords.y, message);
     var bubbleDisplay = new BubbleDisplay(bubble);
     this.scene.pushToRenderLoop('characters', bubbleDisplay);

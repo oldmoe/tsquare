@@ -8,10 +8,10 @@ var SettingsHandler = new Class.create({
 		
 	initialize: function(levelEditor){
 		this.levelEditor = levelEditor;
+		this.settings.locked = false;
 		this.settings.introMsg = "";
 		this.settings.environment = "day";
 		this.settings.gameModes = ['normal'];
-		this.settings.missionImages = {};
 		
 		this.init();
 		
@@ -47,6 +47,10 @@ var SettingsHandler = new Class.create({
 						self.settings.gameModes.splice(self.settings.gameModes.indexOf(event.target.value), 1);
 				}
 			});		
+		});
+		
+		$(this.containerId).select('input[name=missionLock]')[0].observe('change', function(event){
+		  self.settings.locked = event.target.checked;
 		});
 		
 		$("missionDetails").observe("keyup", function(event){
@@ -103,12 +107,16 @@ var SettingsHandler = new Class.create({
 	  
 	  if(settings.environment)this.settings.environment=settings.environment;
 	  
+	  if(settings.locked){
+	    this.settings.locked = settings.locked;
+	    $(this.containerId).select('input[name=missionLock]')[0].checked = "checked";
+    }	  
 	},
 	
 	addEnergyMessage: function(){
-	  	var obj = {};
-	  	obj.energy = $('energyValue').value;
-	  	obj.message = $('energyMessage').value;
+  	var obj = {};
+  	obj.energy = $('energyValue').value;
+  	obj.message = $('energyMessage').value;
 	  	
 		if(!this.settings.energy)this.settings.energy = [];
 		

@@ -9,11 +9,11 @@ var CrowdMember = Class.create(Unit,{
   rotationPoints : null,
   rotationSpeed : 35,
   rotating : false,
-  pushing : false,
   holdingLevel: 0,
-  pushDirections : {forward:0,backward:1},
+  pushing : false,
+  pushDirections : {prepare:0, forward:1,backward:2},
   pushDirection : 0,
-  maxPushDisplacement : 100,
+  maxPushDisplacement : 150,
   extraSpeed : 0,
   moved : 0,
   endPosition : 1050,
@@ -25,6 +25,8 @@ var CrowdMember = Class.create(Unit,{
   laneIndex: 0,
   posChanged: false,
   hitCounter: 0,
+  pushSpeed : 5,
+  pushPrepareSpeed : 3,
   initialize : function($super,specs,options){
     $super(options.scene, 0, options.scene.activeLane, options)
     this.specs = specs;
@@ -137,7 +139,7 @@ var CrowdMember = Class.create(Unit,{
     }
     
     if(!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y - this.originalPosition.y) > 1)){
-      if(this.fixedPlace){
+      if(this.fixedPlace && !this.handler.pushing){
           this.moveToTarget(this.originalPosition)
       }else{
 //          this.fire('walk')
@@ -161,7 +163,7 @@ var CrowdMember = Class.create(Unit,{
  
   updateState: function(){
     this.water-=this.waterDecreaseRate
-    if(this.water <= 0) this.dead = true;   
+    if(this.water <= 0) this.die();   
   },
    
   checkFollowersState : function(move){
@@ -278,13 +280,16 @@ var CrowdMember = Class.create(Unit,{
     }
     if(this.pushDirection == this.pushDirections.forward){
       return this.pushForward(target)
+    }else if(this.pushDirection == this.pushDirections.backward){
+      return this.pushBackward(target) 
     }else{
-      return this.pushBackward(target)
+      return this.pushPrepare(target)
     }        
   },
   
   pushForward : function(target){
-    displacement = this.scene.currentSpeed +this.moved*0.2
+    if(this.moved==0)this.fire('run')
+    displacement = this.pushSpeed +this.moved*0.3
     this.moved+= Math.abs(displacement)
     this.move(displacement,0)
      if(this.coords.x + this.getWidth()/2 > target.coords.x){
@@ -293,20 +298,35 @@ var CrowdMember = Class.create(Unit,{
   },
   
   pushBackward : function(target){
-    displacement = -1 *(this.scene.currentSpeed + (this.maxPushDisplacement-this.moved)*0.2)
+    if(this.moved==0)this.fire('walk')
+    displacement = -1 *(this.pushSpeed + (this.maxPushDisplacement-this.moved)*0.1)
     this.moved+= Math.abs(displacement)
     this.move(displacement,0)
-    if (this.moved > this.maxPushDisplacement) {
+    if (this.moved > this.maxPushDisplacement - 60) {
       return true
     }
   },
   
-  reversePushDirection : function(){
-    this.pushDirection = 1 - this.pushDirection
+  pushPrepare : function(){
+    if (this.moved == 0) {
+      this.fire('walk')
+      this.moveBack = true
+    }
+    displacement = -1 *(this.pushPrepareSpeed + (this.maxPushDisplacement-this.moved)*0.1)
+    this.moved+= Math.abs(displacement)
+    this.move(displacement,0)
+    if (this.moved > this.maxPushDisplacement) {
+        this.moveBack = false
+        return true
+    }
+  },
+  
+  nextPushState : function(){
+    this.pushDirection = (this.pushDirection + 1) % 3 
     this.moved = 0
     for(var i=0;i<this.followers.length;i++){
       if(!this.followers[i].back)
-        this.followers[i].reversePushDirection()
+        this.followers[i].nextPushState()
     }
   },
   
@@ -352,8 +372,8 @@ var CrowdMember = Class.create(Unit,{
   setTarget: function($super,target){
     if(target && target.chargeTolerance > 0 && this.target!=target){
         this.scene.direction = 0
-    }//else if(target == null && this.rotating)return  
-    $super(target)
+    }
+    $super(target)  
   },
   
   move: function($super, dx, dy){

@@ -684,6 +684,27 @@ Effect.FadeUp = function(element) {
       }, arguments[1] || { }));
 };
 
+Effect.FadeDown = function(element) {
+  element = $(element);
+  var oldStyle = {
+    top: element.getStyle('top'),
+    left: element.getStyle('left'),
+    opacity: element.getInlineOpacity() };
+  return new Effect.Parallel(
+    [ new Effect.Move(element, {x: 0, y: 100, sync: true }),
+      new Effect.Opacity(element, { sync: true, to: 0.0 }) ],
+    Object.extend(
+      { duration: 0.5,
+        beforeSetup: function(effect) {
+          effect.effects[0].element.makePositioned();
+        },
+        afterFinishInternal: function(effect) {
+          effect.effects[0].element.hide().undoPositioned().setStyle(oldStyle);
+        }
+      }, arguments[1] || { }));
+};
+
+
 Effect.FadeLeft = function(element) {
   element = $(element);
   var oldStyle = {

@@ -57,7 +57,7 @@ var MessagesHandler = Class.create(UnitHandler, {
      }
      this.currentGameMode = this.scene.movementManager.currentMode; 
      this.scene.movementManager.currentMode = this.scene.movementManager.modes.conversation;
-     new Effect.Fade('guidingBar', {duration : 2});
+     $('guidingBar').hide();
      new Effect.Move('topScope', {y:this.scopeHeight});
      new Effect.Move('bottomScope', {y:-this.scopeHeight});
      $$('.contuineReading').first().show();
@@ -70,7 +70,7 @@ var MessagesHandler = Class.create(UnitHandler, {
   
   endConversation: function(){
     this.scene.movementManager.currentMode = this.currentGameMode;
-    new Effect.Appear('guidingBar');
+    $('guidingBar').show();
     new Effect.Move('topScope', {y:-this.scopeHeight});
     new Effect.Move('bottomScope', {y:this.scopeHeight});
     $$('.contuineReading').first().hide();

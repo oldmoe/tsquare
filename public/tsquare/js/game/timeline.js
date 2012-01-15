@@ -189,7 +189,6 @@ var Timeline = Class.create(UIManager, {
           challengeDiv.show();
           var element = $$('.timelineMissions')[0].select('[missionid='+challenge.data.mission+']')[0];
           $(challengeDiv).setStyle({top: ($(element).positionedOffset().top-17)+"px", left: ($(element).positionedOffset().left-78)+"px"});
-          console.log($(challengeDiv).positionedOffset());
           challengeDiv.setStyle({'zIndex':11});
         }
       }
@@ -313,9 +312,8 @@ var Timeline = Class.create(UIManager, {
       
       element.observe('mouseout', function(event) {
         element.removeClassName('selected');
-        var elem = $$(".timelineMissions")[0].children;
-        if(elem.length > 1)
-          elem[elem.length-1].remove();
+        var elem = $$(".timelineMissions .missionTitle")[0];
+        if(elem)elem.remove();
       });
       
       element.observe('click', function(event) {

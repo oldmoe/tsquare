@@ -256,7 +256,7 @@ var TsquareScene = Class.create(Scene,{
           }
           
           if (scoreData.win) scoreData.stars += 1;
-          if (scoreData.objectives == 1)scoreData.stars += 1;
+          if (this.scoreCalculator.getObjectivesRatio() == 1)scoreData.stars += 1;
           if (scoreData.superTime) scoreData.stars += 1;
         }
         

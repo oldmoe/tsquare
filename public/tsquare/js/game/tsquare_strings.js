@@ -8,7 +8,7 @@ tsquare_strings.ar = {};
 
 function t(stringKey, argv) {
   var s = tsquare_strings[game.properties.lang][stringKey];
-  if (argv) for (var i in argv) s = s.replace('{' + i + '}', argv[i]);
+  if (argv) for (var i = 0; i < argv.length; i++) s = s.replace('{' + i + '}', argv[i]);
   return s;
 }
 

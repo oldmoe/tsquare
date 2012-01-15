@@ -8,7 +8,8 @@ var TwitterGuyDisplay = Class.create(Display,{
     this.imgWidth = this.img.width
     $super(owner)
     
-    if(Math.random() <= 0.5)this.showText();
+    this.showText();
+    // if(Math.random() <= 0.5)this.showText();
   },
 
   createShadows: function(){
@@ -41,7 +42,7 @@ var TwitterGuyDisplay = Class.create(Display,{
       width: this.baloonImg.width,
       height: this.baloonImg.height,
       shiftY:-120,
-      shiftX:0
+      shiftX:-108
     })
     
     this.sprites.text = new DomTextSprite(this.owner,"textInfo", {
@@ -49,7 +50,7 @@ var TwitterGuyDisplay = Class.create(Display,{
         height: 70,
         centered: true,
         shiftY: -103,
-        shiftX: 8,
+        shiftX: -100,
         styleClass: '',
         divClass: 'message'
     });

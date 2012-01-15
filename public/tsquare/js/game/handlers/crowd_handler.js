@@ -56,7 +56,6 @@ var CrowdHandler = Class.create(UnitHandler, {
                var specs = gameData.crowd_members.specs[category][level]
                this.addCrowdMember(crowdType,specs)
            }
-           break;
        } 
     },
     

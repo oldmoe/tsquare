@@ -288,7 +288,6 @@ var CrowdMember = Class.create(Unit,{
   },
   
   pushForward : function(target){
-    console.log('follower',this.moved)
     if(this.moved==0)this.fire('run')
     displacement = this.pushSpeed +this.moved*0.3
     this.moved+= Math.abs(displacement)
@@ -314,7 +313,6 @@ var CrowdMember = Class.create(Unit,{
       this.moveBack = true
     }
     displacement = -1 *(this.pushPrepareSpeed + (this.maxPushDisplacement-this.moved)*0.1)
-    console.log(displacement, "crowd", this.coords.x)
     this.moved+= Math.abs(displacement)
     this.move(displacement,0)
     if (this.moved > this.maxPushDisplacement) {

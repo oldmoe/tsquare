@@ -18,7 +18,7 @@ var Block = Class.create(Enemy,{
       }
       this.options = options
       
-      this.text = this.scene.handlers.message.randomMessage('enemy')
+      this.text = this.scene.handlers.message.randomStartMessage('enemy')
     },
     
     textInfo: function(){

@@ -559,6 +559,9 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .bandageMessage { position:absolute; top:155px; left:160px; z-index:18; }
 .bandageMessage span { position:absolute; top:100px; left:190px; font-size:3.5em; color:#000; z-index:19; font-weight:bold; color:#ff7800; text-shadow:1px 1px 0 #fff7e2; }
 
+
+.errorMessage { position:absolute; top:155px; left:115px; z-index:18; }
+
 .crowdMessage { position:absolute; top:155px; left:160px; z-index:19; }
 .crowdMessage span { position:absolute; top:76px; left:86px; font-size:3.5em; color:#000; z-index:20; font-weight:bold; color:#ff7800; text-shadow:1px 1px 0 #fff7e2; }
 

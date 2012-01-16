@@ -115,7 +115,7 @@ var GuidingIcon = Class.create(Observer,{
   pressLate: function(){
     this.wrongPress(this.moveIndex+1);
     var self = this;
-    this.scene.reactor.push(5, function(){self.reset(self.moveIndex+1);});
+    this.scene.reactor.push(2, function(){self.reset(4);});
   },
   
   tick: function(){

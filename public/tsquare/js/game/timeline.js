@@ -268,10 +268,12 @@ var Timeline = Class.create(UIManager, {
 
   attachHomeListener : function(){
     var self = this;
-    $$('#home .timelineButton').each(function(element){
-      element.observe('click', function(event){
+
+    $$('#home .timelineButton')[0].observe('click', function(event){
         self.displayCalender();
       });
+
+    $$('#home .timelineButton').each(function(element){
       element.observe('mouseover', function(event){
         var pos = element.getLayout().element.offsetLeft + element.getWidth()/2;  
         self.walkingMan.moveTo(pos-30);
@@ -281,6 +283,11 @@ var Timeline = Class.create(UIManager, {
 
   attachCalenderListener : function(){
     var self = this;
+
+    $$('#timeline .calendar')[0].observe('click', function(event){
+        self.displayMissions();
+    });
+
     $$('#timeline .calendar').each(function(element){
       element.observe('click', function(event){
         self.displayMissions();

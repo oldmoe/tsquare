@@ -12,7 +12,7 @@ var InGameMeterBar = Class.create({
     this.currentEnergy = -1;
     this.xPos = this.game.scene.view.xPos;
 
-    var images = ["level_meter_crowd.png", "level_meter_highlighted.png", "level_meter.png", "timer.png", "power_bar.png", "power_level01.png", "power_level02.png", "power_level03.png", "power_level04.png"];
+    var images = ["level_meter_crowd.png", "level_meter_highlighted.png", "level_meter.png", "timer.png", "power_bar.png", "power_level01.png", "power_level02.png", "power_level03.png", "power_level04.png", "combo.png"];
     var self = this;
     new Loader().load([{images: images, path: 'images/game_elements/', store: 'game_elements'}],
           {onFinish:function(){        

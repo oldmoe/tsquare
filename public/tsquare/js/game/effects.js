@@ -91,5 +91,18 @@ var Effects = {
         })
       }
     })
+  },
+  pulsateFadeDown : function(element,afterFinishCallback ){
+   new Effect.Pulsate(element, {
+      duration: 0.8,
+      afterFinish: function(){
+       new Effect.FadeDown(element, {
+          duration: 1,
+          afterFinish: function(){
+            if(afterFinishCallback)afterFinishCallback()
+          }
+        })
+      }
+    })
   }
 }

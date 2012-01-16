@@ -346,7 +346,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 
 .objectives { position:absolute; z-index:6; color:#f6d000; top:155px; left:50px; font-size:1.5em; font-weight:bold; }
-.objectives strong { font-size:6.4em; width:100%; display:block; }
+.objectives strong { font-size:5.2em; width:100%; display:block; }
 .objectives strong small { font-size:.3em; }
 
 *--------In Game meters-----------*/

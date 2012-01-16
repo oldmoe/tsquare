@@ -109,7 +109,7 @@ var MissionManager = Class.create({
     if(this.donePosting && this.endAnimationDone){
       this.sortFriends();
       var screenName = (this.score.win == true) ? 'win' : 'lose';
-      var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] ? true : false;
+      var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] && !this.gameManager.missions[this.mode][this.currentMission.next].locked ? true : false;
       $('winLose').innerHTML = this.templateManager.load(screenName, {'friends' : this.friends.slice(this.rank+1, this.rank+4),
                                'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score, next : nextMission });
       Game.addLoadedImagesToDiv('winLose');

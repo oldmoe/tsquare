@@ -275,6 +275,7 @@ var TsquareScene = Class.create(Scene,{
     
     finish : function(callback){
       this.fire(this.speeds[this.lastSpeedIndex].state)
+      this.fire("hideGuidingIcon");
       this.handlers.crowd.marchOut(callback);
     },
     

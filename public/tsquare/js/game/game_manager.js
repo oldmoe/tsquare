@@ -25,7 +25,7 @@ var GameManager = Class.create({
                               Loader.sounds.intro['menus_background.mp3'].play();
                               $('inProgress').hide();
                               self.selectLanguage("en");
-                            }}, time);
+                            }}, 100);
               Loader.sounds.intro['intro.mp3'].loop = true;
               Loader.sounds.intro['intro.mp3'].play({loop:true,loops:1000});
               $('inProgress').show();
@@ -56,7 +56,10 @@ var GameManager = Class.create({
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
                               $('inProgress').hide();
-                              if(!game || !game.properties.lang)game.properties.lang = "en"
+                              if (!self.langSetted) {
+                                self.langSetted = true
+                                self.selectLanguage("en");
+                              }
                             }
                           }
                        });

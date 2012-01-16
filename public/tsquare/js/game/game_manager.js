@@ -66,7 +66,7 @@ var GameManager = Class.create({
     self.marketplace = new Marketplace(this);
     self.timelineManager = new Timeline(this);
     self.missionManager = new MissionManager(this);
-    if(!game)game = new Game(this);
+    if(!self.game)game = new Game(this);
     self.game = game;
   },
   
@@ -82,10 +82,10 @@ var GameManager = Class.create({
   selectLanguage: function(lang) {
   	if (lang == 'عربي') {
   	  game.properties.lang = 'ar';
-  	  document.body.classList.add('ar');
+  	  $(document.body).addClassName('ar');
   	} else {
   	  game.properties.lang = 'en';
-      document.body.classList.remove('ar');
+      $(document.body).removeClassName('ar');
   	}
     $('uiContainer').show();
     // TODO: implement proper re-rendering mechanism

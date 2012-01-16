@@ -158,14 +158,17 @@ var Timeline = Class.create(UIManager, {
       
       var missionsDivs = $$(".missionMarker");
       for (var i=0; i < missionsDivs.length; i++) {
+        missionsDivs[i].children[1].setStyle({display:'block'});
         if(i < ids.length){
           missionsDivs[i].setAttribute("missionid", ids[i]);
-          if(self.gameManager.missions[self.mode][ids[i]].playable == false)
-             missionsDivs[i].firstChild.addClassName("disabled");
-
-          if(ids[i] == Number(self.gameManager.userData.current_mission[self.mode]))
+          if(self.gameManager.missions[self.mode][ids[i]].playable == false){
+            missionsDivs[i].firstChild.addClassName("disabled");
+          }else{
+            missionsDivs[i].children[1].setStyle({display:'none'});
+          }
+          if(ids[i] == Number(self.gameManager.userData.current_mission[self.mode])){
             missionsDivs[i].firstChild.addClassName("current");
-
+          }
         }else{
           missionsDivs[i].firstChild.addClassName("disabled");
         } 
@@ -289,9 +292,6 @@ var Timeline = Class.create(UIManager, {
     });
 
     $$('#timeline .calendar').each(function(element){
-      element.observe('click', function(event){
-        self.displayMissions();
-      });
       element.observe('mouseover', function(event){
         var count = event.element().parentNode.parentNode.parentNode.children.length;
         var gap = 20;
@@ -308,7 +308,7 @@ var Timeline = Class.create(UIManager, {
       element.observe('mouseover', function(event) {
         element.addClassName('selected');
         var mission  = self.gameManager.missions[self.mode][element.getAttribute("missionid")];
-        if(mission){
+        if(mission && !mission.locked){
           var missionTitle = self.templateManager.load('missionTitle', {'title':mission.name, 'stars':mission.score.stars});
           var container = $$(".timelineMissions")[0];
           container.insert({bottom:missionTitle}); 
@@ -324,7 +324,8 @@ var Timeline = Class.create(UIManager, {
       });
       
       element.observe('click', function(event) {
-        if(self.gameManager.missions[self.mode][parseInt(element.getAttribute("missionid"))])
+        var mission = self.gameManager.missions[self.mode][parseInt(element.getAttribute("missionid"))];
+        if(mission && !mission.locked)
           self.displayMissionDetails(parseInt(element.getAttribute("missionid")));
       });
     });

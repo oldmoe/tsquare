@@ -576,6 +576,8 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 .ar .calendarWrapper ul li { float:right; }
 .ar .homeWrapper ul li { float:right; }
+.ar .missionSide { margin:47px 0 0 0; }
+.ar .missionContent { margin:50px 0 0 0; } 
 
 
 .langBtn { position:absolute; top:15px; right:10px; width:39px; height:40px; z-index:12; overflow:hidden; cursor:pointer; }

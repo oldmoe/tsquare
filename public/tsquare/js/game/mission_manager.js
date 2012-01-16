@@ -19,6 +19,8 @@ var MissionManager = Class.create({
                           path: 'images/friends/', store: 'friends' }, 
                         {images : ["paused_screen.png", "play_btn.png", "exit_btn.png", "controls_area.png"], 
                           path: 'images/game_elements/', store: 'game_elements' },
+                          {images_ar : ["paused_screen.png"], 
+                          path: 'images/ar/game_elements/', store: 'game_elements' }
                       ],
                       {
                         onFinish: function(){

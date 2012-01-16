@@ -19,6 +19,8 @@ var MissionManager = Class.create({
                           path: 'images/friends/', store: 'friends' }, 
                         {images : ["paused_screen.png", "play_btn.png", "exit_btn.png", "controls_area.png"], 
                           path: 'images/game_elements/', store: 'game_elements' },
+                          {images_ar : ["paused_screen.png"], 
+                          path: 'images/ar/game_elements/', store: 'game_elements' }
                       ],
                       {
                         onFinish: function(){
@@ -107,7 +109,7 @@ var MissionManager = Class.create({
     if(this.donePosting && this.endAnimationDone){
       this.sortFriends();
       var screenName = (this.score.win == true) ? 'win' : 'lose';
-      var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] ? true : false;
+      var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] && !this.gameManager.missions[this.mode][this.currentMission.next].locked ? true : false;
       $('winLose').innerHTML = this.templateManager.load(screenName, {'friends' : this.friends.slice(this.rank+1, this.rank+4),
                                'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score, next : nextMission });
       Game.addLoadedImagesToDiv('winLose');

@@ -183,7 +183,7 @@ var Game = Class.create({
 
 Game.addLoadedImagesToDiv = function(divId){
   $$('#' + divId + ' .loadedImg').each(function(imgSpan){
-  	var langSensitive = imgSpan.classList.contains('lang');
+  	var langSensitive = imgSpan.hasClassName('lang');
     var classes = null
     if (imgSpan.getAttribute('imgClasses')) {
       var classes = imgSpan.getAttribute('imgClasses').split('-')

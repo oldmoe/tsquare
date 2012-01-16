@@ -19,7 +19,7 @@ var Timeline = Class.create(UIManager, {
     this.loader.load([ {images : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png", "coming_soon_missions.png",
                                   "home_background.gif", "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
                                   "mission_current.png", "mySquare_screen.png",
-                                  "mission_locked.png", "mission_finished.png", "crowd_member_small.png", "challenge_box.png",
+                                  "mission_locked.png", "mission_finished.png", "crowd_member_small.png", "challenge_box.png", "lock.png",
                                   "mission_icon_selected.png", "play_button.png", "map_background.gif"], path: 'images/timeline/', store: 'timeline'},
                        {images_ar : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png",
                                   "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
@@ -155,25 +155,29 @@ var Timeline = Class.create(UIManager, {
       
       $('timeline').innerHTML = self.templateManager.load('missions', {'missions' : self.gameManager.missions[self.mode],
                'currentMission' : self.gameManager.userData.current_mission[self.mode], 'challenge' : challenge});
-      
-      var missionsDivs = $$(".missionMarker");
-      for (var i=0; i < missionsDivs.length; i++) {
-        if(i < ids.length){
-          missionsDivs[i].setAttribute("missionid", ids[i]);
-          if(self.gameManager.missions[self.mode][ids[i]].playable == false)
-             missionsDivs[i].firstChild.addClassName("disabled");
-
-          if(ids[i] == Number(self.gameManager.userData.current_mission[self.mode]))
-            missionsDivs[i].firstChild.addClassName("current");
-
-        }else{
-          missionsDivs[i].firstChild.addClassName("disabled");
-        } 
-      };
                
       self.attachMissionsListener();
       Game.addLoadedImagesToDiv('timeline');
       self.displayChallenges();
+
+      var missionsDivs = $$(".missionMarker");
+      for (var i=0; i < missionsDivs.length; i++) {
+        missionsDivs[i].children[1].setStyle({display:'block'});
+        if(i < ids.length){
+          missionsDivs[i].setAttribute("missionid", ids[i]);
+          if(self.gameManager.missions[self.mode][ids[i]].playable == false){
+            missionsDivs[i].firstChild.addClassName("disabled");
+          }else{
+            missionsDivs[i].children[1].setStyle({display:'none'});
+          }
+          if(ids[i] == Number(self.gameManager.userData.current_mission[self.mode])){
+            missionsDivs[i].firstChild.addClassName("current");
+          }
+        }else{
+          missionsDivs[i].firstChild.addClassName("disabled");
+        } 
+      };
+
       $('timeline').show();
       
       var newImg = Loader.images['timeline']['map_background.gif'].clone();
@@ -289,9 +293,6 @@ var Timeline = Class.create(UIManager, {
     });
 
     $$('#timeline .calendar').each(function(element){
-      element.observe('click', function(event){
-        self.displayMissions();
-      });
       element.observe('mouseover', function(event){
         var count = event.element().parentNode.parentNode.parentNode.children.length;
         var gap = 20;
@@ -308,7 +309,7 @@ var Timeline = Class.create(UIManager, {
       element.observe('mouseover', function(event) {
         element.addClassName('selected');
         var mission  = self.gameManager.missions[self.mode][element.getAttribute("missionid")];
-        if(mission){
+        if(mission && !mission.locked){
           var missionTitle = self.templateManager.load('missionTitle', {'title':mission.name, 'stars':mission.score.stars});
           var container = $$(".timelineMissions")[0];
           container.insert({bottom:missionTitle}); 
@@ -324,7 +325,8 @@ var Timeline = Class.create(UIManager, {
       });
       
       element.observe('click', function(event) {
-        if(self.gameManager.missions[self.mode][parseInt(element.getAttribute("missionid"))])
+        var mission = self.gameManager.missions[self.mode][parseInt(element.getAttribute("missionid"))];
+        if(mission && !mission.locked)
           self.displayMissionDetails(parseInt(element.getAttribute("missionid")));
       });
     });

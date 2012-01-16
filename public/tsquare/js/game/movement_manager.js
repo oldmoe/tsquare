@@ -164,7 +164,7 @@ var MovementManager = Class.create({
               this.scene.fire("keypressed", [click, self.move.length, 1])
             }
       }else{
-        if(now > this.time + beatTime - this.tolerance){
+        if(now > this.time + beatTime - this.tolerance){//correct time because if now value is larger and reset is not called so it means time is correct 
           this.move.push(click)
           this.counter++
           var delayDiff = this.time + beatTime - now
@@ -173,9 +173,10 @@ var MovementManager = Class.create({
           }
           this.time = this.time + beatTime
         }
-        else{
+        else{ // press early
           this.scene.fire("keypressed", [click, this.move.length, 1])
           this.reset()
+          return;
         }
       }
       if(this.checkMove()){

@@ -19,7 +19,7 @@ var Timeline = Class.create(UIManager, {
     this.loader.load([ {images : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png", "coming_soon_missions.png",
                                   "home_background.gif", "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
                                   "mission_current.png", "mySquare_screen.png",
-                                  "mission_locked.png", "mission_finished.png", "crowd_member_small.png", "challenge_box.png",
+                                  "mission_locked.png", "mission_finished.png", "crowd_member_small.png", "challenge_box.png", "lock.png",
                                   "mission_icon_selected.png", "play_button.png", "map_background.gif"], path: 'images/timeline/', store: 'timeline'},
                        {images_ar : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png",
                                   "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
@@ -155,7 +155,11 @@ var Timeline = Class.create(UIManager, {
       
       $('timeline').innerHTML = self.templateManager.load('missions', {'missions' : self.gameManager.missions[self.mode],
                'currentMission' : self.gameManager.userData.current_mission[self.mode], 'challenge' : challenge});
-      
+               
+      self.attachMissionsListener();
+      Game.addLoadedImagesToDiv('timeline');
+      self.displayChallenges();
+
       var missionsDivs = $$(".missionMarker");
       for (var i=0; i < missionsDivs.length; i++) {
         missionsDivs[i].children[1].setStyle({display:'block'});
@@ -173,10 +177,7 @@ var Timeline = Class.create(UIManager, {
           missionsDivs[i].firstChild.addClassName("disabled");
         } 
       };
-               
-      self.attachMissionsListener();
-      Game.addLoadedImagesToDiv('timeline');
-      self.displayChallenges();
+
       $('timeline').show();
       
       var newImg = Loader.images['timeline']['map_background.gif'].clone();

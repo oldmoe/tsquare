@@ -57,7 +57,7 @@ var GuidingIcon = Class.create(Observer,{
       this.pressEarly();
       this.moveIndex = 1;
       this.scene.fire("showGuidBubble", [this.currentCommand]);
-      return ;
+      return;
     }
 
     if(flag == 2){ //pressed while the waiting beats
@@ -107,6 +107,7 @@ var GuidingIcon = Class.create(Observer,{
   reset: function(moveIndex){
     var moveLength = this.moves[this.currentCommand].code.length;
     if (moveIndex > moveLength) moveIndex = moveLength;
+    console.log(moveIndex)
     for(var i=1; i<=moveIndex; i++){
       $$('.movesIndicator')[0].children[moveLength-i].removeClassName("right");
       $$('.movesIndicator')[0].children[moveLength-i].removeClassName("wrong");
@@ -120,8 +121,9 @@ var GuidingIcon = Class.create(Observer,{
   },
   
   pressEarly: function(){
+    this.wrongPress(this.moveIndex+1);
     var self = this;
-    self.reset(self.moveIndex+1);
+    this.scene.reactor.push(2, function(){self.reset(4);});
   },
 
   pressLate: function(){

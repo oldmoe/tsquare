@@ -16,7 +16,7 @@ var GuidingIcon = Class.create(Observer,{
     var images = ["walk_move.png", "hit_move.png", "circle_move.png", "push_move.png", "retreat_move.png", "move_indicator.png", "right_arrow.png", 'up_arrow.png','down_arrow.png', "left_arrow.png", "move_background.png", "moves_arrows.png"];
     var self = this;
     new Loader().load([{images: images, path: 'images/game_elements/', store: 'game_elements'}],
-                      {onFinish:function(){self.display();}})    
+                      {onFinish:function(){self.display();}}) ;
   },
   
   display: function(){
@@ -24,6 +24,8 @@ var GuidingIcon = Class.create(Observer,{
     Game.addLoadedImagesToDiv('guidingBar');
     
     var self = this;
+    this.scene.observe('hideGuidingIcon', function(){self.hide()})
+    this.scene.observe('showGuidingIcon', function(){self.show()})
     this.scene.observe("keypressed", function(key, moveIndex, reset){self.keypressed(key, moveIndex, reset)});
     this.scene.observe('correctCommand',function(){self.increaseCorrectCommandsCount()})
     this.scene.observe("pressLate", function(){self.pressLate()});
@@ -37,6 +39,16 @@ var GuidingIcon = Class.create(Observer,{
       self.scene.removeFromRenderLoop('meters', self);
       self.scene.remove(self);
     });
+    
+    this.show();
+  },
+  
+  hide: function(){
+    $('guidingBar').hide();
+  },
+
+  show: function(){
+    $('guidingBar').show();
   },
   
   keypressed: function(key, moveIndex, flag){

@@ -56,7 +56,7 @@ var GameManager = Class.create({
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
                               $('inProgress').hide();
-                              self.selectLanguage("en");
+                              if(!game || !game.properties.lang)game.properties.lang = "en"
                             }
                           }
                        });
@@ -66,7 +66,7 @@ var GameManager = Class.create({
     self.marketplace = new Marketplace(this);
     self.timelineManager = new Timeline(this);
     self.missionManager = new MissionManager(this);
-    game = new Game(this);
+    if(!game)game = new Game(this);
     self.game = game;
   },
   

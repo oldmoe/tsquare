@@ -127,7 +127,8 @@ img { border:none; outline:none;}
 .timelineMissions li a { float:left; width:15px; height:15px; background:#ff6633; -webkit-border-radius: 1000px; -moz-border-radius: 1000px; border-radius: 1000px; border:3px solid #ff0000; cursor:pointer;  }
 
 .timelineMissions li a.current { background:#ff0000; -webkit-box-shadow: 0px 0px 10px #ff0000; -moz-box-shadow: 0px 0px 10px #ff0000; box-shadow: 0px 0px 10px #ff0000; }
-.timelineMissions li a.disabled { background:#696969; border-color:#b3b3b3; }
+.timelineMissions li a.disabled { background:#696969; border-color:#b3b3b3; position:relative; }
+.timelineMissions li img { position:absolute; top:3px; right:5px; }
 
 
 .missionSide { float:left; width:162px; position:relative; margin:40px 0 0 0; }

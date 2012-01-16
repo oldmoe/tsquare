@@ -36,7 +36,7 @@ var CrowdMember = Class.create(Unit,{
     this.name = options.name
     this.secondTicks = this.scene.reactor.everySeconds(1)
     var self = this
-    this.hp = this.maxHp = specs.hp
+    this.hp = this.maxHp = specs.hp * 2
     this.water = this.maxWater =  specs.water
     this.attack = specs.attack || 0
     this.defense = specs.defense || 0 

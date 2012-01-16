@@ -56,7 +56,10 @@ var GameManager = Class.create({
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
                               $('inProgress').hide();
-                              if(!game || !game.properties.lang)game.properties.lang = "en"
+                              
+                              if(!game || !game.properties.lang){
+                                self.selectLanguage("en");
+                              }
                             }
                           }
                        });

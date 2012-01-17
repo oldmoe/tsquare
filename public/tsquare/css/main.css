@@ -128,7 +128,7 @@ img { border:none; outline:none;}
 
 .timelineMissions li a.current { background:#ff0000; -webkit-box-shadow: 0px 0px 10px #ff0000; -moz-box-shadow: 0px 0px 10px #ff0000; box-shadow: 0px 0px 10px #ff0000; }
 .timelineMissions li a.disabled { background:#696969; border-color:#b3b3b3; position:relative; }
-.timelineMissions li img { position:absolute; top:3px; right:5px; }
+.timelineMissions li img { position:absolute; top:3px; left:6px; }
 
 
 .missionSide { float:left; width:162px; position:relative; margin:40px 0 0 0; }
@@ -245,7 +245,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .friend { display:inline-block; width:85px; position:relative; z-index:2; margin:5px 2px 0 2px; }
 .friend a { font-weight:bold; color:#000; text-decoration:none; }
 .friendAvatar { position:absolute; top:12px; left:12px; width:60px;}
-.friendName { position:absolute; top:75px; left:5px; width:75px; text-align:center; display:inline-block;  text-shadow:1px 1px 0 #ffce57; }
+.friendName { position:absolute; top:75px; left:5px; width:75px; text-align:center; display:inline-block;  text-shadow:1px 1px 0 #ffce57; overflow:hidden; height:15px; }
 .rankSign { position:absolute; width:25px; height:26px; top:70px; left:-4px; z-index: 10;}
 
 .friendsWrapper .rightControls { display:inline-block; float:none; position:relative; top:20px; vertical-align:top; z-index:2; right:0px; overflow:hidden; height:72px;}

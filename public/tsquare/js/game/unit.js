@@ -160,6 +160,7 @@ var Unit = Class.create(Observer,{
   },
   
   die : function(){
+    this.dead = true;
     this.destroy();
     if(this.handler)
       this.handler.removeObject(this, this.lane);

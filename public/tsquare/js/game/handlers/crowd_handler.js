@@ -144,12 +144,8 @@ var CrowdHandler = Class.create(UnitHandler, {
    //6 : push
    march: function(){
      this.scene.direction = 1
-     if(this.target && this.target.chargeTolerance <= 0) this.target = null
-     this.scene.fire("correctCommand");
      this.scene.currentCommand = 1;
-     if (!this.target) {
-       return this.executeCommand("march");
-     }
+     return this.executeCommand("march");
    },
   
    push : function(){
@@ -158,11 +154,6 @@ var CrowdHandler = Class.create(UnitHandler, {
    },
    
   circle: function(){
-    if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
-      this.scene.fire("worngCommand");
-      return
-    } 
-    this.scene.fire("correctCommand");
     this.executeCommand("circle");
     this.scene.currentCommand = 2;
   },
@@ -206,29 +197,21 @@ var CrowdHandler = Class.create(UnitHandler, {
         if(minDistance < enemy.getWidth()*2)
           holdingLevel = 2;
           
-        this.scene.fire("correctCommand");
         this.executeCommand("hold", {holdingLevel: holdingLevel});
         this.scene.currentCommand = 3;
      }else{
        this.scene.energy.current -= this.scene.energy.rate;
-       this.scene.fire("wrongCommand");
      }
      
    },
    
   retreat: function(){
     this.scene.direction = -1
-    this.scene.fire("correctCommand");
     this.executeCommand("retreat");
     this.scene.currentCommand = 4;
   },
 
   hit: function(){
-    if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
-      this.scene.fire("worngCommand");
-      return
-    } 
-    this.scene.fire("correctCommand");
     this.executeCommand("hit");
     this.scene.currentCommand = 5;
   },

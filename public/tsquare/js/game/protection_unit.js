@@ -15,6 +15,7 @@ var ProtectionUnit = Class.create(Unit,{
     
     var self = this;
     this.scene.observe("targetComplete", function(){self.circleEnd()});
+    console.log()
    },
    
    textInfo: function(){

@@ -16,7 +16,7 @@ var TsquareScene = Class.create(Scene,{
     direction : 1,
     holdPowerDepression: 0.2,
     energy : null,
-    view: {width: 950, height: 460, xPos: 0, tileWidth: 400, laneMiddle : 25, length:0},
+    view: {width: 950, height: 460, xPos: 0, tileWidth: 400, laneMiddle : 30, length:0},
     activeLane: 1,
     win : false,
     comboMistakes : {current : 0, max : 2},
@@ -97,8 +97,6 @@ var TsquareScene = Class.create(Scene,{
         var self = this;
         this.observe('wrongMove', function(){self.wrongMove()})
         this.observe('correctMove', function(){self.correctMove()})
-        this.observe('wrongCommand', function(){self.wrongCommand()})
-        this.observe('correctCommand', function(){self.correctCommand()})
         this.observe('togglePause', function(){self.togglePause()});
         this.observe('tileChanged', function(){self.tileChanged()});
     },
@@ -183,16 +181,10 @@ var TsquareScene = Class.create(Scene,{
     },
 
     wrongMove: function(){
-       this.decreaseEnergy();
+      this.decreaseEnergy();
     },
-
+    
     correctMove: function(){
-    },
-    
-    wrongCommand: function(){
-    },
-    
-    correctCommand: function(){
       this.increaseEnergy();
     },
     

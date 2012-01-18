@@ -235,7 +235,6 @@ var MovementManager = Class.create({
   },
   
   startMove : function(commandIndex){
-    this.scene.fire("beatMoving");
     this.scene.fire(this.currentCommand);
     this.scene.fire("correctMove")
     this.beatMoving = true;

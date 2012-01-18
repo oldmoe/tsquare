@@ -138,28 +138,25 @@
 </textarea>
 
 <textarea style="display: none" id="missionTitle">
-  <div class="missionTitle">
+  <div id="missionTitle" class="missionTitle">
     <h3>${title}</h3>
     <div class="stars">
-      {if stars == 0}
-      <span class="normal"><img src="images/timeline/stars.png" alt="stars" /></span>
-      <span class="normal"><img src="images/timeline/stars.png" alt="stars" /></span>
-      <span class="normal"><img src="images/timeline/stars.png" alt="stars" /></span>
+      {if stars['0'] == 0}
+      <span class="normal"><span class="loadedImg" imgSrc="timeline/stars.png" alt="stars"></span></span>
+      {else}
+      <span class="active"><span class="loadedImg" imgSrc="timeline/stars.png" alt="stars"></span></span>
       {/if}
-      {if stars == 1}
-      <span class="active"><img src="images/timeline/stars.png" alt="stars" /></span>
-      <span class="normal"><img src="images/timeline/stars.png" alt="stars" /></span>
-      <span class="normal"><img src="images/timeline/stars.png" alt="stars" /></span>
+
+      {if stars['1'] == 0}
+      <span class="normal"><span class="loadedImg" imgSrc="timeline/stars.png" alt="stars"></span></span>
+      {else}
+      <span class="active"><span class="loadedImg" imgSrc="timeline/stars.png" alt="stars"></span></span>
       {/if}
-      {if stars == 2}
-      <span class="active"><img src="images/timeline/stars.png" alt="stars" /></span>
-      <span class="active"><img src="images/timeline/stars.png" alt="stars" /></span>
-      <span class="normal"><img src="images/timeline/stars.png" alt="stars" /></span>
-      {/if}
-      {if stars == 3}
-      <span class="active"><img src="images/timeline/stars.png" alt="stars" /></span>
-      <span class="active"><img src="images/timeline/stars.png" alt="stars" /></span>
-      <span class="active"><img src="images/timeline/stars.png" alt="stars" /></span>
+
+      {if stars['2'] == 0}
+      <span class="normal"><span class="loadedImg" imgSrc="timeline/stars.png" alt="stars"></span></span>
+      {else}
+      <span class="active"><span class="loadedImg" imgSrc="timeline/stars.png" alt="stars"></span></span>
       {/if}
     </div>
     <img class="positioned" src="images/timeline/missionTitle.png" alt="Mission Title" />

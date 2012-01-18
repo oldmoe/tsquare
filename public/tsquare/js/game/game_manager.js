@@ -100,6 +100,7 @@ var GameManager = Class.create({
   start : function(){
     var self = this;
     var callback = function(data) {
+      console.log(data)
       self.initializeData(data);
     }
     this.network.gameData(callback);

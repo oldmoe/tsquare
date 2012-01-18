@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Thawragy</title>
+<link href="css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div class="uiContainer game">
+  <div id="meterBar">
+  	<!--Level meter-->
+    <div class="levelMeter">
+      <div class="levelMeterHighlight" style="width:80%;">
+        <span class="levelMeterCrowd">
+          <img src="images/game_elements/level_meter_crowd.png" alt="Crowd" />
+        </span>
+      	<img src="images/game_elements/level_meter_highlighted.png" alt="Level Meter Highlighted" />
+      </div>
+      <strong>Progress</strong>
+    	<img class="positioned" src="images/game_elements/level_meter.png" alt="Level Meter" />
+    </div>
+  	<!--Timer Bar-->
+		<div class="timerBar remaining">
+    	<div class="timerBarNumbers">
+        <span>05</span>
+        <span>:</span>
+        <span>00</span>
+        <span>:</span>
+        <span>00</span>
+      </div>
+    	<img class="positioned" src="images/game_elements/timer.png" alt="Facebook currency bar" />
+    </div>
+    <!--Power Bar-->
+    <div class="powerbar">
+    	<!--Power Percentage-->
+    	<div class="powerPercentage">
+      	10%
+      </div>
+			<div class="powerbarFull" style="width:90%;">
+      	<img src="images/game_elements/power_bar_full.png" alt="Powerbar full" />
+      </div>
+    	<img class="positioned" src="images/game_elements/power_bar.png" alt="Power" />
+    </div>
+    <!--Power-ups-->
+    <div class="powerUpsWrapper">
+    	<a class="powerUp selected" href="javascript: void(0)">
+      	<span><img src="images/game_elements/powerUpRunning.png" alt="Running" /></span>
+      	<img class="positioned" src="images/game_elements/powerups_highlighted.png" />
+      </a>
+    	<a class="powerUp" href="javascript: void(0)">
+      	<span><img src="images/game_elements/powerUpRunning.png" alt="Running" /></span>
+      	<img class="positioned" src="images/game_elements/powerups.png" />
+      </a>
+    </div>
+    <!--Items slots-->
+    <div class="itemsSlotsWrapper">
+    	<!--Item slot-->
+    	<div class="itemSlot">
+      	<span><img src="images/game_elements/item_empty.png" alt="Item" /></span>
+				<img class="positioned" src="images/game_elements/item_slot.png" alt="Item slot" />
+      </div>
+    	<!--Item slot-->
+    	<div class="itemSlot">
+      	<span><img src="images/game_elements/item.png" alt="Item" /></span>
+        <small class="empty">
+        <strong>0</strong>
+        <img class="positioned" src="images/game_elements/item_numbers.png" alt="numbers" />
+        </small>
+				<img class="positioned" src="images/game_elements/item_slot.png" alt="Item slot" />
+      </div>
+    	<!--Item slot-->
+    	<div class="itemSlot">
+      	<span><img src="images/game_elements/item.png" alt="Item" /></span>
+        <small>
+        <strong>11</strong>
+        <img class="positioned" src="images/game_elements/item_numbers.png" alt="numbers" />
+        </small>
+				<img class="positioned" src="images/game_elements/item_slot.png" alt="Item slot" />
+      </div>
+    	<!--Item slot-->
+    	<div class="itemSlot">
+      	<span><img src="images/game_elements/item.png" alt="Item" /></span>
+        <small>
+        <strong>11</strong>
+        <img class="positioned" src="images/game_elements/item_numbers.png" alt="numbers" />
+        </small>
+				<img class="positioned" src="images/game_elements/item_slot.png" alt="Item slot" />
+      </div>
+      	<img class="positioned" src="images/game_elements/item_slots_wrapper.png" alt="Item Slots" />
+    </div>
+    <!--Game meters-->
+    <div class="player"  style="display:none;">
+      <!--Hydration Meter-->
+      <div class="hydrationMeter">
+        <span>25</span>
+        <img src="images/game_elements/hydration_meter.png" alt="Hydration meter" />
+      </div>
+      <!--Health Meter-->
+      <div class="healthMeter">
+        <span>25</span>
+        <img src="images/game_elements/health_meter.png" alt="Health meter" />
+      </div>
+      <img src="images/characters/ultras_red_hold.png" alt="Crowd Member" />
+    </div>
+    <!--Moves indicator-->
+    <div class="movesWrapper">
+      <div class="movesIndicator">
+        <div class="nextMove">
+          <img class="positioned" src="images/game_elements/circle_move.png" alt="Move" />
+        </div>
+        <span class="wrong"><img src="images/game_elements/right_arrow.png" alt="Right" /></span>
+        <span class="right"><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
+        <span><img src="images/game_elements/right_arrow.png" alt="Right" /></span>
+        <span><img src="images/game_elements/left_arrow.png" alt="Left" /></span>
+      </div>
+    </div>
+    <!--Pause button-->
+    <div class="pauseScreen" style="display:none;">
+    	<img src="images/game_elements/paused_screen.png" alt="Pasue" />
+    </div>
+    <!--Resume button-->
+    <div class="resumeScreen"  style="display:none;">
+    	<img src="images/game_elements/resume_screen.png" alt="Resume" />
+    </div>
+    <!--Controls-->
+    <div class="controls">
+    	<a class="pauseBtn" href="#"><img src="images/game_elements/pause_btn.png" alt="Pause" /></a>
+      <a class="playBtn" style="display:none;" href="#"><img src="images/game_elements/play_btn.png" alt="Play" /></a>
+      <a class="exitBtn" href="#"><img src="images/game_elements/exit_btn.png" alt="Exit" /></a>
+    	<img src="images/game_elements/controls_area.png" alt="Controls" />
+    </div>
+  </div>
+
+	<img class="background" src="images/dummy/background.png" alt="background"></span>
+</div>
+</body>
+</html>

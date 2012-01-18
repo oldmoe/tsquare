@@ -34,7 +34,7 @@ img { border:none; outline:none;}
 .topScope { position:absolute; top:-80px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
 .bottomScope { position:absolute; top:615px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
 
-.contuineReading { position:absolute; top:140px; left:240px; z-index:99; }
+.contuineReading { position:absolute; top:110px; left:240px; z-index:99; }
 
 
 .loading { position:absolute; top:240px; height:100px; width:100px; left:415px; text-align:center; z-index:300; }
@@ -386,12 +386,12 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 .energyBar .positioned { top:14px; }
 
-.timerBar { position:absolute; width:133px; height:37px; top:17px; right:189px; overflow:hidden; }
-.timerBar img { position:absolute; top:-37px; }
-.timerBar.remaining .timerBarNumbers { text-shadow:1px 1px 0 #ca0000; }
-.timerBar .timerBarNumbers { text-shadow:1px 1px 0 #83d000; }
+.timerBar { position:absolute; width:127px; height:39px; top:12px; right:10px; overflow:hidden; }
+.timerBar img { position:absolute; top:-39px; }
+.timerBar.remaining .timerBarNumbers { text-shadow:1px 1px 0 #fdff76; }
+.timerBar .timerBarNumbers { text-shadow:1px 1px 0 #ff6161; }
 .timerBar.remaining img { position:absolute; top:0px; }
-.timerBarNumbers { position:absolute; z-index:3; width:74px; height:19px; font-weight:bold; font-size:1.2em; left:4px; top:11px; color:#270000; padding:0 0 0 10px; }
+.timerBarNumbers { position:absolute; z-index:3; width:74px; height:19px; font-weight:bold; font-size:1.2em; left:4px; top:12px; color:#270000; padding:0 0 0 10px; }
 .timerBarNumbers span { float:left; width:auto; }
 
 
@@ -403,14 +403,15 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .healthMeter span { position:absolute; z-index:8; font-weight:bold; color:#FFF; font-size:.6em; top:13px; width:27px; text-align:center;	 }
 
 /*--------Game meters-----------*/
-.movesWrapper { float:right; width:298px; position:absolute; z-index:2; top:150px; right:330px; opacity:.9; }
-.nextMove { width:50px; height:50px; position:absolute;left: 115px; top:-75px;  }
-.movesIndicator { float:right; width:268px;position:relative; z-index:2; padding:0 0 0 0; }
-.movesIndicator span { float:right; width:67px; height:67px; overflow:hidden; z-index:3; position:relative; }
+.movesWrapper { float:right; width:280px; position:absolute; z-index:2; top:555px; right:360px; opacity:.9; }
+.nextMove { width:46px; height:45px; float:left; }
+.nextMove img {  height:45px;  }
+.movesIndicator { float:right; width:280px;position:relative; z-index:2; padding:0 0 0 0; }
+.movesIndicator span { float:right; width:46px; height:45px; overflow:hidden; z-index:3; position:relative; margin:0 10px 0 0; }
 .movesIndicator span img {  position:relative; top:0px;  }
-.movesIndicator span.wrong img { position:relative; top:-134px; }
+.movesIndicator span.wrong img { position:relative; top:-90px; }
 .movesIndicator span.wrong {  }
-.movesIndicator span.right img { position:relative; top:-67px; }
+.movesIndicator span.right img { position:relative; top:-45px; }
 .movesIndicator span.right { }
 
 .trigger { float:right; width:13px; height:13px; overflow:hidden; position:relative; z-index:3; left:-143px; top:-12px; }
@@ -418,31 +419,22 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .triggered img { position:relative; top:-14px;   }
 
 /*--------Power Bar-----------*/
-.powerbar { position:absolute; top:15px; left:15px; z-index:8; width:247px; height:42px; }
-.powerPercentage { position:absolute; z-index:10; width:100%; text-align:center; padding:10px; font-weight:bold; font-size:1.2em; color:#FFF; }
-.powerLevel01 { position:absolute; z-index:9; overflow:hidden; width:55px; height:42px; }
-.powerLevel01 div { overflow:hidden; position:absolute; height:42px; }
-
-.powerLevel02 { position:absolute; z-index:9; left:56px; overflow:hidden;  width:53px; height:42px; }
-.powerLevel02 div { overflow:hidden; position:absolute; height:42px; }
-
-.powerLevel03 { position:absolute; z-index:9; left:110px; overflow:hidden;  width:52px; height:42px; }
-.powerLevel03 div { overflow:hidden; position:absolute; height:42px; }
-
-.powerLevel04 { position:absolute; z-index:9; left:163px; overflow:hidden;  width:81px; height:42px; }
-.powerLevel04 div { overflow:hidden; position:absolute; height:42px; }
-
+.powerbar { position:absolute; top:15px; left:15px; z-index:8; width:202px; height:40px; }
+.powerPercentage { position:absolute; z-index:10; width:100%; text-align:center; padding:10px; font-weight:bold; font-size:1.2em; color:#370800; text-shadow:1px 1px 0 #ff8f7b; }
+.powerbarFull { position:absolute; top:8px; left:30px; z-index:9; overflow:hidden; }
 
 /*--------Level Bar-----------*/
-.levelMeter { position:absolute; top:19px; left:400px; z-index:8; width:297px; height:39px;  }
+.levelMeter { position:absolute; top:19px; left:370px; z-index:8; width:297px; height:29px; padding:10px 0 0 0;  }
+.levelMeter strong { width:297px; position:absolute; z-index:9; height:25px; text-align:center; text-shadow:1px 1px 0 #fed900; padding:4px 0 0 0; font-size:1.2em; top:0px; }
 .levelMeterCrowd { position:absolute; top:5px; right:0px; width:20px; height:31px; z-index:10; }
-.levelMeterHighlight { position:absolute; z-index:9; width:297px; height:39px; overflow:hidden; -webkit-box-shadow: 0px 0px 24px #ff5a00; -moz-box-shadow: 0px 0px 24px #ff5a00; box-shadow: 0px 0px 20px #ff5a00;-webkit-border-top-left-radius: 10px; -webkit-border-bottom-left-radius: 10px -moz-border-radius-topleft: 10px; -moz-border-radius-bottomleft: 10px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;border-radius: 10px; -webkit-border-top-right-radius: 0px; -webkit-border-bottom-right-radius: 0px; -moz-border-radius-topright: 0px; -moz-border-radius-bottomright: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; }
+.levelMeterHighlight { position:absolute; z-index:9; width:297px; height:29px; overflow-x:hidden; overflow-y:auto; padding:10px 0 0 0; top:-10px;  }
 
 
 /*--------Power ups-----------*/
 .powerUpsWrapper { float:left; width: 80px; position:absolute; top:50px; left:10px; }
 .powerUp { float:left; width:62px; height:62px; overflow:hidden; position:relative; padding:10px; }
 .powerUp span { position:relative; z-index:14; }
+.powerUp span img { width:58px; margin:12px 0 0 0; }
 .powerUp .positioned { margin:10px; }
 
 .powerUp.selected .positioned { -webkit-border-radius: 100px; -moz-border-radius: 100px; border-radius: 100px; -webkit-box-shadow: 0px 0px 15px #ff7e00; -moz-box-shadow: 0px 0px 15px #ff7e00; box-shadow: 0px 0px 15px #ff7e00; }

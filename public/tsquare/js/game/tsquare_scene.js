@@ -103,6 +103,11 @@ var TsquareScene = Class.create(Scene,{
         this.observe('tileChanged', function(){self.tileChanged()});
     },
     
+    start : function(){
+		this.init()
+		return this
+	},
+    
     init: function() {
   	  this.skyLine = new SkyLine(this)
   	  for(var handler in this.handlers){
@@ -114,7 +119,14 @@ var TsquareScene = Class.create(Scene,{
       this.movementManager = new MovementManager(this);
       
       var self = this;
-      this.countDown(function(){self._doInit();});
+	  self.reactor.run();
+	  self.reactor.push(0, this._tick, this);
+	  self.reactor.pause();
+  	  self.fire("start");
+      this.countDown(function(){
+      	self._doInit();
+      	self.reactor.resume();
+      });
     },
     
     countDown: function(callback) {

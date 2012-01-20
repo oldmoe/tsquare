@@ -13,43 +13,23 @@ var MessagesHandler = Class.create(UnitHandler, {
   initialize: function($super, scene){
     $super(scene);
     
-    this.messages.en = {
+    this.messages = {
       "protectionUnit" : {
         "start" : [
-          "Please help me, help me !!",
-          "Hi there, protect me please"
+          "protectionUnit_start1",
+          "protectionUnit_start2",
         ],
         "end" : [
-          "Thank you",
-          "Thanks"
+          "protectionUnit_end1",
+          "protectionUnit_end2",
         ]
       },
       
       "enemy" : {
        "start" : [
-          "Attack!",
-          "Attack them!"
+          "enemy_start1",
+          "enemy_start2",
         ],
-        "end" : [
-        ] 
-      }
-    }
-    this.messages.ar = {
-      "protectionUnit" : {
-        "start" : [
-          "النجدة!!",
-         "الحقوني!!"
-        ],
-        "end" : [
-          "شكراً!!"
-        ]  
-      },
-      
-      "enemy" : {
-       "start" : [
-          "الهجوم!",
-         "خلص عليهم!"
-        ], 
         "end" : [
         ] 
       }
@@ -67,8 +47,13 @@ var MessagesHandler = Class.create(UnitHandler, {
     this.scene.observe('endConversation', function(){self.endConversation()});
     this.scene.observe("continueConversation", function(command){self.continueConversation()});
   },
+   
+   start : function(){
+       this.checkObjectsState();
+   },
 
    startConversation: function(){
+    this.scene.reactor.pause();
      if(this.scene.currentSpeed > 0){
        this.scene.currentSpeed = 3;
        this.scene.energy.current = 10;
@@ -93,6 +78,7 @@ var MessagesHandler = Class.create(UnitHandler, {
     new Effect.Move('topScope', {y:-this.scopeHeight});
     new Effect.Move('bottomScope', {y:this.scopeHeight});
     $$('.contuineReading').first().hide();
+    this.scene.reactor.resume();
   },
   
   showGuidBubble: function(command) {
@@ -114,13 +100,13 @@ var MessagesHandler = Class.create(UnitHandler, {
   },
   
   randomStartMessage: function(type) {
-  	var allMessages = this.messages[game.properties.lang][type]['start'];
-    return allMessages[Math.round(Math.random()*(allMessages.length-1))];
+  	var allMessages = this.messages[type]['start'];
+    return t(allMessages[Math.round(Math.random()*(allMessages.length-1))]);
   },
 
   randomEndMessage: function(type) {
-    var allMessages = this.messages[game.properties.lang][type]['end'];
-    return allMessages[Math.round(Math.random()*(allMessages.length-1))];
+    var allMessages = this.messages[type]['end'];
+    return t(allMessages[Math.round(Math.random()*(allMessages.length-1))]);
   },
 
   showBubble: function(type, coords) {
@@ -153,6 +139,7 @@ var MessagesHandler = Class.create(UnitHandler, {
   obj.name = "advisor";
   var advisor = $super(obj)
   advisor.messages = obj.messages;
+  advisor.fire('back');
   return advisor;
  }
   

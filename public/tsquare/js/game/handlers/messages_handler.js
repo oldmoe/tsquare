@@ -8,8 +8,6 @@ var MessagesHandler = Class.create(UnitHandler, {
   
   enemyMessage: null,
   
-  scopeHeight : 80,
-  
   initialize: function($super, scene){
     $super(scene);
     
@@ -53,7 +51,6 @@ var MessagesHandler = Class.create(UnitHandler, {
    },
 
    startConversation: function(){
-    this.scene.reactor.pause();
      if(this.scene.currentSpeed > 0){
        this.scene.currentSpeed = 3;
        this.scene.energy.current = 10;
@@ -62,10 +59,7 @@ var MessagesHandler = Class.create(UnitHandler, {
      this.currentGameMode = this.scene.movementManager.currentMode; 
      this.scene.movementManager.currentMode = this.scene.movementManager.modes.conversation;
      $('guidingBar').hide();
-     new Effect.Move('topScope', {y:this.scopeHeight});
-     new Effect.Move('bottomScope', {y:-this.scopeHeight});
      $$('.contuineReading').first().show();
-     
    },
   
   continueConversation: function(){
@@ -75,10 +69,7 @@ var MessagesHandler = Class.create(UnitHandler, {
   endConversation: function(){
     this.scene.movementManager.currentMode = this.currentGameMode;
     $('guidingBar').show();
-    new Effect.Move('topScope', {y:-this.scopeHeight});
-    new Effect.Move('bottomScope', {y:this.scopeHeight});
     $$('.contuineReading').first().hide();
-    this.scene.reactor.resume();
   },
   
   showGuidBubble: function(command) {

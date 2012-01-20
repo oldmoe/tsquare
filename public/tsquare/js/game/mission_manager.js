@@ -17,7 +17,7 @@ var MissionManager = Class.create({
                           path: 'images/game_elements/', store: 'game_elements' },
                         {images : ["friendsScore.png", "friend_box.png"], 
                           path: 'images/friends/', store: 'friends' }, 
-                        {images : ["paused_screen.png", "play_btn.png", "exit_btn.png", "controls_area.png"], 
+                        {images : ["paused_screen.png", "play_btn.png", "exit_btn.png", "controls_area.png", "beat.gif"], 
                           path: 'images/game_elements/', store: 'game_elements' },
                           {images_ar : ["paused_screen.png"], 
                           path: 'images/ar/game_elements/', store: 'game_elements' }
@@ -59,7 +59,7 @@ var MissionManager = Class.create({
     });
     $$('#pause .controls .exitBtn')[0].observe('click', function(event){
       scene.fire('end')
-      scene.reactor.resume();
+      //scene.reactor.resume();
       self.gameManager.openMainPage();
 	  $('pause').hide();
 	  self.pauseScreenOn = false;

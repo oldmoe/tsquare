@@ -26,12 +26,11 @@ var GameManager = Class.create({
                               $('inProgress').hide();
                               self.selectLanguage("en");
                               self.langSetted = true;
-                            }}, time);
+                            }}, 100);
               Loader.sounds.intro['intro.mp3'].loop = true;
               Loader.sounds.intro['intro.mp3'].play({loop:true,loops:1000});
               $('inProgress').show();
               self.processParams(self.urlParams, function(data){self.processRequest(data)});
-              soundManager.mute();
             }
           }
       )
@@ -102,7 +101,6 @@ var GameManager = Class.create({
   start : function(){
     var self = this;
     var callback = function(data) {
-      console.log(data)
       self.initializeData(data);
     }
     this.network.gameData(callback);

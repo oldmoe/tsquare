@@ -2381,6 +2381,7 @@ Element.Methods = {
 
   setStyle: function(element, styles) {
     element = $(element);
+    if(game && game.scene && game.scene.flashingHandler && game.scene.flashingHandler.running)game.scene.flashingHandler.flash()
     var elementStyle = element.style, match;
     if (Object.isString(styles)) {
       element.style.cssText += ';' + styles;

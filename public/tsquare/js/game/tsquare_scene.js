@@ -108,7 +108,7 @@ var TsquareScene = Class.create(Scene,{
   	  }
 
       this.audioManager = new AudioManager(this);
-      //this.flashingHandler = new FlashingHandler(this);
+      this.flashingHandler = new FlashingHandler(this);
       this.movementManager = new MovementManager(this);
       
       var self = this;
@@ -154,7 +154,7 @@ var TsquareScene = Class.create(Scene,{
       this.push(this.clashDirectionsGenerator)
       this.audioManager.run();
       this.movementManager.run();
-      // this.flashingHandler.run();
+      this.flashingHandler.run();
       this.handlers.crowd.playHetafLoop();
       this.comboDisplay = new ComboDisplay(this);
       this.pushToRenderLoop('characters', this.comboDisplay)

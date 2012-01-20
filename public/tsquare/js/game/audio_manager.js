@@ -307,6 +307,8 @@ var AudioManager = Class.create({
         sound.mute()
       }
     }
+    //$('beatFlash').appendChild(Loader.images.game_elements["beat.gif"])
+    //$('beatFlash').style.zIndex = 10000
   },
   
   

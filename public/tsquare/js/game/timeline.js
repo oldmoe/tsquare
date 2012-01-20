@@ -168,7 +168,6 @@ var Timeline = Class.create(UIManager, {
           var chain = self.getNextMissions(id, missions);
           chain.push(id);
           ids = ids.concat(chain);
-          console.log(ids);
         }
       }
       

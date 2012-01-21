@@ -54,8 +54,8 @@ var InGameMeterBar = Class.create({
 
     if(this.xPos != this.game.scene.view.xPos){
       this.xPos = this.game.scene.view.xPos;
-      
-      $$('.inGameMeterBar .levelMeterHighlight')[0].style.width = (8+91*(this.xPos/this.game.scene.view.length))+"%";
+      var width = Math.min((8+91*(this.xPos/this.game.scene.view.length)), 100)
+      $$('.inGameMeterBar .levelMeterHighlight')[0].style.width = width +"%";
     }
     
     if(!this.showRemainingTime && this.scoreCalculator.gameTime <= this.scoreCalculator.remainingTime){

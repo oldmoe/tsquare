@@ -26,6 +26,7 @@ var TsquareScene = Class.create(Scene,{
     targetEnergy: 0,
     flashingHandler: null,
     speedFactor : 1,
+    cinematicView: false,
     initialize: function($super){
         $super();
         this.collision = false;
@@ -95,15 +96,23 @@ var TsquareScene = Class.create(Scene,{
        }
         
         var self = this;
-        this.observe('wrongMove', function(){self.wrongMove()})
-        this.observe('correctMove', function(){self.correctMove()})
-        this.observe('wrongCommand', function(){self.wrongCommand()})
-        this.observe('correctCommand', function(){self.correctCommand()})
+        this.observe('wrongMove', function(){self.wrongMove()});
+        this.observe('correctMove', function(){self.correctMove()});
+        this.observe('wrongCommand', function(){self.wrongCommand()});
+        this.observe('correctCommand', function(){self.correctCommand()});
         this.observe('togglePause', function(){self.togglePause()});
         this.observe('tileChanged', function(){self.tileChanged()});
+        this.observe('startConversation', function(){self.enterCinematicView()});
+        this.observe('endConversation', function(){self.exitCinematicView()});
     },
     
+    start : function(){
+		this.init()
+		return this
+	},
+    
     init: function() {
+      this.initCinematicView();
   	  this.skyLine = new SkyLine(this)
   	  for(var handler in this.handlers){
   	    this.handlers[handler].start()
@@ -114,7 +123,14 @@ var TsquareScene = Class.create(Scene,{
       this.movementManager = new MovementManager(this);
       
       var self = this;
-      this.countDown(function(){self._doInit();});
+	  self.reactor.run();
+	  self.reactor.push(0, this._tick, this);
+	  self.reactor.pause();
+  	  self.fire("start");
+      this.countDown(function(){
+      	self._doInit();
+      	self.reactor.resume();
+      });
     },
     
     countDown: function(callback) {
@@ -123,6 +139,7 @@ var TsquareScene = Class.create(Scene,{
     },
     
     togglePause: function() {
+    	if (this.cinematicView) return;
     	if (this.reactor.isRunning()) {
     		this.reactor.pause();
     	} else {
@@ -415,6 +432,24 @@ var TsquareScene = Class.create(Scene,{
        this.handlers.crowd.removeObject( this.rescuing, this.rescuing.lane );
        this.push( this.rescuing );
      }
-   }
-  
+   },
+
+   // Cinematic view for conversation mode e.g. advisors.
+   initCinematicView : function() {
+   	 this.cinematicView = false;
+   	 $('topScope').style.top = "-80px";
+   	 $('bottomScope').style.top = "615px";
+   },
+   enterCinematicView : function() {
+   	 this.cinematicView = true;
+     this.reactor.pause();
+     new Effect.Move('topScope', {y:80});
+     new Effect.Move('bottomScope', {y:-80});
+   },
+   exitCinematicView : function() {
+   	 this.cinematicView = false;
+     new Effect.Move('topScope', {y:-80});
+     new Effect.Move('bottomScope', {y:80});
+     this.reactor.resume();
+   }  
 });

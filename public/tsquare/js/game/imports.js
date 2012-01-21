@@ -55,7 +55,6 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/tear_gas_gunner_cs_block.js",
                  "js/game/bubble.js",
                  "js/game/moving_bubble.js",
-                 "js/game/scenario.js",
                  "js/game/protection_unit.js",
                  "js/game/rescue_unit.js"],
                  

@@ -135,3 +135,31 @@ tsquare_strings.ar['special_tab'] = 'مخصوص';
 // Marketplace tab title - Crowd
 tsquare_strings.en['crowd_tab'] = 'Crowd Items';
 tsquare_strings.ar['crowd_tab'] = 'عدة ثوار';
+
+// Guiding messages: right-left-up-down
+tsquare_strings.en['right'] = 'right';
+tsquare_strings.ar['right'] = 'يمين';
+tsquare_strings.en['left'] = 'left';
+tsquare_strings.ar['left'] = 'شمال';
+tsquare_strings.en['up'] = 'up';
+tsquare_strings.ar['up'] = 'فوق';
+tsquare_strings.en['down'] = 'down';
+tsquare_strings.ar['down'] = 'تحت';
+
+// 'Start' messages for protection units
+tsquare_strings.en['protectionUnit_start1'] = 'Please help me, help me !!';
+tsquare_strings.ar['protectionUnit_start1'] = 'النجدة';
+tsquare_strings.en['protectionUnit_start2'] = 'Hi there, protect me please';
+tsquare_strings.ar['protectionUnit_start2'] = 'الحقوني';
+
+// 'End' messages for protection units
+tsquare_strings.en['protectionUnit_end1'] = 'Thank you';
+tsquare_strings.ar['protectionUnit_end1'] = 'شكراً لك';
+tsquare_strings.en['protectionUnit_end2'] = 'Thanks';
+tsquare_strings.ar['protectionUnit_end2'] = 'شكراً';
+
+// 'Start' messages for enemies
+tsquare_strings.en['enemy_start1'] = 'Attack!';
+tsquare_strings.ar['enemy_start1'] = 'الهجوم';
+tsquare_strings.en['enemy_start2'] = 'Finish them!';
+tsquare_strings.ar['enemy_start2'] = 'خلص عليهم';

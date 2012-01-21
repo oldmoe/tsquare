@@ -35,7 +35,7 @@ var Timeline = Class.create(UIManager, {
                         }
                       });
     this.gameManager.inbox.challenges(function(challenges){
-      self.challenges = challenges
+      self.challenges = challenges;
       self.challengesLoaded = true;
       //TODO: Is this necessary? 
       // self.display();

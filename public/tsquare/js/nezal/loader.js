@@ -166,14 +166,8 @@ var Loader = Class.create({
     return $(image)
   },
   
-  //TODO: Fix image.src for caching a la _convertToCachedSRC
   load_images_ar : function(src, options){
-    var image = new Image();
-    var self = this
-    image.onload = function(){self.onload(options);}
-    image.onerror = function(){self.onerror(this, options);}
-    image.src = src
-    return $(image)
+    return this.load_images(src, options);
   },
   
   load_sounds : function(src, options){

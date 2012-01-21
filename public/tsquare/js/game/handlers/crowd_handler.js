@@ -94,14 +94,11 @@ var CrowdHandler = Class.create(UnitHandler, {
    updateObjectsAfterDeath : function(crowdMember) {
    	 var lane = crowdMember.lane;
    	 var index = crowdMember.laneIndex;
-  	 this.objects[lane].remove(crowdMember);
-  	 this.scene.push(crowdMember);
-     var subLane = index % 3;
      for (var i = 0; i < this.objects[lane].length; i++) {
-     	if (this.objects[lane][i] && this.objects[lane][i].laneIndex >= 3 && this.objects[lane][i].laneIndex % 3 == subLane) {
-     		this.objects[lane][i].laneIndex -= 3;
-     		this.objects[lane][i].posChanged = true;
-     	}
+       if (this.objects[lane][i].laneIndex > index) {
+         this.objects[lane][i].laneIndex--;
+         this.objects[lane][i].posChanged = true
+       }
      }
    },
 

@@ -53,8 +53,8 @@ var CrowdMember = Class.create(Unit,{
   init: function(options){
   	this.laneIndex = options.laneIndex || 0
     this.originalPosition = this.handler.calcPosition(this.lane, this.laneIndex)
-    var randomDx = Math.round(Math.random()*20)
-    var randomDy = Math.round(Math.random()*20)
+    var randomDx = 0//Math.round(Math.random()*20)
+    var randomDy = 0//Math.round(Math.random()*20)
     this.originalPosition.x += randomDx
     this.originalPosition.y += randomDy
     if( this.specs.x && this.specs.y ){

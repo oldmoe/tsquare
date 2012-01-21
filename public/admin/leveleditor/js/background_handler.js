@@ -7,6 +7,7 @@ var BackgroundHandler = Class.create({
 		
 		this.addDropEvent('bgLayer1');
 		this.addDropEvent('bgLayer2');
+    this.addDropEvent('bgSky');
 		this.addDropEvent('bgLandmarks');
 		this.addDropEvent('bgFence');
 		this.addDropEvent('bgLand');
@@ -76,6 +77,10 @@ var BackgroundHandler = Class.create({
 	getLayer2Data: function(){
 		return this._exportData('bgLayer2');
 	},
+  
+  getSkyData: function(){
+    return this._exportData('bgSky');
+  },
 
 	getLandMarksData: function(){
 		return this._exportData('bgLandmarks');

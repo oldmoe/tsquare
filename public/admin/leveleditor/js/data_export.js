@@ -85,6 +85,7 @@ var DataExporter = Class.create({
 		gameData.backgrounds = {
 		  layer1:this.levelEditor.backgroundHandler.getLayer1Data(), 
 		  layer2: this.levelEditor.backgroundHandler.getLayer2Data(), 
+      sky: this.levelEditor.backgroundHandler.getSkyData(),
 		  landmarks: this.levelEditor.backgroundHandler.getLandMarksData(),
 		  fence: this.levelEditor.backgroundHandler.getFenceData(),
 		  lamp: this.levelEditor.backgroundHandler.getLampData(),

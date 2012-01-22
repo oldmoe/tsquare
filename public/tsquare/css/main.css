@@ -591,3 +591,6 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 .recoveryTimer { position:absolute; z-index:20; top:22px; left:11px; width:22px; height:25px; overflow:hidden; }
 .recoveryTimer img { position:absolute; top:-75px; }
+
+
+.highlightedItem { position:absolute; z-index:2147483647; }

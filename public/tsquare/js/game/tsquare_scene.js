@@ -16,7 +16,7 @@ var TsquareScene = Class.create(Scene,{
     direction : 1,
     holdPowerDepression: 0.2,
     energy : null,
-    view: {width: 950, height: 460, xPos: 0, tileWidth: 400, laneMiddle : 25, length:0},
+    view: {width: 950, height: 460, xPos: 0, tileWidth: 400, laneMiddle : 30, length:0},
     activeLane: 1,
     win : false,
     comboMistakes : {current : 0, max : 2},
@@ -96,10 +96,8 @@ var TsquareScene = Class.create(Scene,{
        }
         
         var self = this;
-        this.observe('wrongMove', function(){self.wrongMove()});
-        this.observe('correctMove', function(){self.correctMove()});
-        this.observe('wrongCommand', function(){self.wrongCommand()});
-        this.observe('correctCommand', function(){self.correctCommand()});
+        this.observe('wrongMove', function(){self.wrongMove()})
+        this.observe('correctMove', function(){self.correctMove()})
         this.observe('togglePause', function(){self.togglePause()});
         this.observe('tileChanged', function(){self.tileChanged()});
         this.observe('startConversation', function(){self.enterCinematicView()});
@@ -107,9 +105,9 @@ var TsquareScene = Class.create(Scene,{
     },
     
     start : function(){
-		this.init()
-		return this
-	},
+  		this.init()
+  		return this
+  	},
     
     init: function() {
       this.initCinematicView();
@@ -119,7 +117,7 @@ var TsquareScene = Class.create(Scene,{
   	  }
 
       this.audioManager = new AudioManager(this);
-      //this.flashingHandler = new FlashingHandler(this);
+      this.flashingHandler = new FlashingHandler(this);
       this.movementManager = new MovementManager(this);
       
       var self = this;
@@ -173,7 +171,7 @@ var TsquareScene = Class.create(Scene,{
       this.push(this.clashDirectionsGenerator)
       this.audioManager.run();
       this.movementManager.run();
-      // this.flashingHandler.run();
+      this.flashingHandler.run();
       this.handlers.crowd.playHetafLoop();
       this.comboDisplay = new ComboDisplay(this);
       this.pushToRenderLoop('characters', this.comboDisplay)
@@ -200,16 +198,10 @@ var TsquareScene = Class.create(Scene,{
     },
 
     wrongMove: function(){
-       this.decreaseEnergy();
+      this.decreaseEnergy();
     },
-
+    
     correctMove: function(){
-    },
-    
-    wrongCommand: function(){
-    },
-    
-    correctCommand: function(){
       this.increaseEnergy();
     },
     

@@ -129,6 +129,10 @@ var Game = Class.create({
     this.mission.backgrounds.layer2.each(function(elem){
       backgroundImages.push(elem.name);
     });
+    if(this.mission.backgrounds.sky)
+    this.mission.backgrounds.sky.each(function(elem){
+      backgroundImages.push(elem.name);
+    });
     this.mission.backgrounds.landmarks.each(function(elem){
       backgroundImages.push(elem.name);
     });

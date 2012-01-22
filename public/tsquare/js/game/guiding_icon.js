@@ -27,9 +27,8 @@ var GuidingIcon = Class.create(Observer,{
     this.scene.observe('hideGuidingIcon', function(){self.hide()})
     this.scene.observe('showGuidingIcon', function(){self.show()})
     this.scene.observe("keypressed", function(key, moveIndex, reset){self.keypressed(key, moveIndex, reset)});
-    this.scene.observe('correctCommand',function(){self.increaseCorrectCommandsCount()})
+    this.scene.observe('correctMove',function(){self.increaseCorrectCommandsCount();self.beatMoving();})
     this.scene.observe("pressLate", function(){self.pressLate()});
-    this.scene.observe("beatMoving", function(){self.beatMoving()});
     this.scene.observe("targetComplete", function(){self.targetComplete()});
     this.scene.push(this);
     

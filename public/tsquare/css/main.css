@@ -238,6 +238,9 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .voteMenuItem { position:absolute; top:125px; left:82px; z-index:3; width:61px; height:47px; overflow:hidden; }
 .voteMenuItem:hover img { position:absolute; top:-47px; }
 
+.inboxMenuItem { position:absolute; top:131px; left:13px; z-index:3; width:61px; height:47px; overflow:hidden; }
+.inboxMenuItem:hover img { position:absolute; top:-47px; }
+
 .homeMenuItem { position:absolute; top:59px; left:40px; z-index:2; width:70px; height:71px; overflow:hidden; }
 .homeMenuItem:hover img { position:absolute; top:-71px; }
 
@@ -403,7 +406,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .healthMeter span { position:absolute; z-index:8; font-weight:bold; color:#FFF; font-size:.6em; top:13px; width:27px; text-align:center;	 }
 
 /*--------Game meters-----------*/
-.movesWrapper { float:right; width:280px; position:absolute; z-index:2; top:555px; right:360px; opacity:.9; }
+.movesWrapper { float:right; width:280px; position:absolute; z-index:2; top:511px; right:360px; opacity:.9; }
 .nextMove { width:46px; height:45px; float:left; }
 .nextMove img {  height:45px;  }
 .movesIndicator { float:right; width:280px;position:relative; z-index:2; padding:0 0 0 0; }

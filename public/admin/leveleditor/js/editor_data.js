@@ -24,10 +24,12 @@ var EditorData = [
   {src:'images/objects/ultras.png', name:'ultras_red', category:'advisor'},
   
   //in game powerups
-  {src:'images/powerups/health_powerup.jpg', name:'health_boost', category:'powerup', type:"1"},
-  {src:'images/powerups/health_powerup.jpg', name:'health_boost', category:'powerup', type:"2"},
-  {src:'images/powerups/powerup_h2o.jpeg', name:'h2o', category:'powerup', type: "1"},
-  {src:'images/powerups/powerup_h2o.jpeg', name:'h2o', category:'powerup', type: "2"},
+  {src:'images/powerups/health_powerup.jpg', name:'Health_boost', category:'powerup', type:"1", attribute: "health", effect: 20},
+  {src:'images/powerups/health_powerup.jpg', name:'Health_boost', category:'powerup', type:"2", attribute: "health", effect: 30},
+  {src:'images/powerups/health_powerup.jpg', name:'Health_boost', category:'powerup', type:"3", attribute: "health", effect: 40},
+  {src:'images/powerups/health_powerup.jpg', name:'h2o_boost', category:'powerup', type:"1", attribute: "h2o", effect: 10},
+  
+  
   
   {src:'images/objects/normal_man.png', name:'normal_man', category:'crowd'},
   {src:'images/objects/micman.png', name:'micman', category:'crowd'},

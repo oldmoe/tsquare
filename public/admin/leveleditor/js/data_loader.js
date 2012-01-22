@@ -40,7 +40,7 @@ var DataLoader = Class.create({
 				case self.CAT_OBJECTS:
 				  break;
 				case self.CAT_POWERUPS:
-				  $('powerupsContainer').appendChild(new Element('img', {"class":'draggablesImg', src: obj.src, name:obj.name, category:obj.category, type:obj.type, title:title}));
+				  $('powerupsContainer').appendChild(new Element('img', {"class":'draggablesImg', src: obj.src, name:obj.name, category:obj.category, type:obj.type, attribute:obj.attribute, effect:obj.effect }));
 				  break;
         case self.CAT_ADVISOR:
           $('advisorsContainer').appendChild(new Element('img', {"class":'draggablesImg', src: obj.src, name:obj.name, category:obj.category, title:title}));

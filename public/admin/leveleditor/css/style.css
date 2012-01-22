@@ -298,3 +298,12 @@
 .dropbox input {
   width: 55px;
 }
+
+#healthTax {
+  margin-left: 23px;
+}
+
+.healthTaxDesc {
+  color: gray;
+  font-size: 14px;
+}

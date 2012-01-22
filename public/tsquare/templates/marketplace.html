@@ -59,6 +59,16 @@
               <a href="javascript:void(0)"><span class="loadedImg" imgSrc="game_elements/next_button.png" alt="Next"></span></a>
               <a href="javascript:void(0)"><span class="loadedImg" imgSrc="game_elements/last_button.png" alt="Last"></span></a>
             </div>
+            {if preMission}
+              <div style="position: absolute; top: 337px; width: 114px; overflow: hidden; height: 36px; left: 262px;">
+                <a style="color: #304C00;display: block;font-size: 1.2em;font-weight: bold;height: 28px;padding: 8px 0 0;position: absolute;text-align: center;text-decoration: none;text-shadow: 1px 1px 0 #CCF08E;width: 115px;z-index: 2;"
+                   href="javascript:void(0)"
+                   onclick="gameManager.marketplace.hide();gameManager.playMission('${missionID}');">
+                   Ready
+                </a>
+                <img class="positioned" src="images/marketplace/item_details.png" style="">
+              </div>
+            {/if}
           </div>
         </div>
       </div>
@@ -119,13 +129,20 @@
           </div>
           <!--Health status-->
           <div class="healthStatus">
-            <span><img src="images/marketplace/health_active.png" alt="Health active" /></span>
-            <img class="positioned" src="images/marketplace/health_inactive.png"  alt="Health inactive" />
+            <span style="height: ${Math.max(0, 46-item.healthShift)}px; top: ${item.healthShift}px">
+              <img style="margin-top: -${item.healthShift}px" src="images/marketplace/health_active.png" />
+            </span>
+            <img style="margin-top: -${item.healthShift}px; top: ${item.healthShift}px" class="positioned" src="images/marketplace/health_inactive.png" />
           </div>
-          <div class="crowedItemDetails">
-            <a href="javascript:void(0)" title="Not supported yet!">${t('heal_crowd_member')}</a>
-            <span class="loadedImg" imgSrc="marketplace/item_details.png"  alt="Upgrade Details" imgClasses="positioned"></span>
-          </div>
+          {if item.memberData.health < 100}
+            <div class="crowedItemDetails">
+              <a href="javascript:void(0)">${t('heal_crowd_member')}</a>
+              <span class="loadedImg" imgSrc="marketplace/item_details.png" imgClasses="positioned"></span>
+            </div>
+          {/if}
+          <span class="highlighted">
+            <img src="images/marketplace/item_selected.png">
+          </span>
         {/if}
       </div>
     </li>

@@ -100,19 +100,41 @@ var Marketplace = Class.create({
   },
   
   adjustMyMembers : function(){
+    var HEALTH_SHIFT_CONST = 8;
     var adjustedMyMembers = []
     for(var memberName in this.myMembers){
       var specs = this.gatherSpecs( memberName );
       var specIds = specs.specIds;
       var memberSpecs = specs.memberSpecs;
       for(var memberID in this.myMembers[memberName]){
+        var memberData = this.myMembers[memberName][memberID];
+        var healthShift = 0;
+        if( memberData.health < 100 ){
+          healthShift = HEALTH_SHIFT_CONST;
+        }
+        if( memberData.health < 80 ){
+          healthShift = HEALTH_SHIFT_CONST * 2;
+        }
+        if( memberData.health < 60 ){
+          healthShift = HEALTH_SHIFT_CONST * 3;
+        }
+        if( memberData.health < 40 ){
+          healthShift = HEALTH_SHIFT_CONST * 4;
+        }
+        if( memberData.health < 20 ){
+          healthShift = HEALTH_SHIFT_CONST * 5;
+        }
+        if( memberData.health == 0 ){
+          healthShift = HEALTH_SHIFT_CONST * 6;
+        }
         adjustedMyMembers.push( 
                         {codeName : memberName,
                          displayName : this.members['category'][memberName].name,
-                         memberData : this.myMembers[memberName][memberID],
+                         memberData : memberData,
                          specs : memberSpecs,
                          specIds : specIds,
-                         memberID : memberID
+                         memberID : memberID,
+                         healthShift : healthShift
                         });
       }
     }
@@ -156,11 +178,18 @@ var Marketplace = Class.create({
     this.adjustNavigators('floatingItems');
   },
   
-  openMarketplace : function(myStuff){
+  openMarketplace : function(options){
+    var myStuff = options.myStuff;
+    var preMission = options.preMission;
+    var missionID = options.missionID;
     $('marketplace').hide();
     var self = this;
     var screen = myStuff ? 'myStaff' : 'marketplace'
-    $('marketplace').innerHTML = this.templateManager.load('marketplace', {screen : screen, bandages : this.gameManager.userData.bandages});
+    $('marketplace').innerHTML = this.templateManager.load('marketplace', {screen : screen, 
+                                                                           bandages : this.gameManager.userData.bandages,
+                                                                           preMission : preMission,
+                                                                           missionID : missionID}
+                                                          );
     
     var categoryItems = myStuff ? self.adjustedMyMembers : self.adjustedMembers;
     

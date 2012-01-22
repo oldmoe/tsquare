@@ -218,7 +218,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .meter .meterEmpty{  top : 0px;  left : 0px;  position: absolute;}
 #initCounter{ color: #FFD800; font-family: Georgia; font-size: 128px; font-weight: bold; height: 187px; left: 0; position: absolute; text-align: center; top: 123px; width: 100%; z-index: 100;}
 
-#scores { bottom: 0; height: 180px; margin: 0 auto; padding: 0 5px; position: absolute; width:99%; }
+#scores { bottom: 10px; height: 180px; margin: 0 auto; padding: 0 5px; position: absolute; width:99%; }
 #scoresInProgress{ background:none; bottom: 0; height: 180px; margin: 0 auto; position: absolute; width: 100%; opacity : 0.6; z-index : 5; cursor : progress;}
 /*--------Friends Bar-----------*/
 .friendsBar { margin:0 auto; width:951px; position:relative; z-index:3; }
@@ -361,7 +361,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 .inGameMeterBar .energyBar .positioned { top:14px; }
 
-.inGameMeterBar .timerBar { position:absolute; width:133px; height:37px; top:10px; right:10px; }
+.inGameMeterBar .timerBar { position:absolute; width:133px; height:39px; top:10px; right:10px; }
 .inGameMeterBar .timerBarNumbers { position:absolute; z-index:3; width:74px; height:19px; font-weight:bold; font-size:1.2em; text-shadow:1px 1px 0 #ca0000; left:4px; top:11px; color:#270000; padding:0 0 0 10px; }
 .inGameMeterBar .timerBarNumbers span { float:left; width:auto; }
 
@@ -391,8 +391,8 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 .timerBar { position:absolute; width:127px; height:39px; top:12px; right:10px; overflow:hidden; }
 .timerBar img { position:absolute; top:-39px; }
-.timerBar.remaining .timerBarNumbers { text-shadow:1px 1px 0 #fdff76; }
-.timerBar .timerBarNumbers { text-shadow:1px 1px 0 #ff6161; }
+.timerBar.remaining .timerBarNumbers { text-shadow:1px 1px 0 #ff6161; }
+.timerBar .timerBarNumbers { text-shadow:1px 1px 0 #fdff76;   }
 .timerBar.remaining img { position:absolute; top:0px; }
 .timerBarNumbers { position:absolute; z-index:3; width:74px; height:19px; font-weight:bold; font-size:1.2em; left:4px; top:12px; color:#270000; padding:0 0 0 10px; }
 .timerBarNumbers span { float:left; width:auto; }
@@ -406,7 +406,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .healthMeter span { position:absolute; z-index:8; font-weight:bold; color:#FFF; font-size:.6em; top:13px; width:27px; text-align:center;	 }
 
 /*--------Game meters-----------*/
-.movesWrapper { float:right; width:280px; position:absolute; z-index:2; top:511px; right:360px; opacity:.9; }
+.movesWrapper { float:right; width:280px; position:absolute; z-index:2; top:555px; right:360px; opacity:.9; }
 .nextMove { width:46px; height:45px; float:left; }
 .nextMove img {  height:45px;  }
 .movesIndicator { float:right; width:280px;position:relative; z-index:2; padding:0 0 0 0; }
@@ -591,3 +591,9 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 .recoveryTimer { position:absolute; z-index:20; top:22px; left:11px; width:22px; height:25px; overflow:hidden; }
 .recoveryTimer img { position:absolute; top:-75px; }
+
+
+.highlightedItem { position:absolute; z-index:2147483647; }
+.highlightedBackground { position:absolute; z-index:2147483646; background:#000; opacity:.8; width:970px; height:620px; top:0; left:0; }
+.highlightedBackground h2 { font-weight:bold; font-size:8em; color:#f7f18b; width:970px; text-align:center; margin:200px 0 0 0; position:relative; }
+.highlightedBackground h3 { font-weight:bold; font-size:1.7em; color:#f7f18b; width:970px; text-align:center; margin:20px 0 0 0; position:relative; }

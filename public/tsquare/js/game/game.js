@@ -163,8 +163,9 @@ var Game = Class.create({
       $('gameInProgress').hide();
       this.reset();
       this.scene = new TsquareScene();
-      if(this.gameManager)this.gameManager.missionManager.registerSceneListeners(this.scene);
-	  this.scene.start();
+      if(this.gameManager)
+        this.gameManager.missionManager.registerSceneListeners(this.scene);
+	    this.scene.start();
       $('gameContainer').show();
       this.inGameMeterBar = new InGameMeterBar(this);
       this.guidingIcon = new GuidingIcon(this);

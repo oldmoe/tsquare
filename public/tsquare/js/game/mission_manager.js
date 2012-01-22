@@ -121,17 +121,13 @@ var MissionManager = Class.create({
 
   load : function(id, gameCallback){
     var self = this;
-    if(this.missions[id])
-    {
-      gameCallback(self.missions[id]);
-    }else {
-      var callback = function(data){
-        self.currentMission = data;
-        self.missions[data.id] = data;
-        gameCallback(self.currentMission);
-      }
-      this.network.missionData(id, callback);
+    var callback = function(data){
+      var missionData = data['mission']
+      self.currentMission = missionData;
+      self.missions[missionData.id] = missionData;
+      gameCallback(data);
     }
+    this.network.missionData(id, callback);
   },
   
   goHome : function() {

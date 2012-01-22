@@ -108,19 +108,21 @@ var GameManager = Class.create({
   
   playMission : function(id){
     var self = this;
+    self.currentMissionID = id;
     $$('#uiContainer .background')[0].hide();
     self.meterBar.hide();
     self.timelineManager.hide();
     self.scoreManager.hide();
     self.missionManager.hide();
     self.game.show();
-    this.missionManager.load(id, function(missionData){
-      self.game.play(missionData.data);
+    this.missionManager.load(id, function(data){
+      self.game.play(data.mission.data);
+      self.userData.crowd_members = userData.crowd_members = data.crowd_members;
     });
   },
 
   replayMission : function(){
-    this.game.start();
+    this.playMission( this.currentMissionID );
   },
 
   openMainPage : function(){

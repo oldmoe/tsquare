@@ -45,12 +45,12 @@ var Marketplace = Class.create({
                         });
       membersImages.push(item + "_icon.png");
     }
-    membersImages.remove('attacker_icon.png')
-    membersImages.remove('supplier_icon.png')
-    membersImages.remove('leader_icon.png')
-    membersImages.remove('energy_booster_icon.png')
-    membersImages.remove('amr_salama_icon.png')
-    membersImages.remove('wael_ghoneim_icon.png')
+    // membersImages.remove('attacker_icon.png')
+    // membersImages.remove('supplier_icon.png')
+    // membersImages.remove('leader_icon.png')
+    // membersImages.remove('energy_booster_icon.png')
+    // membersImages.remove('amr_salama_icon.png')
+    // membersImages.remove('wael_ghoneim_icon.png')
     
     this.loader = this.gameManager.loader
     this.loader.load([ {images : ["my_stuff_title.png", "buy_window_title.png", "tab_background.png", "dialog_box.png",
@@ -160,7 +160,7 @@ var Marketplace = Class.create({
     $('marketplace').hide();
     var self = this;
     var screen = myStuff ? 'myStaff' : 'marketplace'
-    $('marketplace').innerHTML = this.templateManager.load('marketplace', {screen : screen});
+    $('marketplace').innerHTML = this.templateManager.load('marketplace', {screen : screen, bandages : this.gameManager.userData.bandages});
     
     var categoryItems = myStuff ? self.adjustedMyMembers : self.adjustedMembers;
     

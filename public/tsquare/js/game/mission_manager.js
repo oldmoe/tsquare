@@ -58,11 +58,10 @@ var MissionManager = Class.create({
       scene.fire('togglePause');
     });
     $$('#pause .controls .exitBtn')[0].observe('click', function(event){
-      scene.fire('end')
-      scene.reactor.resume();
-      self.gameManager.openMainPage();
+      scene.fire('end');
 	  $('pause').hide();
 	  self.pauseScreenOn = false;
+      self.goHome();
     });
   },
 
@@ -134,6 +133,13 @@ var MissionManager = Class.create({
       this.network.missionData(id, callback);
     }
   },
+  
+  goHome : function() {
+    game.scene.reactor.stop();
+  	game.scene.audioManager.stop();
+    Loader.sounds.intro['menus_background.mp3'].play();
+    self.gameManager.openMainPage();
+  },
 
   attachListener : function(){
     var self = this;
@@ -141,9 +147,7 @@ var MissionManager = Class.create({
       self.gameManager.playMission(self.currentMission.id);
     });
     $$('#winLose .homeButton')[0].observe('click', function(event){
-      Loader.sounds.intro['menus_background.mp3'].loop = true;
-      Loader.sounds.intro['menus_background.mp3'].play();
-      self.gameManager.openMainPage();
+      self.goHome();
     });
     $$('#winLose .nextMissionButton').each(function(button){
       button.observe('click', function(event){
@@ -151,8 +155,7 @@ var MissionManager = Class.create({
       });
     });
     $$('#winLose .close')[0].observe('click', function(event){
-      Loader.sounds.intro['menus_background.mp3'].play();
-      self.gameManager.openMainPage();
+      self.goHome();
     });
     $$('#winLose .challengeFriends .friend .cancelButton').each(function(element){
       element.observe('click', function(event){

@@ -129,6 +129,10 @@ var Game = Class.create({
     this.mission.backgrounds.layer2.each(function(elem){
       backgroundImages.push(elem.name);
     });
+    if(this.mission.backgrounds.sky)
+    this.mission.backgrounds.sky.each(function(elem){
+      backgroundImages.push(elem.name);
+    });
     this.mission.backgrounds.landmarks.each(function(elem){
       backgroundImages.push(elem.name);
     });
@@ -160,9 +164,8 @@ var Game = Class.create({
       this.reset();
       this.scene = new TsquareScene();
       if(this.gameManager)this.gameManager.missionManager.registerSceneListeners(this.scene);
-	  	this.scene.start();
+	  this.scene.start();
       $('gameContainer').show();
-	  	this.scene.fire("start");
       this.inGameMeterBar = new InGameMeterBar(this);
       this.guidingIcon = new GuidingIcon(this);
     }

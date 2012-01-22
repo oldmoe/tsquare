@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>TSqaure Level Editor</title>
+		<link type="text/css" href="css/style.css" rel="stylesheet"></link>
+		<link rel="stylesheet" href="css/tabs.css" TYPE="text/css" MEDIA="screen">
+
+		<script type="text/javascript" src="js/base/prototype.js"></script>
+		<script type="text/javascript" src="js/base/tabber-minimized.js"></script>
+		<script type="text/javascript" src="js/base/effects.js"></script>
+		<script type="text/javascript" src="js/base/dragdrop.js"></script>
+		
+		<script type="text/javascript" src="js/editor_data.js"> </script>
+		<script type="text/javascript" src="js/level_editor.js"> </script>
+		<script type="text/javascript" src="js/tile.js"> </script>
+		<script type="text/javascript" src="js/lane.js"> </script>
+		<script type="text/javascript" src="js/grid.js"> </script>
+		<script type="text/javascript" src="js/message.js"> </script>
+		<script type="text/javascript" src="js/level_loader.js"> </script>
+		<script type="text/javascript" src="js/data_export.js"> </script>
+		<script type="text/javascript" src="js/data_loader.js"> </script>
+		<script type="text/javascript" src="js/background_handler.js"> </script>
+		<script type="text/javascript" src="js/level_objects_handler.js"> </script>
+		<script type="text/javascript" src="js/settings_handler.js"> </script>
+		<script type="text/javascript" src="js/lo_tile.js"> </script>
+		<script type="text/javascript" src="js/lo_settings_handler.js"> </script>
+		<script type="text/javascript" src="js/tile_data_handler.js"> </script>
+
+		<script type="text/javascript" src="js/mission.js"></script>		
+				
+		<script type="text/javascript">
+      		
+      var levelEditor = null;  
+			document.observe("dom:loaded", function() {
+				levelEditor = new LevelEditor();
+				Mission.initialize();
+			});
+			
+		</script>
+	</head>
+	<body>
+		
+		<div id="infoBar">Mission Name: 
+      <input id="missionName"/>
+      <a href="Javascript:void(0);" onclick="Mission.editMissionName(); return false;">Save</a>
+    </div>
+		
+		<div id="controls" class="controls">
+			<div class="settingsButton" title="Open Settings" > </div>
+			<div class="exportButton" title="Export mission data"> </div>
+			<div class="saveButton" title="Save mission data"> </div>
+      <div id="saveReqStatus"> </div>
+		</div>
+		
+		<div class="tabber">
+		     <div class="tabbertab">
+				  <h2>Enemies</h2>
+				  <div class="draggables" id="enemiesContainer"></div>
+		     </div>
+		     <div class="tabbertab">
+				  <h2>Crowd Members</h2>
+				  <div class="draggables" id="crowdMemberContainer"></div>
+		     </div>
+		     <div class="tabbertab">
+				  <h2>Protection Units</h2>
+				  <div class="draggables" id="protectionContainer"></div>
+		     </div>
+		     <div class="tabbertab">
+				  <h2>Objectives</h2>
+				  <div class="draggables" id="objectivesContainer"></div>
+		     </div>
+		     <div class="tabbertab">
+				  <h2>In Game Powerups</h2>
+				  <div class="draggables" id="powerupsContainer"></div>
+		     </div>
+         <div class="tabbertab">
+          <h2> Advisors </h2>
+          <div class="draggables" id="advisorsContainer"></div>
+         </div>
+         <div class="tabbertab">
+          <h2> Clash Enemies </h2>
+          <div class="draggables" id="clashEnemyContainer"></div>
+         </div>
+		     <div class="tabbertab">
+				  <h2>Backgrounds/Landmarks</h2>
+				  <div class="draggables" id="backgroundContainer"></div>
+    <div id="bgDropbox">
+      <div class="bgTitle">Background Layer 1</div>
+      <div class="bgTitle">Background Layer 2</div>
+      <div class="bgTitle">Landmarks Images</div>
+      <div class="bgTitle">Fence</div>
+      <div class="bgTitle">Lamp</div>
+      <div class="bgTitle">Land</div>
+      <div id="bgLayer1" class="bgDropbox">
+      </div>
+      <div id="bgLayer2" class="bgDropbox">
+      </div>
+      <div id="bgLandmarks" class="bgDropbox">
+      </div>
+      <div id="bgFence" class="bgDropbox">
+      </div>
+      <div id="bgLamp" class="bgDropbox">
+      </div>
+      <div id="bgLand" class="bgDropbox">
+      </div>
+
+    </div>  
+
+		     </div>
+		</div>
+
+		<div id="levelObjects">
+			<div class="levelObjectsTitle">
+				Level Objects <input type="button" value="Delete All" class="clearAll"/> &nbsp; <input type="button" value="Random" class="random"/>
+				<input type="checkbox" name="multipleObjects" checked="checked" /> Allow Multiple objects at the same tile. 
+			</div>
+			<div id="levelObjectsContainer" class="levelObjects"></div>
+		</div>
+		
+		<div id="gridControlArea">
+		  New tiles length: <input id="newTilesCount" type="text" /> <input type="button" value="Update" id="updateTilesCount"/>
+		</div>
+		<div id="" class="dropAreaContainer">
+			<table class="droparea">
+				<tbody id="targetContainer">
+				</tbody>
+			</table>
+		</div>
+
+		<div id="exportDialog" class="exportDialog" style="display:none;">
+			<div class="exportDialogContents">
+				<textarea id="dataMessage" rows="17" cols="42">
+				</textarea>
+			</div>
+			<div class="dialogCloseButton"></div>
+		</div>
+		
+		<div id="discussionDialog" class="discussionDialog" style="display:none;">
+			<div class="discussionDialogContents" style="height:250px;overflow:scroll;">
+				<table>
+					<tr>
+						<td>Speaker</td>
+						<td><select id="gameElementsList"></select></td>
+					</tr>
+					<tr>
+						<td>English message</td>
+						<td><textarea id="discussionMessage" rows="2" cols="20" class="messageText"></textarea></td>
+					</tr>
+					<tr>
+						<td>Arabic message</td>
+						<td><textarea id="discussionMessage_ar" rows="2" cols="20" class="messageText"></textarea></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="Add" class="add" /></td>
+						<td><input type="button" value="Reset" class="reset"/></td>
+					</tr>
+					<tr>
+						<td><ol id="messagesList"></ol></td>
+						<td><ol id="messagesList_ar"></ol></td>
+					</tr>
+				</table>
+			</div>
+			<div class="dialogCloseButton"></div>
+		</div>
+		
+		<div id="settingsDialog" class="settingsDialog" style="display: none">
+			<div class="settingsDialogContents">
+			  <input type="checkbox" name="missionLock" value="locked" />Locked
+			  <hr/>
+				<div id="levelEnvironment">
+					Environment:&nbsp;<br>
+					<input type="radio" name="environment" value="day" />Day<br>
+					<input type="radio" name="environment" value="night" />Night<br>
+					<input type="radio" name="environment" value="day_night" />Day and Night
+				</div>
+				<hr/>
+				<div id="gameModes">
+					Game Modes:&nbsp;<br>
+					<input type="checkbox" name="gameModes" value="normal" />Normal
+					<input type="checkbox" name="gameModes" value="sneak" />Sneak
+					<input type="checkbox" name="gameModes" value="charging" />Charging
+				</div>
+        <div id="missionTimeContainer">
+          Mission Time <input type="text" id="missionTime" /> (seconds) <br/>
+          Super Time <input type="text" id="superTime" /> (seconds)
+        </div>
+				<hr/>
+				<div id="introductionTextContainer">
+				  Mission Details <br/>
+				  <label>English:</label>
+				  <textarea id="missionDetails"></textarea><br />
+				  <label>Arabic:</label>
+				  <textarea id="missionDetails_ar"></textarea>
+				</div>
+				<hr/>
+				<div id="energySettingsContainer">
+					Energy:&nbsp;&nbsp; <input type="text" id="energyValue" size="10"/> 
+					Message: <textarea id="energyMessage"></textarea>
+					<input type="button" value="Add" class="add" ><br/>
+					<input type="button" value="Delete" class="delete" />
+					<ol id="energyMessagesList"></ol>
+				</div>
+			</div>
+			<div class="dialogCloseButton"> </div>
+		</div>
+
+		<div id="loSettingsDialog" class="loSettingsDialog" style="display:none;">
+			<div class="loSettingsDialogContents">
+				<div id="random">
+					<input type="radio" id="type1" name="random" checked="checked" /> Periodic Random Distribution <br/>
+					From tile <input type="text" name="start" value="" size="3" />
+					To tile <input type="text" name="end" value="" size="3"/>
+					Put randomly <input type="text" name="freq" value="" size="3"/> copies every
+					 <input type="text" name="interval" value="" size="3"/> tiles.<br/><br/>
+				</div>
+				<div id="cyclic">
+					<input type="radio" id="type2" name="random" /> Cyclic Distribution<br/>
+					From tile <input type="text" name="start2" value="" size="3" />
+					To tile <input type="text" name="end2" value="" size="3"/>
+					Put <input type="text" name="freq2" value="" size="3"/> copies every
+					 <input type="text" name="interval2" value="" size="3"/> tiles.
+				</div>
+        <br/>  
+        Include in lanes:&nbsp;<br>
+        <div id="inLanes">
+        </div>
+				
+				<br/><br/>
+				<input type="button" name="Save" value="Save" class="save" />
+
+			</div>
+			<div class="dialogCloseButton"></div>
+		</div>
+
+		<div id="tileDataDialog" class="tileDataDialog" style="display:none;">
+			<div class="tileDataDialogContents">
+				<input type="button" value="Delete" class="delete" />
+			</div>
+			<div class="dialogCloseButton"></div>
+		</div>
+		
+	</body>
+</html>

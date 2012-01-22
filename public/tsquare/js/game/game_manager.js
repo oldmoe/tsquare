@@ -25,7 +25,8 @@ var GameManager = Class.create({
                               Loader.sounds.intro['menus_background.mp3'].play();
                               $('inProgress').hide();
                               self.selectLanguage("en");
-                            }}, time);
+                              self.langSetted = true;
+                            }}, 100);
               Loader.sounds.intro['intro.mp3'].loop = true;
               Loader.sounds.intro['intro.mp3'].play({loop:true,loops:1000});
               $('inProgress').show();
@@ -100,7 +101,6 @@ var GameManager = Class.create({
   start : function(){
     var self = this;
     var callback = function(data) {
-      console.log(data)
       self.initializeData(data);
     }
     this.network.gameData(callback);

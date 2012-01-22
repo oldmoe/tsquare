@@ -8,9 +8,6 @@ var ScoreCalculator = Class.create({
   
   score: 0,
   
-  correctCommandsCount: 0,
-  wrongCommandsCount: 0,
-  
   correctMovesCount: 0,
   wrongMovesCount: 0,
   
@@ -40,8 +37,6 @@ var ScoreCalculator = Class.create({
     this.scene.observe('wrongMove',function(){self.wrongMove()})
     this.scene.observe('correctMove',function(){self.correctMove()})
     this.scene.observe('correctObjective',function(){self.correctObjective()})
-    this.scene.observe('wrongCommand',function(){self.wrongCommand()})
-    this.scene.observe('correctCommand',function(){self.correctCommand()})
     this.scene.observe("updateScore", function(score){self.updateScore(score)});
   },
   

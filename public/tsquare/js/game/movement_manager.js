@@ -1,6 +1,7 @@
 var MovementManager = Class.create({
   
   RIGHT : 0, LEFT : 1,UP : 2, DOWN : 3, SPACE : 4, ENTER: 5,
+  keyText: ['right', 'left', 'up', 'down'],
   move : [],
   movements : [],
   direction : 0,
@@ -30,9 +31,6 @@ var MovementManager = Class.create({
       hit:{code:[2,3,2,3],index:5},
       push:{code:[2,2,0,0],index:6}
     }
-    this.keyText = {}
-    this.keyText.en = ['right', 'left', 'up', 'down']
-    this.keyText.ar = ['يمين', 'شمال', 'فوق', 'تحت']
   },
   
   run: function(){
@@ -235,7 +233,6 @@ var MovementManager = Class.create({
   },
   
   startMove : function(commandIndex){
-    this.scene.fire("beatMoving");
     this.scene.fire(this.currentCommand);
     this.scene.fire("correctMove")
     this.beatMoving = true;
@@ -249,9 +246,9 @@ var MovementManager = Class.create({
   
   //TODO: cache results
   commandText: function(command) {
-  	var dict = this.keyText[game.properties.lang];
+  	var dict = this.keyText;
   	var textCodes = [];
-  	this.moves[command].code.each(function(keyCode){textCodes.push(dict[keyCode]);});
+  	this.moves[command].code.each(function(keyCode){textCodes.push(t(dict[keyCode]));});
   	return textCodes.join(' - ');
   },
 

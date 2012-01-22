@@ -3,8 +3,11 @@ var SkyLine = Class.create({
 	initialize: function(scene){
     	this.backgrounds = []
     	this.scene = scene
-    	
-      var images_sky = [Loader.images.background['background.png']];
+      var images_sky = [] 
+    	if(game.data.backgrounds.sky)
+        images_sky = [Loader.images.background[game.data.backgrounds.sky[0].name]];
+      else 
+        images_sky = [Loader.images.background['background.png']]  //default background to make old missions work 
       var images_clowd = [Loader.images.background['clowds.png']];
       var images_crowd = [Loader.images.background['followers_crowd.png'],Loader.images.background['followers_crowd.png'],Loader.images.background['followers_crowd.png'], Loader.images.background['followers_crowd_car.png']];
       var images_layer1 = [Loader.images.background[game.data.backgrounds.layer1[0].name]];

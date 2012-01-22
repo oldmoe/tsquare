@@ -150,10 +150,5 @@ var Block = Class.create(Enemy,{
           this.elements[i][j].coords = Nezal.clone_obj(coords) 
         }
       }
-    },
-    
-    die: function($super){
-      $super();
     }
-    
 })

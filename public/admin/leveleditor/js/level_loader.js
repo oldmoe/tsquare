@@ -15,6 +15,7 @@ var LevelLoader = Class.create({
     if(this.missionData){
       if(this.missionData.data)this.loadObjects(this.missionData.data);
       if(this.missionData.backgrounds)this.loadBackgrounds(this.missionData.backgrounds);
+      if(this.missionData.winPowerups)this.loadWinPowerups(this.missionData.winPowerups);
       if(this.missionData)this.loadSettings(this.missionData);
       alert("Data loaded successfully.");
     }else{
@@ -35,6 +36,12 @@ var LevelLoader = Class.create({
       settings[key] = missionData[key];
     delete settings.data;
     levelEditor.settingsHandler.loadData(settings);
+  },
+  
+  loadWinPowerups: function(powerups){
+    for (var i=0; i < powerups.length; i++) {
+      levelEditor.powerupsHandler.loadObject(this.loadImagePath(powerups[i]), 'winPowerups');
+    }
   },
   
   loadBackgrounds: function(backgrounds){

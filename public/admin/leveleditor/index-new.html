@@ -20,6 +20,7 @@
 		<script type="text/javascript" src="js/data_export.js"> </script>
 		<script type="text/javascript" src="js/data_loader.js"> </script>
 		<script type="text/javascript" src="js/background_handler.js"> </script>
+		<script type="text/javascript" src="js/powerups_handler.js"> </script>
 		<script type="text/javascript" src="js/level_objects_handler.js"> </script>
 		<script type="text/javascript" src="js/settings_handler.js"> </script>
 		<script type="text/javascript" src="js/lo_tile.js"> </script>
@@ -69,10 +70,17 @@
 				  <h2>Objectives</h2>
 				  <div class="draggables" id="objectivesContainer"></div>
 		     </div>
+		     
 		     <div class="tabbertab">
 				  <h2>Powerups</h2>
 				  <div class="draggables" id="powerupsContainer"></div>
+          <div id="bgDropbox">
+            <div class="powerupsTitle">Win Powerups</div>
+            <div id="winPowerups" class="powerupsDropbox">
+            </div>
+          </div>  
 		     </div>
+		     
          <div class="tabbertab">
           <h2> Advisors </h2>
           <div class="draggables" id="advisorsContainer"></div>
@@ -84,44 +92,41 @@
 		     <div class="tabbertab">
 				  <h2>Backgrounds/Landmarks</h2>
 				  <div class="draggables" id="backgroundContainer"></div>
-            <div id="bgDropbox">
-              <div class="bgTitle">Background Layer 1</div>
-              <div class="bgTitle">Background Layer 2</div>
-              <div class="bgTitle">Background Sky</div>
-              <div class="bgTitle">Landmarks Images</div>
-              <div class="bgTitle">Fence</div>
-              <div class="bgTitle">Lamp</div>
-              <div class="bgTitle">Land</div>
-              <div id="bgLayer1" class="bgDropbox">
-              </div>
-              <div id="bgLayer2" class="bgDropbox">
-              </div>
-              <div id="bgSky" class="bgDropbox">
-              </div>
-              <div id="bgLandmarks" class="bgDropbox">
-              </div>
-              <div id="bgFence" class="bgDropbox">
-              </div>
-              <div id="bgLamp" class="bgDropbox">
-              </div>
-              <div id="bgLand" class="bgDropbox">
-              </div>
-        
-            </div>  
+          <div id="bgDropbox">
+            <div class="bgTitle">Background Layer 1</div>
+            <div class="bgTitle">Background Layer 2</div>
+            <div class="bgTitle">Background Sky</div>
+            <div class="bgTitle">Landmarks Images</div>
+            <div class="bgTitle">Fence</div>
+            <div class="bgTitle">Lamp</div>
+            <div class="bgTitle">Land</div>
+            <div id="bgLayer1" class="bgDropbox">
+            </div>
+            <div id="bgLayer2" class="bgDropbox">
+            </div>
+            <div id="bgSky" class="bgDropbox">
+            </div>
+            <div id="bgLandmarks" class="bgDropbox">
+            </div>
+            <div id="bgFence" class="bgDropbox">
+            </div>
+            <div id="bgLamp" class="bgDropbox">
+            </div>
+            <div id="bgLand" class="bgDropbox">
+            </div>
+          </div>  
 		     </div>
 		</div>
 
 		<div id="levelObjects">
 			<div class="levelObjectsTitle">
 				Level Objects <input type="button" value="Delete All" class="clearAll"/> &nbsp; <input type="button" value="Random" class="random"/>
-				<input type="checkbox" name="multipleObjects" checked="checked" /> Allow Multiple objects at the same tile. 
+				<input type="checkbox" name="multipleObjects" checked="checked" /> Allow Multiple objects at the same tile.
+				/ Tiles Length: <input id="newTilesCount" type="text" /> <input type="button" value="Update" id="updateTilesCount"/> 
 			</div>
 			<div id="levelObjectsContainer" class="levelObjects"></div>
 		</div>
 		
-		<div id="gridControlArea">
-		  New tiles length: <input id="newTilesCount" type="text" /> <input type="button" value="Update" id="updateTilesCount"/>
-		</div>
 		<div id="" class="dropAreaContainer">
 			<table class="droparea">
 				<tbody id="targetContainer">

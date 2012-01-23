@@ -50,7 +50,7 @@ class GamesController < ApplicationController
 
   post '/:game_name/mission' do
     data = decode(params['data'])
-    result = UserMissions.update(user_game_profile, data['id'], data['score'])
+    result = UserMissions.update(user_game_profile, data)
     data = {
       :game_data => { :data => Game::current.user_data(user_game_profile) } , 
       :user_data => { :coins => user.coins,

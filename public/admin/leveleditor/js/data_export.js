@@ -100,6 +100,9 @@ var DataExporter = Class.create({
 		gameData.missionTime = settings.missionTime;
 		gameData.superTime = settings.superTime;
 		gameData.locked = settings.locked;
+		
+		gameData.winPowerups = this.levelEditor.powerupsHandler.getWinPowerupsData();
+		
 		return gameData;
 	},
 

@@ -46,6 +46,9 @@ var Game = Class.create({
             characterImages.push(characterNames[i]+"_"+imageNames[j]+".png")
         }
     }
+    characterImages = characterImages.concat(['flagman_leg2_walk.png', 'flagman_back.png', 'flagman_down.png', 'flagman_forward.png'
+    ,'flagman_idle.png', 'flagman_up.png'])
+    characterImages = characterImages.concat(['journalist_shout.png', 'girl7egab_shout.png']) 
     var effectsImages = ['hydrate.png', 'hit1.png','good_blue.png','bad_red.png']
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
     'amn_markazy_tear_gas_walk.png', 'ambulance.png','twitter_guy.png',
@@ -115,7 +118,7 @@ var Game = Class.create({
     });
   },
 
-  play : function(mission){
+  play : function(mission, callback){
     this.data = mission;
     this.mission = mission;
     missionData = mission;
@@ -153,6 +156,7 @@ var Game = Class.create({
            }, onFinish:function(){        
                 self.missionLoaded = true;
                 self.start();
+                if( callback ) callback();
         }
       })
   },
@@ -163,8 +167,9 @@ var Game = Class.create({
       $('gameInProgress').hide();
       this.reset();
       this.scene = new TsquareScene();
-      if(this.gameManager)this.gameManager.missionManager.registerSceneListeners(this.scene);
-	  this.scene.start();
+      if(this.gameManager)
+        this.gameManager.missionManager.registerSceneListeners(this.scene);
+	    this.scene.start();
       $('gameContainer').show();
       this.inGameMeterBar = new InGameMeterBar(this);
       this.guidingIcon = new GuidingIcon(this);

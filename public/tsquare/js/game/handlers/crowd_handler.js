@@ -50,13 +50,25 @@ var CrowdHandler = Class.create(UnitHandler, {
        for(var crowdType in userCrowds){
            for(var crowd in userCrowds[crowdType]){
                var crowdMember = userCrowds[crowdType][crowd]
-               var level = crowdMember.level
-               var category = gameData.crowd_members.category[crowdType]['type'];
-               if(category == "special" || category == "limited_edition") category = crowdType
-               var specs = gameData.crowd_members.specs[category][level]
-               this.addCrowdMember(crowdType,specs)
+               if( crowdMember.health >= 40 ){
+                 var level = crowdMember.level
+                 var category = gameData.crowd_members.category[crowdType]['type'];
+                 if(category == "special" || category == "limited_edition") category = crowdType
+                 var specs = gameData.crowd_members.specs[category][level]
+                 this.addCrowdMember(crowdType,specs)
+               }
            }
-       } 
+       }
+       //creating flag man
+       var defaultSpecs = {attack:0,defense:0,hp:1,water:100};
+       defaultSpecs.x = 250
+       defaultSpecs.y = 1
+       this.flagMan = this.addCrowdMember("flag_man",defaultSpecs);
+       //flag man is removed from crowd handler objects and added as a general object because
+       //its behavior is different 
+       this.objects[this.scene.activeLane].remove(this.flagMan);
+       this.scene.objects.push(this.flagMan);
+       
     },
     
     start : function(){
@@ -299,6 +311,7 @@ var CrowdHandler = Class.create(UnitHandler, {
         }
       }
     }
+    this.flagMan.endMove(function(){})
   },
 
   detectCollisions : function($super,others){

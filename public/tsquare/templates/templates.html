@@ -251,8 +251,9 @@
         <span class="levelMeterCrowd">
           <span class="loadedImg" imgSrc="game_elements/level_meter_crowd.png" alt=" crowd" imgClasses="positioned"></span>
         </span>
-        <span class="loadedImg" imgSrc="game_elements/level_meter_highlighted.png" alt="Level Meter Highlighted" imgClasses="positioned"></span>
+        <span class="loadedImg" imgSrc="game_elements/level_meter_highlighted.png" alt="Level Meter Highlighted"></span>
       </div>
+      <strong>Progress</strong>
       <span class="loadedImg" imgSrc="game_elements/level_meter.png" alt="Level Meter" imgClasses="positioned"></span>
     </div>
     
@@ -263,37 +264,15 @@
       </div>
       <span class="loadedImg" imgSrc="game_elements/timer.png" alt="Tmer Bar" imgClasses="positioned"></span>
     </div>
-
-    <div class="powerbar">
+    <div class="powerbar highlightedItem">
       <!--Power Percentage-->
       <div class="powerPercentage">
         0%
       </div>
-      <!--Power Level 01-->
-      <div class="powerLevel01">
-        <div style="width:0%">
-          <span class="loadedImg" imgSrc="game_elements/power_level01.png" alt="level 01" imgClasses="positioned"></span>
-        </div>
+      <div class="powerbarFull" style="width:0%;">
+        <img src="images/game_elements/power_bar_full.png" alt="Powerbar full" />
       </div>
-      <!--Power Level 02-->
-      <div class="powerLevel02">
-        <div style="width:0%">
-          <span class="loadedImg" imgSrc="game_elements/power_level02.png" alt="level 02" imgClasses="positioned"></span>
-        </div>
-      </div>
-      <!--Power Level 03-->
-      <div class="powerLevel03">
-        <div style="width:0%">
-          <span class="loadedImg" imgSrc="game_elements/power_level03.png" alt="level 03" imgClasses="positioned"></span>
-        </div>
-      </div>
-      <!--Power Level 04-->
-      <div class="powerLevel04">
-        <div style="width:0%">
-          <span class="loadedImg" imgSrc="game_elements/power_level04.png" alt="level 04" imgClasses="positioned"></span>
-        </div>
-      </div>
-      <span class="loadedImg" imgSrc="game_elements/power_bar.png" alt="power bar" imgClasses="positioned"></span>
+      <img class="positioned" src="images/game_elements/power_bar.png" alt="Power" />
     </div>
   </div>
 </textarea>
@@ -322,7 +301,7 @@
         <span class="loadedImg lang" imgSrc="friends/icon_call.png" alt="Menu Item"></span>
       </a>
       <!--Marketplace button-->
-      <a class="marketplaceMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace(true);">
+      <a class="marketplaceMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace({myStuff : true});">
         <span class="loadedImg lang" imgSrc="friends/icon_crowds.png" alt="Menu Item"></span>
       </a>
       <!--Rank button-->

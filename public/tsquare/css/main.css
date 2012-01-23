@@ -10,7 +10,7 @@ img { border:none; outline:none;}
 .uiContainer .background { height:620px; position:absolute; left:0; top:0; width:970px; z-index: -1}
 .positioned { position:absolute; top:0px; left:0px; z-index:1; }
 
-#gameContainer { position:absolute; top:0px; z-index:10; width:970px; height:620px; margin:0 auto; }
+#gameContainer { position:absolute; top:0px; z-index:10; width:970px; height:615px; margin:0 auto; overflow:hidden; }
 
 .close { float:left; width:39px; height:39px; position:relative; left:436px; top:-15px; overflow:hidden }
 .close a { display:block; width:39px; height:39px; }
@@ -406,8 +406,8 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .healthMeter span { position:absolute; z-index:8; font-weight:bold; color:#FFF; font-size:.6em; top:13px; width:27px; text-align:center;	 }
 
 /*--------Game meters-----------*/
-.movesWrapper { float:right; width:280px; position:absolute; z-index:2; top:555px; right:360px; opacity:.9; }
-.nextMove { width:46px; height:45px; float:left; }
+.movesWrapper { float:right; width:326px; position:absolute; z-index:2; top:555px; right:290px; opacity:.9; }
+.nextMove { width:46px; height:45px; float:right; }
 .nextMove img {  height:45px;  }
 .movesIndicator { float:right; width:280px;position:relative; z-index:2; padding:0 0 0 0; }
 .movesIndicator span { float:right; width:46px; height:45px; overflow:hidden; z-index:3; position:relative; margin:0 10px 0 0; }
@@ -434,14 +434,15 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 
 /*--------Power ups-----------*/
-.powerUpsWrapper { float:left; width: 80px; position:absolute; top:50px; left:10px; }
-.powerUp { float:left; width:62px; height:62px; overflow:hidden; position:relative; padding:10px; }
-.powerUp span { position:relative; z-index:14; }
-.powerUp span img { width:58px; margin:12px 0 0 0; }
-.powerUp .positioned { margin:10px; }
+.powerUpsWrapper { float:left; width: 80px; position:absolute; top:100px; left:10px; }
+.powerUpSlot { float:left; width:43px; height:43px; position:relative; z-index:14; margin:15px 0 0 5px; }
+.powerUpItem img  { position:relative; z-index:15; }
+.powerUpSlot small { float:left; width:16px; height:16px; position:absolute; z-index:16; overflow:hidden; top:30px; right:-5px; }
+.powerUpSlot small img { position:absolute; top:-16px; }
+.powerUpSlot small strong { position:relative; z-index:17; text-shadow:1px 1px 0px #ffac44; font-weight:bold; font-size:.8em; width:16px; text-align:center;display:block; margin:3px 0 0 0;  }
 
-.powerUp.selected .positioned { -webkit-border-radius: 100px; -moz-border-radius: 100px; border-radius: 100px; -webkit-box-shadow: 0px 0px 15px #ff7e00; -moz-box-shadow: 0px 0px 15px #ff7e00; box-shadow: 0px 0px 15px #ff7e00; }
-
+.powerUpHotKey { position:absolute; top:-5px; left:-5px; z-index:18; }
+.powerUpHotKey strong { position:relative; z-index:19; text-align:center; width:21px; float:left; padding:3px 0 0 0; font-weight:bold; }
 /*--------Items Slots-----------*/
 .itemsSlotsWrapper { float:left; width:195px; position:absolute; top:560px; height:48px; left:10px; }
 .itemSlot { float:left; width:43px; height:43px; position:relative; z-index:14; margin:3px 0 0 5px; }
@@ -593,7 +594,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .recoveryTimer img { position:absolute; top:-75px; }
 
 
-.highlightedItem { position:absolute; z-index:2147483647; }
-.highlightedBackground { position:absolute; z-index:2147483646; background:#000; opacity:.8; width:970px; height:620px; top:0; left:0; }
+.highlightedItem { position:absolute; z-index:2147483647; -webkit-box-shadow: 0px 0px 24px #F00; -moz-box-shadow: 0px 0px 24px #F00; box-shadow: 0px 0px 20px #F00; -webkit-border-radius: 50px; -moz-border-radius: 50px; border-radius: 50px; }
+.highlightedBackground { position:absolute; z-index:2147483646; background:#000; opacity:.9; width:970px; height:620px; top:0; left:0; }
 .highlightedBackground h2 { font-weight:bold; font-size:8em; color:#f7f18b; width:970px; text-align:center; margin:200px 0 0 0; position:relative; }
 .highlightedBackground h3 { font-weight:bold; font-size:1.7em; color:#f7f18b; width:970px; text-align:center; margin:20px 0 0 0; position:relative; }

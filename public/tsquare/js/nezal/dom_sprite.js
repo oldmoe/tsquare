@@ -3,7 +3,7 @@ var DomSprite = Class.create(Sprite, {
   shiftX : 0,
   shiftY : 0,
   shiftZ : 0,
-  defaultShiftY : 360,
+  defaultShiftY : 260,
   lastStyleVlaues : null,
   
   initialize : function(owner, assets, properties){

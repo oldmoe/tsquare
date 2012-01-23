@@ -368,7 +368,7 @@ var Timeline = Class.create(UIManager, {
     if($$('#timeline .missionDetails .playButton')[0])
     {
       $$('#timeline .missionDetails .playButton')[0].observe('click', function(event){
-        self.gameManager.playMission(event.element().id);
+        self.gameManager.marketplace.openMarketplace({myStuff : true, preMission : true, missionID : event.element().id});
       });
     }
   }

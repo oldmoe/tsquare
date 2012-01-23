@@ -125,6 +125,9 @@ var MovementManager = Class.create({
   
   process : function(click){
       var self = this
+      if (this.keyText[click]) {
+        this.scene.fire('arrow' + this.keyText[click].capitalize())
+      }
       if(self.scene.currentSpeed > 0){
         self.comboStart = true
       }
@@ -253,6 +256,7 @@ var MovementManager = Class.create({
   },
 
   moveEnd : function(){
+    this.scene.fire('endMove')
     this.beatMoving = false
   }
   

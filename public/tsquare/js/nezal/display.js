@@ -21,7 +21,6 @@ var Display = Class.create({
   initDisplay : function(){
     this.createShadows();
     this.createSprites()
-    
     this.initAudio();    
   },
   

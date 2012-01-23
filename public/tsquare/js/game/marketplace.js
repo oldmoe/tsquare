@@ -45,12 +45,12 @@ var Marketplace = Class.create({
                         });
       membersImages.push(item + "_icon.png");
     }
-    membersImages.remove('attacker_icon.png')
-    membersImages.remove('supplier_icon.png')
-    membersImages.remove('leader_icon.png')
-    membersImages.remove('energy_booster_icon.png')
-    membersImages.remove('amr_salama_icon.png')
-    membersImages.remove('wael_ghoneim_icon.png')
+    // membersImages.remove('attacker_icon.png')
+    // membersImages.remove('supplier_icon.png')
+    // membersImages.remove('leader_icon.png')
+    // membersImages.remove('energy_booster_icon.png')
+    // membersImages.remove('amr_salama_icon.png')
+    // membersImages.remove('wael_ghoneim_icon.png')
     
     this.loader = this.gameManager.loader
     this.loader.load([ {images : ["my_stuff_title.png", "buy_window_title.png", "tab_background.png", "dialog_box.png",
@@ -100,19 +100,46 @@ var Marketplace = Class.create({
   },
   
   adjustMyMembers : function(){
+    this.enableNextMission = false;
+    var HEALTH_SHIFT_CONST = 8;
     var adjustedMyMembers = []
     for(var memberName in this.myMembers){
       var specs = this.gatherSpecs( memberName );
       var specIds = specs.specIds;
       var memberSpecs = specs.memberSpecs;
       for(var memberID in this.myMembers[memberName]){
+        
+        var memberData = this.myMembers[memberName][memberID];
+        
+        this.enableNextMission = this.enableNextMission || (memberData.health >= 40);
+        
+        var healthShift = 0;
+        if( memberData.health < 100 ){
+          healthShift = HEALTH_SHIFT_CONST;
+        }
+        if( memberData.health < 80 ){
+          healthShift = HEALTH_SHIFT_CONST * 2;
+        }
+        if( memberData.health < 60 ){
+          healthShift = HEALTH_SHIFT_CONST * 3;
+        }
+        if( memberData.health < 40 ){
+          healthShift = HEALTH_SHIFT_CONST * 4;
+        }
+        if( memberData.health < 20 ){
+          healthShift = HEALTH_SHIFT_CONST * 5;
+        }
+        if( memberData.health == 0 ){
+          healthShift = HEALTH_SHIFT_CONST * 6;
+        }
         adjustedMyMembers.push( 
                         {codeName : memberName,
                          displayName : this.members['category'][memberName].name,
-                         memberData : this.myMembers[memberName][memberID],
+                         memberData : memberData,
                          specs : memberSpecs,
                          specIds : specIds,
-                         memberID : memberID
+                         memberID : memberID,
+                         healthShift : healthShift
                         });
       }
     }
@@ -131,8 +158,8 @@ var Marketplace = Class.create({
     }
   },
   
-  renderFloatingItems : function(categoryItems, screen){
-    $$('#floatingItems')[0].innerHTML = this.templateManager.load('floatingItems', { categoryItems: categoryItems, screen : screen });
+  renderFloatingItems : function(categoryItems, screen, preMission, myStuff){
+    $$('#floatingItems')[0].innerHTML = this.templateManager.load('floatingItems', { categoryItems: categoryItems, screen : screen, preMission : preMission });
     Game.addLoadedImagesToDiv('marketplace');
     $$('#floatingItems li div.crowedItem div.crowedItemImage img').each(function(img){
       var id = img.id;
@@ -154,25 +181,25 @@ var Marketplace = Class.create({
     $$('#floatingItems ul')[0].setStyle( { width: this.containerWidth + 'px' } );
     
     this.adjustNavigators('floatingItems');
-  },
-  
-  openMarketplace : function(myStuff){
-    $('marketplace').hide();
+    
+    
     var self = this;
-    var screen = myStuff ? 'myStaff' : 'marketplace'
-    $('marketplace').innerHTML = this.templateManager.load('marketplace', {screen : screen});
-    
-    var categoryItems = myStuff ? self.adjustedMyMembers : self.adjustedMembers;
-    
-    //Attaching triggers to the market placetabs
-    $('marketMembers').stopObserving('click');
-    $('marketMembers').observe('click', function(event){
-      self.renderFloatingItems(categoryItems, screen);
-      $('marketMembers').parentNode.addClassName("selected");
+    //Activating feature : healing injured crowd members
+    $$('.healTrigger').each(function(healTrigger){
+      healTrigger.observe("click", function(event){
+        self.network.heal( {memberID : healTrigger.id}, function(data){
+          $("bandageAmount").innerHTML = data.bandages;
+          
+          self.myMembers[data.name][data.serial].health = data.health
+          userData.crowd_members[data.name][data.serial].health = data.health
+          
+          self.adjustedMyMembers = self.adjustMyMembers();
+          
+          self.renderFloatingItems( self.adjustedMyMembers, screen, preMission, myStuff );
+        } );
+      });    
     });
     
-    //Loading the template of the auto selected tab
-    self.renderFloatingItems(categoryItems, screen);
     if( myStuff ){
       //Activating feature : linking a crowd member to a friend
       $$('.linkButton').each(function(link){
@@ -205,7 +232,47 @@ var Marketplace = Class.create({
         })
       })
     }
-    var self = this;  
+    
+    
+    
+  },
+  
+  openMarketplace : function(options){
+    var myStuff = options.myStuff;
+    var preMission = options.preMission;
+    var missionID = options.missionID;
+    var self = this;
+    var screen = myStuff ? 'myStaff' : 'marketplace';
+    this.adjustedMyMembers = this.adjustMyMembers();
+    $('marketplace').hide();
+    $('marketplace').innerHTML = this.templateManager.load('marketplace', {screen : screen, 
+                                                                           bandages : this.gameManager.userData.bandages,
+                                                                           preMission : preMission});
+    
+    if( preMission ){
+      $('readyButton').stopObserving('click');                                                                       
+      $('readyButton').observe('click', function(event){
+        if( self.enableNextMission ){
+          self.gameManager.marketplace.hide();
+          self.gameManager.playMission(missionID);
+        } else {
+          $('cantJoinErrorMessage').show();
+        }
+      });
+    }
+    
+    var categoryItems = myStuff ? self.adjustedMyMembers : self.adjustedMembers;
+    
+    //Attaching triggers to the market placetabs
+    $('marketMembers').stopObserving('click');
+    $('marketMembers').observe('click', function(event){
+      self.renderFloatingItems(categoryItems, screen, preMission, myStuff);
+      $('marketMembers').parentNode.addClassName("selected");
+    });
+    
+    //Loading the template of the auto selected tab
+    self.renderFloatingItems(categoryItems, screen, preMission, myStuff);
+    
     $$('#marketplace .close')[0].stopObserving('click');
     $$('#marketplace .close')[0].observe('click', function(event){
       self.hide();

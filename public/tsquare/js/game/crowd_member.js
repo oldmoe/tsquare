@@ -52,15 +52,16 @@ var CrowdMember = Class.create(Unit,{
   
   init: function(options){
   	this.laneIndex = options.laneIndex || 0
-    this.originalPosition = this.handler.calcPosition(this.lane, this.laneIndex)
-    var randomDx = 0//Math.round(Math.random()*20)
-    var randomDy = 0//Math.round(Math.random()*20)
-    this.originalPosition.x += randomDx
-    this.originalPosition.y += randomDy
     if( this.specs.x && this.specs.y ){
+      this.originalPosition = {x:this.specs.x, y:this.specs.y}
       this.coords.x = this.specs.x;
       this.coords.y = this.specs.y;
     } else {
+      this.originalPosition = this.handler.calcPosition(this.lane, this.laneIndex)
+      var randomDx = 0//Math.round(Math.random()*20)
+      var randomDy = 0//Math.round(Math.random()*20)
+      this.originalPosition.x += randomDx
+      this.originalPosition.y += randomDy
       this.coords.x = this.originalPosition.x
       this.coords.y = this.originalPosition.y
     }

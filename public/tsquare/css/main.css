@@ -10,7 +10,7 @@ img { border:none; outline:none;}
 .uiContainer .background { height:620px; position:absolute; left:0; top:0; width:970px; z-index: -1}
 .positioned { position:absolute; top:0px; left:0px; z-index:1; }
 
-#gameContainer { position:absolute; top:0px; z-index:10; width:970px; height:620px; margin:0 auto; }
+#gameContainer { position:absolute; top:0px; z-index:10; width:970px; height:615px; margin:0 auto; overflow:hidden; }
 
 .close { float:left; width:39px; height:39px; position:relative; left:436px; top:-15px; overflow:hidden }
 .close a { display:block; width:39px; height:39px; }
@@ -593,7 +593,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .recoveryTimer img { position:absolute; top:-75px; }
 
 
-.highlightedItem { position:absolute; z-index:2147483647; }
-.highlightedBackground { position:absolute; z-index:2147483646; background:#000; opacity:.8; width:970px; height:620px; top:0; left:0; }
+.highlightedItem { position:absolute; z-index:2147483647; -webkit-box-shadow: 0px 0px 24px #F00; -moz-box-shadow: 0px 0px 24px #F00; box-shadow: 0px 0px 20px #F00; -webkit-border-radius: 50px; -moz-border-radius: 50px; border-radius: 50px; }
+.highlightedBackground { position:absolute; z-index:2147483646; background:#000; opacity:.9; width:970px; height:620px; top:0; left:0; }
 .highlightedBackground h2 { font-weight:bold; font-size:8em; color:#f7f18b; width:970px; text-align:center; margin:200px 0 0 0; position:relative; }
 .highlightedBackground h3 { font-weight:bold; font-size:1.7em; color:#f7f18b; width:970px; text-align:center; margin:20px 0 0 0; position:relative; }

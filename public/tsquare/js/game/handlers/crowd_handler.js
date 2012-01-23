@@ -50,11 +50,13 @@ var CrowdHandler = Class.create(UnitHandler, {
        for(var crowdType in userCrowds){
            for(var crowd in userCrowds[crowdType]){
                var crowdMember = userCrowds[crowdType][crowd]
-               var level = crowdMember.level
-               var category = gameData.crowd_members.category[crowdType]['type'];
-               if(category == "special" || category == "limited_edition") category = crowdType
-               var specs = gameData.crowd_members.specs[category][level]
-               this.addCrowdMember(crowdType,specs)
+               if( crowdMember.health >= 40 ){
+                 var level = crowdMember.level
+                 var category = gameData.crowd_members.category[crowdType]['type'];
+                 if(category == "special" || category == "limited_edition") category = crowdType
+                 var specs = gameData.crowd_members.specs[category][level]
+                 this.addCrowdMember(crowdType,specs)
+               }
            }
        }
        //creating flag man

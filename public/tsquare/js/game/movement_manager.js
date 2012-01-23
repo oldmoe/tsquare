@@ -256,6 +256,7 @@ var MovementManager = Class.create({
   },
 
   moveEnd : function(){
+    this.scene.fire('endMove')
     this.beatMoving = false
   }
   

@@ -27,6 +27,10 @@ var NormalDisplay = Class.create(CrowdMemberDisplay,{
   configureAnimations: function($super){
   	$super()
   	this.noOfFramesPerAnimation['hit'] = this.nofOfAnimations[this.name];
+    if(this.name=="follower2"){
+      this.noOfFramesPerAnimation['walk'] = 12;
+      this.noOfFramesPerAnimation['jog'] = 12;
+    }
   }, 
   
   destroy : function($super){

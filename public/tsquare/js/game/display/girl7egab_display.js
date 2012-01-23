@@ -1,4 +1,4 @@
-var Girl7egabDisplay = Class.create(CrowdMemberDisplay,{
+var Girl7egabDisplay = Class.create(ShoutingCrowdMemberDisplay,{
   initImages : function(){
     this.characterImg = Loader.images.characters['girl7egab_idle.png']
     this.walkImg = Loader.images.characters['girl7egab_walk.png']
@@ -9,5 +9,6 @@ var Girl7egabDisplay = Class.create(CrowdMemberDisplay,{
     this.blurImg = Loader.images.characters['girl7egab_blur.png']
     this.deadImg = Loader.images.characters['girl7egab_dead.png']
     this.hitImg = Loader.images.characters['girl7egab_hit.png']
+    this.shoutImg = Loader.images.characters['girl7egab_shout.png']
   }
 })

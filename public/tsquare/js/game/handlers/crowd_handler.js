@@ -56,9 +56,11 @@ var CrowdHandler = Class.create(UnitHandler, {
                var specs = gameData.crowd_members.specs[category][level]
                this.addCrowdMember(crowdType,specs)
            }
-       } 
+       }
        //creating flag man
-       var defaultSpecs = {attack:0,defense:0,hp:100000000,water:100, x:250, y:1};
+       var defaultSpecs = {attack:0,defense:0,hp:1,water:100};
+       defaultSpecs.x = 250
+       defaultSpecs.y = 1
        this.flagMan = this.addCrowdMember("flag_man",defaultSpecs);
        //flag man is removed from crowd handler objects and added as a general object because
        //its behavior is different 

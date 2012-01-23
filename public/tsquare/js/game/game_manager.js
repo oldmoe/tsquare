@@ -116,8 +116,9 @@ var GameManager = Class.create({
     self.missionManager.hide();
     self.game.show();
     this.missionManager.load(id, function(data){
-      self.game.play(data.mission.data);
-      self.userData.crowd_members = userData.crowd_members = data.crowd_members;
+      self.game.play(data.mission.data, function(){
+        self.userData.crowd_members = userData.crowd_members = data.crowd_members;
+      });
     });
   },
 

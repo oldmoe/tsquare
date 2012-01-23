@@ -186,7 +186,8 @@ var AudioManager = Class.create({
 	
   playWinLose : function(){
     this.stop()
-    Loader.sounds['sfx']['win_lose.mp3'].play()
+    if (game.scene.reactor.isRunning())
+      Loader.sounds['sfx']['win_lose.mp3'].play()
   },
   
   playComboSound : function(combos){

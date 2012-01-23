@@ -15,7 +15,13 @@ var Observer = Class.create({
     this.observers[event].push(observer)
     return observer
   },
-    
+  
+  stopObserving : function(event, func){
+    if(this.observers[event] && this.observers[event].indexOf(func)){
+      this.observers[event].remove(func)
+    }
+  },
+  
   fire : function(event, params){
     if(this.observers[event]){
       var observers = Nezal.clone_obj(this.observers[event]);

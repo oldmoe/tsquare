@@ -50,13 +50,23 @@ var CrowdHandler = Class.create(UnitHandler, {
        for(var crowdType in userCrowds){
            for(var crowd in userCrowds[crowdType]){
                var crowdMember = userCrowds[crowdType][crowd]
-               var level = crowdMember.level
-               var category = gameData.crowd_members.category[crowdType]['type'];
-               if(category == "special" || category == "limited_edition") category = crowdType
-               var specs = gameData.crowd_members.specs[category][level]
-               this.addCrowdMember(crowdType,specs)
+               if( crowdMember.health >= 40 ){
+                 var level = crowdMember.level
+                 var category = gameData.crowd_members.category[crowdType]['type'];
+                 if(category == "special" || category == "limited_edition") category = crowdType
+                 var specs = gameData.crowd_members.specs[category][level]
+                 this.addCrowdMember(crowdType,specs)
+               }
            }
        } 
+       //creating flag man
+       var defaultSpecs = {attack:0,defense:0,hp:100000000,water:100, x:250, y:1};
+       this.flagMan = this.addCrowdMember("flag_man",defaultSpecs);
+       //flag man is removed from crowd handler objects and added as a general object because
+       //its behavior is different 
+       this.objects[this.scene.activeLane].remove(this.flagMan);
+       this.scene.objects.push(this.flagMan);
+       
     },
     
     start : function(){
@@ -94,14 +104,11 @@ var CrowdHandler = Class.create(UnitHandler, {
    updateObjectsAfterDeath : function(crowdMember) {
    	 var lane = crowdMember.lane;
    	 var index = crowdMember.laneIndex;
-  	 this.objects[lane].remove(crowdMember);
-  	 this.scene.push(crowdMember);
-     var subLane = index % 3;
      for (var i = 0; i < this.objects[lane].length; i++) {
-     	if (this.objects[lane][i] && this.objects[lane][i].laneIndex >= 3 && this.objects[lane][i].laneIndex % 3 == subLane) {
-     		this.objects[lane][i].laneIndex -= 3;
-     		this.objects[lane][i].posChanged = true;
-     	}
+       if (this.objects[lane][i].laneIndex > index) {
+         this.objects[lane][i].laneIndex--;
+         this.objects[lane][i].posChanged = true
+       }
      }
    },
 
@@ -144,12 +151,8 @@ var CrowdHandler = Class.create(UnitHandler, {
    //6 : push
    march: function(){
      this.scene.direction = 1
-     if(this.target && this.target.chargeTolerance <= 0) this.target = null
-     this.scene.fire("correctCommand");
      this.scene.currentCommand = 1;
-     if (!this.target) {
-       return this.executeCommand("march");
-     }
+     return this.executeCommand("march");
    },
   
    push : function(){
@@ -158,11 +161,6 @@ var CrowdHandler = Class.create(UnitHandler, {
    },
    
   circle: function(){
-    if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
-      this.scene.fire("worngCommand");
-      return
-    } 
-    this.scene.fire("correctCommand");
     this.executeCommand("circle");
     this.scene.currentCommand = 2;
   },
@@ -206,29 +204,21 @@ var CrowdHandler = Class.create(UnitHandler, {
         if(minDistance < enemy.getWidth()*2)
           holdingLevel = 2;
           
-        this.scene.fire("correctCommand");
         this.executeCommand("hold", {holdingLevel: holdingLevel});
         this.scene.currentCommand = 3;
      }else{
        this.scene.energy.current -= this.scene.energy.rate;
-       this.scene.fire("wrongCommand");
      }
      
    },
    
   retreat: function(){
     this.scene.direction = -1
-    this.scene.fire("correctCommand");
     this.executeCommand("retreat");
     this.scene.currentCommand = 4;
   },
 
   hit: function(){
-    if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
-      this.scene.fire("worngCommand");
-      return
-    } 
-    this.scene.fire("correctCommand");
     this.executeCommand("hit");
     this.scene.currentCommand = 5;
   },
@@ -319,6 +309,7 @@ var CrowdHandler = Class.create(UnitHandler, {
         }
       }
     }
+    this.flagMan.endMove(function(){})
   },
 
   detectCollisions : function($super,others){

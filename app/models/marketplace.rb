@@ -5,13 +5,9 @@ class Marketplace
       if( decoy )
         return {'error' => 'Crowd member does not exist'}
       end
-      if user_game_profile['crowd_members'][name]
-        next_id = user_game_profile['crowd_members'][name].keys.max + 1
-        user_game_profile['crowd_members'][name][next_id] = {'level' => 1}
-      else
-        user_game_profile['crowd_members'][name] = {}
-        user_game_profile['crowd_members'][name][1] = {'level' => 1}
-      end
+      
+      user_game_profile.add_crowd_member name
+      
       if cost_in_coins
         user_game_profile.user.coins -= 10
         user_game_profile.user.save

@@ -164,6 +164,12 @@ class GamesController < ApplicationController
     request = user_requests.process user_game_profile.service_id, request_id
   end
   
+  post '/:game_name/heal' do
+    data = decode(params['data'])
+    response = MyCrowds.heal user_game_profile, data["id"]
+    return encode(response)
+  end
+  
   post '/:game_name/buy_market_item' do
     data = decode(params['data'])
     response = {}

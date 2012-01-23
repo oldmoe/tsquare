@@ -72,6 +72,16 @@ var AmbulanceDisplay = Class.create(Display,{
     
   createSprites : function(){
     this.sprites.ambulance = new DomImgSprite(this.owner,{img:this.img, noOfFrames:7})
+    this.sprites.health = new ImgMeterSprite(this.owner,
+    {empty:Loader.images.gameElements['health_meter_empty.png'] ,full:Loader.images.gameElements['health_meter.png']},
+     {
+      meterFunc: function(){
+        return this.owner.hpRatio()
+      },
+      orientation : 'vertical',
+      shiftX : 25,
+      shiftY: -10
+    });
   },
   
   render : function($super){

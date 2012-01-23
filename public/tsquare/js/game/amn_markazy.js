@@ -5,13 +5,12 @@ var AmnMarkazy = Class.create(Enemy,{
 	hitOffset: 10,
 	hittingTime: 0,
   hitDone : false, 	
-  
+  target : null,
   initialize : function($super,scene,x,lane, options){
      $super(scene,x,lane, options) 
      this.type = "amn_markazy";
-     this.hp = 30;
-     this.maxHp = 30;
-     this.power = 10;
+     this.hp = this.maxHp = 30
+     this.power = 10
      this.hittingTicks = this.scene.reactor.everySeconds(1)
   },
   handleCollision : function(){

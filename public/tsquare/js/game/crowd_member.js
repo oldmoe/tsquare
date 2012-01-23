@@ -27,6 +27,7 @@ var CrowdMember = Class.create(Unit,{
   hitCounter: 0,
   pushSpeed : 5,
   pushPrepareSpeed : 3,
+  fixedState : false,
   initialize : function($super,specs,options){
     $super(options.scene, 0, options.scene.activeLane, options)
     this.specs = specs;
@@ -51,15 +52,16 @@ var CrowdMember = Class.create(Unit,{
   
   init: function(options){
   	this.laneIndex = options.laneIndex || 0
-    this.originalPosition = this.handler.calcPosition(this.lane, this.laneIndex)
-    var randomDx = Math.round(Math.random()*20)
-    var randomDy = Math.round(Math.random()*20)
-    this.originalPosition.x += randomDx
-    this.originalPosition.y += randomDy
     if( this.specs.x && this.specs.y ){
+      this.originalPosition = {x:this.specs.x, y:this.specs.y}
       this.coords.x = this.specs.x;
       this.coords.y = this.specs.y;
     } else {
+      this.originalPosition = this.handler.calcPosition(this.lane, this.laneIndex)
+      var randomDx = 0//Math.round(Math.random()*20)
+      var randomDy = 0//Math.round(Math.random()*20)
+      this.originalPosition.x += randomDx
+      this.originalPosition.y += randomDy
       this.coords.x = this.originalPosition.x
       this.coords.y = this.originalPosition.y
     }
@@ -95,6 +97,7 @@ var CrowdMember = Class.create(Unit,{
   },
   
   fire : function($super,event){
+    if(this.fixedState)return;
     if (this.followers) {
       for (var i = 0; i < this.followers.length; i++) {
         if(!this.followers[i].back)
@@ -141,13 +144,7 @@ var CrowdMember = Class.create(Unit,{
     if(!this.movingToTarget && (Math.abs(this.coords.x - this.originalPosition.x) > 1 || Math.abs(this.coords.y - this.originalPosition.y) > 1)){
       if(this.fixedPlace && !this.handler.pushing){
           this.moveToTarget(this.originalPosition)
-      }else{
-//          this.fire('walk')
-//          var self= this
-//          this.moveToTarget(this.originalPosition, function(){
-//            self.fire('normal')
-//          })
-      } 
+      }
     }
      
     this.stateChanged = true
@@ -187,17 +184,14 @@ var CrowdMember = Class.create(Unit,{
   },
   
   march : function(){
-      this.currentAction = "march";
   },
   
   hold : function(options){
-      this.currentAction = "hold";
       this.holdingLevel = options.holdingLevel;
   },
   
   circle : function(){
       if(this.target){
-          this.currentAction = "circle";
           this.rotating = true 
           this.addRotationPoints(this.target)
           this.fire(this.rotationPoints[0].state)
@@ -209,25 +203,21 @@ var CrowdMember = Class.create(Unit,{
   },
   
   hit : function(){
-    if(this.target){
-        this.currentAction = "hit";
-        this.hitting = true;
-        this.hitCounter = 0;
-        this.fire('hit')
-        for(var i=0; this.followers && i<this.followers.length; i++){
-          if(!this.followers[i].back)
-            this.followers[i].hit();
-        }          
-    }
+    this.hitting = true;
+    this.hitCounter = 0;
+    this.fire('hit')
+    for(var i=0; this.followers && i<this.followers.length; i++){
+      if(!this.followers[i].back)
+        this.followers[i].hit();
+    } 
+    this.fixedState = true;  // to disable animation change while hitting         
   },
   
   retreat : function(){
-      this.currentAction = "retreat";
   },
   
   die : function($super){
     $super()
-	  this.currentAction = "dead";
 	  this.fire("normal");
 	  this.dead = true;
 	  this.handler.updateObjectsAfterDeath(this);
@@ -354,18 +344,12 @@ var CrowdMember = Class.create(Unit,{
   },
   
   hitMove : function(){
-    if (!this.target|| this.target.hp <= 0 || this.target.dead || this.target.doneProtection) {
-      this.fire('idle');
-      this.hitting = false;
-      return;
-    }
-    var span = 18 * 2 + 1;
-    this.hitCounter ++;
-    if(this.hitCounter == span){
-      this.hitCounter = 0;
-      this.hitting = false;
-      this.fire('idle');
+    if (!this.target|| this.target.hp <= 0 || this.target.dead || this.target.doneProtection||
+    !this.scene.movementManager.beatMoving) {
       this.target.rotationComplete(this.attack)
+      this.fixedState = false;  // to enable animation change to crowds
+      this.fire('idle');
+      this.hitting = false;
     }
   },
   

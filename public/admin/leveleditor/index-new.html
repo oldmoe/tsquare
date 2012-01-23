@@ -44,6 +44,13 @@
       <input id="missionName"/>
       <a href="Javascript:void(0);" onclick="Mission.editMissionName(); return false;">Save</a>
     </div>
+    <div>Health Tax: 
+      <input id="healthTax"/>
+      <a href="Javascript:void(0);" onclick="Mission.updateHealthTax(); return false;">Save</a>
+    </div>
+    <span class="healthTaxDesc">Each crowd has a maximum health of 100%. This number will be subtracted from the crowds health percentages.
+           ie ( if one crowd joined with 100% it will decrease to 90% if the health tax is 10 )
+    </span>
 		
 		<div id="controls" class="controls">
 			<div class="settingsButton" title="Open Settings" > </div>
@@ -87,6 +94,7 @@
     <div id="bgDropbox">
       <div class="bgTitle">Background Layer 1</div>
       <div class="bgTitle">Background Layer 2</div>
+      <div class="bgTitle">Background Sky</div>
       <div class="bgTitle">Landmarks Images</div>
       <div class="bgTitle">Fence</div>
       <div class="bgTitle">Lamp</div>
@@ -94,6 +102,8 @@
       <div id="bgLayer1" class="bgDropbox">
       </div>
       <div id="bgLayer2" class="bgDropbox">
+      </div>
+      <div id="bgSky" class="bgDropbox">
       </div>
       <div id="bgLandmarks" class="bgDropbox">
       </div>

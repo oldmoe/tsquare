@@ -25,7 +25,8 @@ var GameManager = Class.create({
                               Loader.sounds.intro['menus_background.mp3'].play();
                               $('inProgress').hide();
                               self.selectLanguage("en");
-                            }}, time);
+                              self.langSetted = true;
+                            }}, 100);
               Loader.sounds.intro['intro.mp3'].loop = true;
               Loader.sounds.intro['intro.mp3'].play({loop:true,loops:1000});
               $('inProgress').show();
@@ -107,19 +108,22 @@ var GameManager = Class.create({
   
   playMission : function(id){
     var self = this;
+    self.currentMissionID = id;
     $$('#uiContainer .background')[0].hide();
     self.meterBar.hide();
     self.timelineManager.hide();
     self.scoreManager.hide();
     self.missionManager.hide();
     self.game.show();
-    this.missionManager.load(id, function(missionData){
-      self.game.play(missionData.data);
+    this.missionManager.load(id, function(data){
+      self.game.play(data.mission.data, function(){
+        self.userData.crowd_members = userData.crowd_members = data.crowd_members;
+      });
     });
   },
 
   replayMission : function(){
-    this.game.start();
+    this.playMission( this.currentMissionID );
   },
 
   openMainPage : function(){

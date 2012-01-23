@@ -18,7 +18,7 @@ var Timeline = Class.create(UIManager, {
     var self = this;
     this.loader.load([ {images : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png", "coming_soon_missions.png",
                                   "home_background.gif", "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
-                                  "mission_current.png", "mySquare_screen.png",
+                                  "mission_current.png", "mySquare_screen.png","stars.png",
                                   "mission_locked.png", "mission_finished.png", "crowd_member_small.png", "challenge_box.png", "lock.png",
                                   "mission_icon_selected.png", "play_button.png", "map_background.gif"], path: 'images/timeline/', store: 'timeline'},
                        {images_ar : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png",
@@ -35,7 +35,7 @@ var Timeline = Class.create(UIManager, {
                         }
                       });
     this.gameManager.inbox.challenges(function(challenges){
-      self.challenges = challenges
+      self.challenges = challenges;
       self.challengesLoaded = true;
       //TODO: Is this necessary? 
       // self.display();
@@ -137,20 +137,40 @@ var Timeline = Class.create(UIManager, {
     });
   },
 
+  getNextMissions : function(id, missions){
+    var ids = new Array();
+    var next = id;
+    for(var key1 in missions){
+      var found = false;
+      for(var key in missions){
+        if(missions[key].next == next){
+          ids.push(Number(missions[key].id));
+          next = Number(missions[key].id);
+          found = true;
+          continue;
+        }
+      }
+      if(!found)break;
+    }
+    return ids.reverse();
+  },
+  
   displayMissions : function(challenge){
     var self = this;
     this.adjustMissionsData();
     
     var callback = function() {
-      var ids = new Array();
+      var ids = [];
       var missions = self.gameManager.missions[self.mode];
       for(var key in missions){
-        ids.push(Number(missions[key].id));
+        var id = Number(missions[key].id);
+        if(missions[key].next == 0){
+          var chain = self.getNextMissions(id, missions);
+          chain.push(id);
+          ids = ids.concat(chain);
+        }
       }
-      function sortNumberAscending(a,b){
-        return a - b;
-      }
-      ids = ids.sort(sortNumberAscending);
+      
       $$(".walkingCrowdMemeber")[0].hide();
       
       $('timeline').innerHTML = self.templateManager.load('missions', {'missions' : self.gameManager.missions[self.mode],
@@ -310,9 +330,17 @@ var Timeline = Class.create(UIManager, {
         element.addClassName('selected');
         var mission  = self.gameManager.missions[self.mode][element.getAttribute("missionid")];
         if(mission && !mission.locked){
-          var missionTitle = self.templateManager.load('missionTitle', {'title':mission.name, 'stars':mission.score.stars});
+          var stars = [0,0,0];
+          if(mission.score.stars ==  1)
+            stars = [1,0,0];
+          else if(mission.score.stars ==  2)
+            stars = [1,1,0];
+          else if(mission.score.stars ==  3)
+            stars = [1,1,1];
+          var missionTitle = self.templateManager.load('missionTitle', {'title':mission.name, 'stars':stars});
           var container = $$(".timelineMissions")[0];
-          container.insert({bottom:missionTitle}); 
+          container.insert({bottom:missionTitle});
+          Game.addLoadedImagesToDiv('missionTitle'); 
           missionTitle = container.children[container.children.length-1]; 
           $(missionTitle).setStyle({top: ($(element).positionedOffset().top-45)+"px", left: ($(element).positionedOffset().left-70)+"px"});
         }
@@ -340,7 +368,7 @@ var Timeline = Class.create(UIManager, {
     if($$('#timeline .missionDetails .playButton')[0])
     {
       $$('#timeline .missionDetails .playButton')[0].observe('click', function(event){
-        self.gameManager.playMission(event.element().id);
+        self.gameManager.marketplace.openMarketplace({myStuff : true, preMission : true, missionID : event.element().id});
       });
     }
   }

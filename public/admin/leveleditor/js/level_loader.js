@@ -12,6 +12,10 @@ var LevelLoader = Class.create({
   
   load: function(){
 //    if(this.mission && this.mission.name)$("missionName").update(this.mission.name);
+    if( this.mission.healthTax ) 
+      $('healthTax').value = this.mission.healthTax;
+    else
+      $('healthTax').value = 0;
     if(this.missionData){
       if(this.missionData.data)this.loadObjects(this.missionData.data);
       if(this.missionData.backgrounds)this.loadBackgrounds(this.missionData.backgrounds);
@@ -40,6 +44,7 @@ var LevelLoader = Class.create({
   loadBackgrounds: function(backgrounds){
     this.loadBackgroundContainer(backgrounds.layer1, "bgLayer1");
     this.loadBackgroundContainer(backgrounds.layer2, "bgLayer2");
+    this.loadBackgroundContainer(backgrounds.sky, "bgSky");
     this.loadBackgroundContainer(backgrounds.landmarks, "bgLandmarks");
     this.loadBackgroundContainer(backgrounds.land, "bgLand");
     this.loadBackgroundContainer(backgrounds.fence, "bgFence");

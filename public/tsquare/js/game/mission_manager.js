@@ -58,11 +58,10 @@ var MissionManager = Class.create({
       scene.fire('togglePause');
     });
     $$('#pause .controls .exitBtn')[0].observe('click', function(event){
-      scene.fire('end')
-      scene.reactor.resume();
-      self.gameManager.openMainPage();
+      scene.fire('end');
 	  $('pause').hide();
 	  self.pauseScreenOn = false;
+      self.goHome();
     });
   },
 
@@ -122,37 +121,39 @@ var MissionManager = Class.create({
 
   load : function(id, gameCallback){
     var self = this;
-    if(this.missions[id])
-    {
-      gameCallback(self.missions[id]);
-    }else {
-      var callback = function(data){
-        self.currentMission = data;
-        self.missions[data.id] = data;
-        gameCallback(self.currentMission);
-      }
-      this.network.missionData(id, callback);
+    var callback = function(data){
+      var missionData = data['mission']
+      self.currentMission = missionData;
+      self.missions[missionData.id] = missionData;
+      gameCallback(data);
     }
+    this.network.missionData(id, callback);
+  },
+  
+  goHome : function() {
+    game.scene.reactor.stop();
+  	game.scene.audioManager.stop();
+    Loader.sounds.intro['menus_background.mp3'].play();
+    self.gameManager.openMainPage();
   },
 
   attachListener : function(){
     var self = this;
     $$('#winLose .replayButton')[0].observe('click', function(event){
-      self.gameManager.playMission(self.currentMission.id);
+      $('winLose').hide();
+      self.gameManager.marketplace.openMarketplace({myStuff : true, preMission : true, missionID : self.currentMission.id});
     });
     $$('#winLose .homeButton')[0].observe('click', function(event){
-      Loader.sounds.intro['menus_background.mp3'].loop = true;
-      Loader.sounds.intro['menus_background.mp3'].play();
-      self.gameManager.openMainPage();
+      self.goHome();
     });
     $$('#winLose .nextMissionButton').each(function(button){
       button.observe('click', function(event){
-        self.gameManager.playMission(self.currentMission.next);
+        $('winLose').hide();
+        self.gameManager.marketplace.openMarketplace({myStuff : true, preMission : true, missionID : self.currentMission.next});
       });
     });
     $$('#winLose .close')[0].observe('click', function(event){
-      Loader.sounds.intro['menus_background.mp3'].play();
-      self.gameManager.openMainPage();
+      self.goHome();
     });
     $$('#winLose .challengeFriends .friend .cancelButton').each(function(element){
       element.observe('click', function(event){

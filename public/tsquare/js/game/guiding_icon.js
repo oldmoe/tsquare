@@ -27,9 +27,8 @@ var GuidingIcon = Class.create(Observer,{
     this.scene.observe('hideGuidingIcon', function(){self.hide()})
     this.scene.observe('showGuidingIcon', function(){self.show()})
     this.scene.observe("keypressed", function(key, moveIndex, reset){self.keypressed(key, moveIndex, reset)});
-    this.scene.observe('correctCommand',function(){self.increaseCorrectCommandsCount()})
+    this.scene.observe('correctMove',function(){self.increaseCorrectCommandsCount();self.beatMoving();})
     this.scene.observe("pressLate", function(){self.pressLate()});
-    this.scene.observe("beatMoving", function(){self.beatMoving()});
     this.scene.observe("targetComplete", function(){self.targetComplete()});
     this.scene.push(this);
     
@@ -226,7 +225,7 @@ var GuidingIcon = Class.create(Observer,{
     else if(command == 'push') //hit
       $$('.nextMove img')[0].src = "images/game_elements/push_move.png";
     //empty current command
-    for(var i=0; i<4; i++){
+    for(var i=1; i<4; i++){
       $$('.movesIndicator')[0].children[i].firstChild.src = "";
       $$('.movesIndicator')[0].children[i].removeClassName("right");
       $$('.movesIndicator')[0].children[i].removeClassName("wrong");
@@ -238,15 +237,10 @@ var GuidingIcon = Class.create(Observer,{
   },
 
   loadButton: function(i, button){
-    if(button == 0)
-      $$('.movesIndicator')[0].children[i].firstChild.src = "images/game_elements/right_arrow.png";
-    else if(button == 1)  
-      $$('.movesIndicator')[0].children[i].firstChild.src = "images/game_elements/left_arrow.png";
-    else if(button == 2)  
-      $$('.movesIndicator')[0].children[i].firstChild.src = "images/game_elements/up_arrow.png";
-    else if(button == 3)  
-      $$('.movesIndicator')[0].children[i].firstChild.src = "images/game_elements/down_arrow.png";
-
+    var directions = {0:'right_arrow.png', 1:'left_arrow.png', 2:'up_arrow.png', 3:'down_arrow.png'}
+    var img = $$('.movesIndicator')[0].children[i].firstChild
+    $$('.movesIndicator')[0].children[i].firstChild.insert({before:Loader.images.game_elements[directions[button]].clone()})
+    $$('.movesIndicator')[0].children[i].removeChild(img)
   },
     
   render: function(){

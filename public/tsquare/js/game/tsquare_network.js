@@ -39,6 +39,14 @@ var TSquareNetwork = Class.create(Network, {
                             if(callback) callback(data);
                           });
   },
+  
+  heal : function(options, callback){
+    this.genericPostRequest( 'heal', {'id' : options.memberID},
+                          function(response) {
+                            var data = JSON.parse(response.responseText);
+                            if(callback) callback(data);
+                          });
+  },
 
   postMissionScore : function(id, score, callback){
     this.genericPostRequest( 'mission', {'id' : id, 'score' : score},

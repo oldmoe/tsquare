@@ -67,25 +67,8 @@ var InGameMeterBar = Class.create({
   
   setPowerMeterStyle : function(){
     var currentEnergy = this.game.scene.energy.current
-    var c = 0;
-    for(var i=0;i<4;i++){
-      c++;
-      var minEnergy = this.game.scene.speeds[i].energy
-      var maxEnergy = 0
-      if(this.game.scene.speeds[i+1]){
-        maxEnergy = this.game.scene.speeds[i+1].energy
-      }else{
-        maxEnergy = this.game.scene.energy.max
-      }
-      if(currentEnergy > maxEnergy)      
-        $$('.inGameMeterBar .powerbar .powerLevel0'+ c + ' div')[0].style.width = "100%"
-      else if(currentEnergy < minEnergy){
-        $$('.inGameMeterBar .powerbar .powerLevel0'+ c + ' div')[0].style.width = "00%"
-      }else{
-        var percent = (currentEnergy - minEnergy)*100/ (maxEnergy - minEnergy)
-        $$('.inGameMeterBar .powerbar .powerLevel0'+ c + ' div')[0].style.width = percent+"%"
-      } 
-    }
-    $$('.inGameMeterBar .powerbar .powerPercentage')[0].innerHTML = Math.floor(currentEnergy*100/ this.game.scene.energy.max) + "%"
+    var widthPercentage =  Math.min(Math.floor(currentEnergy*100/ this.game.scene.energy.max), 90)
+    $$('.powerbar .powerbarFull')[0].style.width = widthPercentage + "%"
+    $$('.inGameMeterBar .powerbar .powerPercentage')[0].innerHTML = Math.min(100, Math.floor(currentEnergy*100/ this.game.scene.energy.max)) + "%"
   }
 });

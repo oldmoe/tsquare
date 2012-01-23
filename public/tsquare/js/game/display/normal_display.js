@@ -1,5 +1,5 @@
 var NormalDisplay = Class.create(CrowdMemberDisplay,{
-  extraScale : 0.9,
+  extraScale : 0.7,
   noOfFrames : 8,
   nofOfAnimations : {"follower1" : 6, "follower2" : 9, "follower3" : 6},
   followerNames : ['follower1', 'follower2', 'follower3'],        //random takes values from it

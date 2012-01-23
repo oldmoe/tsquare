@@ -406,8 +406,8 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .healthMeter span { position:absolute; z-index:8; font-weight:bold; color:#FFF; font-size:.6em; top:13px; width:27px; text-align:center;	 }
 
 /*--------Game meters-----------*/
-.movesWrapper { float:right; width:280px; position:absolute; z-index:2; top:555px; right:360px; opacity:.9; }
-.nextMove { width:46px; height:45px; float:left; }
+.movesWrapper { float:right; width:326px; position:absolute; z-index:2; top:555px; right:290px; opacity:.9; }
+.nextMove { width:46px; height:45px; float:right; }
 .nextMove img {  height:45px;  }
 .movesIndicator { float:right; width:280px;position:relative; z-index:2; padding:0 0 0 0; }
 .movesIndicator span { float:right; width:46px; height:45px; overflow:hidden; z-index:3; position:relative; margin:0 10px 0 0; }

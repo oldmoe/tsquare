@@ -38,8 +38,11 @@ class UserMissions
       data
     end
 
-    def update user_profile, mission_id, score
-      mission_id = mission_id
+    def update user_profile, data
+      
+      mission_id = data['id']
+      score = data['score']
+      
       mode = Mission.mode mission_id
       if user_profile.missions[mode][mission_id.to_i] && user_profile.missions[mode][mission_id.to_i]['score']
         if user_profile.missions[mode][mission_id.to_i]['score'].to_i < score['score'].to_i
@@ -48,17 +51,34 @@ class UserMissions
       else
         user_profile.missions[mode][mission_id.to_i] = {'score' => score['score'], 'stars' => score['stars']}
       end
+      
+      mission = Mission.get(mission_id)
+      
       if score['win'] && user_profile.current_mission[mode] == mission_id
-        user_profile.current_mission[mode] = Mission.get(mission_id)['next']
+        user_profile.current_mission[mode] = mission['next']
         user_profile.scores['timeline'] += score['score']
-        user_profile.scores['global'] += score['score']
+        user_profile.scores['global'] += score['score'] 
       else
         user_profile.scores['global'] += score['score']/2
       end
+      
+      mission_powerups = [];
+      if score['win'] && mission['powerups'] && mission['powerups']['win']
+        mission_powerups.push(mission['powerups']['win'])
+      end
+      
+      if data['powerups'] && data['powerups'].length > 0
+        mission_powerups.push(data['powerups'])
+      end
+
+      user_profile.powerups = [] if user_profile.powerups.nil?
+      
+      mission_powerups.each{|e|user_profile.powerups.push(e)}
+      
       # Add experience points here
       user_profile.save
     end
-
+    
     def current user_profile
       Mission.get(user_profile.current_mission)
     end

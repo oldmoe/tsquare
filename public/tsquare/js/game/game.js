@@ -115,7 +115,7 @@ var Game = Class.create({
     });
   },
 
-  play : function(mission){
+  play : function(mission, callback){
     this.data = mission;
     this.mission = mission;
     missionData = mission;
@@ -153,6 +153,7 @@ var Game = Class.create({
            }, onFinish:function(){        
                 self.missionLoaded = true;
                 self.start();
+                if( callback ) callback();
         }
       })
   },

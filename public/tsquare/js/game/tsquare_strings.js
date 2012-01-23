@@ -110,7 +110,7 @@ tsquare_strings.ar['inbox_message'] = '{1} من {0}';
 
 // Upgrade crowd member in the marketplace
 tsquare_strings.en['heal_crowd_member'] = 'Heal';
-tsquare_strings.ar['heal_crowd_member'] = 'طور';
+tsquare_strings.ar['heal_crowd_member'] = 'عالج';
 
 // Marketplace tab title - Moves
 tsquare_strings.en['moves_tab'] = 'Moves';

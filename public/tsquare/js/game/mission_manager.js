@@ -140,14 +140,16 @@ var MissionManager = Class.create({
   attachListener : function(){
     var self = this;
     $$('#winLose .replayButton')[0].observe('click', function(event){
-      self.gameManager.playMission(self.currentMission.id);
+      $('winLose').hide();
+      self.gameManager.marketplace.openMarketplace({myStuff : true, preMission : true, missionID : self.currentMission.id});
     });
     $$('#winLose .homeButton')[0].observe('click', function(event){
       self.goHome();
     });
     $$('#winLose .nextMissionButton').each(function(button){
       button.observe('click', function(event){
-        self.gameManager.playMission(self.currentMission.next);
+        $('winLose').hide();
+        self.gameManager.marketplace.openMarketplace({myStuff : true, preMission : true, missionID : self.currentMission.next});
       });
     });
     $$('#winLose .close')[0].observe('click', function(event){

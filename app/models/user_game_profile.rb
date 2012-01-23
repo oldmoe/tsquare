@@ -1,7 +1,7 @@
 class UserGameProfile < DataStore::Model
 
   SEP = '-'.freeze
-  CURRENT_VERSION = 36
+  CURRENT_VERSION = 43
 
   index :timeline_score, :method => :timeline_index
   index :racing_score, :method => :racing_index
@@ -81,7 +81,7 @@ class UserGameProfile < DataStore::Model
       @data['special_items'] ||= { }
       @data['power_ups'] ||= {}  
       @data['energy'] ||= 50
-      @data['bandages'] ||= 200
+      @data['bandages'] ||= 1000
       @data['version'] = CURRENT_VERSION
   end
    # This puts all the missions to the user .. should be removed once testing is done

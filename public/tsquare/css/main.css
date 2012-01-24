@@ -598,3 +598,6 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .highlightedBackground { position:absolute; z-index:2147483646; background:#000; opacity:.9; width:970px; height:620px; top:0; left:0; }
 .highlightedBackground h2 { font-weight:bold; font-size:8em; color:#f7f18b; width:970px; text-align:center; margin:200px 0 0 0; position:relative; }
 .highlightedBackground h3 { font-weight:bold; font-size:1.7em; color:#f7f18b; width:970px; text-align:center; margin:20px 0 0 0; position:relative; }
+
+.gameplayGuide { position:relative; top:540px; left:20px; }
+.gameplayGuide a { display:block; top:0px; left:0px; position:absolute; width:95px; height:20px; }

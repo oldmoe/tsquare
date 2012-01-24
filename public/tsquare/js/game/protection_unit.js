@@ -11,7 +11,10 @@ var ProtectionUnit = Class.create(Unit,{
     $super(scene,x,y,options)
     this.hp = this.maxHp = 1000
     this.neglected = false
-    this.text = this.scene.handlers.message.randomMessage('protectionUnit')
+    this.text = this.scene.handlers.message.randomStartMessage('protectionUnit');
+    
+    var self = this;
+    this.scene.observe("targetComplete", function(){self.circleEnd()});
    },
    
    textInfo: function(){
@@ -20,6 +23,12 @@ var ProtectionUnit = Class.create(Unit,{
    
   hpRatio: function() {
   	return this.hp / this.maxHp;
+  },
+  
+  circleEnd : function(){
+    this.text = this.scene.handlers.message.randomEndMessage('protectionUnit');
+    this.hideText();
+    this.showText();
   },
   
   createEnemies : function(){
@@ -42,7 +51,7 @@ var ProtectionUnit = Class.create(Unit,{
       this.escape()
       return
     }
-    this.enemies[0].tick()
+    if(this.enemies) this.enemies[0].tick();
     this.checkTarget()
     this.checkHp()
     
@@ -77,17 +86,18 @@ var ProtectionUnit = Class.create(Unit,{
       for(var i=0;i<this.enemies.length;i++){
         this.enemies[i].die()
       }
-      this.scene.fire("targetCircleComplete");
+      this.scene.fire("targetComplete");
       this.scene.collision = false;
     }
   },
   
   die : function($super){
+    if( this.noenemy ) return;
     for(var i=0;i<this.enemies.length;i++){
         this.enemies[i].die()
     }
     $super();
-    this.scene.fire("targetCircleComplete");
+    this.scene.fire("targetComplete");
     this.scene.collision = false;
   }
   

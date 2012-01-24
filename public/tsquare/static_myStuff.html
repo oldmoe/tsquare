@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Thawragy</title>
-<link href="css/marketplace.css" rel="stylesheet" type="text/css" />
 <link href="css/main.css" rel="stylesheet" type="text/css" />
 
 </head>
@@ -12,6 +11,20 @@
 
 	<div class="container">
   	<div class="overlay">
+    	<!--New Crowd Message-->
+    	<div class="crowdMessage" style="display:none">
+      	<span><img src="images/marketplace/members/libralymic_icon.png" alt="New Crowd Member" /></span>
+      	<img class="positioned" src="images/marketplace/new_crowd_member_message.png" alt="Bandage message" />
+      </div>
+    	<!--Bandages Message-->
+    	<div class="bandageMessage" style="display:none">
+      	<span>12</span>
+      	<img class="positioned" src="images/marketplace/bandages_message.png" alt="Bandage message" />
+      </div>
+    	<!--Error Message-->
+    	<div class="errorMessage">
+      	<img class="positioned" src="images/marketplace/error_message.png" alt="Error message" />
+      </div>
       <!--Window-->
       <div class="window">
         <!--Title-->
@@ -22,16 +35,16 @@
         <div class="close">
           <a href="#"><img src="images/marketplace/close_button.png" alt="close" /></a>
         </div>
+        <!--Bandages Counter-->
+        <div class="bandageCounter">
+        	<span>120</span>
+        	<img class="positioned" src="images/marketplace/bandageCounter.png" alt="Bandages Counter" />
+        </div>
         <!--Tabs Wrapper-->
         <div class="tabsWrapper">
           <!--Tabs-->
           <ul class="tabs">
-            <li><a href="#">Tab title</a><img class="positioned" src="images/marketplace/tab_background.png" alt="Tab" /></li>
-            <li class="selected"><a href="#">Tab title</a><img class="positioned" src="images/marketplace/tab_background.png" alt="Tab" /></li>
-            <li class="disabled"><a href="#">Tab title</a><img class="positioned" src="images/marketplace/tab_background.png" alt="Tab" /></li>
-            <li><a href="#">Tab title</a><img class="positioned" src="images/marketplace/tab_background.png" alt="Tab" /></li>
-            <li><a href="#">Tab title</a><img class="positioned" src="images/marketplace/tab_background.png" alt="Tab" /></li>
-            <li><a href="#">Tab title</a><img class="positioned" src="images/marketplace/tab_background.png" alt="Tab" /></li>
+            <li class="selected"><a href="#">My Crowds</a><img class="positioned" src="images/marketplace/tab_background.png" alt="Tab" /></li>
           </ul>
           <!--Tabs Content-->
           <div class="tabsContent">
@@ -117,7 +130,115 @@
                     </div>
                     <!--Crowed Image-->
                     <div class="crowedItemImage">
-                      <img class="positioned" src="images/marketplace/dummy/crowd_memeber.png" alt="Crowed" />
+                      <img class="positioned" src="images/marketplace/members/7ala_guy_icon.png" alt="Crowed" />
+                    </div>
+                    <!--Linked and Unlinked indicators-->
+                    <div class="linkToFriend">
+                      <a class="linkButton" title="Linked to a friend" href="#"><img src="images/marketplace/link_button.png" alt="Linked" /></a>
+                      <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
+                    </div>
+                    <!--Health status-->
+                    <div class="healthStatus">
+                    	<span style="height:30px; top:16px;"><img src="images/marketplace/health_active.png" alt="Health active" /></span>
+                    	<img class="positioned" src="images/marketplace/health_inactive.png"  alt="Health inactive" />
+                    </div>
+                    <!--Can't join Crowd member-->
+                    <div class="cantJoin">
+                      <span>Health 40%</span>
+                      <strong>Can't join next missions</strong>
+                    </div>
+                    <div class="crowedItemDetails">
+                      <a href="#">Heal</a>
+                      <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
+                    </div>
+                    <!--Highlighted-->
+                    <span class="highlighted">
+                      <img src="images/marketplace/item_selected.png" alt="Selected" />
+                    </span>
+                  </div>
+                </li>
+                <!--Crowed Item-->
+                <li>
+                  <div class="crowedItem">
+                    <img class="positioned" src="images/marketplace/item_background.png" alt="Item background" />
+                    <!--Crowed Title-->
+                    <div class="crowedItemTitle">
+                      <h2>Wael Ghonim</h2>
+                      <img class="positioned" src="images/marketplace/item_title_background.png" alt="Title" />
+                    </div>
+                    <!--Crowed Image-->
+                    <div class="crowedItemImage">
+                      <img class="positioned" src="images/marketplace/members/7ala_guy_icon.png" alt="Crowed" />
+                    </div>
+                    <!--Linked and Unlinked indicators-->
+                    <div class="linkToFriend">
+                      <a class="linkButton" title="Linked to a friend" href="#"><img src="images/marketplace/link_button.png" alt="Linked" /></a>
+                      <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
+                    </div>
+                    <!--Health status-->
+                    <div class="healthStatus">
+                    	<span style="height:20px; top:24px;"><img src="images/marketplace/health_active.png" alt="Health active" /></span>
+                    	<img class="positioned" src="images/marketplace/health_inactive.png"  alt="Health inactive" />
+                    </div>
+                    <!--Timer for recovery-->
+                    <div class="recoveryTimer">
+                    	<img src="images/marketplace/timer.png" alt="Timer" />
+                    </div>
+                    <div class="crowedItemDetails">
+                      <a href="#">Heal</a>
+                      <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
+                    </div>
+                    <!--Highlighted-->
+                    <span class="highlighted">
+                      <img src="images/marketplace/item_selected.png" alt="Selected" />
+                    </span>
+                  </div>
+                </li>
+                <!--Crowed Item-->
+                <li>
+                  <div class="crowedItem">
+                    <img class="positioned" src="images/marketplace/item_background.png" alt="Item background" />
+                    <!--Crowed Title-->
+                    <div class="crowedItemTitle">
+                      <h2>Wael Ghonim</h2>
+                      <img class="positioned" src="images/marketplace/item_title_background.png" alt="Title" />
+                    </div>
+                    <!--Crowed Image-->
+                    <div class="crowedItemImage">
+                      <img class="positioned" src="images/marketplace/members/7ala_guy_icon.png" alt="Crowed" />
+                    </div>
+                    <!--Linked and Unlinked indicators-->
+                    <div class="linkToFriend">
+                      <a class="linkButton" title="Linked to a friend" href="#"><img src="images/marketplace/link_button.png" alt="Linked" /></a>
+                      <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
+                    </div>
+                    <!--Health status-->
+                    <div class="healthStatus">
+                    	<span><img src="images/marketplace/health_active.png" alt="Health active" /></span>
+                    	<img class="positioned" src="images/marketplace/health_inactive.png"  alt="Health inactive" />
+                    </div>
+                    <div class="crowedItemDetails">
+                      <a href="#">Heal</a>
+                      <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
+                    </div>
+                    <!--Highlighted-->
+                    <span class="highlighted">
+                      <img src="images/marketplace/item_selected.png" alt="Selected" />
+                    </span>
+                  </div>
+                </li>
+                <!--Crowed Item-->
+                <li>
+                  <div class="crowedItem">
+                    <img class="positioned" src="images/marketplace/item_background.png" alt="Item background" />
+                    <!--Crowed Title-->
+                    <div class="crowedItemTitle">
+                      <h2>Wael Ghonim</h2>
+                      <img class="positioned" src="images/marketplace/item_title_background.png" alt="Title" />
+                    </div>
+                    <!--Crowed Image-->
+                    <div class="crowedItemImage">
+                      <img class="positioned" src="images/marketplace/members/7ala_guy_icon.png" alt="Crowed" />
                     </div>
                     <!--Linked and Unlinked indicators-->
                     <div class="linkToFriend">
@@ -125,7 +246,7 @@
                       <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
                     </div>
                     <div class="crowedItemDetails">
-                      <a href="#">Upgrade</a>
+                      <a href="#">Heal</a>
                       <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
                     </div>
                     <!--Highlighted-->
@@ -145,15 +266,20 @@
                     </div>
                     <!--Crowed Image-->
                     <div class="crowedItemImage">
-                      <img class="positioned" src="images/marketplace/dummy/crowd_memeber.png" alt="Crowed" />
+                      <img class="positioned" src="images/marketplace/members/7ala_guy_icon.png" alt="Crowed" />
                     </div>
                     <!--Linked and Unlinked indicators-->
                     <div class="linkToFriend">
                       <a class="linkButton" title="Linked to a friend" href="#"><img src="images/marketplace/link_button.png" alt="Linked" /></a>
                       <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
                     </div>
+                    <!--Health status-->
+                    <div class="healthStatus">
+                    	<span><img src="images/marketplace/health_active.png" alt="Health active" /></span>
+                    	<img class="positioned" src="images/marketplace/health_inactive.png"  alt="Health inactive" />
+                    </div>
                     <div class="crowedItemDetails">
-                      <a href="#">Upgrade</a>
+                      <a href="#">Heal</a>
                       <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
                     </div>
                     <!--Highlighted-->
@@ -173,99 +299,20 @@
                     </div>
                     <!--Crowed Image-->
                     <div class="crowedItemImage">
-                      <img class="positioned" src="images/marketplace/dummy/crowd_memeber.png" alt="Crowed" />
-                    </div>
-                    <!--Linked and Unlinked indicators-->
-                    <div class="linkToFriend">
-                      <a class="linkButton" title="Linked to a friend" href="#"><img src="images/marketplace/link_button.png" alt="Linked" /></a>
-                      <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
-                    </div>
-                    <div class="crowedItemDetails">
-                      <a href="#">Upgrade</a>
-                      <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
-                    </div>
-                    <!--Highlighted-->
-                    <span class="highlighted">
-                      <img src="images/marketplace/item_selected.png" alt="Selected" />
-                    </span>
-                  </div>
-                </li>
-                <!--Crowed Item-->
-                <li>
-                  <div class="crowedItem">
-                    <img class="positioned" src="images/marketplace/item_background.png" alt="Item background" />
-                    <!--Crowed Title-->
-                    <div class="crowedItemTitle">
-                      <h2>Wael Ghonim</h2>
-                      <img class="positioned" src="images/marketplace/item_title_background.png" alt="Title" />
-                    </div>
-                    <!--Crowed Image-->
-                    <div class="crowedItemImage">
-                      <img class="positioned" src="images/marketplace/dummy/crowd_memeber.png" alt="Crowed" />
-                    </div>
-                    <!--Linked and Unlinked indicators-->
-                    <div class="linkToFriend">
-                      <a class="linkButton" title="Linked to a friend" href="#"><img src="images/marketplace/link_button.png" alt="Linked" /></a>
-                      <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
-                    </div>
-                    <div class="crowedItemDetails">
-                      <a href="#">Upgrade</a>
-                      <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
-                    </div>
-                    <!--Highlighted-->
-                    <span class="highlighted">
-                      <img src="images/marketplace/item_selected.png" alt="Selected" />
-                    </span>
-                  </div>
-                </li>
-                <!--Crowed Item-->
-                <li>
-                  <div class="crowedItem">
-                    <img class="positioned" src="images/marketplace/item_background.png" alt="Item background" />
-                    <!--Crowed Title-->
-                    <div class="crowedItemTitle">
-                      <h2>Wael Ghonim</h2>
-                      <img class="positioned" src="images/marketplace/item_title_background.png" alt="Title" />
-                    </div>
-                    <!--Crowed Image-->
-                    <div class="crowedItemImage">
-                      <img class="positioned" src="images/marketplace/dummy/crowd_memeber.png" alt="Crowed" />
-                    </div>
-                    <!--Linked and Unlinked indicators-->
-                    <div class="linkToFriend">
-                      <a class="linkButton" title="Linked to a friend" href="#"><img src="images/marketplace/link_button.png" alt="Linked" /></a>
-                      <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
-                    </div>
-                    <div class="crowedItemDetails">
-                      <a href="#">Upgrade</a>
-                      <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
-                    </div>
-                    <!--Highlighted-->
-                    <span class="highlighted">
-                      <img src="images/marketplace/item_selected.png" alt="Selected" />
-                    </span>
-                  </div>
-                </li>
-                <!--Crowed Item-->
-                <li>
-                  <div class="crowedItem">
-                    <img class="positioned" src="images/marketplace/item_background.png" alt="Item background" />
-                    <!--Crowed Title-->
-                    <div class="crowedItemTitle">
-                      <h2>Wael Ghonim</h2>
-                      <img class="positioned" src="images/marketplace/item_title_background.png" alt="Title" />
-                    </div>
-                    <!--Crowed Image-->
-                    <div class="crowedItemImage">
-                      <img class="positioned" src="images/marketplace/dummy/crowd_memeber.png" alt="Crowed" />
+                      <img class="positioned" src="images/marketplace/members/7ala_guy_icon.png" alt="Crowed" />
                     </div>
                     <!--Linked and Unlinked indicators-->
                     <div class="linkToFriend">
                       <a class="faceboookImage" href="#"><img src="images/dummy/facebook_image.png" alt="Facebook image" /></a>
                       <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
                     </div>
+                    <!--Health status-->
+                    <div class="healthStatus">
+                    	<span><img src="images/marketplace/health_active.png" alt="Health active" /></span>
+                    	<img class="positioned" src="images/marketplace/health_inactive.png"  alt="Health inactive" />
+                    </div>
                     <div class="crowedItemDetails">
-                      <a href="#">Upgrade</a>
+                      <a href="#">Heal</a>
                       <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
                     </div>
                     <!--Highlighted-->
@@ -285,15 +332,20 @@
                     </div>
                     <!--Crowed Image-->
                     <div class="crowedItemImage">
-                      <img class="positioned" src="images/marketplace/dummy/crowd_memeber.png" alt="Crowed" />
+                      <img class="positioned" src="images/marketplace/members/7ala_guy_icon.png" alt="Crowed" />
                     </div>
                     <!--Linked and Unlinked indicators-->
                     <div class="linkToFriend">
                       <a class="faceboookImage" href="#"><img src="images/dummy/facebook_image.png" alt="Facebook image" /></a>
                       <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
                     </div>
+                    <!--Health status-->
+                    <div class="healthStatus">
+                    	<span><img src="images/marketplace/health_active.png" alt="Health active" /></span>
+                    	<img class="positioned" src="images/marketplace/health_inactive.png"  alt="Health inactive" />
+                    </div>
                     <div class="crowedItemDetails">
-                      <a href="#">Upgrade</a>
+                      <a href="#">Heal</a>
                       <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
                     </div>
                     <!--Highlighted-->
@@ -313,15 +365,20 @@
                     </div>
                     <!--Crowed Image-->
                     <div class="crowedItemImage">
-                      <img class="positioned" src="images/marketplace/dummy/crowd_memeber.png" alt="Crowed" />
+                      <img class="positioned" src="images/marketplace/members/7ala_guy_icon.png" alt="Crowed" />
                     </div>
                     <!--Linked and Unlinked indicators-->
                     <div class="linkToFriend">
                       <a class="faceboookImage" href="#"><img src="images/dummy/facebook_image.png" alt="Facebook image" /></a>
                       <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
                     </div>
+                    <!--Health status-->
+                    <div class="healthStatus">
+                    	<span><img src="images/marketplace/health_active.png" alt="Health active" /></span>
+                    	<img class="positioned" src="images/marketplace/health_inactive.png"  alt="Health inactive" />
+                    </div>
                     <div class="crowedItemDetails">
-                      <a href="#">Upgrade</a>
+                      <a href="#">Heal</a>
                       <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
                     </div>
                     <!--Highlighted-->
@@ -341,15 +398,20 @@
                     </div>
                     <!--Crowed Image-->
                     <div class="crowedItemImage">
-                      <img class="positioned" src="images/marketplace/dummy/crowd_memeber.png" alt="Crowed" />
+                      <img class="positioned" src="images/marketplace/members/7ala_guy_icon.png" alt="Crowed" />
                     </div>
                     <!--Linked and Unlinked indicators-->
                     <div class="linkToFriend">
                       <a class="faceboookImage" href="#"><img src="images/dummy/facebook_image.png" alt="Facebook image" /></a>
                       <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
                     </div>
+                    <!--Health status-->
+                    <div class="healthStatus">
+                    	<span><img src="images/marketplace/health_active.png" alt="Health active" /></span>
+                    	<img class="positioned" src="images/marketplace/health_inactive.png"  alt="Health inactive" />
+                    </div>
                     <div class="crowedItemDetails">
-                      <a href="#">Upgrade</a>
+                      <a href="#">Heal</a>
                       <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
                     </div>
                     <!--Highlighted-->
@@ -369,15 +431,20 @@
                     </div>
                     <!--Crowed Image-->
                     <div class="crowedItemImage">
-                      <img class="positioned" src="images/marketplace/dummy/crowd_memeber.png" alt="Crowed" />
+                      <img class="positioned" src="images/marketplace/members/7ala_guy_icon.png" alt="Crowed" />
                     </div>
                     <!--Linked and Unlinked indicators-->
                     <div class="linkToFriend">
                       <a class="faceboookImage" href="#"><img src="images/dummy/facebook_image.png" alt="Facebook image" /></a>
                       <img class="positioned" src="images/marketplace/Linked_background.png" alt="Link background" />
                     </div>
+                    <!--Health status-->
+                    <div class="healthStatus">
+                    	<span><img src="images/marketplace/health_active.png" alt="Health active" /></span>
+                    	<img class="positioned" src="images/marketplace/health_inactive.png"  alt="Health inactive" />
+                    </div>
                     <div class="crowedItemDetails">
-                      <a href="#">Upgrade</a>
+                      <a href="#">Heal</a>
                       <img class="positioned" src="images/marketplace/item_details.png"  alt="Item Details" />
                     </div>
                     <!--Highlighted-->

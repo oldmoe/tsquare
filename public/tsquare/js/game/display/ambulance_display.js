@@ -11,7 +11,7 @@ var AmbulanceDisplay = Class.create(Display,{
     this.imgWidth = this.img.width
     $super(owner)
     
-    if(Math.random() <= 0.5)this.showText();
+    if(Math.random() <= 0.5 && !this.owner.noenemy)this.showText();
   },
   
   initAudio : function(){
@@ -26,7 +26,7 @@ var AmbulanceDisplay = Class.create(Display,{
     if (this.audioDestroyed) {
       return false
     }
-    Loader.sounds['sfx']['ambulance.mp3'].play({volume:10})   
+    if(!this.mute) Loader.sounds['sfx']['ambulance.mp3'].play({volume:10})   
     //this.owner.scene.audioManager.play(Loader.sounds['sfx']['ambulance.mp3'], {volume : 10}, true)
   },
   
@@ -72,6 +72,16 @@ var AmbulanceDisplay = Class.create(Display,{
     
   createSprites : function(){
     this.sprites.ambulance = new DomImgSprite(this.owner,{img:this.img, noOfFrames:7})
+    this.sprites.health = new ImgMeterSprite(this.owner,
+    {empty:Loader.images.gameElements['health_meter_empty.png'] ,full:Loader.images.gameElements['health_meter.png']},
+     {
+      meterFunc: function(){
+        return this.owner.hpRatio()
+      },
+      orientation : 'vertical',
+      shiftX : 25,
+      shiftY: -10
+    });
   },
   
   render : function($super){
@@ -79,5 +89,15 @@ var AmbulanceDisplay = Class.create(Display,{
       this.sprites.ambulance.currentAnimationFrame = (this.sprites.ambulance.currentAnimationFrame + 1) % this.noOfFrames
     }
     $super()
+  }, 
+  
+  destroy : function($super, done){
+    if(done){
+      return $super()
+    }
+    this.owner.removed = true      // to remove the display object from render loop
+    var self = this
+    this.sprites.shadow.hide()
+    Effects.pulsateFadeUp(this.sprites.ambulance.div, function(){self.destroy(true)})
   }  
 })

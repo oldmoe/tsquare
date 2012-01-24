@@ -26,6 +26,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/nezal/templates_manager.js"],
                  
                  ["js/game/social_engine.js",
+                 "js/game/ui_manager.js",
                  "js/game/game_manager.js",
                  "js/game/mission_manager.js",
                  "js/game/meter_bar.js",
@@ -53,7 +54,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/block.js",
                  "js/game/tear_gas_gunner_cs_block.js",
                  "js/game/bubble.js",
-                 "js/game/scenario.js",
+                 "js/game/moving_bubble.js",
                  "js/game/protection_unit.js",
                  "js/game/rescue_unit.js"],
                  
@@ -72,6 +73,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/display/clash_direction.js",
                  "js/game/display/follower_display.js",
                  "js/game/display/crowd_member_display.js",
+                 "js/game/display/shouting_crowd_member_display.js",
                  "js/game/display/block_display.js",
                  "js/game/display/tear_gas_gunner_cs_block_display.js",
                  "js/game/display/amn_markazy_display.js",
@@ -102,6 +104,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/characters/twitter_guy.js",
                  "js/game/characters/poorguy.js",
                  "js/game/characters/advisor.js",
+                 "js/game/characters/flag_man.js",
                  "js/game/characters/npc.js"],
                  
                  ["js/game/display/journalist_display.js",
@@ -120,8 +123,10 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/display/ambulance_display.js",
                  "js/game/display/twitter_guy_display.js",
                  "js/game/display/poorguy_display.js",
+                 "js/game/display/flag_man_display.js",
                  "js/game/display/npc_display.js",
-                 "js/game/display/animation.js"],
+                 "js/game/display/animation.js",
+                 "js/game/display/combo_display.js"],
                  
                  ["js/game/guiding_icon.js",
                  "js/game/transparent_layer.js",
@@ -129,6 +134,7 @@ var orderedJS = [["js/base/prototype.js",
                  "js/game/sky_line.js",
                  "js/game/score_calculator.js",
                  "js/game/tsquare_scene.js",
+                 "js/game/tsquare_strings.js",
                  "js/game/audio_manager.js",
                  "js/game/movement_manager.js",
                  "js/game/flashing_handler.js",
@@ -147,17 +153,10 @@ function flatten( array ) {
 };
 orderedJS = flatten( orderedJS );
                  
-styleSheets = ["css/style.css",
-               "css/main.css",
-               "css/timeline.css",
-               "css/mission.css",
-               "css/meter_bar.css",
-               "css/scores.css",
-               "css/notifications.css",
-               "css/marketplace.css"];
+styleSheets = ["css/main.css"];
 
 loadCssFiles = function() {
-  for( var i in styleSheets ){
+  for( var i = 0; i < styleSheets.length; i++ ){
     var fileName = styleSheets[i];
     //Dynamic adding of CSS files in IE
     if( document.createStyleSheet ){
@@ -173,9 +172,11 @@ loadCssFiles = function() {
   }
 }
 
-
+var gameLoaded = false;
 function loadJsFiles(index){
+  if(gameLoaded) return
   if( orderedJS.length == index ){
+    gameLoaded = true 
     GameInitializer();
     return;
   }

@@ -50,19 +50,19 @@ var AudioManager = Class.create({
     };
     
     this.rewardLevels = [
-      {tempo: 130, rewards : [{sound : 1, volume : 60}, {sound : 2, volume : 60}]},
-      {tempo: 130, rewards : [{sound : 1, volume : 60}, {sound : 2, volume : 60}]},
+      {tempo: 130, rewards : [{sound : 1, volume : 100}, {sound : 2, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 1, volume : 100}, {sound : 2, volume : 100}]},
       
-      {tempo: 130, rewards : [{sound : 3, volume : 60}, {sound : 4, volume : 60}]},
-      {tempo: 130, rewards : [{sound : 3, volume : 60}, {sound : 4, volume : 60}]},
+      {tempo: 130, rewards : [{sound : 3, volume : 100}, {sound : 4, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 3, volume : 100}, {sound : 4, volume : 100}]},
       
-      {tempo: 130, rewards : [{sound : 5, volume : 60}, {sound : 6, volume : 60}]},
-      {tempo: 130, rewards : [{sound : 5, volume : 60}, {sound : 6, volume : 60}]},
+      {tempo: 130, rewards : [{sound : 5, volume : 100}, {sound : 6, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 5, volume : 100}, {sound : 6, volume : 100}]},
       
-      {tempo: 130, rewards : [{sound : 7, volume : 60}, {sound : 8, volume : 60}]},
-      {tempo: 130, rewards : [{sound : 7, volume : 60}, {sound : 8, volume : 60}]},
+      {tempo: 130, rewards : [{sound : 7, volume : 100}, {sound : 8, volume : 100}]},
+      {tempo: 130, rewards : [{sound : 7, volume : 100}, {sound : 8, volume : 100}]},
       
-      {tempo: 130, rewards : [{sound : 9, volume : 60}, {sound : 9, volume : 60}]}
+      {tempo: 130, rewards : [{sound : 9, volume : 100}, {sound : 9, volume : 100}]}
       /*,
       {tempo: 130, rewards : [{sound : 4, volume : 80}, {sound : 5, volume : 80}]},
       {tempo: 130, rewards : [{sound : 6, volume : 80}, {sound : 7, volume : 80}]},
@@ -134,7 +134,10 @@ var AudioManager = Class.create({
 		this.tempoChanged = true;
 		
 		scene.observe('keySound',function(keyIndex){self.playKeySound(keyIndex)});
-		scene.observe('end', function(){self.playWinLose()})
+		scene.observe('end', function(){self.playWinLose()});
+    scene.observe('combo', function(combos){self.playComboSound(combos)});
+    scene.observe('firstWrongMove', function(){self.playWrongMoveSound()});
+    this.scene = scene;
 		this.cc = false;
 	},
 
@@ -159,37 +162,52 @@ var AudioManager = Class.create({
       if(sound.playState){
         sound.stop();
       }
-	    sound.play({volume:15, position:50});
+	    sound.play({volume:10, position:50});
 	  }else if(keyIndex == 1){//left
       sound = Loader.sounds['sfx']['hii.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:15, position:70});
+      sound.play({volume:10, position:70});
     }else if(keyIndex == 2){//up
       sound = Loader.sounds['sfx']['ha.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:15, position:50});
+      sound.play({volume:10, position:50});
     }else if(keyIndex == 3){//down
       sound = Loader.sounds['sfx']['hey.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:15, position:70});
+      sound.play({volume:10, position:70});
     }
 	},
 	
-  
-	playClash : function(){
-    this.stop()
-    Loader.sounds['sfx']['clash_scenario.mp3'].play({loops : 1000, volume : 30})
-  },
-  
   playWinLose : function(){
     this.stop()
-    Loader.sounds['sfx']['win_lose.mp3'].play()
+    if (game.scene.reactor.isRunning())
+      Loader.sounds['sfx']['win_lose.mp3'].play()
+  },
+  
+  playComboSound : function(combos){
+    switch(combos){
+      case 2:
+        Loader.sounds['sfx']['combo1.mp3'].play()
+        break;
+      case 3:
+        Loader.sounds['sfx']['combo2.mp3'].play()
+        break;
+      case 4:
+        Loader.sounds['sfx']['combo3.mp3'].play()
+        break;
+      default:
+        break;
+    }
+  },
+  
+  playWrongMoveSound : function(){
+    Loader.sounds['sfx']['wrong_move.mp3'].play({volume:20})
   },
   
   pause : function(){
@@ -200,8 +218,17 @@ var AudioManager = Class.create({
   },
   
   stopClash : function(){
-    Loader.sounds['sfx']['clash_scenario.mp3'].stop()
+    var sound = Loader.sounds['sfx']['clash_scenario.mp3']
+    Audio.Fade(sound, 0, sound.duration / 5 , this.reactor, function(s){s.stop()})
     this.playBeats()
+  },
+  
+  playClash : function(){
+    this.stop()
+    var sound = Loader.sounds['sfx']['clash_scenario.mp3']
+    sound.setVolume(0)
+    sound.play({loops: 1000})
+    Audio.Fade(sound, 30 , sound.duration / 3, this.reactor)
   },
   
   
@@ -283,11 +310,16 @@ var AudioManager = Class.create({
     }
   },
   
+  
   playHetaf: function(position){
     var delay = position;
     
     //if(delay == 0)delay = this.nowPlaying[0].position - (this.nowPlaying[0].duration-28);
-      this.currentReward.rewards[this.currentRewardIndex].sound.play({volume:this.currentReward.rewards[this.currentRewardIndex].volume, position:delay});
+      var crowds = Math.ceil(this.scene.energy.current / (this.scene.energy.max / 4.0))
+      this.currentReward.rewards[this.currentRewardIndex].sound.play({
+        volume: crowds * (this.currentReward.rewards[this.currentRewardIndex].volume / 4),
+        position: delay
+      });          
       if(this.currentRewardIndex){
         this.currentRewardIndex = 0;
       }

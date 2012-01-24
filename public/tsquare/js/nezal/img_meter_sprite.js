@@ -30,6 +30,7 @@ var ImgMeterSprite = Class.create(DomSprite, {
     this.setMeterStyle()
     this.height = this.fullImg.height
     this.width = this.fullImg.width
+    this.fullImg.setStyle({position:"absolute"})
     this.div.style.width = this.fullImg.width + "px";                         
     this.div.style.height = this.fullImg.height + "px"; 
     this.render()

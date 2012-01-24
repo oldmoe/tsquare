@@ -52,19 +52,38 @@ var RescueUnit = Class.create(Unit,{
 
   rotationComplete : function(attack){
     if(this.rotationTolerance == 0 ) return;
+    
+    var self = this;
     this.rotationTolerance -= 1;        
     if (this.rotationTolerance == 0) {
-      this.doneProtection = true;
-      this.scene.fire("targetCircleComplete");
-      var rescue_unit_name = this.scene.handlers.crowd.target.name.split("_")[0];
-      var mapName = this.nameMapping[rescue_unit_name];
+      self.doneProtection = true;
+      self.scene.fire("targetComplete");
+      
+      var rescue_unit_name = self.scene.handlers.crowd.target.name.split("_")[0];
+      var mapName = self.nameMapping[rescue_unit_name];
       if( !mapName ) mapName = rescue_unit_name;
-      this.scene.rescuing = this.scene.handlers.crowd.addCrowdMember( mapName, {} );
-      this.scene.rescuing.targetTile = this.targetTile;
-      this.scene.rescuing.mission = this.mission;
-      this.destroy();
-      this.neglected = true;
+      self.scene.rescuing = self.scene.handlers.crowd.addCrowdMember( mapName, {x: self.coords.x, y: self.coords.y} );
+      self.scene.rescuing.targetTile = self.targetTile;
+      self.scene.rescuing.helpMessage = self.helpMessage;
+      self.scene.rescuing.companyMessage = self.companyMessage;
+      self.scene.rescuing.leaveMessage = self.leaveMessage;
+      self.scene.rescuing.mission = self.mission;
+      self.destroy();
+      
+      self.scene.rescuing.messageBubble = self.scene.handlers.message.showRescueBubble( self.scene.rescuing.companyMessage, self.scene.rescuing );
+      
+      
+      self.neglected = true;
+      var position = this.scene.handlers.crowd.calcPosition( this.lane, this.scene.handlers.crowd.objects[this.lane].length );
+      self.scene.rescuing.fire("reverseWalk");
+      self.scene.rescuing.moveToTarget( {x: position.x, y: position.y}, function(){
+        self.scene.rescuing.fire(self.scene.speeds[self.scene.speedIndex].state);
+      } );
     }
+  },
+  
+  textInfo : function(){
+    return this.helpMessage;
   }
 
 })

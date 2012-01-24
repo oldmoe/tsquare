@@ -1,72 +1,79 @@
 <textarea id="marketplace">
   <div class="container">
-    <!--Window-->
-    <div class="window">
-      <!--Title-->
-      <div class="windowTitle">
-        {if screen == "marketplace"}
-          <span class="loadedImg" imgSrc="images/marketplace/buy_window_title.png" alt="title">  </span>
-        {else}
-          <span class="loadedImg" imgSrc="images/marketplace/my_stuff_title.png" alt="close" > </span>
-        {/if}
+    <div class="overlay">
+      
+      <div id="cantJoinErrorMessage" class="errorMessage" style="display: none;">
+        <img src="images/marketplace/error_message.png" class="positioned">
       </div>
-      <!--Close-->
-      <div class="close">
-        <a href="javascript:void(0)"> <span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close" > </span></a>
-      </div>
-      <!--Tabs Wrapper-->
-      <div class="tabsWrapper">
-        <!--Tabs-->
-        <ul class="tabs">
-          <li class="disabled">
-            <a id="marketMoves" href="javascript:void(0)">Moves</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"> </span>
-          </li>
-          <li class="selected">
-            <a id="marketMembers" href="javascript:void(0)">Members</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"> </span>
-          </li>
-          <li class="disabled">
-            <a id="marketItems" href="javascript:void(0)">Items</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab" ></span>
-          </li>
-          <li class="disabled">
-            <a id="marketPowerups" href="javascript:void(0)">Powerups</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab" > </span>
-          </li>
-          <li class="disabled">
-            <a id="marketSpecial" href="javascript:void(0)">Special</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"> </span>
-          </li>
-          <li class="disabled">
-            <a id="marketCrowdItems" href="javascript:void(0)">Crowd Items</a>
-            <span class="loadedImg" imgSrc="images/marketplace/tab_background.png" class="positioned" alt="Tab"> </span>
-          </li>
-        </ul>
-        <!--Tabs Content-->
-        <div class="tabsContent">
-          <!--Left controls-->
-          <div class="leftControls">
-            <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/previous_button.png" alt="Previous" > </span></a>
-            <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/first_button.png" alt="First" > </span></a>              
-          </div>
-          <div style="display:none;" id="dialogBox" class="dialogBox">
-            <!--Close-->
-            <div class="close">
-              <a href="javascript:void(0)" onclick="$('dialogBox').hide();"><span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close" ></span></a>
-            </div>          
-            <h2>Successful Contact</h2>
-            <p>Crowd member called successfully, it is now in your "My Stuff" menu</p>
-            <span class="loadedImg" imgSrc="images/marketplace/dialog_box.png" alt="Dialog Background" imgClasses="positioned"> </span>
-          </div>
-          <!--Floating Items-->
-          <div id="floatingItems" class="floatingItems">
-            
-          </div>
-          <!--Right controls-->
-          <div class="rightControls">
-            <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/next_button.png" alt="Next" > </span></a>
-            <a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/last_button.png" alt="Last" > </span></a>
+      
+      <!--Window-->
+      <div class="window">
+        <!--Title-->
+        <div class="windowTitle">
+          {if screen == "marketplace"}
+            <span class="loadedImg" imgSrc="marketplace/buy_window_title.png" alt="title"></span>
+          {else}
+            <span class="loadedImg lang" imgSrc="marketplace/my_stuff_title.png" alt="close"></span>
+          {/if}
+        </div>
+        <!--Close-->
+        <div class="close">
+          <a href="javascript:void(0)"> <span class="loadedImg" imgSrc="game_elements/close_button.png" alt="close"></span></a>
+        </div>
+        
+        <div class="bandageCounter">
+          <span id="bandageAmount">${bandages}</span>
+          <img alt="Bandages Counter" src="images/marketplace/bandageCounter.png" class="positioned">
+        </div>
+        
+        <!--Tabs Wrapper-->
+        <div class="tabsWrapper">
+          <!--Tabs-->
+          <ul class="tabs">
+            <li class="selected">
+              <a id="marketMembers" href="javascript:void(0)">${t('members_tab')}</a>
+              <span class="loadedImg" imgSrc="marketplace/tab_background.png" class="positioned" alt="Tab"></span>
+            </li>
+            <!--li class="disabled">
+              <a id="marketItems" href="javascript:void(0)">${t('items_tab')}</a>
+              <span class="loadedImg" imgSrc="marketplace/tab_background.png" class="positioned" alt="Tab" ></span>
+            </li-->
+          </ul>
+          <!--Tabs Content-->
+          <div class="tabsContent">
+            <!--Left controls-->
+            <div class="leftControls">
+              <a href="javascript:void(0)"><span class="loadedImg" imgSrc="game_elements/previous_button.png" alt="Previous"></span></a>
+              <a href="javascript:void(0)"><span class="loadedImg" imgSrc="game_elements/first_button.png" alt="First"></span></a>              
+            </div>
+            <div style="display:none;" id="dialogBox" class="dialogBox">
+              <!--Close-->
+              <div class="close">
+                <a href="javascript:void(0)" onclick="$('dialogBox').hide();"><span class="loadedImg" imgSrc="game_elements/close_button.png" alt="close" ></span></a>
+              </div>          
+              <h2>Successful Contact</h2>
+              <p>Crowd member called successfully, it is now in your "My Stuff" menu</p>
+              <span class="loadedImg" imgSrc="marketplace/dialog_box.png" alt="Dialog Background" imgClasses="positioned"></span>
+            </div>
+            <!--Floating Items-->
+            <div id="floatingItems" class="floatingItems">
+              
+            </div>
+            <!--Right controls-->
+            <div class="rightControls">
+              <a href="javascript:void(0)"><span class="loadedImg" imgSrc="game_elements/next_button.png" alt="Next"></span></a>
+              <a href="javascript:void(0)"><span class="loadedImg" imgSrc="game_elements/last_button.png" alt="Last"></span></a>
+            </div>
+            {if preMission}
+              <div style="position: absolute; top: 337px; width: 114px; overflow: hidden; height: 36px; left: 262px;">
+                <a style="color: #304C00;display: block;font-size: 1.2em;font-weight: bold;height: 28px;padding: 8px 0 0;position: absolute;text-align: center;text-decoration: none;text-shadow: 1px 1px 0 #CCF08E;width: 115px;z-index: 2;"
+                   href="javascript:void(0)"
+                   id="readyButton">
+                   Ready
+                </a>
+                <img class="positioned" src="images/marketplace/item_details.png" style="">
+              </div>
+            {/if}
           </div>
         </div>
       </div>
@@ -91,15 +98,15 @@
         </div>
       </div>
       <div class="crowedItem">
-        <span class="loadedImg" imgSrc="images/marketplace/item_background.png" alt="Item background" imgClasses="positioned"></span>
+        <span class="loadedImg" imgSrc="marketplace/item_background.png" alt="Item background" imgClasses="positioned"></span>
         <!--Crowed Title-->
         <div class="crowedItemTitle">
           <h2>${item.displayName}</h2>
-          <span class="loadedImg" imgSrc="images/marketplace/item_title_background.png" alt="Title" imgClasses="positioned"></span>
+          <span class="loadedImg" imgSrc="marketplace/item_title_background.png" alt="Title" imgClasses="positioned"></span>
         </div>
         <!--Crowed Image-->
         <div class="crowedItemImage">
-          <span class="loadedImg" imgSrc="images/marketplace/${item.codeName}_icon.png" 
+          <span class="loadedImg" imgSrc="marketplace/${item.codeName}_icon.png" 
                imgId=${item.codeName}${item.memberID}
                imgClasses="positioned" 
                imgStyle="width:95px;" ></span>
@@ -107,7 +114,7 @@
         {if screen == "marketplace"}
           <div onclick="gameManager.marketplace.buy({category : 'marketMembers', name : '${item.codeName}', buyID : '${item.buyID}' })" class="crowedItemDetails">
             <a href="javascript:void(0)">1200 Call</a>
-            <span class="loadedImg" imgSrc="images/marketplace/item_details.png"  alt="Item Details" imgClasses="positioned"></span>
+            <span class="loadedImg" imgSrc="marketplace/item_details.png"  alt="Item Details" imgClasses="positioned"></span>
           </div>
         {else}
           <div class="linkToFriend">
@@ -117,18 +124,36 @@
                  id="${item.memberData.linked_to}" 
                  alt=""/>
             <img style="display:none" src="https://graph.facebook.com/${item.memberData.linked_to}"/>
-            <span class="loadedImg" imgSrc="images/marketplace/Linked_background.png" alt="Linked" imgClasses="positioned"></span>
+            <span class="loadedImg" imgSrc="marketplace/Linked_background.png" alt="Linked" imgClasses="positioned"></span>
           {else}
             <a id="${item.codeName}-${item.memberID}" class="linkButton" href="javascript:void(0)" title="Linked to a friend">
-              <span class="loadedImg" imgSrc="images/marketplace/link_button.png" alt="Linked"></span>
+              <span class="loadedImg" imgSrc="marketplace/link_button.png" alt="Linked"></span>
             </a>
-            <span class="loadedImg" imgSrc="images/marketplace/Linked_background.png" imgClasses="positioned" alt="Linked"></span>
+            <span class="loadedImg" imgSrc="marketplace/Linked_background.png" imgClasses="positioned" alt="Linked"></span>
           {/if}
           </div>
-          <div class="crowedItemDetails">
-            <a href="javascript:void(0)" title="Not supported yet!">Upgrade</a>
-            <span class="loadedImg" imgSrc="images/marketplace/item_details.png"  alt="Upgrade Details" imgClasses="positioned"></span>
+          <!--Health status-->
+          <div class="healthStatus">
+            <span style="height: ${Math.max(0, 46-item.healthShift)}px; top: ${item.healthShift}px">
+              <img style="margin-top: -${item.healthShift}px" src="images/marketplace/health_active.png" />
+            </span>
+            <img style="margin-top: -${item.healthShift}px; top: ${item.healthShift}px" class="positioned" src="images/marketplace/health_inactive.png" />
           </div>
+          {if item.memberData.health < 40 && preMission}
+            <div class="cantJoin">
+              <span>Health 40%</span>
+              <strong>Can't join next missions</strong>
+            </div>
+          {/if}
+          {if item.memberData.health < 100}
+            <div class="crowedItemDetails">
+              <a id="${item.codeName}-${item.memberID}_heal" class="healTrigger" href="javascript:void(0)">${t('heal_crowd_member')}</a>
+              <span class="loadedImg" imgSrc="marketplace/item_details.png" imgClasses="positioned"></span>
+            </div>
+          {/if}
+          <span class="highlighted">
+            <img src="images/marketplace/item_selected.png">
+          </span>
         {/if}
       </div>
     </li>

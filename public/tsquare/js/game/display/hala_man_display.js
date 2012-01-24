@@ -14,5 +14,7 @@ HalaManDisplay = Class.create(CrowdMemberDisplay,{
   configureAnimations: function($super){
   	$super()
   	this.noOfFramesPerAnimation['hit'] = 9;
+    this.noOfFramesPerAnimation['walk'] = 12;
+    this.noOfFramesPerAnimation['jog'] = 12;
   }
  })

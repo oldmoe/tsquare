@@ -4,7 +4,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    initialPositions : null,
    crowdMembersPerColumn : 2,
    marchingStates: ["normal", "walk", "jog", "run", "sprint"],//display
-   commands: ["circle", "hold", "march", "retreat", "hit"],
+   commands: ["circle", "hold", "march", "retreat", "hit", "push"],
    currentId : 0,
    arrestedCrowds : null,
    initialize: function($super,scene){
@@ -37,8 +37,8 @@ var CrowdHandler = Class.create(UnitHandler, {
           
     tick : function($super){
       if (this.pushing) {
-        this.pushMove()
         this.scene.direction = 0
+        this.pushMove();
       }
       else 
         $super()
@@ -47,16 +47,31 @@ var CrowdHandler = Class.create(UnitHandler, {
     getUserCrowds : function(){
        this.userCrowds = []
        var userCrowds = userData['crowd_members']
+       var noOfCrowds = 0;
        for(var crowdType in userCrowds){
            for(var crowd in userCrowds[crowdType]){
                var crowdMember = userCrowds[crowdType][crowd]
-               var level = crowdMember.level
-               var category = gameData.crowd_members.category[crowdType]['type'];
-               if(category == "special" || category == "limited_edition") category = crowdType
-               var specs = gameData.crowd_members.specs[category][level]
-               this.addCrowdMember(crowdType,specs)
+               if( crowdMember.health >= 40 ){
+                 if(noOfCrowds == 3) break; // to be specified by level editor
+                 var level = crowdMember.level
+                 var category = gameData.crowd_members.category[crowdType]['type'];
+                 if(category == "special" || category == "limited_edition") category = crowdType
+                 var specs = gameData.crowd_members.specs[category][level]
+                 this.addCrowdMember(crowdType,specs)
+                 noOfCrowds++
+               }
            }
-       } 
+       }
+       //creating flag man
+       var defaultSpecs = {attack:0,defense:0,hp:1,water:100};
+       defaultSpecs.x = 250
+       defaultSpecs.y = 1
+       this.flagMan = this.addCrowdMember("flag_man",defaultSpecs);
+       //flag man is removed from crowd handler objects and added as a general object because
+       //its behavior is different 
+       this.objects[this.scene.activeLane].remove(this.flagMan);
+       this.scene.objects.push(this.flagMan);
+       
     },
     
     start : function(){
@@ -94,14 +109,11 @@ var CrowdHandler = Class.create(UnitHandler, {
    updateObjectsAfterDeath : function(crowdMember) {
    	 var lane = crowdMember.lane;
    	 var index = crowdMember.laneIndex;
-  	 this.objects[lane].remove(crowdMember);
-  	 this.scene.push(crowdMember);
-     var subLane = index % 3;
      for (var i = 0; i < this.objects[lane].length; i++) {
-     	if (this.objects[lane][i] && this.objects[lane][i].laneIndex >= 3 && this.objects[lane][i].laneIndex % 3 == subLane) {
-     		this.objects[lane][i].laneIndex -= 3;
-     		this.objects[lane][i].posChanged = true;
-     	}
+       if (this.objects[lane][i].laneIndex > index) {
+         this.objects[lane][i].laneIndex--;
+         this.objects[lane][i].posChanged = true
+       }
      }
    },
 
@@ -141,25 +153,19 @@ var CrowdHandler = Class.create(UnitHandler, {
    //3 : hold
    //4 : retreat
    //5 : hit
-
+   //6 : push
    march: function(){
      this.scene.direction = 1
-     if(this.target && this.target.chargeTolerance <= 0) this.target = null
-     this.scene.fire("correctCommand");
      this.scene.currentCommand = 1;
-     if (!this.target) {
-       return this.executeCommand("march");
-     }
+     return this.executeCommand("march");
+   },
+  
+   push : function(){
      this.pushing = true
      this.pushMove()
    },
-
+   
   circle: function(){
-    if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
-      this.scene.fire("worngCommand");
-      return
-    } 
-    this.scene.fire("correctCommand");
     this.executeCommand("circle");
     this.scene.currentCommand = 2;
   },
@@ -203,29 +209,21 @@ var CrowdHandler = Class.create(UnitHandler, {
         if(minDistance < enemy.getWidth()*2)
           holdingLevel = 2;
           
-        this.scene.fire("correctCommand");
         this.executeCommand("hold", {holdingLevel: holdingLevel});
         this.scene.currentCommand = 3;
      }else{
        this.scene.energy.current -= this.scene.energy.rate;
-       this.scene.fire("wrongCommand");
      }
      
    },
    
   retreat: function(){
     this.scene.direction = -1
-    this.scene.fire("correctCommand");
     this.executeCommand("retreat");
     this.scene.currentCommand = 4;
   },
 
   hit: function(){
-    if((this.target == null) || (this.target && this.target.chargeTolerance > 0)){
-      this.scene.fire("worngCommand");
-      return
-    } 
-    this.scene.fire("correctCommand");
     this.executeCommand("hit");
     this.scene.currentCommand = 5;
   },
@@ -261,7 +259,6 @@ var CrowdHandler = Class.create(UnitHandler, {
   pushMove : function(){
     if(!this.target || this.target.chargeTolerance <= 0){
       this.target = null
-      this.pushing = false
       return
     }
     var closestIndex = -1;
@@ -275,18 +272,19 @@ var CrowdHandler = Class.create(UnitHandler, {
     var reverseDirection = false
     for (var j = 0; j < this.objects[this.target.lane].length; j++) {
       var ret = this.objects[this.target.lane][j].pushMove(this.target)
-      if(j == closestIndex && ret == true && 
-      true//this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.forward
-      ){
+      if(j == closestIndex && ret == true){
         reverseDirection = true
+        if(this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.backward){
+           this.target.takePush()
+           this.pushing = false;
+        }
       }
     }
     if (reverseDirection) {
-      this.target.takePush()
       for (var j = 0; j < this.objects[this.target.lane].length; j++) {
-        this.objects[this.target.lane][j].reversePushDirection()
+        this.objects[this.target.lane][j].nextPushState();
       }
-    }  
+    }
   },
    
   executeCommand : function(event, options){
@@ -299,7 +297,6 @@ var CrowdHandler = Class.create(UnitHandler, {
  
   end : function(){
      this.ended = true
-     this.scene.end(false)
   },
        
   marchOut : function(callback){
@@ -317,6 +314,7 @@ var CrowdHandler = Class.create(UnitHandler, {
         }
       }
     }
+    this.flagMan.endMove(function(){})
   },
 
   detectCollisions : function($super,others){

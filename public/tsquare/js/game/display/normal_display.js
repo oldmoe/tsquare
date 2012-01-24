@@ -1,5 +1,5 @@
 var NormalDisplay = Class.create(CrowdMemberDisplay,{
-  extraScale : 0.9,
+  extraScale : 0.7,
   noOfFrames : 8,
   nofOfAnimations : {"follower1" : 6, "follower2" : 9, "follower3" : 6},
   followerNames : ['follower1', 'follower2', 'follower3'],        //random takes values from it
@@ -27,6 +27,14 @@ var NormalDisplay = Class.create(CrowdMemberDisplay,{
   configureAnimations: function($super){
   	$super()
   	this.noOfFramesPerAnimation['hit'] = this.nofOfAnimations[this.name];
+    if(this.name=="follower2"){
+      this.noOfFramesPerAnimation['walk'] = 12;
+      this.noOfFramesPerAnimation['jog'] = 12;
+    }
+  }, 
+  
+  destroy : function($super){
+    $super()
   }
   
 })

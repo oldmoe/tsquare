@@ -8,10 +8,10 @@ var GameManager = Class.create({
     this.loader = new Loader();
     var loadingImages =['loading_background.png','loadingbar_left.png','loadingbar_right.png',
     'loadingbar_middle.png','bar_background.png','background.png'];
-  	var format = 'mp3'
+  	var format = 'mp3';
     this.templateManager = new TemplatesManager(function(){
       new Loader().load([{images : loadingImages, path: 'images/loading/', store: 'loading'}, 
-                        {sounds: ['intro.mp3'], path: 'sounds/'+format+'/intro/', store: 'intro'}]
+                        {sounds: ['intro.mp3', 'menus_background.mp3'], path: 'sounds/'+format+'/intro/', store: 'intro'}]
           ,{
             onFinish: function(){
               $('inProgress').innerHTML = self.templateManager.load('loadingScreen');
@@ -22,8 +22,10 @@ var GameManager = Class.create({
                             if(self.imagesLoaded && self.soundPlayed)
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
+                              Loader.sounds.intro['menus_background.mp3'].play();
                               $('inProgress').hide();
-                              $('uiContainer').show();
+                              self.selectLanguage("en");
+                              self.langSetted = true;
                             }}, 100);
               Loader.sounds.intro['intro.mp3'].loop = true;
               Loader.sounds.intro['intro.mp3'].play({loop:true,loops:1000});
@@ -33,7 +35,7 @@ var GameManager = Class.create({
           }
       )
     });
-	  this.reactor = new Reactor();
+	this.reactor = new Reactor();
     Effect.Queues.create('global', this.reactor)
     this.reactor.run();
   },
@@ -55,19 +57,45 @@ var GameManager = Class.create({
                             {
                               Loader.sounds.intro['intro.mp3'].stop();
                               $('inProgress').hide();
-                              $('uiContainer').show();
+                              if (!self.langSetted) {
+                                self.langSetted = true
+                                self.selectLanguage("en");
+                              }
                             }
                           }
-                        })
+                       });
     self.meterBar = new MeterBar(this);
     self.scoreManager = new ScoreManager(this);
     self.inbox = new Inbox(this);
     self.marketplace = new Marketplace(this);
     self.timelineManager = new Timeline(this);
     self.missionManager = new MissionManager(this);
-    game = new Game(this);
-//    soundManager.mute()
+    if(!self.game)game = new Game(this);
     self.game = game;
+  },
+  
+  setupLangScreen: function() {
+  	var self = this;
+  	$$('.langBtn').each(function(option) {
+  	  option.observe('click', function() {
+  	  	self.selectLanguage(option.children[0].alt);
+  	  });
+  	});
+  },
+  
+  selectLanguage: function(lang) {
+  	if (lang == 'عربي') {
+  	  game.properties.lang = 'ar';
+  	  $(document.body).addClassName('ar');
+  	} else {
+  	  game.properties.lang = 'en';
+      $(document.body).removeClassName('ar');
+  	}
+    $('uiContainer').show();
+    // TODO: implement proper re-rendering mechanism
+    this.scoreManager.reset();
+  	this.timelineManager.display();
+    this.meterBar.display()
   },
 
   start : function(){
@@ -80,19 +108,22 @@ var GameManager = Class.create({
   
   playMission : function(id){
     var self = this;
+    self.currentMissionID = id;
     $$('#uiContainer .background')[0].hide();
     self.meterBar.hide();
     self.timelineManager.hide();
     self.scoreManager.hide();
     self.missionManager.hide();
     self.game.show();
-    this.missionManager.load(id, function(missionData){
-      self.game.play(missionData.data);
+    this.missionManager.load(id, function(data){
+      self.game.play(data.mission.data, function(){
+        self.userData.crowd_members = userData.crowd_members = data.crowd_members;
+      });
     });
   },
 
   replayMission : function(){
-    this.game.start();
+    this.playMission( this.currentMissionID );
   },
 
   openMainPage : function(){

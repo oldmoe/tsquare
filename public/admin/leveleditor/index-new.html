@@ -44,6 +44,13 @@
       <input id="missionName"/>
       <a href="Javascript:void(0);" onclick="Mission.editMissionName(); return false;">Save</a>
     </div>
+    <div>Health Tax: 
+      <input id="healthTax"/>
+      <a href="Javascript:void(0);" onclick="Mission.updateHealthTax(); return false;">Save</a>
+    </div>
+    <span class="healthTaxDesc">Each crowd has a maximum health of 100%. This number will be subtracted from the crowds health percentages.
+           ie ( if one crowd joined with 100% it will decrease to 90% if the health tax is 10 )
+    </span>
 		
 		<div id="controls" class="controls">
 			<div class="settingsButton" title="Open Settings" > </div>
@@ -87,6 +94,7 @@
     <div id="bgDropbox">
       <div class="bgTitle">Background Layer 1</div>
       <div class="bgTitle">Background Layer 2</div>
+      <div class="bgTitle">Background Sky</div>
       <div class="bgTitle">Landmarks Images</div>
       <div class="bgTitle">Fence</div>
       <div class="bgTitle">Lamp</div>
@@ -94,6 +102,8 @@
       <div id="bgLayer1" class="bgDropbox">
       </div>
       <div id="bgLayer2" class="bgDropbox">
+      </div>
+      <div id="bgSky" class="bgDropbox">
       </div>
       <div id="bgLandmarks" class="bgDropbox">
       </div>
@@ -165,32 +175,40 @@
 		
 		<div id="settingsDialog" class="settingsDialog" style="display: none">
 			<div class="settingsDialogContents">
+			  <input type="checkbox" name="missionLock" value="locked" />Locked
+			  <hr/>
 				<div id="levelEnvironment">
 					Environment:&nbsp;<br>
 					<input type="radio" name="environment" value="day" />Day<br>
 					<input type="radio" name="environment" value="night" />Night<br>
 					<input type="radio" name="environment" value="day_night" />Day and Night
 				</div>
+				<hr/>
 				<div id="gameModes">
 					Game Modes:&nbsp;<br>
 					<input type="checkbox" name="gameModes" value="normal" />Normal
 					<input type="checkbox" name="gameModes" value="sneak" />Sneak
 					<input type="checkbox" name="gameModes" value="charging" />Charging
 				</div>
+        <div id="missionTimeContainer">
+          Mission Time <input type="text" id="missionTime" /> (seconds) <br/>
+          Super Time <input type="text" id="superTime" /> (seconds)
+        </div>
+				<hr/>
 				<div id="introductionTextContainer">
 				  Mission Details <br/>
-				  <textarea id="missionDetails"></textarea>
+				  <label>English:</label>
+				  <textarea id="missionDetails"></textarea><br />
+				  <label>Arabic:</label>
+				  <textarea id="missionDetails_ar"></textarea>
 				</div>
+				<hr/>
 				<div id="energySettingsContainer">
 					Energy:&nbsp;&nbsp; <input type="text" id="energyValue" size="10"/> 
 					Message: <textarea id="energyMessage"></textarea>
 					<input type="button" value="Add" class="add" ><br/>
 					<input type="button" value="Delete" class="delete" />
 					<ol id="energyMessagesList"></ol>
-				</div>
-				<div id="missionImageSettingsContainer">
-				  Mission Image: <input type="file" name="missionImageInput" /> <img id="missionImage" width="100" height="100" /> <br/>
-				  Stuff Image: <input type="file" name="stuffImageInput" /> <img id="stuffImage" width="100" height="100"/> <br/>
 				</div>
 			</div>
 			<div class="dialogCloseButton"> </div>

@@ -16,7 +16,7 @@ var CrowdMemberDisplay = Class.create(Display,{
     var self = this
     this.states.each(function(state){
       self.owner.observe(state,function(){
-        if(["sprint1"].indexOf(state) != -1)self.sprites.runEffectForward.show(); else self.sprites.runEffectForward.hide();
+        if(["sprint"].indexOf(state) != -1)self.sprites.runEffectForward.show(); else self.sprites.runEffectForward.hide();
         self.sprites.character.switchAnimation(state)
         self.sprites.character.currentAnimationFrame = Math.round((Math.random()* self.sprites.character.currentAnimation.noOfFrames-1)) 
       })
@@ -67,10 +67,10 @@ var CrowdMemberDisplay = Class.create(Display,{
    
     this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : this.noOfFrames})
     this.sprites.character.createAnimation({name:'hold',img:this.holdImg,noOfFrames:this.noOfFramesPerAnimation['hold']})
-    this.sprites.character.createAnimation({name:'walk',img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['walk']})
-    this.sprites.character.createAnimation({name:'jog',img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['jog']})
     this.sprites.character.createAnimation({name:'front',img:this.frontImg,noOfFrames:this.noOfFramesPerAnimation['front']})
     this.sprites.character.createAnimation({name:'back' ,img:this.backImg,noOfFrames:this.noOfFramesPerAnimation['back']})
+    this.sprites.character.createAnimation({name:'walk',img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['walk']})
+    this.sprites.character.createAnimation({name:'jog',img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['jog']})
     this.sprites.character.createAnimation({name:'run'  ,img:this.runImg,noOfFrames:this.noOfFramesPerAnimation['run']})
     this.sprites.character.createAnimation({name:'sprint'  ,img:this.runImg,noOfFrames:this.noOfFramesPerAnimation['sprint']})
     this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['reverseWalk'], flipped : true})
@@ -99,9 +99,13 @@ var CrowdMemberDisplay = Class.create(Display,{
   },
   
   render : function($super){
+    if( this.owner.rescued && !this.owner.messageDisplayed ){
+      this.owner.messageBubble = this.owner.scene.handlers.message.showRescueBubble( this.owner.leaveMessage, this.owner);
+      this.owner.messageDisplayed = true;
+    }
     if(this.owner.stateChanged){
       var character = this.sprites.character;
-      if(this.owner.scene.moveBack) {
+      if(this.owner.moveBack) {
         character.currentAnimationFrame = (character.currentAnimationFrame - 1)
         if (character.currentAnimationFrame == -1) {
           character.currentAnimationFrame = character.currentAnimation.noOfFrames - 1 
@@ -111,6 +115,19 @@ var CrowdMemberDisplay = Class.create(Display,{
       }
       $super()
     }
+  },
+  
+  destroy : function($super, done){
+    if( done ){
+      return $super()
+    }
+    if( this.owner.messageBubble ){
+      this.owner.messageBubble.destroy();
+    }
+    this.owner.removed = true      // to remove the display object from render loop
+    var self = this
+    this.sprites.shadow.hide()
+    Effects.pulsateFadeUp(this.sprites.character.div, function(){self.destroy(true)})
   }
   
 })

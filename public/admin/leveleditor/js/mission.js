@@ -32,6 +32,11 @@ var Mission = {
     Mission.currMission.name = $('missionName').value;
     Mission.saveToServer();
   },
+  
+  updateHealthTax : function(){
+    Mission.currMission.healthTax = $('healthTax').value;
+    Mission.saveToServer();
+  },
 
   saveToServer : function(){
     var data = levelEditor.dataExporter.exportData();

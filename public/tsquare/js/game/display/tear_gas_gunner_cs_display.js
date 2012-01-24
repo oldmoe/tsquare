@@ -56,6 +56,17 @@ var TearGasGunnerCsDisplay = Class.create(EnemyDisplay,{
     }
     sprite.currentAnimationFrame = (sprite.currentAnimationFrame+1) % sprite.noOfAnimationFrames
     $super()
+  },
+  
+  destroy : function($super, done){
+    if(done){
+      return $super()
+    }
+    this.owner.removed = true      // to remove the display object from render loop
+    var self = this
+    this.sprites.shadow.hide()
+    Effects.pulsateFadeDown(this.sprites.walking.div, function(){self.destroy(true)})
   }
+
 
 }) 

@@ -12,6 +12,8 @@ var Inbox = Class.create({
     var self = this;
     this.gameManager.loader.load([ {images : ["notifications_item.png", "title_inbox.png", "button_cancel.png", "confirm_button.png"],
                           path: 'images/notifications/', store: 'notifications' }, 
+                          {images_ar : ["title_inbox.png"],
+                          path: 'images/ar/notifications/', store: 'notifications' }, 
                         {images : ["window_background.png"], 
                           path: 'images/marketplace/', store: 'marketplace' },
                         {images : ["close_button.png"],

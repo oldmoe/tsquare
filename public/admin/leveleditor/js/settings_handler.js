@@ -8,10 +8,10 @@ var SettingsHandler = new Class.create({
 		
 	initialize: function(levelEditor){
 		this.levelEditor = levelEditor;
+		this.settings.locked = false;
 		this.settings.introMsg = "";
 		this.settings.environment = "day";
 		this.settings.gameModes = ['normal'];
-		this.settings.missionImages = {};
 		
 		this.init();
 		
@@ -49,49 +49,54 @@ var SettingsHandler = new Class.create({
 			});		
 		});
 		
+		$(this.containerId).select('input[name=missionLock]')[0].observe('change', function(event){
+		  self.settings.locked = event.target.checked;
+		});
+		
 		$("missionDetails").observe("keyup", function(event){
 		  self.settings.missionDetails = event.target.value;
 		})
-    
-    $(this.missionContainerId).select('input[name=missionImageInput]')[0].observe('change', function(e){
-      self.uploadMissionImage(e.currentTarget.files[0]);
-    });
 
-    $(this.missionContainerId).select('input[name=stuffImageInput]')[0].observe('change', function(e){
-      self.uploadStuffImage(e.currentTarget.files[0]);
-    });
+    $("missionTime").observe("keyup", function(event){
+      self.settings.missionTime = event.target.value;
+    })
+
+    $("superTime").observe("keyup", function(event){
+      self.settings.superTime = event.target.value;
+    })
+		
+		$("missionDetails_ar").observe("keyup", function(event){
+		  self.settings.missionDetails_ar = event.target.value;
+		})
 		
 	},
 	
-	uploadMissionImage: function(file){
-    var oFReader = new FileReader()
-    oFReader.readAsDataURL(file);
-    var self = this;
-    oFReader.onloadend = function(e){
-      if(!self.settings.missionImages)self.settings.missionImages = {};
-      self.settings.missionImages.missionImage = oFReader.result; 
-      $("missionImage").src = self.settings.missionImages.missionImage; 
-    }
-	},
-
-  uploadStuffImage: function(file){
-    var oFReader = new FileReader()
-    oFReader.readAsDataURL(file);
-    var self = this;
-    oFReader.onloadend = function(e){
-      if(!self.settings.missionImages)self.settings.missionImages = {};
-      self.settings.missionImages.stuffImage = oFReader.result; 
-      $("stuffImage").src = self.settings.missionImages.stuffImage; 
-    }
-  },
-	
 	init: function(){
 	  $("missionDetails").setValue("");
+	  $("missionDetails_ar").setValue("");
 	},
 	
 	loadData: function(settings){
+	  if(settings.missionDetails){
+	    this.settings.missionDetails = settings.missionDetails;
+	    $("missionDetails").setValue(settings.missionDetails);
+	  }
+	  
+	  if(settings.missionTime){
+	    this.settings.missionTime = settings.missionTime;
+	    $("missionTime").setValue(settings.missionTime);
+	  }
+	    
+	  if(settings.superTime){
+	    this.settings.superTime = settings.superTime;
+	    $("superTime").setValue(settings.superTime);
+	  }  
+	  
 	  if(settings.missionDetails)$("missionDetails").setValue(settings.missionDetails);
+	  if(settings.missionDetails_ar)$("missionDetails_ar").setValue(settings.missionDetails_ar);
+
 	  if(settings.gameModes){
+	    this.settings.gameModes = settings.gameModes;
 	    if(settings.gameModes.indexOf("normal") > -1)$(this.containerId).select('input[name=gameModes]')[0].checked = "checked";
 	    if(settings.gameModes.indexOf("sneak") > -1)$(this.containerId).select('input[name=gameModes]')[1].checked = "checked";
 	    if(settings.gameModes.indexOf("charging") > -1)$(this.containerId).select('input[name=gameModes]')[2].checked = "checked";
@@ -100,18 +105,18 @@ var SettingsHandler = new Class.create({
 	  else if(settings.environment == "night")$(this.containerId).select('input[name=environment]')[1].checked = "checked";
 	  else if(settings.environment == "day_night")$(this.containerId).select('input[name=environment]')[2].checked = "checked";
 	  
-	  if(settings.missionImages){
-	    $("missionImage").src = settings.missionImages.missionImage;
-	    $("stuffImage").src = settings.missionImages.stuffImage;
-	  }
+	  if(settings.environment)this.settings.environment=settings.environment;
 	  
-	  this.settings = settings;
+	  if(settings.locked){
+	    this.settings.locked = settings.locked;
+	    $(this.containerId).select('input[name=missionLock]')[0].checked = "checked";
+    }	  
 	},
 	
 	addEnergyMessage: function(){
-	  	var obj = {};
-	  	obj.energy = $('energyValue').value;
-	  	obj.message = $('energyMessage').value;
+  	var obj = {};
+  	obj.energy = $('energyValue').value;
+  	obj.message = $('energyMessage').value;
 	  	
 		if(!this.settings.energy)this.settings.energy = [];
 		

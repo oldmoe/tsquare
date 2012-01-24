@@ -2,37 +2,35 @@ var MessagesHandler = Class.create(UnitHandler, {
   
   crowdBubble: null,
   currentGameMode: null,
+  rescueBubble: null,
   
   messages : {},
   
   enemyMessage: null,
   
-  scopeHeight : 80,
-  
   initialize: function($super, scene){
     $super(scene);
     
-    this.messages.en = {
-      "protectionUnit" : [
-        "Please help me, help me !!",
-        "Hi there, protect me please"
-      ],
+    this.messages = {
+      "protectionUnit" : {
+        "start" : [
+          "protectionUnit_start1",
+          "protectionUnit_start2",
+        ],
+        "end" : [
+          "protectionUnit_end1",
+          "protectionUnit_end2",
+        ]
+      },
       
-      "enemy" : [
-        "Attack!",
-        "Attack them!"
-      ]
-    }
-    this.messages.ar = {
-      "protectionUnit" : [
-        "النجدة!!",
-        "الحقوني!!"
-      ],
-      
-      "enemy" : [
-        "الهجوم!",
-        "خلص عليهم!"
-      ]
+      "enemy" : {
+       "start" : [
+          "enemy_start1",
+          "enemy_start2",
+        ],
+        "end" : [
+        ] 
+      }
     }
     
     var self = this;
@@ -47,6 +45,10 @@ var MessagesHandler = Class.create(UnitHandler, {
     this.scene.observe('endConversation', function(){self.endConversation()});
     this.scene.observe("continueConversation", function(command){self.continueConversation()});
   },
+   
+   start : function(){
+       this.checkObjectsState();
+   },
 
    startConversation: function(){
      if(this.scene.currentSpeed > 0){
@@ -56,11 +58,8 @@ var MessagesHandler = Class.create(UnitHandler, {
      }
      this.currentGameMode = this.scene.movementManager.currentMode; 
      this.scene.movementManager.currentMode = this.scene.movementManager.modes.conversation;
-     new Effect.Fade('guidingBar', {duration : 2});
-     new Effect.Move('topScope', {y:this.scopeHeight});
-     new Effect.Move('bottomScope', {y:-this.scopeHeight});
+     $('guidingBar').hide();
      $$('.contuineReading').first().show();
-     
    },
   
   continueConversation: function(){
@@ -69,9 +68,7 @@ var MessagesHandler = Class.create(UnitHandler, {
   
   endConversation: function(){
     this.scene.movementManager.currentMode = this.currentGameMode;
-    new Effect.Appear('guidingBar');
-    new Effect.Move('topScope', {y:-this.scopeHeight});
-    new Effect.Move('bottomScope', {y:this.scopeHeight});
+    $('guidingBar').show();
     $$('.contuineReading').first().hide();
   },
   
@@ -93,13 +90,18 @@ var MessagesHandler = Class.create(UnitHandler, {
     if(delay)this.scene.reactor.push(delay, this.removeCrowdBubble, this);
   },
   
-  randomMessage: function(type) {
-  	var allMessages = this.messages[game.properties.lang][type];
-    return allMessages[Math.round(Math.random()*(allMessages.length-1))];
+  randomStartMessage: function(type) {
+  	var allMessages = this.messages[type]['start'];
+    return t(allMessages[Math.round(Math.random()*(allMessages.length-1))]);
+  },
+
+  randomEndMessage: function(type) {
+    var allMessages = this.messages[type]['end'];
+    return t(allMessages[Math.round(Math.random()*(allMessages.length-1))]);
   },
 
   showBubble: function(type, coords) {
-    var message = this.randomMessage(type);
+    var message = this.randomStartMessage(type);
     var bubble = new Bubble(this.scene, coords.x, coords.y, message);
     var bubbleDisplay = new BubbleDisplay(bubble);
     this.scene.pushToRenderLoop('characters', bubbleDisplay);
@@ -107,6 +109,13 @@ var MessagesHandler = Class.create(UnitHandler, {
     this.scene.reactor.push(100, function(){
       bubble.destroy();
     });
+  },
+  
+  showRescueBubble: function(message, rescueUnit){
+    var rescueBubble = new MovingBubble(this.scene, rescueUnit, message);
+    this.rescueBubble = new BubbleDisplay( rescueBubble.following );
+    this.scene.pushToRenderLoop('characters', this.rescueBubble);
+    return this.rescueBubble;
   },
   
   removeCrowdBubble: function(){
@@ -121,6 +130,7 @@ var MessagesHandler = Class.create(UnitHandler, {
   obj.name = "advisor";
   var advisor = $super(obj)
   advisor.messages = obj.messages;
+  advisor.fire('back');
   return advisor;
  }
   

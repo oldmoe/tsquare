@@ -3,15 +3,15 @@
   <div class="window notifications">
   	<!--Title-->
   	<div class="windowTitle">
-    	<span class="loadedImg" imgSrc="images/notifications/title_inbox.png" alt="title"></span>
+    	<span class="loadedImg lang" imgSrc="notifications/title_inbox.png" alt="title"></span>
     </div>
     <!--Close-->
     <div class="close">
-    	<a href="javascript:void(0)"><span class="loadedImg" imgSrc="images/game_elements/close_button.png" alt="close"></span></a>
+    	<a href="javascript:void(0)"><span class="loadedImg" imgSrc="game_elements/close_button.png" alt="close"></span></a>
     </div>
     <div class="notificationWrapper" id="notificationWrapper">
     </div>
-    <span class="loadedImg" imgSrc="images/marketplace/window_background.png" alt="window" imgClasses="windowBackground positioned"></span>
+    <span class="loadedImg" imgSrc="marketplace/window_background.png" alt="window" imgClasses="windowBackground positioned"></span>
   </div>
 </textarea>
 
@@ -21,7 +21,7 @@
     <div class="notificationItem" requestId="${notification.id}">
       <!--Image Wrapper-->
       <div class="notificationImage">
-        <span class="loadedImg" imgSrc="images/dummy/facebook_image_large.png" alt="Facebook image" imgId="${notification.from.id}"> </span>
+        <span class="loadedImg" imgSrc="dummy/facebook_image_large.png" alt="Facebook image" imgId="${notification.from.id}"></span>
       </div>
       <!--Content Wrapper-->
       <div class="notificationContent">
@@ -32,16 +32,16 @@
       <div class="notificationActions">
         <!--Buy button-->
         <a class="confirmButton" href="javascript:void(0)" requestId="${notification.id}">
-          <span>Accept</span>
-          <span class="loadedImg" imgSrc="images/notifications/confirm_button.png" alt="confirm"></span>
+          <span>${t('approve')}</span>
+          <span class="loadedImg" imgSrc="notifications/confirm_button.png" alt="confirm"></span>
         </a>
         <!--Cancel button-->
         <a class="cancelButton" href="javascript:void(0)" requestId="${notification.id}">
-          <span>Cancel</span>
-          <span class="loadedImg" imgSrc="images/notifications/button_cancel.png" alt="Cancel"></span>
+          <span>${t('cancel')}</span>
+          <span class="loadedImg" imgSrc="notifications/button_cancel.png" alt="Cancel"></span>
         </a>
       </div>
-      <span class="loadedImg" imgSrc="images/notifications/notifications_item.png" alt="notification item" imgClasses="positioned"></span>
+      <span class="loadedImg" imgSrc="notifications/notifications_item.png" alt="notification item" imgClasses="positioned"></span>
     </div>
   {/for}
 </textarea>

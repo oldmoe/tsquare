@@ -46,6 +46,9 @@ var Game = Class.create({
             characterImages.push(characterNames[i]+"_"+imageNames[j]+".png")
         }
     }
+    characterImages = characterImages.concat(['flagman_leg2_walk.png', 'flagman_back.png', 'flagman_down.png', 'flagman_forward.png'
+    ,'flagman_idle.png', 'flagman_up.png', 'flagman_leg_idle.png', 'flagman_leg_run.png'])
+    characterImages = characterImages.concat(['journalist_shout.png', 'girl7egab_shout.png']) 
     var effectsImages = ['hydrate.png', 'hit1.png','good_blue.png','bad_red.png']
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',
     'amn_markazy_tear_gas_walk.png', 'ambulance.png','twitter_guy.png',
@@ -58,7 +61,6 @@ var Game = Class.create({
     var shadowImages = ["crowd_shadow.png", "box_car_shadow.png", "amn_markazy_shadow.png", 
     "ambulance_shadow.png", "twitter_shadow.png", "amn_markazy_tear_gas_shadow.png"];
     
-    //TODO: test with arabic data + switch CSS
     this.properties.lang = 'en';
 
   	var self = this
@@ -92,7 +94,7 @@ var Game = Class.create({
        	
        	var sfx = ["ho", "hey", "ha", "hii", "background_ascending", "background_music", "ambient", "ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", 
         "Gun-shot", "Hit-police-car", "Morning-air-birds", "Night-sound", "Police", "Police-march", "Punch", "Tank-move",
-         "Tear-gas", "clash_preparing", "clash_scenario", "win_lose"];
+         "Tear-gas", "clash_preparing", "clash_scenario", "win_lose", "wrong_move", "combo1", "combo2", "combo3"];
 
         for(var j=0; j < sfx.length; j++){
           sfx[j] = sfx[j]+'.'+format[i];
@@ -116,18 +118,22 @@ var Game = Class.create({
     });
   },
 
-  play : function(mission){
+  play : function(mission, callback){
     this.data = mission;
     this.mission = mission;
     missionData = mission;
     this.misssionLoaded = false;
 	  var backgroundImages = ['background.png', 'clowds.png', 'followers_crowd.png', 'followers_crowd_car.png']
-
+    if(Loader.sounds.intro)Loader.sounds.intro['menus_background.mp3'].stop();
     var self = this;
     this.mission.backgrounds.layer1.each(function(elem){
       backgroundImages.push(elem.name);
     });
     this.mission.backgrounds.layer2.each(function(elem){
+      backgroundImages.push(elem.name);
+    });
+    if(this.mission.backgrounds.sky)
+    this.mission.backgrounds.sky.each(function(elem){
       backgroundImages.push(elem.name);
     });
     this.mission.backgrounds.landmarks.each(function(elem){
@@ -143,15 +149,16 @@ var Game = Class.create({
       backgroundImages.push(elem.name);
     });
     
-	  this.loader.load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
-          {onProgress : function(progress){
-                      if($$('#gameInProgress #loadingBarFill')[0])
-                      $$('#gameInProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
-             }, onFinish:function(){        
-                  self.missionLoaded = true;
-                  self.start();
-          }
-        })
+	this.loader.load([{images: backgroundImages, path: 'images/background/', store: 'background'}],
+        {onProgress : function(progress){
+                    if($$('#gameInProgress #loadingBarFill')[0])
+                    $$('#gameInProgress #loadingBarFill')[0].style.width = Math.min(progress,86)+"%"
+           }, onFinish:function(){        
+                self.missionLoaded = true;
+                self.start();
+                if( callback ) callback();
+        }
+      })
   },
 
   start : function(){
@@ -160,17 +167,13 @@ var Game = Class.create({
       $('gameInProgress').hide();
       this.reset();
       this.scene = new TsquareScene();
-      if(this.gameManager)this.gameManager.missionManager.registerSceneListeners(this.scene);
-	  	this.scene.start();
+      if(this.gameManager)
+        this.gameManager.missionManager.registerSceneListeners(this.scene);
+	    this.scene.start();
       $('gameContainer').show();
-	  	this.scene.fire("start");
       this.inGameMeterBar = new InGameMeterBar(this);
       this.guidingIcon = new GuidingIcon(this);
     }
-  },
-
-  end : function(){
-  	this.scene.end();
   },
 
   hide : function() {
@@ -188,12 +191,15 @@ var Game = Class.create({
 
 Game.addLoadedImagesToDiv = function(divId){
   $$('#' + divId + ' .loadedImg').each(function(imgSpan){
+  	var langSensitive = imgSpan.hasClassName('lang');
     var classes = null
     if (imgSpan.getAttribute('imgClasses')) {
       var classes = imgSpan.getAttribute('imgClasses').split('-')
     }
     var imgPath = imgSpan.getAttribute('imgSrc').split('/')
-    var imgPart = Loader
+    var imgPart = Loader['images']
+    if (langSensitive && game.properties.lang != 'en')
+      imgPart = Loader['images_' + game.properties.lang];
     for (var i = 0; i < imgPath.length; i++) {
       imgPart = imgPart[imgPath[i]]
     }

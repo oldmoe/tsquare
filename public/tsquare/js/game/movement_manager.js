@@ -1,6 +1,7 @@
 var MovementManager = Class.create({
   
   RIGHT : 0, LEFT : 1,UP : 2, DOWN : 3, SPACE : 4, ENTER: 5,
+  keyText: ['right', 'left', 'up', 'down'],
   move : [],
   movements : [],
   direction : 0,
@@ -13,7 +14,7 @@ var MovementManager = Class.create({
   comboStart: false,
   currentCombos: 0,
   counter:0,
-  tolerance :250,
+  tolerance :275,
   beatTime : 0,  
   beatsPerAudio : 4,
   modes : {"normal" : 0, "clash": 1, "conversation" : 2},
@@ -27,11 +28,9 @@ var MovementManager = Class.create({
       retreat:{code:[1,1,0,1],index:1},
       circle:{code:[0,1,0,1],index:2}, 
       hold:{code:[7],index:3},
-      hit:{code:[2,3,2,3],index:5}
+      hit:{code:[2,3,2,3],index:5},
+      push:{code:[2,2,0,0],index:6}
     }
-    this.keyText = {}
-    this.keyText.en = ['right', 'left', 'up', 'down']
-    this.keyText.ar = ['يمين', 'شمال', 'فوق', 'تحت']
   },
   
   run: function(){
@@ -90,13 +89,16 @@ var MovementManager = Class.create({
   },
   
   reset : function(){
-    this.move = []; 
     this.time = new Date().getTime()
     this.beatMoving = false;
     this.comboStart = false;
     this.currentCombos = 0
-    this.checkDelay(this.counter, this.beatTime)
+    if(this.move.length > 0){
+      this.scene.fire('firstWrongMove');
+    }
     this.scene.fire('wrongMove');
+    this.move = []; 
+    this.checkDelay(this.counter, this.beatTime)
   },
   
   registerListeners : function(){
@@ -123,6 +125,9 @@ var MovementManager = Class.create({
   
   process : function(click){
       var self = this
+      if (this.keyText[click]) {
+        this.scene.fire('arrow' + this.keyText[click].capitalize())
+      }
       if(self.scene.currentSpeed > 0){
         self.comboStart = true
       }
@@ -160,7 +165,7 @@ var MovementManager = Class.create({
               this.scene.fire("keypressed", [click, self.move.length, 1])
             }
       }else{
-        if(now > this.time + beatTime - this.tolerance){
+        if(now > this.time + beatTime - this.tolerance){//correct time because if now value is larger and reset is not called so it means time is correct 
           this.move.push(click)
           this.counter++
           var delayDiff = this.time + beatTime - now
@@ -169,9 +174,10 @@ var MovementManager = Class.create({
           }
           this.time = this.time + beatTime
         }
-        else{
+        else{ // press early
           this.scene.fire("keypressed", [click, this.move.length, 1])
           this.reset()
+          return;
         }
       }
       if(this.checkMove()){
@@ -230,40 +236,27 @@ var MovementManager = Class.create({
   },
   
   startMove : function(commandIndex){
-    this.scene.fire("beatMoving");
-    if(commandIndex == this.moves.march.index){
-      this.scene.fire('march')
-      this.beatMoving = true    
-    }else if(commandIndex == this.moves.retreat.index){
-      this.scene.fire('retreat')
-      this.beatMoving = true    
-    }else if(commandIndex == this.moves.circle.index){
-      this.scene.fire('circle')
-      this.beatMoving = true
-    }else if(commandIndex == this.moves.hold.index){
-      this.scene.fire('hold')
-      this.beatMoving = true
-    }else if(commandIndex == this.moves.hit.index){
-      this.scene.fire('hit')
-      this.beatMoving = true
-    }
+    this.scene.fire(this.currentCommand);
+    this.scene.fire("correctMove")
+    this.beatMoving = true;
+    if(this.comboStart){
+      this.comboStart = false
+      this.combos++
+      this.currentCombos++
+      this.scene.fire('combo', [this.currentCombos])
+    }    
   },
   
   //TODO: cache results
   commandText: function(command) {
-  	var dict = this.keyText[game.properties.lang];
+  	var dict = this.keyText;
   	var textCodes = [];
-  	this.moves[command].code.each(function(keyCode){textCodes.push(dict[keyCode]);});
+  	this.moves[command].code.each(function(keyCode){textCodes.push(t(dict[keyCode]));});
   	return textCodes.join(' - ');
   },
 
   moveEnd : function(){
-    if(this.comboStart){
-      this.comboStart= false
-      this.combos++
-      this.currentCombos++
-      this.scene.fire('correctMove')
-    }
+    this.scene.fire('endMove')
     this.beatMoving = false
   }
   

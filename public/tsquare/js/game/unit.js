@@ -32,7 +32,8 @@ var Unit = Class.create(Observer,{
     this.target = null
     this.scene = scene
     this.lane = lane
-    if(options && options.type)this.type = options.type
+    if(options && options.type)this.type = options.type;
+    if(options && options.noenemy)this.noenemy = options.noenemy;
     if(options && options.coords){
       this.coords = options.coords;
     }else{
@@ -159,6 +160,7 @@ var Unit = Class.create(Observer,{
   },
   
   die : function(){
+    this.dead = true;
     this.destroy();
     if(this.handler)
       this.handler.removeObject(this, this.lane);

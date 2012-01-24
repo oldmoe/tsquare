@@ -16,7 +16,7 @@ var TsquareScene = Class.create(Scene,{
     direction : 1,
     holdPowerDepression: 0.2,
     energy : null,
-    view: {width: 950, height: 460, xPos: 0, tileWidth: 400, laneMiddle : 25, length:0},
+    view: {width: 950, height: 460, xPos: 0, tileWidth: 400, laneMiddle : 30, length:0},
     activeLane: 1,
     win : false,
     comboMistakes : {current : 0, max : 2},
@@ -26,6 +26,7 @@ var TsquareScene = Class.create(Scene,{
     targetEnergy: 0,
     flashingHandler: null,
     speedFactor : 1,
+    cinematicView: false,
     initialize: function($super){
         $super();
         this.collision = false;
@@ -36,7 +37,7 @@ var TsquareScene = Class.create(Scene,{
         
         this.physicsHandler = new PhysicsHandler(this);
         this.handlers = {
-            // "rescue" : new RescueUnitHandler(this),
+            "rescue" : new RescueUnitHandler(this),
             "crowd" : new CrowdHandler(this),
             "protection_unit" : new ProtectionUnitHandler(this),  
             "enemy" : new EnemyHandler(this),  
@@ -50,13 +51,14 @@ var TsquareScene = Class.create(Scene,{
         this.speedFactors = []
         
         // Effect.Queues.create('global', this.reactor)
-
+      
         this.data = missionData.data;
         this.noOfLanes = this.data.length;
         this.view.length = this.view.width;
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].length > 0) {
-            this.view.length = Math.max(this.view.length, this.data[i][this.data[i].length - 1].x * this.view.tileWidth + this.view.width)
+          	var xi = this.data[i][this.data[i].length - 1].x;
+            this.view.length = Math.max(this.view.length, xi * this.view.tileWidth + this.view.width)
           }
         }
         
@@ -70,47 +72,63 @@ var TsquareScene = Class.create(Scene,{
          'objectives' : 'rescue'
        }
        
-       // console.log( this.data );
-       // this.data[1][0] = { "name": "journalist_rescue",
-                            // "category": 'objectives',
-                            // "type": 'rescue',
-                            // "index": 0,
-                            // "lane": 1,
-                            // "x": 3,
-                            // "order": 1,
-                            // "mission": "escort",
-                            // "targetTile": 5
-                          // }
-
-        for(var i =0;i<this.data.length;i++){
-            for(var j=0;j<this.data[i].length;j++){
-                var elem = this.data[i][j]
-                if(this.handlers[mapping[elem.category]])
-                    this.handlers[mapping[elem.category]].add(elem);
-            }
-        }
+       //This loop is for inserting the rescue ambulances before looping on the main loop
+       for(var j=0;j<this.data[1].length;j++){
+         var elem = this.data[1][j];
+         if( elem.targetTile ){
+           this.fire('incrementObjectivesCount');
+           this.data[0].push({
+               category : "protection",
+               lane : 0,
+               name : "ambulance",
+               x : elem.targetTile,
+               noenemy : true
+             });
+         }
+       }
+       for(var i =0;i<this.data.length;i++){
+         for(var j=0;j<this.data[i].length;j++){
+             var elem = this.data[i][j]
+             if(this.handlers[mapping[elem.category]]){
+               this.handlers[mapping[elem.category]].add(elem);
+             }
+         }
+       }
         
         var self = this;
         this.observe('wrongMove', function(){self.wrongMove()})
         this.observe('correctMove', function(){self.correctMove()})
-        this.observe('wrongCommand', function(){self.wrongCommand()})
-        this.observe('correctCommand', function(){self.correctCommand()})
         this.observe('togglePause', function(){self.togglePause()});
         this.observe('tileChanged', function(){self.tileChanged()});
+        this.observe('startConversation', function(){self.enterCinematicView()});
+        this.observe('endConversation', function(){self.exitCinematicView()});
     },
     
+    start : function(){
+  		this.init()
+  		return this
+  	},
+    
     init: function() {
+      this.initCinematicView();
   	  this.skyLine = new SkyLine(this)
   	  for(var handler in this.handlers){
   	    this.handlers[handler].start()
   	  }
 
       this.audioManager = new AudioManager(this);
-      //this.flashingHandler = new FlashingHandler(this);
+      this.flashingHandler = new FlashingHandler(this);
       this.movementManager = new MovementManager(this);
       
       var self = this;
-      this.countDown(function(){self._doInit();});
+	  self.reactor.run();
+	  self.reactor.push(0, this._tick, this);
+	  self.reactor.pause();
+  	  self.fire("start");
+      this.countDown(function(){
+      	self._doInit();
+      	self.reactor.resume();
+      });
     },
     
     countDown: function(callback) {
@@ -119,6 +137,7 @@ var TsquareScene = Class.create(Scene,{
     },
     
     togglePause: function() {
+    	if (this.cinematicView) return;
     	if (this.reactor.isRunning()) {
     		this.reactor.pause();
     	} else {
@@ -152,8 +171,10 @@ var TsquareScene = Class.create(Scene,{
       this.push(this.clashDirectionsGenerator)
       this.audioManager.run();
       this.movementManager.run();
-      // this.flashingHandler.run();
+      this.flashingHandler.run();
       this.handlers.crowd.playHetafLoop();
+      this.comboDisplay = new ComboDisplay(this);
+      this.pushToRenderLoop('characters', this.comboDisplay)
       var self = this;
       this.reactor.pushEvery(0,10, function(){return self.updateSpeed()})
     },
@@ -177,17 +198,10 @@ var TsquareScene = Class.create(Scene,{
     },
 
     wrongMove: function(){
-       this.decreaseEnergy();
+      this.decreaseEnergy();
     },
-
+    
     correctMove: function(){
-    },
-    
-    wrongCommand: function(){
-//      console.log("scene wrong command");
-    },
-    
-    correctCommand: function(){
       this.increaseEnergy();
     },
     
@@ -203,7 +217,8 @@ var TsquareScene = Class.create(Scene,{
       for(var handler in this.handlers){
           this.handlers[handler].tick();
       }
-      if(this.view.xPos > this.view.length) this.end();
+      
+      if(!this.stopped)this.end();
     },
 
     end : function(){
@@ -213,41 +228,63 @@ var TsquareScene = Class.create(Scene,{
         self.reactor.stop();
         self.audioManager.stop();
       }
-      if (this.handlers.crowd.ended || (this.handlers.enemy.ended && this.handlers.protection_unit.ended
-       && this.view.xPos > this.view.length && this.handlers.clash_enemy.ended)) {
-        if(!this.stopped)
-        {
-          this.stopped = true;
-          if (!self.handlers.crowd.ended) {
-            var scoreData = {
-              score: self.scoreCalculator.score,
-              objectives: self.scoreCalculator.getObjectivesRatio(),
-              combos: self.scoreCalculator.getCombos(),
-              win: true
-            };
+      
+      if (this.handlers.crowd.ended 
+          || this.scoreCalculator.gameTime < 0
+          || (this.handlers.enemy.ended && this.handlers.protection_unit.ended && this.handlers.clash_enemy.ended && this.view.xPos > this.view.length)) {
             
-            if (scoreData.objectives < 0.3)
-              scoreData.win = false;
-            self.fire('end', [scoreData]);
-            //self.direction = 0
-            self.finish(afterMarchCallback);
-          }else{
-            var scoreData = {
-              score: 0,
-              objectives: 0,
-              combos: 0,
-              win: false
+        this.stopped = true;
+        
+        var scoreData = {};
+        var failingScoreData = {
+            score: 0,
+            objectives: this.scoreCalculator.getObjectivesRatio().toFixed(2),
+            combos: this.scoreCalculator.getCombos(),
+            win: false,
+            superTime: 0,
+            stars: 0
+          };
+        
+        if(this.handlers.crowd.ended || this.scoreCalculator.gameTime < 0 ){
+          scoreData = failingScoreData;
+        }else{
+          var superTime = false;
+          if(this.scoreCalculator.gameTime > this.scoreCalculator.superTime) superTime = true;
+          
+          this.fire('correctObjective'); //Ending the mission alive is a correct objective
+          
+          if( this.scoreCalculator.getObjectivesRatio() < 0.3 ){
+            scoreData = failingScoreData;
+          } else {
+            scoreData = {
+              score: this.scoreCalculator.score,
+              objectives: this.scoreCalculator.getObjectivesRatio().toFixed(2),
+              combos: this.scoreCalculator.getCombos(),
+              win: true,
+              superTime: superTime,
+              stars: 0
             };
-            self.fire('end', [scoreData]);
-            afterMarchCallback();
           }
+          
+          if (scoreData.win) scoreData.stars += 1;
+          if (this.scoreCalculator.getObjectivesRatio() == 1)scoreData.stars += 1;
+          if (scoreData.superTime) scoreData.stars += 1;
         }
+        
+        this.fire('end', [scoreData]);
+        
+        if (this.handlers.crowd.ended) {
+          afterMarchCallback();
+        }else{
+          this.finish(afterMarchCallback);
+        }
+        
       }
-      //send to the server
     },
     
     finish : function(callback){
       this.fire(this.speeds[this.lastSpeedIndex].state)
+      this.fire("hideGuidingIcon");
       this.handlers.crowd.marchOut(callback);
     },
     
@@ -255,9 +292,12 @@ var TsquareScene = Class.create(Scene,{
        var klassName = objHash.name.formClassName()
        var klass = eval(klassName)
        var obj = new klass(this,objHash.x - this.view.xPos,objHash.lane,objHash.options);
-       //The following name and tile are used for escorting/retrieving a crowd member
+       //The following name, tile and mission are used for escorting/retrieving a crowd member
        obj.name = objHash.name;
        obj.targetTile = objHash.targetTile;
+       obj.helpMessage = objHash.helpMessage;
+       obj.companyMessage = objHash.companyMessage;
+       obj.leaveMessage = objHash.leaveMessage;
        obj.mission = objHash.mission;
        var displayKlass = eval(klassName + "Display")
        var objDisplay = new displayKlass(obj)
@@ -342,10 +382,11 @@ var TsquareScene = Class.create(Scene,{
 
    updateSpeed: function(){
       var speedDelta = Math.round(20 / this.handlers.crowd.objects[this.activeLane].length)
-      if(this.targetEnergy - this.energy.current > 1){
+      if(this.targetEnergy - this.energy.current > 0){
         this.energy.current += speedDelta;
-      }else if (this.targetEnergy - this.energy.current < -1){
-        if(this.energy.current > 0)this.energy.current -= speedDelta;        
+      }else if (this.targetEnergy - this.energy.current < 0){
+        if(this.energy.current > 0)this.energy.current -= speedDelta;
+        if(this.energy.current < 0)this.energy.current = 0;        
       }
       
      if(this.speedIndex == this.targetSpeedIndex) return;
@@ -372,13 +413,35 @@ var TsquareScene = Class.create(Scene,{
    },
    
    tileChanged : function(){
-     if( this.rescuing && this.rescuing.targetTile == this.currentTile){
+     var self = this;
+     if( this.rescuing && !this.rescuing.rescued && this.rescuing.targetTile == this.currentTile){
        this.rescuing.rescued = true;
+       this.fire("correctObjective");
+       this.rescuing.messageBubble.destroy();
        if( this.rescuing.mission == "retrieve" ){
-         this.fire("normal");
+         this.rescuing.fire("back");
        }
-       this.handlers.crowd.objects.remove( this.rescuing );
+       this.handlers.crowd.removeObject( this.rescuing, this.rescuing.lane );
+       this.push( this.rescuing );
      }
-   }
-  
+   },
+
+   // Cinematic view for conversation mode e.g. advisors.
+   initCinematicView : function() {
+   	 this.cinematicView = false;
+   	 $('topScope').style.top = "-80px";
+   	 $('bottomScope').style.top = "615px";
+   },
+   enterCinematicView : function() {
+   	 this.cinematicView = true;
+     this.reactor.pause();
+     new Effect.Move('topScope', {y:80});
+     new Effect.Move('bottomScope', {y:-80});
+   },
+   exitCinematicView : function() {
+   	 this.cinematicView = false;
+     new Effect.Move('topScope', {y:-80});
+     new Effect.Move('bottomScope', {y:80});
+     this.reactor.resume();
+   }  
 });

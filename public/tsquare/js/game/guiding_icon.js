@@ -13,10 +13,10 @@ var GuidingIcon = Class.create(Observer,{
     this.scene = game.scene;
     this.moves = game.scene.movementManager.moves;
     this.moveIndex = 1;
-    var images = ["walk_move.png", "hit_move.png", "circle_move.png", "retreat_move.png", "move_indicator.png", "right_arrow.png", 'up_arrow.png','down_arrow.png', "left_arrow.png", "move_background.png", "moves_arrows.png"];
+    var images = ["walk_move.png", "hit_move.png", "circle_move.png", "push_move.png", "retreat_move.png", "move_indicator.png", "right_arrow.png", 'up_arrow.png','down_arrow.png', "left_arrow.png", "move_background.png", "moves_arrows.png"];
     var self = this;
     new Loader().load([{images: images, path: 'images/game_elements/', store: 'game_elements'}],
-                      {onFinish:function(){self.display();}})    
+                      {onFinish:function(){self.display();}}) ;
   },
   
   display: function(){
@@ -24,11 +24,12 @@ var GuidingIcon = Class.create(Observer,{
     Game.addLoadedImagesToDiv('guidingBar');
     
     var self = this;
+    this.scene.observe('hideGuidingIcon', function(){self.hide()})
+    this.scene.observe('showGuidingIcon', function(){self.show()})
     this.scene.observe("keypressed", function(key, moveIndex, reset){self.keypressed(key, moveIndex, reset)});
-    this.scene.observe('correctCommand',function(){self.increaseCorrectCommandsCount()})
+    this.scene.observe('correctMove',function(){self.increaseCorrectCommandsCount();self.beatMoving();})
     this.scene.observe("pressLate", function(){self.pressLate()});
-    this.scene.observe("beatMoving", function(){self.beatMoving()});
-    this.scene.observe("targetCircleComplete", function(){self.targetCircleComplete()});
+    this.scene.observe("targetComplete", function(){self.targetComplete()});
     this.scene.push(this);
     
     this.scene.pushToRenderLoop('meters', this);
@@ -37,6 +38,16 @@ var GuidingIcon = Class.create(Observer,{
       self.scene.removeFromRenderLoop('meters', self);
       self.scene.remove(self);
     });
+    
+    this.show();
+  },
+  
+  hide: function(){
+    $('guidingBar').hide();
+  },
+
+  show: function(){
+    $('guidingBar').show();
   },
   
   keypressed: function(key, moveIndex, flag){
@@ -45,7 +56,7 @@ var GuidingIcon = Class.create(Observer,{
       this.pressEarly();
       this.moveIndex = 1;
       this.scene.fire("showGuidBubble", [this.currentCommand]);
-      return ;
+      return;
     }
 
     if(flag == 2){ //pressed while the waiting beats
@@ -108,14 +119,15 @@ var GuidingIcon = Class.create(Observer,{
   },
   
   pressEarly: function(){
+    this.wrongPress(this.moveIndex+1);
     var self = this;
-    self.reset(self.moveIndex+1);
+    this.scene.reactor.push(2, function(){self.reset(4);});
   },
 
   pressLate: function(){
     this.wrongPress(this.moveIndex+1);
     var self = this;
-    this.scene.reactor.push(5, function(){self.reset(self.moveIndex+1);});
+    this.scene.reactor.push(2, function(){self.reset(4);});
   },
   
   tick: function(){
@@ -146,6 +158,9 @@ var GuidingIcon = Class.create(Observer,{
       if(!enemy.chargeTolerance && this.scene.collision) {
         this.commandLock = false;
         command = "hit";
+      }else if(enemy.chargeTolerance && this.scene.collision){
+        this.commandLock = false;
+        command = "push";
       }
     }else if(choice == 1){
       if(!protectionUnit.doneProtection && this.scene.collision) {
@@ -157,6 +172,11 @@ var GuidingIcon = Class.create(Observer,{
     if( this.scene.rescuing && !this.scene.rescuing.rescued && this.scene.rescuing.mission == "retrieve" ){
       this.commandLock = false;
       command = "retreat";
+    }
+    
+    if( this.scene.rescuing && this.scene.rescuing.rescued && this.scene.rescuing.mission == "retrieve" ){
+      this.commandLock = false;
+      command = "march";
     }
 
     if(this.currentCommand != command && !this.commandLock){
@@ -188,7 +208,7 @@ var GuidingIcon = Class.create(Observer,{
     this.wrongCommands = 0;
   },
   
-  targetCircleComplete: function(){
+  targetComplete: function(){
     this.commandLock = false;
   },
   
@@ -202,9 +222,10 @@ var GuidingIcon = Class.create(Observer,{
       $$('.nextMove img')[0].src = "images/game_elements/circle_move.png";
     else if(command == 'hit') //hit
       $$('.nextMove img')[0].src = "images/game_elements/hit_move.png";
-
+    else if(command == 'push') //hit
+      $$('.nextMove img')[0].src = "images/game_elements/push_move.png";
     //empty current command
-    for(var i=0; i<4; i++){
+    for(var i=1; i<4; i++){
       $$('.movesIndicator')[0].children[i].firstChild.src = "";
       $$('.movesIndicator')[0].children[i].removeClassName("right");
       $$('.movesIndicator')[0].children[i].removeClassName("wrong");
@@ -216,15 +237,10 @@ var GuidingIcon = Class.create(Observer,{
   },
 
   loadButton: function(i, button){
-    if(button == 0)
-      $$('.movesIndicator')[0].children[i].firstChild.src = "images/game_elements/right_arrow.png";
-    else if(button == 1)  
-      $$('.movesIndicator')[0].children[i].firstChild.src = "images/game_elements/left_arrow.png";
-    else if(button == 2)  
-      $$('.movesIndicator')[0].children[i].firstChild.src = "images/game_elements/up_arrow.png";
-    else if(button == 3)  
-      $$('.movesIndicator')[0].children[i].firstChild.src = "images/game_elements/down_arrow.png";
-
+    var directions = {0:'right_arrow.png', 1:'left_arrow.png', 2:'up_arrow.png', 3:'down_arrow.png'}
+    var img = $$('.movesIndicator')[0].children[i].firstChild
+    $$('.movesIndicator')[0].children[i].firstChild.insert({before:Loader.images.game_elements[directions[button]].clone()})
+    $$('.movesIndicator')[0].children[i].removeChild(img)
   },
     
   render: function(){

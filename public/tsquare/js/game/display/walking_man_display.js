@@ -8,13 +8,13 @@ var WalkingManDisplay = Class.create(Display,{
   imgWidth: 96,
   imgHeight: 96,
      
-  initialize : function($super, reactor){
+  initialize : function($super, reactor, x0){
     
     $$(".walkingCrowdMemeber")[0].update("");
     this.container = $$(".walkingCrowdMemeber")[0];
     this.reactor = reactor;
     
-    this.owner = {coords:{x:0, y:0}, scalable:true, type: "ultras_red"}
+    this.owner = {coords:{x:this.getRandomX(), y:0}, scalable:true, type: "ultras_red"}
     
     this.characterImg = Loader.images.characters[this.owner.type+'_idle.png']
     this.walkImg = Loader.images.characters[this.owner.type+'_walk.png']
@@ -37,9 +37,9 @@ var WalkingManDisplay = Class.create(Display,{
       width: 96,
       height: 96,
       parent: this.container,
-      shiftY:-350,
+      shiftY:-250,
       shiftX:0,
-      zIndex: 6
+      zIndex: 3
     })
     this.sprites.character.createAnimation({name:'flippedNormal'  ,img:this.characterImg,noOfFrames:this.noOfFrames, flipped : true})
     this.sprites.character.createAnimation({name:'walk'  ,img:this.walkImg,noOfFrames:8})
@@ -54,8 +54,8 @@ var WalkingManDisplay = Class.create(Display,{
       height: this.shadowImg.height,
       parent: this.container,
       shiftX : -(this.shadowImg.width-this.characterImg.width)-20,
-      shiftY : -350,
-      zIndex: 4
+      shiftY : -250,
+      zIndex: 2
     })    
   },
   
@@ -87,7 +87,12 @@ var WalkingManDisplay = Class.create(Display,{
     }  
   },
   
+  getRandomX: function() {
+  	return 300 + (0.5 - Math.random()) * 50;
+  },
+  
   moveTo: function(x){
+  	x = x || this.getRandomX();
     if(Math.abs(this.targetX - x) < 3) return;
     this.targetX = x;
     var animation = "normal";

@@ -1,7 +1,7 @@
 class UserGameProfile < DataStore::Model
 
   SEP = '-'.freeze
-  CURRENT_VERSION = 43
+  CURRENT_VERSION = 44
 
   index :timeline_score, :method => :timeline_index
   index :racing_score, :method => :racing_index
@@ -70,9 +70,9 @@ class UserGameProfile < DataStore::Model
         @data['missions'][mode] ||= {}
       end 
       @data['crowd_members'] = {
-        'ultras_green' => { 1 => {'level'=>1, 'health' => 100, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
+        'girl_7egab' => { 1 => {'level'=>1, 'health' => 100, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
         'journalist' => { 1 => {'level'=>1, 'health' => 100, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },  
-        'ultras_white' => { 1 => {'level'=>1, 'health' => 100, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
+        'salafy' => { 1 => {'level'=>1, 'health' => 100, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
         'ultras_red' => { 1 => {'level'=>1, 'health' => 100, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } },
         'bottleguy' => { 1 => {'level'=>1, 'health' => 100, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } },
                        2 => {'level'=>1, 'health' => 100, 'upgrades'=>{ 'hp'=>[], 'water'=>[], 'attack'=>[], 'defense'=>[], 'arrest'=>0, 'block'=>0 } } }

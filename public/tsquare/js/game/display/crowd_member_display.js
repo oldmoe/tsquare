@@ -67,10 +67,10 @@ var CrowdMemberDisplay = Class.create(Display,{
    
     this.sprites.character = new DomImgSprite(this.owner, {img : this.characterImg,noOfFrames : this.noOfFrames})
     this.sprites.character.createAnimation({name:'hold',img:this.holdImg,noOfFrames:this.noOfFramesPerAnimation['hold']})
-    this.sprites.character.createAnimation({name:'walk',img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['walk']})
-    this.sprites.character.createAnimation({name:'jog',img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['jog']})
     this.sprites.character.createAnimation({name:'front',img:this.frontImg,noOfFrames:this.noOfFramesPerAnimation['front']})
     this.sprites.character.createAnimation({name:'back' ,img:this.backImg,noOfFrames:this.noOfFramesPerAnimation['back']})
+    this.sprites.character.createAnimation({name:'walk',img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['walk']})
+    this.sprites.character.createAnimation({name:'jog',img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['jog']})
     this.sprites.character.createAnimation({name:'run'  ,img:this.runImg,noOfFrames:this.noOfFramesPerAnimation['run']})
     this.sprites.character.createAnimation({name:'sprint'  ,img:this.runImg,noOfFrames:this.noOfFramesPerAnimation['sprint']})
     this.sprites.character.createAnimation({name:'reverseWalk'  ,img:this.walkImg,noOfFrames:this.noOfFramesPerAnimation['reverseWalk'], flipped : true})

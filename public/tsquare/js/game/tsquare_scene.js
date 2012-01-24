@@ -435,13 +435,14 @@ var TsquareScene = Class.create(Scene,{
    enterCinematicView : function() {
    	 this.cinematicView = true;
      this.reactor.pause();
-     new Effect.Move('topScope', {y:80});
-     new Effect.Move('bottomScope', {y:-80});
+     new Effect.Move('topScope', {y:90});
+     new Effect.Move('bottomScope', {y:-90});
    },
    exitCinematicView : function() {
    	 this.cinematicView = false;
-     new Effect.Move('topScope', {y:-80});
-     new Effect.Move('bottomScope', {y:80});
+     this.movementManager.reset();
+     new Effect.Move('topScope', {y:-90});
+     new Effect.Move('bottomScope', {y:90});
      this.reactor.resume();
    }  
 });

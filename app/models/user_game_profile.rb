@@ -94,8 +94,10 @@ class UserGameProfile < DataStore::Model
       game.data['missions'][mode].keys.each do |key|
         @data['missions'][mode][key] ||= { 'score' => 0, 'stars'=>0}
       end
-    end 
+    end
+    last_loaded_stamp
     energy_gain
+    crowd_health_gain
     save
   end
 
@@ -144,6 +146,42 @@ class UserGameProfile < DataStore::Model
                 record.service_type == service_type && record.game_key == game_key } 
     appProfiles
   end
+  
+  def last_loaded_stamp
+    time = Time.now.utc.to_i
+    @data['last_loaded'] = time if @data['last_loaded'].nil?
+    seconds_passed = time - @data['last_loaded']
+    @data['seconds_passed'] = seconds_passed
+    @data['last_loaded'] = time
+  end
+  
+  def crowd_health_gain
+    max_health = 100
+    health_unit_time = 2
+    seconds_passed = @data['seconds_passed']
+    net_health_units = Float(seconds_passed) / health_unit_time
+    
+    puts ">>>>>>>>>>>>> seconds_passed = #{seconds_passed}"
+    puts ">>>>>>>>>>>>> net_health_units = #{net_health_units}"
+    
+    @data["crowd_members"].each do |category, category_members|
+      category_members.each do |serial, attrs|
+        member = category_members[serial]
+        needed_health = max_health - member['health']
+        
+        puts ">>>>>>>>>>>>>> old health : #{member['health']}"
+        
+        if( net_health_units >= needed_health )
+          member['health'] = max_health
+        else
+          member['health'] += net_health_units
+        end
+        
+        puts ">>>>>>>>>>>>>> new health : #{member['health']}"
+        puts "-----------------------------------"
+      end
+    end
+  end
 
   def energy_gain
     max_energy = 50
@@ -151,11 +189,7 @@ class UserGameProfile < DataStore::Model
     if( @data['energy'] >= max_energy )
       return
     end
-    time = Time.now.utc.to_i
-    @data['last_loaded'] ||= time
-    seconds_passed = time - @data['last_loaded']
-    @data['last_loaded'] = time
-    net_energy_units = seconds_passed / energy_unit_time
+    net_energy_units = @data['seconds_passed'] / energy_unit_time
     needed_energy = max_energy - @data['energy']
     
     if( net_energy_units >= needed_energy )

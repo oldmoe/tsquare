@@ -243,6 +243,9 @@ var Marketplace = Class.create({
     var missionID = options.missionID;
     var self = this;
     var screen = myStuff ? 'myStaff' : 'marketplace';
+    
+    
+    
     this.adjustedMyMembers = this.adjustMyMembers();
     $('marketplace').hide();
     $('marketplace').innerHTML = this.templateManager.load('marketplace', {screen : screen, 

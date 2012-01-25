@@ -157,7 +157,7 @@ class UserGameProfile < DataStore::Model
   
   def crowd_health_gain
     max_health = 100
-    health_unit_time = 2
+    health_unit_time = 60*60
     seconds_passed = @data['seconds_passed']
     net_health_units = Float(seconds_passed) / health_unit_time
     

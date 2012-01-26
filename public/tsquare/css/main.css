@@ -65,9 +65,11 @@ img { border:none; outline:none;}
 .missionDetails { position:relative; top:10px; left:122px; float:left; width:730px; height:316px; z-index:6; }
 .missionDetails .close { left:704px; top:21px; z-index:8; }
 
-.missionWrapper { float:left; width:690px; margin:-19px 20px 20px 20px; height:200px; position:relative; z-index:7; }
-.missionImages { float:left; width:200px; margin:43px 0 0 10px; }
-.missionImages img { float:left; width:190px; margin:0 5px 5px 0;}
+.missionWrapper { float:left; width:690px; margin:-19px 20px 20px 20px;  position:relative; z-index:7; }
+.missionImages { float:left; width:200px; margin:13px 0 0 10px; }
+.missionImages img { float:left; width:190px; margin:0 5px 5px 0; position:relative; z-index:10;}
+.missionNumber { position:relative; top:170px; left:30px; color:#604f00; text-shadow:1px 1px 0 #d3b632; font-weight:bold; font-size:2.2em; z-index:12; }
+.missionTime { position:relative; top:168px; left:45px; color:#604f00; text-shadow:1px 1px 0 #d3b632; font-weight:bold; font-size:1.6em; z-index:12; }
 
 .missionContent { float:left; width:315px; margin:30px 0 0 0; }
 .missionContent h3 { width:100%; font-weight:bold; font-size:2em; margin:5px 0 0 0;  }

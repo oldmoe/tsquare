@@ -25,16 +25,16 @@ img { border:none; outline:none;}
 .cancelButton span { position:absolute; z-index:7; width:97px; height:31px; text-align:center; padding:5px 0 0 0; }
 .cancelButton:hover img { position:absolute; top:-31px; }
 
-.overlay { float:left; width:100%; background:#000; height:620px; background:url(../images/common/overylay_background.png); }
+.overlay { float:left; width:970px; background:#000; height:620px; background:url(../images/common/overylay_background.png); left:-5px; top:0px; }
 .container { width:950px; height:685px; margin:0 auto; position:relative; }
 
 .message { position:absolute; top:285px; left:300px; z-index:30; }
 .message span { z-index:31; position:relative; font-weight:bold; font-family:"Comic Sans MS", cursive; font-size:1.3em; width:210px; margin:15px; line-height:1.2em; height:70px; display:block; width:238px; }
 
-.topScope { position:absolute; top:-80px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
-.bottomScope { position:absolute; top:615px; left:0; background:#000; height:80px; width:968px; z-index:1000; }
+.topScope { position:absolute; top:-80px; left:9px; background:#000; height:80px; width:950px; z-index:1000; }
+.bottomScope { position:absolute; top:615px; left:9px; background:#000; height:80px; width:950px; z-index:1000; }
 
-.contuineReading { position:absolute; top:110px; left:240px; z-index:99; }
+.contuineReading { position:absolute; top:460px; left:240px; z-index:99; }
 
 
 .loading { position:absolute; top:240px; height:100px; width:100px; left:415px; text-align:center; z-index:300; }
@@ -65,9 +65,11 @@ img { border:none; outline:none;}
 .missionDetails { position:relative; top:10px; left:122px; float:left; width:730px; height:316px; z-index:6; }
 .missionDetails .close { left:704px; top:21px; z-index:8; }
 
-.missionWrapper { float:left; width:690px; margin:-19px 20px 20px 20px; height:200px; position:relative; z-index:7; }
-.missionImages { float:left; width:200px; margin:43px 0 0 10px; }
-.missionImages img { float:left; width:190px; margin:0 5px 5px 0;}
+.missionWrapper { float:left; width:690px; margin:-19px 20px 20px 20px;  position:relative; z-index:7; }
+.missionImages { float:left; width:200px; margin:13px 0 0 10px; }
+.missionImages img { float:left; width:190px; margin:0 5px 5px 0; position:relative; z-index:10;}
+.missionNumber { position:relative; top:170px; left:30px; color:#604f00; text-shadow:1px 1px 0 #d3b632; font-weight:bold; font-size:2.2em; z-index:12; }
+.missionTime { position:relative; top:168px; left:45px; color:#604f00; text-shadow:1px 1px 0 #d3b632; font-weight:bold; font-size:1.6em; z-index:12; }
 
 .missionContent { float:left; width:315px; margin:30px 0 0 0; }
 .missionContent h3 { width:100%; font-weight:bold; font-size:2em; margin:5px 0 0 0;  }
@@ -112,14 +114,14 @@ img { border:none; outline:none;}
 .timelineMissions li#mission29 {  top:269px; left:807px; }
 .timelineMissions li#mission30 {  top:230px; left:770px; }
 
-.missionTitle { position:absolute; z-index:100; top:130px; left:623px; }
-.missionTitle h3 { position:relative; z-index:101; width:143px; margin:15px 10px 5px 10px; text-align:center; text-shadow:1px 1px 0 #fb4e53; }
-.stars { position:relative; width:143px; margin:0 0 0 34px; z-index:102; }
+.missionTitle { position:absolute; z-index:100; top:100px; left:623px; width:203px; height:130px; }
+.missionTitle h3 { position:relative; z-index:101; width:183px; margin:15px 10px 5px 10px; text-align:center; text-shadow:1px 1px 0 #3b994a; }
+.stars { position:relative; width:153px; margin:0 0 0 54px; z-index:102; }
 .stars span { float:left; width:20px; height:20px; overflow:hidden; position:relative; margin:0 0 0 10px;  }
 .stars span img { position:absolute; right:0; }
 .stars span.active img { right:-20px }
 
-
+.missionTitle h4 { position:relative; z-index:101; width:183px; margin:15px 10px 5px 10px; text-align:center;  float:left; font-weight:bold; font-size:1.3em; color:#cc893a; }
 
 
 
@@ -470,10 +472,10 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .exitBtn:hover img { position:relative; top:-48px; }
 
 
-#marketplace { left: 80px; position: absolute; top: 60px; z-index: 10; }
+#marketplace { left:0px; position:relative; top:0px; z-index: 10; width:960px; height:620px; }
 
 /*-------Widnow-------*/
-.window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:35px 27px 0 45px; position:relative; height:401px; }
+.window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:35px 27px 0 45px; position:relative; height:401px; top:70px; height:70px; }
 .windowTitle { float:left; width:254px; height:44px; position:relative; top:-43px; left:215px; }
 .close { float:left; width:39px; height:39px; position:relative; left:436px; top:-15px; overflow:hidden; z-index:3; }
 .close a { display:block; width:39px; height:39px; }
@@ -515,8 +517,8 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 .highlighted { display:none; position:absolute; z-index:0; top:-14px; left:-7px; }
 
-.crowedItemDetails { float: left; height: 36px; left: 4px; overflow: hidden; position: absolute; top: 110px; width: 115px;}
-.crowedItemDetails a { color: #304C00; display: block; font-size: 1.2em; font-weight: bold; height: 28px; padding: 8px 0 0; position: absolute; text-align: center; text-decoration: none; text-shadow: 1px 1px 0 #CCF08E; width: 115px; z-index: 2; }
+.crowedItemDetails { float: left; height: 36px; left: 4px; overflow: hidden; position: absolute; top: 110px; width: 115px; z-index:21;}
+.crowedItemDetails a { color: #304C00; display: block; font-size: 1.2em; font-weight: bold; height: 28px; padding: 8px 0 0; position: absolute; text-align: center; text-decoration: none; text-shadow: 1px 1px 0 #CCF08E; width: 115px; z-index: 21; }
 .crowedItemDetails:hover img { position: absolute; top: -36px; }
 
 .crowedItemPrice { float:left; position:absolute; width:59px; height:33px; top:85px; left:68px; }
@@ -580,7 +582,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .langBtn:hover img { position:absolute; top:-40px; } 
 
 
-.healthStatus { position:absolute; top:50px; left:15px; z-index:15; width:16px; height:46px; }
+.healthStatus { position:absolute; top:50px; left:15px; z-index:1; width:16px; height:46px; }
 .healthStatus span { position:absolute; z-index:17; display:block; height:46px; width:16px; overflow:hidden; top:0; }
 
 
@@ -598,3 +600,6 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .highlightedBackground { position:absolute; z-index:2147483646; background:#000; opacity:.9; width:970px; height:620px; top:0; left:0; }
 .highlightedBackground h2 { font-weight:bold; font-size:8em; color:#f7f18b; width:970px; text-align:center; margin:200px 0 0 0; position:relative; }
 .highlightedBackground h3 { font-weight:bold; font-size:1.7em; color:#f7f18b; width:970px; text-align:center; margin:20px 0 0 0; position:relative; }
+
+.gameplayGuide { position:relative; top:540px; left:20px; }
+.gameplayGuide a { display:block; top:0px; left:0px; position:absolute; width:95px; height:20px; }

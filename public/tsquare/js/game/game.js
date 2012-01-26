@@ -47,7 +47,7 @@ var Game = Class.create({
         }
     }
     characterImages = characterImages.concat(['flagman_leg2_walk.png', 'flagman_back.png', 'flagman_down.png', 'flagman_forward.png'
-    ,'flagman_idle.png', 'flagman_up.png'])
+    ,'flagman_idle.png', 'flagman_up.png', 'flagman_leg_idle.png', 'flagman_leg_run.png'])
     characterImages = characterImages.concat(['journalist_shout.png', 'girl7egab_shout.png']) 
     var effectsImages = ['hydrate.png', 'hit1.png','good_blue.png','bad_red.png']
     var enemiesImages = ['amn_markazy_stick_walk.png','amn_markazy_stick_hit.png','amn_markazy_tear_gas_shooting.png',

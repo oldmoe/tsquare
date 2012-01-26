@@ -135,9 +135,14 @@
           <!--Health status-->
           <div class="healthStatus">
             <span style="height: ${Math.max(0, 46-item.healthShift)}px; top: ${item.healthShift}px">
-              <img style="margin-top: -${item.healthShift}px" src="images/marketplace/health_active.png" />
+              <img style="margin-top: -${item.healthShift}px"
+                   src="images/marketplace/health_active.png"
+                   title="${Math.floor( item.memberData.health )}%" />
             </span>
-            <img style="margin-top: -${item.healthShift}px; top: ${item.healthShift}px" class="positioned" src="images/marketplace/health_inactive.png" />
+            <img style="margin-top: -${item.healthShift}px; top: ${item.healthShift}px" 
+                 class="positioned" 
+                 src="images/marketplace/health_inactive.png"
+                 title="${Math.floor( item.memberData.health )}%" />
           </div>
           {if item.memberData.health < 40 && preMission}
             <div class="cantJoin">
@@ -146,6 +151,11 @@
             </div>
           {/if}
           {if item.memberData.health < 100}
+            <div class="recoveryTimer">
+              <img title="Remaining ${item.remainingMinutesTillHealthUnit} minutes to gain 1% health" 
+                   src="images/marketplace/timer.png"
+                   style="top:${item.timerShift}px">
+            </div>
             <div class="crowedItemDetails">
               <a id="${item.codeName}-${item.memberID}_heal" class="healTrigger" href="javascript:void(0)">${t('heal_crowd_member')}</a>
               <span class="loadedImg" imgSrc="marketplace/item_details.png" imgClasses="positioned"></span>

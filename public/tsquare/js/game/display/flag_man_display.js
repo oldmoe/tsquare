@@ -20,16 +20,27 @@ var FlagManDisplay = Class.create(Display,{
         self.sprites.body.currentAnimationFrame = 1;
         self.sprites.body.switchAnimation(arrow);
       })  
+    });
+    ["normal", "walk", "jog", "run", "sprint"].each(function(state){
+      self.owner.scene.observe(state, function(){
+        self.sprites.leg.currentAnimationFrame = 0;
+        var animation = "";
+        if(state=="normal")animation = state
+        else animation = "leg_"+state
+        self.sprites.leg.switchAnimation(animation);
+      })  
     })
   },
   
   initImages : function(){
-    this.legImg = Loader.images.characters['flagman_leg2_walk.png']
     this.backImg = Loader.images.characters['flagman_back.png']
     this.downImg = Loader.images.characters['flagman_down.png']
     this.upImg = Loader.images.characters['flagman_up.png']
     this.forwardImg = Loader.images.characters['flagman_forward.png']
     this.idleImg = Loader.images.characters['flagman_idle.png']
+    this.legImgWalk = Loader.images.characters['flagman_leg2_walk.png']
+    this.idleLegImg = Loader.images.characters['flagman_leg_idle.png']
+    this.runLegImg = Loader.images.characters['flagman_leg_run.png']
   },
   createShadows: function(){
     this.shadowImg = Loader.images.effects['crowd_shadow.png'];
@@ -43,9 +54,16 @@ var FlagManDisplay = Class.create(Display,{
   createSprites: function(){
     this.configureAnimations();
     this.sprites.leg = new DomImgSprite(this.owner, {
-      img: this.legImg,
-      noOfFrames: this.noOfFramesPerAnimation['leg']
+      img: this.idleLegImg,
+      noOfFrames: this.noOfFramesPerAnimation['leg_idle']
     }, {shiftX : 2})
+    
+    this.sprites.leg.createAnimation({name:'leg_walk',img:this.legImgWalk, noOfFrames:this.noOfFramesPerAnimation['leg_walk']})
+    this.sprites.leg.createAnimation({name:'leg_jog',img:this.legImgWalk, noOfFrames:this.noOfFramesPerAnimation['leg_jog']})
+    this.sprites.leg.createAnimation({name:'leg_run'  ,img:this.runLegImg, noOfFrames:this.noOfFramesPerAnimation['leg_run']})
+    this.sprites.leg.createAnimation({name:'leg_sprint'  ,img:this.runLegImg, noOfFrames:this.noOfFramesPerAnimation['leg_sprint']})
+    
+    
     this.sprites.body = new DomImgSprite(this.owner, {
       img: this.idleImg,
       noOfFrames: this.noOfFramesPerAnimation['idle']
@@ -57,7 +75,11 @@ var FlagManDisplay = Class.create(Display,{
   },
   configureAnimations: function(){
     this.noOfFramesPerAnimation = {};
-    this.noOfFramesPerAnimation['leg'] = 8;
+    this.noOfFramesPerAnimation['leg_idle'] = 1;
+    this.noOfFramesPerAnimation['leg_walk'] = 8;
+    this.noOfFramesPerAnimation['leg_jog'] = 8;
+    this.noOfFramesPerAnimation['leg_run'] = 6;
+    this.noOfFramesPerAnimation['leg_sprint'] = 6;
     this.noOfFramesPerAnimation['idle'] = 5;
     this.noOfFramesPerAnimation['left'] = 5;
     this.noOfFramesPerAnimation['down'] = 5;

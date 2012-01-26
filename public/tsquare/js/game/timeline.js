@@ -18,7 +18,7 @@ var Timeline = Class.create(UIManager, {
     var self = this;
     this.loader.load([ {images : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png", "coming_soon_missions.png",
                                   "home_background.gif", "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
-                                  "mission_current.png", "mySquare_screen.png","stars.png",
+                                  "mission_current.png", "mySquare_screen.png","stars.png", "missionTitle.png",
                                   "mission_locked.png", "mission_finished.png", "crowd_member_small.png", "challenge_box.png", "lock.png",
                                   "mission_icon_selected.png", "play_button.png", "map_background.gif"], path: 'images/timeline/', store: 'timeline'},
                        {images_ar : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png",

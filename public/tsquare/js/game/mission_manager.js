@@ -73,6 +73,14 @@ var MissionManager = Class.create({
       this.eneded = false;
       this.mode = this.gameManager.timelineManager.mode;
       var self = this;
+      var usedPowerups = [];
+      var powerups = this.gameManager.userData.powerups;
+      for (var i=0; i < powerups.length; i++) {
+        if(powerups[i].changed) usedPowerups.push(powerups[i]);
+      };
+      
+      score.usedPowerups = usedPowerups;
+      
       this.network.postMissionScore( this.currentMission.id, score, function(data){
         self.donePosting = true;
         if(self.gameManager.scoreManager.currentUser)

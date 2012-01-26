@@ -1,6 +1,6 @@
 var MovementManager = Class.create({
   
-  RIGHT : 0, LEFT : 1,UP : 2, DOWN : 3, SPACE : 4, ENTER: 5,
+  RIGHT : 0, LEFT : 1,UP : 2, DOWN : 3, SPACE : 4, ENTER: 5, HOT_KEYS: [0, 1, 2, 3, 4, 5],
   keyText: ['right', 'left', 'up', 'down'],
   move : [],
   movements : [],
@@ -54,6 +54,7 @@ var MovementManager = Class.create({
         return
       }
       var click = -1
+      var hotKeyClick = false;
       if (e.keyCode == 39) {
         click = self.RIGHT
       }else if (e.keyCode == 37) {
@@ -64,9 +65,32 @@ var MovementManager = Class.create({
           click = self.UP
       }else if (e.keyCode == 40){
           click = self.DOWN
+      }else if (e.keyCode == 49){//hot key1
+          click = self.HOT_KEYS[0]
+          hotKeyClick = true;
+      }else if (e.keyCode == 50){//hot key2
+          click = self.HOT_KEYS[1]
+          hotKeyClick = true;
+      }else if (e.keyCode == 51){//hot key3
+          click = self.HOT_KEYS[2]
+          hotKeyClick = true;
+      }else if (e.keyCode == 52){//hot key4
+          click = self.HOT_KEYS[3]
+          hotKeyClick = true;
+      }else if (e.keyCode == 53){//hot key5
+          click = self.HOT_KEYS[4]
+          hotKeyClick = true;
+      }else if (e.keyCode == 54){//hot key6
+          click = self.HOT_KEYS[5]
+          hotKeyClick = true;
       }
       
       if (self.currentMode == self.modes.normal){
+
+        if(hotKeyClick){
+          self.scene.fire("activatePowerups", [click]);
+          return;
+        } 
         if(click == -1){
           //fire wrong key
           self.scene.fire("keypressed", [click, self.move.length])

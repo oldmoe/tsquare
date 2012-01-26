@@ -7,6 +7,7 @@ var CrowdHandler = Class.create(UnitHandler, {
    commands: ["circle", "hold", "march", "retreat", "hit", "push"],
    currentId : 0,
    arrestedCrowds : null,
+   
    initialize: function($super,scene){
        this.initialPositions = [{x:250,y:30},{x:250,y:80},{x:250,y:200}]
        $super(scene)
@@ -19,7 +20,23 @@ var CrowdHandler = Class.create(UnitHandler, {
        this.scene.observe("clashUnit", function(){self.crowdStepAhead()})
        this.scene.observe("clashWin", function(){self.crowdStepBack()})
        this.scene.observe("clashLose", function(){self.ArrestCrowd()})
+       
+       this.scene.observe("increaesHealth", function(effect){self.increaesHealth(effect)});
+       this.scene.observe("increaesHydration", function(effect){self.increaesHydration(effect)});
+       
        this.hetafVolume = 15;
+   },
+   
+   increaesHydration: function(effect){
+     for (var i=0; i < this.objects[1].length; i++) {
+       this.objects[1][i].water += this.objects[1][i].water * effect/100 
+     };
+   },
+   
+   increaesHealth: function(effect){
+     for (var i=0; i < this.objects[1].length; i++) {
+       this.objects[1][i].hp += this.objects[1][i].hp * effect/100
+     };
    },
       
    addMarchingStates: function(){

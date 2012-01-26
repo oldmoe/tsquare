@@ -108,20 +108,47 @@ class UserMissions
       end
       
       mission_powerups = [];
-      if score['win'] && mission['powerups'] && mission['powerups']['win']
-        mission_powerups.push(mission['powerups']['win'])
+      
+      if score['win'] && (not mission['data']['winPowerups'].nil?) #&& user_profile.missions[mode][mission_id.to_i].nil? # user take end of mission powerups one time only 
+        mission_powerups.concat(mission['data']['winPowerups'])
       end
       
       if data['powerups'] && data['powerups'].length > 0
-        mission_powerups.push(data['powerups'])
+        mission_powerups.concat(data['powerups'])
       end
 
       user_profile.powerups = [] if user_profile.powerups.nil?
+
+      score['usedPowerups'].each{|e|
+        update_user_powerups(user_profile.powerups, e) 
+      }
       
-      mission_powerups.each{|e|user_profile.powerups.push(e)}
+      mission_powerups.each{|e|
+        add_user_powerups(user_profile.powerups, e) 
+      }
       
       # Add experience points here
       user_profile.save
+    end
+
+    def update_user_powerups list, item
+      list.each{|e|
+        if e['attribute'] == item['attribute'] && e['type'] == item['type'] && e['name'] == item['name'] && e['effect'] == item['effect']
+          e['count'] = item['count'] 
+          return 
+        end
+      }
+    end
+    
+    def add_user_powerups list, item
+      list.each{|e|
+        if e['attribute'] == item['attribute'] && e['type'] == item['type'] && e['name'] == item['name'] && e['effect'] == item['effect'] 
+          e['count'] += 1
+          return 
+        end
+      }
+      item['count'] = 1
+      list.push(item)
     end
     
     def current user_profile

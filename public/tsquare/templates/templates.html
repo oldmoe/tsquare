@@ -291,6 +291,26 @@
   </div>
 </textarea>
 
+<textarea style="display:none;" id="powerUpSlot">
+  <div class="powerUpSlot">
+    {if img}
+    <span class="powerUpItem"><span class="loadedImg" imgSrc="game_elements/${img}" alt="Item" ></span></span>
+    {else}
+    <span class="powerUpItem"><span class="loadedImg" imgSrc="game_elements/item.png" alt="Item" ></span></span>
+    {/if}
+    <span class="powerUpHotKey">
+      <strong>${key}</strong>
+      <span class="loadedImg" imgSrc="game_elements/hot_key.png" alt="Hot Key" imgClasses="positioned" ></span>
+    </span>
+    <small>
+      <strong class="powerupCount">${count}</strong>
+      <span class="loadedImg" imgSrc="game_elements/item_numbers.png" alt="numbers" imgClasses="positioned" ></span>
+    </small>
+    <span class="loadedImg" imgSrc="game_elements/powerup_slot.png" alt="Item slot" imgClasses="positioned" ></span>
+  </div>
+</textarea>
+
+
 <textarea style="display:none;" id='friends'>
 	<!--Friends Bar-->
   <div class="friendsBar">

@@ -58,6 +58,8 @@ var Game = Class.create({
     
     var countDownImages = ["1.png", "2.png", "3.png", "go.png"];
     
+    var powerupsImages = ['hot_key.png', 'item_numbers.png', 'powerup_slot.png', 'item.png'];
+    
     var shadowImages = ["crowd_shadow.png", "box_car_shadow.png", "amn_markazy_shadow.png", 
     "ambulance_shadow.png", "twitter_shadow.png", "amn_markazy_tear_gas_shadow.png"];
     
@@ -66,6 +68,7 @@ var Game = Class.create({
   	var self = this
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
   	        {images: countDownImages, path: 'images/game_elements/', store: 'countDown'},
+  	        {images: powerupsImages, path: 'images/game_elements/', store: 'game_elements'},
   					{images: characterImages, path: 'images/characters/', store: 'characters'},
             {images: effectsImages, path: 'images/effects/', store: 'effects'},
             {images: shadowImages, path: 'images/effects/', store: 'effects'},
@@ -166,7 +169,7 @@ var Game = Class.create({
     if(this.imagesLoaded == true && this.missionLoaded == true) {
       $('gameInProgress').hide();
       this.reset();
-      this.scene = new TsquareScene();
+      this.scene = new TsquareScene(this);
       if(this.gameManager)
         this.gameManager.missionManager.registerSceneListeners(this.scene);
 	    this.scene.start();

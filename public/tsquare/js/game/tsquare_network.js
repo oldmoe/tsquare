@@ -27,8 +27,7 @@ var TSquareNetwork = Class.create(Network, {
   missionData : function(id, callback){
     this.genericGetRequest( 'mission', {'id' : id},
                     function(response) {
-                      var data = JSON.parse(response.responseText);
-                      if(callback) callback(data);
+                      if(callback) callback(JSON.parse(response.responseText));
                     });
   },
   

@@ -101,7 +101,11 @@ var Marketplace = Class.create({
   
   adjustMyMembers : function(){
     this.enableNextMission = false;
-    var HEALTH_SHIFT_CONST = 8;
+    var Health_Shift_Const = 8;
+    var Quarter_Timer_Const = -25;
+    var Minute = 60;
+    var Hour = Minute * Minute;
+    
     var adjustedMyMembers = []
     for(var memberName in this.myMembers){
       var specs = this.gatherSpecs( memberName );
@@ -114,23 +118,47 @@ var Marketplace = Class.create({
         this.enableNextMission = this.enableNextMission || (memberData.health >= 40);
         
         var healthShift = 0;
+        var timerShift = 0;
+        var remainingSecondsTillHealthUnit = Hour - Math.round( (memberData.health - Math.floor(memberData.health)) * Hour )
+        
+        /**
+         * This will determine the pixel shift of the timer image
+         * If you can find a readable pattern for this, it will be great ;)
+         * */
+        if( remainingSecondsTillHealthUnit < Minute*60 ){
+          timerShift = Quarter_Timer_Const * 0;
+        }
+        if( remainingSecondsTillHealthUnit < Minute*45 ){
+          timerShift = Quarter_Timer_Const * 1;
+        }
+        if( remainingSecondsTillHealthUnit < Minute*30 ){
+          timerShift = Quarter_Timer_Const * 2;
+        }
+        if( remainingSecondsTillHealthUnit < Minute*15 ){
+          timerShift = Quarter_Timer_Const * 3;
+        }
+        
+        /**
+         * This will determine the pixel shift of the health meter image
+         * If you can find a readable pattern for this, it will be great ;)
+         * */
         if( memberData.health < 100 ){
-          healthShift = HEALTH_SHIFT_CONST;
+          healthShift = Health_Shift_Const * 1;
         }
         if( memberData.health < 80 ){
-          healthShift = HEALTH_SHIFT_CONST * 2;
+          healthShift = Health_Shift_Const * 2;
         }
         if( memberData.health < 60 ){
-          healthShift = HEALTH_SHIFT_CONST * 3;
+          healthShift = Health_Shift_Const * 3;
         }
         if( memberData.health < 40 ){
-          healthShift = HEALTH_SHIFT_CONST * 4;
+          healthShift = Health_Shift_Const * 4;
         }
         if( memberData.health < 20 ){
-          healthShift = HEALTH_SHIFT_CONST * 5;
+          healthShift = Health_Shift_Const * 5;
         }
         if( memberData.health == 0 ){
-          healthShift = HEALTH_SHIFT_CONST * 6;
+          healthShift = Health_Shift_Const * 6;
         }
         adjustedMyMembers.push( 
                         {codeName : memberName,
@@ -139,7 +167,9 @@ var Marketplace = Class.create({
                          specs : memberSpecs,
                          specIds : specIds,
                          memberID : memberID,
-                         healthShift : healthShift
+                         healthShift : healthShift,
+                         remainingMinutesTillHealthUnit : Math.ceil(remainingSecondsTillHealthUnit / Minute),
+                         timerShift : timerShift
                         });
       }
     }
@@ -243,41 +273,45 @@ var Marketplace = Class.create({
     var missionID = options.missionID;
     var self = this;
     var screen = myStuff ? 'myStaff' : 'marketplace';
-    this.adjustedMyMembers = this.adjustMyMembers();
-    $('marketplace').hide();
-    $('marketplace').innerHTML = this.templateManager.load('marketplace', {screen : screen, 
-                                                                           bandages : this.gameManager.userData.bandages,
-                                                                           preMission : preMission});
     
-    if( preMission ){
-      $('readyButton').stopObserving('click');                                                                       
-      $('readyButton').observe('click', function(event){
-        if( self.enableNextMission ){
-          self.gameManager.marketplace.hide();
-          self.gameManager.playMission(missionID);
-        } else {
-          $('cantJoinErrorMessage').show();
-        }
+    this.network.gameData(function(data){
+      self.myMembers = data.user_data.data.crowd_members;
+      self.adjustedMyMembers = self.adjustMyMembers();
+      $('marketplace').hide();
+      $('marketplace').innerHTML = self.templateManager.load('marketplace', {screen : screen, 
+                                                                             bandages : self.gameManager.userData.bandages,
+                                                                             preMission : preMission});
+      
+      if( preMission ){
+        $('readyButton').stopObserving('click');                                                                       
+        $('readyButton').observe('click', function(event){
+          if( self.enableNextMission ){
+            self.gameManager.marketplace.hide();
+            self.gameManager.playMission(missionID);
+          } else {
+            $('cantJoinErrorMessage').show();
+          }
+        });
+      }
+      
+      var categoryItems = myStuff ? self.adjustedMyMembers : self.adjustedMembers;
+      
+      //Attaching triggers to the market placetabs
+      $('marketMembers').stopObserving('click');
+      $('marketMembers').observe('click', function(event){
+        self.renderFloatingItems(categoryItems, screen, preMission, myStuff);
+        $('marketMembers').parentNode.addClassName("selected");
       });
-    }
-    
-    var categoryItems = myStuff ? self.adjustedMyMembers : self.adjustedMembers;
-    
-    //Attaching triggers to the market placetabs
-    $('marketMembers').stopObserving('click');
-    $('marketMembers').observe('click', function(event){
+      
+      //Loading the template of the auto selected tab
       self.renderFloatingItems(categoryItems, screen, preMission, myStuff);
-      $('marketMembers').parentNode.addClassName("selected");
+      
+      $$('#marketplace .close')[0].stopObserving('click');
+      $$('#marketplace .close')[0].observe('click', function(event){
+        self.hide();
+      })
+      self.show();
     });
-    
-    //Loading the template of the auto selected tab
-    self.renderFloatingItems(categoryItems, screen, preMission, myStuff);
-    
-    $$('#marketplace .close')[0].stopObserving('click');
-    $$('#marketplace .close')[0].observe('click', function(event){
-      self.hide();
-    })
-    this.show();
   },
   
   adjustNavigators : function(marketTab){

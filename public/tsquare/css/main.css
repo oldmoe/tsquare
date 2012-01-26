@@ -515,8 +515,8 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 .highlighted { display:none; position:absolute; z-index:0; top:-14px; left:-7px; }
 
-.crowedItemDetails { float: left; height: 36px; left: 4px; overflow: hidden; position: absolute; top: 110px; width: 115px;}
-.crowedItemDetails a { color: #304C00; display: block; font-size: 1.2em; font-weight: bold; height: 28px; padding: 8px 0 0; position: absolute; text-align: center; text-decoration: none; text-shadow: 1px 1px 0 #CCF08E; width: 115px; z-index: 2; }
+.crowedItemDetails { float: left; height: 36px; left: 4px; overflow: hidden; position: absolute; top: 110px; width: 115px; z-index:21;}
+.crowedItemDetails a { color: #304C00; display: block; font-size: 1.2em; font-weight: bold; height: 28px; padding: 8px 0 0; position: absolute; text-align: center; text-decoration: none; text-shadow: 1px 1px 0 #CCF08E; width: 115px; z-index: 21; }
 .crowedItemDetails:hover img { position: absolute; top: -36px; }
 
 .crowedItemPrice { float:left; position:absolute; width:59px; height:33px; top:85px; left:68px; }
@@ -580,7 +580,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .langBtn:hover img { position:absolute; top:-40px; } 
 
 
-.healthStatus { position:absolute; top:50px; left:15px; z-index:15; width:16px; height:46px; }
+.healthStatus { position:absolute; top:50px; left:15px; z-index:1; width:16px; height:46px; }
 .healthStatus span { position:absolute; z-index:17; display:block; height:46px; width:16px; overflow:hidden; top:0; }
 
 

@@ -34,7 +34,7 @@ img { border:none; outline:none;}
 .topScope { position:absolute; top:-80px; left:9px; background:#000; height:80px; width:950px; z-index:1000; }
 .bottomScope { position:absolute; top:615px; left:9px; background:#000; height:80px; width:950px; z-index:1000; }
 
-.contuineReading { position:absolute; top:110px; left:240px; z-index:99; }
+.contuineReading { position:absolute; top:460px; left:240px; z-index:99; }
 
 
 .loading { position:absolute; top:240px; height:100px; width:100px; left:415px; text-align:center; z-index:300; }

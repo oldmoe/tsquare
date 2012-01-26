@@ -112,14 +112,14 @@ img { border:none; outline:none;}
 .timelineMissions li#mission29 {  top:269px; left:807px; }
 .timelineMissions li#mission30 {  top:230px; left:770px; }
 
-.missionTitle { position:absolute; z-index:100; top:130px; left:623px; }
-.missionTitle h3 { position:relative; z-index:101; width:143px; margin:15px 10px 5px 10px; text-align:center; text-shadow:1px 1px 0 #fb4e53; }
-.stars { position:relative; width:143px; margin:0 0 0 34px; z-index:102; }
+.missionTitle { position:absolute; z-index:100; top:100px; left:623px; width:203px; height:130px; }
+.missionTitle h3 { position:relative; z-index:101; width:183px; margin:15px 10px 5px 10px; text-align:center; text-shadow:1px 1px 0 #3b994a; }
+.stars { position:relative; width:153px; margin:0 0 0 54px; z-index:102; }
 .stars span { float:left; width:20px; height:20px; overflow:hidden; position:relative; margin:0 0 0 10px;  }
 .stars span img { position:absolute; right:0; }
 .stars span.active img { right:-20px }
 
-
+.missionTitle h4 { position:relative; z-index:101; width:183px; margin:15px 10px 5px 10px; text-align:center;  float:left; font-weight:bold; font-size:1.3em; color:#cc893a; }
 
 
 

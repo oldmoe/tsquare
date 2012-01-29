@@ -26,7 +26,7 @@ var GameManager = Class.create({
                               $('inProgress').hide();
                               self.selectLanguage("en");
                               self.langSetted = true;
-                            }}, time);
+                            }}, 100);
               Loader.sounds.intro['intro.mp3'].loop = true;
               Loader.sounds.intro['intro.mp3'].play({loop:true,loops:1000});
               $('inProgress').show();

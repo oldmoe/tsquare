@@ -208,7 +208,7 @@ var TsquareScene = Class.create(Scene,{
     tick: function($super){
       $super()
       this.detectCollisions();
-      this.view.xPos += this.currentSpeed * this.direction
+      this.view.xPos = Math.max(this.currentSpeed * this.direction + this.view.xPos, 0); 
       var tile = Math.ceil( (this.view.xPos + this.view.tileWidth/4) / this.view.tileWidth );
       if( tile != this.currentTile ){
         this.currentTile = tile;
@@ -435,14 +435,14 @@ var TsquareScene = Class.create(Scene,{
    enterCinematicView : function() {
    	 this.cinematicView = true;
      this.reactor.pause();
-     new Effect.Move('topScope', {y:90});
-     new Effect.Move('bottomScope', {y:-90});
+     new Effect.Move('topScope', {y:89});
+     new Effect.Move('bottomScope', {y:-86});
    },
    exitCinematicView : function() {
    	 this.cinematicView = false;
      this.movementManager.reset();
-     new Effect.Move('topScope', {y:-90});
-     new Effect.Move('bottomScope', {y:90});
+     new Effect.Move('topScope', {y:-89});
+     new Effect.Move('bottomScope', {y:86});
      this.reactor.resume();
    }  
 });

@@ -76,13 +76,16 @@ var GuidingIcon = Class.create(Observer,{
       this.scene.fire("showGuidBubble", [this.currentCommand]);
       this.increaseWrongCommandsCount();
       this.wrongKey(moveIndex+1);
+      this.scene.fire('wrongArrow');
     }else {
       if(key == this.moves[this.currentCommand].code[this.moveIndex-1]){
         this.correctPress(this.moveIndex);
+        this.scene.fire('correctArrow');
         this.scene.fire("removeGuidBubble");
       }else{//arrow key but not the right key
         this.increaseWrongCommandsCount();
         this.wrongKey(this.moveIndex);
+        this.scene.fire('wrongArrow');
         this.scene.fire("showGuidBubble", [this.currentCommand]);
       }
     }

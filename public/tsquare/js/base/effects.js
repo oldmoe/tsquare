@@ -671,10 +671,10 @@ Effect.FadeUp = function(element) {
     left: element.getStyle('left'),
     opacity: element.getInlineOpacity() };
   return new Effect.Parallel(
-    [ new Effect.Move(element, {x: 0, y: -100, sync: true }),
-      new Effect.Opacity(element, { sync: true, to: 0.0 }) ],
+    [ new Effect.Move(element, {x: 0, y: -200, sync: true }),
+      new Effect.Opacity(element, { sync: true, to: 0.0, duration:2}) ],
     Object.extend(
-      { duration: 0.5,
+      { duration: 1,
         beforeSetup: function(effect) {
           effect.effects[0].element.makePositioned();
         },

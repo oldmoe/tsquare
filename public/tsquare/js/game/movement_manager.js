@@ -88,7 +88,7 @@ var MovementManager = Class.create({
     
   },
   
-  reset : function(){
+  reset: function(){
     this.time = new Date().getTime()
     this.beatMoving = false;
     this.comboStart = false;
@@ -210,16 +210,22 @@ var MovementManager = Class.create({
     var found = false
     var moveIndex = 0;
     var self = this
-    var found  = true
-    var command = this.moves[this.currentCommand];
-
-    for (var i = 0; i < self.move.length; i++) {
-     if (self.move[i] != command.code[i]) {
-       found = false
-       break
-     }
+       var found = false
+    var command = null;
+    for (var move in this.moves) {
+      found = true
+      var code = this.moves[move].code
+      command = move
+      for (var i = 0; i < self.move.length; i++) {
+        if (self.move[i] != code[i]) {
+          found = false
+          break
+        }
+      }
+      if (found) {
+        break
+      }
     }
-    
    if(!found){
      self.scene.fire("keypressed", [-1, self.move.length-1])
      self.reset()
@@ -228,15 +234,15 @@ var MovementManager = Class.create({
      this.scene.fire("keypressed", [this.move[this.move.length-1], this.move.length])
    }
    
-   if(command.code.length==self.move.length){
+   if(this.moves[command].code.length==self.move.length){
      this.move=[]
-     this.startMove(command.index)
+     this.startMove(command)
      return true
    }
   },
   
-  startMove : function(commandIndex){
-    this.scene.fire(this.currentCommand);
+  startMove : function(command){
+    this.scene.fire(command);
     this.scene.fire("correctMove")
     this.beatMoving = true;
     if(this.comboStart){

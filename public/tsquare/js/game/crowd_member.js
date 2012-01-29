@@ -191,6 +191,7 @@ var CrowdMember = Class.create(Unit,{
   },
   
   circle : function(){
+      this.scene.direction = 0;
       if(this.target){
           this.rotating = true 
           this.addRotationPoints(this.target)
@@ -206,6 +207,7 @@ var CrowdMember = Class.create(Unit,{
     this.hitting = true;
     this.hitCounter = 0;
     this.fire('hit')
+    this.scene.direction = 0;
     for(var i=0; this.followers && i<this.followers.length; i++){
       if(!this.followers[i].back)
         this.followers[i].hit();
@@ -344,9 +346,10 @@ var CrowdMember = Class.create(Unit,{
   },
   
   hitMove : function(){
-    if (!this.target|| this.target.hp <= 0 || this.target.dead || this.target.doneProtection||
+    console.log(this.scene.movementManager.beatMoving)
+    if (this.target && (this.target.hp <= 0 || this.target.dead || this.target.doneProtection) ||
     !this.scene.movementManager.beatMoving) {
-      this.target.rotationComplete(this.attack)
+      if(this.target)this.target.rotationComplete(this.attack)
       this.fixedState = false;  // to enable animation change to crowds
       this.fire('idle');
       this.hitting = false;

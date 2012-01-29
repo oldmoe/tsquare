@@ -472,7 +472,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .exitBtn:hover img { position:relative; top:-48px; }
 
 
-#marketplace { left:0px; position:relative; top:0px; z-index: -1; width:960px; height:620px; }
+#marketplace { left:0px; position:relative; top:0px; z-index: 10; width:960px; height:620px; }
 
 /*-------Widnow-------*/
 .window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:35px 27px 0 45px; position:relative; height:401px; top:70px; height:70px; }

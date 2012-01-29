@@ -75,7 +75,7 @@ var MissionManager = Class.create({
       var self = this;
       var usedPowerups = [];
       var powerups = this.gameManager.userData.powerups;
-      for (var i=0; i < powerups.length; i++) {
+      for (var i=0; powerups && i < powerups.length; i++) {
         if(powerups[i].changed) usedPowerups.push(powerups[i]);
       };
       

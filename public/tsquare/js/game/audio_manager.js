@@ -134,6 +134,7 @@ var AudioManager = Class.create({
 		this.tempoChanged = true;
 		
 		scene.observe('keySound',function(keyIndex){self.playKeySound(keyIndex)});
+		scene.observe('playPowerupSound', function(){self.playPowerupSound()});
 		scene.observe('end', function(){self.playWinLose()});
     scene.observe('combo', function(combos){self.playComboSound(combos)});
     scene.observe('firstWrongMove', function(){self.playWrongMoveSound()});
@@ -151,6 +152,11 @@ var AudioManager = Class.create({
     this.sound_background_music.loop = true;
     this.sound_ambient.setVolume(5)
     this.sound_background_music.play({volume:10, loops:10000});//80
+  },
+  
+  playPowerupSound: function(){
+    var sound = Loader.sounds['sfx']['power-up.mp3'];
+    sound.play({volume:80});
   },
 	
 	playKeySound: function(keyIndex){

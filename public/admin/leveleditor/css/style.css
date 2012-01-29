@@ -226,9 +226,33 @@
 	right: -10px;		
 }
 
+.powerupsTitle{
+  float: left;
+  height: 20px;
+  width: 700px;
+  margin: 10px;
+  font-family: Verdana;
+}
+
+.powerupsDropbox{
+  overflow: auto;
+  width: 700px;
+  height: 75px;
+  border: 1px solid black;
+  margin: 10px;
+  float: left;
+}
+
+.powerupsDropbox img{
+  float: left;
+  width: 64px;
+  height: 64px;
+  margin: 5px;
+}
+
 .bgDropbox{
 	overflow: auto;
-	width: 160px;
+	width: 154px;
 	height: 75px;
 	border: 1px solid black;
 	margin: 10px;
@@ -244,7 +268,7 @@
 .bgTitle{
 	float: left;
 	height: 20px;
-	width: 160px;
+	width: 155px;
 	margin: 10px;
 	font-family: Verdana;
 }

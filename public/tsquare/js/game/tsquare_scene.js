@@ -27,8 +27,9 @@ var TsquareScene = Class.create(Scene,{
     flashingHandler: null,
     speedFactor : 1,
     cinematicView: false,
-    initialize: function($super){
+    initialize: function($super, game){
         $super();
+        this.game = game;
         this.collision = false;
         this.scoreCalculator = new ScoreCalculator(this);
         this.createRenderLoop('skyline',1);
@@ -43,7 +44,8 @@ var TsquareScene = Class.create(Scene,{
             "enemy" : new EnemyHandler(this),  
             "npc" : new NPCHandler(this),
             "clash_enemy" : new ClashEnemyHandler(this),
-            "message" : new MessagesHandler(this)
+            "message" : new MessagesHandler(this),
+            "powerups" : new PowerupsHandler(this)
         };  
         this.view.xPos = 0
         this.energy =  {current:0, rate: 10, max:100}
@@ -53,6 +55,11 @@ var TsquareScene = Class.create(Scene,{
         // Effect.Queues.create('global', this.reactor)
       
         this.data = missionData.data;
+        
+        this.data.push(
+          {"name":"Health_boost","category":"powerup","type":"1","attribute":"health","effect":"20","index":0,"lane":0,"x":0,"order":0}
+        );
+        
         this.noOfLanes = this.data.length;
         this.view.length = this.view.width;
         for (var i = 0; i < this.data.length; i++) {
@@ -63,11 +70,11 @@ var TsquareScene = Class.create(Scene,{
         }
         
         var mapping = {
-          'crowd':'npc', 
-          'protection':'protection_unit',
-         'enemy':'enemy', 
-         'rescue':'rescue', 
-         'clash_enemy':'clash_enemy',
+          'crowd' : 'npc', 
+          'protection' : 'protection_unit',
+         'enemy' : 'enemy', 
+         'rescue' : 'rescue', 
+         'clash_enemy' : 'clash_enemy',
          'advisor' : 'message',
          'objectives' : 'rescue'
        }
@@ -110,20 +117,21 @@ var TsquareScene = Class.create(Scene,{
   	},
     
     init: function() {
+
+      this.audioManager = new AudioManager(this);
+      this.flashingHandler = new FlashingHandler(this);
+      this.movementManager = new MovementManager(this);
+
       this.initCinematicView();
   	  this.skyLine = new SkyLine(this)
   	  for(var handler in this.handlers){
   	    this.handlers[handler].start()
   	  }
 
-      this.audioManager = new AudioManager(this);
-      this.flashingHandler = new FlashingHandler(this);
-      this.movementManager = new MovementManager(this);
-      
       var self = this;
-	  self.reactor.run();
-	  self.reactor.push(0, this._tick, this);
-	  self.reactor.pause();
+	    self.reactor.run();
+	    self.reactor.push(0, this._tick, this);
+	    self.reactor.pause();
   	  self.fire("start");
       this.countDown(function(){
       	self._doInit();

@@ -19,6 +19,7 @@ var LevelEditor = Class.create({
 		this.dataExporter = new DataExporter(this);
 		this.grid = new Grid(this);
 		this.backgroundHandler = new BackgroundHandler(this);
+		this.powerupsHandler = new PowerupsHandler(this);
 		this.sevelObjectsHandler = new LevelObjectsHandler(this);
 		this.settingsHandler = new SettingsHandler(this);
 		this.loSettingsHandler = new LOSettingsHandler(this);

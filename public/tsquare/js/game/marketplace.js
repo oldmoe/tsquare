@@ -281,7 +281,8 @@ var Marketplace = Class.create({
       $('marketplace').innerHTML = self.templateManager.load('marketplace', {screen : screen, 
                                                                              bandages : self.gameManager.userData.bandages,
                                                                              preMission : preMission});
-      
+      $('marketplace').setStyle({top:"-363px"}); //should be removed after waleed fix the css for the marketplace
+
       if( preMission ){
         $('readyButton').stopObserving('click');                                                                       
         $('readyButton').observe('click', function(event){

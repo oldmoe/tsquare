@@ -88,6 +88,12 @@ var Tile = Class.create({
     
     this.loadType(obj, type);
     
+    if(obj.category == 'powerup'){
+      obj.attribute = $(item).getAttribute('attribute');
+      obj.effect = $(item).getAttribute('effect');
+      obj.img = $(item).getAttribute('img');
+    }
+    
     var count = 1;
     if(obj.category == 'enemy')
       count = obj.type.clos * obj.type.rows;

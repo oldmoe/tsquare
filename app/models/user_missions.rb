@@ -83,8 +83,11 @@ class UserMissions
       
     end  
 
-    def update user_profile, mission_id, score
-      mission_id = mission_id
+    def update user_profile, data
+      
+      mission_id = data['id']
+      score = data['score']
+      
       mode = Mission.mode mission_id
       if user_profile.missions[mode][mission_id.to_i] && user_profile.missions[mode][mission_id.to_i]['score']
         if user_profile.missions[mode][mission_id.to_i]['score'].to_i < score['score'].to_i
@@ -93,17 +96,66 @@ class UserMissions
       else
         user_profile.missions[mode][mission_id.to_i] = {'score' => score['score'], 'stars' => score['stars']}
       end
+      
+      mission = Mission.get(mission_id)
+      
       if score['win'] && user_profile.current_mission[mode] == mission_id
-        user_profile.current_mission[mode] = Mission.get(mission_id)['next']
+        user_profile.current_mission[mode] = mission['next']
         user_profile.scores['timeline'] += score['score']
-        user_profile.scores['global'] += score['score']
+        user_profile.scores['global'] += score['score'] 
       else
         user_profile.scores['global'] += score['score']/2
       end
+      
+      mission_powerups = [];
+      
+      if score['win'] && (not mission['data']['winPowerups'].nil?) && user_profile.missions[mode][mission_id.to_i].nil? # user take end of mission powerups one time only 
+        mission_powerups.concat(mission['data']['winPowerups'])
+      end
+      
+      if data['powerups'] && data['powerups'].length > 0
+        mission_powerups.concat(data['powerups'])
+      end
+
+      user_profile.powerups = [] if user_profile.powerups.nil?
+
+      score['usedPowerups'].each{|e|
+        update_user_powerups(user_profile.powerups, e) 
+      }
+      
+      mission_powerups.each{|e|
+        add_user_powerups(user_profile.powerups, e) 
+      }
+      
       # Add experience points here
       user_profile.save
     end
 
+    def update_user_powerups list, item
+      list.each{|e|
+        if e['attribute'] == item['attribute'] && e['type'] == item['type'] && e['name'] == item['name'] && e['effect'] == item['effect']
+          if item['count'] == 0
+            list.delete(e)
+            return
+          else  
+            e['count'] = item['count'] 
+            return 
+          end  
+        end
+      }
+    end
+    
+    def add_user_powerups list, item
+      list.each{|e|
+        if e['attribute'] == item['attribute'] && e['type'] == item['type'] && e['name'] == item['name'] && e['effect'] == item['effect'] 
+          e['count'] += 1
+          return 
+        end
+      }
+      item['count'] = 1
+      list.push(item)
+    end
+    
     def current user_profile
       Mission.get(user_profile.current_mission)
     end

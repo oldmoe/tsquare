@@ -1,17 +1,11 @@
-var BackgroundHandler = Class.create({
+var PowerupsHandler = Class.create({
 	
 	levelEditor: null,
 	
 	initialize: function(levelEditor){
 		this.levelEditor = levelEditor;
 		
-		this.addDropEvent('bgLayer1');
-		this.addDropEvent('bgLayer2');
-    this.addDropEvent('bgSky');
-		this.addDropEvent('bgLandmarks');
-		this.addDropEvent('bgFence');
-		this.addDropEvent('bgLand');
-		this.addDropEvent('bgLamp');
+		this.addDropEvent('winPowerups');
 	},
 	
 	addDropEvent: function(dropTarget){
@@ -25,7 +19,7 @@ var BackgroundHandler = Class.create({
 	},
 	
 	drop: function(draggable, dropTarget){
-      if($(draggable).getAttribute('category') == 'background')
+      if($(draggable).getAttribute('category') == 'powerup')
         this.addObject(draggable, dropTarget);
 	},
 	
@@ -37,6 +31,9 @@ var BackgroundHandler = Class.create({
     var obj = {};
     obj.name = draggable.name;
     obj.category = $(draggable).getAttribute('category');
+    obj.type = $(draggable).getAttribute('type');
+    obj.attribute = $(draggable).getAttribute('attribute');
+    obj.effect = $(draggable).getAttribute('effect');
     obj.image = draggable.src;
 	  this.createObject(obj, dropTarget);
 	},
@@ -63,50 +60,26 @@ var BackgroundHandler = Class.create({
 	},
 		
 	createDraggedItem : function (obj){
-		return '<img src="'+obj.image+'" name="'+obj.name+'" category="'+obj.category+'" />';
+		return '<img src="'+obj.image+'" name="'+obj.name+'" category="'+obj.category+'" type="'+obj.type+'" attribute="'+obj.attribute+'" effect="'+obj.effect+'" />';
 	},
 	
 	remove: function(tile){
 		tile.remove();
 	},
 	
-	getLayer1Data: function(){
-		return this._exportData('bgLayer1');
-	},
-
-	getLayer2Data: function(){
-		return this._exportData('bgLayer2');
-	},
-  
-  getSkyData: function(){
-    return this._exportData('bgSky');
+  getWinPowerupsData: function(){
+    return this._exportData('winPowerups');
   },
 
-	getLandMarksData: function(){
-		return this._exportData('bgLandmarks');
-	},
-
-  getFenceData: function(){
-    return this._exportData('bgFence');
-  },
-
-  getLandData: function(){
-    return this._exportData('bgLand');
-  },
-
-  getLampData: function(){
-    return this._exportData('bgLamp');
-  },
-	
-  loadData: function(data){
-    
-  }, 
-	
 	_exportData: function(container){
 		var data = [];
 		$(container).childElements().each(function(elem){
 			var obj = {};
 			obj.name = $(elem.lastChild).getAttribute('name');
+      obj.category = $(elem.lastChild).getAttribute('category');
+      obj.type = $(elem.lastChild).getAttribute('type');
+      obj.attribute = $(elem.lastChild).getAttribute('attribute');
+      obj.effect = $(elem.lastChild).getAttribute('effect');
 			data.push(obj);
 		});
 		return data;

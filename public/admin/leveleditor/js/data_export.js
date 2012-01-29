@@ -78,10 +78,12 @@ var DataExporter = Class.create({
 		var gameData = {};
 		gameData.data = data;
 		var settings = this.levelEditor.settingsHandler.getData();
+		
 		for (var key in settings)
 			gameData[key] = settings[key];
 
 		delete gameData.backgrounds;
+		
 		gameData.backgrounds = {
 		  layer1:this.levelEditor.backgroundHandler.getLayer1Data(), 
 		  layer2: this.levelEditor.backgroundHandler.getLayer2Data(), 
@@ -100,6 +102,9 @@ var DataExporter = Class.create({
 		gameData.missionTime = settings.missionTime;
 		gameData.superTime = settings.superTime;
 		gameData.locked = settings.locked;
+		
+		gameData.winPowerups = this.levelEditor.powerupsHandler.getWinPowerupsData();
+		
 		return gameData;
 	},
 

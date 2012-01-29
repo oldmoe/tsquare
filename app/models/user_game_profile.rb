@@ -79,7 +79,7 @@ class UserGameProfile < DataStore::Model
       }
       @data['holder_items'] ||= { 'cap' => 0, 'umbrella' => 0 }
       @data['special_items'] ||= { }
-      @data['power_ups'] ||= {}  
+      @data['powerups'] ||= []  
       @data['energy'] ||= 50
       @data['bandages'] ||= 1000
       @data['version'] = CURRENT_VERSION

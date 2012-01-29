@@ -1,4 +1,5 @@
 var Animation = Class.create(Display,{
+  
   initialize : function($super,scene,coords,img,noOfFrames,properties){
     this.scene = scene
     this.noOfFrames = noOfFrames
@@ -10,9 +11,11 @@ var Animation = Class.create(Display,{
     this.scene.pushToRenderLoop('characters',this)
     $super(this.owner,properties)
   },
+  
   createSprites : function(){
     this.sprites.animation = new DomImgSprite(this.owner,{img:this.img, noOfFrames : this.noOfFrames})
   },
+  
   render : function($super){
     this.sprites.animation.currentAnimationFrame+=1
     this.sprites.animation.setOpacity(0.9-0.1*this.sprites.animation.currentAnimationFrame)

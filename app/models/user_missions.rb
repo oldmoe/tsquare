@@ -109,7 +109,7 @@ class UserMissions
       
       mission_powerups = [];
       
-      if score['win'] && (not mission['data']['winPowerups'].nil?) #&& user_profile.missions[mode][mission_id.to_i].nil? # user take end of mission powerups one time only 
+      if score['win'] && (not mission['data']['winPowerups'].nil?) && user_profile.missions[mode][mission_id.to_i].nil? # user take end of mission powerups one time only 
         mission_powerups.concat(mission['data']['winPowerups'])
       end
       
@@ -134,8 +134,13 @@ class UserMissions
     def update_user_powerups list, item
       list.each{|e|
         if e['attribute'] == item['attribute'] && e['type'] == item['type'] && e['name'] == item['name'] && e['effect'] == item['effect']
-          e['count'] = item['count'] 
-          return 
+          if item['count'] == 0
+            list.delete(e)
+            return
+          else  
+            e['count'] = item['count'] 
+            return 
+          end  
         end
       }
     end

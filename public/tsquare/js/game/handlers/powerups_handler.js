@@ -17,7 +17,8 @@ var PowerupsHandler = Class.create(UnitHandler,{
     var container = $('powerUpsWrapper');
     if(this.userPowerups && this.userPowerups.length > 0){
       for (var i=0; i < this.userPowerups.length && i < this.hotKeys.length; i++) {
-        container.insert({bottom: this.scene.game.templateManager.load('powerUpSlot', {img: this.userPowerups[i].img, key: (i+1), count: this.userPowerups[i].count})});
+        if(this.userPowerups[i].count > 0)
+          container.insert({bottom: this.scene.game.templateManager.load('powerUpSlot', {type: this.userPowerups[i].type, name: this.userPowerups[i].name, key: (i+1), count: this.userPowerups[i].count})});
       }
       Game.addLoadedImagesToDiv('powerUpsWrapper');
     }
@@ -34,7 +35,10 @@ var PowerupsHandler = Class.create(UnitHandler,{
       }else if(powerup.attribute == "hydration"){
         this.scene.fire("increaesHydration", [powerup.effect]);
       }
-
+      this.scene.fire("playPowerupSound");
+      Effect.Pulsate($('powerUpsWrapper').children[key])
+      var coords = {x:100, y:100};
+      new Animation(this.scene, coords, Loader.images['effects']['hydrate.png'], 9, {});
       if(powerup.count == 0){
         $('powerUpsWrapper').children[key].remove();
       }else{

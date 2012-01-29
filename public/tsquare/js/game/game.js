@@ -58,7 +58,10 @@ var Game = Class.create({
     
     var countDownImages = ["1.png", "2.png", "3.png", "go.png"];
     
-    var powerupsImages = ['hot_key.png', 'item_numbers.png', 'powerup_slot.png', 'item.png'];
+    var powerupsImages1 = ['hot_key.png', 'item_numbers.png', 'powerup_slot.png'];
+
+    var powerupsImages2 = ['Health_boost_1.png', 'Health_boost_2.png', 'Health_boost_3.png',
+     'Hydration_boost_1.png', 'Hydration_boost_2.png', 'Hydration_boost_3.png'];
     
     var shadowImages = ["crowd_shadow.png", "box_car_shadow.png", "amn_markazy_shadow.png", 
     "ambulance_shadow.png", "twitter_shadow.png", "amn_markazy_tear_gas_shadow.png"];
@@ -68,7 +71,8 @@ var Game = Class.create({
   	var self = this
   	var toLoad = [ 	{images: gameElementsImages, path: 'images/game_elements/', store: 'gameElements'},
   	        {images: countDownImages, path: 'images/game_elements/', store: 'countDown'},
-  	        {images: powerupsImages, path: 'images/game_elements/', store: 'game_elements'},
+  	        {images: powerupsImages1, path: 'images/game_elements/', store: 'game_elements'},
+  	        {images: powerupsImages2, path: 'images/powerups/', store: 'powerups'},
   					{images: characterImages, path: 'images/characters/', store: 'characters'},
             {images: effectsImages, path: 'images/effects/', store: 'effects'},
             {images: shadowImages, path: 'images/effects/', store: 'effects'},
@@ -97,7 +101,7 @@ var Game = Class.create({
        	
        	var sfx = ["ho", "hey", "ha", "hii", "background_ascending", "background_music", "ambient", "ambulance", "beat", "Bullet-hit-body", "Central-security", "Crowd-voice", "Explosion", 
         "Gun-shot", "Hit-police-car", "Morning-air-birds", "Night-sound", "Police", "Police-march", "Punch", "Tank-move",
-         "Tear-gas", "clash_preparing", "clash_scenario", "win_lose", "wrong_move", "combo1", "combo2", "combo3"];
+         "Tear-gas", "clash_preparing", "clash_scenario", "win_lose", "wrong_move", "combo1", "combo2", "combo3", "power-up"];
 
         for(var j=0; j < sfx.length; j++){
           sfx[j] = sfx[j]+'.'+format[i];

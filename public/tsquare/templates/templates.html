@@ -293,11 +293,7 @@
 
 <textarea style="display:none;" id="powerUpSlot">
   <div class="powerUpSlot">
-    {if img}
-    <span class="powerUpItem"><span class="loadedImg" imgSrc="game_elements/${img}" alt="Item" ></span></span>
-    {else}
-    <span class="powerUpItem"><span class="loadedImg" imgSrc="game_elements/item.png" alt="Item" ></span></span>
-    {/if}
+    <span class="powerUpItem"><span class="loadedImg" imgSrc="powerups/${name}_${type}.png" alt="Item" ></span></span>
     <span class="powerUpHotKey">
       <strong>${key}</strong>
       <span class="loadedImg" imgSrc="game_elements/hot_key.png" alt="Hot Key" imgClasses="positioned" ></span>

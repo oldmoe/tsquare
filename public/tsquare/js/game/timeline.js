@@ -342,7 +342,7 @@ var Timeline = Class.create(UIManager, {
           container.insert({bottom:missionTitle});
           Game.addLoadedImagesToDiv('missionTitle'); 
           missionTitle = container.children[container.children.length-1]; 
-          $(missionTitle).setStyle({top: ($(element).positionedOffset().top-45)+"px", left: ($(element).positionedOffset().left-70)+"px"});
+          $(missionTitle).setStyle({top: ($(element).positionedOffset().top-77)+"px", left: ($(element).positionedOffset().left-90)+"px"});
         }
       });
       

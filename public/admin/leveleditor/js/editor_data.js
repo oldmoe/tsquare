@@ -24,12 +24,12 @@ var EditorData = [
   {src:'images/objects/ultras.png', name:'ultras_red', category:'advisor'},
   
   //in game powerups
-  {src:'images/powerups/health_powerup.jpg', img: "health_powerup.jpg", name:'Health_boost', category:'powerup', type:"1", attribute: "health", effect: 10},
-  {src:'images/powerups/health_powerup.jpg', img: "health_powerup.jpg", name:'Health_boost', category:'powerup', type:"2", attribute: "health", effect: 20},
-  {src:'images/powerups/health_powerup.jpg', img: "health_powerup.jpg", name:'Health_boost', category:'powerup', type:"3", attribute: "health", effect: 40},
-  {src:'images/powerups/health_powerup.jpg', img: "health_powerup.jpg", name:'Hydration_boost', category:'powerup', type:"1", attribute: "hydration", effect: 10},
-  {src:'images/powerups/health_powerup.jpg', img: "health_powerup.jpg", name:'Hydration_boost', category:'powerup', type:"2", attribute: "hydration", effect: 20},
-  {src:'images/powerups/health_powerup.jpg', img: "health_powerup.jpg", name:'Hydration_boost', category:'powerup', type:"3", attribute: "hydration", effect: 40},
+  {src:'images/powerups/Health_boost_1.png', name:'Health_boost', category:'powerup', type:"1", attribute: "health", effect: 10},
+  {src:'images/powerups/Health_boost_2.png', name:'Health_boost', category:'powerup', type:"2", attribute: "health", effect: 20},
+  {src:'images/powerups/Health_boost_3.png', name:'Health_boost', category:'powerup', type:"3", attribute: "health", effect: 40},
+  {src:'images/powerups/Hydration_boost_1.png', name:'Hydration_boost', category:'powerup', type:"1", attribute: "hydration", effect: 10},
+  {src:'images/powerups/Hydration_boost_2.png',  name:'Hydration_boost', category:'powerup', type:"2", attribute: "hydration", effect: 20},
+  {src:'images/powerups/Hydration_boost_3.png',  name:'Hydration_boost', category:'powerup', type:"3", attribute: "hydration", effect: 40},
   
   
   

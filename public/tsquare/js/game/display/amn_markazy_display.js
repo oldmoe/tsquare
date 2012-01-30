@@ -14,9 +14,9 @@ var AmnMarkazyDisplay = Class.create(EnemyDisplay,{
   },
   
   loadImages : function(){
-    this.blockImg = Loader.images.enemies['amn_markazy_stick_walk.png']
-    this.hitImage = Loader.images.enemies['amn_markazy_stick_hit.png']
-    this.hitEffect = Loader.images.effects['hit1.png']
+    this.blockImg = Loader.images.enemies['amn_markazy_stick_walk.png'];
+    this.hitImage = Loader.images.enemies['amn_markazy_stick_hit.png'];
+    this.hitEffect = Loader.images.effects['hit1.png'];
   },
 
   registerEvents : function(){

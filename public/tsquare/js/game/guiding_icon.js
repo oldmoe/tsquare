@@ -56,6 +56,7 @@ var GuidingIcon = Class.create(Observer,{
       this.pressEarly();
       this.moveIndex = 1;
       this.scene.fire("showGuidBubble", [this.currentCommand]);
+      this.scene.fire('wrongArrow');
       return;
     }
 
@@ -76,13 +77,16 @@ var GuidingIcon = Class.create(Observer,{
       this.scene.fire("showGuidBubble", [this.currentCommand]);
       this.increaseWrongCommandsCount();
       this.wrongKey(moveIndex+1);
+      this.scene.fire('wrongArrow');
     }else {
       if(key == this.moves[this.currentCommand].code[this.moveIndex-1]){
         this.correctPress(this.moveIndex);
+        this.scene.fire('correctArrow');
         this.scene.fire("removeGuidBubble");
       }else{//arrow key but not the right key
         this.increaseWrongCommandsCount();
         this.wrongKey(this.moveIndex);
+        this.scene.fire('correctArrow');
         this.scene.fire("showGuidBubble", [this.currentCommand]);
       }
     }
@@ -125,6 +129,7 @@ var GuidingIcon = Class.create(Observer,{
   },
 
   pressLate: function(){
+    this.scene.fire('wrongArrow');
     this.wrongPress(this.moveIndex+1);
     var self = this;
     this.scene.reactor.push(2, function(){self.reset(4);});

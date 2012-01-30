@@ -15,6 +15,7 @@ HalaManDisplay = Class.create(CrowdMemberDisplay,{
   	$super()
   	this.noOfFramesPerAnimation['hit'] = 9;
     this.noOfFramesPerAnimation['walk'] = 12;
+    this.noOfFramesPerAnimation['reverseWalk'] = 12;
     this.noOfFramesPerAnimation['jog'] = 12;
   }
  })

@@ -1,27 +1,23 @@
 var FlashingHandler = Class.create({
   
   counter : 0,
-  delay: 0,
-  lastDelay: 0,
   noOfBeats : 8,
+  colors : {'black': 0, 'green': 1, 'red': 2},
+  borderColor: 0,
+  colorChanged : false,
   initialize : function(scene){
     this.scene = scene
-        
-    // this.delay = 3600/8;
-    // this.lastDelay = 3600/8+72;
-  
-    //this.grayList = ['#000000', '#222222', '#444444', '#666666', '#888888', '#aaaaaa', '#cccccc', '#eeeeee', '#ffffff'];
-    this.grayList = ['#000000', '#111111', '#444444', '#cccccc', '#eeeeee', '#ffffff'];
-    
-    //this.grayList = ['#000000', '#222222', '#888888', '#cccccc', '#ffffff'];
-    //this.grayList = ['20px', '30px', '40px', '50px', '60px', '70px'];  
-    this.delay = this.scene.reactor.timeToTicks(3600/8);
-    this.lastDelay = this.scene.reactor.timeToTicks(3600/8+72);
-    
     this.fadeIndex = 0;
-    
     this.div = $('beatFlash');
-     
+    var self = this;
+    this.scene.observe('correctArrow', function(){
+      self.borderColor = self.colors.green;
+      self.colorChanged = true;
+    })
+    this.scene.observe('wrongArrow', function(){
+      self.borderColor = self.colors.red;
+      self.colorChanged = true;
+    })
   },
   
   run: function(){
@@ -37,53 +33,25 @@ var FlashingHandler = Class.create({
     var self = this
     var beatDuration = this.sound.duration / 4
     var soundFraction = ((this.sound.position % beatDuration)/beatDuration)
-    //var color = this.grayList[Math.round(soundFraction * this.grayList.length)]
     var color = Math.round(soundFraction * 255)
-    //console.log(color)
-    //document.body.style.backgroundColor = color
-    if (color != this.color) {
-      this.div.style.borderColor = "rgb(" + color + "," + color + "," + color + ")"
-      this.color = color
+    if (color != this.borderColor) {
+       switch(this.borderColor){
+        case this.colors.black:
+          this.div.style.borderColor = "rgb(" + color + "," + color + "," + color + ")"
+          break;
+        case this.colors.green:
+          this.div.style.borderColor = "rgb(" + color + "," + Math.min(color+128, 255) + "," + color + ")"
+          if(color > 252 || (color < this.currentColor && !this.colorChanged)) this.borderColor = this.colors.black;
+          break;
+        case this.colors.red:
+          this.div.style.borderColor = "rgb(" + Math.min(color+128, 255) + "," + color + "," + color + ")"
+          if(color > 252 || (color < this.currentColor && !this.colorChanged) ) this.borderColor = this.colors.black;
+          break;
+        default:
+          break; 
+       }
+      this.currentColor = color;
+      this.colorChanged = false; 
     }
-//    this.scene.reactor.push(0,function(){self.flash()})  
-  },
-  
-  flash2 : function(){
-
-    this.fadeIn();
-    this.fadeOut();
-
-    var self = this
-    
-    if (this.counter == 8) {
-      this.counter = 0
-      
-      this.scene.reactor.push(this.lastDelay, this.flash, this)
-      // setTimeout(function(){self.flash()}, this.lastDelay);
-    }else{
-      this.counter++
-      this.scene.reactor.push(this.delay, this.flash, this)
-      // setTimeout(function(){self.flash()}, this.lastDelay);
-    }
-  },
-  
-  fadeIn: function(){
-    this.div.style.borderColor =  "#000";
-  },
-  
-  fadeOut: function(){
-
-    if(this.fadeIndex == 5){
-      this.fadeIndex = 0;
-      return;
-    }
-    
-    this.div.style.borderColor = this.grayList[this.fadeIndex];
-    this.fadeIndex++;
-    
-    var self = this;
-    //window.setTimeout(function(){self.fadeOut()}, 15);
-    this.scene.reactor.push(0, this.fadeOut, this);
-  }
-  
+  }  
 })

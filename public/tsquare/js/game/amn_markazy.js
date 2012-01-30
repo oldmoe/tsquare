@@ -33,8 +33,7 @@ var AmnMarkazy = Class.create(Enemy,{
       
       if(this.target == null && target != null){
           this.fire("hit");
-      }
-        
+      }       
       this.target = target;
   }
   

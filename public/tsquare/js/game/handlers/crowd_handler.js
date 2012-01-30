@@ -64,8 +64,6 @@ var CrowdHandler = Class.create(UnitHandler, {
     getUserCrowds : function(){
        this.userCrowds = []
        var userCrowds = userData['crowd_members'];
-       userCrowds['ultras_red'] = {1:{level:1, health:100}}
-       console.log(userCrowds)
        var noOfCrowds = 0;
        for(var crowdType in userCrowds){
            for(var crowd in userCrowds[crowdType]){

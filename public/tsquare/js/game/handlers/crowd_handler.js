@@ -63,16 +63,18 @@ var CrowdHandler = Class.create(UnitHandler, {
     
     getUserCrowds : function(){
        this.userCrowds = []
-       var userCrowds = userData['crowd_members']
+       var userCrowds = userData['crowd_members'];
+       userCrowds['ultras_red'] = {1:{level:1, health:100}}
+       console.log(userCrowds)
        var noOfCrowds = 0;
        for(var crowdType in userCrowds){
            for(var crowd in userCrowds[crowdType]){
                var crowdMember = userCrowds[crowdType][crowd]
                if( crowdMember.health >= 40 ){
-                 if(noOfCrowds == 3) break; // to be specified by level editor
                  var level = crowdMember.level
                  var category = gameData.crowd_members.category[crowdType]['type'];
                  if(category == "special" || category == "limited_edition") category = crowdType
+                 if(category.indexOf("ultras")!=-1) category = "ultras";
                  var specs = gameData.crowd_members.specs[category][level]
                  this.addCrowdMember(crowdType,specs)
                  noOfCrowds++
@@ -290,11 +292,14 @@ var CrowdHandler = Class.create(UnitHandler, {
     for (var j = 0; j < this.objects[this.target.lane].length; j++) {
       var ret = this.objects[this.target.lane][j].pushMove(this.target)
       if(j == closestIndex && ret == true){
-        reverseDirection = true
-        if(this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.backward){
-           this.target.takePush()
-           this.pushing = false;
+        reverseDirection = true;
+        if (this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.forward) {
         }
+        else 
+          if (this.objects[this.target.lane][j].pushDirection == this.objects[this.target.lane][j].pushDirections.backward) {
+            this.pushing = false;
+            this.target.takePush();
+          }
       }
     }
     if (reverseDirection) {

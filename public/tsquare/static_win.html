@@ -3,8 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Thawragy</title>
-<link href="css/scores.css" rel="stylesheet" type="text/css" />
-<link href="css/mission.css" rel="stylesheet" type="text/css" />
 <link href="css/main.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -23,6 +21,13 @@
       	<h2>Congratulation!</h2>
      		<h4>You've passed this mission.</h4>
       </div>
+      <!--Time-->
+      <div class="timeWrapper">
+      	<h5>Your Time</h5>
+        <span class="yourTime">2:31</span>
+        <strong class="bestTime">Best time 2:00</strong>
+      	<img class="positioned" src="images/win_lose/time_background.png" alt="time" />
+      </div>
       <!--Score-->
       <div class="winLoseScore">
       	<h5>Your Score</h5>
@@ -40,14 +45,27 @@
       	<span class="star">
         	<img src="images/win_lose/star_icon.png" alt="Star" />
         </span>
-      	<img class="positioned" src="images/win_lose/stars_background.png" alt="Stars" />
       </div>
-      <!--Changes 28 Sept.-->
-      <!--Objective-->
+      <!--Objectives-->
       <div class="objectives">
-      	<strong>70<small>%</small></strong>from your objectives
+      	<ul>
+        	<li><img src="images/win_lose/objectivesState.png" alt="state" /> This is the first objectives</li>
+          <li><img src="images/win_lose/objectivesState.png" alt="state" /> This is the first objectives</li>
+          <li><img src="images/win_lose/objectivesState.png" alt="state" /> This is the first objectives</li>
+          <li class="notCompleted"><img src="images/win_lose/objectivesState.png" alt="state" /> This is the first objectives</li>
+          <li class="notCompleted"><img src="images/win_lose/objectivesState.png" alt="state" /> This is the first objectives</li>
+        </ul>
+        <img class="objectivesBg" src="images/win_lose/objectives.png" alt="objectives" />
       </div>
-      <!--Changes 25 Sept.-->
+      <!--Powerups-->
+      <div class="newPowerups">
+      	<strong>You've received new powerups</strong>
+      	<ul>
+        	<li><img src="images/powerups/hydration_level_03_big.png" alt="powerup" /></li>
+          <li><img src="images/powerups/hydration_level_02_big.png" alt="powerup" /></li>
+          <li><img src="images/powerups/health_level_03_big.png" alt="powerup" /></li>
+        </ul>
+      </div>
       <!--Challenge friends-->
       <div class="challengeFriends">
 				<!--Friend-->
@@ -104,6 +122,11 @@
             <img src="images/win_lose/button_cancel.png" alt="confirm" />
           </a>
         </div>
+        <!--Challenge other friends-->
+        <a href="javascript:void(0)" class="bigButton">
+        	<span>Challenge other friends</span>
+          <img src="images/win_lose/button_big.png" alt="button" />
+        </a>
       </div>
       <!--Mission icons-->
       <div class="missionIcons">

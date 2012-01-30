@@ -4,7 +4,8 @@ var Enemy = Class.create(Unit, {
   charging : false, 
   chargingSpeed : 3,
   hp : 25, attack : 10 , defense : 25, chargeTolerance : 2, circleSize : 1,
-  
+  originalPosition : null,
+  fixedPosition: false,
   initialize : function($super,scene,x,lane,options){
      $super(scene,x,lane,options)
      this.mappingName = options.mappingName || options.obj
@@ -14,6 +15,7 @@ var Enemy = Class.create(Unit, {
          this[spec.dasherize().camelize()] = specs[spec] 
      }
      this.maxHp = this.hp
+     this.originalPosition = {x:this.coords.x, y:this.coords.y};
   },
   
   rotationComplete : function(attack){
@@ -23,9 +25,12 @@ var Enemy = Class.create(Unit, {
   
   tick : function($super){
     $super()
-    
     this.updatePosition();
     this.handleCollision();
+    if(this.fixedPosition){
+      this.fixedPosition = false;
+      this.moveToTarget(this.originalPosition, null, 2);
+    }
   },
   
   handleCollision : function(){

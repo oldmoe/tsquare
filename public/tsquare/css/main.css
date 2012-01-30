@@ -66,7 +66,7 @@ img { border:none; outline:none;}
 .missionDetails .close { left:704px; top:21px; z-index:8; }
 
 .missionWrapper { float:left; width:690px; margin:-19px 20px 20px 20px;  position:relative; z-index:7; }
-.missionImages { float:left; width:200px; margin:13px 0 0 10px; }
+.missionImages { float:left; width:200px; margin:35px 0 0 10px; }
 .missionImages img { float:left; width:190px; margin:0 5px 5px 0; position:relative; z-index:10;}
 .missionNumber { position:relative; top:170px; left:30px; color:#604f00; text-shadow:1px 1px 0 #d3b632; font-weight:bold; font-size:2.2em; z-index:12; }
 .missionTime { position:relative; top:168px; left:45px; color:#604f00; text-shadow:1px 1px 0 #d3b632; font-weight:bold; font-size:1.6em; z-index:12; }
@@ -320,42 +320,59 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .promotionsWrapper { float:left; width:100%; height:379px; overflow:hidden; position:relative; top:-28px; z-index:2; left:10px; }
 
 /*--------Win Lose Screen-----------*/
-.winLose { position:relative; top:-192px; width:643px; height:411px; z-index:11; margin:0 auto; }
-.winLose .close { z-index:6; left:615px; }
+.winLose { position:relative; top:92px; width:743px; height:501px; z-index:11; margin:0 auto; }
+.winLose .close { z-index:6; left:715px; }
 
 .winLoseTitle { position:absolute; width:300px;  top:10px; left:30px; z-index:6; color:#fff; }
 .winLoseTitle h2 { font-weight:bold; font-size:2.5em; margin:10px 0 0 0; padding:0px; }
 .winLoseTitle h4 { font-weight:bold; font-size:1.4em; margin:10px 0 0 0; padding:0px; }
 
 
-.winLoseScore { position:absolute; width:300px; top:20px; right:20px; z-index:6; }
-.winLoseScore h5 { float:left; width:30%; margin:20px 5% 0 0; font-weight:bold; font-size:1.2em; color:#011e2b;  }
+.winLoseScore { position:absolute; width:300px; top:105px; right:40px; z-index:6; }
+.winLoseScore h5 { float:left; width:30%; margin:20px 2% 0 0; font-weight:bold; font-size:1.2em; color:#011e2b;  }
 .winLoseScore h5.losing { color:#410707; }
-.winLoseScore span { float:left; width:40%; padding:5% 10%; font-size:2em; font-weight:bold; color:#f6d000;  text-align:center; position:absolute; z-index:3; }
+.winLoseScore span { float:left; width:40%; padding:1% 10%; font-size:3em; font-weight:bold; color:#000;  text-align:center; position:absolute; z-index:3; text-shadow:1px 1px 0 #ffb535; font-family:Arial, Helvetica, sans-serif;}
 
-.winLoseScore img { z-index:2; left:102px; }
+.winLoseScore img { z-index:2; left:95px; }
 
-.starsWrapper { position:absolute; width:256px; height:75px; z-index:6; padding:0 0 0 20px; top:100px; left:302px; }
-.star { float:left; width:56px; height:54px; z-index:7; overflow:hidden; margin:10px; position:relative;}
+.starsWrapper { position:absolute; width:256px; height:75px; z-index:6; padding:0 0 0 20px; top:15px; right:55px; }
+.star { float:left; width:56px; height:56px; z-index:7; overflow:hidden; margin:10px; position:relative;}
 .star.selected img { position:absolute; top:-54px; }
 
-.challengeFriends { position:absolute; top:190px; left:250px; }
+.challengeFriends { position:absolute; top:180px; right:20px; border:3px solid #0b3549; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; float:left; z-index:3; padding:20px 10px 15px 10px;	  }
 
 .challengeFriends .cancelButton { left:-6px; top:0px; }
 
-.challengeFriends .friend { margin:0 20px; }
+.challengeFriends .friend { margin:0 10px; }
 
-.missionIcons { position:absolute; top:330px; left:332px; z-index:7; }
+.bigButton { width:211px; height:33px; overflow:hidden; position:relative; z-index:6; display:block; font-weight:bold; font-size:1.2em; color:#000; text-shadow:1px 1px 0 #f5cfcf; text-decoration:none; margin:15px 0 0 60px; }
+.bigButton span { position:absolute; z-index:7; width:211px; height:26px; text-align:center; padding:7px 0 0 0; }
+.bigButton:hover img { position:absolute; top:-33px; }
+
+.missionIcons { position:absolute; top:415px; left:442px; z-index:7; }
 .missionIcons.losing { left:372px; }
 .missionIcons a { float:left; width:60px; height:60px; overflow:hidden; margin:0 0 0 10px; position:relative; }
 .missionIcons a:hover img { position:absolute; top:-60px; }
 
 
-.objectives { position:absolute; z-index:6; color:#f6d000; top:155px; left:50px; font-size:1.5em; font-weight:bold; }
-.objectives strong { font-size:5.2em; width:100%; display:block; }
-.objectives strong small { font-size:.3em; }
+.objectives { position:absolute; z-index:6; color:#042e42; top:180px; text-shadow:1px 1px 0 #367c9e; left:12px; font-size:1.5em; font-weight:bold; }
+.objectives ul { padding:0 0 0 25px; }
+.objectives li { background:#246788; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; margin:0 0 5px 0; padding:5px 20px; height:26px; overflow:hidden;  }
 
-*--------In Game meters-----------*/
+.objectives li img { float:left; margin:-6px 5px 0 0; }
+.objectives li.notCompleted img { margin:-45px 5px 0 0; }
+.objectivesBg { position:absolute; z-index:14; top:32px; left:0; }
+
+.timeWrapper { position:absolute; top:107px; left:30px; z-index:12; width:350px; }
+.timeWrapper h5 { float:left; width:20%; margin:20px 2% 0 0; font-weight:bold; font-size:1.2em; color:#011e2b; position:relative; z-index:14;  }
+.timeWrapper img { left:80px; }
+.yourTime { position:relative; z-index:14; font-weight:bold; font-size:3em; width:130px; text-align:center; float:left; padding:1% 0 0 0;  text-shadow: 1px 1px 0 #FFB535; font-family:Arial, Helvetica, sans-serif; }
+.bestTime { position:relative; z-index:14; top:22px; margin:0 0 0 8px; color:#033c04; text-shadow:1px 1px 0 #36d43a; }
+
+.newPowerups { position:absolute; top:390px; left:80px; z-index:12; }
+.newPowerups li { float:left; background:#000; border:2px solid #6a6a6a; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; margin:0 10px 0 0;   }
+.newPowerups strong { color:#FFF; margin:0 0 5px 0; display:block; font-size:1.2em; }
+/*--------In Game meters-----------*/
 .inGameMeterBar { width:950px; height:50px; position: absolute} 
 .inGameMeterBar .energyBar {position:absolute; width:169px; height:32px; top:0px; right:350px;}
 .inGameMeterBar .energyBar .bar { position:absolute; width:140px; height:20px; z-index:4; left:3px; top:21px; }
@@ -472,10 +489,10 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .exitBtn:hover img { position:relative; top:-48px; }
 
 
-#marketplace { left:0px; position:relative; top:0px; z-index: 10; width:960px; height:620px; }
+#marketplace { left:0px; position:relative; top:-363px; z-index: 10; width:960px; height:620px; }
 
 /*-------Widnow-------*/
-.window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:35px 27px 0 45px; position:relative; height:401px; top:70px; height:70px; }
+.window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:35px 27px 0 45px; position:relative; height:401px; top:70px; left:100px;}
 .windowTitle { float:left; width:254px; height:44px; position:relative; top:-43px; left:215px; }
 .close { float:left; width:39px; height:39px; position:relative; left:436px; top:-15px; overflow:hidden; z-index:3; }
 .close a { display:block; width:39px; height:39px; }

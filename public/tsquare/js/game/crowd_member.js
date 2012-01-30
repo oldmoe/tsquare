@@ -346,7 +346,7 @@ var CrowdMember = Class.create(Unit,{
   },
   
   hitMove : function(){
-    if (this.target && (this.target.hp <= 0 || this.target.dead || this.target.doneProtection) ||
+    if ((this.target && (this.target.hp <= 0 || this.target.dead || this.target.doneProtection)) ||
     !this.scene.movementManager.beatMoving) {
       if(this.target)this.target.rotationComplete(this.attack)
       this.fixedState = false;  // to enable animation change to crowds

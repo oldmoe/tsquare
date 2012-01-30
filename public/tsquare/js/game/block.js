@@ -129,10 +129,26 @@ var Block = Class.create(Enemy,{
     },    
     takePush : function(){
        this.chargeTolerance--;
+        for (var i = 0; i < this.elements.length; i++) {
+            for (var j = 0; j < this.elements[i].length; j++) {
+              this.moveRandomDistance(this.elements[i][j]);
+            }
+        }
        if(this.chargeTolerance == 0){
          this.scene.fire("targetComplete");
           this.split();
          }
+    },
+    
+    moveRandomDistance: function(element){
+      return;
+      element.originalPosition = {x:element.coords.x, y:element.coords.y};
+      element.moveToTarget({
+        x: element.coords.x  + 60 *  Math.random(),
+        y: element.coords.y + Math.random() * 80 - 40
+      }, function(){
+        element.fixedPosition = true;                  
+      }, 10);
     },
     
     moveElements : function(dx,dy){

@@ -15,3 +15,9 @@
   name : staging-thawragy
   secret : "06c9b90f3bb7b70f10c4d324d80c9be9"
   game_name : tsquare
+
+"219268138166430" :
+  id : "219268138166430"
+  name : crowdsvote
+  secret : "279f929f97cd03af31e2ad6a9061e9e7"
+  game_name : tsquare

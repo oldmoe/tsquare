@@ -83,6 +83,7 @@ var Marketplace = Class.create({
     var memberType = "";
     
     memberType = this.members['category'][memberName]['type'] != "normal" ? memberName : 'normal';
+    if(memberType.indexOf("ultras") != -1) memberType = "ultras";
     
     for(var spec in this.members['specs'][memberType][1]){
       if (spec == "special") {

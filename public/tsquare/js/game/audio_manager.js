@@ -168,7 +168,7 @@ var AudioManager = Class.create({
       if(sound.playState){
         sound.stop();
       }
-	    sound.play({volume:35, position:70});
+	    sound.play({volume:35, position:50});
 	  }else if(keyIndex == 1){//left
       sound = Loader.sounds['sfx']['hm.mp3'];
       if(sound.playState){
@@ -180,13 +180,13 @@ var AudioManager = Class.create({
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:35, position:70});
+      sound.play({volume:35, position:50});
     }else if(keyIndex == 3){//down
       sound = Loader.sounds['sfx']['hh.mp3'];
       if(sound.playState){
         sound.stop();
       }
-      sound.play({volume:35, position:70});
+      sound.play({volume:35, position:50});
     }
 	},
 	

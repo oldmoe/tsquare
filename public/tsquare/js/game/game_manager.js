@@ -72,7 +72,6 @@ var GameManager = Class.create({
     self.missionManager = new MissionManager(this);
     if(!self.game)game = new Game(this);
     self.game = game;
-    soundManager.mute();
   },
   
   setupLangScreen: function() {

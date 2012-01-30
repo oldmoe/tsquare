@@ -87,29 +87,40 @@ class UserMissions
       
       mission_id = data['id']
       score = data['score']
-      
+      score_old = -1
+      new_mission = false
       mode = Mission.mode mission_id
       if user_profile.missions[mode][mission_id.to_i] && user_profile.missions[mode][mission_id.to_i]['score']
         if user_profile.missions[mode][mission_id.to_i]['score'].to_i < score['score'].to_i
-          user_profile.missions[mode][mission_id] = {'score' => score['score'], 'stars' => score['stars']}      
+          score_old = user_profile.missions[mode][mission_id.to_i]['score'].to_i 
+          user_profile.missions[mode][mission_id.to_i] = {'score' => score['score'], 'stars' => score['stars']}      
         end
       else
+        new_mission = true
         user_profile.missions[mode][mission_id.to_i] = {'score' => score['score'], 'stars' => score['stars']}
       end
       
       mission = Mission.get(mission_id)
       
-      if score['win'] && user_profile.current_mission[mode] == mission_id
-        user_profile.current_mission[mode] = mission['next']
-        user_profile.scores['timeline'] += score['score']
-        user_profile.scores['global'] += score['score'] 
-      else
-        user_profile.scores['global'] += score['score']/2
+      if score['win']
+        if new_mission
+          user_profile.current_mission[mode] = mission['next']
+          user_profile.scores[mode] += score['score']
+          user_profile.scores['global'] += score['score'] 
+        else
+          if score_old > 0
+            user_profile.scores['global'] -= score_old
+            user_profile.scores['global'] += score['score']
+            user_profile.scores[mode] -= score_old
+            user_profile.scores[mode] += score['score']
+          end
+        end
+        # user_profile.current_mission[mode] == mission_id
       end
       
       mission_powerups = [];
       
-      if score['win'] && (not mission['data']['winPowerups'].nil?) && user_profile.missions[mode][mission_id.to_i].nil? # user take end of mission powerups one time only 
+      if score['win'] && (not mission['data']['winPowerups'].nil?) && new_mission # user take end of mission powerups one time only 
         mission_powerups.concat(mission['data']['winPowerups'])
       end
       

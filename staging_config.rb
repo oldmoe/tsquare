@@ -1,0 +1,1 @@
+/opt/nezal/tsquare/staging/shared/staging_config.rb

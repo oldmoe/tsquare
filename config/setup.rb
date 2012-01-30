@@ -7,10 +7,10 @@ LOGGER = Logger.new(STDOUT)
 LOGGER.level = Logger::DEBUG
 
 # Initialize the database connection 
-ActiveRecord::Base.establish_connection(YAML::load(File.open('config/database.yml'))[ENV['RACK_ENV']])
-ActiveRecord::Base.logger = Logger.new(File.open('log/database.log', 'a'))
+#ActiveRecord::Base.establish_connection(YAML::load(File.open('config/database.yml'))[ENV['RACK_ENV']])
+#ActiveRecord::Base.logger = Logger.new(File.open('log/database.log', 'a'))
 
-GAME_NAME = (ENV['RACK_ENV']=='production' ? 'thawragy' : 'local-thawragy')
+GAME_NAME = (ENV['RACK_ENV']=='production' ? 'thawragy' : ( ENV['RACK_ENV']=='testing' ? 'staging-thawragy' : 'local-thawragy') )
 ABSOLUTE_URL = (ENV['RACK_ENV']=='production' ? "http://base-defender.nezal.com:7500/fb-games" : "http://127.0.0.1:5500/fb-games")
 
 # Initialize and load the facebook app definition

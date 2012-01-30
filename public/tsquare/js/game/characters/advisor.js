@@ -24,7 +24,8 @@ var Advisor = Class.create(Unit,{
       }
       
       if(this.ended){
-        this.move(-7,0);
+        this.fire("walk");
+        this.move(7,0);
       }
       
       $super()

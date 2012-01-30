@@ -1,6 +1,6 @@
 var FBConnect = {
 
-    appIds : { 'thawragy' : "219268138166430",
+    appIds : { 'crowdsvote' : "219268138166430",
                'local-crowds' : "227777603955853",
                'staging-thawragy' : "162980287109407" },
     

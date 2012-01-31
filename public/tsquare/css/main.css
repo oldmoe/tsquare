@@ -493,7 +493,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 
 
 #marketplace { left:0px; position:relative; top:-283px; z-index: 10; width:960px; height:620px; }
-.missionItems { top:-454px; }
+.missionItems { top:-454px !important; }
 
 /*-------Widnow-------*/
 .window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:35px 27px 0 45px; position:relative; height:401px; top:70px; left:100px;}

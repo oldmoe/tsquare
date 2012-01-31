@@ -285,7 +285,6 @@ var Marketplace = Class.create({
       // $('marketplace').setStyle({top:"-363px"}); //should be removed after waleed fix the css for the marketplace
 
       if( preMission ){
-        $('marketplace').addClassName("missionItems");
         $('readyButton').stopObserving('click');                                                                       
         $('readyButton').observe('click', function(event){
           if( self.enableNextMission ){

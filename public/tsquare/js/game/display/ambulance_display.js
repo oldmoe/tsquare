@@ -35,7 +35,7 @@ var AmbulanceDisplay = Class.create(Display,{
   },
 
   showText: function(){
-    
+    this.hideText();
     this.sprites.baloon = new DomImgSprite(this.owner, {img : this.baloonImg},{
       width: this.baloonImg.width,
       height: this.baloonImg.height,
@@ -97,6 +97,7 @@ var AmbulanceDisplay = Class.create(Display,{
     }
     this.owner.removed = true      // to remove the display object from render loop
     var self = this
+    this.hideText();
     this.sprites.shadow.hide()
     Effects.pulsateFadeUp(this.sprites.ambulance.div, function(){self.destroy(true)})
   }  

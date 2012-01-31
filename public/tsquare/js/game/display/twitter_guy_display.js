@@ -37,7 +37,7 @@ var TwitterGuyDisplay = Class.create(Display,{
   },
 
   showText: function(){
-    
+    this.hideText();
     this.sprites.baloon = new DomImgSprite(this.owner, {img : this.baloonImg},{
       width: this.baloonImg.width,
       height: this.baloonImg.height,
@@ -73,6 +73,7 @@ var TwitterGuyDisplay = Class.create(Display,{
       return $super()
     }
     this.owner.removed = true      // to remove the display object from render loop
+    this.hideText();
     var self = this
     this.sprites.shadow.hide()
     Effects.pulsateFadeUp(this.sprites.twitterguy.div, function(){self.destroy(true)})

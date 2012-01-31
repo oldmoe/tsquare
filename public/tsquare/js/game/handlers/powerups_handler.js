@@ -25,8 +25,12 @@ var PowerupsHandler = Class.create(UnitHandler,{
   },
   
   activatePowerups: function(key){
-    var powerup = this.userPowerups[key];
-    if(powerup && powerup.count > 0){
+    
+    var index = this.getPowerupIndex(key+1);
+    
+    if(index >= 0 && key < this.userPowerups.length){
+      var powerup = this.userPowerups[key];
+            
       powerup.changed = true;
       powerup.count -= 1;
       
@@ -35,18 +39,29 @@ var PowerupsHandler = Class.create(UnitHandler,{
       }else if(powerup.attribute == "hydration"){
         this.scene.fire("increaesHydration", [powerup.effect]);
       }
+      
       this.scene.fire("playPowerupSound");
-      Effect.Pulsate($('powerUpsWrapper').children[key])
+      Effect.Pulsate($('powerUpsWrapper').children[index])
       var coords = {x:100, y:100};
       new Animation(this.scene, coords, Loader.images['effects']['hydrate.png'], 9, {});
+      
       if(powerup.count == 0){
-        $('powerUpsWrapper').children[key].remove();
+        $('powerUpsWrapper').children[index].remove();
       }else{
-        $('powerUpsWrapper').select("[class=powerupCount]")[key].update(powerup.count+"");
+        $('powerUpsWrapper').select("[class=powerupCount]")[index].update(powerup.count+"");
       }
     }else{
       //no powerups for this hot key
+      this.scene.fire("wrongPowerupSound");
     }
+  },
+  
+  getPowerupIndex: function(key){
+    var powerups = $('powerUpsWrapper').select("[class=powerupKey]");
+    for (var i=0; i < powerups.length; i++) {
+      if(powerups[i].innerHTML == key)return i;
+    };
+    return -1;
   }
   
 });

@@ -135,6 +135,7 @@ var AudioManager = Class.create({
 		
 		scene.observe('keySound',function(keyIndex){self.playKeySound(keyIndex)});
 		scene.observe('playPowerupSound', function(){self.playPowerupSound()});
+		scene.observe('wrongPowerupSound', function(){self.playWrongPowerSound()});
 		scene.observe('end', function(){self.playWinLose()});
     scene.observe('combo', function(combos){self.playComboSound(combos)});
     scene.observe('firstWrongMove', function(){self.playWrongMoveSound()});
@@ -210,6 +211,10 @@ var AudioManager = Class.create({
       default:
         break;
     }
+  },
+  
+  playWrongPowerSound: function(){
+    Loader.sounds['sfx']['wrong_move.mp3'].play({volume:30})
   },
   
   playWrongMoveSound : function(){

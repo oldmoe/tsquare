@@ -25,7 +25,7 @@ img { border:none; outline:none;}
 .cancelButton span { position:absolute; z-index:7; width:97px; height:31px; text-align:center; padding:5px 0 0 0; }
 .cancelButton:hover img { position:absolute; top:-31px; }
 
-.overlay { float:left; width:970px; background:#000; height:620px; background:url(../images/common/overylay_background.png); left:-5px; top:0px; }
+.overlay { float:left; width:970px; background:#000; height:620px; background:url(../images/common/overylay_background.png); left:-5px; top:90px; position:relative; }
 .container { width:950px; height:685px; margin:0 auto; position:relative; }
 
 .message { position:absolute; top:285px; left:300px; z-index:30; }
@@ -114,21 +114,21 @@ img { border:none; outline:none;}
 .timelineMissions li#mission29 {  top:269px; left:807px; }
 .timelineMissions li#mission30 {  top:230px; left:770px; }
 
-.missionTitle { position:absolute; z-index:100; top:100px; left:623px; width:203px; height:130px; }
-.missionTitle h3 { position:relative; z-index:101; width:183px; margin:15px 10px 5px 10px; text-align:center; text-shadow:1px 1px 0 #3b994a; }
-.stars { position:relative; width:153px; margin:0 0 0 54px; z-index:102; }
-.stars span { float:left; width:20px; height:20px; overflow:hidden; position:relative; margin:0 0 0 10px;  }
+.missionTitle { position:absolute; z-index:100; top:100px; left:523px; width:141px; height:89px; }
+.missionTitle h3 { position:relative; z-index:101; width:121px; margin:0; text-align:center; text-shadow:1px 1px 0 #3b994a; padding:10px 10px 1px 10px; font-size:1.1em; }
+.stars { position:relative; width:141px; margin:0 0 0 34px; z-index:102; }
+.stars span { float:left; width:20px; height:20px; overflow:hidden; position:relative; margin:0 0 0 5px;  }
 .stars span img { position:absolute; right:0; }
 .stars span.active img { right:-20px }
 
-.missionTitle h4 { position:relative; z-index:101; width:183px; margin:15px 10px 5px 10px; text-align:center;  float:left; font-weight:bold; font-size:1.3em; color:#cc893a; }
+.missionTitle h4 { position:relative; z-index:101; width:121px; margin:3px 10px 0px 10px; text-align:center; float:left; font-weight:bold; font-size:1em; color:#cc893a; }
 
 
 
 
-.timelineMissions li a { float:left; width:15px; height:15px; background:#ff6633; -webkit-border-radius: 1000px; -moz-border-radius: 1000px; border-radius: 1000px; border:3px solid #ff0000; cursor:pointer;  }
+.timelineMissions li a { float:left; width:15px; height:15px; background:#0ba225; -webkit-border-radius: 1000px; -moz-border-radius: 1000px; border-radius: 1000px; border:3px solid #065513; cursor:pointer;  }
 
-.timelineMissions li a.current { background:#ff0000; -webkit-box-shadow: 0px 0px 10px #ff0000; -moz-box-shadow: 0px 0px 10px #ff0000; box-shadow: 0px 0px 10px #ff0000; }
+.timelineMissions li a.current { background:#ff0000; -webkit-box-shadow: 0px 0px 10px #ff0000; -moz-box-shadow: 0px 0px 10px #ff0000; box-shadow: 0px 0px 10px #ff0000; border-color:#ff0000; }
 .timelineMissions li a.disabled { background:#696969; border-color:#b3b3b3; position:relative; }
 .timelineMissions li img { position:absolute; top:3px; left:6px; }
 
@@ -148,9 +148,12 @@ img { border:none; outline:none;}
 .timelineMissions .rightControls img.rightOff, .timelineMissions .leftControls img.leftOff { position:absolute; top:0px; margin:0 0 5px 0; }
 .timelineMissions .rightControls img.rightOn, .timelineMissions .leftControls img.leftOn { position:absolute; top:-33px; margin:0 0 5px 0; }
 
-.friendScore { position:absolute; width:175px; height:67px; left:337px; top:-66px; }
-.smallImageWrapper { position:relative; float:left; width:33px; height:33px; z-index:8; border:3px solid #887103; margin:7px 0 0 9px; }
-.friendScore h3, .friendScore h5 { color:#362c00; text-shadow:1px 1px 0 #e2c231; position:relative; z-index:9; float:left; width: 114px; margin:5px 0 0 3px; padding:0; }
+.friendScore { position:absolute; width:119px; height:35px; left:533px; top:66px; }
+.smallImageWrapper { position:relative; float:left; width:26px; height:26px; z-index:8; border:1px solid #887103; margin:4px 0 0 4px; }
+.smallImageWrapper img { width:26px; height:26px; }
+.friendScore h3 { color:#000000; text-shadow:1px 1px 0 #b62e2e; position:relative; z-index:9; float:left; width:80px; margin:5px 0 0 1px; padding:0; font-size:.8em; text-align:center }
+
+.friendScore h5 { color:#cc893a; position:relative; z-index:9; float:left; width:80px; margin:2px 0 0 1px; padding:0; font-size:.8em; text-align:center }
 
 .calendarWrapper .walkingCrowdMemeber { top:330px; }
 
@@ -489,7 +492,8 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .exitBtn:hover img { position:relative; top:-48px; }
 
 
-#marketplace { left:0px; position:relative; top:-363px; z-index: 10; width:960px; height:620px; }
+#marketplace { left:0px; position:relative; top:-283px; z-index: 10; width:960px; height:620px; }
+.missionItems { top:-454px !important; }
 
 /*-------Widnow-------*/
 .window { float:left; width:715px; background:url(../images/marketplace/window_background.png) no-repeat top; margin:35px 27px 0 45px; position:relative; height:401px; top:70px; left:100px;}
@@ -618,5 +622,8 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 .highlightedBackground h2 { font-weight:bold; font-size:8em; color:#f7f18b; width:970px; text-align:center; margin:200px 0 0 0; position:relative; }
 .highlightedBackground h3 { font-weight:bold; font-size:1.7em; color:#f7f18b; width:970px; text-align:center; margin:20px 0 0 0; position:relative; }
 
-.gameplayGuide { position:relative; top:540px; left:20px; }
+.gameplayGuide { position:relative; top:560px; left:10px; background:#000; opacity:.5; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; padding:10px; float:left; width:auto; }
 .gameplayGuide a { display:block; top:0px; left:0px; position:absolute; width:95px; height:20px; }
+
+.enemiesHealth {position:absolute; z-index:14; top:300px; left:600px; width:55px; height:12px; overflow:hidden; }
+.enemiesHealthEmpty { position:absolute; z-index:15;  overflow:hidden; }

@@ -512,3 +512,24 @@
     <br>
   </div>
 </textarea>
+
+<textarea id="gameplayGuide">
+  <!--Gameplay Guide-->
+    <a href="javascript: void(0)" class="hideText"><span class="loadedImg" imgSrc="game_elements/hide_guide.png" alt="Hide Guide"></span></a>
+    {if commands.march}
+    <span><span class="loadedImg" imgSrc="game_elements/guide_walk.png" alt="Walk"></span></span>
+    {/if}
+    {if commands.hit}
+    <span><span class="loadedImg" imgSrc="game_elements/guide_attack.png" alt="Attack"></span></span>
+    {/if}
+    {if commands.circle}
+    <span><span class="loadedImg" imgSrc="game_elements/guide_defend.png" alt="Defend"></span></span>
+    {/if}
+    {if commands.retreat}
+    <span><span class="loadedImg" imgSrc="game_elements/guide_retreat.png" alt="Retreat"></span></span>
+    {/if}
+    {if commands.push}
+    <span><span class="loadedImg" imgSrc="game_elements/guide_push.png" alt="Push"></span></span>
+    {/if}
+    <div class="gameplayGuideBg"></div>
+</textarea>

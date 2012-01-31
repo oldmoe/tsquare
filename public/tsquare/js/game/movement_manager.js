@@ -31,6 +31,12 @@ var MovementManager = Class.create({
       hit:{code:[2,3,2,3],index:5},
       push:{code:[2,2,0,0],index:6}
     }
+    if (missionData.commands) {
+      $('gameplayGuide').innerHTML = gameManager.templateManager.load('gameplayGuide', {
+        commands: missionData.commands
+      })
+      Game.addLoadedImagesToDiv('gameplayGuide')
+    }
   },
   
   run: function(){

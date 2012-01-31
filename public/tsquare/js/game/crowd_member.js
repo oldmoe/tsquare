@@ -4,7 +4,7 @@ var CrowdMember = Class.create(Unit,{
   water : 7000,
   maxWater : 700,
   specs : null,
-  waterDecreaseRate : 1,
+  waterDecreaseRate : 0.3,
   commandFilters: [],
   rotationPoints : null,
   rotationSpeed : 35,
@@ -46,7 +46,7 @@ var CrowdMember = Class.create(Unit,{
         {command: function(){return self.hitting}, callback: function(){self.hitMove()}},
         {command: function(){return self.rotating}, callback: function(){self.circleMove()}}
     ]
-    this.commandFilters = crowdCommandFilters.concat(this.commandFilters)      
+    this.commandFilters = crowdCommandFilters.concat(this.commandFilters);      
     this.init(options);
   },
   
@@ -159,6 +159,7 @@ var CrowdMember = Class.create(Unit,{
   },
  
   updateState: function(){
+    if(this.scene.stopped) return;
     this.water-=this.waterDecreaseRate
     if(this.water <= 0) this.die();   
   },

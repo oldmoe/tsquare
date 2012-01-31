@@ -114,7 +114,7 @@ img { border:none; outline:none;}
 .timelineMissions li#mission29 {  top:269px; left:807px; }
 .timelineMissions li#mission30 {  top:230px; left:770px; }
 
-.missionTitle { position:absolute; z-index:100; top:100px; left:623px; width:141px; height:89px; }
+.missionTitle { position:absolute; z-index:100; top:100px; left:523px; width:141px; height:89px; }
 .missionTitle h3 { position:relative; z-index:101; width:121px; margin:0; text-align:center; text-shadow:1px 1px 0 #3b994a; padding:10px 10px 1px 10px; font-size:1.1em; }
 .stars { position:relative; width:141px; margin:0 0 0 34px; z-index:102; }
 .stars span { float:left; width:20px; height:20px; overflow:hidden; position:relative; margin:0 0 0 5px;  }
@@ -126,9 +126,9 @@ img { border:none; outline:none;}
 
 
 
-.timelineMissions li a { float:left; width:15px; height:15px; background:#ff6633; -webkit-border-radius: 1000px; -moz-border-radius: 1000px; border-radius: 1000px; border:3px solid #ff0000; cursor:pointer;  }
+.timelineMissions li a { float:left; width:15px; height:15px; background:#0ba225; -webkit-border-radius: 1000px; -moz-border-radius: 1000px; border-radius: 1000px; border:3px solid #065513; cursor:pointer;  }
 
-.timelineMissions li a.current { background:#ff0000; -webkit-box-shadow: 0px 0px 10px #ff0000; -moz-box-shadow: 0px 0px 10px #ff0000; box-shadow: 0px 0px 10px #ff0000; }
+.timelineMissions li a.current { background:#ff0000; -webkit-box-shadow: 0px 0px 10px #ff0000; -moz-box-shadow: 0px 0px 10px #ff0000; box-shadow: 0px 0px 10px #ff0000; border-color:#ff0000; }
 .timelineMissions li a.disabled { background:#696969; border-color:#b3b3b3; position:relative; }
 .timelineMissions li img { position:absolute; top:3px; left:6px; }
 
@@ -148,7 +148,7 @@ img { border:none; outline:none;}
 .timelineMissions .rightControls img.rightOff, .timelineMissions .leftControls img.leftOff { position:absolute; top:0px; margin:0 0 5px 0; }
 .timelineMissions .rightControls img.rightOn, .timelineMissions .leftControls img.leftOn { position:absolute; top:-33px; margin:0 0 5px 0; }
 
-.friendScore { position:absolute; width:119px; height:35px; left:633px; top:66px; }
+.friendScore { position:absolute; width:119px; height:35px; left:533px; top:66px; }
 .smallImageWrapper { position:relative; float:left; width:26px; height:26px; z-index:8; border:1px solid #887103; margin:4px 0 0 4px; }
 .smallImageWrapper img { width:26px; height:26px; }
 .friendScore h3 { color:#000000; text-shadow:1px 1px 0 #b62e2e; position:relative; z-index:9; float:left; width:80px; margin:5px 0 0 1px; padding:0; font-size:.8em; text-align:center }

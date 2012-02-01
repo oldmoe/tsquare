@@ -150,7 +150,7 @@ var MissionManager = Class.create({
     var self = this;
     $$('#winLose .replayButton')[0].observe('click', function(event){
       $('winLose').hide();
-      self.gameManager.marketplace.openMarketplace({myStuff : true, preMission : true, missionID : self.currentMission.id});
+      self.gameManager.marketplace.openMarketplace({gameView : true, myStuff : true, preMission : true, missionID : self.currentMission.id});
     });
     $$('#winLose .homeButton')[0].observe('click', function(event){
       self.goHome();
@@ -158,7 +158,7 @@ var MissionManager = Class.create({
     $$('#winLose .nextMissionButton').each(function(button){
       button.observe('click', function(event){
         $('winLose').hide();
-        self.gameManager.marketplace.openMarketplace({myStuff : true, preMission : true, missionID : self.currentMission.next});
+        self.gameManager.marketplace.openMarketplace({gameView : true, myStuff : true, preMission : true, missionID : self.currentMission.next});
       });
     });
     $$('#winLose .close')[0].observe('click', function(event){

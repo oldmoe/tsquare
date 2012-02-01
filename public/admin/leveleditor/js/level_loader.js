@@ -32,6 +32,7 @@ var LevelLoader = Class.create({
     settings.gameModes = missionData.gameModes;
     settings.environment = missionData.environment;
     settings.missionDetails = missionData.missionDetails;
+    settings.commands = missionData.commands;
     settings.missionImages = missionData.missionImages;
     settings.missionTime = missionData.missionTime;
     settings.superTime = missionData.superTime;

@@ -13,47 +13,26 @@ var GuidingIcon = Class.create(Observer,{
     this.scene = game.scene;
     this.moves = game.scene.movementManager.moves;
     this.moveIndex = 1;
-    var images = ["walk_move.png", "hit_move.png", "circle_move.png", "push_move.png", "retreat_move.png", "move_indicator.png", "right_arrow.png", 'up_arrow.png','down_arrow.png', "left_arrow.png", "move_background.png", "moves_arrows.png"];
-    var self = this;
-    new Loader().load([{images: images, path: 'images/game_elements/', store: 'game_elements'}],
-                      {onFinish:function(){self.display();}}) ;
+    this.display();
   },
   
   display: function(){
-    $('guidingBar').innerHTML = game.templateManager.load('guidingBar');
-    Game.addLoadedImagesToDiv('guidingBar');
-    
     var self = this;
-    this.scene.observe('hideGuidingIcon', function(){self.hide()})
-    this.scene.observe('showGuidingIcon', function(){self.show()})
     this.scene.observe("keypressed", function(key, moveIndex, reset){self.keypressed(key, moveIndex, reset)});
-    this.scene.observe('correctMove',function(){self.increaseCorrectCommandsCount();self.beatMoving();})
+    this.scene.observe('correctMove',function(){self.increaseCorrectCommandsCount();})
     this.scene.observe("pressLate", function(){self.pressLate()});
     this.scene.observe("targetComplete", function(){self.targetComplete()});
     this.scene.push(this);
     
-    this.scene.pushToRenderLoop('meters', this);
     /* When play ends stop updating meter bar */ 
     this.scene.observe("end", function(){
-      self.scene.removeFromRenderLoop('meters', self);
       self.scene.remove(self);
     });
-    
-    this.show();
-  },
-  
-  hide: function(){
-    $('guidingBar').hide();
-  },
-
-  show: function(){
-    $('guidingBar').show();
   },
   
   keypressed: function(key, moveIndex, flag){
     if(flag == 1){ //early
       this.increaseWrongCommandsCount();
-      this.pressEarly();
       this.moveIndex = 1;
       this.scene.fire("showGuidBubble", [this.currentCommand]);
       this.scene.fire('wrongArrow');
@@ -62,7 +41,6 @@ var GuidingIcon = Class.create(Observer,{
 
     if(flag == 2){ //pressed while the waiting beats
       this.increaseWrongCommandsCount();
-      this.wrongKey(1);
       this.moveIndex = 1;
       this.scene.fire("showGuidBubble", [this.currentCommand]);
       return ;
@@ -76,63 +54,21 @@ var GuidingIcon = Class.create(Observer,{
     if(key == -1){//not arrow key
       this.scene.fire("showGuidBubble", [this.currentCommand]);
       this.increaseWrongCommandsCount();
-      this.wrongKey(moveIndex+1);
       this.scene.fire('wrongArrow');
     }else {
       if(key == this.moves[this.currentCommand].code[this.moveIndex-1]){
-        this.correctPress(this.moveIndex);
         this.scene.fire('correctArrow');
         this.scene.fire("removeGuidBubble");
       }else{//arrow key but not the right key
         this.increaseWrongCommandsCount();
-        this.wrongKey(this.moveIndex);
         this.scene.fire('correctArrow');
         this.scene.fire("showGuidBubble", [this.currentCommand]);
       }
     }
   },
   
-  beatMoving: function(){
-    var self = this;
-    this.scene.reactor.push(10, function(){self.reset(4)});
-  },
-  
-  correctPress: function(moveIndex){
-    var moveLength = this.moves[this.currentCommand].code.length;
-    $$('.movesIndicator')[0].children[moveLength-moveIndex].addClassName("right");
-  },
-
-  wrongPress: function(moveIndex){
-    var moveLength = this.moves[this.currentCommand].code.length;
-    $$('.movesIndicator')[0].children[moveLength-moveIndex].addClassName("wrong");
-  },
-  
-  reset: function(moveIndex){
-    var moveLength = this.moves[this.currentCommand].code.length;
-    if (moveIndex > moveLength) moveIndex = moveLength;
-    for(var i=1; i<=moveIndex; i++){
-      $$('.movesIndicator')[0].children[moveLength-i].removeClassName("right");
-      $$('.movesIndicator')[0].children[moveLength-i].removeClassName("wrong");
-    }
-  },
-
-  wrongKey: function(index){
-    this.wrongPress(index);
-    var self = this;
-    this.scene.reactor.push(5, function(){self.reset(index);});
-  },
-  
-  pressEarly: function(){
-    this.wrongPress(this.moveIndex+1);
-    var self = this;
-    this.scene.reactor.push(2, function(){self.reset(4);});
-  },
-
   pressLate: function(){
     this.scene.fire('wrongArrow');
-    this.wrongPress(this.moveIndex+1);
-    var self = this;
-    this.scene.reactor.push(2, function(){self.reset(4);});
   },
   
   tick: function(){
@@ -187,7 +123,6 @@ var GuidingIcon = Class.create(Observer,{
     if(this.currentCommand != command && !this.commandLock){
       this.currentCommand = command;
       this.scene.movementManager.currentCommand = this.currentCommand;
-      this.displayCommand(this.currentCommand);
     }
     this.commandLock = this.currentCommand != "march";
     
@@ -215,43 +150,7 @@ var GuidingIcon = Class.create(Observer,{
   
   targetComplete: function(){
     this.commandLock = false;
-  },
-  
-  displayCommand: function(command){
-    
-    if(command == 'march') //march
-      $$('.nextMove img')[0].src = "images/game_elements/walk_move.png";
-    else if(command == 'retreat') //retreat  
-      $$('.nextMove img')[0].src = "images/game_elements/retreat_move.png";
-    else if(command == 'circle') //cricle
-      $$('.nextMove img')[0].src = "images/game_elements/circle_move.png";
-    else if(command == 'hit') //hit
-      $$('.nextMove img')[0].src = "images/game_elements/hit_move.png";
-    else if(command == 'push') //hit
-      $$('.nextMove img')[0].src = "images/game_elements/push_move.png";
-    //empty current command
-    for(var i=1; i<4; i++){
-      $$('.movesIndicator')[0].children[i].firstChild.src = "";
-      $$('.movesIndicator')[0].children[i].removeClassName("right");
-      $$('.movesIndicator')[0].children[i].removeClassName("wrong");
-    }
-        
-    for(var i=0; i<this.moves[command].code.length; i++){
-      this.loadButton(i, this.moves[command].code[this.moves[command].code.length-i-1]);
-    }
-  },
-
-  loadButton: function(i, button){
-    var directions = {0:'right_arrow.png', 1:'left_arrow.png', 2:'up_arrow.png', 3:'down_arrow.png'}
-    var img = $$('.movesIndicator')[0].children[i].firstChild
-    $$('.movesIndicator')[0].children[i].firstChild.insert({before:Loader.images.game_elements[directions[button]].clone()})
-    $$('.movesIndicator')[0].children[i].removeChild(img)
-  },
-    
-  render: function(){
-    
-  }
-  
+  } 
   // new Effect.Move(element, {x:10,y:10,duration:1})
 
   

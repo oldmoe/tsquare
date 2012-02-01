@@ -5,14 +5,17 @@ var SettingsHandler = new Class.create({
 	containerId: 'settingsDialog',
 	energyContainerId: 'energySettingsContainer',
 	missionContainerId: 'missionImageSettingsContainer',
-		
+  commands: ['march', 'hit', 'retreat', 'circle', 'push'],
 	initialize: function(levelEditor){
 		this.levelEditor = levelEditor;
 		this.settings.locked = false;
 		this.settings.introMsg = "";
 		this.settings.environment = "day";
 		this.settings.gameModes = ['normal'];
-		
+		this.settings.commands = {};
+    for(var i=0; i<this.commands.length;i++){
+      this.settings.commands[this.commands[i]] = true;
+    }
 		this.init();
 		
 		var self  = this;
@@ -67,7 +70,13 @@ var SettingsHandler = new Class.create({
 		
 		$("missionDetails_ar").observe("keyup", function(event){
 		  self.settings.missionDetails_ar = event.target.value;
-		})
+		});
+    
+    this.commands.each(function(command){
+      $(command+"Command").observe('click', function(){
+        self.settings.commands[command] = $(command+"Command").checked; 
+      })
+    });
 		
 	},
 	
@@ -110,7 +119,16 @@ var SettingsHandler = new Class.create({
 	  if(settings.locked){
 	    this.settings.locked = settings.locked;
 	    $(this.containerId).select('input[name=missionLock]')[0].checked = "checked";
-    }	  
+    }
+    
+    if(settings.commands){
+      this.settings.commands = settings.commands
+      if(!settings.commands.march) $('marchCommand').checked = false;
+      if(!settings.commands.hit) $('hitCommand').checked = false;
+      if(!settings.commands.push) $('pushCommand').checked = false;
+      if(!settings.commands.circle) $('circleCommand').checked = false;
+      if(!settings.commands.retreat) $('retreatCommand').checked = false;
+    }
 	},
 	
 	addEnergyMessage: function(){

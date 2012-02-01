@@ -70,8 +70,8 @@ var TsquareScene = Class.create(Scene,{
         }
         
         var mapping = {
-          'crowd' : 'npc', 
-          'protection' : 'protection_unit',
+         'crowd' : 'npc', 
+         'protection' : 'protection_unit',
          'enemy' : 'enemy', 
          'rescue' : 'rescue', 
          'clash_enemy' : 'clash_enemy',
@@ -112,12 +112,11 @@ var TsquareScene = Class.create(Scene,{
     },
     
     start : function(){
-  		this.init()
-  		return this
+  		this.init();
+  		return this;
   	},
     
     init: function() {
-
       this.audioManager = new AudioManager(this);
       this.flashingHandler = new FlashingHandler(this);
       this.movementManager = new MovementManager(this);
@@ -292,7 +291,6 @@ var TsquareScene = Class.create(Scene,{
     
     finish : function(callback){
       this.fire(this.speeds[this.lastSpeedIndex].state)
-      this.fire("hideGuidingIcon");
       this.handlers.crowd.marchOut(callback);
     },
     

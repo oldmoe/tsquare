@@ -170,7 +170,11 @@
   </div>
   <div class="missionWrapper">
   	<div class="missionImages">
-        <img src="images/missions_images/mission_${id}.jpg" />
+  	  <strong class="missionNumber">${missionNumber}</strong>
+       {if mission['missionHappeningTime']}
+       <span class="missionTime">${mission['missionHappeningTime']}</span>
+       {/if}
+       <img src="images/missions_images/mission_${id}.jpg" />
     </div>
     <div class="missionContent">
       <h3>${t('missionDetailsHeader')}</h3>
@@ -180,17 +184,19 @@
         <p>${mission['details_ar'] || '<عربي>'}</p>
       {/if}
     </div>
-    <div class="missionSide"> 
-      <div class="</a><img src="images/timeline/lock.png" alt="lock" /></li>">
-        <img class="newStuffItem" src="images/new_stuff/mission_${id}.png" alt="Water" />
-        <img class="positioned" src="images/timeline/newStuff.png" alt="New Stuff" />
-      </div>
+    <div class="missionSide">
+      {if mission['newItem']} 
+        <div class="newStuff">
+          <img class="newStuffItem" src="images/new_stuff/mission_${id}.png" alt="Water" />
+          <img class="positioned" src="images/timeline/newStuff.png" alt="New Stuff" />
+        </div>
+      {/if}    
       {if mission['playable'] == true } 
-        <a href="javascript:void(0)" class="playButton" id="${mission.id}">
-          <span class="loadedImg lang" imgId="${mission.id}" imgSrc="timeline/play_button.png" alt="Play"></span>
+        <a href="javascript:void(0)" class="nextButton" id="${mission.id}">
+          <span class="loadedImg lang" imgId="${mission.id}" imgSrc="timeline/next_button.png" alt="Play"></span>
         </a>
       {/if}
-    </div>    
+    </div>
   </div>
   <span class="loadedImg lang" imgSrc="timeline/mission_details.png" alt="Mission Details" imgClasses="positioned"></span>
 </textarea>
@@ -313,12 +319,12 @@
   	<!--Game funcations-->
   	<div class="gameFunctions">
     	<!--Crowd menu button-->
-    	<a class="crowdMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace(false);">
-        <span class="loadedImg lang" imgSrc="friends/icon_call.png" alt="Menu Item"></span>
+    	<a class="crowdMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace({myStuff : true});">
+        <span class="loadedImg lang" imgSrc="friends/icon_crowds.png" alt="Menu Item"></span>
       </a>
       <!--Marketplace button-->
-      <a class="marketplaceMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace({myStuff : true});">
-        <span class="loadedImg lang" imgSrc="friends/icon_crowds.png" alt="Menu Item"></span>
+      <a class="marketplaceMenuItem" href="javascript:void(0);">
+        <span class="loadedImg lang" imgSrc="friends/icon_call.png" alt="Menu Item"></span>
       </a>
       <!--Rank button-->
       <a class="rankMenuItem" href="javascript:void(0);">
@@ -328,6 +334,13 @@
       <a class="voteMenuItem" href="javascript:void(0);" onclick="socialEngine.requestFromNoneAppUsers({title: 'Join my crowd', message: 'Join my crowd'})">
         <span class="loadedImg lang" imgSrc="friends/icon_vote.png" alt="Menu Item"></span>
       </a>
+      
+      <!--Inbox-->
+      <a class="inboxMenuItem" href="javascript:void(0);" onclick="gameManager.inbox.show();">
+        <span class="loadedImg lang" imgSrc="friends/icon_inbox.png" alt="Menu Item"></span>
+      </a>
+      
+      
       <a class="homeMenuItem" href="javascript:void(0);" onclick="gameManager.openMainPage();">
         <span class="loadedImg" imgSrc="friends/home_icon.png" alt="Menu Item"></span>
       </a>
@@ -511,4 +524,25 @@
     {/for}
     <br>
   </div>
+</textarea>
+
+<textarea id="gameplayGuide">
+  <!--Gameplay Guide-->
+    <a href="javascript: void(0)" class="hideText"><span class="loadedImg" imgSrc="game_elements/hide_guide.png" alt="Hide Guide"></span></a>
+    {if commands.march}
+    <span><span class="loadedImg" imgSrc="game_elements/guide_walk.png" alt="Walk"></span></span>
+    {/if}
+    {if commands.hit}
+    <span><span class="loadedImg" imgSrc="game_elements/guide_attack.png" alt="Attack"></span></span>
+    {/if}
+    {if commands.circle}
+    <span><span class="loadedImg" imgSrc="game_elements/guide_defend.png" alt="Defend"></span></span>
+    {/if}
+    {if commands.retreat}
+    <span><span class="loadedImg" imgSrc="game_elements/guide_retreat.png" alt="Retreat"></span></span>
+    {/if}
+    {if commands.push}
+    <span><span class="loadedImg" imgSrc="game_elements/guide_push.png" alt="Push"></span></span>
+    {/if}
+    <div class="gameplayGuideBg"></div>
 </textarea>

@@ -20,10 +20,11 @@ var Timeline = Class.create(UIManager, {
                                   "home_background.gif", "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
                                   "mission_current.png", "mySquare_screen.png","stars.png", "missionTitle.png",
                                   "mission_locked.png", "mission_finished.png", "crowd_member_small.png", "challenge_box.png", "lock.png",
-                                  "mission_icon_selected.png", "play_button.png", "map_background.gif"], path: 'images/timeline/', store: 'timeline'},
+                                  "mission_icon_selected.png", "play_button.png", "map_background.gif", 
+                                  "next_button.png"], path: 'images/timeline/', store: 'timeline'},
                        {images_ar : ["calendar_25_jan.png", "calendar_26_jan.png", "calendar_27_jan.png",
                                   "mission_details.png", "timeline_screen.png", "rescue_screen.png", "challenge_screen.png",
-                                  "mySquare_screen.png", "play_button.png"], path: 'images/ar/timeline/', store: 'timeline'},
+                                  "mySquare_screen.png", "play_button.png", "next_button.png"], path: 'images/ar/timeline/', store: 'timeline'},
                        {images: ["ultras_red_idle.png", "ultras_red_walk.png", "ultras_red_run.png"], path: 'images/characters/', store: 'characters'},
                        {images: ['crowd_shadow.png'], path: 'images/effects/', store: 'effects'},          
                        {images : ["facebook_image_large.png"],  path: 'images/dummy/', store: 'dummy' }],
@@ -264,7 +265,7 @@ var Timeline = Class.create(UIManager, {
 //    }
   },
 
-  displayMissionDetails : function(id){
+  displayMissionDetails : function(id, missionNumber){
     var id = parseInt(id);
     var idString = id+"";
     if(id < 10) idString = "0" + idString;  
@@ -273,7 +274,8 @@ var Timeline = Class.create(UIManager, {
     var callback =  function(){
       $$('.missionDetails')[0].hide();
       
-      $$('#timeline .missionDetails')[0].innerHTML = self.templateManager.load('missionDetails', {'mission' : self.gameManager.missions[self.mode][id], 'id': idString});
+      $$('#timeline .missionDetails')[0].innerHTML = self.templateManager.load('missionDetails', {'mission' : self.gameManager.missions[self.mode][id], 'id': idString, 
+      missionNumber: missionNumber});
       Game.addLoadedImagesToDiv('timeline');
       
       self.attachMissionDetailsListeners();
@@ -354,8 +356,9 @@ var Timeline = Class.create(UIManager, {
       
       element.observe('click', function(event) {
         var mission = self.gameManager.missions[self.mode][parseInt(element.getAttribute("missionid"))];
+        var missionNumber = parseInt(element.id.replace("mission", ""))
         if(mission && !mission.locked)
-          self.displayMissionDetails(parseInt(element.getAttribute("missionid")));
+          self.displayMissionDetails(parseInt(element.getAttribute("missionid")), missionNumber);
       });
     });
   },
@@ -365,9 +368,9 @@ var Timeline = Class.create(UIManager, {
     $$('#timeline .missionDetails .close')[0].observe('click', function(event){
       self.hideMissionDetails();
     });
-    if($$('#timeline .missionDetails .playButton')[0])
+    if($$('#timeline .missionDetails .nextButton')[0])
     {
-      $$('#timeline .missionDetails .playButton')[0].observe('click', function(event){
+      $$('#timeline .missionDetails .nextButton')[0].observe('click', function(event){
         self.gameManager.marketplace.openMarketplace({myStuff : true, preMission : true, missionID : event.element().id});
       });
     }

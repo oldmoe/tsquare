@@ -58,7 +58,6 @@ var MessagesHandler = Class.create(UnitHandler, {
      }
      this.currentGameMode = this.scene.movementManager.currentMode; 
      this.scene.movementManager.currentMode = this.scene.movementManager.modes.conversation;
-     $('guidingBar').hide();
      $$('.contuineReading').first().show();
    },
   
@@ -68,7 +67,6 @@ var MessagesHandler = Class.create(UnitHandler, {
   
   endConversation: function(){
     this.scene.movementManager.currentMode = this.currentGameMode;
-    $('guidingBar').show();
     $$('.contuineReading').first().hide();
   },
   

@@ -24,7 +24,7 @@ var Observer = Class.create({
   
   fire : function(event, params){
     if(this.observers[event]){
-      var observers = Nezal.clone_obj(this.observers[event]);
+      var observers = Nezal.clone_obj(this.observers[event]);   //TODO check if clone is actually needed
       var toRemove = []
       for(var i=0;i<observers.length;i++){
         var scope = observers[i][1] || this

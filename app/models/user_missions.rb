@@ -18,6 +18,8 @@ class UserMissions
             :details_ar => mission['data']['missionDetails_ar'],
             :missionTime => mission['data']['missionTime'],
             :superTime => mission['data']['superTime'],
+            :missionHappeningTime => mission['data']['missionHappeningTime'],
+            :newItem => mission['data']['newItem'],
             :score => user_profile.missions[mode][mission['id']]
             }
         end

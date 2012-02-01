@@ -181,6 +181,10 @@
 			<div class="settingsDialogContents">
 			  <input type="checkbox" name="missionLock" value="locked" />Locked
 			  <hr/>
+        <input type="checkbox" id="newItem" /> new item <br/>
+        <hr/>
+        when mission happened:&nbsp;&nbsp; <input type="text" id="missionHappeningTime" size="10"/>
+        <hr/>
 				<div id="levelEnvironment">
 					Environment:&nbsp;<br>
 					<input type="radio" name="environment" value="day" />Day<br>
@@ -206,6 +210,15 @@
 				  <label>Arabic:</label>
 				  <textarea id="missionDetails_ar"></textarea>
 				</div>
+        <hr/>
+        <div id="availableCommandsContainer">
+          Available Commands <br/>
+          March  : <input type="checkbox" id="marchCommand" checked="checked" /> <br/>
+          Hit    : <input type="checkbox" id="hitCommand" checked="checked" /> <br/>
+          Circle : <input type="checkbox" id="circleCommand" checked="checked" /> <br/>
+          Push   : <input type="checkbox" id="pushCommand" checked="checked" /> <br/>
+          Retreat: <input type="checkbox" id="retreatCommand" checked="checked" /> <br/>
+        </div>
 				<hr/>
 				<div id="energySettingsContainer">
 					Energy:&nbsp;&nbsp; <input type="text" id="energyValue" size="10"/> 

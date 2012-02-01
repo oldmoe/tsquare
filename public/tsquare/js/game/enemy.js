@@ -10,7 +10,7 @@ var Enemy = Class.create(Unit, {
      $super(scene,x,lane,options)
      this.mappingName = options.mappingName || options.obj
      this.type = options.type 
-     var specs = gameData.enemies[this.mappingName][this.type];
+     var specs = gameData.enemies[this.mappingName]["1_1"];
      for(var spec in specs){
          this[spec.dasherize().camelize()] = specs[spec] 
      }

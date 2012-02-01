@@ -310,6 +310,9 @@ var Marketplace = Class.create({
       
       $$('#marketplace .close')[0].stopObserving('click');
       $$('#marketplace .close')[0].observe('click', function(event){
+        if( options.gameView ){
+          self.gameManager.missionManager.goHome();
+        }
         self.hide();
       })
       self.show();

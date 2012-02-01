@@ -14,7 +14,8 @@ var MissionManager = Class.create({
                                   "lose_replay_button.png", "lose_home_button.png", "lose_next_mission_button.png", 
                                   "win_lose_window.png", "lose_window.png", "button_cancel.png"],
                           path: 'images/win_lose/', store: 'win_lose' }, 
-                        {images : ["close_button.png"], 
+                        {images : ["close_button.png", "guide_walk.png", "guide_attack.png", "guide_defend.png", 
+                        "guide_retreat.png", "guide_push.png", "hide_guide.png"], 
                           path: 'images/game_elements/', store: 'game_elements' },
                         {images : ["friendsScore.png", "friend_box.png"], 
                           path: 'images/friends/', store: 'friends' }, 
@@ -79,23 +80,23 @@ var MissionManager = Class.create({
       for (var i=0; powerups && i < powerups.length; i++) {
         if(powerups[i].changed) usedPowerups.push(powerups[i]);
       };
-      
-      score.usedPowerups = usedPowerups;
+      if (score) {
+        score.usedPowerups = usedPowerups;
 
-      this.missionPowerups = null;
-      var missionInfo = this.gameManager.userData.missions[this.mode][this.currentMission.id];
-      if(missionInfo == null || (missionInfo && missionInfo.stars == 0))
-        this.missionPowerups = this.gameManager.game.mission.winPowerups;
-      
-      this.network.postMissionScore( this.currentMission.id, score, function(data){
-        self.donePosting = true;
-        if(self.gameManager.scoreManager.currentUser)
-        {
-          self.gameManager.scoreManager.currentUser.missions[self.mode][self.currentMission['id']] = self.score;
-          self.displayEndScreen(self.score);
-          self.gameManager.initializeData(data);
-        }
-      });
+        this.missionPowerups = null;
+        var missionInfo = this.gameManager.userData.missions[this.mode][this.currentMission.id];
+        if(missionInfo == null || (missionInfo && missionInfo.stars == 0))
+          this.missionPowerups = this.gameManager.game.mission.winPowerups;
+        
+        this.network.postMissionScore(this.currentMission.id, score, function(data){
+          self.donePosting = true;
+          if (self.gameManager.scoreManager.currentUser) {
+            self.gameManager.scoreManager.currentUser.missions[self.mode][self.currentMission['id']] = self.score;
+            self.displayEndScreen(self.score);
+            self.gameManager.initializeData(data);
+          }
+        });
+      }
     }
   },
   
@@ -180,7 +181,7 @@ var MissionManager = Class.create({
     var self = this;
     $$('#winLose .replayButton')[0].observe('click', function(event){
       $('winLose').hide();
-      self.gameManager.marketplace.openMarketplace({myStuff : true, preMission : true, missionID : self.currentMission.id});
+      self.gameManager.marketplace.openMarketplace({gameView : true, myStuff : true, preMission : true, missionID : self.currentMission.id});
     });
     $$('#winLose .homeButton')[0].observe('click', function(event){
       self.goHome();
@@ -188,7 +189,7 @@ var MissionManager = Class.create({
     $$('#winLose .nextMissionButton').each(function(button){
       button.observe('click', function(event){
         $('winLose').hide();
-        self.gameManager.marketplace.openMarketplace({myStuff : true, preMission : true, missionID : self.currentMission.next});
+        self.gameManager.marketplace.openMarketplace({gameView : true, myStuff : true, preMission : true, missionID : self.currentMission.next});
       });
     });
     $$('#winLose .close')[0].observe('click', function(event){

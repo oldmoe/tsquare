@@ -313,8 +313,8 @@
   	<!--Game funcations-->
   	<div class="gameFunctions">
     	<!--Crowd menu button-->
-    	<a class="crowdMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace(false);">
-        <span class="loadedImg lang" imgSrc="friends/icon_call.png" alt="Menu Item"></span>
+    	<a class="crowdMenuItem" href="javascript:void(0);" onclick="gameManager.inbox.show();">
+        <span class="loadedImg lang" imgSrc="friends/icon_inbox.png" alt="Menu Item"></span>
       </a>
       <!--Marketplace button-->
       <a class="marketplaceMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace({myStuff : true});">
@@ -327,10 +327,6 @@
       <!--Vote button-->
       <a class="voteMenuItem" href="javascript:void(0);" onclick="socialEngine.requestFromNoneAppUsers({title: 'Join my crowd', message: 'Join my crowd'})">
         <span class="loadedImg lang" imgSrc="friends/icon_vote.png" alt="Menu Item"></span>
-      </a>
-      
-      <a class="inboxMenuItem" href="javascript:void(0);" onclick="gameManager.inbox.show();">
-        <span class="loadedImg lang" imgSrc="friends/icon_inbox.png" alt="Menu Item"></span>
       </a>
       
       <a class="homeMenuItem" href="javascript:void(0);" onclick="gameManager.openMainPage();">

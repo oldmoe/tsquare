@@ -1,3 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 
+.weatherBar { position:absolute; width:35px; height:35px; top:18px; right:150px; overflow:hidden; }
+.weatherBar span.cloudy img{ position:absolute; top:-34px; }
+.weatherBar span.sunny img{position:absolute; top:-68px;}
+.weatherBar span.night img{position:absolute; top:0px;}

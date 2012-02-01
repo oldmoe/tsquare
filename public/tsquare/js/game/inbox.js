@@ -41,8 +41,8 @@ var Inbox = Class.create({
   display : function(options){
     var self = this;
     if(this.imagesLoaded && this.dataLoaded) {
-      if( this.noOfRequests == 0 && options.ifany ) return;
       $('notifications').innerHTML = this.templateManager.load('notifications', {inbox : this});
+      if( this.noOfRequests > 0 && options.ifany ) self.show();
       $$('.notifications .close a').each(function(button){
         button.observe('click',  function(){self.hide()});
       });

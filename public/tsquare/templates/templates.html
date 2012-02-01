@@ -313,12 +313,12 @@
   	<!--Game funcations-->
   	<div class="gameFunctions">
     	<!--Crowd menu button-->
-    	<a class="crowdMenuItem" href="javascript:void(0);" onclick="gameManager.inbox.show();">
-        <span class="loadedImg lang" imgSrc="friends/icon_inbox.png" alt="Menu Item"></span>
+    	<a class="crowdMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace({myStuff : true});">
+        <span class="loadedImg lang" imgSrc="friends/icon_crowds.png" alt="Menu Item"></span>
       </a>
       <!--Marketplace button-->
-      <a class="marketplaceMenuItem" href="javascript:void(0);" onclick="gameManager.marketplace.openMarketplace({myStuff : true});">
-        <span class="loadedImg lang" imgSrc="friends/icon_crowds.png" alt="Menu Item"></span>
+      <a class="marketplaceMenuItem" href="javascript:void(0);">
+        <span class="loadedImg lang" imgSrc="friends/icon_call.png" alt="Menu Item"></span>
       </a>
       <!--Rank button-->
       <a class="rankMenuItem" href="javascript:void(0);">
@@ -328,6 +328,12 @@
       <a class="voteMenuItem" href="javascript:void(0);" onclick="socialEngine.requestFromNoneAppUsers({title: 'Join my crowd', message: 'Join my crowd'})">
         <span class="loadedImg lang" imgSrc="friends/icon_vote.png" alt="Menu Item"></span>
       </a>
+      
+      <!--Inbox-->
+      <a class="inboxMenuItem" href="javascript:void(0);" onclick="gameManager.inbox.show();">
+        <span class="loadedImg lang" imgSrc="friends/icon_inbox.png" alt="Menu Item"></span>
+      </a>
+      
       
       <a class="homeMenuItem" href="javascript:void(0);" onclick="gameManager.openMainPage();">
         <span class="loadedImg" imgSrc="friends/home_icon.png" alt="Menu Item"></span>

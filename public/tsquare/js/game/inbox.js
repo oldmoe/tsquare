@@ -24,10 +24,10 @@ var Inbox = Class.create({
                       {
                         onFinish: function(){
                           self.imagesLoaded = true;
-                          self.display();
+                          self.display({ifany : true});
                         }
                       });
-    this.getInboxRequests(function(){self.display()});
+    this.getInboxRequests(function(){self.display({ifany : true})});
   },
 
   show : function(){
@@ -38,10 +38,10 @@ var Inbox = Class.create({
      Effects.fade($('notifications'));
   },
 
-  display : function(){
+  display : function(options){
     var self = this;
-    if(this.imagesLoaded && this.dataLoaded & this.noOfRequests > 0)
-    {
+    if(this.imagesLoaded && this.dataLoaded) {
+      if( this.noOfRequests == 0 && options.ifany ) return;
       $('notifications').innerHTML = this.templateManager.load('notifications', {inbox : this});
       $$('.notifications .close a').each(function(button){
         button.observe('click',  function(){self.hide()});
@@ -54,11 +54,6 @@ var Inbox = Class.create({
   displayList : function(){
     var self = this;
     this.sortRequests();
-    if(this.sortedRequests.length == 0)
-    {
-      this.hide();
-      return;
-    }
     $$('#notifications .notificationWrapper')[0].innerHTML = this.templateManager.load('notificationsList', 
             {list : this.sortedRequests});
     Game.addLoadedImagesToDiv('notificationWrapper');
@@ -136,7 +131,11 @@ var Inbox = Class.create({
     var self = this;
     socialEngine.getAppRequests(function(requests){
       requests.each(function(request){
-        request.data = JSON.parse( request.data )
+        if(request.data)
+          request.data = JSON.parse( request.data );
+        else
+          request.data = {};
+          
         self.requests[request.id] = request;
       }); 
       self.dataLoaded = true;

@@ -275,7 +275,7 @@ var Marketplace = Class.create({
     var self = this;
     var screen = myStuff ? 'myStaff' : 'marketplace';
     
-    this.network.gameData(function(data){
+    this.network.gameData(null, function(data){
       self.myMembers = data.user_data.data.crowd_members;
       self.adjustedMyMembers = self.adjustMyMembers();
       $('marketplace').hide();
@@ -285,8 +285,8 @@ var Marketplace = Class.create({
       // $('marketplace').setStyle({top:"-363px"}); //should be removed after waleed fix the css for the marketplace
 
       if( preMission ){
-        $('readyButton').stopObserving('click');                                                                       
-        $('readyButton').observe('click', function(event){
+        $('playButton').stopObserving('click');                                                                       
+        $('playButton').observe('click', function(event){
           if( self.enableNextMission ){
             self.gameManager.marketplace.hide();
             self.gameManager.playMission(missionID);

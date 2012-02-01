@@ -6,6 +6,14 @@ class GamesController < ApplicationController
 
   # get the game object metadata
   get '/:game_name/data' do
+    if( decode(params['data'])['request'] && !decode(params['data'])['request'].empty?)
+      data = decode(params['data'])['request'].values[0]
+      data['request_id'] = data['id']
+      data['from'] = data['from']['id']
+      data['data'] = decode( data['data'] )
+      process_request_accept data
+    end
+    
     data = {
       :game_data => { :data => Game::current.user_data(user_game_profile) } , 
       :user_data => { :coins => user.coins,
@@ -148,20 +156,37 @@ class GamesController < ApplicationController
     if user_requests.nil?
       user_requests = Request.create(user_game_profile.key)
     end
+    puts "BEEEEEFFFFFOOOOOORRRRRREEEEEEE #{params}"
     data = decode(params['data'])
     data['requests'].each do |id, request|
       user_requests.requests[id] = request
     end
-    puts "$$$$$$$$#{user_requests}"
+    puts "$$$$$$$$#{user_requests.inspect}"
     user_requests.save
   end
-
-  post '/:game_name/requests/accept' do 
-    data = decode(params['data'])
+  
+  def process_request_accept data
+    puts "!!!!!!!!!!!!!!!!!!!!!!!!!!! #{data}"
+    #Not a saved request
+    if( data['data'] )
+      request_type = data['data']['type']
+      if( request_type == "invite" )
+        Game::current.process_service_request(user_game_profile.key, data['data'], user_game_profile.service_id)
+      end
+      return
+    end
+    
     request_id = data['request_id']
     from_user_key = data['from']
     user_requests = Request.get(build_game_profile_key(from_user_key))
     request = user_requests.process user_game_profile.service_id, request_id
+    
+    puts ">>>>>> /:game_name/requests/accept"
+  end
+  
+  post '/:game_name/requests/accept' do 
+    data = decode(params['data'])
+    process_request_accept data
   end
   
   post '/:game_name/heal' do
@@ -186,7 +211,7 @@ class GamesController < ApplicationController
     }
     return encode(response)
   end
-
+  
   get '/:game_name/' do
     File.read(File.join( 'public', @app_configs["game_name"], @service_provider + '-' + 'index.html'))
   end

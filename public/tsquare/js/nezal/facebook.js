@@ -12,6 +12,13 @@ var FBConnect = {
 		    data = data[4];
 		    return data;
 	  },
+	  
+	  params : function(){
+	    var data = FBConnect.location;
+      data = data.split("/");
+      data = data[5];
+      return data;
+	  },
 
 	  retry : 10,
 	  
@@ -34,8 +41,8 @@ var FBConnect = {
                   {
                       var redirect_url = "https://www.facebook.com/dialog/oauth?client_id=" + 
                                         FBConnect.appIds[FBConnect.url()] + "&redirect_uri=" + 
-                                        "http://apps.facebook.com/" + FBConnect.url() + "/" + 
-                                        "&scope=publish_stream&response_type=token";              
+                                        "http://apps.facebook.com/" + FBConnect.url() + "/" + FBConnect.params() +
+                                        "&scope=publish_stream&response_type=token";
                       window.top.location = redirect_url;
                       return;
                   }else{
@@ -54,7 +61,7 @@ var FBConnect = {
                   redirect_url = "http://www.facebook.com/login.php?v=1.0&app_id=" +
                                  FBConnect.appIds[FBConnect.url()] + 
                                  "&canvas=1&next=http://apps.facebook.com/" + 
-                                 FBConnect.url();
+                                 FBConnect.url() + FBConnect.params();
               }else if(response.status == "not_authorized" )
               {
                   var inviter = FBConnect.location.split("inviter")[1];
@@ -66,7 +73,7 @@ var FBConnect = {
                   }
                   redirect_url = "https://www.facebook.com/dialog/oauth?client_id=" + 
                                         FBConnect.appIds[FBConnect.url()] + "&redirect_uri=" + 
-                                        "http://apps.facebook.com/" + FBConnect.url() + "/" + 
+                                        "http://apps.facebook.com/" + FBConnect.url() + "/" + FBConnect.params() + 
                                         "&scope=publish_stream&response_type=token";          
               }
               window.top.location = redirect_url;
@@ -252,12 +259,13 @@ var FBConnect = {
             if(request[options[i]])
                 requestObject[options[i]] = request[options[i]];
         }
+        if(requestObject['to']) requestObject['data']['to'] = requestObject['to'];
         FB.ui( requestObject, 
             function(response){
-                  var ids = null;
-                  if(response && response['request_ids'])
-                      ids = response['request_ids'].join(',');
-                  FB.api('/?ids=' + ids, function(response) 
+                  var id = null;
+                  if(response && response.request)
+                      id = response.request;
+                  FB.api('/?ids=' + id, function(response) 
                   {
                       if(callback) callback(response);
                   });

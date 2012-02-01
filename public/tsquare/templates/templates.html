@@ -181,7 +181,7 @@
       {/if}
     </div>
     <div class="missionSide"> 
-      <div class="</a><img src="images/timeline/lock.png" alt="lock" /></li>">
+      <div class="newStuff">
         <img class="newStuffItem" src="images/new_stuff/mission_${id}.png" alt="Water" />
         <img class="positioned" src="images/timeline/newStuff.png" alt="New Stuff" />
       </div>
@@ -325,7 +325,8 @@
         <span class="loadedImg lang" imgSrc="friends/icon_ranking.png" alt="Menu Item"></span>
       </a>
       <!--Vote button-->
-      <a class="voteMenuItem" href="javascript:void(0);" onclick="socialEngine.requestFromNoneAppUsers({title: 'Join my crowd', message: 'Join my crowd'})">
+      <a class="voteMenuItem" href="javascript:void(0);"
+         onclick="socialEngine.requestFromNoneAppUsers({title: 'Join my crowd', message: 'Join my crowd', data : {type : 'invite'}})">
         <span class="loadedImg lang" imgSrc="friends/icon_vote.png" alt="Menu Item"></span>
       </a>
       

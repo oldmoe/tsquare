@@ -2,13 +2,14 @@ var MissionManager = Class.create({
 
   initialize : function(gameManager){ 
     this.missions = {}
+    this.currentMission = {}
     /* This should be MOVED to initialize game part */
     this.network = gameManager.network;    
     this.templateManager = gameManager.templateManager;
     this.gameManager = gameManager;
     var self = this;
-    this.gameManager.loader.load([ {images : ["score_background.png", "star_icon.png", "stars_background.png", 
-                                  "replay_button.png", "home_button.png", "next_mission_button.png",
+    this.gameManager.loader.load([ {images : ["score_background.png", "star_icon.png", "time_background.png", "button_big.png", "objectives.png", "objectives.png",
+                                  "replay_button.png", "home_button.png", "next_mission_button.png", "objectivesState.png",
                                   "lose_score_background.png", "lose_star_icon.png", "lose_stars_background.png",
                                   "lose_replay_button.png", "lose_home_button.png", "lose_next_mission_button.png", 
                                   "win_lose_window.png", "lose_window.png", "button_cancel.png"],
@@ -81,6 +82,11 @@ var MissionManager = Class.create({
       };
       if (score) {
         score.usedPowerups = usedPowerups;
+
+        this.missionPowerups = null;
+        var missionInfo = this.gameManager.userData.missions[this.mode][this.currentMission.id];
+        if(missionInfo == null || (missionInfo && missionInfo.stars == 0))
+          this.missionPowerups = this.gameManager.game.mission.winPowerups;
         
         this.network.postMissionScore(this.currentMission.id, score, function(data){
           self.donePosting = true;
@@ -113,13 +119,38 @@ var MissionManager = Class.create({
     this.show();
   },
   
+  getTimeAsString: function(time){
+    var r = [0, 0, 0];
+    r[0] = parseInt(time/(60*60));//hours
+    time -= r[0] * 60 * 60;
+    r[1] = parseInt(time / 60);//minutes
+    time -= r[1] * 60;
+    r[2] = time;//seconds
+
+    var res =  "";
+    if (r[0] > 0){
+      res += r[0]<10?"0"+r[0]:r[0];
+      res += ":";
+    }
+    res += r[1]<10?"0"+r[1]:r[1];
+    res += ":";
+    res += r[2]<10?"0"+r[2]:r[2];
+    
+    return res;
+  },
+  
   displayEndScreen : function(score){
     if(this.donePosting && this.endAnimationDone){
       this.sortFriends();
       var screenName = (this.score.win == true) ? 'win' : 'lose';
       var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] && !this.gameManager.missions[this.mode][this.currentMission.next].locked ? true : false;
+      var superTime = this.getTimeAsString(this.gameManager.game.mission.superTime);
+      var missionTime = this.getTimeAsString(this.gameManager.game.scene.scoreCalculator.gameTime);
+      
       $('winLose').innerHTML = this.templateManager.load(screenName, {'friends' : this.friends.slice(this.rank+1, this.rank+4),
-                               'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score, next : nextMission });
+                               'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score, next : nextMission , 
+                               missionTime : missionTime, superTime: superTime, powerups : this.missionPowerups});
+                               
       Game.addLoadedImagesToDiv('winLose');
       this.attachListener();
       this.show();

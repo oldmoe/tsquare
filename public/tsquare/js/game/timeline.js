@@ -265,7 +265,7 @@ var Timeline = Class.create(UIManager, {
 //    }
   },
 
-  displayMissionDetails : function(id){
+  displayMissionDetails : function(id, missionNumber){
     var id = parseInt(id);
     var idString = id+"";
     if(id < 10) idString = "0" + idString;  
@@ -274,7 +274,8 @@ var Timeline = Class.create(UIManager, {
     var callback =  function(){
       $$('.missionDetails')[0].hide();
       
-      $$('#timeline .missionDetails')[0].innerHTML = self.templateManager.load('missionDetails', {'mission' : self.gameManager.missions[self.mode][id], 'id': idString});
+      $$('#timeline .missionDetails')[0].innerHTML = self.templateManager.load('missionDetails', {'mission' : self.gameManager.missions[self.mode][id], 'id': idString, 
+      missionNumber: missionNumber});
       Game.addLoadedImagesToDiv('timeline');
       
       self.attachMissionDetailsListeners();
@@ -343,7 +344,7 @@ var Timeline = Class.create(UIManager, {
           container.insert({bottom:missionTitle});
           Game.addLoadedImagesToDiv('missionTitle'); 
           missionTitle = container.children[container.children.length-1]; 
-          $(missionTitle).setStyle({top: ($(element).positionedOffset().top-77)+"px", left: ($(element).positionedOffset().left-90)+"px"});
+          $(missionTitle).setStyle({top: ($(element).positionedOffset().top-41)+"px", left: ($(element).positionedOffset().left-61)+"px"});
         }
       });
       
@@ -355,8 +356,9 @@ var Timeline = Class.create(UIManager, {
       
       element.observe('click', function(event) {
         var mission = self.gameManager.missions[self.mode][parseInt(element.getAttribute("missionid"))];
+        var missionNumber = parseInt(element.id.replace("mission", ""))
         if(mission && !mission.locked)
-          self.displayMissionDetails(parseInt(element.getAttribute("missionid")));
+          self.displayMissionDetails(parseInt(element.getAttribute("missionid")), missionNumber);
       });
     });
   },

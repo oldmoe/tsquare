@@ -1,6 +1,6 @@
 <textarea id='win'>
 	<!--Win/Lose Screen-->
-  <div class="winLose" style="position : absolute; top : 100px; left : 164px;">
+  <div class="winLose" style="position : absolute; top : 70px; left : 120px;">
     <!--Close-->
     <div class="close">
       <a href="#"><span class="loadedImg" imgSrc="game_elements/close_button.png" alt="close"></span></a>
@@ -10,6 +10,13 @@
     	<h2>${t('congrats')}</h2>
    		<h4>${t('youPassedThisMission')}</h4>
     </div>
+      <!--Time-->
+      <div class="timeWrapper">
+        <h5>${t('yourScore')}</h5>
+        <span class="yourTime">${missionTime}</span>
+        <strong class="bestTime">${t('bestTime')} ${superTime}</strong>
+        <span class="loadedImg" imgSrc="win_lose/time_background.png" alt="time" imgClasses="positioned"></span>
+      </div>
     <!--Score-->
     <div class="winLoseScore">
     	<h5>${t('yourScore')}</h5>
@@ -27,14 +34,30 @@
     	<span {if score.stars > 2} class="star selected" {else} class="star" {/if} >
       	<span class="loadedImg" imgSrc="win_lose/star_icon.png" alt="Star"></span>
       </span>
-    	<span class="loadedImg" imgSrc="win_lose/stars_background.png" alt="Stars" imgClasses="positioned"></span>
     </div>
     <!--Changes 28 Sept.-->
-    <!--Objective-->
-    <div class="objectives">
-    	<strong>${score['objectives']*100}<small>%</small></strong>${t('percentageOfObjectives')}
-    </div>
-    <!--Changes 25 Sept.-->
+      <!--Objectives-->
+      <div class="objectives">
+        <ul>
+          <li><span class="loadedImg" imgSrc="win_lose/objectivesState.png" alt="state"></span> This is the first objectives</li>
+          <li><span class="loadedImg" imgSrc="win_lose/objectivesState.png" alt="state"></span> This is the first objectives</li>
+          <li><span class="loadedImg" imgSrc="win_lose/objectivesState.png" alt="state"></span> This is the first objectives</li>
+          <li class="notCompleted"><span class="loadedImg" imgSrc="win_lose/objectivesState.png" alt="state"></span> This is the first objectives</li>
+          <li class="notCompleted"><span class="loadedImg" imgSrc="win_lose/objectivesState.png" alt="state"></span> This is the first objectives</li>
+        </ul>
+        <span class="loadedImg" imgSrc="win_lose/objectives.png" alt="objectives" imgClasses="objectivesBg"></span>
+      </div>
+      <!--Powerups-->
+      {if powerups}
+      <div class="newPowerups">
+        <strong>${t('youHaveReceivedNewPowerups')}</strong>
+        <ul>
+          {for powerup in powerups}
+          <li><span class="loadedImg" imgSrc="powerups/${powerup.name}_${powerup.type}_big.png" alt="Item" ></span></li>
+          {/for}
+        </ul>
+      </div>
+      {/if}
     <!--Challenge friends-->
     <div class="challengeFriends">
       {for friend in friends}
@@ -62,6 +85,13 @@
         </a>
       </div>
       {/for}
+
+      <!--Challenge other friends-->
+      <a href="javascript:void(0)" class="bigButton">
+        <span>Challenge other friends</span>
+        <span class="loadedImg" imgSrc="win_lose/button_big.png" alt="button"></span>
+      </a>
+
     </div>
     <!--Mission icons-->
     <div class="missionIcons">
@@ -96,6 +126,13 @@
     	<h2>${t('badLuck')}</h2>
    		<h4>${t('youFailedThisMission')}</h4>
     </div>
+      <!--Time-->
+      <div class="timeWrapper">
+        <h5>${t('yourScore')}</h5>
+        <span class="yourTime">${missionTime}</span>
+        <strong class="bestTime">${t('bestTime')} ${superTime}</strong>
+        <span class="loadedImg" imgSrc="win_lose/time_background.png" alt="time" imgClasses="positioned"></span>
+      </div>
     <!--Score-->
     <div class="winLoseScore">
     	<h5 class="losing">${t('yourScore')}</h5>
@@ -113,42 +150,19 @@
     	<span {if score.stars > 2} class="star selected" {else} class="star" {/if} >
       	<span class="loadedImg" imgSrc="win_lose/lose_star_icon.png" alt="Star"></span>
       </span>
-    	<span class="loadedImg" imgSrc="win_lose/lose_stars_background.png" alt="Stars" imgClasses="positioned"></span>
     </div>
     <!--Changes 28 Sept.-->
-    <!--Objective-->
-    <div class="objectives">
-    	<strong>${score['objectives']*100}<small>%</small></strong>${t('percentageOfObjectives')}
-    </div>
-    <!--Changes 25 Sept.-->
-    <!--Challenge friends-->
-    <div class="challengeFriends">
-      {for friend in friends}
-		  <!--Friend-->
-    	<div class="friend">
-      	<a href="${friend['url']}" target="_blank">
-          <span class="friendsScore">
-          	<span>{if friend.missions[mode][mission] && friend.missions[mode][mission]['score']}
-                     ${friend.missions[mode][mission]['score']} 
-                  {else}
-                     0 
-                  {/if}
-            </span>
-          	<span class="loadedImg" imgSrc="friends/friendsScore.png" alt="Friends score" imgClasses="positioned"></span>
-          </span>
-          <!--New changes end here-->
-          <img  class="friendAvatar" src="${friend['picture']}" alt="Firend avatar" />
-          <span class="friendName">${friend.first_name}</span>
-          <span class="loadedImg" imgSrc="friends/friend_box.png" alt="friend"></span>
-        </a>
-        <!--Challenge button-->
-        <a class="cancelButton" href="javascript:void(0)" id="${friend.service_id}">
-          <span>${t('challenge')}</span>
-          <span class="loadedImg" imgSrc="win_lose/button_cancel.png" alt="confirm"></span>
-        </a>
+      <!--Objectives-->
+      <div class="objectives">
+        <ul>
+          <li><span class="loadedImg" imgSrc="win_lose/objectivesState.png" alt="state"></span> This is the first objectives</li>
+          <li><span class="loadedImg" imgSrc="win_lose/objectivesState.png" alt="state"></span> This is the first objectives</li>
+          <li><span class="loadedImg" imgSrc="win_lose/objectivesState.png" alt="state"></span> This is the first objectives</li>
+          <li class="notCompleted"><span class="loadedImg" imgSrc="win_lose/objectivesState.png" alt="state"></span> This is the first objectives</li>
+          <li class="notCompleted"><span class="loadedImg" imgSrc="win_lose/objectivesState.png" alt="state"></span> This is the first objectives</li>
+        </ul>
+        <span class="loadedImg" imgSrc="win_lose/objectives.png" alt="objectives" imgClasses="objectivesBg"></span>
       </div>
-      {/for}
-    </div>
     <!--Mission icons-->
     <div class="missionIcons losing">
     	<!--Replay-->

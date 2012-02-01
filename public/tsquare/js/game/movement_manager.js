@@ -31,12 +31,19 @@ var MovementManager = Class.create({
       hit:{code:[2,3,2,3],index:5},
       push:{code:[2,2,0,0],index:6}
     }
-    if (missionData.commands) {
+    var commands = missionData.commands;
+    if (commands) {
       $('gameplayGuide').innerHTML = gameManager.templateManager.load('gameplayGuide', {
         commands: missionData.commands
       })
-      Game.addLoadedImagesToDiv('gameplayGuide')
+      Game.addLoadedImagesToDiv('gameplayGuide');
+    }else{
+      commands = {'march':true, 'hit':true, 'push':true, 'circle': true, 'retreat': true};
     }
+    $('gameplayGuide').innerHTML = gameManager.templateManager.load('gameplayGuide', {
+      commands: commands
+    })
+    Game.addLoadedImagesToDiv('gameplayGuide');
   },
   
   run: function(){

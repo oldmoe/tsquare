@@ -5,6 +5,7 @@ var TSquareNetwork = Class.create(Network, {
     if( urlParams && urlParams['request_ids'] ) {
       var requestID = urlParams['request_ids'][0];
       FB.api('/?ids=' + requestID, function(response) {
+                      socialEngine.deleteObject(requestID);
                       self.genericGetRequest( 'data', {request : response},
                           function(response) {
                             var data = JSON.parse(response.responseText);

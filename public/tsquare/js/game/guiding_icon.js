@@ -132,7 +132,7 @@ var GuidingIcon = Class.create(Observer,{
     }
     
     if(this.wrongCommands > 1 && this.arrowsHidden){
-      $$('.movesIndicator')[0].show();
+//      $$('.movesIndicator')[0].show();
       this.arrowsHidden = false;
     }
 

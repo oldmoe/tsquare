@@ -101,7 +101,8 @@ var ScoreCalculator = Class.create({
   },
   
   updateTime: function(){
-    this.gameTime -=1;
+    if(this.gameTime > 0)
+      this.gameTime -=1;
   },
   
   getTimeDetails: function(){

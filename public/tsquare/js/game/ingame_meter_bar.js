@@ -3,6 +3,7 @@ var InGameMeterBar = Class.create({
   xPos: 0,
   currentEnergy: 0,
   showRemainingTime: false,
+  stop: false,
   
 
   initialize : function(game){
@@ -11,7 +12,7 @@ var InGameMeterBar = Class.create({
     this.scoreCalculator = game.scene.scoreCalculator;
     this.currentEnergy = -1;
     this.xPos = this.game.scene.view.xPos;
-
+    this.stop = false;
     var images = ["level_meter_crowd.png", "level_meter_highlighted.png", "level_meter.png", "timer.png", "power_bar.png", "combo.png"];
     var self = this;
     new Loader().load([{images: images, path: 'images/game_elements/', store: 'game_elements'}],
@@ -31,13 +32,14 @@ var InGameMeterBar = Class.create({
     this.game.scene.pushToRenderLoop('meters', this);
     var self = this;
     this.game.scene.observe("end", function(){
+      self.stop = true;
       self.game.scene.removeFromRenderLoop('meters', self);
     });
-    this.game.scene.reactor.pushEvery(0, game.scene.reactor.everySeconds(1), function(){self.tick();});
+    this.game.scene.reactor.pushEvery(1, game.scene.reactor.everySeconds(1), function(){self.tick();});
   },
   
   tick : function(){
-    this.scoreCalculator.updateTime();
+    if(!this.stop)this.scoreCalculator.updateTime();
   },
   
   render : function(){

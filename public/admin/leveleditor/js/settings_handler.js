@@ -16,6 +16,7 @@ var SettingsHandler = new Class.create({
     for(var i=0; i<this.commands.length;i++){
       this.settings.commands[this.commands[i]] = true;
     }
+    this.settings.newItem = false;
 		this.init();
 		
 		var self  = this;
@@ -77,7 +78,13 @@ var SettingsHandler = new Class.create({
         self.settings.commands[command] = $(command+"Command").checked; 
       })
     });
-		
+		$('newItem').observe('click', function(){
+      self.settings.newItem = $('newItem').checked 
+    })
+    
+     $("missionHappeningTime").observe("keyup", function(event){
+      self.settings.missionHappeningTime = event.target.value;
+    })
 	},
 	
 	init: function(){
@@ -128,6 +135,14 @@ var SettingsHandler = new Class.create({
       if(!settings.commands.push) $('pushCommand').checked = false;
       if(!settings.commands.circle) $('circleCommand').checked = false;
       if(!settings.commands.retreat) $('retreatCommand').checked = false;
+    }
+    
+    if(settings.newItem){
+      $('newItem').checked = settings.newItem;
+    }
+    
+    if(settings.missionHappeningTime){
+      $('missionHappeningTime').value = settings.missionHappeningTime;
     }
 	},
 	

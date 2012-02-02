@@ -10,7 +10,7 @@ class MyCrowds
       
       health = user_game_profile["crowd_members"][name][serial]["health"]
       if( 100 - health < healing_limit )
-        healing_limit = 100 - health
+        healing_limit = (100 - health).ceil
       end
       
       user_game_profile["bandages"] -= healing_limit

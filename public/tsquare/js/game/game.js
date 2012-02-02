@@ -207,7 +207,7 @@ Game.addLoadedImagesToDiv = function(divId){
     }
     var imgPath = imgSpan.getAttribute('imgSrc').split('/')
     var imgPart = Loader['images']
-    if (langSensitive && game.properties.lang != 'en')
+    if (langSensitive && game && game.properties.lang != 'en')
       imgPart = Loader['images_' + game.properties.lang];
     for (var i = 0; i < imgPath.length; i++) {
       imgPart = imgPart[imgPath[i]]

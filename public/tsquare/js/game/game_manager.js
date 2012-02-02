@@ -17,7 +17,7 @@ var GameManager = Class.create({
               $('inProgress').innerHTML = self.templateManager.load('loadingScreen');
               $('uiContainer').hide();
               var time = Loader.sounds.intro['intro.mp3'].duration;
-              window.setTimeout(function(){
+              setTimeout(function(){
                             self.soundPlayed = true;
                             if(self.imagesLoaded && self.soundPlayed)
                             {
@@ -26,9 +26,8 @@ var GameManager = Class.create({
                               $('inProgress').hide();
                               self.selectLanguage("en");
                               self.langSetted = true;
-                            }}, 100);
-              Loader.sounds.intro['intro.mp3'].loop = true;
-              Loader.sounds.intro['intro.mp3'].play({loop:true,loops:1000});
+                            }}, time);
+              Loader.sounds.intro['intro.mp3'].play();
               $('inProgress').show();
               self.processParams(self.urlParams, function(data){self.processRequest(data)});
             }
@@ -160,18 +159,18 @@ var GameManager = Class.create({
         Delete request from user requests on social network
   */
   processParams : function(params, gameCallback){
-    if(params['request_ids'])
-    {
+    if (params['request_ids']) {
       params['request_ids'] = params['request_ids'].split("%")
-      this.notifyFirst = params['request_ids']; 
+      this.notifyFirst = params['request_ids'];
       var callback = function(requests_data){
         var requestData = {};
         gameCallback(requestData);
       }
       socialEngine.getObject(params, callback);
     }
-    else 
+    else {
       gameCallback();
+    }
   }
 
 

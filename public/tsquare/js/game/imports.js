@@ -177,7 +177,7 @@ var gameLoaded = false;
 function loadJsFiles(index){
   if(gameLoaded) return
   if( orderedJS.length == index ){
-    gameLoaded = true 
+    gameLoaded = true;
     GameInitializer();
     return;
   }

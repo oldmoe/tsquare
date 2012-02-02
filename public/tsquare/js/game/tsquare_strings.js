@@ -60,9 +60,17 @@ tsquare_strings.ar['percentageOfObjectives'] = 'من أهدافك';
 tsquare_strings.en['yourScore'] = 'Your Score';
 tsquare_strings.ar['yourScore'] = 'مجموع نقاطك';
 
+tsquare_strings.en['yourTime'] = 'Your Time';
+tsquare_strings.ar['yourTime'] = 'وقتك';
+
 tsquare_strings.en['bestTime'] = 'Best Time';
 tsquare_strings.ar['bestTime'] = 'الوقت القياسى';
 
+tsquare_strings.en['score'] = 'Score';
+tsquare_strings.ar['score'] = 'نقاطك';
+
+tsquare_strings.en['challengeOtherFriends'] = 'Challenge other friends';
+tsquare_strings.ar['challengeOtherFriends'] = 'تحدى أصدقائك';
 
 tsquare_strings.en['youHaveReceivedNewPowerups'] = 'You have received new powerups';
 tsquare_strings.ar['youHaveReceivedNewPowerups'] = 'مقويات جديدة';

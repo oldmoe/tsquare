@@ -11,7 +11,7 @@ var AmbulanceDisplay = Class.create(Display,{
     this.imgWidth = this.img.width
     $super(owner)
     
-    if(Math.random() <= 0.5 && !this.owner.noenemy)this.showText();
+    // if(Math.random() <= 0.5 && !this.owner.noenemy)this.showText();
   },
   
   initAudio : function(){

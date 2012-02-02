@@ -15,7 +15,7 @@ var AmnMarkazy = Class.create(Enemy,{
   handleCollision : function(){
       if(this.target){
          if(this.hittingTime == this.hittingTicks){
-            this.target.takeHit(this.power);
+            this.target.takeHit(this.attack);
             this.hitDone = true
          }
          this.hittingTime += 1;              

@@ -31,7 +31,7 @@ var MeterBar = Class.create({
 
   display : function(){
     var lang = 'english'
-    if(game.properties.lang == 'en')lang = "عربي"
+    if(game && game.properties.lang == 'en')lang = "عربي"
     $('meterBar').innerHTML = this.templateManager.load('meterBar', {score: this.gameManager.userData.scores.global,
                                 energy : this.gameManager.userData.energy, coins : this.gameManager.userData.coins, lang : lang});
     Game.addLoadedImagesToDiv('meterBar');

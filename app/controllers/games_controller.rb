@@ -171,7 +171,7 @@ class GamesController < ApplicationController
     if( data['data'] )
       request_type = data['data']['type']
       if( request_type == "invite" )
-        Game::current.process_service_request(user_game_profile.key, data['data'], user_game_profile.service_id)
+        Game::current.process_service_request(user_game_profile.key, data['data'], build_game_profile_key(data['from']))
       end
       return
     end

@@ -42,7 +42,10 @@ var Inbox = Class.create({
     var self = this;
     if(this.imagesLoaded && this.dataLoaded) {
       $('notifications').innerHTML = this.templateManager.load('notifications', {inbox : this});
-      if( this.noOfRequests > 0 && options.ifany ) self.show();
+      if( this.noOfRequests > 0 && options.ifany && !self.gameManager.notificationsLoaded){
+        self.show();
+        self.gameManager.notificationsLoaded = true;
+      }
       $$('.notifications .close a').each(function(button){
         button.observe('click',  function(){self.hide()});
       });

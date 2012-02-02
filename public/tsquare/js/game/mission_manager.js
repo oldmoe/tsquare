@@ -8,14 +8,14 @@ var MissionManager = Class.create({
     this.templateManager = gameManager.templateManager;
     this.gameManager = gameManager;
     var self = this;
-    this.gameManager.loader.load([ {images : ["score_background.png", "star_icon.png", "time_background.png", "button_big.png", "objectives.png", "objectives.png",
+    this.gameManager.loader.load([ {images : ["score_background.png", "star_icon.png", "time_background.png", "button_big.png", "objectives.png",
                                   "replay_button.png", "home_button.png", "next_mission_button.png", "objectivesState.png",
                                   "lose_score_background.png", "lose_star_icon.png", "lose_stars_background.png",
                                   "lose_replay_button.png", "lose_home_button.png", "lose_next_mission_button.png", 
                                   "win_lose_window.png", "lose_window.png", "button_cancel.png"],
                           path: 'images/win_lose/', store: 'win_lose' }, 
                         {images : ["close_button.png", "guide_walk.png", "guide_attack.png", "guide_defend.png", 
-                        "guide_retreat.png", "guide_push.png", "hide_guide.png"], 
+                        "guide_retreat.png", "guide_push.png"], 
                           path: 'images/game_elements/', store: 'game_elements' },
                         {images : ["friendsScore.png", "friend_box.png"], 
                           path: 'images/friends/', store: 'friends' }, 
@@ -145,7 +145,7 @@ var MissionManager = Class.create({
       var screenName = (this.score.win == true) ? 'win' : 'lose';
       var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] && !this.gameManager.missions[this.mode][this.currentMission.next].locked ? true : false;
       var superTime = this.getTimeAsString(this.gameManager.game.mission.superTime);
-      var missionTime = this.getTimeAsString(this.gameManager.game.scene.scoreCalculator.gameTime);
+      var missionTime = this.getTimeAsString(this.gameManager.game.scene.scoreCalculator.missionTime-this.gameManager.game.scene.scoreCalculator.gameTime);
       
       $('winLose').innerHTML = this.templateManager.load(screenName, {'friends' : this.friends.slice(this.rank+1, this.rank+4),
                                'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score, next : nextMission , 

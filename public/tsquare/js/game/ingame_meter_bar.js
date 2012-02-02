@@ -69,7 +69,7 @@ var InGameMeterBar = Class.create({
   
   setPowerMeterStyle : function(){
     var currentEnergy = this.game.scene.energy.current
-    var widthPercentage =  Math.min(Math.floor(currentEnergy*100/ this.game.scene.energy.max), 90)
+    var widthPercentage =  Math.min(Math.floor(currentEnergy*83/ this.game.scene.energy.max), 83)
     $$('.powerbar .powerbarFull')[0].style.width = widthPercentage + "%"
     $$('.inGameMeterBar .powerbar .powerPercentage')[0].innerHTML = Math.min(100, Math.floor(currentEnergy*100/ this.game.scene.energy.max)) + "%"
   }

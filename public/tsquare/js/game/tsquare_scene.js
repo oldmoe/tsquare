@@ -53,7 +53,8 @@ var TsquareScene = Class.create(Scene,{
         this.speedFactors = []
         
         // Effect.Queues.create('global', this.reactor)
-      
+        if(missionData.followers === false) this.followersEnabled = false;
+        else this.followersEnabled = true;
         this.data = missionData.data;
         
         this.data.push(
@@ -104,7 +105,7 @@ var TsquareScene = Class.create(Scene,{
         
         var self = this;
         this.observe('wrongMove', function(){self.wrongMove()})
-        this.observe('correctMove', function(){self.correctMove()})
+        this.observe('correctMove', function(command){self.correctMove(command)})
         this.observe('togglePause', function(){self.togglePause()});
         this.observe('tileChanged', function(){self.tileChanged()});
         this.observe('startConversation', function(){self.enterCinematicView()});
@@ -208,8 +209,10 @@ var TsquareScene = Class.create(Scene,{
       this.decreaseEnergy();
     },
     
-    correctMove: function(){
-      this.increaseEnergy();
+    correctMove: function(command){
+      if (command == this.game.guidingIcon.currentCommand || command == "retreat") {
+        this.increaseEnergy();
+      }
     },
     
     tick: function($super){

@@ -324,19 +324,20 @@ var CrowdMember = Class.create(Unit,{
   },
   
   circleMove : function(){
-    if (!this.target|| this.target.hp <= 0 || this.target.dead || this.target.doneProtection) {
-      this.resetRotation()
+    if (!this.target|| this.target.hp <= 0 || this.target.dead || this.target.doneProtection || 
+    this.target.unitType !="protectionUnit") {
+      this.resetRotation();
       return
     }
     if (this.rotationPoints.length == 0) {
-      this.fire(this.getMovingState())
-      this.target.rotationComplete(this.attack)
-      this.resetRotation()
+      this.fire(this.getMovingState());
+      this.target.rotationComplete(this.attack);
+      this.resetRotation();
       return
     }
-    var rp = this.rotationPoints[0]
-    var move = Util.getNextMove(this.coords.x,this.coords.y,rp.values.x,rp.values.y,this.rotationSpeed)
-    this.move(move[0],move[1])
+    var rp = this.rotationPoints[0];
+    var move = Util.getNextMove(this.coords.x,this.coords.y,rp.values.x,rp.values.y,this.rotationSpeed);
+    this.move(move[0],move[1]);
     if (this.coords.x <= rp.values.x + 0.001 && this.coords.x >= rp.values.x - 0.001 &&
     this.coords.y <= rp.values.y + 0.001 &&this.coords.y >= rp.values.y - 0.001) {
         this.rotationPoints.shift()
@@ -347,9 +348,9 @@ var CrowdMember = Class.create(Unit,{
   },
   
   hitMove : function(){
-    if ((this.target && (this.target.hp <= 0 || this.target.dead || this.target.doneProtection)) ||
+    if ((this.target && (this.target.hp <= 0 || this.target.dead)) ||
     !this.scene.movementManager.beatMoving) {
-      if(this.target)this.target.rotationComplete(this.attack)
+      if(this.target && this.target.unitType == "enemy")this.target.rotationComplete(this.attack)
       this.fixedState = false;  // to enable animation change to crowds
       this.fire('idle');
       this.hitting = false;

@@ -6,6 +6,7 @@ var ProtectionUnit = Class.create(Unit,{
   text: "",
   type : "protection",
   messageAppear: false,
+  unitType : "protectionUnit", 
   
   initialize : function($super,scene,x,y,options){
     $super(scene,x,y,options)

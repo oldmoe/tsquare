@@ -205,7 +205,7 @@ body{ overflow:hidden; padding : 0px; margin : 0px; }
 #inProgress #loadingbg, #gameInProgress #loadingbg{ left: 0; position: absolute; top: 0; }
 #inProgress #loadingBarBackground, #gameInProgress #loadingBarBackground{ left: 177px; position: absolute; top: 366px; }
 
-#inProgress #logo, #gameInProgress #logo{ left: 125px; position: absolute; top: 159px; }
+#inProgress #logo, #gameInProgress #logo{ left: 96px; position: absolute; top: 70px; }
 #loadingBarEmpty{ height: 50px; left: 178px; position: absolute; top: 364px; width: 283px; }
 
 #loadingBarEmpty div{ height : 34px; float : left; margin-top:8px; }

@@ -13,6 +13,7 @@ var SettingsHandler = new Class.create({
 		this.settings.environment = "day";
 		this.settings.gameModes = ['normal'];
 		this.settings.commands = {};
+    this.settings.followers = true;
     for(var i=0; i<this.commands.length;i++){
       this.settings.commands[this.commands[i]] = true;
     }
@@ -85,6 +86,9 @@ var SettingsHandler = new Class.create({
      $("missionHappeningTime").observe("keyup", function(event){
       self.settings.missionHappeningTime = event.target.value;
     })
+     $("followers").observe("click", function(event){
+      self.settings.followers = $("followers").checked;
+    })
 	},
 	
 	init: function(){
@@ -136,6 +140,9 @@ var SettingsHandler = new Class.create({
       if(!settings.commands.circle) $('circleCommand').checked = false;
       if(!settings.commands.retreat) $('retreatCommand').checked = false;
     }
+    
+    if(settings.followers === false)
+     $('followers').checked = settings.followers; 
     
     if(settings.newItem){
       $('newItem').checked = settings.newItem;

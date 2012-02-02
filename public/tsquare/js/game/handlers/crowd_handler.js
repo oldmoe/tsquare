@@ -256,6 +256,7 @@ var CrowdHandler = Class.create(UnitHandler, {
   },
    
   increaseFollowers: function(num){
+    if(!this.scene.followersEnabled) return;
    	var increased = false;
    	for(var i=0;i<this.objects[this.scene.activeLane].length;i++){
    		if(this.objects[this.scene.activeLane][i]) 
@@ -265,6 +266,7 @@ var CrowdHandler = Class.create(UnitHandler, {
   },
 
   decreaseFollowers: function(num){
+    if(!this.scene.followersEnabled) return;
    	var decreased = false;
    	for(var i=0;i<this.objects[this.scene.activeLane].length;i++){
    		if(this.objects[this.scene.activeLane][i]) 

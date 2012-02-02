@@ -280,7 +280,7 @@ var MovementManager = Class.create({
   
   startMove : function(command){
     this.scene.fire(command);
-    this.scene.fire("correctMove")
+    this.scene.fire("correctMove", [command])
     this.beatMoving = true;
     if(this.comboStart){
       this.comboStart = false

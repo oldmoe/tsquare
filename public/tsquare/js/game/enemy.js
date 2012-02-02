@@ -6,6 +6,8 @@ var Enemy = Class.create(Unit, {
   hp : 25, attack : 10 , defense : 25, chargeTolerance : 2, circleSize : 1,
   originalPosition : null,
   fixedPosition: false,
+  unitType : "enemy", 
+  
   initialize : function($super,scene,x,lane,options){
      $super(scene,x,lane,options)
      this.mappingName = options.mappingName || options.obj

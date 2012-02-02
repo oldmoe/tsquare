@@ -100,6 +100,7 @@ var DataExporter = Class.create({
 		gameData.gameModes = settings.gameModes;
 		gameData.missionDetails = settings.missionDetails;
     gameData.commands = settings.commands;
+    gameData.followers = settings.followers;
     gameData.missionHappeningTime = settings.missionHappeningTime;
     gameData.newItem = settings.newItem;
 		gameData.missionTime = settings.missionTime;

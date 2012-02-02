@@ -1,3 +1,21 @@
+var Objectives = {
+  "objective1" : {en: "Learn the new move", ar: ""},
+  "objective1" : {en: "", ar: ""},
+  "objective1" : {en: "", ar: ""},
+  "objective1" : {en: "", ar: ""},
+  "objective1" : {en: "", ar: ""},
+  "objective1" : {en: "", ar: ""},
+  "objective1" : {en: "", ar: ""},
+  "objective1" : {en: "", ar: ""},
+  "objective1" : {en: "", ar: ""},
+  "objective1" : {en: "", ar: ""},
+  "objective1" : {en: "", ar: ""},
+  "objective1" : {en: "", ar: ""},
+  "objective1" : {en: "", ar: ""},
+  "objective1" : {en: "", ar: ""}
+
+};
+
 var EditorData = [
   {src:'images/objects/am1.png', name:'wood_stick_cs', category:'enemy', type: "1_1"},
   {src:'images/objects/am2.png', name:'wood_stick_cs', category:'enemy', type: "1_2"},
@@ -21,19 +39,17 @@ var EditorData = [
   
   {src:'images/objects/box_car.png', name:'box_car', category:'clash_enemy'},
   
-  
   //advisor
   {src:'images/objects/ultras.png', name:'ultras_red', category:'advisor'},
   {src:'images/objects/amrsalama.png', name:'amrsalama', category:'advisor'},
   
   //in game powerups
-  {src:'images/powerups/Health_boost_1.png', name:'Health_boost', category:'powerup', type:"1", attribute: "health", effect: 10},
-  {src:'images/powerups/Health_boost_2.png', name:'Health_boost', category:'powerup', type:"2", attribute: "health", effect: 20},
-  {src:'images/powerups/Health_boost_3.png', name:'Health_boost', category:'powerup', type:"3", attribute: "health", effect: 40},
-  {src:'images/powerups/Hydration_boost_1.png', name:'Hydration_boost', category:'powerup', type:"1", attribute: "hydration", effect: 10},
-  {src:'images/powerups/Hydration_boost_2.png',  name:'Hydration_boost', category:'powerup', type:"2", attribute: "hydration", effect: 20},
-  {src:'images/powerups/Hydration_boost_3.png',  name:'Hydration_boost', category:'powerup', type:"3", attribute: "hydration", effect: 40},
-  
+  {src:'images/powerups/Health_boost_1.png', name:'Health_boost', category:'powerup', type:"1", attribute: "health", effect: 20},
+//  {src:'images/powerups/Health_boost_2.png', name:'Health_boost', category:'powerup', type:"2", attribute: "health", effect: 20},
+//  {src:'images/powerups/Health_boost_3.png', name:'Health_boost', category:'powerup', type:"3", attribute: "health", effect: 40},
+  {src:'images/powerups/Hydration_boost_1.png', name:'Hydration_boost', category:'powerup', type:"1", attribute: "hydration", effect: 20},
+//  {src:'images/powerups/Hydration_boost_2.png',  name:'Hydration_boost', category:'powerup', type:"2", attribute: "hydration", effect: 20},
+//  {src:'images/powerups/Hydration_boost_3.png',  name:'Hydration_boost', category:'powerup', type:"3", attribute: "hydration", effect: 40},
   
   
   {src:'images/objects/normal_man.png', name:'normal_man', category:'crowd'},

@@ -7,14 +7,14 @@ var MissionManager = Class.create({
     this.templateManager = gameManager.templateManager;
     this.gameManager = gameManager;
     var self = this;
-    this.gameManager.loader.load([ {images : ["score_background.png", "star_icon.png", "stars_background.png", 
+    this.gameManager.loader.load([ {images : ["score_background.png", "star_icon.png", 
                                   "replay_button.png", "home_button.png", "next_mission_button.png",
                                   "lose_score_background.png", "lose_star_icon.png", "lose_stars_background.png",
                                   "lose_replay_button.png", "lose_home_button.png", "lose_next_mission_button.png", 
                                   "win_lose_window.png", "lose_window.png", "button_cancel.png"],
                           path: 'images/win_lose/', store: 'win_lose' }, 
                         {images : ["close_button.png", "guide_walk.png", "guide_attack.png", "guide_defend.png", 
-                        "guide_retreat.png", "guide_push.png", "hide_guide.png"], 
+                        "guide_retreat.png", "guide_push.png"], 
                           path: 'images/game_elements/', store: 'game_elements' },
                         {images : ["friendsScore.png", "friend_box.png"], 
                           path: 'images/friends/', store: 'friends' }, 

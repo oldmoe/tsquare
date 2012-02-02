@@ -17,16 +17,24 @@ class Game < DataStore::Model
   end
 
   def process_service_request user_key, request_data, friend_service_id
-    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ #{request_data['type']}"
+    served_user = UserGameProfile.get user_key
+    friend_user = UserGameProfile.get friend_service_id
     case request_data['type']
     when 'link_a_friend'
-      served_user = UserGameProfile.get user_key
       puts "!!!!!!!!!!!!!!!!!!! #{served_user.inspect}"
       puts "!!!!!!!!!!!!!!!!!!! #{request_data['memberID']}"
       member_id = request_data['memberID'].split("-")
       served_user["crowd_members"][member_id[0]][member_id[1].to_i]['linked_to'] = friend_service_id
       served_user.save
+    when 'invite'
+      puts "######################### invite processing"
+      #served_user['accepted_invites_from'] ||= []
+      #if( served_user['accepted_invites_from'].include  )
+      friend_user['bandages'] += 1000
+      friend_user.save
     end
+    
   end
 
   def user_data user_profile

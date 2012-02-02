@@ -31,7 +31,6 @@ var AdvisorDisplay = Class.create(Display,{
     })
   },
   
-  
   createShadow: function(){
     this.shadowImg = Loader.images.effects['crowd_shadow.png'];
     this.sprites.shadow = new DomImgSprite(this.owner, {img : this.shadowImg, noOfFrames : 1}, {

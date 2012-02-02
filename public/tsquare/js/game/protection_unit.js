@@ -27,8 +27,6 @@ var ProtectionUnit = Class.create(Unit,{
   
   circleEnd : function(){
     this.text = this.scene.handlers.message.randomEndMessage('protectionUnit');
-    this.hideText();
-    this.showText();
   },
   
   createEnemies : function(){
@@ -75,9 +73,11 @@ var ProtectionUnit = Class.create(Unit,{
       this.enemies[0].setTarget(target)
     }
   },
+  
   updatePosition: function(){
     this.move(-1 * this.scene.currentSpeed * this.scene.direction, 0);  
   },
+  
   rotationComplete : function(attack){
     if(this.rotationTolerance == 0 ) return;
     this.rotationTolerance -= 1;

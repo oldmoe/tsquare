@@ -38,7 +38,7 @@ var Game = Class.create({
     'health_meter.png','health_meter_empty.png','hydration_meter_empty.png','hydration_meter.png',
     'square.png','line.png', 'smoke1.png', 'smoke2.png', 'smoke3.png', 'smoke4.png']
     var characterNames = ['journalist', 'libralymic','medic', 'normal', 'salafy','ultras_green',
-    'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man', 'follower1','follower2','follower3']
+    'ultras_white','ultras_red','girl', 'girl7egab', 'bottleguy', 'hala_man', 'follower1','follower2','follower3', 'amrsalama']
     var characterImages = ['follower.png']
     var imageNames = ['walk','run','front','back','idle','hold','blur','dead', 'hit']
     for(var i=0;i<characterNames.length;i++){
@@ -61,7 +61,9 @@ var Game = Class.create({
     var powerupsImages1 = ['hot_key.png', 'item_numbers.png', 'powerup_slot.png'];
 
     var powerupsImages2 = ['Health_boost_1.png', 'Health_boost_2.png', 'Health_boost_3.png',
-     'Hydration_boost_1.png', 'Hydration_boost_2.png', 'Hydration_boost_3.png'];
+      'Health_boost_1_big.png', 'Health_boost_2_big.png', 'Health_boost_3_big.png',
+     'Hydration_boost_1.png', 'Hydration_boost_2.png', 'Hydration_boost_3.png',
+     'Hydration_boost_1_big.png', 'Hydration_boost_2_big.png', 'Hydration_boost_3_big.png'];
     
     var shadowImages = ["crowd_shadow.png", "box_car_shadow.png", "amn_markazy_shadow.png", 
     "ambulance_shadow.png", "twitter_shadow.png", "amn_markazy_tear_gas_shadow.png"];

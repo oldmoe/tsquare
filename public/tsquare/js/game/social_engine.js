@@ -36,24 +36,26 @@ var SocialEngine = Class.create(FBConnect, {
     var request = {};
     request['message'] = message;
     request['data'] = data;
-    this.requestFromId(id, request);
+    this.requestFromId(id, request, this.fbCallback);
+  },
+  
+  fbCallback : function(requests_data){
+    var requests = {};
+    for(var i in requests_data)
+    {
+      var time = new Date(requests_data[i]['created_time'].gsub('-','/').gsub('T', ' ').split('+')[0]);
+      requests[i] = { 'to' : JSON.parse(requests_data[i]['data'])['to'],
+                      'timestamp' : time.getTime()/1000, 
+                      'data' : requests_data[i]['data'] };
+    }
+    gameManager.network.genericPostRequest('requests', {requests : requests})
   },
 
   sendRequest : function(request){
-    var fbCallback = function(requests_data){
-      var requests = {};
-      for(var i in requests_data)
-      {
-        time = new Date(requests_data[i]['created_time'].gsub('-','/').gsub('T', ' ').split('+')[0]);
-        requests[i] = { 'to' : requests_data[i]['to']['id'],
-                        'timestamp' : time.getTime()/1000, 
-                        'data' : requests_data[i]['data'] };
-      }
-      gameManager.network.genericPostRequest('requests', {requests : requests})
-    };
+    var self = this;
     gameManager.network.fetchTemplate('requests/exclude', function(response){
       request['exclude_ids'] = JSON.parse(response).join(",")
-      FBConnect.sendRequest(request, fbCallback)
+      FBConnect.sendRequest(request, self.fbCallback)
     });
   }
   

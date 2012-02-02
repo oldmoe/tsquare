@@ -21,7 +21,10 @@ var EditorData = [
   
   {src:'images/objects/box_car.png', name:'box_car', category:'clash_enemy'},
   
+  
+  //advisor
   {src:'images/objects/ultras.png', name:'ultras_red', category:'advisor'},
+  {src:'images/objects/amrsalama.png', name:'amrsalama', category:'advisor'},
   
   //in game powerups
   {src:'images/powerups/Health_boost_1.png', name:'Health_boost', category:'powerup', type:"1", attribute: "health", effect: 10},

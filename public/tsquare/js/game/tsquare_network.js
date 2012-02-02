@@ -1,11 +1,24 @@
 var TSquareNetwork = Class.create(Network, {
 
-  gameData : function(callback){
-    this.genericGetRequest( 'data', {},
+  gameData : function(urlParams, callback){
+    var self = this;
+    if( urlParams && urlParams['request_ids'] ) {
+      var requestID = urlParams['request_ids'][0];
+      FB.api('/?ids=' + requestID, function(response) {
+                      socialEngine.deleteObject(requestID);
+                      self.genericGetRequest( 'data', {request : response},
                           function(response) {
                             var data = JSON.parse(response.responseText);
                             if(callback) callback(data);
                           });
+                  });
+    } else {
+      this.genericGetRequest( 'data', {},
+                          function(response) {
+                            var data = JSON.parse(response.responseText);
+                            if(callback) callback(data);
+                          });
+    }
   },
   
   friends : function(ids, callback){

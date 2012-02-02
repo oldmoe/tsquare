@@ -102,7 +102,7 @@ var GameManager = Class.create({
     var callback = function(data) {
       self.initializeData(data);
     }
-    this.network.gameData(callback);
+    this.network.gameData(self.urlParams, callback);
   },
   
   playMission : function(id){

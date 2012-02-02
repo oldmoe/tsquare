@@ -60,6 +60,13 @@ tsquare_strings.ar['percentageOfObjectives'] = 'من أهدافك';
 tsquare_strings.en['yourScore'] = 'Your Score';
 tsquare_strings.ar['yourScore'] = 'مجموع نقاطك';
 
+tsquare_strings.en['bestTime'] = 'Best Time';
+tsquare_strings.ar['bestTime'] = 'الوقت القياسى';
+
+
+tsquare_strings.en['youHaveReceivedNewPowerups'] = 'You have received new powerups';
+tsquare_strings.ar['youHaveReceivedNewPowerups'] = 'مقويات جديدة';
+
 // Mission completed
 tsquare_strings.en['congrats'] = 'Congratulations!';
 tsquare_strings.ar['congrats'] = 'أحسنت!';

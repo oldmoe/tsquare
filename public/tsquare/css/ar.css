@@ -1,7 +1,98 @@
-@charset "utf-8";
-/* CSS Document */
+.ar .weatherBar span.night img{position:absolute; top:0px;}
+.ar .positioned { position:absolute; top:0px; right:0px; z-index:1; }
 
-.weatherBar { position:absolute; width:35px; height:35px; top:18px; right:150px; overflow:hidden; }
-.weatherBar span.cloudy img{ position:absolute; top:-34px; }
-.weatherBar span.sunny img{position:absolute; top:-68px;}
-.weatherBar span.night img{position:absolute; top:0px;}
+.ar .overlay { float:right; width:970px; background:#000; height:620px; background:url(../images/common/overylay_background.png); right:-5px; top:90px; position:relative; }
+.ar .container { width:950px; height:685px; margin:0 auto; position:relative; }
+
+/*--------Timeline Screen-----------*/
+.ar .missionDetails { position:relative; top:10px; right:122px; float:none; width:730px; height:316px; z-index:6; }
+.ar .missionDetails .close { left:-20px; top:30px; z-index:8; }
+
+.ar .missionWrapper { float:right; width:690px; margin:-19px 20px 20px 20px;  position:relative; z-index:7; }
+.ar .missionImages { float:right; width:200px; margin:45px 10px 0 0; }
+.ar .missionImages img { float:right; width:190px; margin:0 5px 5px 0; position:relative; z-index:10;}
+.ar .missionNumber { position:relative; top:170px; left:35px; color:#604f00; text-shadow:1px 1px 0 #d3b632; font-weight:bold; font-size:2.2em; z-index:12; }
+.ar .missionTime { position:relative; top:169px; left:50px; color:#604f00; text-shadow:1px 1px 0 #d3b632; font-weight:bold; font-size:1.6em; z-index:12; }
+
+.ar .missionContent { float:right; width:315px; margin:30px 0 0 0;text-align:right; }
+.ar .missionContent h3 { width:100%; font-weight:bold; font-size:2em; margin:5px 0 0 0;  }
+.ar .missionContent p { margin:5px 0 0 0; font-size:1.2em; }
+.ar .missionContent ul { list-style:square;  font-size:1.2em; margin:5px 0 0 0; }
+.ar .missionContent ul li { margin:0 20px 5px 0; }
+
+.ar .playButton { float:left; width:142px; height:60px; overflow:hidden; position:absolute; top:275px; left:5px;}
+.ar .playButton:hover img { position:relative; top:-60px;  }
+
+.ar .nextButton { float:left; width:142px; height:60px; overflow:hidden; position:absolute; top:204px; left:5px;}
+.ar .nextButton:hover img { position:relative; top:-60px;  }
+
+
+.ar .timelineMissions ul { float:right; width:960px; position:relative; z-index:5;  }
+.ar .timelineMissions li { position:absolute;  }
+
+.ar .timelineMissions li#mission01 {  top:67px; right:81px; }
+.ar .timelineMissions li#mission02 {  top:117px; right:85px; }
+.ar .timelineMissions li#mission03 {  top:167px; right:88px; }
+.ar .timelineMissions li#mission04 {  top:217px; right:93px; }
+.ar .timelineMissions li#mission05 {  top:267px; right:110px; }
+.ar .timelineMissions li#mission06 {  top:309px; right:126px; }
+.ar .timelineMissions li#mission07 {  top:297px; right:173px; }
+.ar .timelineMissions li#mission08 {  top:288px; right:226px; }
+.ar .timelineMissions li#mission09 {  top:280px; right:284px; }
+.ar .timelineMissions li#mission10 {  top:274px; right:334px; }
+.ar .timelineMissions li#mission11 {  top:268px; right:386px; }
+.ar .timelineMissions li#mission12 {  top:262px; right:444px; }
+.ar .timelineMissions li#mission13 {  top:254px; right:496px; }
+.ar .timelineMissions li#mission14 {  top:249px; right:546px; }
+.ar .timelineMissions li#mission15 {  top:243px; right:600px; }
+.ar .timelineMissions li#mission16 {  top:235px; right:649px; }
+.ar .timelineMissions li#mission17 {  top:214px; right:695px; }
+.ar .timelineMissions li#mission18 {  top:167px; right:726px; }
+.ar .timelineMissions li#mission19 {  top:114px; right:734px; }
+.ar .timelineMissions li#mission20 {  top:64px; right:743px; }
+.ar .timelineMissions li#mission21 {  top:108px; right:776px; }
+.ar .timelineMissions li#mission22 {  top:143px; right:817px; }
+.ar .timelineMissions li#mission23 {  top:169px; right:869px; }
+.ar .timelineMissions li#mission24 {  top:207px; right:903px; }
+.ar .timelineMissions li#mission25 {  top:258px; right:901px; }
+.ar .timelineMissions li#mission26 {  top:302px; right:864px; }
+.ar .timelineMissions li#mission27 {  top:312px; right:816px; }
+.ar .timelineMissions li#mission28 {  top:290px; right:763px; }
+.ar .timelineMissions li#mission29 {  top:252px; right:733px; }
+.ar .timelineMissions li#mission30 {  top:214px; right:801px;  }
+.ar .timelineMissions li#mission30 img  {  top:20px; right:23px;  }
+.ar .timelineMissions li#mission30 a { width:50px; height:50px; }
+
+.ar .missionSide { float:right; width:162px; position:relative; margin:40px 0 0 0; }
+.ar .newStuff { float:right; width:162px; height:147px; }
+.ar .newStuffItem { position:relative; z-index:12; height:97px; width:131px; float:left; margin:40px 0 0 16px; }
+
+/*-------Widnow-------*/
+.ar .window { float:right; width:715px; background:url(../images/ar/marketplace/window_background.png) no-repeat top; margin:35px 45px 0 27px; position:relative; height:401px; top:70px; right:100px;}
+.ar .windowTitle { float:right; width:116px; height:44px; position:relative; top:-49px; right:300px; }
+.ar .close { width:39px; height:39px; position:relative; left:-20px; top:-15px; overflow:hidden; z-index:3; }
+.ar .close a { display:block; width:39px; height:39px; }
+.ar .close a:hover img { position:absolute; top:-39px; }
+
+/*-------Tabs-------*/
+.ar .tabsWrapper { float:right; width:699px; margin:0 8px; top:-35px; position:relative; z-index:2; }
+.ar .tabsContent { float:right; width:694px; background:#dadada; border:3px solid #757575; -webkit-border-radius: 10px; -webkit-border-top-left-radius: 0; -moz-border-radius: 10px; -moz-border-radius-topleft: 0; border-radius: 10px; border-top-left-radius: 0; position:relative; top:-3px; height:339px;}
+
+.ar .tabs { float:right; width:699px;}
+.ar .tabs li { float:right; width:109px; height:43px; margin:0 5px 0 0; position:relative; overflow:hidden; z-index: 1}
+.ar .tabs li a { float:right; width:109px; height:30px;text-align:center; text-decoration:none; font-weight:bold; font-size:1.1em; color:#636363; text-shadow:1px 1px 0px #f0f0f0; padding:13px 0 0 0; position:absolute; z-index:2; }
+.ar .tabs li.selected a { color:#000; }
+.ar .tabs li.selected img { position:absolute; top:-43px; }
+.ar .tabs li:hover a { color:#6b5623; }
+.ar .tabs li:hover img { position:absolute; top:-86px; }
+.ar .tabs li.selected:hover a { color:#000 }
+.ar .tabs li.disabled a { color:#acacac; cursor:default; }
+.ar .tabs li:hover.disabled img { position:absolute; top:0; }
+.ar .tabs li.selected:hover img { position:absolute; top:-43px; }
+
+
+.ar .calendarWrapper ul li { float:right; }
+.ar .homeWrapper ul li { float:right; }
+.ar .missionSide { margin:47px 0 0 0; }
+.ar .missionContent { margin:50px 0 0 0; } 
+

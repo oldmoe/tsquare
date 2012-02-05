@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import url("spare.css");
+@import url("ar.css");
 /* CSS Document */
 body { margin:0px; padding:0px; font-size:12px; font-family:Tahoma, Geneva, sans-serif; width:100%;}
 ul { list-style:none; margin:0px; padding:0px; }
@@ -640,3 +640,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .enemiesHealth {position:absolute; z-index:14; top:300px; left:600px; width:55px; height:12px; overflow:hidden; }
 .enemiesHealthEmpty { position:absolute; z-index:15;  overflow:hidden; }
+
+/*nermeen style*/
+.weatherBar { position:absolute; width:35px; height:35px; top:18px; right:150px; overflow:hidden; }
+.weatherBar span.cloudy img{ position:absolute; top:-34px; }
+.weatherBar span.sunny img{position:absolute; top:-68px;}
+.weatherBar span.night img{position:absolute; top:0px;}

@@ -331,15 +331,16 @@ var Timeline = Class.create(UIManager, {
       element.observe('mouseover', function(event) {
         element.addClassName('selected');
         var mission  = self.gameManager.missions[self.mode][element.getAttribute("missionid")];
+        var score  = self.gameManager.userData.missions[self.mode][element.getAttribute("missionid")];
         if(mission && !mission.locked){
           var stars = [0,0,0];
-          if(mission.score.stars ==  1)
+          if(score.stars ==  1)
             stars = [1,0,0];
-          else if(mission.score.stars ==  2)
+          else if(score.stars ==  2)
             stars = [1,1,0];
-          else if(mission.score.stars ==  3)
+          else if(score.stars ==  3)
             stars = [1,1,1];
-          var missionTitle = self.templateManager.load('missionTitle', {'title':mission.name, 'stars':stars});
+          var missionTitle = self.templateManager.load('missionTitle', {'title':mission.name, 'stars':stars, 'score':score.score});
           var container = $$(".timelineMissions")[0];
           container.insert({bottom:missionTitle});
           Game.addLoadedImagesToDiv('missionTitle'); 

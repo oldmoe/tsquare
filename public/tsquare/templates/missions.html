@@ -12,7 +12,7 @@
     </div>
       <!--Time-->
       <div class="timeWrapper">
-        <h5>${t('yourScore')}</h5>
+        <h5>${t('yourTime')}</h5>
         <span class="yourTime">${missionTime}</span>
         <strong class="bestTime">${t('bestTime')} ${superTime}</strong>
         <span class="loadedImg" imgSrc="win_lose/time_background.png" alt="time" imgClasses="positioned"></span>
@@ -48,7 +48,7 @@
         <span class="loadedImg" imgSrc="win_lose/objectives.png" alt="objectives" imgClasses="objectivesBg"></span>
       </div>
       <!--Powerups-->
-      {if powerups}
+      {if powerups && powerups.length>0}
       <div class="newPowerups">
         <strong>${t('youHaveReceivedNewPowerups')}</strong>
         <ul>
@@ -88,7 +88,7 @@
 
       <!--Challenge other friends-->
       <a href="javascript:void(0)" class="bigButton">
-        <span>Challenge other friends</span>
+        <span>${t('challengeOtherFriends')}</span>
         <span class="loadedImg" imgSrc="win_lose/button_big.png" alt="button"></span>
       </a>
 
@@ -128,7 +128,7 @@
     </div>
       <!--Time-->
       <div class="timeWrapper">
-        <h5>${t('yourScore')}</h5>
+        <h5>${t('yourTime')}</h5>
         <span class="yourTime">${missionTime}</span>
         <strong class="bestTime">${t('bestTime')} ${superTime}</strong>
         <span class="loadedImg" imgSrc="win_lose/time_background.png" alt="time" imgClasses="positioned"></span>

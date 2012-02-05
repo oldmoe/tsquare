@@ -145,7 +145,7 @@ var MissionManager = Class.create({
       var screenName = (this.score.win == true) ? 'win' : 'lose';
       var nextMission = this.gameManager.missions[this.mode][this.currentMission.next] && !this.gameManager.missions[this.mode][this.currentMission.next].locked ? true : false;
       var superTime = this.getTimeAsString(this.gameManager.game.mission.superTime);
-      var missionTime = this.getTimeAsString(this.gameManager.game.scene.scoreCalculator.gameTime);
+      var missionTime = this.getTimeAsString(this.gameManager.game.scene.scoreCalculator.missionTime-this.gameManager.game.scene.scoreCalculator.gameTime);
       
       $('winLose').innerHTML = this.templateManager.load(screenName, {'friends' : this.friends.slice(this.rank+1, this.rank+4),
                                'mission' : this.currentMission['id'], 'mode' : this.mode, 'score' : score, next : nextMission , 

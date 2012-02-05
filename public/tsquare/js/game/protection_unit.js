@@ -27,7 +27,10 @@ var ProtectionUnit = Class.create(Unit,{
   },
   
   circleEnd : function(){
-    this.text = this.scene.handlers.message.randomEndMessage('protectionUnit');
+    if(this.doneProtection){
+      this.text = this.scene.handlers.message.randomEndMessage('protectionUnit');
+      this.showText();
+    }
   },
   
   createEnemies : function(){
@@ -54,20 +57,23 @@ var ProtectionUnit = Class.create(Unit,{
     this.checkTarget()
     this.checkHp()
     
-    // if(!this.messageAppear && this.text){
-      // if( this.coords.x < this.scene.view.width-this.getWidth()*1.5 ){
-        // this.messageAppear = true;
+    if(!this.messageAppear && this.text){
+      if( this.coords.x < this.scene.view.width-this.getWidth()*1.5 ){
+        this.messageAppear = true;
         // if(Math.random() <= 0.5)this.showText();
-        // var self = this;
-        // this.reactor.push(200, function(){self.hideText()});
-      // }
-    // }
-    
+        this.showText();
+        var self = this;
+        this.scene.reactor.push(this.scene.reactor.everySeconds(10), function(){self.hideText()});
+      }
+    }
   },
+  
   checkHp : function(){
   },
+  
   escape : function(){
   },
+  
   checkTarget : function(){
     if(this.isProtected){
       var target = this.scene.handlers.crowd.getLargestXCrowd()
